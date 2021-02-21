@@ -53,7 +53,7 @@
     <!--CardView-->
     <style name="CardViewStyle" parent="Widget.MaterialComponents.CardView">
         <item name="cardCornerRadius">26dp</item>
-        <item name="cardElevation">1dp</item>
+        <item name="cardElevation">0dp</item>
         <item name="cardBackgroundColor">@color/card_background</item>
     </style>
 
