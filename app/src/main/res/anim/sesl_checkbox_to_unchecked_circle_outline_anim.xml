@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
+	<set android:ordering="sequentially">
+		<objectAnimator android:duration="200" android:valueFrom="M48,48m-24.5,0a24.5,24.5 0 1,0 49,0a24.5,24.5 0 1,0-49,0" android:valueTo="M48,48m-24.5,0a24.5,24.5 0 1,0 49,0a24.5,24.5 0 1,0-49,0" android:valueType="pathType" android:propertyName="pathData" />
+		<objectAnimator android:interpolator="@interpolator/interpolator_sine_in_70" android:duration="133" android:valueFrom="M48,48m-24.5,0a24.5,24.5 0 1,0 49,0a24.5,24.5 0 1,0-49,0" android:valueTo="M48,48m-29.5,0a29.5,29.5 0 1,0 59,0a29.5,29.5 0 1,0-59,0" android:valueType="pathType" android:propertyName="pathData" />
+	</set>
+	<set android:ordering="sequentially">
+		<objectAnimator android:duration="200" android:valueFrom="0" android:valueTo="0" android:valueType="floatType" android:propertyName="strokeAlpha" />
+		<objectAnimator android:duration="2" android:valueFrom="0" android:valueTo="1.0" android:valueType="floatType" android:propertyName="strokeAlpha" />
+	</set>
+</set>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="@dimen/rounded_corner_size"
+        android:height="@dimen/rounded_corner_size"
+        android:drawable="@drawable/rounded_corner_bottom_left"
+        android:gravity="bottom|center|left" />
+    <item
+        android:width="@dimen/rounded_corner_size"
+        android:height="@dimen/rounded_corner_size"
+        android:drawable="@drawable/rounded_corner_bottom_right"
+        android:gravity="bottom|center|right" />
+</layer-list>

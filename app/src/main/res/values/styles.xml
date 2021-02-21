@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--ProgressBar-->
+    <style name="ProgressBarStyle" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:maxWidth">@dimen/sesl_progress_circle_size</item>
+        <item name="android:maxHeight">@dimen/sesl_progress_circle_size</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_progress</item>
+        <item name="android:progressDrawable">@drawable/sesl_progress_circle</item>
+        <item name="android:minWidth">@dimen/sesl_progress_circle_size</item>
+        <item name="android:minHeight">@dimen/sesl_progress_circle_size</item>
+    </style>
+
+
+    <!--CheckBox-->
+    <style name="CheckBoxTheme">
+        <item name="colorControlActivated">@color/checkbox_on_color</item>
+        <item name="colorControlNormal">@color/checkbox_off_color</item>
+    </style>
+    <style name="CheckBoxStyle">
+        <item name="android:theme">@style/CheckBoxTheme</item>
+        <item name="android:button">@drawable/sesl_btn_check</item>
+        <item name="android:background">@drawable/sesl_control_background</item>
+    </style>
+
+
+    <!--Switch-->
+    <style name="SwitchStyle" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="android:background">@drawable/sesl_switch_background</item>
+        <item name="android:thumbOffset">0dp</item>
+        <item name="android:thumb">@drawable/sesl_switch_thumb_selector</item>
+        <item name="android:switchMinWidth">20dp</item>
+        <item name="showText">false</item>
+        <item name="switchPadding">0dp</item>
+        <item name="track">@drawable/sesl_switch_track_selector</item>
+        <item name="useMaterialThemeColors">false</item>
+        <item name="enforceMaterialTheme">false</item>
+        <item name="android:textSize">18dp</item>
+    </style>
+
+
+    <!--SwitchBar-->
+    <style name="SwitchBarStyle" parent="SwitchStyle">
+        <item name="android:background">@drawable/sesl_rounded_background</item>
+        <item name="android:backgroundTint">@color/sesl_switchbar_color_selector</item>
+        <item name="android:paddingHorizontal">26dp</item>
+        <item name="android:layout_height">64dp</item>
+    </style>
+
+
+    <!--CardView-->
+    <style name="CardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">26dp</item>
+        <item name="cardElevation">1dp</item>
+        <item name="cardBackgroundColor">@color/card_background</item>
+    </style>
+
+    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="rippleColor">@color/button_ripple_color</item>
+        <item name="cornerRadius">26dp</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Samsung</string>
+    <string name="closed" translatable="false">closed</string>
+    <string name="opend" translatable="false">opend</string>
+</resources>

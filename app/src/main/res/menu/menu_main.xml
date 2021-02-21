@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="de.dlyt.yanndroid.movies.AppInfoActivity">
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search"
+        android:title="Search"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/info"
+        android:icon="@drawable/ic_info"
+        android:title="Info"
+        app:showAsAction="always" />
+
+
+</menu>

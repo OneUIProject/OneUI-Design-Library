@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="progressActivatedColor" format="reference|color" />
+    <attr name="progressNormalColor" format="reference|color" />
+    <attr name="colorControlActivated" format="color" />
+    <attr name="colorControlNormal" format="color" />
+
+
+</resources>
