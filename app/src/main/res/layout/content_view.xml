@@ -24,7 +24,6 @@
 
 
     <com.google.android.material.card.MaterialCardView
-        style="@style/CardViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -50,30 +49,50 @@
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/aswitch1111"
-                style="@style/SwitchStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
 
             <CheckBox
-                style="@style/CheckBoxStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="CheckBox" />
 
-            <ProgressBar
-                style="@style/ProgressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <ProgressBar
+                    style="?android:progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ProgressBar
+                    style="?android:progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ProgressBar
+                    style="?android:progressBarStyleSmallTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
 
 
 
             <com.google.android.material.button.MaterialButton
-                style="@style/ButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Button" />
+
 
 
             <RadioGroup

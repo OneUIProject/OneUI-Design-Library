@@ -3,7 +3,7 @@
 
     <!--Main-->
     <color name="background_color">#ff000000</color>
-    <color name="item_background">#ff171717</color>
+    <color name="item_background_color">#ff171717</color>
     <color name="item_color">#ffffffff</color>
 
 
@@ -13,17 +13,21 @@
     <color name="sesl_switch_thumb_on_disabled_color">#ff858585</color>
     <color name="sesl_switch_thumb_on_disabled_stroke_color">#ff3b3b3b</color>
 
+
+    <!--SwitchBar-->
     <color name="sesl_switchbar_background_off_enabled">#ff252525</color>
     <color name="sesl_switchbar_background_on_enabled">#ff3e91ff</color>
     <color name="sesl_switchbar_background_off_disabled">#ff171717</color>
     <color name="sesl_switchbar_background_on_disabled">#520381fe</color>
 
-    <!--CardView-->
-    <color name="card_background">#ff171717</color>
+    <color name="sesl_switchbar_off_background_color">#2bfafafa</color>
+    <color name="sesl_switchbar_on_text_color">#fffafafa</color>
+    <color name="sesl_switchbar_off_text_color">#fffafafa</color>
+
+
 
     <!--Others-->
     <color name="button_ripple_color">#515151</color>
     <color name="drawer_dim_color">#cc000000</color>
-
 
 </resources>
