@@ -6,6 +6,9 @@
     <color name="item_background_color">#ff171717</color>
     <color name="item_color">#ffffffff</color>
 
+    <!--Sesl-->
+    <color name="divider_color">#42fafafa</color>
+
 
     <!--Switch-->
     <color name="sesl_switch_thumb_off_disabled_color">#ff828282</color>

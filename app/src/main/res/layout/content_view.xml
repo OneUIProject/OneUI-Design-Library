@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -9,7 +9,8 @@
         android:id="@+id/aswitchbar"
         style="@style/SwitchBarStyle"
         android:layout_width="match_parent"
-        android:text="Switchbar" />
+        android:text="Switchbar"
+        android:visibility="gone" />
 
 
     <com.google.android.material.textview.MaterialTextView
@@ -59,10 +60,10 @@
                 android:text="CheckBox" />
 
             <RadioGroup
-                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="visible">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:layout_width="match_parent"
@@ -82,8 +83,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <ProgressBar
                     style="?android:progressBarStyleLarge"
@@ -107,22 +107,38 @@
             </LinearLayout>
 
 
-
-
-            <com.google.android.material.button.MaterialButton
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Button" />
+
+                <View
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_width="1dp"
+                    android:layout_marginVertical="15dp"
+                    android:background="@color/divider_color"
+                    android:layout_height="match_parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Button" />
 
 
-
-
+            </LinearLayout>
 
 
             <SeekBar
-                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
 
         </LinearLayout>

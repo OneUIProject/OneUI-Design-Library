@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
-        ViewGroup.LayoutParams layoutParams = drawer.getLayoutParams();
-        layoutParams.width = (int) ((double) this.getResources().getDisplayMetrics().widthPixels / 1.19);
+        /*ViewGroup.LayoutParams layoutParams = drawer.getLayoutParams();
+        layoutParams.width = (int) ((double) this.getResources().getDisplayMetrics().widthPixels / 1.19);*/
         drawerLayout.setScrimColor(ContextCompat.getColor(getBaseContext(), R.color.drawer_dim_color));
         drawerLayout.setDrawerElevation(0);
 

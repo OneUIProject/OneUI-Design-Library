@@ -34,6 +34,7 @@
     <color name="sesl_control_normal_color_light">#cc8f8f8f</color>
     <color name="sesl_white">#fffafafa</color>
     <color name="sesl_black">#ff252525</color>
+    <color name="divider_color">#ff979797</color>
 
 
     <!--ProgressBar-->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!--Main-->
     <style name="Main">
@@ -11,13 +11,25 @@
         <item name="colorControlNormal">@color/sesl_control_normal_color_light</item>
 
         <item name="android:progressBarStyle">@style/Base.Widget.AppCompat.ProgressBar.Circle</item>
-        <item name="android:progressBarStyleHorizontal">@style/Base.Widget.AppCompat.ProgressBar.Horizontal</item>
-        <item name="android:progressBarStyleSmall">@style/Base.Widget.AppCompat.ProgressBar.Small</item>
-        <item name="android:progressBarStyleLarge">@style/Base.Widget.AppCompat.ProgressBar.Large</item>
-        <item name="android:progressBarStyleSmallTitle">@style/Base.Widget.AppCompat.ProgressBar.Title</item>
-        <item name="android:progressBarStyleInverse">@style/Base.Widget.AppCompat.ProgressBar.Circle</item>
-        <item name="android:progressBarStyleSmallInverse">@style/Base.Widget.AppCompat.ProgressBar.Small</item>
-        <item name="android:progressBarStyleLargeInverse">@style/Base.Widget.AppCompat.ProgressBar.Large</item>
+        <item name="android:progressBarStyleHorizontal">
+            @style/Base.Widget.AppCompat.ProgressBar.Horizontal
+        </item>
+        <item name="android:progressBarStyleSmall">@style/Base.Widget.AppCompat.ProgressBar.Small
+        </item>
+        <item name="android:progressBarStyleLarge">@style/Base.Widget.AppCompat.ProgressBar.Large
+        </item>
+        <item name="android:progressBarStyleSmallTitle">
+            @style/Base.Widget.AppCompat.ProgressBar.Title
+        </item>
+        <item name="android:progressBarStyleInverse">
+            @style/Base.Widget.AppCompat.ProgressBar.Circle
+        </item>
+        <item name="android:progressBarStyleSmallInverse">
+            @style/Base.Widget.AppCompat.ProgressBar.Small
+        </item>
+        <item name="android:progressBarStyleLargeInverse">
+            @style/Base.Widget.AppCompat.ProgressBar.Large
+        </item>
 
         <item name="checkboxStyle">@style/CheckBoxStyle</item>
         <item name="materialCardViewStyle">@style/CardViewStyle</item>
@@ -26,14 +38,9 @@
         <item name="radioButtonStyle">@style/RadioButtonStyle</item>
 
 
-
         <!--
                 <item name="seslSwitchBarStyle">@style/Base.Widget.AppCompat.SeslSwitchBar</item>
         -->
-
-
-
-
 
 
     </style>
@@ -41,21 +48,26 @@
 
     <!--ProgressBar-->
     <style name="Base.Widget.AppCompat.ProgressBar.Horizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
-        <item name="android:indeterminateDrawable">@drawable/sesl_progress_indeterminate_horizontal</item>
+        <item name="android:indeterminateDrawable">
+            @drawable/sesl_progress_indeterminate_horizontal
+        </item>
         <item name="android:progressDrawable">@drawable/sesl_progress_horizontal</item>
     </style>
+
     <style name="Base.Widget.AppCompat.ProgressBar.Small" parent="@style/Base.Widget.AppCompat.ProgressBar.Circle">
         <item name="android:maxWidth">@dimen/sesl_progress_bar_size_small</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_size_small</item>
         <item name="android:minWidth">@dimen/sesl_progress_bar_size_small</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_size_small</item>
     </style>
+
     <style name="Base.Widget.AppCompat.ProgressBar.Large" parent="@style/Base.Widget.AppCompat.ProgressBar.Circle">
         <item name="android:maxWidth">@dimen/sesl_progress_bar_size_large</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_size_large</item>
         <item name="android:minWidth">@dimen/sesl_progress_bar_size_large</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_size_large</item>
     </style>
+
     <style name="Base.Widget.AppCompat.ProgressBar.Circle" parent="@android:style/Widget.ProgressBar">
         <item name="android:maxWidth">@dimen/sesl_progress_circle_size</item>
         <item name="android:maxHeight">@dimen/sesl_progress_circle_size</item>
@@ -66,6 +78,7 @@
         <item name="android:minWidth">55.0dip</item>
         <item name="android:minHeight">55.0dip</item>
     </style>
+
     <style name="Base.Widget.AppCompat.ProgressBar.Title" parent="@style/Base.Widget.AppCompat.ProgressBar.Circle">
         <item name="android:maxWidth">@dimen/sesl_progress_bar_size_small_title</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_size_small_title</item>
@@ -135,6 +148,24 @@
     </style>
 
 
+    <!--Drawer-->
+    <style name="DrawerStyle">
+        <item name="android:layout_width">@dimen/drawer_width</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/drawer_background</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_gravity">start</item>
+    </style>
+
+    <style name="DrawerDividerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_marginHorizontal">24dp</item>
+        <item name="android:background">@drawable/sesl_drawer_divider</item>
+    </style>
+
+
 
 
 
@@ -144,7 +175,6 @@
         <item name="seslSwitchBarTextActivatedColor">@color/sesl_switchbar_on_text_color_dark</item>
         <item name="seslSwitchBarTextColor">@color/sesl_switchbar_off_text_color_dark</item>
     </style>-->
-
 
 
 </resources>
