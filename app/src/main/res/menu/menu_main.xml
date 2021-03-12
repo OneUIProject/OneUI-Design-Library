@@ -15,7 +15,7 @@
         android:title="Info"
         app:showAsAction="always" />
 
-    <item
+    <!--<item
         android:title="Menuitem"
         app:showAsAction="never" />
     <item
@@ -23,7 +23,7 @@
         app:showAsAction="never" />
     <item
         android:title="Menuitem"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
 
 
 </menu>
