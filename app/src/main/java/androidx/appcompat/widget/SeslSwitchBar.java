@@ -11,17 +11,18 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,24 +70,16 @@ public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnChec
         this.mSessionDesc = null;
         LayoutInflater.from(context).inflate(R.layout.sesl_switchbar, this);
         Resources resources = getResources();
-/*
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.SeslSwitchBar, i, i2);
-*/
         TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, RdotStyleable.styleable.SeslSwitchBar, i, i2);
         this.mBackgroundColor = obtainStyledAttributes.getColor(RdotStyleable.styleable.SeslSwitchBar_seslSwitchBarBackgroundColor, resources.getColor(R.color.sesl_switchbar_off_background_color));
-        int color = obtainStyledAttributes.getColor(RdotStyleable.styleable.SeslSwitchBar_seslSwitchBarBackgroundActivatedColor, resources.getColor(R.color.sesl_switchbar_on_background_color));
+        this.mBackgroundActivatedColor = obtainStyledAttributes.getColor(RdotStyleable.styleable.SeslSwitchBar_seslSwitchBarBackgroundActivatedColor, resources.getColor(R.color.sesl_switchbar_on_background_color));
         this.mOnTextColor = obtainStyledAttributes.getColor(RdotStyleable.styleable.SeslSwitchBar_seslSwitchBarTextActivatedColor, resources.getColor(R.color.sesl_switchbar_on_text_color));
         this.mOffTextColor = obtainStyledAttributes.getColor(RdotStyleable.styleable.SeslSwitchBar_seslSwitchBarTextColor, resources.getColor(R.color.sesl_switchbar_off_text_color));
         obtainStyledAttributes.recycle();
-        TypedValue typedValue = new TypedValue();
-        boolean z = true;
-        context.getTheme().resolveAttribute(R.attr.isLightTheme, typedValue, true);
-        this.mBackgroundActivatedColor = (16777215 & color) | (typedValue.data == 0 ? 0 : z ? -872415232 : 1711276032); /*todo false=0*/
         this.mProgressBar = (SeslProgressBar) findViewById(R.id.sesl_switchbar_progress);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.sesl_switchbar_container);
         this.mBackground = linearLayout;
         linearLayout.setOnClickListener(new View.OnClickListener() {
-            /* class androidx.appcompat.widget.SeslSwitchBar.AnonymousClass1 */
 
             public void onClick(View view) {
                 if (SeslSwitchBar.this.mSwitch != null && SeslSwitchBar.this.mSwitch.isEnabled()) {
@@ -106,9 +99,8 @@ public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnChec
         this.mSwitch.setOnCheckedChangeListener(this);
         setSwitchBarText(R.string.sesl_switch_on, R.string.sesl_switch_off);
         addOnSwitchChangeListener(new OnSwitchChangeListener() {
-            /* class androidx.appcompat.widget.SeslSwitchBar.AnonymousClass2 */
 
-            @Override // androidx.appcompat.widget.SeslSwitchBar.OnSwitchChangeListener
+            @Override
             public void onSwitchChanged(SwitchCompat switchCompat, boolean z) {
                 SeslSwitchBar.this.setTextViewLabelAndBackground(z);
             }

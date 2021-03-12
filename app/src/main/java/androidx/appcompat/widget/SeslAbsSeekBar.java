@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -890,13 +891,103 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         }
     }
 
-    /* JADX WARNING: Removed duplicated region for block: B:26:0x0091  */
-    /* Code decompiled incorrectly, please refer to instructions dump. */
-    private void trackTouchEvent(android.view.MotionEvent r8) {
-        /*
-        // Method dump skipped, instructions count: 165
-        */
-        throw new UnsupportedOperationException("Method not decompiled: androidx.appcompat.widget.SeslAbsSeekBar.trackTouchEvent(android.view.MotionEvent):void");
+
+    private void trackTouchEvent(MotionEvent motionEvent) {
+        if (this.mCurrentMode != 3) {
+            if (this.mCurrentMode != 6) {
+                float f;
+                float f2;
+                int max;
+                float max2;
+                float f3;
+                int round = Math.round(motionEvent.getX());
+                int round2 = Math.round(motionEvent.getY());
+                int width = getWidth();
+                int paddingLeft = (width - getPaddingLeft()) - getPaddingRight();
+                if (ViewUtils.isLayoutRtl(this) && this.mMirrorForRtl) {
+                    if (round <= width - getPaddingRight()) {
+                        if (round < getPaddingLeft()) {
+                            f = 0.0f;
+                            f2 = 1.0f;
+                            max = getMax() - getMin();
+                            max2 = 1.0f / ((float) getMax());
+                            f3 = f2 % max2;
+                            if (f3 > max2 / 2.0f) {
+                                f2 += max2 - f3;
+                            }
+                            f2 *= (float) max;
+                            max = getMin();
+                            f += f2 + ((float) max);
+                            setHotspot((float) round, (float) round2);
+                            setProgressInternal(Math.round(f), true, IS_BASE_SDK_VERSION);
+                            return;
+                        }
+                        f2 = ((float) ((paddingLeft - round) + getPaddingLeft())) / ((float) paddingLeft);
+                        f = this.mTouchProgressOffset;
+                        max = getMax() - getMin();
+                        max2 = 1.0f / ((float) getMax());
+                        f3 = f2 % max2;
+                        if (f3 > max2 / 2.0f) {
+                            f2 += max2 - f3;
+                        }
+                        f2 *= (float) max;
+                        max = getMin();
+                        f += f2 + ((float) max);
+                        setHotspot((float) round, (float) round2);
+                        setProgressInternal(Math.round(f), true, IS_BASE_SDK_VERSION);
+                        return;
+                    }
+                } else if (round >= getPaddingLeft()) {
+                    if (round <= width - getPaddingRight()) {
+                        f2 = ((float) (round - getPaddingLeft())) / ((float) paddingLeft);
+                        f = this.mTouchProgressOffset;
+                        max = getMax() - getMin();
+                        max2 = 1.0f / ((float) getMax());
+                        if (f2 > 0.0f && f2 < 1.0f) {
+                            f3 = f2 % max2;
+                            if (f3 > max2 / 2.0f) {
+                                f2 += max2 - f3;
+                            }
+                        }
+                        f2 *= (float) max;
+                        max = getMin();
+                        f += f2 + ((float) max);
+                        setHotspot((float) round, (float) round2);
+                        setProgressInternal(Math.round(f), true, IS_BASE_SDK_VERSION);
+                        return;
+                    }
+                    f = 0.0f;
+                    f2 = 1.0f;
+                    max = getMax() - getMin();
+                    max2 = 1.0f / ((float) getMax());
+                    f3 = f2 % max2;
+                    if (f3 > max2 / 2.0f) {
+                        f2 += max2 - f3;
+                    }
+                    f2 *= (float) max;
+                    max = getMin();
+                    f += f2 + ((float) max);
+                    setHotspot((float) round, (float) round2);
+                    setProgressInternal(Math.round(f), true, IS_BASE_SDK_VERSION);
+                    return;
+                }
+                f2 = 0.0f;
+                f = f2;
+                max = getMax() - getMin();
+                max2 = 1.0f / ((float) getMax());
+                f3 = f2 % max2;
+                if (f3 > max2 / 2.0f) {
+                    f2 += max2 - f3;
+                }
+                f2 *= (float) max;
+                max = getMin();
+                f += f2 + ((float) max);
+                setHotspot((float) round, (float) round2);
+                setProgressInternal(Math.round(f), true, IS_BASE_SDK_VERSION);
+                return;
+            }
+        }
+        trackTouchEventInVertical(motionEvent);
     }
 
     private void trackTouchEventInVertical(MotionEvent motionEvent) {
@@ -926,30 +1017,64 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         }
     }
 
-    /* access modifiers changed from: package-private */
+
     public void onStartTrackingTouch() {
         this.mIsDragging = true;
     }
 
-    /* access modifiers changed from: package-private */
     public void onStopTrackingTouch() {
         this.mIsDragging = false;
     }
 
-    /* JADX WARNING: Code restructure failed: missing block: B:10:0x0020, code lost:
-        if (r8 != 81) goto L_0x0060;
-     */
-    /* JADX WARNING: Code restructure failed: missing block: B:25:0x0046, code lost:
-        if (r8 != 81) goto L_0x0060;
-     */
-    /* JADX WARNING: Removed duplicated region for block: B:29:0x0050  */
-    /* JADX WARNING: Removed duplicated region for block: B:32:0x005c  */
-    /* Code decompiled incorrectly, please refer to instructions dump. */
-    public boolean onKeyDown(int r8, android.view.KeyEvent r9) {
-        /*
-        // Method dump skipped, instructions count: 101
-        */
-        throw new UnsupportedOperationException("Method not decompiled: androidx.appcompat.widget.SeslAbsSeekBar.onKeyDown(int, android.view.KeyEvent):boolean");
+
+    public boolean onKeyDown(int i, KeyEvent keyEvent) {
+        if (isEnabled()) {
+            int i2 = this.mKeyProgressIncrement;
+            if (this.mCurrentMode != 3) {
+                if (this.mCurrentMode != 6) {
+                    if (i != 21) {
+                        if (i != 22) {
+                            if (i != 69) {
+                                if (!(i == 70 || i == 81)) {
+                                }
+                            }
+                        }
+                        if (ViewUtils.isLayoutRtl(this)) {
+                            i2 = -i2;
+                        }
+                        i2 += getProgress();
+                        if (setProgressInternal(i2, true, true)) {
+                            onKeyChange();
+                            return true;
+                        }
+                    }
+                    i2 = -i2;
+                    if (ViewUtils.isLayoutRtl(this)) {
+                        i2 = -i2;
+                    }
+                    i2 += getProgress();
+                    if (setProgressInternal(i2, true, true)) {
+                        onKeyChange();
+                        return true;
+                    }
+                }
+            }
+            if (i != 19) {
+                if (i == 20 || i == 69) {
+                    i2 = -i2;
+                } else if (!(i == 70 || i == 81)) {
+                }
+            }
+            if (ViewUtils.isLayoutRtl(this)) {
+                i2 = -i2;
+            }
+            i2 += getProgress();
+            if (setProgressInternal(i2, true, true)) {
+                onKeyChange();
+                return true;
+            }
+        }
+        return super.onKeyDown(i, keyEvent);
     }
 
     @Override // androidx.appcompat.widget.SeslProgressBar

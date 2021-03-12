@@ -3,12 +3,14 @@ package de.dlyt.yanndroid.samsung;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SeslSwitchBar;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         SeslSwitchBar seslSwitchbar = findViewById(R.id.switchbarr);
-
 
 
 
