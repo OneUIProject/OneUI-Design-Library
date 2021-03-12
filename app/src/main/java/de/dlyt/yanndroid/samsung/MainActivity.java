@@ -1,5 +1,18 @@
 package de.dlyt.yanndroid.samsung;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SeslSwitchBar;
@@ -8,21 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +37,21 @@ public class MainActivity extends AppCompatActivity {
 
         SeslSwitchBar seslSwitchbar = findViewById(R.id.switchbarr);
 
+        seslSwitchbar.addOnSwitchChangeListener(new SeslSwitchBar.OnSwitchChangeListener() {
+            @Override
+            public void onSwitchChanged(SwitchCompat switchCompat, boolean z) {
+                seslSwitchbar.setEnabled(false);
+                seslSwitchbar.setProgressBarVisible(true);
+                
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        seslSwitchbar.setEnabled(true);
+                        seslSwitchbar.setProgressBarVisible(false);
+                    }
+                }, 500);
+            }
+        });
 
 
         SwitchMaterial aswitch1111 = findViewById(R.id.aswitch1111);
@@ -58,10 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
     }
-
 
 
     public void initDrawer() {

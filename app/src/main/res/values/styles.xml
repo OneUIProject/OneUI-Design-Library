@@ -39,6 +39,7 @@
         <item name="materialButtonStyle">@style/ButtonStyle</item>
         <item name="radioButtonStyle">@style/RadioButtonStyle</item>
         <item name="seslSwitchBarStyle">@style/Base.Widget.AppCompat.SeslSwitchBar</item>
+        <item name="seekBarStyle">@style/Widget.AppCompat.Light.SeekBar</item>
 
 
     </style>
@@ -115,9 +116,6 @@
     </style>
 
 
-
-
-
     <!--Button-->
     <style name="ButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textAllCaps">false</item>
@@ -170,6 +168,26 @@
     <style name="Base.TextAppearance.AppCompat.Widget.SeslSwitchBar" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">18.0sp</item>
         <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
+    <!--Seekbar-->
+    <style name="Widget.AppCompat.Light.SeekBar" parent="@style/Base.Widget.AppCompat.Light.SeekBar" />
+    <style name="Base.Widget.AppCompat.Light.SeekBar" parent="@style/Widget.AppCompat.SeekBar">
+        <item name="android:thumb">@drawable/sesl_scrubber_control_anim</item>
+    </style>
+    <style name="Widget.AppCompat.SeekBar" parent="@style/Base.Widget.AppCompat.SeekBar" />
+    <style name="Base.Widget.AppCompat.SeekBar" parent="@android:style/Widget">
+        <item name="android:background">@drawable/sesl_seek_bar_background_borderless</item>
+        <item name="android:focusable">true</item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
+        <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
+        <item name="android:minHeight">@dimen/sesl_progress_bar_min_height</item>
+        <item name="android:thumb">@drawable/sesl_scrubber_control_anim_dark</item>
+        <item name="android:paddingStart">@dimen/sesl_progress_bar_min_height</item>
+        <item name="android:paddingEnd">@dimen/sesl_progress_bar_min_height</item>
+        <item name="android:splitTrack">false</item>
+        <item name="useDisabledAlpha">true</item>
     </style>
 
 
