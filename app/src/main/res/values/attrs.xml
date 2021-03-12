@@ -6,4 +6,13 @@
     <attr name="colorControlNormal" format="color" />
 
 
+    <attr name="seslSwitchBarBackgroundActivatedColor" format="color" />
+    <attr name="seslSwitchBarBackgroundColor" format="color" />
+    <attr name="seslSwitchBarStyle" format="reference" />
+    <attr name="seslSwitchBarTextActivatedColor" format="color" />
+    <attr name="seslSwitchBarTextColor" format="color" />
+
+    <attr name="min" format="integer" />
+
+
 </resources>

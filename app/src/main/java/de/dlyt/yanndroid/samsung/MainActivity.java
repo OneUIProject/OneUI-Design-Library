@@ -2,6 +2,7 @@ package de.dlyt.yanndroid.samsung;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SeslSwitchBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -32,13 +34,24 @@ public class MainActivity extends AppCompatActivity {
         initDrawer();
 
 
+        SeslSwitchBar seslSwitchbar = findViewById(R.id.switchbarr);
+
+
+
 
         SwitchMaterial aswitch1111 = findViewById(R.id.aswitch1111);
-        SwitchMaterial barswitch = findViewById(R.id.aswitchbar);
         aswitch1111.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                barswitch.setEnabled(!isChecked);
+                seslSwitchbar.setEnabled(!isChecked);
+            }
+        });
+
+        CheckBox checkBox = findViewById(R.id.checkboxx);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                seslSwitchbar.setProgressBarVisible(isChecked);
             }
         });
 

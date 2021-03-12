@@ -3,12 +3,14 @@
 
     <!--Main-->
     <style name="Main">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary</item>
-        <item name="colorAccent">@color/primary</item>
-
+        <item name="colorAccent">@color/accent_material</item>
+        <item name="colorBackgroundFloating">@color/sesl_background_floating</item>
         <item name="colorControlActivated">@color/sesl_control_activated_color</item>
-        <item name="colorControlNormal">@color/sesl_control_normal_color_light</item>
+        <item name="colorControlHighlight">@color/sesl_ripple_color</item>
+        <item name="colorControlNormal">@color/sesl_control_normal_color</item>
+        <item name="colorError">@color/sesl_error_color</item>
+        <item name="colorPrimary">@color/sesl_primary_color</item>
+        <item name="colorPrimaryDark">@color/sesl_primary_dark_color</item>
 
         <item name="android:progressBarStyle">@style/Base.Widget.AppCompat.ProgressBar.Circle</item>
         <item name="android:progressBarStyleHorizontal">
@@ -36,11 +38,7 @@
         <item name="switchStyle">@style/SwitchStyle</item>
         <item name="materialButtonStyle">@style/ButtonStyle</item>
         <item name="radioButtonStyle">@style/RadioButtonStyle</item>
-
-
-        <!--
-                <item name="seslSwitchBarStyle">@style/Base.Widget.AppCompat.SeslSwitchBar</item>
-        -->
+        <item name="seslSwitchBarStyle">@style/Base.Widget.AppCompat.SeslSwitchBar</item>
 
 
     </style>
@@ -117,13 +115,7 @@
     </style>
 
 
-    <!--SwitchBar-->
-    <style name="SwitchBarStyle" parent="SwitchStyle">
-        <item name="android:background">@drawable/sesl_rounded_background</item>
-        <item name="android:backgroundTint">@color/sesl_switchbar_color_selector</item>
-        <item name="android:paddingHorizontal">26dp</item>
-        <item name="android:layout_height">64dp</item>
-    </style>
+
 
 
     <!--Button-->
@@ -167,14 +159,42 @@
 
 
 
-
-
-    <!--<style name="Base.Widget.AppCompat.SeslSwitchBar" parent="@android:style/Widget">
+    <!--SwitchBar-->
+    <style name="Base.Widget.AppCompat.SeslSwitchBar" parent="@android:style/Widget">
         <item name="seslSwitchBarBackgroundActivatedColor">@color/sesl_switchbar_on_background_color</item>
         <item name="seslSwitchBarBackgroundColor">@color/sesl_switchbar_off_background_color</item>
-        <item name="seslSwitchBarTextActivatedColor">@color/sesl_switchbar_on_text_color_dark</item>
-        <item name="seslSwitchBarTextColor">@color/sesl_switchbar_off_text_color_dark</item>
-    </style>-->
+        <item name="seslSwitchBarTextActivatedColor">@color/sesl_switchbar_on_text_color</item>
+        <item name="seslSwitchBarTextColor">@color/sesl_switchbar_off_text_color</item>
+    </style>
+    <style name="TextAppearance.AppCompat.Widget.SeslSwitchBar" parent="@style/Base.TextAppearance.AppCompat.Widget.SeslSwitchBar" />
+    <style name="Base.TextAppearance.AppCompat.Widget.SeslSwitchBar" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
+
+    <!--TextAppearance-->
+    <style name="TextAppearance.AppCompat.Widget.ActionBar.Title" parent="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title" />
+    <style name="Base.TextAppearance.AppCompat.Widget.ActionBar.Title" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">@dimen/sesl_action_bar_text_size_title</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/sesl_action_bar_text_color_title_dark</item>
+        <item name="fontFamily">sec-roboto-light</item>
+        <item name="textAllCaps">false</item>
+    </style>
+    <style name="TextAppearance.AppCompat.Title" parent="@style/Base.TextAppearance.AppCompat.Title" />
+    <style name="Base.TextAppearance.AppCompat.Title" parent="@style/Base.TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/sesl_text_size_title</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+    <style name="Base.TextAppearance.AppCompat" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/sesl_text_size_body_1</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textColorHighlight">?android:textColorHighlight</item>
+        <item name="android:textColorHint">?android:textColorHint</item>
+        <item name="android:textColorLink">?android:textColorLink</item>
+    </style>
 
 
 </resources>

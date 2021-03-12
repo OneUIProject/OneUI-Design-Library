@@ -2,6 +2,20 @@
 <resources>
 
     <!--Main-->
+
+    <color name="accent_material">@color/material_deep_teal_200</color>
+    <color name="sesl_background_floating">@color/sesl_black</color>
+    <color name="sesl_ripple_color">#33ffffff</color>
+    <color name="sesl_primary_color">#ff0381fe</color>
+    <color name="sesl_primary_dark_color">#ff3e91ff</color>
+
+
+
+
+
+
+
+
     <color name="background_color">#ff000000</color>
     <color name="item_background_color">#ff171717</color>
     <color name="item_color">#ffffffff</color>
@@ -18,14 +32,9 @@
 
 
     <!--SwitchBar-->
-    <color name="sesl_switchbar_background_off_enabled">#ff252525</color>
-    <color name="sesl_switchbar_background_on_enabled">#ff3e91ff</color>
-    <color name="sesl_switchbar_background_off_disabled">#ff171717</color>
-    <color name="sesl_switchbar_background_on_disabled">#520381fe</color>
-
     <color name="sesl_switchbar_off_background_color">#2bfafafa</color>
-    <color name="sesl_switchbar_on_text_color">#fffafafa</color>
     <color name="sesl_switchbar_off_text_color">#fffafafa</color>
+    <color name="sesl_switchbar_on_text_color">#fffafafa</color>
 
 
 
