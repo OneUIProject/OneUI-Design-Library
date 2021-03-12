@@ -11,19 +11,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <androidx.appcompat.widget.SeslSeekBar
+    <com.google.android.material.textview.MaterialTextView
+        style="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="2dp"
+        android:text="Sesl"
+        android:textStyle="bold" />
 
 
-    <androidx.appcompat.widget.SeslProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="10dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.SeslSeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
-    <androidx.appcompat.widget.SeslToggleSwitch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+            <androidx.appcompat.widget.SeslProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <androidx.appcompat.widget.SeslToggleSwitch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
 
 
     <com.google.android.material.textview.MaterialTextView
@@ -33,7 +64,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="2dp"
-        android:text="Text"
+        android:text="Normal"
         android:textStyle="bold" />
 
 
@@ -93,6 +124,10 @@
 
 
             </RadioGroup>
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"

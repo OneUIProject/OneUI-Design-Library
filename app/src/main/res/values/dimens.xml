@@ -16,6 +16,9 @@
     <dimen name="sesl_text_size_title">20.0sp</dimen>
     <dimen name="sesl_action_bar_text_size_title">19.0sp</dimen>
     <dimen name="sesl_seekbar_track_height">3.0dip</dimen>
+    <dimen name="sesl_seekbar_ripple_radius">16.0dip</dimen>
+    <dimen name="sesl_progress_bar_min_height">16.0dip</dimen>
+
 
 
 
