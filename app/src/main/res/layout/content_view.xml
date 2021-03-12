@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
@@ -37,24 +36,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <androidx.appcompat.widget.SeslProgressBar
+                style="?android:progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
 
             <androidx.appcompat.widget.SeslProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-
             <androidx.appcompat.widget.SeslToggleSwitch
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="switch" />
 
 
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-
-
-
 
 
     <com.google.android.material.textview.MaterialTextView
@@ -92,40 +92,13 @@
                 android:layout_height="wrap_content"
                 android:text="Card subtitle" />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/aswitch1111"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
-            <CheckBox
-                android:id="@+id/checkboxx"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CheckBox" />
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="visible">
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="RadioButton" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="RadioButton" />
-
-
-            </RadioGroup>
 
             <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ProgressBar
+                style="?android:progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -154,6 +127,40 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/aswitch1111"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="switch" />
+
+
+            <CheckBox
+                android:id="@+id/checkboxx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CheckBox" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="RadioButton" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="RadioButton" />
+
+
+            </RadioGroup>
 
 
             <LinearLayout

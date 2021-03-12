@@ -1,17 +1,12 @@
 package de.dlyt.yanndroid.samsung;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +17,6 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,41 +30,21 @@ public class MainActivity extends AppCompatActivity {
 
 
         SeslSwitchBar seslSwitchbar = findViewById(R.id.switchbarr);
-
         seslSwitchbar.addOnSwitchChangeListener(new SeslSwitchBar.OnSwitchChangeListener() {
             @Override
             public void onSwitchChanged(SwitchCompat switchCompat, boolean z) {
                 seslSwitchbar.setEnabled(false);
                 seslSwitchbar.setProgressBarVisible(true);
-                
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         seslSwitchbar.setEnabled(true);
                         seslSwitchbar.setProgressBarVisible(false);
                     }
-                }, 500);
+                }, 700);
             }
         });
-
-
-        SwitchMaterial aswitch1111 = findViewById(R.id.aswitch1111);
-        aswitch1111.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                seslSwitchbar.setEnabled(!isChecked);
-            }
-        });
-
-        CheckBox checkBox = findViewById(R.id.checkboxx);
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                seslSwitchbar.setProgressBarVisible(isChecked);
-            }
-        });
-
-
 
     }
 
@@ -81,12 +55,8 @@ public class MainActivity extends AppCompatActivity {
         View drawer = findViewById(R.id.drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-
-        /*ViewGroup.LayoutParams layoutParams = drawer.getLayoutParams();
-        layoutParams.width = (int) ((double) this.getResources().getDisplayMetrics().widthPixels / 1.19);*/
         drawerLayout.setScrimColor(ContextCompat.getColor(getBaseContext(), R.color.drawer_dim_color));
         drawerLayout.setDrawerElevation(0);
-
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.opend, R.string.closed) {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -95,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 content.setTranslationX(slideX);
             }
         };
-
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,12 +74,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        /**Items*/
         View drawer_settings = findViewById(R.id.drawer_settings);
-
         drawer_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "Settings", Toast.LENGTH_SHORT).show();
+                /**settings*/
             }
         });
 

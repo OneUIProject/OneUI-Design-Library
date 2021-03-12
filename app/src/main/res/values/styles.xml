@@ -10,28 +10,19 @@
         <item name="colorControlNormal">@color/sesl_control_normal_color</item>
         <item name="colorError">@color/sesl_error_color</item>
         <item name="colorPrimary">@color/sesl_primary_color</item>
+        <item name="colorSecondary">@color/sesl_secondary_color</item>
         <item name="colorPrimaryDark">@color/sesl_primary_dark_color</item>
 
         <item name="android:progressBarStyle">@style/Base.Widget.AppCompat.ProgressBar.Circle</item>
-        <item name="android:progressBarStyleHorizontal">
-            @style/Base.Widget.AppCompat.ProgressBar.Horizontal
-        </item>
-        <item name="android:progressBarStyleSmall">@style/Base.Widget.AppCompat.ProgressBar.Small
-        </item>
-        <item name="android:progressBarStyleLarge">@style/Base.Widget.AppCompat.ProgressBar.Large
-        </item>
-        <item name="android:progressBarStyleSmallTitle">
-            @style/Base.Widget.AppCompat.ProgressBar.Title
-        </item>
-        <item name="android:progressBarStyleInverse">
-            @style/Base.Widget.AppCompat.ProgressBar.Circle
-        </item>
-        <item name="android:progressBarStyleSmallInverse">
-            @style/Base.Widget.AppCompat.ProgressBar.Small
-        </item>
-        <item name="android:progressBarStyleLargeInverse">
-            @style/Base.Widget.AppCompat.ProgressBar.Large
-        </item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarStyleHorizontal</item>
+        <item name="android:progressBarStyleSmall">@style/Base.Widget.AppCompat.ProgressBar.Small</item>
+        <item name="android:progressBarStyleLarge">@style/Base.Widget.AppCompat.ProgressBar.Large</item>
+        <item name="android:progressBarStyleSmallTitle">@style/Base.Widget.AppCompat.ProgressBar.Title</item>
+        <item name="android:progressBarStyleInverse">@style/Base.Widget.AppCompat.ProgressBar.Circle</item>
+        <item name="android:progressBarStyleSmallInverse">@style/Base.Widget.AppCompat.ProgressBar.Small</item>
+        <item name="android:progressBarStyleLargeInverse">@style/Base.Widget.AppCompat.ProgressBar.Large</item>
+        <item name="progressActivatedColor">@color/sesl_progress_control_color_activated</item>
+        <item name="progressNormalColor">@color/sesl_progress_control_color_normal</item>
 
         <item name="checkboxStyle">@style/CheckBoxStyle</item>
         <item name="materialCardViewStyle">@style/CardViewStyle</item>
@@ -46,11 +37,9 @@
 
 
     <!--ProgressBar-->
-    <style name="Base.Widget.AppCompat.ProgressBar.Horizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
-        <item name="android:indeterminateDrawable">
-            @drawable/sesl_progress_indeterminate_horizontal
-        </item>
-        <item name="android:progressDrawable">@drawable/sesl_progress_horizontal</item>
+    <style name="ProgressBarStyleHorizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
+        <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
     </style>
 
     <style name="Base.Widget.AppCompat.ProgressBar.Small" parent="@style/Base.Widget.AppCompat.ProgressBar.Circle">
@@ -122,7 +111,7 @@
         <item name="rippleColor">@color/button_ripple_color</item>
         <item name="cornerRadius">26dp</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/primary</item>
+        <item name="android:textColor">@color/sesl_primary_color</item>
         <item name="android:textStyle">bold</item>
     </style>
 
