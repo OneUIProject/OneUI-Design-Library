@@ -42,14 +42,7 @@
     <color name="sesl_black">#ff252525</color>
     <color name="divider_color">#ff979797</color>
     <color name="sesl_action_bar_text_color_title_dark">@color/white</color>
-    <color name="sesl_seekbar_control_color_normal">#4d0381fe</color> <!--progress rest color-->
-    <color name="sesl_seekbar_control_color_activated">@color/sesl_primary_color</color> <!--progress color-->
-    <color name="sesl_seekbar_control_color_secondary">#ff7ab9cb</color> <!--sec progress color-->
-    <color name="sesl_seekbar_overlap_color_activated">#ffff6021</color>
-    <color name="sesl_seekbar_overlap_color_normal">#fffccbb8</color>
-    <color name="sesl_seekbar_overlap_color_normal_dark">#ff673724</color>
     <color name="sesl_thumb_control_color_activated">@color/sesl_primary_color</color>
-    <color name="sesl_seekbar_disable_color_activated_light">#ffd2d2d2</color>
 
 
 
@@ -86,7 +79,15 @@
 
 
     <!--Seekbar-->
+    <color name="sesl_seekbar_control_color_normal">#4d0381fe</color>
+    <color name="sesl_seekbar_control_color_activated">#ff0381fe</color>
+    <color name="sesl_seekbar_control_color_default">#4d0381fe</color>
+    <color name="sesl_seekbar_control_color_secondary">#ff7ab9cb</color>
     <color name="sesl_seekbar_disable_color_activated_dark">#ff545454</color>
+    <color name="sesl_seekbar_disable_color_activated_light">#ffd2d2d2</color>
+    <color name="sesl_seekbar_overlap_color_activated">#ffff6021</color>
+    <color name="sesl_seekbar_overlap_color_default_dark">#ff673724</color>
+    <color name="sesl_seekbar_overlap_color_default_light">#fffcb69b</color>
 
 
 

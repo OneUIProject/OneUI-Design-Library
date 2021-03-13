@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SeslSeekBar;
 import androidx.appcompat.widget.SeslSwitchBar;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
@@ -27,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
         initToolbar();
         initDrawer();
+
+
+        SeslSeekBar seslSeekBar = findViewById(R.id.seeek);
+        seslSeekBar.setMode(5);
+        seslSeekBar.setOverlapPointForDualColor(70);
+        seslSeekBar.setSecondaryProgress(30);
 
 
         SeslSwitchBar seslSwitchbar = findViewById(R.id.switchbarr);

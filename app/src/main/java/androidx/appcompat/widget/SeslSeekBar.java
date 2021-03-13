@@ -5,10 +5,11 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.SeekBar;
-
-import de.dlyt.yanndroid.samsung.R;
+import androidx.annotation.RestrictTo;
+import androidx.appcompat.R;
 
 public class SeslSeekBar extends SeslAbsSeekBar {
+    private int mOldValue;
     private OnSeekBarChangeListener mOnSeekBarChangeListener;
     private OnSeekBarHoverListener mOnSeekBarHoverListener;
 
@@ -44,18 +45,61 @@ public class SeslSeekBar extends SeslAbsSeekBar {
         super(context, attributeSet, i, i2);
     }
 
+    @Override // androidx.appcompat.widget.SeslProgressBar, androidx.appcompat.widget.SeslAbsSeekBar
+    public CharSequence getAccessibilityClassName() {
+        return SeekBar.class.getName();
+    }
+
+    /* access modifiers changed from: package-private */
+    @Override // androidx.appcompat.widget.SeslAbsSeekBar
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    public void onHoverChanged(int i, int i2, int i3) {
+        OnSeekBarHoverListener onSeekBarHoverListener = this.mOnSeekBarHoverListener;
+        if (onSeekBarHoverListener != null) {
+            onSeekBarHoverListener.onHoverChanged(this, i, true);
+        }
+        super.onHoverChanged(i, i2, i3);
+    }
+
+    @Override // androidx.appcompat.widget.SeslProgressBar, androidx.appcompat.widget.SeslAbsSeekBar
+    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo accessibilityNodeInfo) {
+        super.onInitializeAccessibilityNodeInfo(accessibilityNodeInfo);
+        if (Build.VERSION.SDK_INT >= 24 && canUserSetProgress()) {
+            accessibilityNodeInfo.addAction(AccessibilityNodeInfo.AccessibilityAction.ACTION_SET_PROGRESS);
+        }
+    }
+
     /* access modifiers changed from: package-private */
     @Override // androidx.appcompat.widget.SeslProgressBar, androidx.appcompat.widget.SeslAbsSeekBar
     public void onProgressRefresh(float f, boolean z, int i) {
         super.onProgressRefresh(f, z, i);
-        OnSeekBarChangeListener onSeekBarChangeListener = this.mOnSeekBarChangeListener;
-        if (onSeekBarChangeListener != null) {
-            onSeekBarChangeListener.onProgressChanged(this, i, z);
+        if (!this.mIsSeamless) {
+            OnSeekBarChangeListener onSeekBarChangeListener = this.mOnSeekBarChangeListener;
+            if (onSeekBarChangeListener != null) {
+                onSeekBarChangeListener.onProgressChanged(this, i, z);
+                return;
+            }
+            return;
+        }
+        int round = Math.round(((float) i) / 1000.0f);
+        if (this.mOldValue != round) {
+            this.mOldValue = round;
+            OnSeekBarChangeListener onSeekBarChangeListener2 = this.mOnSeekBarChangeListener;
+            if (onSeekBarChangeListener2 != null) {
+                onSeekBarChangeListener2.onProgressChanged(this, round, z);
+            }
         }
     }
 
-    public void setOnSeekBarChangeListener(OnSeekBarChangeListener onSeekBarChangeListener) {
-        this.mOnSeekBarChangeListener = onSeekBarChangeListener;
+    /* access modifiers changed from: package-private */
+    @Override // androidx.appcompat.widget.SeslAbsSeekBar
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    public void onStartTrackingHover(int i, int i2, int i3) {
+        OnSeekBarHoverListener onSeekBarHoverListener = this.mOnSeekBarHoverListener;
+        if (onSeekBarHoverListener != null) {
+            onSeekBarHoverListener.onStartTrackingHover(this, i);
+        }
+        super.onStartTrackingHover(i, i2, i3);
     }
 
     /* access modifiers changed from: package-private */
@@ -70,43 +114,7 @@ public class SeslSeekBar extends SeslAbsSeekBar {
 
     /* access modifiers changed from: package-private */
     @Override // androidx.appcompat.widget.SeslAbsSeekBar
-    public void onStopTrackingTouch() {
-        super.onStopTrackingTouch();
-        OnSeekBarChangeListener onSeekBarChangeListener = this.mOnSeekBarChangeListener;
-        if (onSeekBarChangeListener != null) {
-            onSeekBarChangeListener.onStopTrackingTouch(this);
-        }
-    }
-
-    @Override // androidx.appcompat.widget.SeslProgressBar, androidx.appcompat.widget.SeslAbsSeekBar
-    public CharSequence getAccessibilityClassName() {
-        return SeekBar.class.getName();
-    }
-
-    @Override // androidx.appcompat.widget.SeslProgressBar, androidx.appcompat.widget.SeslAbsSeekBar
-    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo accessibilityNodeInfo) {
-        super.onInitializeAccessibilityNodeInfo(accessibilityNodeInfo);
-        if (Build.VERSION.SDK_INT >= 24 && canUserSetProgress()) {
-            accessibilityNodeInfo.addAction(AccessibilityNodeInfo.AccessibilityAction.ACTION_SET_PROGRESS);
-        }
-    }
-
-    public void setOnSeekBarHoverListener(OnSeekBarHoverListener onSeekBarHoverListener) {
-        this.mOnSeekBarHoverListener = onSeekBarHoverListener;
-    }
-
-    /* access modifiers changed from: package-private */
-    @Override // androidx.appcompat.widget.SeslAbsSeekBar
-    public void onStartTrackingHover(int i, int i2, int i3) {
-        OnSeekBarHoverListener onSeekBarHoverListener = this.mOnSeekBarHoverListener;
-        if (onSeekBarHoverListener != null) {
-            onSeekBarHoverListener.onStartTrackingHover(this, i);
-        }
-        super.onStartTrackingHover(i, i2, i3);
-    }
-
-    /* access modifiers changed from: package-private */
-    @Override // androidx.appcompat.widget.SeslAbsSeekBar
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public void onStopTrackingHover() {
         OnSeekBarHoverListener onSeekBarHoverListener = this.mOnSeekBarHoverListener;
         if (onSeekBarHoverListener != null) {
@@ -117,11 +125,19 @@ public class SeslSeekBar extends SeslAbsSeekBar {
 
     /* access modifiers changed from: package-private */
     @Override // androidx.appcompat.widget.SeslAbsSeekBar
-    public void onHoverChanged(int i, int i2, int i3) {
-        OnSeekBarHoverListener onSeekBarHoverListener = this.mOnSeekBarHoverListener;
-        if (onSeekBarHoverListener != null) {
-            onSeekBarHoverListener.onHoverChanged(this, i, true);
+    public void onStopTrackingTouch() {
+        super.onStopTrackingTouch();
+        OnSeekBarChangeListener onSeekBarChangeListener = this.mOnSeekBarChangeListener;
+        if (onSeekBarChangeListener != null) {
+            onSeekBarChangeListener.onStopTrackingTouch(this);
         }
-        super.onHoverChanged(i, i2, i3);
+    }
+
+    public void setOnSeekBarChangeListener(OnSeekBarChangeListener onSeekBarChangeListener) {
+        this.mOnSeekBarChangeListener = onSeekBarChangeListener;
+    }
+
+    public void setOnSeekBarHoverListener(OnSeekBarHoverListener onSeekBarHoverListener) {
+        this.mOnSeekBarHoverListener = onSeekBarHoverListener;
     }
 }

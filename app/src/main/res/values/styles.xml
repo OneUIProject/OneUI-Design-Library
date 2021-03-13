@@ -37,7 +37,7 @@
 
 
     <!--ProgressBar-->
-    <style name="ProgressBarStyleHorizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
+    <!--<style name="ProgressBarStyleHorizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
         <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
         <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
     </style>
@@ -67,6 +67,43 @@
         <item name="android:minHeight">55.0dip</item>
     </style>
 
+    <style name="Base.Widget.AppCompat.ProgressBar.Title" parent="@style/Base.Widget.AppCompat.ProgressBar.Circle">
+        <item name="android:maxWidth">@dimen/sesl_progress_bar_size_small_title</item>
+        <item name="android:maxHeight">@dimen/sesl_progress_bar_size_small_title</item>
+        <item name="android:minWidth">@dimen/sesl_progress_bar_size_small_title</item>
+        <item name="android:minHeight">@dimen/sesl_progress_bar_size_small_title</item>
+    </style>-->
+
+
+    <style name="Base.Widget.AppCompat.ProgressBar.Circle" parent="@android:style/Widget.ProgressBar">
+        <item name="android:maxWidth">@dimen/sesl_progress_circle_size</item>
+        <item name="android:maxHeight">@dimen/sesl_progress_circle_size</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_progress</item>
+        <item name="android:progressDrawable">@drawable/sesl_progress_circle</item>
+        <item name="android:minWidth">55.0dip</item>
+        <item name="android:minHeight">55.0dip</item>
+    </style>
+    <style name="ProgressBarStyleHorizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <!--<item name="android:indeterminateDrawable">@drawable/sesl_progress_indeterminate_horizontal</item>
+        <item name="android:progressDrawable">@drawable/sesl_progress_horizontal</item>-->
+
+        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
+        <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
+    </style>
+    <style name="Base.Widget.AppCompat.ProgressBar.Large" parent="@style/Base.Widget.AppCompat.ProgressBar.Circle">
+        <item name="android:maxWidth">@dimen/sesl_progress_bar_size_large</item>
+        <item name="android:maxHeight">@dimen/sesl_progress_bar_size_large</item>
+        <item name="android:minWidth">@dimen/sesl_progress_bar_size_large</item>
+        <item name="android:minHeight">@dimen/sesl_progress_bar_size_large</item>
+    </style>
+    <style name="Base.Widget.AppCompat.ProgressBar.Small" parent="@style/Base.Widget.AppCompat.ProgressBar.Circle">
+        <item name="android:maxWidth">@dimen/sesl_progress_bar_size_small</item>
+        <item name="android:maxHeight">@dimen/sesl_progress_bar_size_small</item>
+        <item name="android:minWidth">@dimen/sesl_progress_bar_size_small</item>
+        <item name="android:minHeight">@dimen/sesl_progress_bar_size_small</item>
+    </style>
     <style name="Base.Widget.AppCompat.ProgressBar.Title" parent="@style/Base.Widget.AppCompat.ProgressBar.Circle">
         <item name="android:maxWidth">@dimen/sesl_progress_bar_size_small_title</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_size_small_title</item>
@@ -164,16 +201,18 @@
     <style name="SeekBarStyle" parent="@android:style/Widget">
         <item name="android:background">@drawable/sesl_seek_bar_background_borderless</item>
         <item name="android:focusable">true</item>
+        <item name="android:maxHeight">@dimen/sesl_progress_bar_min_height</item>
+        <item name="android:indeterminateOnly">false</item>
         <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
         <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_min_height</item>
-        <item name="android:thumb">@drawable/sesl_scrubber_control_anim</item>
-        <item name="android:paddingStart">@dimen/sesl_progress_bar_min_height</item>
-        <item name="android:paddingEnd">@dimen/sesl_progress_bar_min_height</item>
+        <item name="android:thumb">@drawable/sesl_scrubber_control_anim_dark</item>
+        <item name="android:paddingStart">@dimen/sesl_seekbar_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/sesl_seekbar_padding_horizontal</item>
+        <item name="android:mirrorForRtl">true</item>
         <item name="android:splitTrack">false</item>
         <item name="useDisabledAlpha">true</item>
     </style>
-
 
 
     <!--TextAppearance-->
