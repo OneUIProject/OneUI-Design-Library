@@ -7,7 +7,7 @@
 
 
     <androidx.appcompat.widget.SeslSwitchBar
-        android:id="@+id/switchbarr"
+        android:id="@+id/switchbar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -34,7 +34,7 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.SeslSeekBar
-                android:id="@+id/seeek"
+                android:id="@+id/seekbar1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -45,11 +45,13 @@
 
 
             <androidx.appcompat.widget.SeslProgressBar
+                style="?android:progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <androidx.appcompat.widget.SeslToggleSwitch
-                android:layout_width="wrap_content"
+                android:id="@+id/switch1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="switch" />
 
@@ -96,6 +98,7 @@
 
 
             <SeekBar
+                android:id="@+id/seekbar2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -132,7 +135,7 @@
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/aswitch1111"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="switch" />
 
