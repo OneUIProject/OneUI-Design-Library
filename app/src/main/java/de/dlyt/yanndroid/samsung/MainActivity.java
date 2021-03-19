@@ -11,10 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SeslProgressBar;
 import androidx.appcompat.widget.SeslSeekBar;
 import androidx.appcompat.widget.SeslSwitchBar;
-import androidx.appcompat.widget.SeslToggleSwitch;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void demo(){
+    public void demo() {
         SeslSeekBar seslSeekBar = findViewById(R.id.seekbar1);
         seslSeekBar.setMode(5);
         seslSeekBar.setOverlapPointForDualColor(70);
@@ -81,15 +79,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void initDrawer() {
         View content = findViewById(R.id.main_content);
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         View drawer = findViewById(R.id.drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+
+        ViewGroup.LayoutParams layoutParams = drawer.getLayoutParams();
+        layoutParams.width = (int) ((double) this.getResources().getDisplayMetrics().widthPixels / 1.19);
         drawerLayout.setScrimColor(ContextCompat.getColor(getBaseContext(), R.color.drawer_dim_color));
         drawerLayout.setDrawerElevation(0);
+
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.opend, R.string.closed) {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {

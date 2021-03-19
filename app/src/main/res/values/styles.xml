@@ -166,7 +166,7 @@
 
     <!--Drawer-->
     <style name="DrawerStyle">
-        <item name="android:layout_width">@dimen/drawer_width</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@drawable/drawer_background</item>
         <item name="android:gravity">center_horizontal</item>
@@ -182,18 +182,20 @@
     </style>
 
 
-
     <!--SwitchBar-->
-    <style name="Base.Widget.AppCompat.SeslSwitchBar" parent="@android:style/Widget">
-        <item name="seslSwitchBarBackgroundActivatedColor">@color/sesl_switchbar_on_background_color</item>
-        <item name="seslSwitchBarBackgroundColor">@color/sesl_switchbar_off_background_color</item>
-        <item name="seslSwitchBarTextActivatedColor">@color/sesl_switchbar_on_text_color</item>
-        <item name="seslSwitchBarTextColor">@color/sesl_switchbar_off_text_color</item>
-    </style>
     <style name="TextAppearance.AppCompat.Widget.SeslSwitchBar" parent="@style/Base.TextAppearance.AppCompat.Widget.SeslSwitchBar" />
     <style name="Base.TextAppearance.AppCompat.Widget.SeslSwitchBar" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">18.0sp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?colorPrimaryDark</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
+    </style>
+
+    <style name="Base.Widget.AppCompat.SeslSwitchBar" parent="@android:style/Widget">
+        <item name="seslSwitchBarBackgroundActivatedColor">@color/sesl_switchbar_on_background_color_dark</item>
+        <item name="seslSwitchBarBackgroundColor">@color/sesl_switchbar_off_background_color</item>
+        <item name="seslSwitchBarTextActivatedColor">@color/sesl_switchbar_text_color</item>
+        <item name="seslSwitchBarTextColor">@color/sesl_switchbar_off_text_color</item>
     </style>
 
 
@@ -218,7 +220,7 @@
     <!--TextAppearance-->
     <style name="TextAppearance.AppCompat.Widget.ActionBar.Title" parent="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title" />
     <style name="Base.TextAppearance.AppCompat.Widget.ActionBar.Title" parent="@style/TextAppearance.AppCompat.Title">
-        <item name="android:textSize">@dimen/sesl_action_bar_text_size_title</item>
+        <item name="android:textSize">@dimen/sesl_toolbar_title_text_size</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/sesl_action_bar_text_color_title_dark</item>
         <item name="fontFamily">sec-roboto-light</item>

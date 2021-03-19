@@ -7,14 +7,13 @@
     <dimen name="sesl_progress_bar_size_small">24.0dip</dimen>
     <dimen name="sesl_progress_bar_height">3.0dip</dimen>
     <dimen name="sesl_progress_bar_size_small_title">16.0dip</dimen>
-    <dimen name="drawer_width">338.0dip</dimen>
     <dimen name="sesl_switchbar_height">64.0dip</dimen>
     <dimen name="sesl_switchbar_margin_end">24.0dip</dimen>
     <dimen name="sesl_switchbar_margin_start">24.0dip</dimen>
     <dimen name="sesl_switchbar_progress_margin_right">12.0dip</dimen>
     <dimen name="sesl_text_size_body_1">14.0sp</dimen>
     <dimen name="sesl_text_size_title">20.0sp</dimen>
-    <dimen name="sesl_action_bar_text_size_title">19.0sp</dimen>
+    <dimen name="sesl_toolbar_title_text_size">19.0sp</dimen>
     <dimen name="sesl_progress_bar_min_height">16.0dip</dimen>
 
     <dimen name="sesl_seekbar_padding_horizontal">16.0dip</dimen>

@@ -10,6 +10,8 @@
     <color name="sesl_primary_color">#ff0381fe</color>
     <color name="sesl_secondary_color">#ff3e91ff</color>
     <color name="sesl_primary_dark_color">#ff0072de</color>
+    <color name="sesl_control_color_normal">#4d0381fe</color>
+
 
     <color name="sesl_control_normal_color">#cc8f8f8f</color>
 
@@ -41,7 +43,6 @@
     <color name="sesl_white">#fffafafa</color>
     <color name="sesl_black">#ff252525</color>
     <color name="divider_color">#ff979797</color>
-    <color name="sesl_action_bar_text_color_title_dark">@color/white</color>
     <color name="sesl_thumb_control_color_activated">@color/sesl_primary_color</color>
 
 
@@ -51,7 +52,7 @@
     <color name="sesl_loading_progress_color2">@color/sesl_primary_color</color>
 
     <color name="sesl_progress_control_color_activated">@color/sesl_primary_color</color>
-    <color name="sesl_progress_control_color_normal">#4d0381fe</color>
+    <color name="sesl_progress_control_color_normal">@color/sesl_control_color_normal</color>
 
 
     <!--Switch-->
@@ -72,16 +73,21 @@
 
 
     <!--SwitchBar-->
-    <color name="sesl_switchbar_off_background_color">@color/white</color>
+    <color name="sesl_switchbar_off_background_color">#fffafafa</color>
+    <color name="sesl_switchbar_off_background_color_dark">#2bfafafa</color>
+    <color name="sesl_switchbar_off_background_color_light">#fffafafa</color>
+    <color name="sesl_switchbar_off_text_color_dark">#fffafafa</color>
+    <color name="sesl_switchbar_off_text_color_light">#ff252525</color>
     <color name="sesl_switchbar_off_text_color">#ff252525</color>
-    <color name="sesl_switchbar_on_text_color">@color/white</color>
-    <color name="sesl_switchbar_ripple_color">@color/sesl_ripple_color</color>
+    <color name="sesl_switchbar_on_background_color_dark">#520381fe</color>
+    <color name="sesl_switchbar_on_background_color_light">#ffaad2fa</color>
+    <color name="sesl_action_bar_text_color_title_dark">#fffafafa</color>
 
 
     <!--Seekbar-->
-    <color name="sesl_seekbar_control_color_normal">#4d0381fe</color>
-    <color name="sesl_seekbar_control_color_activated">#ff0381fe</color>
-    <color name="sesl_seekbar_control_color_default">#4d0381fe</color>
+    <color name="sesl_seekbar_control_color_normal">@color/sesl_control_color_normal</color>
+    <color name="sesl_seekbar_control_color_activated">@color/sesl_primary_color</color>
+    <color name="sesl_seekbar_control_color_default">@color/sesl_control_color_normal</color>
     <color name="sesl_seekbar_control_color_secondary">#ff7ab9cb</color>
     <color name="sesl_seekbar_disable_color_activated_dark">#ff545454</color>
     <color name="sesl_seekbar_disable_color_activated_light">#ffd2d2d2</color>
