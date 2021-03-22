@@ -22,6 +22,11 @@
     <dimen name="sesl_seekbar_track_height">3.0dip</dimen>
     <dimen name="sesl_seekbar_track_height_expand">17.0dip</dimen>
 
+    <dimen name="spacing_vertical_small">16.0dip</dimen>
+    <dimen name="spacing_vertical_tiny">10.0dip</dimen>
+    <dimen name="progress_bar_height">24.0dip</dimen>
+    <dimen name="progress_bar_radius">12.0dip</dimen>
+
 
 
 

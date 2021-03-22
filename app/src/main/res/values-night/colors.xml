@@ -31,8 +31,12 @@
     <color name="sesl_action_bar_text_color_title_dark">@color/sesl_black</color>
 
 
+    <!--ProgressBar-->
+    <color name="progress_bar_progress_color">#ff3891ff</color>
+
 
     <!--Others-->
+    <color name="button_background_color">#4d555555</color>
     <color name="button_ripple_color">#515151</color>
     <color name="drawer_dim_color">#cc000000</color>
 

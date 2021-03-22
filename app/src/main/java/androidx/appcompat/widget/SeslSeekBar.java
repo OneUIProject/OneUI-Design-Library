@@ -6,7 +6,8 @@ import android.util.AttributeSet;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.SeekBar;
 import androidx.annotation.RestrictTo;
-import androidx.appcompat.R;
+
+import de.dlyt.yanndroid.samsung.R;
 
 public class SeslSeekBar extends SeslAbsSeekBar {
     private int mOldValue;

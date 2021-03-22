@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SeslProgressBar;
 import androidx.appcompat.widget.SeslSeekBar;
 import androidx.appcompat.widget.SeslSwitchBar;
 import androidx.appcompat.widget.SwitchCompat;
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         demo();
-
 
     }
 

@@ -49,10 +49,13 @@
 
     <!--ProgressBar-->
     <color name="sesl_loading_progress_color1">#ff06b485</color>
-    <color name="sesl_loading_progress_color2">@color/sesl_primary_color</color>
+    <color name="sesl_loading_progress_color2">#ff0381fe</color>
 
     <color name="sesl_progress_control_color_activated">@color/sesl_primary_color</color>
     <color name="sesl_progress_control_color_normal">@color/sesl_control_color_normal</color>
+
+    <color name="progress_bar_background_color">#4d9c9c9c</color>
+    <color name="progress_bar_progress_color">#ff3e91ff</color>
 
 
     <!--Switch-->
@@ -99,8 +102,10 @@
 
     <!--Others-->
     <color name="button_ripple_color">#e1e1e1</color>
+    <color name="button_background_color">#4dcccccc</color>
     <color name="drawer_dim_color">#33000000</color>
     <color name="item_divider_color">#ff979797</color>
+    <color name="drawer_icon_color">#ff676768</color>
 
 
 </resources>

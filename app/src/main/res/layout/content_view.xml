@@ -39,13 +39,14 @@
                 android:layout_height="wrap_content" />
 
             <androidx.appcompat.widget.SeslProgressBar
-                style="?android:progressBarStyleHorizontal"
+                android:indeterminate="true"
+                style="@style/ProgressBarStyle.Horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 
 
             <androidx.appcompat.widget.SeslProgressBar
-                style="?android:progressBarStyle"
+                style="@style/ProgressBarStyle.Circle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -103,9 +104,14 @@
                 android:layout_height="wrap_content" />
 
             <ProgressBar
-                style="?android:progressBarStyleHorizontal"
+                android:indeterminate="true"
+                style="@style/ProgressBarStyle.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <ProgressBar
+                android:indeterminate="true"
+                style="@style/ProgressBarStyle.Horizontal.Large" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -113,21 +119,22 @@
                 android:orientation="horizontal">
 
                 <ProgressBar
-                    style="?android:progressBarStyleLarge"
+                    style="@style/ProgressBarStyle.Circle.Large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <ProgressBar
+                    style="@style/ProgressBarStyle.Circle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <ProgressBar
-                    style="?android:progressBarStyleSmall"
+                    style="@style/ProgressBarStyle.Circle.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <ProgressBar
-                    style="?android:progressBarStyleSmallTitle"
+                    style="@style/ProgressBarStyle.Circle.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -187,6 +194,21 @@
                     android:background="@color/divider_color" />
 
                 <com.google.android.material.button.MaterialButton
+                    style="@style/ButtonStyle.Invert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Button" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginVertical="15dp"
+                    android:background="@color/divider_color" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/ButtonStyle.Invert.Secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

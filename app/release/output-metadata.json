@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "de.dlyt.yanndroid.samsung",
+  "applicationId": "de.dlyt.yanndroid.raspberry",
   "variantName": "processReleaseResources",
   "elements": [
     {

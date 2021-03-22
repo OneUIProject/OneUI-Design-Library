@@ -21,7 +21,8 @@
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/ic_settings" />
+            android:src="@drawable/ic_settings"
+            app:tint="@color/drawer_icon_color" />
 
     </LinearLayout>
 
