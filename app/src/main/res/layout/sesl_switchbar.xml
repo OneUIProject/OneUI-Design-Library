@@ -24,7 +24,7 @@
 
         <androidx.appcompat.widget.SeslProgressBar
             android:id="@+id/sesl_switchbar_progress"
-            style="?android:progressBarStyleSmall"
+            style="@style/ProgressBarStyle.Circle.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

@@ -1,5 +1,6 @@
 package de.dlyt.yanndroid.samsung;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         drawer_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**settings*/
+                //startActivity(new Intent().setClass(getApplicationContext(), SettingsActivity.class));
             }
         });
 

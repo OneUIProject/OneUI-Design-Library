@@ -28,6 +28,36 @@
 
     <!--Drawer Content-->
 
+    <LinearLayout
+        android:id="@+id/drawer_item1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/rounded_corner"
+        android:foregroundTint="@color/item_background_color"
+        android:gravity="center_vertical|left"
+        android:orientation="horizontal"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="14dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
+            app:tint="@color/drawer_icon_color" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="Option"
+            android:textSize="18dp" />
+    </LinearLayout>
 
     <View style="@style/DrawerDividerStyle" />
 
