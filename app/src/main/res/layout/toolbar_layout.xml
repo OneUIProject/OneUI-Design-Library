@@ -86,7 +86,7 @@
                     android:textColor="@color/white"
                     android:textSize="11dp"
                     android:textStyle="bold"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <com.google.android.material.textview.MaterialTextView

@@ -86,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         View drawer = findViewById(R.id.drawer);
         ImageView navigationIcon = findViewById(R.id.navigationIcon);
+        View navigationIcon_Badge = findViewById(R.id.navigationIcon_new_badge);
+        navigationIcon_Badge.setVisibility(View.VISIBLE);
 
         ViewGroup.LayoutParams layoutParams = drawer.getLayoutParams();
         layoutParams.width = (int) ((double) this.getResources().getDisplayMetrics().widthPixels / 1.19);
