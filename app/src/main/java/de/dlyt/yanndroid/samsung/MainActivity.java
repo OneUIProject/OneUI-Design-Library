@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -84,8 +85,7 @@ public class MainActivity extends AppCompatActivity {
         View content = findViewById(R.id.main_content);
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         View drawer = findViewById(R.id.drawer);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        ImageView navigationIcon = findViewById(R.id.navigationIcon);
 
         ViewGroup.LayoutParams layoutParams = drawer.getLayoutParams();
         layoutParams.width = (int) ((double) this.getResources().getDisplayMetrics().widthPixels / 1.19);
@@ -101,12 +101,19 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
+        navigationIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(drawer, true);
             }
         });
+        /*toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(drawer, true);
+            }
+        });*/
 
 
         /**Items*/
