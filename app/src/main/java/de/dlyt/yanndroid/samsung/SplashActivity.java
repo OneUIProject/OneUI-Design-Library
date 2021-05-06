@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, getResources().getInteger(R.integer.splash_time));
+        }, 200);
 
     }
 }

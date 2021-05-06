@@ -2,7 +2,7 @@
 <resources>
 
     <!--Main-->
-    <style name="SamsungMain">
+    <style name="SamsungStyleMain">
         <item name="colorAccent">@color/accent_material</item>
         <item name="colorBackgroundFloating">@color/sesl_background_floating</item>
         <item name="colorControlActivated">@color/sesl_control_activated_color</item>

@@ -1,13 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="SamsungTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowBackground">@color/background_color</item>
         <item name="android:statusBarColor">@color/background_color</item>
         <item name="android:navigationBarColor" tools:targetApi="27">@color/background_color</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
 
-        <item name="android:theme">@style/SamsungMain</item>
+        <item name="android:theme">@style/SamsungStyleMain</item>
 
     </style>
 </resources>
