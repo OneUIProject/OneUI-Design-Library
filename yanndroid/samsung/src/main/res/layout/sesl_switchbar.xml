@@ -22,7 +22,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Widget.SeslSwitchBar"
             tools:ignore="RtlCompat" />
 
-        <androidx.appcompat.widget.SeslProgressBar
+        <de.dlyt.yanndroid.samsung.ProgressBar
             android:id="@+id/sesl_switchbar_progress"
             style="@style/ProgressBarStyle.Circle.Small"
             android:layout_width="wrap_content"

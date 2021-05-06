@@ -1,4 +1,4 @@
-package androidx.appcompat.widget;
+package de.dlyt.yanndroid.samsung;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,6 +21,8 @@ import androidx.Styleable;
 import androidx.annotation.ColorInt;
 import androidx.annotation.StringRes;
 import androidx.appcompat.util.SeslMisc;
+import androidx.appcompat.widget.SeslToggleSwitch;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.ViewCompat;
@@ -29,9 +31,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.dlyt.yanndroid.samsung.R;
-
-public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnCheckedChangeListener {
+public class SwitchBar extends LinearLayout implements CompoundButton.OnCheckedChangeListener {
     private static final int SWITCH_OFF_STRING_RESOURCE_ID = R.string.sesl_switchbar_off_text;
     private static final int SWITCH_ON_STRING_RESOURCE_ID = R.string.sesl_switchbar_on_text;
     private LinearLayout mBackground;
@@ -49,7 +49,7 @@ public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnChec
     private int mOnTextColor;
     @StringRes
     private int mOnTextId;
-    private SeslProgressBar mProgressBar;
+    private ProgressBar mProgressBar;
     private String mSessionDesc;
     private SeslToggleSwitch mSwitch;
     private final List<OnSwitchChangeListener> mSwitchChangeListeners;
@@ -62,7 +62,7 @@ public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnChec
     /* access modifiers changed from: package-private */
     public static class SavedState extends BaseSavedState {
         public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-            /* class androidx.appcompat.widget.SeslSwitchBar.SavedState.AnonymousClass1 */
+            /* class de.dlyt.yanndroid.samsung.SeslSwitchBar.SavedState.AnonymousClass1 */
 
             @Override // android.os.Parcelable.Creator
             public SavedState createFromParcel(Parcel parcel) {
@@ -112,7 +112,7 @@ public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnChec
         @Override // androidx.core.view.AccessibilityDelegateCompat
         public void onInitializeAccessibilityNodeInfo(View view, AccessibilityNodeInfoCompat accessibilityNodeInfoCompat) {
             super.onInitializeAccessibilityNodeInfo(view, accessibilityNodeInfoCompat);
-            String string = view.getContext().getResources().getString(this.mSwitch.isChecked() ? SeslSwitchBar.SWITCH_ON_STRING_RESOURCE_ID : SeslSwitchBar.SWITCH_OFF_STRING_RESOURCE_ID);
+            String string = view.getContext().getResources().getString(this.mSwitch.isChecked() ? SwitchBar.SWITCH_ON_STRING_RESOURCE_ID : SwitchBar.SWITCH_OFF_STRING_RESOURCE_ID);
             StringBuilder sb = new StringBuilder();
             CharSequence text = this.mText.getText();
             if (!TextUtils.isEmpty(this.mSessionName)) {
@@ -131,19 +131,19 @@ public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnChec
         }
     }
 
-    public SeslSwitchBar(Context context) {
+    public SwitchBar(Context context) {
         this(context, null);
     }
 
-    public SeslSwitchBar(Context context, AttributeSet attributeSet) {
+    public SwitchBar(Context context, AttributeSet attributeSet) {
         this(context, attributeSet, R.attr.seslSwitchBarStyle);
     }
 
-    public SeslSwitchBar(Context context, AttributeSet attributeSet, int i) {
+    public SwitchBar(Context context, AttributeSet attributeSet, int i) {
         this(context, attributeSet, i, 0);
     }
 
-    public SeslSwitchBar(Context context, AttributeSet attributeSet, int i, int i2) {
+    public SwitchBar(Context context, AttributeSet attributeSet, int i, int i2) {
         super(context, attributeSet, i, i2);
         this.mSwitchChangeListeners = new ArrayList();
         this.mSessionDesc = null;
@@ -155,15 +155,15 @@ public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnChec
         this.mOnTextColor = obtainStyledAttributes.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarTextActivatedColor, resources.getColor(R.color.sesl_switchbar_text_color));
         this.mOffTextColor = obtainStyledAttributes.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarTextColor, resources.getColor(R.color.sesl_switchbar_text_color));
         obtainStyledAttributes.recycle();
-        this.mProgressBar = (SeslProgressBar) findViewById(R.id.sesl_switchbar_progress);
+        this.mProgressBar = (ProgressBar) findViewById(R.id.sesl_switchbar_progress);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.sesl_switchbar_container);
         this.mBackground = linearLayout;
         linearLayout.setOnClickListener(new OnClickListener() {
-            /* class androidx.appcompat.widget.SeslSwitchBar.AnonymousClass1 */
+            /* class de.dlyt.yanndroid.samsung.SeslSwitchBar.AnonymousClass1 */
 
             public void onClick(View view) {
-                if (SeslSwitchBar.this.mSwitch != null && SeslSwitchBar.this.mSwitch.isEnabled()) {
-                    SeslSwitchBar.this.mSwitch.setChecked(!SeslSwitchBar.this.mSwitch.isChecked());
+                if (SwitchBar.this.mSwitch != null && SwitchBar.this.mSwitch.isEnabled()) {
+                    SwitchBar.this.mSwitch.setChecked(!SwitchBar.this.mSwitch.isChecked());
                 }
             }
         });
@@ -180,11 +180,11 @@ public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnChec
         this.mSwitch.setOnCheckedChangeListener(this);
         setSwitchBarText(this.mOnTextId, this.mOffTextId);
         addOnSwitchChangeListener(new OnSwitchChangeListener() {
-            /* class androidx.appcompat.widget.SeslSwitchBar.AnonymousClass2 */
+            /* class de.dlyt.yanndroid.samsung.SeslSwitchBar.AnonymousClass2 */
 
-            @Override // androidx.appcompat.widget.SeslSwitchBar.OnSwitchChangeListener
+            @Override // de.dlyt.yanndroid.samsung.SeslSwitchBar.OnSwitchChangeListener
             public void onSwitchChanged(SwitchCompat switchCompat, boolean z) {
-                SeslSwitchBar.this.setTextViewLabelAndBackground(z);
+                SwitchBar.this.setTextViewLabelAndBackground(z);
             }
         });
         ((MarginLayoutParams) this.mSwitch.getLayoutParams()).setMarginEnd((int) resources.getDimension(R.dimen.sesl_switchbar_margin_end));
@@ -220,7 +220,7 @@ public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnChec
     }
 
     public CharSequence getAccessibilityClassName() {
-        return SeslSwitchBar.class.getName();
+        return SwitchBar.class.getName();
     }
 
     public final SeslToggleSwitch getSwitch() {

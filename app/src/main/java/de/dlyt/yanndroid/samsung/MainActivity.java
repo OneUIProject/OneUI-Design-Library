@@ -1,6 +1,5 @@
 package de.dlyt.yanndroid.samsung;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -8,14 +7,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SeslProgressBar;
-import androidx.appcompat.widget.SeslSeekBar;
-import androidx.appcompat.widget.SeslSwitchBar;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -39,31 +34,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void demo() {
-        SeslSeekBar seslSeekBar = findViewById(R.id.seekbar1);
+        SeekBar seslSeekBar = findViewById(R.id.seekbar1);
         seslSeekBar.setMode(5);
         seslSeekBar.setOverlapPointForDualColor(70);
 
-        SeekBar seekBar = findViewById(R.id.seekbar2);
+        android.widget.SeekBar seekBar = findViewById(R.id.seekbar2);
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekBar.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            public void onProgressChanged(android.widget.SeekBar seekBar, int progress, boolean fromUser) {
                 seslSeekBar.setSecondaryProgress(progress);
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void onStartTrackingTouch(android.widget.SeekBar seekBar) {
 
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void onStopTrackingTouch(android.widget.SeekBar seekBar) {
 
             }
         });
 
-        SeslSwitchBar seslSwitchbar = findViewById(R.id.switchbar1);
-        seslSwitchbar.addOnSwitchChangeListener(new SeslSwitchBar.OnSwitchChangeListener() {
+        SwitchBar seslSwitchbar = findViewById(R.id.switchbar1);
+        seslSwitchbar.addOnSwitchChangeListener(new SwitchBar.OnSwitchChangeListener() {
             @Override
             public void onSwitchChanged(SwitchCompat switchCompat, boolean z) {
                 seslSwitchbar.setEnabled(false);

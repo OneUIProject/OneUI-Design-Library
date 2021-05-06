@@ -49,8 +49,9 @@ import java.util.Collections;
 import java.util.List;
 
 import de.dlyt.yanndroid.samsung.R;
+import de.dlyt.yanndroid.samsung.ProgressBar;
 
-public abstract class SeslAbsSeekBar extends SeslProgressBar {
+public abstract class SeslAbsSeekBar extends ProgressBar {
     private static final int HOVER_DETECT_TIME = 200;
     private static final int HOVER_POPUP_WINDOW_GRAVITY_CENTER_HORIZONTAL_ON_POINT = 513;
     private static final int HOVER_POPUP_WINDOW_GRAVITY_TOP_ABOVE = 12336;
@@ -79,7 +80,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
     private boolean mIsDraggingForSliding;
     private boolean mIsFirstSetProgress;
     private boolean mIsLightTheme;
-    boolean mIsSeamless;
+    public boolean mIsSeamless;
     private boolean mIsSetModeCalled;
     private boolean mIsTouchDisabled;
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
@@ -1415,7 +1416,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
 
     /* access modifiers changed from: package-private */
     @SuppressLint("RestrictedApi")
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public void drawTrack(Canvas canvas) {
         int i;
         int i2;
@@ -1466,7 +1467,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         }
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public void drawableHotspotChanged(float f, float f2) {
         super.drawableHotspotChanged(f, f2);
         Drawable drawable = this.mThumb;
@@ -1476,7 +1477,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
     }
 
     /* access modifiers changed from: protected */
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public void drawableStateChanged() {
         Drawable drawable;
         super.drawableStateChanged();
@@ -1510,7 +1511,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         }
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public CharSequence getAccessibilityClassName() {
         Log.d(TAG, "Stack:", new Throwable("stack dump"));
         return AbsSeekBar.class.getName();
@@ -1520,17 +1521,17 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         return this.mKeyProgressIncrement;
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public synchronized int getMax() {
         return this.mIsSeamless ? Math.round(((float) super.getMax()) / SCALE_FACTOR) : super.getMax();
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public synchronized int getMin() {
         return this.mIsSeamless ? Math.round(((float) super.getMin()) / SCALE_FACTOR) : super.getMin();
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public synchronized int getProgress() {
         return this.mIsSeamless ? Math.round(((float) super.getProgress()) / SCALE_FACTOR) : super.getProgress();
     }
@@ -1583,7 +1584,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         return this.mTickMarkTintMode;
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public void jumpDrawablesToCurrentState() {
         super.jumpDrawablesToCurrentState();
         Drawable drawable = this.mThumb;
@@ -1597,7 +1598,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
     }
 
     /* access modifiers changed from: protected */
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (supportIsHoveringUIEnabled()) {
@@ -1646,7 +1647,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         return super.onHoverEvent(motionEvent);
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo accessibilityNodeInfo) {
         super.onInitializeAccessibilityNodeInfo(accessibilityNodeInfo);
         if (isEnabled()) {
@@ -1720,7 +1721,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
 
 
     /* access modifiers changed from: protected */
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public synchronized void onMeasure(int i, int i2) {
         int i3;
         int i4;
@@ -1745,7 +1746,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
     }
 
     /* access modifiers changed from: package-private */
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public void onProgressRefresh(float f, boolean z, int i) {
         int i2 = (int) (10000.0f * f);
         if (!(this.mUseMuteAnimation && !this.mIsFirstSetProgress && !this.mIsDraggingForSliding) || this.mCurrentProgressLevel == 0 || i2 != 0) {
@@ -1764,7 +1765,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         startMuteAnimation();
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public void onResolveDrawables(int i) {
         super.onResolveDrawables(i);
@@ -1784,14 +1785,14 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
     }
 
     /* access modifiers changed from: protected */
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public void onSizeChanged(int i, int i2, int i3, int i4) {
         super.onSizeChanged(i, i2, i3, i4);
         updateThumbAndTrackPos(i, i2);
     }
 
     /* access modifiers changed from: protected */
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public void onSlidingRefresh(int i) {
         super.onSlidingRefresh(i);
@@ -1902,7 +1903,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
 
 
     /* access modifiers changed from: package-private */
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public void onVisualProgressChanged(int i, float f) {
         Drawable drawable;
         super.onVisualProgressChanged(i, f);
@@ -1960,7 +1961,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         this.mKeyProgressIncrement = i;
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public synchronized void setMax(int i) {
         if (this.mIsSeamless) {
             i = Math.round(((float) i) * SCALE_FACTOR);
@@ -1973,7 +1974,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         }
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public synchronized void setMin(int i) {
         if (this.mIsSeamless) {
             i = Math.round(((float) i) * SCALE_FACTOR);
@@ -1985,7 +1986,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         }
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public void setMode(int i) {
         if (this.mCurrentMode != i || !this.mIsSetModeCalled) {
             super.setMode(i);
@@ -2038,7 +2039,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         }
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public synchronized void setProgress(int i) {
         if (this.mIsSeamless) {
             i = Math.round(((float) i) * SCALE_FACTOR);
@@ -2046,13 +2047,13 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         super.setProgress(i);
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public void setProgressDrawable(Drawable drawable) {
         super.setProgressDrawable(drawable);
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public boolean setProgressInternal(int i, boolean z, boolean z2) {
         boolean progressInternal = super.setProgressInternal(i, z, z2);
@@ -2061,7 +2062,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         return progressInternal;
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public void setProgressTintList(@Nullable ColorStateList colorStateList) {
         super.setProgressTintList(colorStateList);
@@ -2085,7 +2086,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         }
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public synchronized void setSecondaryProgress(int i) {
         if (this.mIsSeamless) {
             i = Math.round(((float) i) * SCALE_FACTOR);
@@ -2192,7 +2193,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
     }
 
     /* access modifiers changed from: protected */
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public void updateDrawableBounds(int i, int i2) {
         super.updateDrawableBounds(i, i2);
@@ -2207,7 +2208,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
     }
 
     /* access modifiers changed from: protected */
-    @Override // androidx.appcompat.widget.SeslProgressBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public boolean verifyDrawable(@NonNull Drawable drawable) {
         return drawable == this.mThumb || drawable == this.mTickMark || super.verifyDrawable(drawable);
     }

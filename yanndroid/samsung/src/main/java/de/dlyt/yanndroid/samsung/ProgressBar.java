@@ -1,4 +1,4 @@
-package androidx.appcompat.widget;
+package de.dlyt.yanndroid.samsung;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
@@ -32,7 +32,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.Transformation;
-import android.widget.ProgressBar;
 import android.widget.RemoteViews;
 
 import androidx.Styleable;
@@ -41,6 +40,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.RestrictTo;
+import androidx.appcompat.widget.DrawableUtils;
+import androidx.appcompat.widget.ViewUtils;
 import androidx.core.app.NotificationCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.util.Pools;
@@ -52,10 +53,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
-import de.dlyt.yanndroid.samsung.R;
-
 @RemoteViews.RemoteView
-public class SeslProgressBar extends View {
+public class ProgressBar extends View {
     private static final int MAX_LEVEL = 10000;
     public static final int MODE_DUAL_COLOR = 2;
     public static final int MODE_EXPAND = 5;
@@ -68,7 +67,7 @@ public class SeslProgressBar extends View {
     private static final int PROGRESS_ANIM_DURATION = 80;
     private static final DecelerateInterpolator PROGRESS_ANIM_INTERPOLATOR = new DecelerateInterpolator();
     private static final int TIMEOUT_SEND_ACCESSIBILITY_EVENT = 200;
-    private final FloatProperty<SeslProgressBar> VISUAL_PROGRESS;
+    private final FloatProperty<ProgressBar> VISUAL_PROGRESS;
     private AccessibilityEventSender mAccessibilityEventSender;
     private boolean mAggregatedIsVisible;
     private AlphaAnimation mAnimation;
@@ -87,17 +86,22 @@ public class SeslProgressBar extends View {
     private Interpolator mInterpolator;
     private int mMax;
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    public
     int mMaxHeight;
     private boolean mMaxInitialized;
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    public
     int mMaxWidth;
     private int mMin;
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    public
     int mMinHeight;
     private boolean mMinInitialized;
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    public
     int mMinWidth;
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    public
     boolean mMirrorForRtl;
     private boolean mNoInvalidate;
     private boolean mOnlyIndeterminate;
@@ -121,7 +125,7 @@ public class SeslProgressBar extends View {
         }
 
         public void run() {
-            SeslProgressBar.this.sendAccessibilityEvent(4);
+            ProgressBar.this.sendAccessibilityEvent(4);
         }
     }
 
@@ -183,15 +187,15 @@ public class SeslProgressBar extends View {
         }
 
         public void run() {
-            synchronized (SeslProgressBar.this) {
-                int size = SeslProgressBar.this.mRefreshData.size();
+            synchronized (ProgressBar.this) {
+                int size = ProgressBar.this.mRefreshData.size();
                 for (int i = 0; i < size; i++) {
-                    RefreshData refreshData = (RefreshData) SeslProgressBar.this.mRefreshData.get(i);
-                    SeslProgressBar.this.doRefreshProgress(refreshData.id, refreshData.progress, refreshData.fromUser, true, refreshData.animate);
+                    RefreshData refreshData = (RefreshData) ProgressBar.this.mRefreshData.get(i);
+                    ProgressBar.this.doRefreshProgress(refreshData.id, refreshData.progress, refreshData.fromUser, true, refreshData.animate);
                     refreshData.recycle();
                 }
-                SeslProgressBar.this.mRefreshData.clear();
-                SeslProgressBar.this.mRefreshIsPosted = false;
+                ProgressBar.this.mRefreshData.clear();
+                ProgressBar.this.mRefreshIsPosted = false;
             }
         }
     }
@@ -200,7 +204,7 @@ public class SeslProgressBar extends View {
     public static class SavedState extends BaseSavedState {
         @NonNull
         public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-            /* class androidx.appcompat.widget.SeslProgressBar.SavedState.AnonymousClass1 */
+            /* class de.dlyt.yanndroid.samsung.SeslProgressBar.SavedState.AnonymousClass1 */
 
             @Override // android.os.Parcelable.Creator
             public SavedState createFromParcel(Parcel parcel) {
@@ -267,34 +271,34 @@ public class SeslProgressBar extends View {
         }
     }
 
-    public SeslProgressBar(Context context) {
+    public ProgressBar(Context context) {
         this(context, null);
     }
 
-    public SeslProgressBar(Context context, AttributeSet attributeSet) {
+    public ProgressBar(Context context, AttributeSet attributeSet) {
         this(context, attributeSet, 16842871);
     }
 
-    public SeslProgressBar(Context context, AttributeSet attributeSet, int i) {
+    public ProgressBar(Context context, AttributeSet attributeSet, int i) {
         this(context, attributeSet, i, 0);
     }
 
     @SuppressLint("RestrictedApi")
-    public SeslProgressBar(Context context, AttributeSet attributeSet, int i, int i2) {
+    public ProgressBar(Context context, AttributeSet attributeSet, int i, int i2) {
         super(context, attributeSet, i, i2);
         boolean z = false;
         this.mCurrentMode = 0;
         this.mSampleWidth = 0;
         this.mMirrorForRtl = false;
         this.mRefreshData = new ArrayList<>();
-        this.VISUAL_PROGRESS = new FloatProperty<SeslProgressBar>("visual_progress") {
-            /* class androidx.appcompat.widget.SeslProgressBar.AnonymousClass1 */
+        this.VISUAL_PROGRESS = new FloatProperty<ProgressBar>("visual_progress") {
+            /* class de.dlyt.yanndroid.samsung.SeslProgressBar.AnonymousClass1 */
 
-            public Float get(SeslProgressBar seslProgressBar) {
+            public Float get(ProgressBar seslProgressBar) {
                 return Float.valueOf(seslProgressBar.mVisualProgress);
             }
 
-            public void setValue(SeslProgressBar seslProgressBar, float f) {
+            public void setValue(ProgressBar seslProgressBar, float f) {
                 seslProgressBar.setVisualProgress(R.id.progress, f);
                 seslProgressBar.mVisualProgress = f;
             }
@@ -846,7 +850,7 @@ public class SeslProgressBar extends View {
     }
 
     public CharSequence getAccessibilityClassName() {
-        return ProgressBar.class.getName();
+        return android.widget.ProgressBar.class.getName();
     }
 
     @Nullable

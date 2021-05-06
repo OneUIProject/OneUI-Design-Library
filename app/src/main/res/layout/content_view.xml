@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
 
-    <androidx.appcompat.widget.SeslSwitchBar
+    <de.dlyt.yanndroid.samsung.SwitchBar
         android:id="@+id/switchbar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -33,19 +33,19 @@
             android:layout_marginVertical="10dp"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.SeslSeekBar
+            <de.dlyt.yanndroid.samsung.SeekBar
                 android:id="@+id/seekbar1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <androidx.appcompat.widget.SeslProgressBar
+            <de.dlyt.yanndroid.samsung.ProgressBar
                 android:indeterminate="true"
                 style="@style/ProgressBarStyle.Horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 
 
-            <androidx.appcompat.widget.SeslProgressBar
+            <de.dlyt.yanndroid.samsung.ProgressBar
                 style="@style/ProgressBarStyle.Circle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

@@ -1,55 +1,53 @@
-package androidx.appcompat.widget;
+package de.dlyt.yanndroid.samsung;
 
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.SeekBar;
 
 import androidx.annotation.RestrictTo;
+import androidx.appcompat.widget.SeslAbsSeekBar;
 
-import de.dlyt.yanndroid.samsung.R;
-
-public class SeslSeekBar extends SeslAbsSeekBar {
+public class SeekBar extends SeslAbsSeekBar {
     private int mOldValue;
     private OnSeekBarChangeListener mOnSeekBarChangeListener;
     private OnSeekBarHoverListener mOnSeekBarHoverListener;
 
     public interface OnSeekBarChangeListener {
-        void onProgressChanged(SeslSeekBar seslSeekBar, int i, boolean z);
+        void onProgressChanged(SeekBar seslSeekBar, int i, boolean z);
 
-        void onStartTrackingTouch(SeslSeekBar seslSeekBar);
+        void onStartTrackingTouch(SeekBar seslSeekBar);
 
-        void onStopTrackingTouch(SeslSeekBar seslSeekBar);
+        void onStopTrackingTouch(SeekBar seslSeekBar);
     }
 
     public interface OnSeekBarHoverListener {
-        void onHoverChanged(SeslSeekBar seslSeekBar, int i, boolean z);
+        void onHoverChanged(SeekBar seslSeekBar, int i, boolean z);
 
-        void onStartTrackingHover(SeslSeekBar seslSeekBar, int i);
+        void onStartTrackingHover(SeekBar seslSeekBar, int i);
 
-        void onStopTrackingHover(SeslSeekBar seslSeekBar);
+        void onStopTrackingHover(SeekBar seslSeekBar);
     }
 
-    public SeslSeekBar(Context context) {
+    public SeekBar(Context context) {
         this(context, null);
     }
 
-    public SeslSeekBar(Context context, AttributeSet attributeSet) {
+    public SeekBar(Context context, AttributeSet attributeSet) {
         this(context, attributeSet, R.attr.seekBarStyle);
     }
 
-    public SeslSeekBar(Context context, AttributeSet attributeSet, int i) {
+    public SeekBar(Context context, AttributeSet attributeSet, int i) {
         this(context, attributeSet, i, 0);
     }
 
-    public SeslSeekBar(Context context, AttributeSet attributeSet, int i, int i2) {
+    public SeekBar(Context context, AttributeSet attributeSet, int i, int i2) {
         super(context, attributeSet, i, i2);
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar, androidx.appcompat.widget.SeslAbsSeekBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar, androidx.appcompat.widget.SeslAbsSeekBar
     public CharSequence getAccessibilityClassName() {
-        return SeekBar.class.getName();
+        return android.widget.SeekBar.class.getName();
     }
 
     /* access modifiers changed from: package-private */
@@ -63,7 +61,7 @@ public class SeslSeekBar extends SeslAbsSeekBar {
         super.onHoverChanged(i, i2, i3);
     }
 
-    @Override // androidx.appcompat.widget.SeslProgressBar, androidx.appcompat.widget.SeslAbsSeekBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar, androidx.appcompat.widget.SeslAbsSeekBar
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo accessibilityNodeInfo) {
         super.onInitializeAccessibilityNodeInfo(accessibilityNodeInfo);
         if (Build.VERSION.SDK_INT >= 24 && canUserSetProgress()) {
@@ -72,7 +70,7 @@ public class SeslSeekBar extends SeslAbsSeekBar {
     }
 
     /* access modifiers changed from: package-private */
-    @Override // androidx.appcompat.widget.SeslProgressBar, androidx.appcompat.widget.SeslAbsSeekBar
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar, androidx.appcompat.widget.SeslAbsSeekBar
     public void onProgressRefresh(float f, boolean z, int i) {
         super.onProgressRefresh(f, z, i);
         if (!this.mIsSeamless) {
