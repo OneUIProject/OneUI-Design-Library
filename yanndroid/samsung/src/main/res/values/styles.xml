@@ -2,7 +2,7 @@
 <resources>
 
     <!--Main-->
-    <style name="Main">
+    <style name="SamsungMain">
         <item name="colorAccent">@color/accent_material</item>
         <item name="colorBackgroundFloating">@color/sesl_background_floating</item>
         <item name="colorControlActivated">@color/sesl_control_activated_color</item>
@@ -13,14 +13,6 @@
         <item name="colorSecondary">@color/sesl_secondary_color</item>
         <item name="colorPrimaryDark">@color/sesl_primary_dark_color</item>
 
-        <!--<item name="android:progressBarStyle">@style/ProgressBarStyle.Circle</item>
-        <item name="android:progressBarStyleHorizontal">@style/ProgressBarStyle.Horizontal</item>
-        <item name="android:progressBarStyleSmall">@style/ProgressBarStyle.Circle.Small</item>
-        <item name="android:progressBarStyleLarge">@style/ProgressBarStyle.Circle.Large</item>
-        <item name="android:progressBarStyleSmallTitle">@style/ProgressBarStyle.Circle.Title</item>
-        <item name="android:progressBarStyleInverse">@style/ProgressBarStyle.Circle</item>
-        <item name="android:progressBarStyleSmallInverse">@style/ProgressBarStyle.Circle.Small</item>
-        <item name="android:progressBarStyleLargeInverse">@style/ProgressBarStyle.Circle.Large</item>-->
         <item name="progressActivatedColor">@color/sesl_progress_control_color_activated</item>
         <item name="progressNormalColor">@color/sesl_progress_control_color_normal</item>
 

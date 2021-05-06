@@ -27,6 +27,8 @@ import android.view.ViewConfiguration;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.animation.LinearInterpolator;
 import android.widget.AbsSeekBar;
+
+import androidx.Styleable;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,12 +43,12 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.reflect.view.SeslViewReflector;
 import androidx.reflect.widget.SeslHoverPopupWindowReflector;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import de.dlyt.yanndroid.samsung.R;
-import de.dlyt.yanndroid.samsung.RdotStyleable;
 
 public abstract class SeslAbsSeekBar extends SeslProgressBar {
     private static final int HOVER_DETECT_TIME = 200;
@@ -133,7 +135,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         private final float mSliderMinWidth;
         private final SliderState mState;
 
-        private class SliderState extends Drawable.ConstantState {
+        private class SliderState extends ConstantState {
             private SliderState() {
             }
 
@@ -248,7 +250,7 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         }
 
         @Nullable
-        public Drawable.ConstantState getConstantState() {
+        public ConstantState getConstantState() {
             return this.mState;
         }
 
@@ -607,42 +609,42 @@ public abstract class SeslAbsSeekBar extends SeslProgressBar {
         this.mPreviousHoverPopupType = 0;
         this.mIsSetModeCalled = false;
         this.mIsSeamless = false;
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, RdotStyleable.styleable.AppCompatSeekBar, i, i2);
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, Styleable.styleable.AppCompatSeekBar, i, i2);
         if (Build.VERSION.SDK_INT >= 29) {
-            saveAttributeDataForStyleable(context, RdotStyleable.styleable.AppCompatSeekBar, attributeSet, obtainStyledAttributes, i, i2);
+            saveAttributeDataForStyleable(context, Styleable.styleable.AppCompatSeekBar, attributeSet, obtainStyledAttributes, i, i2);
         }
         Resources resources = context.getResources();
-        setThumb(obtainStyledAttributes.getDrawable(RdotStyleable.styleable.AppCompatSeekBar_android_thumb));
-        if (obtainStyledAttributes.hasValue(RdotStyleable.styleable.AppCompatSeekBar_android_thumbTintMode)) {
-            this.mThumbTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(RdotStyleable.styleable.AppCompatSeekBar_android_thumbTintMode, -1), this.mThumbTintMode);
+        setThumb(obtainStyledAttributes.getDrawable(Styleable.styleable.AppCompatSeekBar_android_thumb));
+        if (obtainStyledAttributes.hasValue(Styleable.styleable.AppCompatSeekBar_android_thumbTintMode)) {
+            this.mThumbTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(Styleable.styleable.AppCompatSeekBar_android_thumbTintMode, -1), this.mThumbTintMode);
             this.mHasThumbTintMode = true;
         }
-        if (obtainStyledAttributes.hasValue(RdotStyleable.styleable.AppCompatSeekBar_android_thumbTint)) {
-            this.mThumbTintList = obtainStyledAttributes.getColorStateList(RdotStyleable.styleable.AppCompatSeekBar_android_thumbTint);
+        if (obtainStyledAttributes.hasValue(Styleable.styleable.AppCompatSeekBar_android_thumbTint)) {
+            this.mThumbTintList = obtainStyledAttributes.getColorStateList(Styleable.styleable.AppCompatSeekBar_android_thumbTint);
             this.mHasThumbTint = true;
         }
-        setTickMark(obtainStyledAttributes.getDrawable(RdotStyleable.styleable.AppCompatSeekBar_tickMark));
-        if (obtainStyledAttributes.hasValue(RdotStyleable.styleable.AppCompatSeekBar_tickMarkTintMode)) {
-            this.mTickMarkTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(RdotStyleable.styleable.AppCompatSeekBar_tickMarkTintMode, -1), this.mTickMarkTintMode);
+        setTickMark(obtainStyledAttributes.getDrawable(Styleable.styleable.AppCompatSeekBar_tickMark));
+        if (obtainStyledAttributes.hasValue(Styleable.styleable.AppCompatSeekBar_tickMarkTintMode)) {
+            this.mTickMarkTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(Styleable.styleable.AppCompatSeekBar_tickMarkTintMode, -1), this.mTickMarkTintMode);
             this.mHasTickMarkTintMode = true;
         }
-        if (obtainStyledAttributes.hasValue(RdotStyleable.styleable.AppCompatSeekBar_tickMarkTint)) {
-            this.mTickMarkTintList = obtainStyledAttributes.getColorStateList(RdotStyleable.styleable.AppCompatSeekBar_tickMarkTint);
+        if (obtainStyledAttributes.hasValue(Styleable.styleable.AppCompatSeekBar_tickMarkTint)) {
+            this.mTickMarkTintList = obtainStyledAttributes.getColorStateList(Styleable.styleable.AppCompatSeekBar_tickMarkTint);
             this.mHasTickMarkTint = true;
         }
-        this.mSplitTrack = obtainStyledAttributes.getBoolean(RdotStyleable.styleable.AppCompatSeekBar_android_splitTrack, false);
-        this.mTrackMinWidth = obtainStyledAttributes.getDimensionPixelSize(RdotStyleable.styleable.AppCompatSeekBar_seslTrackMinWidth, Math.round(resources.getDimension(R.dimen.sesl_seekbar_track_height)));
-        this.mTrackMaxWidth = obtainStyledAttributes.getDimensionPixelSize(RdotStyleable.styleable.AppCompatSeekBar_seslTrackMaxWidth, Math.round(resources.getDimension(R.dimen.sesl_seekbar_track_height_expand)));
-        this.mThumbRadius = obtainStyledAttributes.getDimensionPixelSize(RdotStyleable.styleable.AppCompatSeekBar_seslThumbRadius, Math.round(resources.getDimension(R.dimen.sesl_seekbar_thumb_radius)));
-        setThumbOffset(obtainStyledAttributes.getDimensionPixelOffset(RdotStyleable.styleable.AppCompatSeekBar_android_thumbOffset, getThumbOffset()));
-        if (obtainStyledAttributes.hasValue(RdotStyleable.styleable.AppCompatSeekBar_seslSeekBarMode)) {
-            this.mCurrentMode = obtainStyledAttributes.getInt(RdotStyleable.styleable.AppCompatSeekBar_seslSeekBarMode, 0);
+        this.mSplitTrack = obtainStyledAttributes.getBoolean(Styleable.styleable.AppCompatSeekBar_android_splitTrack, false);
+        this.mTrackMinWidth = obtainStyledAttributes.getDimensionPixelSize(Styleable.styleable.AppCompatSeekBar_seslTrackMinWidth, Math.round(resources.getDimension(R.dimen.sesl_seekbar_track_height)));
+        this.mTrackMaxWidth = obtainStyledAttributes.getDimensionPixelSize(Styleable.styleable.AppCompatSeekBar_seslTrackMaxWidth, Math.round(resources.getDimension(R.dimen.sesl_seekbar_track_height_expand)));
+        this.mThumbRadius = obtainStyledAttributes.getDimensionPixelSize(Styleable.styleable.AppCompatSeekBar_seslThumbRadius, Math.round(resources.getDimension(R.dimen.sesl_seekbar_thumb_radius)));
+        setThumbOffset(obtainStyledAttributes.getDimensionPixelOffset(Styleable.styleable.AppCompatSeekBar_android_thumbOffset, getThumbOffset()));
+        if (obtainStyledAttributes.hasValue(Styleable.styleable.AppCompatSeekBar_seslSeekBarMode)) {
+            this.mCurrentMode = obtainStyledAttributes.getInt(Styleable.styleable.AppCompatSeekBar_seslSeekBarMode, 0);
         }
-        boolean z = obtainStyledAttributes.getBoolean(RdotStyleable.styleable.AppCompatSeekBar_useDisabledAlpha, true);
+        boolean z = obtainStyledAttributes.getBoolean(Styleable.styleable.AppCompatSeekBar_useDisabledAlpha, true);
         obtainStyledAttributes.recycle();
         if (z) {
             TypedArray obtainStyledAttributes2 = context.obtainStyledAttributes(attributeSet, R.styleable.AppCompatTheme, 0, 0);
-            this.mDisabledAlpha = obtainStyledAttributes2.getFloat(RdotStyleable.styleable.AppCompatTheme_android_disabledAlpha, 0.5f);
+            this.mDisabledAlpha = obtainStyledAttributes2.getFloat(Styleable.styleable.AppCompatTheme_android_disabledAlpha, 0.5f);
             obtainStyledAttributes2.recycle();
         } else {
             this.mDisabledAlpha = 1.0f;

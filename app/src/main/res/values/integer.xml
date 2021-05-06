@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="sesl_loading_progress_anim_duration">750</integer>
-    <integer name="sesl_loading_progress_rot_duration">3000</integer>
     <integer name="splash_time">200</integer>
 </resources>

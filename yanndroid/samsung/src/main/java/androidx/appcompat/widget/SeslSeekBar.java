@@ -5,6 +5,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.SeekBar;
+
 import androidx.annotation.RestrictTo;
 
 import de.dlyt.yanndroid.samsung.R;

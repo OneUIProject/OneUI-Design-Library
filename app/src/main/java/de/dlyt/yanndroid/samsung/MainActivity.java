@@ -110,12 +110,6 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.openDrawer(drawer, true);
             }
         });
-        /*toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(drawer, true);
-            }
-        });*/
 
 
         /**Items*/

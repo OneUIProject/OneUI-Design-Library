@@ -1,6 +1,6 @@
-package de.dlyt.yanndroid.samsung;
+package androidx;
 
-public final class RdotStyleable {
+public final class Styleable {
 
     public static final class styleable {
 

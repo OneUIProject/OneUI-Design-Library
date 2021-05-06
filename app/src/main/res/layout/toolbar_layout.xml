@@ -69,7 +69,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:contentDescription="Show navigation menu"
-                    android:src="@drawable/ic_drawer" />
+                    android:src="@drawable/ic_samsung_drawer" />
 
                 <TextView
                     android:id="@+id/navigationIcon_new_badge"

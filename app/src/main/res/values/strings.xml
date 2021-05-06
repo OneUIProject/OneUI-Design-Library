@@ -2,9 +2,5 @@
     <string name="app_name">Samsung</string>
     <string name="closed" translatable="false">closed</string>
     <string name="opend" translatable="false">opend</string>
-    <string name="sesl_switch">Switch</string>
-    <string name="sesl_switchbar_off_text">Off</string>
-    <string name="sesl_switchbar_on_text">On</string>
-    <string name="sesl_font_family_regular">sec-roboto-light</string>
 
 </resources>

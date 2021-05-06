@@ -13,10 +13,11 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.Styleable;
 import androidx.annotation.ColorInt;
 import androidx.annotation.StringRes;
 import androidx.appcompat.util.SeslMisc;
@@ -29,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.dlyt.yanndroid.samsung.R;
-import de.dlyt.yanndroid.samsung.RdotStyleable;
 
 public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnCheckedChangeListener {
     private static final int SWITCH_OFF_STRING_RESOURCE_ID = R.string.sesl_switchbar_off_text;
@@ -60,8 +60,8 @@ public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnChec
     }
 
     /* access modifiers changed from: package-private */
-    public static class SavedState extends View.BaseSavedState {
-        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+    public static class SavedState extends BaseSavedState {
+        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
             /* class androidx.appcompat.widget.SeslSwitchBar.SavedState.AnonymousClass1 */
 
             @Override // android.os.Parcelable.Creator
@@ -149,16 +149,16 @@ public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnChec
         this.mSessionDesc = null;
         LayoutInflater.from(context).inflate(R.layout.sesl_switchbar, this);
         Resources resources = getResources();
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, RdotStyleable.styleable.SeslSwitchBar, i, i2);
-        this.mBackgroundColor = obtainStyledAttributes.getColor(RdotStyleable.styleable.SeslSwitchBar_seslSwitchBarBackgroundColor, resources.getColor(R.color.sesl_switchbar_off_background_color_light));
-        this.mBackgroundActivatedColor = obtainStyledAttributes.getColor(RdotStyleable.styleable.SeslSwitchBar_seslSwitchBarBackgroundActivatedColor, resources.getColor(R.color.sesl_switchbar_on_background_color_light));
-        this.mOnTextColor = obtainStyledAttributes.getColor(RdotStyleable.styleable.SeslSwitchBar_seslSwitchBarTextActivatedColor, resources.getColor(R.color.sesl_switchbar_text_color));
-        this.mOffTextColor = obtainStyledAttributes.getColor(RdotStyleable.styleable.SeslSwitchBar_seslSwitchBarTextColor, resources.getColor(R.color.sesl_switchbar_text_color));
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, Styleable.styleable.SeslSwitchBar, i, i2);
+        this.mBackgroundColor = obtainStyledAttributes.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarBackgroundColor, resources.getColor(R.color.sesl_switchbar_off_background_color_light));
+        this.mBackgroundActivatedColor = obtainStyledAttributes.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarBackgroundActivatedColor, resources.getColor(R.color.sesl_switchbar_on_background_color_light));
+        this.mOnTextColor = obtainStyledAttributes.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarTextActivatedColor, resources.getColor(R.color.sesl_switchbar_text_color));
+        this.mOffTextColor = obtainStyledAttributes.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarTextColor, resources.getColor(R.color.sesl_switchbar_text_color));
         obtainStyledAttributes.recycle();
         this.mProgressBar = (SeslProgressBar) findViewById(R.id.sesl_switchbar_progress);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.sesl_switchbar_container);
         this.mBackground = linearLayout;
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        linearLayout.setOnClickListener(new OnClickListener() {
             /* class androidx.appcompat.widget.SeslSwitchBar.AnonymousClass1 */
 
             public void onClick(View view) {
@@ -171,7 +171,7 @@ public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnChec
         this.mOffTextId = SWITCH_OFF_STRING_RESOURCE_ID;
         TextView textView = (TextView) findViewById(R.id.sesl_switchbar_text);
         this.mTextView = textView;
-        ((ViewGroup.MarginLayoutParams) textView.getLayoutParams()).setMarginStart((int) resources.getDimension(R.dimen.sesl_switchbar_margin_start));
+        ((MarginLayoutParams) textView.getLayoutParams()).setMarginStart((int) resources.getDimension(R.dimen.sesl_switchbar_margin_start));
         SeslToggleSwitch seslToggleSwitch = (SeslToggleSwitch) findViewById(R.id.sesl_switchbar_switch);
         this.mSwitch = seslToggleSwitch;
         seslToggleSwitch.setSaveEnabled(false);
@@ -187,7 +187,7 @@ public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnChec
                 SeslSwitchBar.this.setTextViewLabelAndBackground(z);
             }
         });
-        ((ViewGroup.MarginLayoutParams) this.mSwitch.getLayoutParams()).setMarginEnd((int) resources.getDimension(R.dimen.sesl_switchbar_margin_end));
+        ((MarginLayoutParams) this.mSwitch.getLayoutParams()).setMarginEnd((int) resources.getDimension(R.dimen.sesl_switchbar_margin_end));
         SwitchBarDelegate switchBarDelegate = new SwitchBarDelegate(this);
         this.mDelegate = switchBarDelegate;
         ViewCompat.setAccessibilityDelegate(this.mBackground, switchBarDelegate);
@@ -364,13 +364,13 @@ public class SeslSwitchBar extends LinearLayout implements CompoundButton.OnChec
         Resources resources = getResources();
         TextView textView = this.mTextView;
         if (textView != null) {
-            ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) textView.getLayoutParams();
+            MarginLayoutParams marginLayoutParams = (MarginLayoutParams) textView.getLayoutParams();
             marginLayoutParams.setMarginStart((int) resources.getDimension(R.dimen.sesl_switchbar_margin_start));
             this.mTextView.setLayoutParams(marginLayoutParams);
         }
         SeslToggleSwitch seslToggleSwitch = this.mSwitch;
         if (seslToggleSwitch != null) {
-            ViewGroup.MarginLayoutParams marginLayoutParams2 = (ViewGroup.MarginLayoutParams) seslToggleSwitch.getLayoutParams();
+            MarginLayoutParams marginLayoutParams2 = (MarginLayoutParams) seslToggleSwitch.getLayoutParams();
             marginLayoutParams2.setMarginEnd((int) resources.getDimension(R.dimen.sesl_switchbar_margin_end));
             this.mSwitch.setLayoutParams(marginLayoutParams2);
         }

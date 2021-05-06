@@ -34,25 +34,25 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.Transformation;
 import android.widget.ProgressBar;
 import android.widget.RemoteViews;
+
+import androidx.Styleable;
 import androidx.annotation.InterpolatorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.RestrictTo;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.math.MathUtils;
 import androidx.core.util.Pools;
 import androidx.core.view.ViewCompat;
 import androidx.reflect.graphics.drawable.SeslStateListDrawableReflector;
 import androidx.reflect.view.SeslViewReflector;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
 import de.dlyt.yanndroid.samsung.R;
-import de.dlyt.yanndroid.samsung.RdotStyleable;
 
 @RemoteViews.RemoteView
 public class SeslProgressBar extends View {
@@ -197,9 +197,9 @@ public class SeslProgressBar extends View {
     }
 
     /* access modifiers changed from: package-private */
-    public static class SavedState extends View.BaseSavedState {
+    public static class SavedState extends BaseSavedState {
         @NonNull
-        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
             /* class androidx.appcompat.widget.SeslProgressBar.SavedState.AnonymousClass1 */
 
             @Override // android.os.Parcelable.Creator
@@ -301,12 +301,12 @@ public class SeslProgressBar extends View {
         };
         this.mUiThreadId = Thread.currentThread().getId();
         initProgressBar();
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, RdotStyleable.styleable.ProgressBar, i, i2);
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, Styleable.styleable.ProgressBar, i, i2);
         if (Build.VERSION.SDK_INT >= 29) {
-            saveAttributeDataForStyleable(context, RdotStyleable.styleable.ProgressBar, attributeSet, obtainStyledAttributes, i, i2);
+            saveAttributeDataForStyleable(context, Styleable.styleable.ProgressBar, attributeSet, obtainStyledAttributes, i, i2);
         }
         this.mNoInvalidate = true;
-        Drawable drawable = obtainStyledAttributes.getDrawable(RdotStyleable.styleable.ProgressBar_android_progressDrawable);
+        Drawable drawable = obtainStyledAttributes.getDrawable(Styleable.styleable.ProgressBar_android_progressDrawable);
         if (drawable != null) {
             if (needsTileify(drawable)) {
                 setProgressDrawableTiled(drawable);
@@ -314,21 +314,21 @@ public class SeslProgressBar extends View {
                 setProgressDrawable(drawable);
             }
         }
-        this.mDuration = obtainStyledAttributes.getInt(RdotStyleable.styleable.ProgressBar_android_indeterminateDuration, this.mDuration);
-        this.mMinWidth = obtainStyledAttributes.getDimensionPixelSize(RdotStyleable.styleable.ProgressBar_android_minWidth, this.mMinWidth);
-        this.mMaxWidth = obtainStyledAttributes.getDimensionPixelSize(RdotStyleable.styleable.ProgressBar_android_maxWidth, this.mMaxWidth);
-        this.mMinHeight = obtainStyledAttributes.getDimensionPixelSize(RdotStyleable.styleable.ProgressBar_android_minHeight, this.mMinHeight);
-        this.mMaxHeight = obtainStyledAttributes.getDimensionPixelSize(RdotStyleable.styleable.ProgressBar_android_maxHeight, this.mMaxHeight);
-        this.mBehavior = obtainStyledAttributes.getInt(RdotStyleable.styleable.ProgressBar_android_indeterminateBehavior, this.mBehavior);
-        int resourceId = obtainStyledAttributes.getResourceId(RdotStyleable.styleable.ProgressBar_android_interpolator, 17432587);
+        this.mDuration = obtainStyledAttributes.getInt(Styleable.styleable.ProgressBar_android_indeterminateDuration, this.mDuration);
+        this.mMinWidth = obtainStyledAttributes.getDimensionPixelSize(Styleable.styleable.ProgressBar_android_minWidth, this.mMinWidth);
+        this.mMaxWidth = obtainStyledAttributes.getDimensionPixelSize(Styleable.styleable.ProgressBar_android_maxWidth, this.mMaxWidth);
+        this.mMinHeight = obtainStyledAttributes.getDimensionPixelSize(Styleable.styleable.ProgressBar_android_minHeight, this.mMinHeight);
+        this.mMaxHeight = obtainStyledAttributes.getDimensionPixelSize(Styleable.styleable.ProgressBar_android_maxHeight, this.mMaxHeight);
+        this.mBehavior = obtainStyledAttributes.getInt(Styleable.styleable.ProgressBar_android_indeterminateBehavior, this.mBehavior);
+        int resourceId = obtainStyledAttributes.getResourceId(Styleable.styleable.ProgressBar_android_interpolator, 17432587);
         if (resourceId > 0) {
             setInterpolator(context, resourceId);
         }
-        setMin(obtainStyledAttributes.getInt(RdotStyleable.styleable.ProgressBar_android_min, this.mMin));
-        setMax(obtainStyledAttributes.getInt(RdotStyleable.styleable.ProgressBar_android_max, this.mMax));
-        setProgress(obtainStyledAttributes.getInt(RdotStyleable.styleable.ProgressBar_android_progress, this.mProgress));
-        setSecondaryProgress(obtainStyledAttributes.getInt(RdotStyleable.styleable.ProgressBar_android_secondaryProgress, this.mSecondaryProgress));
-        Drawable drawable2 = obtainStyledAttributes.getDrawable(RdotStyleable.styleable.ProgressBar_android_indeterminateDrawable);
+        setMin(obtainStyledAttributes.getInt(Styleable.styleable.ProgressBar_android_min, this.mMin));
+        setMax(obtainStyledAttributes.getInt(Styleable.styleable.ProgressBar_android_max, this.mMax));
+        setProgress(obtainStyledAttributes.getInt(Styleable.styleable.ProgressBar_android_progress, this.mProgress));
+        setSecondaryProgress(obtainStyledAttributes.getInt(Styleable.styleable.ProgressBar_android_secondaryProgress, this.mSecondaryProgress));
+        Drawable drawable2 = obtainStyledAttributes.getDrawable(Styleable.styleable.ProgressBar_android_indeterminateDrawable);
         if (drawable2 != null) {
             if (needsTileify(drawable2)) {
                 setIndeterminateDrawableTiled(drawable2);
@@ -336,65 +336,65 @@ public class SeslProgressBar extends View {
                 setIndeterminateDrawable(drawable2);
             }
         }
-        boolean z2 = obtainStyledAttributes.getBoolean(RdotStyleable.styleable.ProgressBar_android_indeterminateOnly, this.mOnlyIndeterminate);
+        boolean z2 = obtainStyledAttributes.getBoolean(Styleable.styleable.ProgressBar_android_indeterminateOnly, this.mOnlyIndeterminate);
         this.mOnlyIndeterminate = z2;
         this.mNoInvalidate = false;
-        setIndeterminate((z2 || obtainStyledAttributes.getBoolean(RdotStyleable.styleable.ProgressBar_android_indeterminate, this.mIndeterminate)) ? true : z);
-        this.mMirrorForRtl = obtainStyledAttributes.getBoolean(RdotStyleable.styleable.ProgressBar_android_mirrorForRtl, this.mMirrorForRtl);
-        if (obtainStyledAttributes.hasValue(RdotStyleable.styleable.ProgressBar_android_progressTintMode)) {
+        setIndeterminate((z2 || obtainStyledAttributes.getBoolean(Styleable.styleable.ProgressBar_android_indeterminate, this.mIndeterminate)) ? true : z);
+        this.mMirrorForRtl = obtainStyledAttributes.getBoolean(Styleable.styleable.ProgressBar_android_mirrorForRtl, this.mMirrorForRtl);
+        if (obtainStyledAttributes.hasValue(Styleable.styleable.ProgressBar_android_progressTintMode)) {
             if (this.mProgressTintInfo == null) {
                 this.mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mProgressTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(RdotStyleable.styleable.ProgressBar_android_progressTintMode, -1), null);
+            this.mProgressTintInfo.mProgressTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(Styleable.styleable.ProgressBar_android_progressTintMode, -1), null);
             this.mProgressTintInfo.mHasProgressTintMode = true;
         }
-        if (obtainStyledAttributes.hasValue(RdotStyleable.styleable.ProgressBar_android_progressTint)) {
+        if (obtainStyledAttributes.hasValue(Styleable.styleable.ProgressBar_android_progressTint)) {
             if (this.mProgressTintInfo == null) {
                 this.mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mProgressTintList = obtainStyledAttributes.getColorStateList(RdotStyleable.styleable.ProgressBar_android_progressTint);
+            this.mProgressTintInfo.mProgressTintList = obtainStyledAttributes.getColorStateList(Styleable.styleable.ProgressBar_android_progressTint);
             this.mProgressTintInfo.mHasProgressTint = true;
         }
-        if (obtainStyledAttributes.hasValue(RdotStyleable.styleable.ProgressBar_android_progressBackgroundTintMode)) {
+        if (obtainStyledAttributes.hasValue(Styleable.styleable.ProgressBar_android_progressBackgroundTintMode)) {
             if (this.mProgressTintInfo == null) {
                 this.mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mProgressBackgroundTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(RdotStyleable.styleable.ProgressBar_android_progressBackgroundTintMode, -1), null);
+            this.mProgressTintInfo.mProgressBackgroundTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(Styleable.styleable.ProgressBar_android_progressBackgroundTintMode, -1), null);
             this.mProgressTintInfo.mHasProgressBackgroundTintMode = true;
         }
-        if (obtainStyledAttributes.hasValue(RdotStyleable.styleable.ProgressBar_android_progressBackgroundTint)) {
+        if (obtainStyledAttributes.hasValue(Styleable.styleable.ProgressBar_android_progressBackgroundTint)) {
             if (this.mProgressTintInfo == null) {
                 this.mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mProgressBackgroundTintList = obtainStyledAttributes.getColorStateList(RdotStyleable.styleable.ProgressBar_android_progressBackgroundTint);
+            this.mProgressTintInfo.mProgressBackgroundTintList = obtainStyledAttributes.getColorStateList(Styleable.styleable.ProgressBar_android_progressBackgroundTint);
             this.mProgressTintInfo.mHasProgressBackgroundTint = true;
         }
-        if (obtainStyledAttributes.hasValue(RdotStyleable.styleable.ProgressBar_android_secondaryProgressTintMode)) {
+        if (obtainStyledAttributes.hasValue(Styleable.styleable.ProgressBar_android_secondaryProgressTintMode)) {
             if (this.mProgressTintInfo == null) {
                 this.mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mSecondaryProgressTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(RdotStyleable.styleable.ProgressBar_android_secondaryProgressTintMode, -1), null);
+            this.mProgressTintInfo.mSecondaryProgressTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(Styleable.styleable.ProgressBar_android_secondaryProgressTintMode, -1), null);
             this.mProgressTintInfo.mHasSecondaryProgressTintMode = true;
         }
-        if (obtainStyledAttributes.hasValue(RdotStyleable.styleable.ProgressBar_android_secondaryProgressTint)) {
+        if (obtainStyledAttributes.hasValue(Styleable.styleable.ProgressBar_android_secondaryProgressTint)) {
             if (this.mProgressTintInfo == null) {
                 this.mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mSecondaryProgressTintList = obtainStyledAttributes.getColorStateList(RdotStyleable.styleable.ProgressBar_android_secondaryProgressTint);
+            this.mProgressTintInfo.mSecondaryProgressTintList = obtainStyledAttributes.getColorStateList(Styleable.styleable.ProgressBar_android_secondaryProgressTint);
             this.mProgressTintInfo.mHasSecondaryProgressTint = true;
         }
-        if (obtainStyledAttributes.hasValue(RdotStyleable.styleable.ProgressBar_android_indeterminateTintMode)) {
+        if (obtainStyledAttributes.hasValue(Styleable.styleable.ProgressBar_android_indeterminateTintMode)) {
             if (this.mProgressTintInfo == null) {
                 this.mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mIndeterminateTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(RdotStyleable.styleable.ProgressBar_android_indeterminateTintMode, -1), null);
+            this.mProgressTintInfo.mIndeterminateTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(Styleable.styleable.ProgressBar_android_indeterminateTintMode, -1), null);
             this.mProgressTintInfo.mHasIndeterminateTintMode = true;
         }
-        if (obtainStyledAttributes.hasValue(RdotStyleable.styleable.ProgressBar_android_indeterminateTint)) {
+        if (obtainStyledAttributes.hasValue(Styleable.styleable.ProgressBar_android_indeterminateTint)) {
             if (this.mProgressTintInfo == null) {
                 this.mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mIndeterminateTintList = obtainStyledAttributes.getColorStateList(RdotStyleable.styleable.ProgressBar_android_indeterminateTint);
+            this.mProgressTintInfo.mIndeterminateTintList = obtainStyledAttributes.getColorStateList(Styleable.styleable.ProgressBar_android_indeterminateTint);
             this.mProgressTintInfo.mHasIndeterminateTint = true;
         }
         obtainStyledAttributes.recycle();
