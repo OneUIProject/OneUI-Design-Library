@@ -28,5 +28,9 @@
     <attr name="seslTrackMinWidth" format="dimension" />
 
 
+    <declare-styleable name="SplashView">
+        <attr name="image" format="reference|color" />
+        <attr name="text" format="string" localization="suggested" />
+    </declare-styleable>
 
 </resources>
