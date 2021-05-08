@@ -15,7 +15,7 @@
         android:foreground="@drawable/rounded_corner_bottom">
 
 
-        <include layout="@layout/sesl_toolbar" />
+        <include layout="@layout/toolbar_layout" />
 
 
         <LinearLayout
