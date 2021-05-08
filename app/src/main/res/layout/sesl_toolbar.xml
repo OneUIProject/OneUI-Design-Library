@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/app_name"
+                android:text="@string/toolbar"
                 android:textSize="40sp" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -39,7 +39,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="-5dp"
                 android:gravity="center"
-                android:text="Design"
+                android:text="@string/subtitle"
                 android:textSize="20dp" />
 
         </LinearLayout>
@@ -95,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="@string/app_name" />
+                android:text="@string/toolbar" />
 
         </com.google.android.material.appbar.MaterialToolbar>
 
