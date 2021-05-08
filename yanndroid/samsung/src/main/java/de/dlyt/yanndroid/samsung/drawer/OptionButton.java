@@ -33,6 +33,9 @@ public class OptionButton extends LinearLayout {
     public OptionButton(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
+        setClickable(true);
+        setFocusable(true);
+
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.OptionButton, 0, 0);
 
         try {
@@ -57,6 +60,7 @@ public class OptionButton extends LinearLayout {
         imageview.setImageDrawable(mIcon);
         counter.setVisibility(mCounterEnabled ? VISIBLE : GONE);
         counter.setText(String.valueOf(mCounter));
+        setButtonSelected(mSelected);
 
     }
 

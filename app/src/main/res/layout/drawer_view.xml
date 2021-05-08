@@ -28,11 +28,11 @@
 
 
     <de.dlyt.yanndroid.samsung.drawer.OptionButton
-        app:counterEnabled="true"
-        app:counter="9"
         android:id="@+id/obutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:counter="0"
+        app:counterEnabled="true"
         app:icon="@drawable/ic_samsung_info"
         app:text="Samsung" />
 
