@@ -28,9 +28,18 @@
     <attr name="seslTrackMinWidth" format="dimension" />
 
 
+    <!--custom-->
+    <attr name="text" format="string" />
+    <attr name="image" format="reference|color" localization="suggested" />
+
     <declare-styleable name="SplashView">
-        <attr name="image" format="reference|color" />
-        <attr name="text" format="string" localization="suggested" />
+        <attr name="text" />
+        <attr name="image" />
+    </declare-styleable>
+
+    <declare-styleable name="OptionButton">
+        <attr name="icon" />
+        <attr name="text" />
     </declare-styleable>
 
 </resources>

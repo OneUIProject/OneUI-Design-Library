@@ -702,11 +702,7 @@ public class ProgressBar extends View {
         }
     }
 
-    /* JADX DEBUG: Failed to insert an additional move for type inference into block B:30:0x00ce */
-    /* JADX WARN: Multi-variable type inference failed */
-    /* JADX WARN: Type inference failed for: r8v0, types: [android.graphics.drawable.Drawable] */
-    /* JADX WARN: Type inference failed for: r8v1, types: [android.graphics.drawable.Drawable] */
-    /* JADX WARN: Type inference failed for: r8v4, types: [android.graphics.drawable.BitmapDrawable, android.graphics.drawable.Drawable] */
+
     private Drawable tileify(Drawable drawable, boolean z) {
         int i = 0;
         if (drawable instanceof LayerDrawable) {
