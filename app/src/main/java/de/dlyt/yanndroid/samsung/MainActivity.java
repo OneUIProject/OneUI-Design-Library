@@ -75,14 +75,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Integer[] c = {0};
         OptionButton optionButton = findViewById(R.id.obutton);
         optionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                c[0]++;
                 optionButton.toggleButtonSelected();
-                optionButton.setCounter(c[0]);
+                optionButton.setCounter(optionButton.getCounter()+1);
                 optionButton.setButtonEnabled(false);
             }
         });

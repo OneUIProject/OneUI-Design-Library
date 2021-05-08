@@ -104,6 +104,27 @@ public class OptionButton extends LinearLayout {
         return mSelected;
     }
 
+    public void setButtonEnabled(Boolean enabled) {
+        setEnabled(enabled);
+        optionbutton.setEnabled(enabled);
+        imageview.setEnabled(enabled);
+        counter.setEnabled(enabled);
+        setTextColor(mSelected);
+    }
+
+    private void setTextColor(boolean z) {
+        float f;
+        textView.setTextColor(z ? this.mOnTextColor : this.mOffTextColor);
+        if (isEnabled()) {
+            f = 1.0f;
+        } else if (!SeslMisc.isLightTheme(getContext()) || !z) {
+            f = 0.4f;
+        } else {
+            f = 0.55f;
+        }
+        textView.setAlpha(f);
+    }
+
     public void setCounter(Integer integer) {
         this.mCounter = integer;
         counter.setText(String.valueOf(mCounter));
@@ -125,27 +146,6 @@ public class OptionButton extends LinearLayout {
 
     public Boolean isCounterEnabled() {
         return mCounterEnabled;
-    }
-
-    public void setButtonEnabled(Boolean enabled) {
-        setEnabled(enabled);
-        optionbutton.setEnabled(enabled);
-        imageview.setEnabled(enabled);
-        counter.setEnabled(enabled);
-        setTextColor(mSelected);
-    }
-
-    private void setTextColor(boolean z) {
-        float f;
-        textView.setTextColor(z ? this.mOnTextColor : this.mOffTextColor);
-        if (isEnabled()) {
-            f = 1.0f;
-        } else if (!SeslMisc.isLightTheme(getContext()) || !z) {
-            f = 0.4f;
-        } else {
-            f = 0.55f;
-        }
-        textView.setAlpha(f);
     }
 
 }
