@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
@@ -39,10 +38,10 @@
                 android:layout_height="wrap_content" />
 
             <de.dlyt.yanndroid.samsung.ProgressBar
-                android:indeterminate="true"
                 style="@style/ProgressBarStyle.Horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
 
 
             <de.dlyt.yanndroid.samsung.ProgressBar
@@ -104,14 +103,14 @@
                 android:layout_height="wrap_content" />
 
             <ProgressBar
-                android:indeterminate="true"
                 style="@style/ProgressBarStyle.Horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
 
             <ProgressBar
-                android:indeterminate="true"
-                style="@style/ProgressBarStyle.Horizontal.Large" />
+                style="@style/ProgressBarStyle.Horizontal.Large"
+                android:indeterminate="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"
