@@ -24,9 +24,18 @@
         style="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:layout_marginLeft="15dp"
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="OptionButton"
         android:textSize="18dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/optionbutton_counter"
+        style="?android:attr/textAppearanceSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0" />
+
 </LinearLayout>
