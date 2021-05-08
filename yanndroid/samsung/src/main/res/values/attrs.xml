@@ -31,6 +31,7 @@
     <!--custom-->
     <attr name="text" format="string" />
     <attr name="image" format="reference|color" localization="suggested" />
+    <attr name="selected" format="boolean" />
 
     <declare-styleable name="SplashView">
         <attr name="text" />
@@ -40,6 +41,7 @@
     <declare-styleable name="OptionButton">
         <attr name="icon" />
         <attr name="text" />
+        <attr name="selected" />
     </declare-styleable>
 
 </resources>

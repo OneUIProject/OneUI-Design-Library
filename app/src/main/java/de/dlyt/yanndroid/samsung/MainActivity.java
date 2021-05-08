@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.appbar.AppBarLayout;
 
+import de.dlyt.yanndroid.samsung.drawer.OptionButton;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -27,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         initToolbar();
         initDrawer();
-
 
         demo();
 
@@ -73,6 +75,15 @@ public class MainActivity extends AppCompatActivity {
                 }, 700);
             }
         });
+
+        OptionButton optionButton = findViewById(R.id.obutton);
+        optionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                optionButton.toggleButtonSelected();
+            }
+        });
+
     }
 
 
