@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -84,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 c[0]++;
                 optionButton.toggleButtonSelected();
                 optionButton.setCounter(c[0]);
+                optionButton.setButtonEnabled(false);
             }
         });
 

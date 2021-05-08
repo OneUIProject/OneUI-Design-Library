@@ -1,6 +1,7 @@
 package de.dlyt.yanndroid.samsung.drawer;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -9,7 +10,9 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.Styleable;
 import androidx.annotation.Nullable;
+import androidx.appcompat.util.SeslMisc;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textview.MaterialTextView;
@@ -24,6 +27,11 @@ public class OptionButton extends LinearLayout {
     private Boolean mCounterEnabled;
     private Integer mCounter;
 
+
+    private int mOnTextColor;
+    private int mOffTextColor;
+
+
     private LinearLayout optionbutton;
     private MaterialTextView textView;
     private ImageView imageview;
@@ -37,16 +45,19 @@ public class OptionButton extends LinearLayout {
         setFocusable(true);
 
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.OptionButton, 0, 0);
+        mText = attr.getString(R.styleable.OptionButton_text);
+        mIcon = attr.getDrawable(R.styleable.OptionButton_icon);
+        mSelected = attr.getBoolean(R.styleable.OptionButton_selected, false);
+        mCounterEnabled = attr.getBoolean(R.styleable.OptionButton_counterEnabled, false);
+        mCounter = attr.getInteger(R.styleable.OptionButton_counter, 0);
+        attr.recycle();
 
-        try {
-            mText = attr.getString(R.styleable.OptionButton_text);
-            mIcon = attr.getDrawable(R.styleable.OptionButton_icon);
-            mSelected = attr.getBoolean(R.styleable.OptionButton_selected, false);
-            mCounterEnabled = attr.getBoolean(R.styleable.OptionButton_counterEnabled, false);
-            mCounter = attr.getInteger(R.styleable.OptionButton_counter, 0);
-        } finally {
-            attr.recycle();
-        }
+
+        TypedArray switchbar_attr = context.obtainStyledAttributes(attrs, Styleable.styleable.SeslSwitchBar, R.attr.seslSwitchBarStyle, 0);
+        mOnTextColor = switchbar_attr.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarTextActivatedColor, ContextCompat.getColor(getContext(), R.color.sesl_switchbar_text_color));
+        mOffTextColor = switchbar_attr.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarTextColor, ContextCompat.getColor(getContext(), R.color.sesl_switchbar_text_color));
+        switchbar_attr.recycle();
+
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.sesl_drawer_optionbutton, this, true);
@@ -81,7 +92,7 @@ public class OptionButton extends LinearLayout {
 
     public void setButtonSelected(Boolean selected) {
         this.mSelected = selected;
-        textView.setTextColor(ContextCompat.getColor(getContext(), mSelected ? R.color.sesl_primary_color : R.color.item_color));
+        setTextColor(mSelected);
         textView.setTypeface(null, mSelected ? Typeface.BOLD : Typeface.NORMAL);
     }
 
@@ -115,4 +126,26 @@ public class OptionButton extends LinearLayout {
     public Boolean isCounterEnabled() {
         return mCounterEnabled;
     }
+
+    public void setButtonEnabled(Boolean enabled) {
+        setEnabled(enabled);
+        optionbutton.setEnabled(enabled);
+        imageview.setEnabled(enabled);
+        counter.setEnabled(enabled);
+        setTextColor(mSelected);
+    }
+
+    private void setTextColor(boolean z) {
+        float f;
+        textView.setTextColor(z ? this.mOnTextColor : this.mOffTextColor);
+        if (isEnabled()) {
+            f = 1.0f;
+        } else if (!SeslMisc.isLightTheme(getContext()) || !z) {
+            f = 0.4f;
+        } else {
+            f = 0.55f;
+        }
+        textView.setAlpha(f);
+    }
+
 }
