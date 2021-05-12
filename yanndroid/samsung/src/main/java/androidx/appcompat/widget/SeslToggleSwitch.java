@@ -26,7 +26,7 @@ public class SeslToggleSwitch extends SwitchCompat {
         this.mOnBeforeListener = onBeforeCheckedChangeListener;
     }
 
-    @Override // androidx.appcompat.widget.SwitchCompat
+    @Override
     public void setChecked(boolean z) {
         OnBeforeCheckedChangeListener onBeforeCheckedChangeListener = this.mOnBeforeListener;
         if (onBeforeCheckedChangeListener == null || !onBeforeCheckedChangeListener.onBeforeCheckedChanged(this, z)) {

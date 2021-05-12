@@ -15,15 +15,15 @@
         android:title="Info"
         app:showAsAction="always" />
 
-    <!--<item
-        android:title="Menuitem"
-        app:showAsAction="never" />
     <item
         android:title="Menuitem"
         app:showAsAction="never" />
     <item
         android:title="Menuitem"
-        app:showAsAction="never" />-->
+        app:showAsAction="never" />
+    <item
+        android:title="Menuitem"
+        app:showAsAction="never" />
 
 
 </menu>
