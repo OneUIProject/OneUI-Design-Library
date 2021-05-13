@@ -2,6 +2,15 @@
 Samsung OneUI design for AndroidStudio
 
 Install:
+
+- gradle.properties
+```
+authToken=jp_4gl3t6mp4ncnvurik7qfa174ir
+```
+
+
+
+- build.gradle (Project: ...)
 ```
 allprojects {
     repositories {
@@ -14,6 +23,7 @@ allprojects {
 }
 ```
 
+- build.gradle (Module: ...)
 ```
 dependencies {
     implementation 'com.github.Yanndroid:SamsungDesign:1.0.0'
@@ -21,6 +31,7 @@ dependencies {
 }
 ```
 
+- AndroidManifest.xml
 ```
 <application
         ...
