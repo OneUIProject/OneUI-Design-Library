@@ -55,7 +55,7 @@
     <color name="sesl_progress_control_color_normal">@color/sesl_control_color_normal</color>
 
     <color name="progress_bar_background_color">#4d9c9c9c</color>
-    <color name="progress_bar_progress_color">#ff3e91ff</color>
+    <color name="progress_bar_progress_color">@color/sesl_secondary_color</color>
 
 
     <!--Switch-->
@@ -121,6 +121,9 @@
     <color name="sesl_spinner_item_text_color_normal_light">@color/sesl_black</color>
 
 
+
+    <!--Snackbar-->
+    <color name="sesl_design_snackbar_action_text_color">@color/sesl_secondary_color</color>
 
 
 

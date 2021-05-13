@@ -24,6 +24,9 @@
         <item name="seslSwitchBarStyle">@style/Base.Widget.AppCompat.SeslSwitchBar</item>
         <item name="seekBarStyle">@style/SeekBarStyle</item>
 
+        <item name="snackbarStyle">@style/SnackbarStyle</item>
+
+
         <item name="spinnerStyle">@style/SpinnerStyle</item>
 
 
@@ -31,10 +34,6 @@
 
 
     </style>
-
-
-    <!--Testing Theme-->
-    <style name="TestTheme" parent="android:Theme.DeviceDefault.DayNight" tools:targetApi="q" />
 
 
     <!--ProgressBar-->
@@ -238,6 +237,7 @@
     </style>
 
 
+    <!--todo-->
     <style name="SpinnerDropDownItem" parent="@android:style/Widget.Material.DropDownItem.Spinner">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.DropDownItem</item>
         <item name="android:gravity">center_vertical</item>
@@ -252,6 +252,27 @@
     </style>
 
 
+
+
+    <!--Snackbar-->
+    <style name="SnackbarStyle" parent="@android:style/Widget">
+        <item name="android:background">@drawable/sem_snackbar_frame_mtrl</item>
+        <item name="android:paddingLeft">@dimen/design_snackbar_padding_horizontal</item>
+        <item name="android:paddingRight">@dimen/design_snackbar_padding_horizontal</item>
+        <item name="android:maxWidth">@dimen/design_snackbar_max_width</item>
+        <item name="android:minWidth">@dimen/design_snackbar_min_width</item>
+        <item name="android:colorControlActivated">@color/sesl_design_snackbar_action_text_color</item>
+        <item name="actionTextColorAlpha">@dimen/design_snackbar_action_text_color_alpha</item>
+        <item name="animationMode">fade</item>
+        <item name="elevation">@dimen/design_snackbar_elevation</item>
+        <item name="maxActionInlineWidth">@dimen/design_snackbar_action_inline_max_width</item>
+    </style>
+
+
+
+    <!--Testing Theme-->
+    <style name="TestTheme0" parent="android:Theme.DeviceDefault.DayNight" tools:targetApi="q" />
+    <style name="TestTheme1" parent="android:Widget.DeviceDefault.Button" tools:targetApi="q" />
 
 
 
