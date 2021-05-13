@@ -6,8 +6,7 @@
     <color name="accent_material">@color/material_deep_teal_200</color>
     <color name="sesl_background_floating">@color/sesl_black</color>
     <color name="sesl_ripple_color">#33ffffff</color>
-    <color name="sesl_primary_color">#ff0381fe</color>
-    <color name="sesl_primary_dark_color">#ff3e91ff</color>
+    <color name="sesl_primary_dark_color">@color/sesl_secondary_color</color>
 
 
     <color name="background_color">#ff000000</color>
@@ -32,7 +31,7 @@
 
 
     <!--ProgressBar-->
-    <color name="progress_bar_progress_color">#ff3891ff</color>
+    <color name="progress_bar_progress_color">@color/sesl_primary_dark_color</color>
 
 
     <!--Spinner-->
