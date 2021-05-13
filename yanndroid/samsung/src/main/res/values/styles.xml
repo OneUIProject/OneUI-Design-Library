@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--Main-->
-    <style name="SamsungStyleMain" >
+    <style name="SamsungStyleMain">
         <item name="colorAccent">@color/accent_material</item>
         <item name="colorBackgroundFloating">@color/sesl_background_floating</item>
         <item name="colorControlActivated">@color/sesl_control_activated_color</item>
@@ -23,13 +23,10 @@
         <item name="radioButtonStyle">@style/RadioButtonStyle</item>
         <item name="seslSwitchBarStyle">@style/Base.Widget.AppCompat.SeslSwitchBar</item>
         <item name="seekBarStyle">@style/SeekBarStyle</item>
-
         <item name="snackbarStyle">@style/SnackbarStyle</item>
 
 
         <item name="spinnerStyle">@style/SpinnerStyle</item>
-
-
         <!--<item name="popupTheme">@style/TestTheme</item>-->
 
 
@@ -48,6 +45,7 @@
         <item name="android:progressDrawable">@drawable/progress_bar</item>
         <item name="android:minHeight">@dimen/progress_bar_height</item>
     </style>
+
     <style name="ProgressBarStyle.Circle" parent="@android:style/Widget.ProgressBar">
         <item name="android:maxWidth">@dimen/sesl_progress_circle_size</item>
         <item name="android:maxHeight">@dimen/sesl_progress_circle_size</item>
@@ -58,22 +56,27 @@
         <item name="android:minWidth">55.0dip</item>
         <item name="android:minHeight">55.0dip</item>
     </style>
+
     <style name="ProgressBarStyle.Horizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
-        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal
+        </item>
         <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
     </style>
+
     <style name="ProgressBarStyle.Circle.Large" parent="@style/ProgressBarStyle.Circle">
         <item name="android:maxWidth">@dimen/sesl_progress_bar_size_large</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_size_large</item>
         <item name="android:minWidth">@dimen/sesl_progress_bar_size_large</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_size_large</item>
     </style>
+
     <style name="ProgressBarStyle.Circle.Small" parent="@style/ProgressBarStyle.Circle">
         <item name="android:maxWidth">@dimen/sesl_progress_bar_size_small</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_size_small</item>
         <item name="android:minWidth">@dimen/sesl_progress_bar_size_small</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_size_small</item>
     </style>
+
     <style name="ProgressBarStyle.Circle.Title" parent="@style/ProgressBarStyle.Circle">
         <item name="android:maxWidth">@dimen/sesl_progress_bar_size_small_title</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_size_small_title</item>
@@ -120,10 +123,12 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/sesl_control_activated_color</item>
     </style>
+
     <style name="ButtonStyle.Invert">
         <item name="android:backgroundTint">@color/sesl_control_activated_color</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="ButtonStyle.Invert.Secondary">
         <item name="android:backgroundTint">@color/button_background_color</item>
         <item name="android:textColor">@color/item_color</item>
@@ -150,6 +155,7 @@
         <item name="android:orientation">vertical</item>
         <item name="android:layout_gravity">start</item>
     </style>
+
     <style name="DrawerDividerStyle">
         <item name="android:layout_marginVertical">5dp</item>
         <item name="android:layout_width">match_parent</item>
@@ -161,6 +167,7 @@
 
     <!--SwitchBar-->
     <style name="TextAppearance.AppCompat.Widget.SeslSwitchBar" parent="@style/Base.TextAppearance.AppCompat.Widget.SeslSwitchBar" />
+
     <style name="Base.TextAppearance.AppCompat.Widget.SeslSwitchBar" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">18.0sp</item>
         <item name="android:textStyle">bold</item>
@@ -169,7 +176,9 @@
     </style>
 
     <style name="Base.Widget.AppCompat.SeslSwitchBar" parent="@android:style/Widget">
-        <item name="seslSwitchBarBackgroundActivatedColor">@color/sesl_switchbar_on_background_color_dark</item>
+        <item name="seslSwitchBarBackgroundActivatedColor">
+            @color/sesl_switchbar_on_background_color_dark
+        </item>
         <item name="seslSwitchBarBackgroundColor">@color/sesl_switchbar_off_background_color</item>
         <item name="seslSwitchBarTextActivatedColor">@color/sesl_switchbar_text_color</item>
         <item name="seslSwitchBarTextColor">@color/sesl_switchbar_off_text_color</item>
@@ -182,7 +191,8 @@
         <item name="android:focusable">true</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_min_height</item>
         <item name="android:indeterminateOnly">false</item>
-        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal
+        </item>
         <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_min_height</item>
         <item name="android:thumb">@drawable/sesl_scrubber_control_anim_dark</item>
@@ -196,6 +206,7 @@
 
     <!--TextAppearance-->
     <style name="TextAppearance.AppCompat.Widget.ActionBar.Title" parent="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
     <style name="Base.TextAppearance.AppCompat.Widget.ActionBar.Title" parent="@style/TextAppearance.AppCompat.Title">
         <item name="android:textSize">@dimen/sesl_toolbar_title_text_size</item>
         <item name="android:textStyle">normal</item>
@@ -203,11 +214,14 @@
         <item name="fontFamily">sec-roboto-light</item>
         <item name="textAllCaps">false</item>
     </style>
+
     <style name="TextAppearance.AppCompat.Title" parent="@style/Base.TextAppearance.AppCompat.Title" />
+
     <style name="Base.TextAppearance.AppCompat.Title" parent="@style/Base.TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/sesl_text_size_title</item>
         <item name="android:textColor">?android:textColorPrimary</item>
     </style>
+
     <style name="Base.TextAppearance.AppCompat" parent="@android:style/TextAppearance">
         <item name="android:textSize">@dimen/sesl_text_size_body_1</item>
         <item name="android:textColor">?android:textColorPrimary</item>
@@ -231,6 +245,7 @@
         <item name="android:popupElevation">@dimen/sesl_menu_popup_elevation</item>
         <item name="overlapAnchor">true</item>
     </style>
+
     <style name="Base.Animation.AppCompat.ListPopup" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/sesl_list_popup_enter</item>
         <item name="android:windowExitAnimation">@anim/sesl_list_popup_exit</item>
@@ -239,7 +254,8 @@
 
     <!--todo-->
     <style name="SpinnerDropDownItem" parent="@android:style/Widget.Material.DropDownItem.Spinner">
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.DropDownItem</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.DropDownItem
+        </item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingTop">@dimen/sesl_popup_menu_item_top_padding</item>
         <item name="android:paddingBottom">@dimen/sesl_popup_menu_item_bottom_padding</item>
@@ -252,8 +268,6 @@
     </style>
 
 
-
-
     <!--Snackbar-->
     <style name="SnackbarStyle" parent="@android:style/Widget">
         <item name="android:background">@drawable/sem_snackbar_frame_mtrl</item>
@@ -261,7 +275,8 @@
         <item name="android:paddingRight">@dimen/design_snackbar_padding_horizontal</item>
         <item name="android:maxWidth">@dimen/design_snackbar_max_width</item>
         <item name="android:minWidth">@dimen/design_snackbar_min_width</item>
-        <item name="android:colorControlActivated">@color/sesl_design_snackbar_action_text_color</item>
+        <item name="android:colorControlActivated">@color/sesl_design_snackbar_action_text_color
+        </item>
         <item name="actionTextColorAlpha">@dimen/design_snackbar_action_text_color_alpha</item>
         <item name="animationMode">fade</item>
         <item name="elevation">@dimen/design_snackbar_elevation</item>
@@ -269,11 +284,10 @@
     </style>
 
 
-
     <!--Testing Theme-->
     <style name="TestTheme0" parent="android:Theme.DeviceDefault.DayNight" tools:targetApi="q" />
-    <style name="TestTheme1" parent="android:Widget.DeviceDefault.Button" tools:targetApi="q" />
 
+    <style name="TestTheme1" parent="android:Widget.DeviceDefault.Button" tools:targetApi="q" />
 
 
 </resources>
