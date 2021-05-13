@@ -2,7 +2,6 @@
 Samsung OneUI design for AndroidStudio
 
 Install:
-1)
 ```
 allprojects {
     repositories {
@@ -15,7 +14,6 @@ allprojects {
 }
 ```
 
-2)
 ```
 dependencies {
     implementation 'com.github.Yanndroid:SamsungDesign:1.0.0'
@@ -23,7 +21,6 @@ dependencies {
 }
 ```
 
-3)
 ```
 <application
         ...
