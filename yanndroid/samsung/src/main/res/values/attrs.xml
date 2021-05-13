@@ -27,6 +27,13 @@
     <attr name="seslTrackMaxWidth" format="dimension" />
     <attr name="seslTrackMinWidth" format="dimension" />
 
+    <attr name="checkMarkGravity">
+        <flag name="end" value="0x00800005" />
+        <flag name="left" value="0x00000003" />
+        <flag name="right" value="0x00000005" />
+        <flag name="start" value="0x00800003" />
+    </attr>
+
 
     <!--custom-->
     <attr name="text" format="string" />

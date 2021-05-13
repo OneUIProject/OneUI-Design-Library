@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:tint="@color/sesl_spinner_dropdown_item_checkmark" android:height="20.0dip" android:width="20.0dip" android:viewportWidth="60.0" android:viewportHeight="60.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#ff000000" android:pathData="M57.8396,13.2829C56.9606,12.4039 55.5326,12.4069 54.6566,13.2859L25.3796,42.6559C25.1846,42.8449 24.9626,42.8749 24.8456,42.8749C24.7316,42.8749 24.5066,42.8449 24.3146,42.6559L5.3456,23.6269C4.4666,22.7449 3.0416,22.7449 2.1626,23.6209C1.2806,24.4999 1.2776,25.9249 2.1566,26.8039L21.1286,45.8329C22.1216,46.8289 23.4416,47.3749 24.8456,47.3749C26.2526,47.3749 27.5726,46.8289 28.5626,45.8329L57.8456,16.4659C58.7216,15.5839 58.7186,14.1589 57.8396,13.2829" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="nonZero" />
+</vector>

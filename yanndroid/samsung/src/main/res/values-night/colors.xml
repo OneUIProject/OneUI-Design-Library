@@ -35,6 +35,11 @@
     <color name="progress_bar_progress_color">#ff3891ff</color>
 
 
+    <!--Spinner-->
+    <color name="sesl_menu_popup_background_color">#ff252525</color>
+    <color name="sesl_menu_popup_background_stroke_color">#ff252525</color>
+
+
     <!--Others-->
     <color name="button_background_color">#4d555555</color>
     <color name="button_ripple_color">#515151</color>

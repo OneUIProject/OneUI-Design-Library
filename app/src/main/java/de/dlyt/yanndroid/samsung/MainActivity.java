@@ -6,7 +6,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -17,6 +19,9 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.appbar.AppBarLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.dlyt.yanndroid.samsung.drawer.OptionButton;
 
@@ -84,6 +89,16 @@ public class MainActivity extends AppCompatActivity {
                 optionButton.setButtonEnabled(false);
             }
         });
+
+
+        Spinner spinner = findViewById(R.id.spinner);
+        List<String> categories = new ArrayList<String>();
+        categories.add("Item 1");
+        categories.add("Item 2");
+        categories.add("Item 3");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
 
     }
 
