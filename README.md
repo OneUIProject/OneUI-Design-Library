@@ -3,7 +3,8 @@ Samsung OneUI design for AndroidStudio
 
 Install:
 1)
-`allprojects {
+```
+allprojects {
     repositories {
         ...
         maven {
@@ -11,18 +12,23 @@ Install:
             credentials { username authToken }
         }
     }
-}`
+}
+```
 
 2)
-`dependencies {
+```
+dependencies {
     implementation 'com.github.Yanndroid:SamsungDesign:1.0.0'
     ...
-}`
+}
+```
 
 3)
-`<application
+```
+<application
         ...
         android:theme="@style/SamsungTheme"
         >
         ...
-    </application>`
+    </application>
+```
