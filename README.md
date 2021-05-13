@@ -5,7 +5,7 @@ Install:
 
 - gradle.properties
 ```
-authToken=jp_4gl3t6mp4ncnvurik7qfa174ir
+authToken=.....
 ```
 
 
