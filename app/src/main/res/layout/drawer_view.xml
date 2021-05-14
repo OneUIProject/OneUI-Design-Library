@@ -51,4 +51,51 @@
         app:selected="true"
         app:text="Test" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.dlyt.yanndroid.samsung.SeekBar
+            android:paddingVertical="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            app:seslSeekBarMode="vertical" />
+
+        <de.dlyt.yanndroid.samsung.SeekBar
+            android:paddingVertical="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            app:seslSeekBarMode="expand_vertical" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <de.dlyt.yanndroid.samsung.SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:seslSeekBarMode="expand" />
+
+        <de.dlyt.yanndroid.samsung.SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:seslSeekBarMode="split" />
+
+        <de.dlyt.yanndroid.samsung.SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:seslSeekBarMode="standard" />
+
+        <de.dlyt.yanndroid.samsung.SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:seslSeekBarMode="warning" />
+
+    </LinearLayout>
+
 </LinearLayout>
