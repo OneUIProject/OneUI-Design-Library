@@ -44,34 +44,33 @@ dependencies {
 
 
 
-[v] Cardview
-[v] Button
-[v] Checkbox
-[v] Switch 
-[v] Radiobutton
-[v] Switchbar
-[v] Progressbar circle
-[v] Progressbar Horizontal
-[v] Seekbar
-[v] Seekbar (smusic)
-[v] Drawer
-[v] Drawer divider
-[  ] Color picker
-[v] Collapsing Toolbar
-[v] Textview
-[  ] Edittext
-[  ] Menu
-[  ] Dialog
-[  ] Bottomsheet
-[  ] (Snackbar)
-[  ] Spinner
-[  ] Tablayout (snote)
-[  ] Viewpager
-[  ] Landscape 
-[  ] Preferences
-[  ] Tooltip
-Sesl:
-[v] ToggleSwitch
-[v] Progressbar
-[v] Switchbar
-[v] Seekbar
+[x] Cardview
+[x] Button
+[x] Checkbox
+[x] Switch 
+[x] Radiobutton
+[x] Switchbar
+[x] Progressbar circle
+[x] Progressbar Horizontal
+[x] Seekbar
+[x] Seekbar (smusic)
+[x] Drawer
+[x] Drawer divider
+[] Color picker
+[x] Collapsing Toolbar
+[x] Textview
+[] Edittext
+[] Menu
+[] Dialog
+[] Bottomsheet
+[] (Snackbar)
+[] Spinner
+[] Tablayout (snote)
+[] Viewpager
+[] Landscape 
+[] Preferences
+[] Tooltip
+[x] SeslToggleSwitch
+[x] SeslProgressbar
+[x] SeslSwitchbar
+[x] SeslSeekbar
