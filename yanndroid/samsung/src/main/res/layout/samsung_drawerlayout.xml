@@ -13,16 +13,24 @@
         android:foreground="@drawable/rounded_corner_bottom">
 
 
-        <LinearLayout
-            android:id="@+id/main_container"
+        <de.dlyt.yanndroid.samsung.layout.ToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            app:navigationIcon="@drawable/ic_samsung_drawer"
+            app:subtitle="BlaBla"
+            app:title="Samsung">
 
-            <!--main content with toolbar-->
+            <LinearLayout
+                android:id="@+id/main_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <!--main content with toolbar-->
 
+            </LinearLayout>
+
+        </de.dlyt.yanndroid.samsung.layout.ToolbarLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
