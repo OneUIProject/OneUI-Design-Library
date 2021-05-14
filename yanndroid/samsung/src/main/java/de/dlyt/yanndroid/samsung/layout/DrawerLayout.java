@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.samsung;
+package de.dlyt.yanndroid.samsung.layout;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.content.ContextWrapper;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.content.ContextCompat;
+
+import de.dlyt.yanndroid.samsung.R;
 
 public class DrawerLayout extends LinearLayout {
 
@@ -31,14 +32,9 @@ public class DrawerLayout extends LinearLayout {
     private LinearLayout main_container;
     private LinearLayout drawer_container;
 
-    AttributeSet attrsss;
-
 
     public DrawerLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-
-        attrsss = attrs;
-
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DrawerLayout, 0, 0);
 
         try {
@@ -58,11 +54,11 @@ public class DrawerLayout extends LinearLayout {
         drawer_icon = findViewById(R.id.drawer_icon);
         drawer_icon.setImageDrawable(mDrawerIcon);
 
-        initFunction();
+        init();
 
     }
 
-    private void initFunction() {
+    private void init() {
         View content = findViewById(R.id.main_content);
         androidx.drawerlayout.widget.DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         View drawer = findViewById(R.id.drawer);

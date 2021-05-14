@@ -59,5 +59,11 @@
         <attr name="drawer_icon" format="reference|color" />
     </declare-styleable>
 
+    <declare-styleable name="ToolBarLayout">
+        <attr name="title" format="string" />
+        <attr name="subtitle" format="string" />
+        <attr name="navigationIcon" />
+    </declare-styleable>
+
 
 </resources>

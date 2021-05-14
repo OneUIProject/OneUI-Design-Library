@@ -1,26 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.dlyt.yanndroid.samsung.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<de.dlyt.yanndroid.samsung.layout.ToolBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:drawer_icon="@drawable/ic_samsung_close"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/app_name"
+    app:subtitle="BlaBla"
+    app:navigationIcon="@drawable/ic_samsung_add"
     tools:context=".TestActivity">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="yalla1" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="yalla2" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="yalla3" />
-
-
-</de.dlyt.yanndroid.samsung.DrawerLayout>
+</de.dlyt.yanndroid.samsung.layout.ToolBarLayout>
