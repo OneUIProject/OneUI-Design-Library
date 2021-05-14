@@ -53,23 +53,22 @@ dependencies {
 - [x] Progressbar circle
 - [x] Progressbar Horizontal
 - [x] Seekbar
-- [x] Seekbar (smusic)
 - [x] Drawer
 - [x] Drawer divider
-- [] Color picker
+- [ ] Color picker
 - [x] Collapsing Toolbar
-- [x] Textview
-- [] Edittext
-- [] Menu
-- [] Dialog
-- [] Bottomsheet
-- [] (Snackbar)
-- [] Spinner
-- [] Tablayout (snote)
-- [] Viewpager
-- [] Landscape 
-- [] Preferences
-- [] Tooltip
+- [ ] Textview
+- [ ] Edittext
+- [ ] Menu
+- [ ] Dialog
+- [ ] Bottomsheet
+- [ ] Snackbar
+- [ ] Spinner
+- [ ] Tablayout
+- [ ] Viewpager
+- [ ] Landscape 
+- [ ] Preferences
+- [ ] Tooltip
 - [x] SeslToggleSwitch
 - [x] SeslProgressbar
 - [x] SeslSwitchbar
