@@ -9,8 +9,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textview.MaterialTextView;
+
+
+/**
+ * Usage:
+ * <pre>
+ *     app:image="@drawable/ic_launcher"
+ *     app:text="@string/app_name"
+ * </pre>
+ *
+ * <p>For more help, see <a
+ * href="https://github.com/Yanndroid/SamsungDesign/">Github</a>.
+ */
+
 
 public class SplashView extends LinearLayout {
 
@@ -32,7 +46,7 @@ public class SplashView extends LinearLayout {
         }
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.sesl_splashview, this, true);
+        inflater.inflate(R.layout.samsung_splashview, this, true);
 
 
         textView = findViewById(R.id.sesl_splash_text);

@@ -53,6 +53,14 @@
         <attr name="counterEnabled" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="DrawerLayout">
+        <attr name="toolbar_title" format="string" />
+        <attr name="toolbar_subtitle" format="string" />
+        <attr name="drawer_icon" format="reference|color" />
+
+        <attr name="bbb" format="boolean" />
+    </declare-styleable>
+
 
 
 </resources>

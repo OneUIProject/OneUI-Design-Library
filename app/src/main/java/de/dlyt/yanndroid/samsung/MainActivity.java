@@ -1,5 +1,6 @@
 package de.dlyt.yanndroid.samsung;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 optionButton.toggleButtonSelected();
-                optionButton.setCounter(optionButton.getCounter()+1);
+                optionButton.setCounter(optionButton.getCounter() + 1);
                 optionButton.setButtonEnabled(false);
             }
         });
@@ -124,13 +125,13 @@ public class MainActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent().setClass(getApplicationContext(), TestActivity.class));
             }
         });
 
     }
 
-    public void snackbarloop(View view){
+    public void snackbarloop(View view) {
         Snackbar.make(view, "Snackbar", Snackbar.LENGTH_LONG).setAction(android.R.string.yes, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

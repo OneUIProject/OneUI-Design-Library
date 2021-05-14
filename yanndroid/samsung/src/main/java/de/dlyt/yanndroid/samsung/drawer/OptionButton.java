@@ -1,7 +1,6 @@
 package de.dlyt.yanndroid.samsung.drawer;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -60,7 +59,7 @@ public class OptionButton extends LinearLayout {
 
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.sesl_drawer_optionbutton, this, true);
+        inflater.inflate(R.layout.samsung_drawer_optionbutton, this, true);
 
         optionbutton = findViewById(R.id.optionbutton);
         textView = findViewById(R.id.optionbutton_text);

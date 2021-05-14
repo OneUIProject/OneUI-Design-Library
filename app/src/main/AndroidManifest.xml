@@ -9,6 +9,7 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/SamsungTheme">
+        <activity android:name=".TestActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />

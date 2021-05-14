@@ -147,7 +147,7 @@ public class SwitchBar extends LinearLayout implements CompoundButton.OnCheckedC
         super(context, attributeSet, i, i2);
         this.mSwitchChangeListeners = new ArrayList();
         this.mSessionDesc = null;
-        LayoutInflater.from(context).inflate(R.layout.sesl_switchbar, this);
+        LayoutInflater.from(context).inflate(R.layout.samsung_switchbar, this);
         Resources resources = getResources();
         TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, Styleable.styleable.SeslSwitchBar, i, i2);
         this.mBackgroundColor = obtainStyledAttributes.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarBackgroundColor, resources.getColor(R.color.sesl_switchbar_off_background_color_light));
