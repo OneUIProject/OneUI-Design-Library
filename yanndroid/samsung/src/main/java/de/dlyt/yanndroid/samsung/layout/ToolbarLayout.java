@@ -5,17 +5,20 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toolbar;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.textview.MaterialTextView;
 
 import de.dlyt.yanndroid.samsung.R;
 
-public class ToolBarLayout extends Toolbar {
+public class ToolbarLayout extends LinearLayout {
 
     private Drawable mNavigationIcon;
     private String mTitle;
@@ -29,10 +32,8 @@ public class ToolBarLayout extends Toolbar {
     private LinearLayout main_container;
 
 
-    public ToolBarLayout(Context context, @Nullable AttributeSet attrs) {
+    public ToolbarLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-
-
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ToolBarLayout, 0, 0);
 
         try {
@@ -55,15 +56,52 @@ public class ToolBarLayout extends Toolbar {
 
         expanded_title.setText(mTitle);
         collapsed_title.setText(mTitle);
+        expanded_subtitle.setText(mSubtitle);
         navigation_icon.setImageDrawable(mNavigationIcon);
 
-        //init();
+        init();
 
     }
 
 
+    private void init() {
+        /** Def */
+        androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        AppBarLayout AppBar = findViewById(R.id.app_bar);
+
+        TextView expanded_title = findViewById(R.id.expanded_title);
+        TextView expanded_subtitle = findViewById(R.id.expanded_subtitle);
+        TextView collapsed_title = findViewById(R.id.collapsed_title);
+
+        /** 1/3 of the Screen */
+        ViewGroup.LayoutParams layoutParams = AppBar.getLayoutParams();
+        layoutParams.height = (int) ((double) this.getResources().getDisplayMetrics().heightPixels / 2.6);
 
 
+        /** Collapsing */
+        AppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                float percentage = (AppBar.getY() / AppBar.getTotalScrollRange());
+                expanded_title.setAlpha(1 - (percentage * 2 * -1));
+                expanded_subtitle.setAlpha(1 - (percentage * 2 * -1));
+                collapsed_title.setAlpha(percentage * -1);
+            }
+        });
+
+
+    }
+
+
+    @Override
+    public void addView(View child, int index, ViewGroup.LayoutParams params) {
+        if (main_container == null) {
+            super.addView(child, index, params);
+        } else {
+            main_container.addView(child, index, params);
+        }
+    }
 
 
 }

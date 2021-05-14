@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.dlyt.yanndroid.samsung.layout.ToolBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<de.dlyt.yanndroid.samsung.layout.ToolbarLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:title="@string/app_name"
-    app:subtitle="BlaBla"
+    xmlns:tools="http://schemas.android.com/tools"
     app:navigationIcon="@drawable/ic_samsung_add"
-    tools:context=".TestActivity">
+    app:subtitle="BlaBla"
+    app:title="@string/app_name"
+    tools:context=".TestActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <com.google.android.material.textview.MaterialTextView
+        android:text="testing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-</de.dlyt.yanndroid.samsung.layout.ToolBarLayout>
+</de.dlyt.yanndroid.samsung.layout.ToolbarLayout>
