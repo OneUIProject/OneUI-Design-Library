@@ -40,3 +40,38 @@ dependencies {
         ...
     </application>
 ```
+
+
+
+
+[v] Cardview
+[v] Button
+[v] Checkbox
+[v] Switch 
+[v] Radiobutton
+[v] Switchbar
+[v] Progressbar circle
+[v] Progressbar Horizontal
+[v] Seekbar
+[v] Seekbar (smusic)
+[v] Drawer
+[v] Drawer divider
+[  ] Color picker
+[v] Collapsing Toolbar
+[v] Textview
+[  ] Edittext
+[  ] Menu
+[  ] Dialog
+[  ] Bottomsheet
+[  ] (Snackbar)
+[  ] Spinner
+[  ] Tablayout (snote)
+[  ] Viewpager
+[  ] Landscape 
+[  ] Preferences
+[  ] Tooltip
+Sesl:
+[v] ToggleSwitch
+[v] Progressbar
+[v] Switchbar
+[v] Seekbar
