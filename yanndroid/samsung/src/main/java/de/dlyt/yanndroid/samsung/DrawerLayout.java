@@ -4,10 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.TypedArray;
-import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +15,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-
-import com.google.android.material.textview.MaterialTextView;
 
 public class DrawerLayout extends LinearLayout {
 
@@ -112,9 +108,9 @@ public class DrawerLayout extends LinearLayout {
         Context context = getContext();
         while (context instanceof ContextWrapper) {
             if (context instanceof Activity) {
-                return (Activity)context;
+                return (Activity) context;
             }
-            context = ((ContextWrapper)context).getBaseContext();
+            context = ((ContextWrapper) context).getBaseContext();
         }
         return null;
     }
@@ -122,43 +118,11 @@ public class DrawerLayout extends LinearLayout {
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
-        if(main_container == null){
+        if (main_container == null) {
             super.addView(child, index, params);
         } else {
             //drawer_container.addView(child, index, params);
-
-            DrawerLayout.LayoutParams childparams = (DrawerLayout.LayoutParams)child.getLayoutParams();
-
-            Log.e("logggggggggg", String.valueOf(childparams.b));
-
             main_container.addView(child, index, params);
-        }
-    }
-
-
-
-    public static class LayoutParams extends ViewGroup.LayoutParams {
-
-        Boolean b = false;
-
-        public LayoutParams(Context context, AttributeSet attrs) {
-            super(context, attrs);
-
-            TypedArray childattr = context.obtainStyledAttributes(attrs, R.styleable.DrawerLayout);
-
-            try {
-                b = childattr.getBoolean(R.styleable.DrawerLayout_bbb, false);
-            } finally {
-                childattr.recycle();
-            }
-        }
-
-        public LayoutParams(int width, int height) {
-            super(width, height);
-        }
-
-        public LayoutParams(ViewGroup.LayoutParams source) {
-            super(source);
         }
     }
 
