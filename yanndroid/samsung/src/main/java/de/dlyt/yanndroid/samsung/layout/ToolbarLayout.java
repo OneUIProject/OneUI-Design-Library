@@ -91,6 +91,11 @@ public class ToolbarLayout extends LinearLayout {
     }
 
 
+    public void setNavigationOnClickListener(OnClickListener listener){
+        navigation_icon.setOnClickListener(listener);
+    }
+
+
     public void showNavIconNotification(boolean showNotification) {
         navigation_icon_Badge.setVisibility(showNotification ? VISIBLE : GONE);
     }

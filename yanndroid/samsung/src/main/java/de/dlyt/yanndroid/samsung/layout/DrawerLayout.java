@@ -17,8 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.content.ContextCompat;
 
-import org.w3c.dom.Text;
-
 import de.dlyt.yanndroid.samsung.R;
 
 public class DrawerLayout extends LinearLayout {
@@ -87,8 +85,7 @@ public class DrawerLayout extends LinearLayout {
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
-        ImageView navigationIcon = findViewById(R.id.navigationIcon);
-        navigationIcon.setOnClickListener(new View.OnClickListener() {
+        toolbarLayout.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(drawer, true);
@@ -104,6 +101,10 @@ public class DrawerLayout extends LinearLayout {
             }
         });*/
 
+    }
+
+    public void setDrawerIconOnClickListener(OnClickListener listener) {
+        drawerIcon.setOnClickListener(listener);
     }
 
 
@@ -124,13 +125,10 @@ public class DrawerLayout extends LinearLayout {
     }
 
 
-
-    public void showIconNotification(boolean navigationIcon, boolean drawerIcon){
+    public void showIconNotification(boolean navigationIcon, boolean drawerIcon) {
         toolbarLayout.showNavIconNotification(navigationIcon);
         drawerIcon_badge.setVisibility(drawerIcon ? VISIBLE : GONE);
     }
-
-
 
 
     private Activity getActivity() {
