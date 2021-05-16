@@ -67,10 +67,7 @@ public class DrawerLayout extends LinearLayout {
 
 
 
-
-
-
-
+        /*drawer logic*/
         View content = findViewById(R.id.main_content);
         androidx.drawerlayout.widget.DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         View drawer = findViewById(R.id.drawer);
@@ -107,6 +104,23 @@ public class DrawerLayout extends LinearLayout {
             }
         });*/
 
+    }
+
+
+    public void setToolbarTitle(String title) {
+        toolbarLayout.setTitle(title);
+    }
+
+    public void setToolbarSubtitle(String subtitle) {
+        toolbarLayout.setSubtitle(subtitle);
+    }
+
+    public void setToolbarExpanded(boolean expanded, boolean animate) {
+        toolbarLayout.setExpanded(expanded, animate);
+    }
+
+    public void setToolbarExpandable(boolean expandable) {
+        toolbarLayout.setExpandable(expandable);
     }
 
 
