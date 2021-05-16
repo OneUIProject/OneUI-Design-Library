@@ -10,15 +10,15 @@ import java.lang.reflect.Method;
 public class SeslHoverPopupWindowReflector {
     private static String mClassName;
 
-    private SeslHoverPopupWindowReflector() {
-    }
-
     static {
         if (Build.VERSION.SDK_INT >= 24) {
             mClassName = "com.samsung.android.widget.SemHoverPopupWindow";
         } else {
             mClassName = "android.widget.HoverPopupWindow";
         }
+    }
+
+    private SeslHoverPopupWindowReflector() {
     }
 
     public static int getField_TYPE_NONE() {

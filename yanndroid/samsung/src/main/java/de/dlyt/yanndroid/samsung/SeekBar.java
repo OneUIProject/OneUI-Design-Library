@@ -13,22 +13,6 @@ public class SeekBar extends SeslAbsSeekBar {
     private OnSeekBarChangeListener mOnSeekBarChangeListener;
     private OnSeekBarHoverListener mOnSeekBarHoverListener;
 
-    public interface OnSeekBarChangeListener {
-        void onProgressChanged(SeekBar seslSeekBar, int i, boolean z);
-
-        void onStartTrackingTouch(SeekBar seslSeekBar);
-
-        void onStopTrackingTouch(SeekBar seslSeekBar);
-    }
-
-    public interface OnSeekBarHoverListener {
-        void onHoverChanged(SeekBar seslSeekBar, int i, boolean z);
-
-        void onStartTrackingHover(SeekBar seslSeekBar, int i);
-
-        void onStopTrackingHover(SeekBar seslSeekBar);
-    }
-
     public SeekBar(Context context) {
         this(context, null);
     }
@@ -139,5 +123,21 @@ public class SeekBar extends SeslAbsSeekBar {
 
     public void setOnSeekBarHoverListener(OnSeekBarHoverListener onSeekBarHoverListener) {
         this.mOnSeekBarHoverListener = onSeekBarHoverListener;
+    }
+
+    public interface OnSeekBarChangeListener {
+        void onProgressChanged(SeekBar seslSeekBar, int i, boolean z);
+
+        void onStartTrackingTouch(SeekBar seslSeekBar);
+
+        void onStopTrackingTouch(SeekBar seslSeekBar);
+    }
+
+    public interface OnSeekBarHoverListener {
+        void onHoverChanged(SeekBar seslSeekBar, int i, boolean z);
+
+        void onStartTrackingHover(SeekBar seslSeekBar, int i);
+
+        void onStopTrackingHover(SeekBar seslSeekBar);
     }
 }

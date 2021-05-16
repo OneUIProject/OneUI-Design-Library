@@ -74,14 +74,13 @@ public class OptionButton extends LinearLayout {
 
     }
 
+    public String getText() {
+        return mText;
+    }
 
     public void setText(String text) {
         this.mText = text;
         textView.setText(mText);
-    }
-
-    public String getText() {
-        return mText;
     }
 
     public void setIcon(Drawable icon) {
@@ -124,15 +123,14 @@ public class OptionButton extends LinearLayout {
         textView.setAlpha(f);
     }
 
-    public void setCounter(Integer integer) {
-        this.mCounter = integer;
-        counter.setText(String.valueOf(mCounter));
-    }
-
     public Integer getCounter() {
         return mCounter;
     }
 
+    public void setCounter(Integer integer) {
+        this.mCounter = integer;
+        counter.setText(String.valueOf(mCounter));
+    }
 
     public void setCounterEnabled(Boolean enabled) {
         this.mCounterEnabled = enabled;

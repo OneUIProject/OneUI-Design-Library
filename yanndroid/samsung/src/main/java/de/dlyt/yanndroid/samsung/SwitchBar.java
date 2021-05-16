@@ -34,6 +34,7 @@ import java.util.List;
 public class SwitchBar extends LinearLayout implements CompoundButton.OnCheckedChangeListener {
     private static final int SWITCH_OFF_STRING_RESOURCE_ID = R.string.sesl_switchbar_off_text;
     private static final int SWITCH_ON_STRING_RESOURCE_ID = R.string.sesl_switchbar_on_text;
+    private final List<OnSwitchChangeListener> mSwitchChangeListeners;
     private LinearLayout mBackground;
     @ColorInt
     private int mBackgroundActivatedColor;
@@ -52,84 +53,7 @@ public class SwitchBar extends LinearLayout implements CompoundButton.OnCheckedC
     private ProgressBar mProgressBar;
     private String mSessionDesc;
     private SeslToggleSwitch mSwitch;
-    private final List<OnSwitchChangeListener> mSwitchChangeListeners;
     private TextView mTextView;
-
-    public interface OnSwitchChangeListener {
-        void onSwitchChanged(SwitchCompat switchCompat, boolean z);
-    }
-
-    /* access modifiers changed from: package-private */
-    public static class SavedState extends BaseSavedState {
-        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-            /* class de.dlyt.yanndroid.samsung.SeslSwitchBar.SavedState.AnonymousClass1 */
-
-            @Override // android.os.Parcelable.Creator
-            public SavedState createFromParcel(Parcel parcel) {
-                return new SavedState(parcel);
-            }
-
-            @Override // android.os.Parcelable.Creator
-            public SavedState[] newArray(int i) {
-                return new SavedState[i];
-            }
-        };
-        boolean checked;
-        boolean visible;
-
-        private SavedState(Parcel parcel) {
-            super(parcel);
-            this.checked = ((Boolean) parcel.readValue(null)).booleanValue();
-            this.visible = ((Boolean) parcel.readValue(null)).booleanValue();
-        }
-
-        SavedState(Parcelable parcelable) {
-            super(parcelable);
-        }
-
-        public String toString() {
-            return "SeslSwitchBar.SavedState{" + Integer.toHexString(System.identityHashCode(this)) + " checked=" + this.checked + " visible=" + this.visible + "}";
-        }
-
-        public void writeToParcel(Parcel parcel, int i) {
-            super.writeToParcel(parcel, i);
-            parcel.writeValue(Boolean.valueOf(this.checked));
-            parcel.writeValue(Boolean.valueOf(this.visible));
-        }
-    }
-
-    /* access modifiers changed from: private */
-    public static class SwitchBarDelegate extends AccessibilityDelegateCompat {
-        private String mSessionName = "";
-        private SeslToggleSwitch mSwitch;
-        private TextView mText;
-
-        public SwitchBarDelegate(View view) {
-            this.mText = (TextView) view.findViewById(R.id.sesl_switchbar_text);
-            this.mSwitch = (SeslToggleSwitch) view.findViewById(R.id.sesl_switchbar_switch);
-        }
-
-        @Override // androidx.core.view.AccessibilityDelegateCompat
-        public void onInitializeAccessibilityNodeInfo(View view, AccessibilityNodeInfoCompat accessibilityNodeInfoCompat) {
-            super.onInitializeAccessibilityNodeInfo(view, accessibilityNodeInfoCompat);
-            String string = view.getContext().getResources().getString(this.mSwitch.isChecked() ? SwitchBar.SWITCH_ON_STRING_RESOURCE_ID : SwitchBar.SWITCH_OFF_STRING_RESOURCE_ID);
-            StringBuilder sb = new StringBuilder();
-            CharSequence text = this.mText.getText();
-            if (!TextUtils.isEmpty(this.mSessionName)) {
-                sb.append(this.mSessionName);
-                sb.append(", ");
-            }
-            if (!TextUtils.equals(string, text) && !TextUtils.isEmpty(text)) {
-                sb.append(text);
-                sb.append(", ");
-            }
-            accessibilityNodeInfoCompat.setText(sb.toString());
-        }
-
-        public void setSessionName(String str) {
-            this.mSessionName = str;
-        }
-    }
 
     public SwitchBar(Context context) {
         this(context, null);
@@ -240,6 +164,11 @@ public class SwitchBar extends LinearLayout implements CompoundButton.OnCheckedC
         return this.mSwitch.isChecked();
     }
 
+    public void setChecked(boolean z) {
+        setTextViewLabelAndBackground(z);
+        this.mSwitch.setChecked(z);
+    }
+
     public boolean isShowing() {
         return getVisibility() == VISIBLE;
     }
@@ -275,11 +204,6 @@ public class SwitchBar extends LinearLayout implements CompoundButton.OnCheckedC
             return;
         }
         throw new IllegalStateException("Cannot remove OnSwitchChangeListener");
-    }
-
-    public void setChecked(boolean z) {
-        setTextViewLabelAndBackground(z);
-        this.mSwitch.setChecked(z);
     }
 
     public void setCheckedInternal(boolean z) {
@@ -373,6 +297,82 @@ public class SwitchBar extends LinearLayout implements CompoundButton.OnCheckedC
             MarginLayoutParams marginLayoutParams2 = (MarginLayoutParams) seslToggleSwitch.getLayoutParams();
             marginLayoutParams2.setMarginEnd((int) resources.getDimension(R.dimen.sesl_switchbar_margin_end));
             this.mSwitch.setLayoutParams(marginLayoutParams2);
+        }
+    }
+
+    public interface OnSwitchChangeListener {
+        void onSwitchChanged(SwitchCompat switchCompat, boolean z);
+    }
+
+    /* access modifiers changed from: package-private */
+    public static class SavedState extends BaseSavedState {
+        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
+            /* class de.dlyt.yanndroid.samsung.SeslSwitchBar.SavedState.AnonymousClass1 */
+
+            @Override // android.os.Parcelable.Creator
+            public SavedState createFromParcel(Parcel parcel) {
+                return new SavedState(parcel);
+            }
+
+            @Override // android.os.Parcelable.Creator
+            public SavedState[] newArray(int i) {
+                return new SavedState[i];
+            }
+        };
+        boolean checked;
+        boolean visible;
+
+        private SavedState(Parcel parcel) {
+            super(parcel);
+            this.checked = ((Boolean) parcel.readValue(null)).booleanValue();
+            this.visible = ((Boolean) parcel.readValue(null)).booleanValue();
+        }
+
+        SavedState(Parcelable parcelable) {
+            super(parcelable);
+        }
+
+        public String toString() {
+            return "SeslSwitchBar.SavedState{" + Integer.toHexString(System.identityHashCode(this)) + " checked=" + this.checked + " visible=" + this.visible + "}";
+        }
+
+        public void writeToParcel(Parcel parcel, int i) {
+            super.writeToParcel(parcel, i);
+            parcel.writeValue(Boolean.valueOf(this.checked));
+            parcel.writeValue(Boolean.valueOf(this.visible));
+        }
+    }
+
+    /* access modifiers changed from: private */
+    public static class SwitchBarDelegate extends AccessibilityDelegateCompat {
+        private String mSessionName = "";
+        private SeslToggleSwitch mSwitch;
+        private TextView mText;
+
+        public SwitchBarDelegate(View view) {
+            this.mText = (TextView) view.findViewById(R.id.sesl_switchbar_text);
+            this.mSwitch = (SeslToggleSwitch) view.findViewById(R.id.sesl_switchbar_switch);
+        }
+
+        @Override // androidx.core.view.AccessibilityDelegateCompat
+        public void onInitializeAccessibilityNodeInfo(View view, AccessibilityNodeInfoCompat accessibilityNodeInfoCompat) {
+            super.onInitializeAccessibilityNodeInfo(view, accessibilityNodeInfoCompat);
+            String string = view.getContext().getResources().getString(this.mSwitch.isChecked() ? SwitchBar.SWITCH_ON_STRING_RESOURCE_ID : SwitchBar.SWITCH_OFF_STRING_RESOURCE_ID);
+            StringBuilder sb = new StringBuilder();
+            CharSequence text = this.mText.getText();
+            if (!TextUtils.isEmpty(this.mSessionName)) {
+                sb.append(this.mSessionName);
+                sb.append(", ");
+            }
+            if (!TextUtils.equals(string, text) && !TextUtils.isEmpty(text)) {
+                sb.append(text);
+                sb.append(", ");
+            }
+            accessibilityNodeInfoCompat.setText(sb.toString());
+        }
+
+        public void setSessionName(String str) {
+            this.mSessionName = str;
         }
     }
 }

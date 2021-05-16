@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 
 import de.dlyt.yanndroid.samsung.layout.DrawerLayout;
-import de.dlyt.yanndroid.samsung.layout.ToolbarLayout;
 
 public class TestActivity extends AppCompatActivity {
 

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set android:ordering="together"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <objectAnimator android:interpolator="@interpolator/interpolator_sine_out_70" android:duration="200" android:valueFrom="1.0" android:valueTo="0" android:valueType="floatType" android:propertyName="scaleX" />
-    <objectAnimator android:interpolator="@interpolator/interpolator_sine_out_70" android:duration="200" android:valueFrom="1.0" android:valueTo="0" android:valueType="floatType" android:propertyName="scaleY" />
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together">
+    <objectAnimator
+        android:duration="200"
+        android:interpolator="@interpolator/interpolator_sine_out_70"
+        android:propertyName="scaleX"
+        android:valueFrom="1.0"
+        android:valueTo="0"
+        android:valueType="floatType" />
+    <objectAnimator
+        android:duration="200"
+        android:interpolator="@interpolator/interpolator_sine_out_70"
+        android:propertyName="scaleY"
+        android:valueFrom="1.0"
+        android:valueTo="0"
+        android:valueType="floatType" />
 </set>

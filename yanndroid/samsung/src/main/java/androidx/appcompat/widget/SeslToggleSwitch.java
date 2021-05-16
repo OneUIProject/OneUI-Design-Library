@@ -6,10 +6,6 @@ import android.util.AttributeSet;
 public class SeslToggleSwitch extends SwitchCompat {
     private OnBeforeCheckedChangeListener mOnBeforeListener;
 
-    public interface OnBeforeCheckedChangeListener {
-        boolean onBeforeCheckedChanged(SeslToggleSwitch seslToggleSwitch, boolean z);
-    }
-
     public SeslToggleSwitch(Context context) {
         super(context);
     }
@@ -36,5 +32,9 @@ public class SeslToggleSwitch extends SwitchCompat {
 
     public void setCheckedInternal(boolean z) {
         super.setChecked(z);
+    }
+
+    public interface OnBeforeCheckedChangeListener {
+        boolean onBeforeCheckedChanged(SeslToggleSwitch seslToggleSwitch, boolean z);
     }
 }

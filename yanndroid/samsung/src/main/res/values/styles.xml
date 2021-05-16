@@ -57,7 +57,8 @@
     </style>
 
     <style name="ProgressBarStyle.Horizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
-        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal
+        </item>
         <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
     </style>
 
@@ -189,7 +190,8 @@
         <item name="android:focusable">true</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_min_height</item>
         <item name="android:indeterminateOnly">false</item>
-        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal
+        </item>
         <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_min_height</item>
         <item name="android:thumb">@drawable/sesl_scrubber_control_anim_dark</item>

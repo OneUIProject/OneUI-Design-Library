@@ -16,7 +16,6 @@
     <color name="sesl_control_normal_color">#cc8f8f8f</color>
 
 
-
     <color name="background_color">#fff2f2f2</color>
     <color name="item_background_color">#ffffffff</color>
     <color name="item_color">#ff000000</color>
@@ -37,14 +36,12 @@
     <color name="transparent">#00000000</color>
 
 
-
     <!--Sesl-->
     <color name="sesl_control_activated_color">@color/sesl_secondary_color</color>
     <color name="sesl_white">#fffafafa</color>
     <color name="sesl_black">#ff252525</color>
     <color name="divider_color">#ff979797</color>
     <color name="sesl_thumb_control_color_activated">@color/sesl_primary_color</color>
-
 
 
     <!--ProgressBar-->
@@ -121,10 +118,8 @@
     <color name="sesl_spinner_item_text_color_normal_light">@color/sesl_black</color>
 
 
-
     <!--Snackbar-->
     <color name="sesl_design_snackbar_action_text_color">@color/sesl_secondary_color</color>
-
 
 
     <!--Others-->
@@ -134,7 +129,6 @@
     <color name="item_divider_color">#ff979797</color>
     <color name="drawer_icon_color">#ff676768</color>
     <color name="badge_background_color">#fff56a0d</color>
-
 
 
 </resources>

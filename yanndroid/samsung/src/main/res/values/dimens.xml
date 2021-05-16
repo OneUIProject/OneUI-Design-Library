@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="rounded_corner_size">26dp</dimen>
-    <item type="dimen" name="sesl_disabled_color_alpha">0.4</item>
+    <item name="sesl_disabled_color_alpha" type="dimen">0.4</item>
     <dimen name="sesl_progress_circle_size">60.0dip</dimen>
     <dimen name="sesl_progress_bar_size_large">60.0dip</dimen>
     <dimen name="sesl_progress_bar_size_small">24.0dip</dimen>
@@ -33,7 +33,7 @@
     <dimen name="sesl_menu_popup_bottom_padding">6.0dip</dimen>
     <dimen name="sesl_menu_popup_corner_radius">24.0dip</dimen>
     <dimen name="sesl_menu_popup_elevation">8.0dip</dimen>
-    <item type="dimen" name="sesl_menu_popup_scale_anim_pivot_x">100.0%</item>
+    <item name="sesl_menu_popup_scale_anim_pivot_x" type="dimen">100.0%</item>
     <dimen name="sesl_menu_popup_stroke_width">2.0px</dimen>
     <dimen name="sesl_menu_popup_top_margin">6.0dip</dimen>
     <dimen name="sesl_menu_popup_top_padding">6.0dip</dimen>
@@ -44,8 +44,6 @@
     <dimen name="sesl_popup_menu_item_min_width">168.0dip</dimen>
     <dimen name="sesl_popup_menu_item_start_padding">24.0dip</dimen>
     <dimen name="sesl_popup_menu_item_top_padding">13.0dip</dimen>
-
-
 
 
 </resources>

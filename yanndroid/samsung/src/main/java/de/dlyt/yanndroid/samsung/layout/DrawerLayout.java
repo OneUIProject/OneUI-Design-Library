@@ -36,6 +36,9 @@ public class DrawerLayout extends LinearLayout {
     private LinearLayout drawer_container;
 
 
+    private int viewIdForDrawer;
+
+
     public DrawerLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DrawerLayout, 0, 0);
@@ -44,6 +47,7 @@ public class DrawerLayout extends LinearLayout {
             mToolbarTitle = attr.getString(R.styleable.DrawerLayout_toolbar_title);
             mToolbarSubtitle = attr.getString(R.styleable.DrawerLayout_toolbar_subtitle);
             mDrawerIcon = attr.getDrawable(R.styleable.DrawerLayout_drawer_icon);
+            viewIdForDrawer = attr.getResourceId(R.styleable.DrawerLayout_drawer_viewId, -2);
         } finally {
             attr.recycle();
         }
@@ -92,19 +96,10 @@ public class DrawerLayout extends LinearLayout {
             }
         });
 
-
-        /*View drawer_settings = findViewById(R.id.drawer_icon);
-        drawer_settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(new Intent().setClass(getApplicationContext(), SettingsActivity.class));
-            }
-        });*/
-
     }
 
 
-    public androidx.appcompat.widget.Toolbar getToolbar(){
+    public androidx.appcompat.widget.Toolbar getToolbar() {
         return toolbarLayout.getToolbar();
     }
 
@@ -154,10 +149,12 @@ public class DrawerLayout extends LinearLayout {
         if (main_container == null) {
             super.addView(child, index, params);
         } else {
-            //drawer_container.addView(child, index, params);
-            main_container.addView(child, index, params);
+            if (viewIdForDrawer == child.getId()) {
+                drawer_container.addView(child, index, params);
+            } else {
+                main_container.addView(child, index, params);
+            }
         }
     }
-
 
 }

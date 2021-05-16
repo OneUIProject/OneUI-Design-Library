@@ -38,16 +38,16 @@ class SeslElasticInterpolator implements Interpolator {
         return this.mAmplitude;
     }
 
+    public void setAmplitude(float f) {
+        this.mAmplitude = f;
+    }
+
     public float getInterpolation(float f) {
         return out(f, this.mAmplitude, this.mPeriod);
     }
 
     public float getPeriod() {
         return this.mPeriod;
-    }
-
-    public void setAmplitude(float f) {
-        this.mAmplitude = f;
     }
 
     public void setPeriod(float f) {

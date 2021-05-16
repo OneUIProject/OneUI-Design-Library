@@ -48,10 +48,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import de.dlyt.yanndroid.samsung.R;
 import de.dlyt.yanndroid.samsung.ProgressBar;
+import de.dlyt.yanndroid.samsung.R;
 
 public abstract class SeslAbsSeekBar extends ProgressBar {
+    static final float SCALE_FACTOR = 1000.0f;
     private static final int HOVER_DETECT_TIME = 200;
     private static final int HOVER_POPUP_WINDOW_GRAVITY_CENTER_HORIZONTAL_ON_POINT = 513;
     private static final int HOVER_POPUP_WINDOW_GRAVITY_TOP_ABOVE = 12336;
@@ -60,8 +61,15 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
     private static final int MUTE_VIB_DURATION = 500;
     private static final int MUTE_VIB_TOTAL = 4;
     private static final int NO_ALPHA = 255;
-    static final float SCALE_FACTOR = 1000.0f;
     private static final String TAG = "SeslAbsSeekBar";
+    private final List<Rect> mGestureExclusionRects;
+    private final Rect mTempRect;
+    private final Rect mThumbRect;
+    public boolean mIsSeamless;
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    boolean mIsUserSeekable;
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    float mTouchProgressOffset;
     private boolean mAllowedSeekBarAnimation;
     private int mCurrentProgressLevel;
     private ColorStateList mDefaultActivatedProgressColor;
@@ -70,7 +78,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
     private ColorStateList mDefaultSecondaryProgressColor;
     private float mDisabledAlpha;
     private Drawable mDivider;
-    private final List<Rect> mGestureExclusionRects;
     private boolean mHasThumbTint;
     private boolean mHasThumbTintMode;
     private boolean mHasTickMarkTint;
@@ -80,11 +87,8 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
     private boolean mIsDraggingForSliding;
     private boolean mIsFirstSetProgress;
     private boolean mIsLightTheme;
-    public boolean mIsSeamless;
     private boolean mIsSetModeCalled;
     private boolean mIsTouchDisabled;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    boolean mIsUserSeekable;
     private int mKeyProgressIncrement;
     private boolean mLargeFont;
     private AnimatorSet mMuteAnimationSet;
@@ -98,12 +102,10 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
     private boolean mSetDualColorMode;
     private Drawable mSplitProgress;
     private boolean mSplitTrack;
-    private final Rect mTempRect;
     private Drawable mThumb;
     private int mThumbOffset;
     private int mThumbPosX;
     private int mThumbRadius;
-    private final Rect mThumbRect;
     private ColorStateList mThumbTintList;
     private PorterDuff.Mode mThumbTintMode;
     private Drawable mTickMark;
@@ -111,411 +113,11 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
     private PorterDuff.Mode mTickMarkTintMode;
     private float mTouchDownX;
     private float mTouchDownY;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    float mTouchProgressOffset;
     private int mTrackMaxWidth;
     private int mTrackMinWidth;
     private boolean mUseMuteAnimation;
     private List<Rect> mUserGestureExclusionRects;
     private ValueAnimator mValueAnimator;
-
-    /* access modifiers changed from: private */
-    public class SliderDrawable extends Drawable {
-        private final int ANIMATION_DURATION;
-        int mAlpha;
-        @ColorInt
-        int mColor;
-        ColorStateList mColorStateList;
-        private boolean mIsStateChanged;
-        private boolean mIsVertical;
-        private final Paint mPaint;
-        ValueAnimator mPressedAnimator;
-        private float mRadius;
-        ValueAnimator mReleasedAnimator;
-        private final float mSliderMaxWidth;
-        private final float mSliderMinWidth;
-        private final SliderState mState;
-
-        private class SliderState extends ConstantState {
-            private SliderState() {
-            }
-
-            public int getChangingConfigurations() {
-                return 0;
-            }
-
-            @NonNull
-            public Drawable newDrawable() {
-                return SliderDrawable.this;
-            }
-        }
-
-        public SliderDrawable(SeslAbsSeekBar seslAbsSeekBar, float f, float f2, ColorStateList colorStateList) {
-            this(f, f2, colorStateList, false);
-        }
-
-        public SliderDrawable(float minwidth, float maxwidth, ColorStateList colorStateList, boolean vertical) {
-            this.mPaint = new Paint();
-            this.ANIMATION_DURATION = ItemTouchHelper.Callback.DEFAULT_SWIPE_ANIMATION_DURATION;
-            this.mIsStateChanged = false;
-            this.mAlpha = 255;
-            this.mState = new SliderState();
-            this.mPaint.setStyle(Paint.Style.STROKE);
-            this.mPaint.setStrokeCap(Paint.Cap.ROUND);
-            this.mColorStateList = colorStateList;
-            int defaultColor = colorStateList.getDefaultColor();
-            this.mColor = defaultColor;
-            this.mPaint.setColor(defaultColor);
-            this.mPaint.setStrokeWidth(minwidth);
-            this.mSliderMinWidth = minwidth;
-            this.mSliderMaxWidth = maxwidth;
-            this.mRadius = minwidth / 2.0f;
-            this.mIsVertical = vertical;
-            initAnimator();
-        }
-
-        private void initAnimator() {
-            float f = this.mSliderMinWidth;
-            float f2 = this.mSliderMaxWidth;
-            ValueAnimator ofFloat = ValueAnimator.ofFloat(f, f2);
-            this.mPressedAnimator = ofFloat;
-            ofFloat.setDuration(250L);
-            this.mPressedAnimator.setInterpolator(SeslAnimationUtils.SINE_IN_OUT_80);
-            this.mPressedAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                /* class androidx.appcompat.widget.SeslAbsSeekBar.SliderDrawable.AnonymousClass1 */
-
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    SliderDrawable.this.invalidateTrack(((Float) valueAnimator.getAnimatedValue()).floatValue());
-                }
-            });
-            ValueAnimator ofFloat2 = ValueAnimator.ofFloat(f2, f);
-            this.mReleasedAnimator = ofFloat2;
-            ofFloat2.setDuration(250L);
-            this.mReleasedAnimator.setInterpolator(SeslAnimationUtils.SINE_IN_OUT_80);
-            this.mReleasedAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                /* class androidx.appcompat.widget.SeslAbsSeekBar.SliderDrawable.AnonymousClass2 */
-
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    SliderDrawable.this.invalidateTrack(((Float) valueAnimator.getAnimatedValue()).floatValue());
-                }
-            });
-        }
-
-        private int modulateAlpha(int i, int i2) {
-            return (i * (i2 + (i2 >>> 7))) >>> 8;
-        }
-
-        private void startPressedAnimation() {
-            if (!this.mPressedAnimator.isRunning()) {
-                if (this.mReleasedAnimator.isRunning()) {
-                    this.mReleasedAnimator.cancel();
-                }
-                this.mPressedAnimator.setFloatValues(this.mSliderMinWidth, this.mSliderMaxWidth);
-                this.mPressedAnimator.start();
-            }
-        }
-
-        private void startReleasedAnimation() {
-            if (!this.mReleasedAnimator.isRunning()) {
-                if (this.mPressedAnimator.isRunning()) {
-                    this.mPressedAnimator.cancel();
-                }
-                this.mReleasedAnimator.setFloatValues(this.mSliderMaxWidth, this.mSliderMinWidth);
-                this.mReleasedAnimator.start();
-            }
-        }
-
-        private void startSliderAnimation(boolean z) {
-            if (this.mIsStateChanged != z) {
-                if (z) {
-                    startPressedAnimation();
-                } else {
-                    startReleasedAnimation();
-                }
-                this.mIsStateChanged = z;
-            }
-        }
-
-        public void draw(Canvas canvas) {
-            int alpha = this.mPaint.getAlpha();
-            this.mPaint.setAlpha(modulateAlpha(alpha, this.mAlpha));
-            canvas.save();
-            if (!this.mIsVertical) {
-                float f = this.mRadius;
-                canvas.drawLine(f, ((float) SeslAbsSeekBar.this.getHeight()) / 2.0f, ((float) ((SeslAbsSeekBar.this.getWidth() - SeslAbsSeekBar.this.getPaddingLeft()) - SeslAbsSeekBar.this.getPaddingRight())) - f, ((float) SeslAbsSeekBar.this.getHeight()) / 2.0f, this.mPaint);
-            } else {
-                canvas.drawLine(((float) SeslAbsSeekBar.this.getWidth()) / 2.0f, ((float) ((SeslAbsSeekBar.this.getHeight() - SeslAbsSeekBar.this.getPaddingTop()) - SeslAbsSeekBar.this.getPaddingBottom())) - this.mRadius, ((float) SeslAbsSeekBar.this.getWidth()) / 2.0f, this.mRadius, this.mPaint);
-            }
-            canvas.restore();
-            this.mPaint.setAlpha(alpha);
-        }
-
-        @Nullable
-        public ConstantState getConstantState() {
-            return this.mState;
-        }
-
-        public int getIntrinsicHeight() {
-            return (int) this.mSliderMaxWidth;
-        }
-
-        public int getIntrinsicWidth() {
-            return (int) this.mSliderMaxWidth;
-        }
-
-        public int getOpacity() {
-            Paint paint = this.mPaint;
-            if (paint.getXfermode() != null) {
-                return PixelFormat.TRANSLUCENT;
-            }
-            int alpha = paint.getAlpha();
-            if (alpha == 0) {
-                return PixelFormat.TRANSPARENT;
-            }
-            return alpha == 255 ? PixelFormat.OPAQUE : PixelFormat.TRANSLUCENT;
-        }
-
-        /* access modifiers changed from: package-private */
-        public void invalidateTrack(float f) {
-            setStrokeWidth(f);
-            invalidateSelf();
-        }
-
-        public boolean isStateful() {
-            return true;
-        }
-
-        /* access modifiers changed from: protected */
-        public boolean onStateChange(int[] iArr) {
-            boolean onStateChange = super.onStateChange(iArr);
-            int colorForState = this.mColorStateList.getColorForState(iArr, this.mColor);
-            if (this.mColor != colorForState) {
-                this.mColor = colorForState;
-                this.mPaint.setColor(colorForState);
-                invalidateSelf();
-            }
-            boolean z = false;
-            boolean z2 = false;
-            boolean z3 = false;
-            for (int i : iArr) {
-                if (i == 16842910) {
-                    z2 = true;
-                } else if (i == 16842919) {
-                    z3 = true;
-                }
-            }
-            if (z2 && z3) {
-                z = true;
-            }
-            startSliderAnimation(z);
-            return onStateChange;
-        }
-
-        public void setAlpha(int i) {
-            this.mAlpha = i;
-            invalidateSelf();
-        }
-
-        public void setColorFilter(@Nullable ColorFilter colorFilter) {
-            this.mPaint.setColorFilter(colorFilter);
-            invalidateSelf();
-        }
-
-        public void setStrokeWidth(float f) {
-            this.mPaint.setStrokeWidth(f);
-            this.mRadius = f / 2.0f;
-        }
-
-        public void setTintList(@Nullable ColorStateList colorStateList) {
-            super.setTintList(colorStateList);
-            if (colorStateList != null) {
-                this.mColorStateList = colorStateList;
-                int defaultColor = colorStateList.getDefaultColor();
-                this.mColor = defaultColor;
-                this.mPaint.setColor(defaultColor);
-                invalidateSelf();
-            }
-        }
-    }
-
-    /* access modifiers changed from: private */
-    public class ThumbDrawable extends Drawable {
-        private final int PRESSED_DURATION = 100;
-        private final int RELEASED_DURATION = 300;
-        private int mAlpha = 255;
-        @ColorInt
-        int mColor;
-        private ColorStateList mColorStateList;
-        private boolean mIsStateChanged = false;
-        private boolean mIsVertical = false;
-        private final Paint mPaint = new Paint(1);
-        private final int mRadius;
-        private int mRadiusForAni;
-        private ValueAnimator mThumbPressed;
-        private ValueAnimator mThumbReleased;
-
-        public ThumbDrawable(int i, ColorStateList colorStateList, boolean z) {
-            this.mRadiusForAni = i;
-            this.mRadius = i;
-            this.mColorStateList = colorStateList;
-            this.mColor = colorStateList.getDefaultColor();
-            this.mPaint.setStyle(Paint.Style.FILL);
-            this.mPaint.setColor(this.mColor);
-            this.mIsVertical = z;
-            initAnimation();
-        }
-
-        private int modulateAlpha(int i, int i2) {
-            return (i * (i2 + (i2 >>> 7))) >>> 8;
-        }
-
-        /* access modifiers changed from: private */
-        /* access modifiers changed from: public */
-        private void setRadius(int i) {
-            this.mRadiusForAni = i;
-        }
-
-        private void startPressedAnimation() {
-            if (!this.mThumbPressed.isRunning()) {
-                if (this.mThumbReleased.isRunning()) {
-                    this.mThumbReleased.cancel();
-                }
-                this.mThumbPressed.start();
-            }
-        }
-
-        private void startReleasedAnimation() {
-            if (!this.mThumbReleased.isRunning()) {
-                if (this.mThumbPressed.isRunning()) {
-                    this.mThumbPressed.cancel();
-                }
-                this.mThumbReleased.start();
-            }
-        }
-
-        private void startThumbAnimation(boolean z) {
-            if (this.mIsStateChanged != z) {
-                if (z) {
-                    startPressedAnimation();
-                } else {
-                    startReleasedAnimation();
-                }
-                this.mIsStateChanged = z;
-            }
-        }
-
-        public void draw(@NonNull Canvas canvas) {
-            int alpha = this.mPaint.getAlpha();
-            this.mPaint.setAlpha(modulateAlpha(alpha, this.mAlpha));
-            canvas.save();
-            if (!this.mIsVertical) {
-                canvas.drawCircle((float) SeslAbsSeekBar.this.mThumbPosX, ((float) SeslAbsSeekBar.this.getHeight()) / 2.0f, (float) this.mRadiusForAni, this.mPaint);
-            } else {
-                canvas.drawCircle(((float) SeslAbsSeekBar.this.getWidth()) / 2.0f, (float) SeslAbsSeekBar.this.mThumbPosX, (float) this.mRadiusForAni, this.mPaint);
-            }
-            canvas.restore();
-            this.mPaint.setAlpha(alpha);
-        }
-
-        public int getIntrinsicHeight() {
-            return this.mRadius * 2;
-        }
-
-        public int getIntrinsicWidth() {
-            return this.mRadius * 2;
-        }
-
-        public int getOpacity() {
-            Paint paint = this.mPaint;
-            if (paint.getXfermode() != null) {
-                return PixelFormat.TRANSLUCENT;
-            }
-            int alpha = paint.getAlpha();
-            if (alpha == 0) {
-                return PixelFormat.TRANSPARENT;
-            }
-            return alpha == 255 ? PixelFormat.OPAQUE : PixelFormat.TRANSLUCENT;
-        }
-
-        /* access modifiers changed from: package-private */
-        public void initAnimation() {
-            ValueAnimator ofFloat = ValueAnimator.ofFloat((float) this.mRadius, 0.0f);
-            this.mThumbPressed = ofFloat;
-            ofFloat.setDuration(100L);
-            this.mThumbPressed.setInterpolator(new LinearInterpolator());
-            this.mThumbPressed.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                /* class androidx.appcompat.widget.SeslAbsSeekBar.ThumbDrawable.AnonymousClass1 */
-
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    ThumbDrawable.this.setRadius((int) ((Float) valueAnimator.getAnimatedValue()).floatValue());
-                    ThumbDrawable.this.invalidateSelf();
-                }
-            });
-            ValueAnimator ofFloat2 = ValueAnimator.ofFloat(0.0f, (float) this.mRadius);
-            this.mThumbReleased = ofFloat2;
-            ofFloat2.setDuration(300L);
-            this.mThumbReleased.setInterpolator(SeslAnimationUtils.SINE_IN_OUT_90);
-            this.mThumbReleased.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                /* class androidx.appcompat.widget.SeslAbsSeekBar.ThumbDrawable.AnonymousClass2 */
-
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    ThumbDrawable.this.setRadius((int) ((Float) valueAnimator.getAnimatedValue()).floatValue());
-                    ThumbDrawable.this.invalidateSelf();
-                }
-            });
-        }
-
-        public boolean isStateful() {
-            return true;
-        }
-
-        /* access modifiers changed from: protected */
-        public boolean onStateChange(int[] iArr) {
-            boolean onStateChange = super.onStateChange(iArr);
-            int colorForState = this.mColorStateList.getColorForState(iArr, this.mColor);
-            if (this.mColor != colorForState) {
-                this.mColor = colorForState;
-                this.mPaint.setColor(colorForState);
-                invalidateSelf();
-            }
-            boolean z = false;
-            boolean z2 = false;
-            boolean z3 = false;
-            for (int i : iArr) {
-                if (i == 16842910) {
-                    z2 = true;
-                } else if (i == 16842919) {
-                    z3 = true;
-                }
-            }
-            if (z2 && z3) {
-                z = true;
-            }
-            startThumbAnimation(z);
-            return onStateChange;
-        }
-
-        public void setAlpha(int i) {
-            this.mAlpha = i;
-            invalidateSelf();
-        }
-
-        public void setColorFilter(@Nullable ColorFilter colorFilter) {
-            this.mPaint.setColorFilter(colorFilter);
-            invalidateSelf();
-        }
-
-        public void setTintList(@Nullable ColorStateList colorStateList) {
-            super.setTintList(colorStateList);
-            if (colorStateList != null) {
-                this.mColorStateList = colorStateList;
-                int colorForState = colorStateList.getColorForState(SeslAbsSeekBar.this.getDrawableState(), this.mColor);
-                this.mColor = colorForState;
-                this.mPaint.setColor(colorForState);
-                invalidateSelf();
-            }
-        }
-    }
 
     public SeslAbsSeekBar(Context context) {
         super(context);
@@ -1009,7 +611,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         this.mHoveringLevel = (int) (f2 + (f * ((float) getMax())));
     }
 
-
     @SuppressLint("RestrictedApi")
     private void trackTouchEvent(MotionEvent motionEvent) {
         int i = this.mCurrentMode;
@@ -1169,13 +770,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         }
         trackTouchEventInVertical(motionEvent);
     }
-
-
-
-
-
-
-
 
     private void trackTouchEventInVertical(MotionEvent motionEvent) {
         float f;
@@ -1521,9 +1115,29 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         return this.mKeyProgressIncrement;
     }
 
+    public void setKeyProgressIncrement(int i) {
+        if (i < 0) {
+            i = -i;
+        }
+        this.mKeyProgressIncrement = i;
+    }
+
     @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public synchronized int getMax() {
         return this.mIsSeamless ? Math.round(((float) super.getMax()) / SCALE_FACTOR) : super.getMax();
+    }
+
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
+    public synchronized void setMax(int i) {
+        if (this.mIsSeamless) {
+            i = Math.round(((float) i) * SCALE_FACTOR);
+        }
+        super.setMax(i);
+        this.mIsFirstSetProgress = true;
+        int max = getMax() - getMin();
+        if (this.mKeyProgressIncrement == 0 || max / this.mKeyProgressIncrement > 20) {
+            setKeyProgressIncrement(Math.max(1, Math.round(((float) max) / 20.0f)));
+        }
     }
 
     @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
@@ -1532,16 +1146,72 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
     }
 
     @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
+    public synchronized void setMin(int i) {
+        if (this.mIsSeamless) {
+            i = Math.round(((float) i) * SCALE_FACTOR);
+        }
+        super.setMin(i);
+        int max = getMax() - getMin();
+        if (this.mKeyProgressIncrement == 0 || max / this.mKeyProgressIncrement > 20) {
+            setKeyProgressIncrement(Math.max(1, Math.round(((float) max) / 20.0f)));
+        }
+    }
+
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public synchronized int getProgress() {
         return this.mIsSeamless ? Math.round(((float) super.getProgress()) / SCALE_FACTOR) : super.getProgress();
+    }
+
+    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
+    public synchronized void setProgress(int i) {
+        if (this.mIsSeamless) {
+            i = Math.round(((float) i) * SCALE_FACTOR);
+        }
+        super.setProgress(i);
     }
 
     public boolean getSplitTrack() {
         return this.mSplitTrack;
     }
 
+    public void setSplitTrack(boolean z) {
+        this.mSplitTrack = z;
+        invalidate();
+    }
+
     public Drawable getThumb() {
         return this.mThumb;
+    }
+
+    public void setThumb(Drawable drawable) {
+        boolean z;
+        Drawable drawable2 = this.mThumb;
+        if (drawable2 == null || drawable == drawable2) {
+            z = false;
+        } else {
+            drawable2.setCallback(null);
+            z = true;
+        }
+        if (drawable != null) {
+            drawable.setCallback(this);
+            if (canResolveLayoutDirection()) {
+                DrawableCompat.setLayoutDirection(drawable, ViewCompat.getLayoutDirection(this));
+            }
+            int i = this.mCurrentMode;
+            this.mThumbOffset = ((i == 3 || i == 6) ? drawable.getIntrinsicHeight() : drawable.getIntrinsicWidth()) / 2;
+            if (z && !(drawable.getIntrinsicWidth() == this.mThumb.getIntrinsicWidth() && drawable.getIntrinsicHeight() == this.mThumb.getIntrinsicHeight())) {
+                requestLayout();
+            }
+        }
+        this.mThumb = drawable;
+        applyThumbTint();
+        invalidate();
+        if (z) {
+            updateThumbAndTrackPos(getWidth(), getHeight());
+            if (drawable != null && drawable.isStateful()) {
+                drawable.setState(getDrawableState());
+            }
+        }
     }
 
     public Rect getThumbBounds() {
@@ -1560,9 +1230,21 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         return this.mThumbOffset;
     }
 
+    public void setThumbOffset(int i) {
+        this.mThumbOffset = i;
+        invalidate();
+    }
+
     @Nullable
     public ColorStateList getThumbTintList() {
         return this.mThumbTintList;
+    }
+
+    public void setThumbTintList(@Nullable ColorStateList colorStateList) {
+        this.mThumbTintList = colorStateList;
+        this.mHasThumbTint = true;
+        applyThumbTint();
+        this.mDefaultActivatedThumbColor = colorStateList;
     }
 
     @Nullable
@@ -1570,8 +1252,31 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         return this.mThumbTintMode;
     }
 
+    public void setThumbTintMode(@Nullable PorterDuff.Mode mode) {
+        this.mThumbTintMode = mode;
+        this.mHasThumbTintMode = true;
+        applyThumbTint();
+    }
+
     public Drawable getTickMark() {
         return this.mTickMark;
+    }
+
+    public void setTickMark(Drawable drawable) {
+        Drawable drawable2 = this.mTickMark;
+        if (drawable2 != null) {
+            drawable2.setCallback(null);
+        }
+        this.mTickMark = drawable;
+        if (drawable != null) {
+            drawable.setCallback(this);
+            DrawableCompat.setLayoutDirection(drawable, ViewCompat.getLayoutDirection(this));
+            if (drawable.isStateful()) {
+                drawable.setState(getDrawableState());
+            }
+            applyTickMarkTint();
+        }
+        invalidate();
     }
 
     @Nullable
@@ -1579,9 +1284,21 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         return this.mTickMarkTintList;
     }
 
+    public void setTickMarkTintList(@Nullable ColorStateList colorStateList) {
+        this.mTickMarkTintList = colorStateList;
+        this.mHasTickMarkTint = true;
+        applyTickMarkTint();
+    }
+
     @Nullable
     public PorterDuff.Mode getTickMarkTintMode() {
         return this.mTickMarkTintMode;
+    }
+
+    public void setTickMarkTintMode(@Nullable PorterDuff.Mode mode) {
+        this.mTickMarkTintMode = mode;
+        this.mHasTickMarkTintMode = true;
+        applyTickMarkTint();
     }
 
     @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
@@ -1665,7 +1382,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
     public void onKeyChange() {
     }
 
-
     @SuppressLint("RestrictedApi")
     public boolean onKeyDown(int i, android.view.KeyEvent keyEvent) {
         if (isEnabled()) {
@@ -1716,9 +1432,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         }
         return super.onKeyDown(i, keyEvent);
     }
-
-
-
 
     /* access modifiers changed from: protected */
     @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
@@ -1844,7 +1557,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         }
     }
 
-
     public boolean onTouchEvent(MotionEvent motionEvent) {
         int i;
         if (!this.mAllowedSeekBarAnimation || this.mIsTouchDisabled || !isEnabled()) {
@@ -1897,11 +1609,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         return true;
     }
 
-
-
-
-
-
     /* access modifiers changed from: package-private */
     @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public void onVisualProgressChanged(int i, float f) {
@@ -1952,38 +1659,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         }
         updateDualColorMode();
         invalidate();
-    }
-
-    public void setKeyProgressIncrement(int i) {
-        if (i < 0) {
-            i = -i;
-        }
-        this.mKeyProgressIncrement = i;
-    }
-
-    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
-    public synchronized void setMax(int i) {
-        if (this.mIsSeamless) {
-            i = Math.round(((float) i) * SCALE_FACTOR);
-        }
-        super.setMax(i);
-        this.mIsFirstSetProgress = true;
-        int max = getMax() - getMin();
-        if (this.mKeyProgressIncrement == 0 || max / this.mKeyProgressIncrement > 20) {
-            setKeyProgressIncrement(Math.max(1, Math.round(((float) max) / 20.0f)));
-        }
-    }
-
-    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
-    public synchronized void setMin(int i) {
-        if (this.mIsSeamless) {
-            i = Math.round(((float) i) * SCALE_FACTOR);
-        }
-        super.setMin(i);
-        int max = getMax() - getMin();
-        if (this.mKeyProgressIncrement == 0 || max / this.mKeyProgressIncrement > 20) {
-            setKeyProgressIncrement(Math.max(1, Math.round(((float) max) / 20.0f)));
-        }
     }
 
     @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
@@ -2040,14 +1715,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
     }
 
     @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
-    public synchronized void setProgress(int i) {
-        if (this.mIsSeamless) {
-            i = Math.round(((float) i) * SCALE_FACTOR);
-        }
-        super.setProgress(i);
-    }
-
-    @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public void setProgressDrawable(Drawable drawable) {
         super.setProgressDrawable(drawable);
@@ -2094,11 +1761,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         super.setSecondaryProgress(i);
     }
 
-    public void setSplitTrack(boolean z) {
-        this.mSplitTrack = z;
-        invalidate();
-    }
-
     @SuppressLint("RestrictedApi")
     @Override // android.view.View
     public void setSystemGestureExclusionRects(@NonNull List<Rect> list) {
@@ -2107,89 +1769,11 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         updateGestureExclusionRects();
     }
 
-    public void setThumb(Drawable drawable) {
-        boolean z;
-        Drawable drawable2 = this.mThumb;
-        if (drawable2 == null || drawable == drawable2) {
-            z = false;
-        } else {
-            drawable2.setCallback(null);
-            z = true;
-        }
-        if (drawable != null) {
-            drawable.setCallback(this);
-            if (canResolveLayoutDirection()) {
-                DrawableCompat.setLayoutDirection(drawable, ViewCompat.getLayoutDirection(this));
-            }
-            int i = this.mCurrentMode;
-            this.mThumbOffset = ((i == 3 || i == 6) ? drawable.getIntrinsicHeight() : drawable.getIntrinsicWidth()) / 2;
-            if (z && !(drawable.getIntrinsicWidth() == this.mThumb.getIntrinsicWidth() && drawable.getIntrinsicHeight() == this.mThumb.getIntrinsicHeight())) {
-                requestLayout();
-            }
-        }
-        this.mThumb = drawable;
-        applyThumbTint();
-        invalidate();
-        if (z) {
-            updateThumbAndTrackPos(getWidth(), getHeight());
-            if (drawable != null && drawable.isStateful()) {
-                drawable.setState(getDrawableState());
-            }
-        }
-    }
-
-    public void setThumbOffset(int i) {
-        this.mThumbOffset = i;
-        invalidate();
-    }
-
     public void setThumbTintColor(int i) {
         ColorStateList colorToColorStateList = colorToColorStateList(i);
         if (!colorToColorStateList.equals(this.mDefaultActivatedThumbColor)) {
             this.mDefaultActivatedThumbColor = colorToColorStateList;
         }
-    }
-
-    public void setThumbTintList(@Nullable ColorStateList colorStateList) {
-        this.mThumbTintList = colorStateList;
-        this.mHasThumbTint = true;
-        applyThumbTint();
-        this.mDefaultActivatedThumbColor = colorStateList;
-    }
-
-    public void setThumbTintMode(@Nullable PorterDuff.Mode mode) {
-        this.mThumbTintMode = mode;
-        this.mHasThumbTintMode = true;
-        applyThumbTint();
-    }
-
-    public void setTickMark(Drawable drawable) {
-        Drawable drawable2 = this.mTickMark;
-        if (drawable2 != null) {
-            drawable2.setCallback(null);
-        }
-        this.mTickMark = drawable;
-        if (drawable != null) {
-            drawable.setCallback(this);
-            DrawableCompat.setLayoutDirection(drawable, ViewCompat.getLayoutDirection(this));
-            if (drawable.isStateful()) {
-                drawable.setState(getDrawableState());
-            }
-            applyTickMarkTint();
-        }
-        invalidate();
-    }
-
-    public void setTickMarkTintList(@Nullable ColorStateList colorStateList) {
-        this.mTickMarkTintList = colorStateList;
-        this.mHasTickMarkTint = true;
-        applyTickMarkTint();
-    }
-
-    public void setTickMarkTintMode(@Nullable PorterDuff.Mode mode) {
-        this.mTickMarkTintMode = mode;
-        this.mHasTickMarkTintMode = true;
-        applyTickMarkTint();
     }
 
     /* access modifiers changed from: protected */
@@ -2211,5 +1795,403 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
     @Override // de.dlyt.yanndroid.samsung.SeslProgressBar
     public boolean verifyDrawable(@NonNull Drawable drawable) {
         return drawable == this.mThumb || drawable == this.mTickMark || super.verifyDrawable(drawable);
+    }
+
+    /* access modifiers changed from: private */
+    public class SliderDrawable extends Drawable {
+        private final int ANIMATION_DURATION;
+        private final Paint mPaint;
+        private final float mSliderMaxWidth;
+        private final float mSliderMinWidth;
+        private final SliderState mState;
+        int mAlpha;
+        @ColorInt
+        int mColor;
+        ColorStateList mColorStateList;
+        ValueAnimator mPressedAnimator;
+        ValueAnimator mReleasedAnimator;
+        private boolean mIsStateChanged;
+        private boolean mIsVertical;
+        private float mRadius;
+
+        public SliderDrawable(SeslAbsSeekBar seslAbsSeekBar, float f, float f2, ColorStateList colorStateList) {
+            this(f, f2, colorStateList, false);
+        }
+
+        public SliderDrawable(float minwidth, float maxwidth, ColorStateList colorStateList, boolean vertical) {
+            this.mPaint = new Paint();
+            this.ANIMATION_DURATION = ItemTouchHelper.Callback.DEFAULT_SWIPE_ANIMATION_DURATION;
+            this.mIsStateChanged = false;
+            this.mAlpha = 255;
+            this.mState = new SliderState();
+            this.mPaint.setStyle(Paint.Style.STROKE);
+            this.mPaint.setStrokeCap(Paint.Cap.ROUND);
+            this.mColorStateList = colorStateList;
+            int defaultColor = colorStateList.getDefaultColor();
+            this.mColor = defaultColor;
+            this.mPaint.setColor(defaultColor);
+            this.mPaint.setStrokeWidth(minwidth);
+            this.mSliderMinWidth = minwidth;
+            this.mSliderMaxWidth = maxwidth;
+            this.mRadius = minwidth / 2.0f;
+            this.mIsVertical = vertical;
+            initAnimator();
+        }
+
+        private void initAnimator() {
+            float f = this.mSliderMinWidth;
+            float f2 = this.mSliderMaxWidth;
+            ValueAnimator ofFloat = ValueAnimator.ofFloat(f, f2);
+            this.mPressedAnimator = ofFloat;
+            ofFloat.setDuration(250L);
+            this.mPressedAnimator.setInterpolator(SeslAnimationUtils.SINE_IN_OUT_80);
+            this.mPressedAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                /* class androidx.appcompat.widget.SeslAbsSeekBar.SliderDrawable.AnonymousClass1 */
+
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    SliderDrawable.this.invalidateTrack(((Float) valueAnimator.getAnimatedValue()).floatValue());
+                }
+            });
+            ValueAnimator ofFloat2 = ValueAnimator.ofFloat(f2, f);
+            this.mReleasedAnimator = ofFloat2;
+            ofFloat2.setDuration(250L);
+            this.mReleasedAnimator.setInterpolator(SeslAnimationUtils.SINE_IN_OUT_80);
+            this.mReleasedAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                /* class androidx.appcompat.widget.SeslAbsSeekBar.SliderDrawable.AnonymousClass2 */
+
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    SliderDrawable.this.invalidateTrack(((Float) valueAnimator.getAnimatedValue()).floatValue());
+                }
+            });
+        }
+
+        private int modulateAlpha(int i, int i2) {
+            return (i * (i2 + (i2 >>> 7))) >>> 8;
+        }
+
+        private void startPressedAnimation() {
+            if (!this.mPressedAnimator.isRunning()) {
+                if (this.mReleasedAnimator.isRunning()) {
+                    this.mReleasedAnimator.cancel();
+                }
+                this.mPressedAnimator.setFloatValues(this.mSliderMinWidth, this.mSliderMaxWidth);
+                this.mPressedAnimator.start();
+            }
+        }
+
+        private void startReleasedAnimation() {
+            if (!this.mReleasedAnimator.isRunning()) {
+                if (this.mPressedAnimator.isRunning()) {
+                    this.mPressedAnimator.cancel();
+                }
+                this.mReleasedAnimator.setFloatValues(this.mSliderMaxWidth, this.mSliderMinWidth);
+                this.mReleasedAnimator.start();
+            }
+        }
+
+        private void startSliderAnimation(boolean z) {
+            if (this.mIsStateChanged != z) {
+                if (z) {
+                    startPressedAnimation();
+                } else {
+                    startReleasedAnimation();
+                }
+                this.mIsStateChanged = z;
+            }
+        }
+
+        public void draw(Canvas canvas) {
+            int alpha = this.mPaint.getAlpha();
+            this.mPaint.setAlpha(modulateAlpha(alpha, this.mAlpha));
+            canvas.save();
+            if (!this.mIsVertical) {
+                float f = this.mRadius;
+                canvas.drawLine(f, ((float) SeslAbsSeekBar.this.getHeight()) / 2.0f, ((float) ((SeslAbsSeekBar.this.getWidth() - SeslAbsSeekBar.this.getPaddingLeft()) - SeslAbsSeekBar.this.getPaddingRight())) - f, ((float) SeslAbsSeekBar.this.getHeight()) / 2.0f, this.mPaint);
+            } else {
+                canvas.drawLine(((float) SeslAbsSeekBar.this.getWidth()) / 2.0f, ((float) ((SeslAbsSeekBar.this.getHeight() - SeslAbsSeekBar.this.getPaddingTop()) - SeslAbsSeekBar.this.getPaddingBottom())) - this.mRadius, ((float) SeslAbsSeekBar.this.getWidth()) / 2.0f, this.mRadius, this.mPaint);
+            }
+            canvas.restore();
+            this.mPaint.setAlpha(alpha);
+        }
+
+        @Nullable
+        public ConstantState getConstantState() {
+            return this.mState;
+        }
+
+        public int getIntrinsicHeight() {
+            return (int) this.mSliderMaxWidth;
+        }
+
+        public int getIntrinsicWidth() {
+            return (int) this.mSliderMaxWidth;
+        }
+
+        public int getOpacity() {
+            Paint paint = this.mPaint;
+            if (paint.getXfermode() != null) {
+                return PixelFormat.TRANSLUCENT;
+            }
+            int alpha = paint.getAlpha();
+            if (alpha == 0) {
+                return PixelFormat.TRANSPARENT;
+            }
+            return alpha == 255 ? PixelFormat.OPAQUE : PixelFormat.TRANSLUCENT;
+        }
+
+        /* access modifiers changed from: package-private */
+        public void invalidateTrack(float f) {
+            setStrokeWidth(f);
+            invalidateSelf();
+        }
+
+        public boolean isStateful() {
+            return true;
+        }
+
+        /* access modifiers changed from: protected */
+        public boolean onStateChange(int[] iArr) {
+            boolean onStateChange = super.onStateChange(iArr);
+            int colorForState = this.mColorStateList.getColorForState(iArr, this.mColor);
+            if (this.mColor != colorForState) {
+                this.mColor = colorForState;
+                this.mPaint.setColor(colorForState);
+                invalidateSelf();
+            }
+            boolean z = false;
+            boolean z2 = false;
+            boolean z3 = false;
+            for (int i : iArr) {
+                if (i == 16842910) {
+                    z2 = true;
+                } else if (i == 16842919) {
+                    z3 = true;
+                }
+            }
+            if (z2 && z3) {
+                z = true;
+            }
+            startSliderAnimation(z);
+            return onStateChange;
+        }
+
+        public void setAlpha(int i) {
+            this.mAlpha = i;
+            invalidateSelf();
+        }
+
+        public void setColorFilter(@Nullable ColorFilter colorFilter) {
+            this.mPaint.setColorFilter(colorFilter);
+            invalidateSelf();
+        }
+
+        public void setStrokeWidth(float f) {
+            this.mPaint.setStrokeWidth(f);
+            this.mRadius = f / 2.0f;
+        }
+
+        public void setTintList(@Nullable ColorStateList colorStateList) {
+            super.setTintList(colorStateList);
+            if (colorStateList != null) {
+                this.mColorStateList = colorStateList;
+                int defaultColor = colorStateList.getDefaultColor();
+                this.mColor = defaultColor;
+                this.mPaint.setColor(defaultColor);
+                invalidateSelf();
+            }
+        }
+
+        private class SliderState extends ConstantState {
+            private SliderState() {
+            }
+
+            public int getChangingConfigurations() {
+                return 0;
+            }
+
+            @NonNull
+            public Drawable newDrawable() {
+                return SliderDrawable.this;
+            }
+        }
+    }
+
+    /* access modifiers changed from: private */
+    public class ThumbDrawable extends Drawable {
+        private final int PRESSED_DURATION = 100;
+        private final int RELEASED_DURATION = 300;
+        private final Paint mPaint = new Paint(1);
+        private final int mRadius;
+        @ColorInt
+        int mColor;
+        private int mAlpha = 255;
+        private ColorStateList mColorStateList;
+        private boolean mIsStateChanged = false;
+        private boolean mIsVertical = false;
+        private int mRadiusForAni;
+        private ValueAnimator mThumbPressed;
+        private ValueAnimator mThumbReleased;
+
+        public ThumbDrawable(int i, ColorStateList colorStateList, boolean z) {
+            this.mRadiusForAni = i;
+            this.mRadius = i;
+            this.mColorStateList = colorStateList;
+            this.mColor = colorStateList.getDefaultColor();
+            this.mPaint.setStyle(Paint.Style.FILL);
+            this.mPaint.setColor(this.mColor);
+            this.mIsVertical = z;
+            initAnimation();
+        }
+
+        private int modulateAlpha(int i, int i2) {
+            return (i * (i2 + (i2 >>> 7))) >>> 8;
+        }
+
+        /* access modifiers changed from: private */
+        /* access modifiers changed from: public */
+        private void setRadius(int i) {
+            this.mRadiusForAni = i;
+        }
+
+        private void startPressedAnimation() {
+            if (!this.mThumbPressed.isRunning()) {
+                if (this.mThumbReleased.isRunning()) {
+                    this.mThumbReleased.cancel();
+                }
+                this.mThumbPressed.start();
+            }
+        }
+
+        private void startReleasedAnimation() {
+            if (!this.mThumbReleased.isRunning()) {
+                if (this.mThumbPressed.isRunning()) {
+                    this.mThumbPressed.cancel();
+                }
+                this.mThumbReleased.start();
+            }
+        }
+
+        private void startThumbAnimation(boolean z) {
+            if (this.mIsStateChanged != z) {
+                if (z) {
+                    startPressedAnimation();
+                } else {
+                    startReleasedAnimation();
+                }
+                this.mIsStateChanged = z;
+            }
+        }
+
+        public void draw(@NonNull Canvas canvas) {
+            int alpha = this.mPaint.getAlpha();
+            this.mPaint.setAlpha(modulateAlpha(alpha, this.mAlpha));
+            canvas.save();
+            if (!this.mIsVertical) {
+                canvas.drawCircle((float) SeslAbsSeekBar.this.mThumbPosX, ((float) SeslAbsSeekBar.this.getHeight()) / 2.0f, (float) this.mRadiusForAni, this.mPaint);
+            } else {
+                canvas.drawCircle(((float) SeslAbsSeekBar.this.getWidth()) / 2.0f, (float) SeslAbsSeekBar.this.mThumbPosX, (float) this.mRadiusForAni, this.mPaint);
+            }
+            canvas.restore();
+            this.mPaint.setAlpha(alpha);
+        }
+
+        public int getIntrinsicHeight() {
+            return this.mRadius * 2;
+        }
+
+        public int getIntrinsicWidth() {
+            return this.mRadius * 2;
+        }
+
+        public int getOpacity() {
+            Paint paint = this.mPaint;
+            if (paint.getXfermode() != null) {
+                return PixelFormat.TRANSLUCENT;
+            }
+            int alpha = paint.getAlpha();
+            if (alpha == 0) {
+                return PixelFormat.TRANSPARENT;
+            }
+            return alpha == 255 ? PixelFormat.OPAQUE : PixelFormat.TRANSLUCENT;
+        }
+
+        /* access modifiers changed from: package-private */
+        public void initAnimation() {
+            ValueAnimator ofFloat = ValueAnimator.ofFloat((float) this.mRadius, 0.0f);
+            this.mThumbPressed = ofFloat;
+            ofFloat.setDuration(100L);
+            this.mThumbPressed.setInterpolator(new LinearInterpolator());
+            this.mThumbPressed.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                /* class androidx.appcompat.widget.SeslAbsSeekBar.ThumbDrawable.AnonymousClass1 */
+
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    ThumbDrawable.this.setRadius((int) ((Float) valueAnimator.getAnimatedValue()).floatValue());
+                    ThumbDrawable.this.invalidateSelf();
+                }
+            });
+            ValueAnimator ofFloat2 = ValueAnimator.ofFloat(0.0f, (float) this.mRadius);
+            this.mThumbReleased = ofFloat2;
+            ofFloat2.setDuration(300L);
+            this.mThumbReleased.setInterpolator(SeslAnimationUtils.SINE_IN_OUT_90);
+            this.mThumbReleased.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                /* class androidx.appcompat.widget.SeslAbsSeekBar.ThumbDrawable.AnonymousClass2 */
+
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    ThumbDrawable.this.setRadius((int) ((Float) valueAnimator.getAnimatedValue()).floatValue());
+                    ThumbDrawable.this.invalidateSelf();
+                }
+            });
+        }
+
+        public boolean isStateful() {
+            return true;
+        }
+
+        /* access modifiers changed from: protected */
+        public boolean onStateChange(int[] iArr) {
+            boolean onStateChange = super.onStateChange(iArr);
+            int colorForState = this.mColorStateList.getColorForState(iArr, this.mColor);
+            if (this.mColor != colorForState) {
+                this.mColor = colorForState;
+                this.mPaint.setColor(colorForState);
+                invalidateSelf();
+            }
+            boolean z = false;
+            boolean z2 = false;
+            boolean z3 = false;
+            for (int i : iArr) {
+                if (i == 16842910) {
+                    z2 = true;
+                } else if (i == 16842919) {
+                    z3 = true;
+                }
+            }
+            if (z2 && z3) {
+                z = true;
+            }
+            startThumbAnimation(z);
+            return onStateChange;
+        }
+
+        public void setAlpha(int i) {
+            this.mAlpha = i;
+            invalidateSelf();
+        }
+
+        public void setColorFilter(@Nullable ColorFilter colorFilter) {
+            this.mPaint.setColorFilter(colorFilter);
+            invalidateSelf();
+        }
+
+        public void setTintList(@Nullable ColorStateList colorStateList) {
+            super.setTintList(colorStateList);
+            if (colorStateList != null) {
+                this.mColorStateList = colorStateList;
+                int colorForState = colorStateList.getColorForState(SeslAbsSeekBar.this.getDrawableState(), this.mColor);
+                this.mColor = colorForState;
+                this.mPaint.setColor(colorForState);
+                invalidateSelf();
+            }
+        }
     }
 }

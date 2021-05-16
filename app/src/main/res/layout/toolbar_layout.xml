@@ -55,20 +55,20 @@
 
             <RelativeLayout
                 android:id="@+id/navigationIcon_container"
-                android:layout_marginHorizontal="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
                 android:gravity="center">
 
                 <ImageView
-                    android:padding="5.5dp"
                     android:id="@+id/navigationIcon"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:background="?selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:focusable="true"
                     android:contentDescription="Show navigation menu"
+                    android:focusable="true"
+                    android:padding="5.5dp"
                     android:src="@drawable/ic_samsung_drawer" />
 
                 <TextView

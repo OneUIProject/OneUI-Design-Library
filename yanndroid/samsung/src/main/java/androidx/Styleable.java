@@ -57,7 +57,6 @@ public final class Styleable {
         public static final int AppCompatTheme_android_disabledAlpha = 0;
 
 
-
     }
 
 }

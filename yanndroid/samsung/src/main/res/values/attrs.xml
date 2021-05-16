@@ -57,6 +57,7 @@
         <attr name="toolbar_title" format="string" />
         <attr name="toolbar_subtitle" format="string" />
         <attr name="drawer_icon" format="reference|color" />
+        <attr name="drawer_viewId" format="reference|enum" />
     </declare-styleable>
 
     <declare-styleable name="ToolBarLayout">

@@ -55,29 +55,47 @@ import java.util.ArrayList;
 
 @RemoteViews.RemoteView
 public class ProgressBar extends View {
-    private static final int MAX_LEVEL = 10000;
     public static final int MODE_DUAL_COLOR = 2;
     public static final int MODE_EXPAND = 5;
     public static final int MODE_EXPAND_VERTICAL = 6;
     public static final int MODE_SPLIT = 4;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    protected static final int MODE_STANDARD = 0;
     public static final int MODE_VERTICAL = 3;
     public static final int MODE_WARNING = 1;
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    protected static final int MODE_STANDARD = 0;
+    private static final int MAX_LEVEL = 10000;
     private static final int PROGRESS_ANIM_DURATION = 80;
     private static final DecelerateInterpolator PROGRESS_ANIM_INTERPOLATOR = new DecelerateInterpolator();
     private static final int TIMEOUT_SEND_ACCESSIBILITY_EVENT = 200;
     private final FloatProperty<ProgressBar> VISUAL_PROGRESS;
+    private final ArrayList<RefreshData> mRefreshData;
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    public
+    int mMaxHeight;
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    public
+    int mMaxWidth;
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    public
+    int mMinHeight;
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    public
+    int mMinWidth;
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    public
+    boolean mMirrorForRtl;
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    protected int mCurrentMode;
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    protected float mDensity;
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    int mSampleWidth;
     private AccessibilityEventSender mAccessibilityEventSender;
     private boolean mAggregatedIsVisible;
     private AlphaAnimation mAnimation;
     private boolean mAttached;
     private int mBehavior;
     private Drawable mCurrentDrawable;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    protected int mCurrentMode;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    protected float mDensity;
     private int mDuration;
     private boolean mHasAnimation;
     private boolean mInDrawing;
@@ -85,191 +103,21 @@ public class ProgressBar extends View {
     private Drawable mIndeterminateDrawable;
     private Interpolator mInterpolator;
     private int mMax;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public
-    int mMaxHeight;
     private boolean mMaxInitialized;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public
-    int mMaxWidth;
     private int mMin;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public
-    int mMinHeight;
     private boolean mMinInitialized;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public
-    int mMinWidth;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public
-    boolean mMirrorForRtl;
     private boolean mNoInvalidate;
     private boolean mOnlyIndeterminate;
     private int mProgress;
     private Drawable mProgressDrawable;
     private ProgressTintInfo mProgressTintInfo;
-    private final ArrayList<RefreshData> mRefreshData;
     private boolean mRefreshIsPosted;
     private RefreshProgressRunnable mRefreshProgressRunnable;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    int mSampleWidth;
     private int mSecondaryProgress;
     private boolean mShouldStartAnimationDrawable;
     private Transformation mTransformation;
     private long mUiThreadId;
     private float mVisualProgress;
-
-    /* access modifiers changed from: private */
-    public class AccessibilityEventSender implements Runnable {
-        private AccessibilityEventSender() {
-        }
-
-        public void run() {
-            ProgressBar.this.sendAccessibilityEvent(4);
-        }
-    }
-
-    /* access modifiers changed from: private */
-    public static class ProgressTintInfo {
-        boolean mHasIndeterminateTint;
-        boolean mHasIndeterminateTintMode;
-        boolean mHasProgressBackgroundTint;
-        boolean mHasProgressBackgroundTintMode;
-        boolean mHasProgressTint;
-        boolean mHasProgressTintMode;
-        boolean mHasSecondaryProgressTint;
-        boolean mHasSecondaryProgressTintMode;
-        ColorStateList mIndeterminateTintList;
-        PorterDuff.Mode mIndeterminateTintMode;
-        ColorStateList mProgressBackgroundTintList;
-        PorterDuff.Mode mProgressBackgroundTintMode;
-        ColorStateList mProgressTintList;
-        PorterDuff.Mode mProgressTintMode;
-        ColorStateList mSecondaryProgressTintList;
-        PorterDuff.Mode mSecondaryProgressTintMode;
-
-        private ProgressTintInfo() {
-        }
-    }
-
-    /* access modifiers changed from: private */
-    public static class RefreshData {
-        private static final int POOL_MAX = 24;
-        private static final Pools.SynchronizedPool<RefreshData> sPool = new Pools.SynchronizedPool<>(24);
-        public boolean animate;
-        public boolean fromUser;
-        public int id;
-        public int progress;
-
-        private RefreshData() {
-        }
-
-        public static RefreshData obtain(int i, int i2, boolean z, boolean z2) {
-            RefreshData acquire = sPool.acquire();
-            if (acquire == null) {
-                acquire = new RefreshData();
-            }
-            acquire.id = i;
-            acquire.progress = i2;
-            acquire.fromUser = z;
-            acquire.animate = z2;
-            return acquire;
-        }
-
-        public void recycle() {
-            sPool.release(this);
-        }
-    }
-
-    /* access modifiers changed from: private */
-    public class RefreshProgressRunnable implements Runnable {
-        private RefreshProgressRunnable() {
-        }
-
-        public void run() {
-            synchronized (ProgressBar.this) {
-                int size = ProgressBar.this.mRefreshData.size();
-                for (int i = 0; i < size; i++) {
-                    RefreshData refreshData = (RefreshData) ProgressBar.this.mRefreshData.get(i);
-                    ProgressBar.this.doRefreshProgress(refreshData.id, refreshData.progress, refreshData.fromUser, true, refreshData.animate);
-                    refreshData.recycle();
-                }
-                ProgressBar.this.mRefreshData.clear();
-                ProgressBar.this.mRefreshIsPosted = false;
-            }
-        }
-    }
-
-    /* access modifiers changed from: package-private */
-    public static class SavedState extends BaseSavedState {
-        @NonNull
-        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-            /* class de.dlyt.yanndroid.samsung.SeslProgressBar.SavedState.AnonymousClass1 */
-
-            @Override // android.os.Parcelable.Creator
-            public SavedState createFromParcel(Parcel parcel) {
-                return new SavedState(parcel);
-            }
-
-            @Override // android.os.Parcelable.Creator
-            public SavedState[] newArray(int i) {
-                return new SavedState[i];
-            }
-        };
-        int progress;
-        int secondaryProgress;
-
-        private SavedState(Parcel parcel) {
-            super(parcel);
-            this.progress = parcel.readInt();
-            this.secondaryProgress = parcel.readInt();
-        }
-
-        SavedState(Parcelable parcelable) {
-            super(parcelable);
-        }
-
-        public void writeToParcel(Parcel parcel, int i) {
-            super.writeToParcel(parcel, i);
-            parcel.writeInt(this.progress);
-            parcel.writeInt(this.secondaryProgress);
-        }
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public @interface SeekBarMode {
-    }
-
-    /* access modifiers changed from: private */
-    public static class StateListDrawableCompat {
-        private static final boolean IS_BASE_SDK_VERSION = (Build.VERSION.SDK_INT <= 23);
-
-        private StateListDrawableCompat() {
-        }
-
-        static int getStateCount(StateListDrawable stateListDrawable) {
-            if (!IS_BASE_SDK_VERSION) {
-                return 0;
-            }
-            SeslStateListDrawableReflector.getStateCount(stateListDrawable);
-            return 0;
-        }
-
-        static Drawable getStateDrawable(StateListDrawable stateListDrawable, int i) {
-            if (IS_BASE_SDK_VERSION) {
-                return SeslStateListDrawableReflector.getStateDrawable(stateListDrawable, i);
-            }
-            return null;
-        }
-
-        static int[] getStateSet(StateListDrawable stateListDrawable, int i) {
-            if (IS_BASE_SDK_VERSION) {
-                return SeslStateListDrawableReflector.getStateSet(stateListDrawable, i);
-            }
-            return null;
-        }
-    }
 
     public ProgressBar(Context context) {
         this(context, null);
@@ -408,6 +256,35 @@ public class ProgressBar extends View {
             ViewCompat.setImportantForAccessibility(this, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_YES);
         }
         this.mDensity = context.getResources().getDisplayMetrics().density;
+    }
+
+    private static boolean needsTileify(Drawable drawable) {
+        if (drawable instanceof LayerDrawable) {
+            LayerDrawable layerDrawable = (LayerDrawable) drawable;
+            int numberOfLayers = layerDrawable.getNumberOfLayers();
+            for (int i = 0; i < numberOfLayers; i++) {
+                if (needsTileify(layerDrawable.getDrawable(i))) {
+                    return true;
+                }
+            }
+            return false;
+        } else if (!(drawable instanceof StateListDrawable)) {
+            return drawable instanceof BitmapDrawable;
+        } else {
+            StateListDrawable stateListDrawable = (StateListDrawable) drawable;
+            int stateCount = StateListDrawableCompat.getStateCount(stateListDrawable);
+            for (int i2 = 0; i2 < stateCount; i2++) {
+                Drawable stateDrawable = StateListDrawableCompat.getStateDrawable(stateListDrawable, i2);
+                if (stateDrawable != null && needsTileify(stateDrawable)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    public static int MathUtilsdotconstrain(int i, int i2, int i3) {
+        return i < i2 ? i2 : i > i3 ? i3 : i;
     }
 
     private void applyIndeterminateTint() {
@@ -577,31 +454,6 @@ public class ProgressBar extends View {
         this.mMaxHeight = 48;
     }
 
-    private static boolean needsTileify(Drawable drawable) {
-        if (drawable instanceof LayerDrawable) {
-            LayerDrawable layerDrawable = (LayerDrawable) drawable;
-            int numberOfLayers = layerDrawable.getNumberOfLayers();
-            for (int i = 0; i < numberOfLayers; i++) {
-                if (needsTileify(layerDrawable.getDrawable(i))) {
-                    return true;
-                }
-            }
-            return false;
-        } else if (!(drawable instanceof StateListDrawable)) {
-            return drawable instanceof BitmapDrawable;
-        } else {
-            StateListDrawable stateListDrawable = (StateListDrawable) drawable;
-            int stateCount = StateListDrawableCompat.getStateCount(stateListDrawable);
-            for (int i2 = 0; i2 < stateCount; i2++) {
-                Drawable stateDrawable = StateListDrawableCompat.getStateDrawable(stateListDrawable, i2);
-                if (stateDrawable != null && needsTileify(stateDrawable)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
-
     private synchronized void refreshProgress(int i, int i2, boolean z, boolean z2) {
         if (this.mUiThreadId == Thread.currentThread().getId()) {
             doRefreshProgress(i, i2, z, true, z2);
@@ -701,7 +553,6 @@ public class ProgressBar extends View {
             }
         }
     }
-
 
     private Drawable tileify(Drawable drawable, boolean z) {
         int i = 0;
@@ -858,6 +709,29 @@ public class ProgressBar extends View {
         return this.mIndeterminateDrawable;
     }
 
+    public void setIndeterminateDrawable(Drawable drawable) {
+        Drawable drawable2 = this.mIndeterminateDrawable;
+        if (drawable2 != drawable) {
+            if (drawable2 != null) {
+                drawable2.setCallback(null);
+                unscheduleDrawable(this.mIndeterminateDrawable);
+            }
+            this.mIndeterminateDrawable = drawable;
+            if (drawable != null) {
+                drawable.setCallback(this);
+                DrawableCompat.setLayoutDirection(drawable, ViewCompat.getLayoutDirection(this));
+                if (drawable.isStateful()) {
+                    drawable.setState(getDrawableState());
+                }
+                applyIndeterminateTint();
+            }
+            if (this.mIndeterminate) {
+                swapCurrentDrawable(drawable);
+                postInvalidate();
+            }
+        }
+    }
+
     @Nullable
     public ColorStateList getIndeterminateTintList() {
         ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
@@ -865,6 +739,16 @@ public class ProgressBar extends View {
             return progressTintInfo.mIndeterminateTintList;
         }
         return null;
+    }
+
+    public void setIndeterminateTintList(@Nullable ColorStateList colorStateList) {
+        if (this.mProgressTintInfo == null) {
+            this.mProgressTintInfo = new ProgressTintInfo();
+        }
+        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
+        progressTintInfo.mIndeterminateTintList = colorStateList;
+        progressTintInfo.mHasIndeterminateTint = true;
+        applyIndeterminateTint();
     }
 
     @Nullable
@@ -876,8 +760,22 @@ public class ProgressBar extends View {
         return null;
     }
 
+    public void setIndeterminateTintMode(@Nullable PorterDuff.Mode mode) {
+        if (this.mProgressTintInfo == null) {
+            this.mProgressTintInfo = new ProgressTintInfo();
+        }
+        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
+        progressTintInfo.mIndeterminateTintMode = mode;
+        progressTintInfo.mHasIndeterminateTintMode = true;
+        applyIndeterminateTint();
+    }
+
     public Interpolator getInterpolator() {
         return this.mInterpolator;
+    }
+
+    public void setInterpolator(Interpolator interpolator) {
+        this.mInterpolator = interpolator;
     }
 
     @ViewDebug.ExportedProperty(category = NotificationCompat.CATEGORY_PROGRESS)
@@ -885,9 +783,31 @@ public class ProgressBar extends View {
         return this.mMax;
     }
 
+    public synchronized void setMax(int i) {
+        if (this.mMinInitialized && i < this.mMin) {
+            i = this.mMin;
+        }
+        this.mMaxInitialized = true;
+        if (!this.mMinInitialized || i == this.mMax) {
+            this.mMax = i;
+        } else {
+            this.mMax = i;
+            postInvalidate();
+            if (this.mProgress > i) {
+                this.mProgress = i;
+            }
+            refreshProgress(R.id.progress, this.mProgress, false, false);
+        }
+    }
+
     @Px
     public int getMaxHeight() {
         return this.mMaxHeight;
+    }
+
+    public void setMaxHeight(@Px int i) {
+        this.mMaxHeight = i;
+        requestLayout();
     }
 
     @Px
@@ -895,9 +815,31 @@ public class ProgressBar extends View {
         return this.mMaxWidth;
     }
 
+    public void setMaxWidth(@Px int i) {
+        this.mMaxWidth = i;
+        requestLayout();
+    }
+
     @ViewDebug.ExportedProperty(category = NotificationCompat.CATEGORY_PROGRESS)
     public synchronized int getMin() {
         return this.mMin;
+    }
+
+    public synchronized void setMin(int i) {
+        if (this.mMaxInitialized && i > this.mMax) {
+            i = this.mMax;
+        }
+        this.mMinInitialized = true;
+        if (!this.mMaxInitialized || i == this.mMin) {
+            this.mMin = i;
+        } else {
+            this.mMin = i;
+            postInvalidate();
+            if (this.mProgress < i) {
+                this.mProgress = i;
+            }
+            refreshProgress(R.id.progress, this.mProgress, false, false);
+        }
     }
 
     @Px
@@ -905,9 +847,19 @@ public class ProgressBar extends View {
         return this.mMinHeight;
     }
 
+    public void setMinHeight(@Px int i) {
+        this.mMinHeight = i;
+        requestLayout();
+    }
+
     @Px
     public int getMinWidth() {
         return this.mMinWidth;
+    }
+
+    public void setMinWidth(@Px int i) {
+        this.mMinWidth = i;
+        requestLayout();
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
@@ -928,6 +880,10 @@ public class ProgressBar extends View {
         return this.mIndeterminate ? 0 : this.mProgress;
     }
 
+    public synchronized void setProgress(int i) {
+        setProgressInternal(i, false, false);
+    }
+
     @Nullable
     public ColorStateList getProgressBackgroundTintList() {
         ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
@@ -935,6 +891,18 @@ public class ProgressBar extends View {
             return progressTintInfo.mProgressBackgroundTintList;
         }
         return null;
+    }
+
+    public void setProgressBackgroundTintList(@Nullable ColorStateList colorStateList) {
+        if (this.mProgressTintInfo == null) {
+            this.mProgressTintInfo = new ProgressTintInfo();
+        }
+        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
+        progressTintInfo.mProgressBackgroundTintList = colorStateList;
+        progressTintInfo.mHasProgressBackgroundTint = true;
+        if (this.mProgressDrawable != null) {
+            applyProgressBackgroundTint();
+        }
     }
 
     @Nullable
@@ -946,8 +914,61 @@ public class ProgressBar extends View {
         return null;
     }
 
+    public void setProgressBackgroundTintMode(@Nullable PorterDuff.Mode mode) {
+        if (this.mProgressTintInfo == null) {
+            this.mProgressTintInfo = new ProgressTintInfo();
+        }
+        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
+        progressTintInfo.mProgressBackgroundTintMode = mode;
+        progressTintInfo.mHasProgressBackgroundTintMode = true;
+        if (this.mProgressDrawable != null) {
+            applyProgressBackgroundTint();
+        }
+    }
+
     public Drawable getProgressDrawable() {
         return this.mProgressDrawable;
+    }
+
+    public void setProgressDrawable(Drawable drawable) {
+        Drawable drawable2 = this.mProgressDrawable;
+        if (drawable2 != drawable) {
+            if (drawable2 != null) {
+                drawable2.setCallback(null);
+                unscheduleDrawable(this.mProgressDrawable);
+            }
+            this.mProgressDrawable = drawable;
+            if (drawable != null) {
+                drawable.setCallback(this);
+                DrawableCompat.setLayoutDirection(drawable, ViewCompat.getLayoutDirection(this));
+                if (drawable.isStateful()) {
+                    drawable.setState(getDrawableState());
+                }
+                if (this.mCurrentMode == 3) {
+                    int minimumWidth = drawable.getMinimumWidth();
+                    if (this.mMaxWidth < minimumWidth) {
+                        this.mMaxWidth = minimumWidth;
+                    }
+                    applyProgressTints();
+                } else {
+                    int minimumHeight = drawable.getMinimumHeight();
+                    if (this.mMaxHeight < minimumHeight) {
+                        this.mMaxHeight = minimumHeight;
+                    }
+                    applyProgressTints();
+                }
+                requestLayout();
+                applyProgressTints();
+            }
+            if (!this.mIndeterminate) {
+                swapCurrentDrawable(drawable);
+                postInvalidate();
+            }
+            updateDrawableBounds(getWidth(), getHeight());
+            updateDrawableState();
+            doRefreshProgress(R.id.progress, this.mProgress, false, false, false);
+            doRefreshProgress(R.id.secondaryProgress, this.mSecondaryProgress, false, false, false);
+        }
     }
 
     @Nullable
@@ -959,6 +980,18 @@ public class ProgressBar extends View {
         return null;
     }
 
+    public void setProgressTintList(@Nullable ColorStateList colorStateList) {
+        if (this.mProgressTintInfo == null) {
+            this.mProgressTintInfo = new ProgressTintInfo();
+        }
+        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
+        progressTintInfo.mProgressTintList = colorStateList;
+        progressTintInfo.mHasProgressTint = true;
+        if (this.mProgressDrawable != null) {
+            applyPrimaryProgressTint();
+        }
+    }
+
     @Nullable
     public PorterDuff.Mode getProgressTintMode() {
         ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
@@ -968,9 +1001,36 @@ public class ProgressBar extends View {
         return null;
     }
 
+    public void setProgressTintMode(@Nullable PorterDuff.Mode mode) {
+        if (this.mProgressTintInfo == null) {
+            this.mProgressTintInfo = new ProgressTintInfo();
+        }
+        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
+        progressTintInfo.mProgressTintMode = mode;
+        progressTintInfo.mHasProgressTintMode = true;
+        if (this.mProgressDrawable != null) {
+            applyPrimaryProgressTint();
+        }
+    }
+
     @ViewDebug.ExportedProperty(category = NotificationCompat.CATEGORY_PROGRESS)
     public synchronized int getSecondaryProgress() {
         return this.mIndeterminate ? 0 : this.mSecondaryProgress;
+    }
+
+    public synchronized void setSecondaryProgress(int i) {
+        if (!this.mIndeterminate) {
+            if (i < this.mMin) {
+                i = this.mMin;
+            }
+            if (i > this.mMax) {
+                i = this.mMax;
+            }
+            if (i != this.mSecondaryProgress) {
+                this.mSecondaryProgress = i;
+                refreshProgress(R.id.secondaryProgress, i, false, false);
+            }
+        }
     }
 
     @Nullable
@@ -982,6 +1042,18 @@ public class ProgressBar extends View {
         return null;
     }
 
+    public void setSecondaryProgressTintList(@Nullable ColorStateList colorStateList) {
+        if (this.mProgressTintInfo == null) {
+            this.mProgressTintInfo = new ProgressTintInfo();
+        }
+        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
+        progressTintInfo.mSecondaryProgressTintList = colorStateList;
+        progressTintInfo.mHasSecondaryProgressTint = true;
+        if (this.mProgressDrawable != null) {
+            applySecondaryProgressTint();
+        }
+    }
+
     @Nullable
     public PorterDuff.Mode getSecondaryProgressTintMode() {
         ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
@@ -989,6 +1061,18 @@ public class ProgressBar extends View {
             return progressTintInfo.mSecondaryProgressTintMode;
         }
         return null;
+    }
+
+    public void setSecondaryProgressTintMode(@Nullable PorterDuff.Mode mode) {
+        if (this.mProgressTintInfo == null) {
+            this.mProgressTintInfo = new ProgressTintInfo();
+        }
+        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
+        progressTintInfo.mSecondaryProgressTintMode = mode;
+        progressTintInfo.mHasSecondaryProgressTintMode = true;
+        if (this.mProgressDrawable != null) {
+            applySecondaryProgressTint();
+        }
     }
 
     public final synchronized void incrementProgressBy(int i) {
@@ -1020,6 +1104,19 @@ public class ProgressBar extends View {
     @ViewDebug.ExportedProperty(category = NotificationCompat.CATEGORY_PROGRESS)
     public synchronized boolean isIndeterminate() {
         return this.mIndeterminate;
+    }
+
+    public synchronized void setIndeterminate(boolean z) {
+        if ((!this.mOnlyIndeterminate || !this.mIndeterminate) && z != this.mIndeterminate) {
+            this.mIndeterminate = z;
+            if (z) {
+                swapCurrentDrawable(this.mIndeterminateDrawable);
+                startAnimation();
+            } else {
+                swapCurrentDrawable(this.mProgressDrawable);
+                stopAnimation();
+            }
+        }
     }
 
     public void jumpDrawablesToCurrentState() {
@@ -1197,42 +1294,6 @@ public class ProgressBar extends View {
         }
     }
 
-    public synchronized void setIndeterminate(boolean z) {
-        if ((!this.mOnlyIndeterminate || !this.mIndeterminate) && z != this.mIndeterminate) {
-            this.mIndeterminate = z;
-            if (z) {
-                swapCurrentDrawable(this.mIndeterminateDrawable);
-                startAnimation();
-            } else {
-                swapCurrentDrawable(this.mProgressDrawable);
-                stopAnimation();
-            }
-        }
-    }
-
-    public void setIndeterminateDrawable(Drawable drawable) {
-        Drawable drawable2 = this.mIndeterminateDrawable;
-        if (drawable2 != drawable) {
-            if (drawable2 != null) {
-                drawable2.setCallback(null);
-                unscheduleDrawable(this.mIndeterminateDrawable);
-            }
-            this.mIndeterminateDrawable = drawable;
-            if (drawable != null) {
-                drawable.setCallback(this);
-                DrawableCompat.setLayoutDirection(drawable, ViewCompat.getLayoutDirection(this));
-                if (drawable.isStateful()) {
-                    drawable.setState(getDrawableState());
-                }
-                applyIndeterminateTint();
-            }
-            if (this.mIndeterminate) {
-                swapCurrentDrawable(drawable);
-                postInvalidate();
-            }
-        }
-    }
-
     public void setIndeterminateDrawableTiled(Drawable drawable) {
         if (drawable != null) {
             drawable = tileifyIndeterminate(drawable);
@@ -1240,86 +1301,8 @@ public class ProgressBar extends View {
         setIndeterminateDrawable(drawable);
     }
 
-    public void setIndeterminateTintList(@Nullable ColorStateList colorStateList) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
-        }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mIndeterminateTintList = colorStateList;
-        progressTintInfo.mHasIndeterminateTint = true;
-        applyIndeterminateTint();
-    }
-
-    public void setIndeterminateTintMode(@Nullable PorterDuff.Mode mode) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
-        }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mIndeterminateTintMode = mode;
-        progressTintInfo.mHasIndeterminateTintMode = true;
-        applyIndeterminateTint();
-    }
-
     public void setInterpolator(Context context, @InterpolatorRes int i) {
         setInterpolator(AnimationUtils.loadInterpolator(context, i));
-    }
-
-    public void setInterpolator(Interpolator interpolator) {
-        this.mInterpolator = interpolator;
-    }
-
-    public synchronized void setMax(int i) {
-        if (this.mMinInitialized && i < this.mMin) {
-            i = this.mMin;
-        }
-        this.mMaxInitialized = true;
-        if (!this.mMinInitialized || i == this.mMax) {
-            this.mMax = i;
-        } else {
-            this.mMax = i;
-            postInvalidate();
-            if (this.mProgress > i) {
-                this.mProgress = i;
-            }
-            refreshProgress(R.id.progress, this.mProgress, false, false);
-        }
-    }
-
-    public void setMaxHeight(@Px int i) {
-        this.mMaxHeight = i;
-        requestLayout();
-    }
-
-    public void setMaxWidth(@Px int i) {
-        this.mMaxWidth = i;
-        requestLayout();
-    }
-
-    public synchronized void setMin(int i) {
-        if (this.mMaxInitialized && i > this.mMax) {
-            i = this.mMax;
-        }
-        this.mMinInitialized = true;
-        if (!this.mMaxInitialized || i == this.mMin) {
-            this.mMin = i;
-        } else {
-            this.mMin = i;
-            postInvalidate();
-            if (this.mProgress < i) {
-                this.mProgress = i;
-            }
-            refreshProgress(R.id.progress, this.mProgress, false, false);
-        }
-    }
-
-    public void setMinHeight(@Px int i) {
-        this.mMinHeight = i;
-        requestLayout();
-    }
-
-    public void setMinWidth(@Px int i) {
-        this.mMinWidth = i;
-        requestLayout();
     }
 
     public void setMode(int i2) {
@@ -1337,77 +1320,8 @@ public class ProgressBar extends View {
         }
     }
 
-    public synchronized void setProgress(int i) {
-        setProgressInternal(i, false, false);
-    }
-
     public void setProgress(int i, boolean z) {
         setProgressInternal(i, false, z);
-    }
-
-    public void setProgressBackgroundTintList(@Nullable ColorStateList colorStateList) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
-        }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mProgressBackgroundTintList = colorStateList;
-        progressTintInfo.mHasProgressBackgroundTint = true;
-        if (this.mProgressDrawable != null) {
-            applyProgressBackgroundTint();
-        }
-    }
-
-    public void setProgressBackgroundTintMode(@Nullable PorterDuff.Mode mode) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
-        }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mProgressBackgroundTintMode = mode;
-        progressTintInfo.mHasProgressBackgroundTintMode = true;
-        if (this.mProgressDrawable != null) {
-            applyProgressBackgroundTint();
-        }
-    }
-
-    public void setProgressDrawable(Drawable drawable) {
-        Drawable drawable2 = this.mProgressDrawable;
-        if (drawable2 != drawable) {
-            if (drawable2 != null) {
-                drawable2.setCallback(null);
-                unscheduleDrawable(this.mProgressDrawable);
-            }
-            this.mProgressDrawable = drawable;
-            if (drawable != null) {
-                drawable.setCallback(this);
-                DrawableCompat.setLayoutDirection(drawable, ViewCompat.getLayoutDirection(this));
-                if (drawable.isStateful()) {
-                    drawable.setState(getDrawableState());
-                }
-                if (this.mCurrentMode == 3) {
-                    int minimumWidth = drawable.getMinimumWidth();
-                    if (this.mMaxWidth < minimumWidth) {
-                        this.mMaxWidth = minimumWidth;
-                    }
-                    applyProgressTints();
-                } else {
-                    int minimumHeight = drawable.getMinimumHeight();
-                    if (this.mMaxHeight < minimumHeight) {
-                        this.mMaxHeight = minimumHeight;
-                    }
-                    applyProgressTints();
-                }
-                requestLayout();
-                applyProgressTints();
-            }
-            if (!this.mIndeterminate) {
-                swapCurrentDrawable(drawable);
-                postInvalidate();
-            }
-            updateDrawableBounds(getWidth(), getHeight());
-            updateDrawableState();
-            doRefreshProgress(R.id.progress, this.mProgress, false, false, false);
-            doRefreshProgress(R.id.secondaryProgress, this.mSecondaryProgress, false, false, false);
-        }
     }
 
     public void setProgressDrawableTiled(Drawable drawable) {
@@ -1429,73 +1343,6 @@ public class ProgressBar extends View {
         this.mProgress = constrain;
         refreshProgress(R.id.progress, constrain, z, z2);
         return true;
-    }
-
-    public static int MathUtilsdotconstrain(int i, int i2, int i3) {
-        return i < i2 ? i2 : i > i3 ? i3 : i;
-    }
-
-    public void setProgressTintList(@Nullable ColorStateList colorStateList) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
-        }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mProgressTintList = colorStateList;
-        progressTintInfo.mHasProgressTint = true;
-        if (this.mProgressDrawable != null) {
-            applyPrimaryProgressTint();
-        }
-    }
-
-    public void setProgressTintMode(@Nullable PorterDuff.Mode mode) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
-        }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mProgressTintMode = mode;
-        progressTintInfo.mHasProgressTintMode = true;
-        if (this.mProgressDrawable != null) {
-            applyPrimaryProgressTint();
-        }
-    }
-
-    public synchronized void setSecondaryProgress(int i) {
-        if (!this.mIndeterminate) {
-            if (i < this.mMin) {
-                i = this.mMin;
-            }
-            if (i > this.mMax) {
-                i = this.mMax;
-            }
-            if (i != this.mSecondaryProgress) {
-                this.mSecondaryProgress = i;
-                refreshProgress(R.id.secondaryProgress, i, false, false);
-            }
-        }
-    }
-
-    public void setSecondaryProgressTintList(@Nullable ColorStateList colorStateList) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
-        }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mSecondaryProgressTintList = colorStateList;
-        progressTintInfo.mHasSecondaryProgressTint = true;
-        if (this.mProgressDrawable != null) {
-            applySecondaryProgressTint();
-        }
-    }
-
-    public void setSecondaryProgressTintMode(@Nullable PorterDuff.Mode mode) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
-        }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mSecondaryProgressTintMode = mode;
-        progressTintInfo.mHasSecondaryProgressTintMode = true;
-        if (this.mProgressDrawable != null) {
-            applySecondaryProgressTint();
-        }
     }
 
     /* access modifiers changed from: protected */
@@ -1557,5 +1404,157 @@ public class ProgressBar extends View {
     /* access modifiers changed from: protected */
     public boolean verifyDrawable(@NonNull Drawable drawable) {
         return drawable == this.mProgressDrawable || drawable == this.mIndeterminateDrawable || super.verifyDrawable(drawable);
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    public @interface SeekBarMode {
+    }
+
+    /* access modifiers changed from: private */
+    public static class ProgressTintInfo {
+        boolean mHasIndeterminateTint;
+        boolean mHasIndeterminateTintMode;
+        boolean mHasProgressBackgroundTint;
+        boolean mHasProgressBackgroundTintMode;
+        boolean mHasProgressTint;
+        boolean mHasProgressTintMode;
+        boolean mHasSecondaryProgressTint;
+        boolean mHasSecondaryProgressTintMode;
+        ColorStateList mIndeterminateTintList;
+        PorterDuff.Mode mIndeterminateTintMode;
+        ColorStateList mProgressBackgroundTintList;
+        PorterDuff.Mode mProgressBackgroundTintMode;
+        ColorStateList mProgressTintList;
+        PorterDuff.Mode mProgressTintMode;
+        ColorStateList mSecondaryProgressTintList;
+        PorterDuff.Mode mSecondaryProgressTintMode;
+
+        private ProgressTintInfo() {
+        }
+    }
+
+    /* access modifiers changed from: private */
+    public static class RefreshData {
+        private static final int POOL_MAX = 24;
+        private static final Pools.SynchronizedPool<RefreshData> sPool = new Pools.SynchronizedPool<>(24);
+        public boolean animate;
+        public boolean fromUser;
+        public int id;
+        public int progress;
+
+        private RefreshData() {
+        }
+
+        public static RefreshData obtain(int i, int i2, boolean z, boolean z2) {
+            RefreshData acquire = sPool.acquire();
+            if (acquire == null) {
+                acquire = new RefreshData();
+            }
+            acquire.id = i;
+            acquire.progress = i2;
+            acquire.fromUser = z;
+            acquire.animate = z2;
+            return acquire;
+        }
+
+        public void recycle() {
+            sPool.release(this);
+        }
+    }
+
+    /* access modifiers changed from: package-private */
+    public static class SavedState extends BaseSavedState {
+        @NonNull
+        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
+            /* class de.dlyt.yanndroid.samsung.SeslProgressBar.SavedState.AnonymousClass1 */
+
+            @Override // android.os.Parcelable.Creator
+            public SavedState createFromParcel(Parcel parcel) {
+                return new SavedState(parcel);
+            }
+
+            @Override // android.os.Parcelable.Creator
+            public SavedState[] newArray(int i) {
+                return new SavedState[i];
+            }
+        };
+        int progress;
+        int secondaryProgress;
+
+        private SavedState(Parcel parcel) {
+            super(parcel);
+            this.progress = parcel.readInt();
+            this.secondaryProgress = parcel.readInt();
+        }
+
+        SavedState(Parcelable parcelable) {
+            super(parcelable);
+        }
+
+        public void writeToParcel(Parcel parcel, int i) {
+            super.writeToParcel(parcel, i);
+            parcel.writeInt(this.progress);
+            parcel.writeInt(this.secondaryProgress);
+        }
+    }
+
+    /* access modifiers changed from: private */
+    public static class StateListDrawableCompat {
+        private static final boolean IS_BASE_SDK_VERSION = (Build.VERSION.SDK_INT <= 23);
+
+        private StateListDrawableCompat() {
+        }
+
+        static int getStateCount(StateListDrawable stateListDrawable) {
+            if (!IS_BASE_SDK_VERSION) {
+                return 0;
+            }
+            SeslStateListDrawableReflector.getStateCount(stateListDrawable);
+            return 0;
+        }
+
+        static Drawable getStateDrawable(StateListDrawable stateListDrawable, int i) {
+            if (IS_BASE_SDK_VERSION) {
+                return SeslStateListDrawableReflector.getStateDrawable(stateListDrawable, i);
+            }
+            return null;
+        }
+
+        static int[] getStateSet(StateListDrawable stateListDrawable, int i) {
+            if (IS_BASE_SDK_VERSION) {
+                return SeslStateListDrawableReflector.getStateSet(stateListDrawable, i);
+            }
+            return null;
+        }
+    }
+
+    /* access modifiers changed from: private */
+    public class AccessibilityEventSender implements Runnable {
+        private AccessibilityEventSender() {
+        }
+
+        public void run() {
+            ProgressBar.this.sendAccessibilityEvent(4);
+        }
+    }
+
+    /* access modifiers changed from: private */
+    public class RefreshProgressRunnable implements Runnable {
+        private RefreshProgressRunnable() {
+        }
+
+        public void run() {
+            synchronized (ProgressBar.this) {
+                int size = ProgressBar.this.mRefreshData.size();
+                for (int i = 0; i < size; i++) {
+                    RefreshData refreshData = (RefreshData) ProgressBar.this.mRefreshData.get(i);
+                    ProgressBar.this.doRefreshProgress(refreshData.id, refreshData.progress, refreshData.fromUser, true, refreshData.animate);
+                    refreshData.recycle();
+                }
+                ProgressBar.this.mRefreshData.clear();
+                ProgressBar.this.mRefreshIsPosted = false;
+            }
+        }
     }
 }

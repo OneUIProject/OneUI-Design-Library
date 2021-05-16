@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textview.MaterialTextView;
 
@@ -60,13 +59,13 @@ public class SplashView extends LinearLayout {
 
     }
 
+    public String getText() {
+        return mText;
+    }
+
     public void setText(String mText) {
         this.mText = mText;
         textView.setText(mText);
-    }
-
-    public String getText() {
-        return mText;
     }
 
     public void setImage(Drawable mImage) {

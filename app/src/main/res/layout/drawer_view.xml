@@ -42,7 +42,7 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginVertical="4dp" />
 
-    <View style="@style/DrawerDividerStyle"/>
+    <View style="@style/DrawerDividerStyle" />
 
     <de.dlyt.yanndroid.samsung.drawer.OptionButton
         android:layout_width="match_parent"
@@ -57,15 +57,15 @@
         android:orientation="horizontal">
 
         <de.dlyt.yanndroid.samsung.SeekBar
-            android:paddingVertical="15dp"
             android:layout_width="wrap_content"
             android:layout_height="150dp"
+            android:paddingVertical="15dp"
             app:seslSeekBarMode="vertical" />
 
         <de.dlyt.yanndroid.samsung.SeekBar
-            android:paddingVertical="15dp"
             android:layout_width="wrap_content"
             android:layout_height="150dp"
+            android:paddingVertical="15dp"
             app:seslSeekBarMode="expand_vertical" />
 
 
