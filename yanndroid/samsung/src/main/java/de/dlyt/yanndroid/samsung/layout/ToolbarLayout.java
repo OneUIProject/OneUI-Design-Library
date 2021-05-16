@@ -20,6 +20,19 @@ import com.google.android.material.textview.MaterialTextView;
 
 import de.dlyt.yanndroid.samsung.R;
 
+
+/**
+ * Usage xml:
+ * <pre>
+ *     app:navigationIcon="..."     Navigation icon
+ *     app:subtitle="..."           Toolbar subtitle
+ *     app:title="..."              Toolbar title
+ * </pre>
+ *
+ * <p>For more help, see <a
+ * href="https://github.com/Yanndroid/SamsungDesign/">SamsungDesign</a>on Github.
+ */
+
 public class ToolbarLayout extends LinearLayout {
 
     private Drawable mNavigationIcon;

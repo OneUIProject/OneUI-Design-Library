@@ -19,6 +19,20 @@ import androidx.core.content.ContextCompat;
 
 import de.dlyt.yanndroid.samsung.R;
 
+
+/**
+ * Usage xml:
+ * <pre>
+ *     app:drawer_icon="..."        Drawer icon in the top right corner
+ *     app:drawer_viewId="..."      Id of the view which goes in the drawer
+ *     app:toolbar_subtitle="..."   Toolbar subtitle
+ *     app:toolbar_title="..."      Toolbar title
+ * </pre>
+ *
+ * <p>For more help, see <a
+ * href="https://github.com/Yanndroid/SamsungDesign/">SamsungDesign</a>on Github.
+ */
+
 public class DrawerLayout extends LinearLayout {
 
 
