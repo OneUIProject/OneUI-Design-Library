@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -27,6 +28,7 @@ public class ToolbarLayout extends LinearLayout {
 
     private ImageView navigation_icon;
     private TextView navigation_icon_Badge;
+    private RelativeLayout navigation_icon_container;
     private MaterialTextView expanded_title;
     private MaterialTextView expanded_subtitle;
     private MaterialTextView collapsed_title;
@@ -34,6 +36,7 @@ public class ToolbarLayout extends LinearLayout {
     private AppBarLayout AppBar;
     private NestedScrollView nestedScrollView;
     private LinearLayout main_container;
+    private LinearLayout expand_container;
 
 
     public ToolbarLayout(Context context, @Nullable AttributeSet attrs) {
@@ -59,10 +62,13 @@ public class ToolbarLayout extends LinearLayout {
         collapsed_title = findViewById(R.id.collapsed_title);
         nestedScrollView = findViewById(R.id.nestedsrcollview);
         navigation_icon_Badge = findViewById(R.id.navigationIcon_badge);
+        navigation_icon_container = findViewById(R.id.navigationIcon_container);
+        expand_container = findViewById(R.id.expand_container);
+
 
         setTitle(mTitle);
         setSubtitle(mSubtitle);
-        navigation_icon.setImageDrawable(mNavigationIcon);
+        setNavigationIcon(mNavigationIcon);
 
 
         toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar);
@@ -76,9 +82,9 @@ public class ToolbarLayout extends LinearLayout {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 float percentage = (AppBar.getY() / AppBar.getTotalScrollRange());
-                expanded_title.setAlpha(1 - (percentage * 2 * -1));
-                expanded_subtitle.setAlpha(1 - (percentage * 2 * -1));
-                collapsed_title.setAlpha(percentage * -1);
+                expand_container.setAlpha((float) (1.1 - (percentage * -2)));
+                expand_container.setTranslationY(percentage * -120);
+                collapsed_title.setAlpha((float) ((percentage * -2) - 0.8));
             }
         });
 
@@ -93,6 +99,7 @@ public class ToolbarLayout extends LinearLayout {
     public void setNavigationIcon(Drawable navigationIcon) {
         this.mNavigationIcon = navigationIcon;
         navigation_icon.setImageDrawable(mNavigationIcon);
+        navigation_icon_container.setVisibility(navigationIcon == null ? GONE : VISIBLE);
     }
 
     public void setTitle(String title) {

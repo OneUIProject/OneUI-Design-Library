@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".SplashActivity">
 
-    <de.dlyt.yanndroid.samsung.SplashView
+    <de.dlyt.yanndroid.samsung.layout.SplashView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:image="@drawable/ic_launcher"

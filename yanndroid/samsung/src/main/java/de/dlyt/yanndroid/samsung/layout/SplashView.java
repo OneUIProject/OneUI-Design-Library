@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.samsung;
+package de.dlyt.yanndroid.samsung.layout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.material.textview.MaterialTextView;
+
+import de.dlyt.yanndroid.samsung.R;
 
 
 /**
