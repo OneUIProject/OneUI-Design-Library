@@ -103,6 +103,12 @@ public class DrawerLayout extends LinearLayout {
 
     }
 
+
+    public androidx.appcompat.widget.Toolbar getToolbar(){
+        return toolbarLayout.getToolbar();
+    }
+
+
     public void setDrawerIconOnClickListener(OnClickListener listener) {
         drawerIcon.setOnClickListener(listener);
     }

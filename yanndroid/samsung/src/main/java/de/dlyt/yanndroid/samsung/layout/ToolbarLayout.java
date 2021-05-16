@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
@@ -88,6 +89,11 @@ public class ToolbarLayout extends LinearLayout {
             }
         });
 
+    }
+
+
+    public androidx.appcompat.widget.Toolbar getToolbar(){
+        return toolbar;
     }
 
 
