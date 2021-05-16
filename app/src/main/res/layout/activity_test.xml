@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:drawer_icon="@drawable/ic_samsung_info"
     tools:context=".TestActivity">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="testing" />
+
+    <include layout="@layout/content_view" />
 
 </de.dlyt.yanndroid.samsung.layout.DrawerLayout>

@@ -36,7 +36,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Toolbar"
                     android:textSize="40sp" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -46,7 +45,6 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="-5dp"
                     android:gravity="center"
-                    android:text="Subtitle"
                     android:textSize="20dp" />
 
             </LinearLayout>
@@ -79,7 +77,7 @@
                         android:src="@drawable/ic_samsung_drawer" />
 
                     <TextView
-                        android:id="@+id/navigationIcon_new_badge"
+                        android:id="@+id/navigationIcon_badge"
                         android:layout_width="17dp"
                         android:layout_height="17dp"
                         android:layout_alignTop="@+id/navigationIcon"
@@ -101,8 +99,7 @@
                     style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="Toolbar" />
+                    android:gravity="center_vertical" />
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -118,6 +115,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedsrcollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

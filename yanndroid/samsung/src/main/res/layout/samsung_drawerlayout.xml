@@ -14,11 +14,10 @@
 
 
         <de.dlyt.yanndroid.samsung.layout.ToolbarLayout
+            android:id="@+id/drawer_toolbarlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:navigationIcon="@drawable/ic_samsung_drawer"
-            app:subtitle="BlaBla"
-            app:title="Samsung">
+            app:navigationIcon="@drawable/ic_samsung_drawer">
 
             <LinearLayout
                 android:id="@+id/main_container"
@@ -54,13 +53,13 @@
                 android:orientation="horizontal">
 
                 <FrameLayout
-                    android:id="@+id/drawer_about_container"
+                    android:id="@+id/drawerIcon_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center">
 
                     <ImageView
-                        android:id="@+id/drawer_icon"
+                        android:id="@+id/drawerIcon"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:background="?selectableItemBackgroundBorderless"
@@ -71,11 +70,11 @@
                         app:tint="@color/drawer_icon_color" />
 
                     <TextView
-                        android:id="@+id/drawer_icon_badge"
+                        android:id="@+id/drawerIcon_badge"
                         android:layout_width="17dp"
                         android:layout_height="17dp"
-                        android:layout_alignTop="@+id/drawer_about"
-                        android:layout_alignEnd="@+id/drawer_about"
+                        android:layout_alignTop="@+id/drawerIcon_container"
+                        android:layout_alignEnd="@+id/drawerIcon_container"
                         android:layout_marginTop="1dp"
                         android:layout_marginEnd="1dp"
                         android:background="@drawable/new_badge_bg"

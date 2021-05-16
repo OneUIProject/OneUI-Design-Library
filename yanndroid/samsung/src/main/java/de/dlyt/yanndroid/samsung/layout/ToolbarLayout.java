@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.textview.MaterialTextView;
@@ -25,10 +26,13 @@ public class ToolbarLayout extends LinearLayout {
     private String mSubtitle;
 
     private ImageView navigation_icon;
+    private TextView navigation_icon_Badge;
     private MaterialTextView expanded_title;
     private MaterialTextView expanded_subtitle;
     private MaterialTextView collapsed_title;
-
+    private androidx.appcompat.widget.Toolbar toolbar;
+    private AppBarLayout AppBar;
+    private NestedScrollView nestedScrollView;
     private LinearLayout main_container;
 
 
@@ -53,33 +57,21 @@ public class ToolbarLayout extends LinearLayout {
         expanded_title = findViewById(R.id.expanded_title);
         expanded_subtitle = findViewById(R.id.expanded_subtitle);
         collapsed_title = findViewById(R.id.collapsed_title);
+        nestedScrollView = findViewById(R.id.nestedsrcollview);
+        navigation_icon_Badge = findViewById(R.id.navigationIcon_badge);
 
-        expanded_title.setText(mTitle);
-        collapsed_title.setText(mTitle);
-        expanded_subtitle.setText(mSubtitle);
+        setTitle(mTitle);
+        setSubtitle(mSubtitle);
         navigation_icon.setImageDrawable(mNavigationIcon);
 
-        init();
 
-    }
-
-
-    private void init() {
-        /** Def */
-        androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
-        AppBarLayout AppBar = findViewById(R.id.app_bar);
+        AppBar = findViewById(R.id.app_bar);
 
-        TextView expanded_title = findViewById(R.id.expanded_title);
-        TextView expanded_subtitle = findViewById(R.id.expanded_subtitle);
-        TextView collapsed_title = findViewById(R.id.collapsed_title);
-
-        /** 1/3 of the Screen */
         ViewGroup.LayoutParams layoutParams = AppBar.getLayoutParams();
         layoutParams.height = (int) ((double) this.getResources().getDisplayMetrics().heightPixels / 2.6);
 
-
-        /** Collapsing */
         AppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -90,7 +82,38 @@ public class ToolbarLayout extends LinearLayout {
             }
         });
 
+    }
 
+
+    public void showNavIconNotification(boolean showNotification) {
+        navigation_icon_Badge.setVisibility(showNotification ? VISIBLE : GONE);
+    }
+
+
+    public void setNavigationIcon(Drawable navigationIcon) {
+        this.mNavigationIcon = navigationIcon;
+        navigation_icon.setImageDrawable(mNavigationIcon);
+    }
+
+    public void setTitle(String title) {
+        this.mTitle = title;
+        expanded_title.setText(mTitle);
+        collapsed_title.setText(mTitle);
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.mSubtitle = subtitle;
+        expanded_subtitle.setText(mSubtitle);
+        expanded_subtitle.setVisibility(subtitle == null || subtitle.equals("") ? GONE : VISIBLE);
+    }
+
+    public void setExpanded(boolean expanded, boolean animate) {
+        AppBar.setExpanded(expanded, animate);
+    }
+
+    public void setExpandable(boolean expandable) {
+        nestedScrollView.setNestedScrollingEnabled(expandable);
+        setExpanded(expandable, false);
     }
 
 

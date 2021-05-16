@@ -11,10 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.content.ContextCompat;
+
+import org.w3c.dom.Text;
 
 import de.dlyt.yanndroid.samsung.R;
 
@@ -26,7 +29,9 @@ public class DrawerLayout extends LinearLayout {
     private String mToolbarSubtitle;
 
 
-    private ImageView drawer_icon;
+    private ImageView drawerIcon;
+    private ToolbarLayout toolbarLayout;
+    private TextView drawerIcon_badge;
 
 
     private LinearLayout main_container;
@@ -50,22 +55,25 @@ public class DrawerLayout extends LinearLayout {
 
         main_container = findViewById(R.id.main_container);
         drawer_container = findViewById(R.id.drawer_container);
+        toolbarLayout = findViewById(R.id.drawer_toolbarlayout);
+        drawerIcon_badge = findViewById(R.id.drawerIcon_badge);
 
-        drawer_icon = findViewById(R.id.drawer_icon);
-        drawer_icon.setImageDrawable(mDrawerIcon);
 
-        init();
+        toolbarLayout.setTitle(mToolbarTitle);
+        toolbarLayout.setSubtitle(mToolbarSubtitle);
+        drawerIcon = findViewById(R.id.drawerIcon);
+        drawerIcon.setImageDrawable(mDrawerIcon);
 
-    }
 
-    private void init() {
+
+
+
+
+
+
         View content = findViewById(R.id.main_content);
         androidx.drawerlayout.widget.DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         View drawer = findViewById(R.id.drawer);
-
-        /*ImageView navigationIcon = findViewById(R.id.navigationIcon);
-        View navigationIcon_Badge = findViewById(R.id.navigationIcon_new_badge);
-        navigationIcon_Badge.setVisibility(View.VISIBLE);*/
 
         ViewGroup.LayoutParams layoutParams = drawer.getLayoutParams();
         layoutParams.width = (int) ((double) this.getResources().getDisplayMetrics().widthPixels / 1.19);
@@ -82,12 +90,13 @@ public class DrawerLayout extends LinearLayout {
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
-        /*navigationIcon.setOnClickListener(new View.OnClickListener() {
+        ImageView navigationIcon = findViewById(R.id.navigationIcon);
+        navigationIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(drawer, true);
             }
-        });*/
+        });
 
 
         /*View drawer_settings = findViewById(R.id.drawer_icon);
@@ -99,6 +108,16 @@ public class DrawerLayout extends LinearLayout {
         });*/
 
     }
+
+
+
+    public void showIconNotification(boolean navigationIcon, boolean drawerIcon){
+        toolbarLayout.showNavIconNotification(navigationIcon);
+        drawerIcon_badge.setVisibility(drawerIcon ? VISIBLE : GONE);
+    }
+
+
+
 
     private Activity getActivity() {
         Context context = getContext();
