@@ -1818,7 +1818,7 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
             this(f, f2, colorStateList, false);
         }
 
-        public SliderDrawable(float minwidth, float maxwidth, ColorStateList colorStateList, boolean vertical) {
+        public SliderDrawable(float f, float f2, ColorStateList colorStateList, boolean z) {
             this.mPaint = new Paint();
             this.ANIMATION_DURATION = ItemTouchHelper.Callback.DEFAULT_SWIPE_ANIMATION_DURATION;
             this.mIsStateChanged = false;
@@ -1830,11 +1830,11 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
             int defaultColor = colorStateList.getDefaultColor();
             this.mColor = defaultColor;
             this.mPaint.setColor(defaultColor);
-            this.mPaint.setStrokeWidth(minwidth);
-            this.mSliderMinWidth = minwidth;
-            this.mSliderMaxWidth = maxwidth;
-            this.mRadius = minwidth / 2.0f;
-            this.mIsVertical = vertical;
+            this.mPaint.setStrokeWidth(f);
+            this.mSliderMinWidth = f;
+            this.mSliderMaxWidth = f2;
+            this.mRadius = f / 2.0f;
+            this.mIsVertical = z;
             initAnimator();
         }
 
