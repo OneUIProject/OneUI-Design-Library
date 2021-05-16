@@ -287,7 +287,6 @@
 
     <!--Testing Theme-->
     <style name="TestTheme0" parent="android:Theme.DeviceDefault.DayNight" tools:targetApi="q" />
-
     <style name="TestTheme1" parent="android:Widget.DeviceDefault.Button" tools:targetApi="q" />
 
 
