@@ -19,7 +19,7 @@
         </scale>
     </item>
     <item
-        android:id="@id/progress"
+        android:id="@+id/progress"
         android:height="@dimen/sesl_progress_bar_height"
         android:gravity="fill_horizontal|center">
         <scale android:scaleWidth="100%">

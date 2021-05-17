@@ -6,17 +6,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:drawer_icon="@drawable/ic_samsung_info"
-    app:drawer_viewId="@id/ddyalla"
+    app:drawer_viewId="@id/viewindrawer"
     app:toolbar_subtitle="subtitle test"
     app:toolbar_title="Test"
     tools:context=".TestActivity">
 
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/ddyalla"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="this view should be in the drawer" />
+        android:orientation="vertical"
+        android:id="@+id/viewindrawer">
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="this view should be in the drawer" />
+
+
+        <de.dlyt.yanndroid.samsung.drawer.OptionButton
+            app:selected="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_samsung_info"
+            app:text="info" />
+
+        <de.dlyt.yanndroid.samsung.drawer.OptionButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_samsung_add"
+            app:counterEnabled="true"
+            app:text="add" />
+
+        <de.dlyt.yanndroid.samsung.drawer.Divider
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="2dp" />
+
+        <de.dlyt.yanndroid.samsung.drawer.OptionButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_samsung_help"
+            app:text="help" />
+
+        <de.dlyt.yanndroid.samsung.drawer.OptionButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_samsung_close"
+            app:text="close" />
+
+
+    </LinearLayout>
+
+
+
 
 
     <include layout="@layout/content_view" />
