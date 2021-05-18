@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.dlyt.yanndroid.samsung">
+    package="de.dlyt.yanndroid.samsungexample">
 
     <application
         android:allowBackup="true"
@@ -9,12 +9,12 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/SamsungTheme">
-        <activity android:name=".TestActivity"></activity>
+        <activity android:name="de.dlyt.yanndroid.samsungexample.TestActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="de.dlyt.yanndroid.samsungexample.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashActivity"
+            android:name="de.dlyt.yanndroid.samsungexample.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

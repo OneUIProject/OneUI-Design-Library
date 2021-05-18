@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "de.dlyt.yanndroid.samsung"
+        applicationId "de.dlyt.yanndroid.samsungexample"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1

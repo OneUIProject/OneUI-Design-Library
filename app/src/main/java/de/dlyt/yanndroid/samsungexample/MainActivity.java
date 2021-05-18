@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.samsung;
+package de.dlyt.yanndroid.samsungexample;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +27,10 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.dlyt.yanndroid.samsung.SeekBar;
+import de.dlyt.yanndroid.samsung.SwitchBar;
 import de.dlyt.yanndroid.samsung.drawer.OptionButton;
+
 
 public class MainActivity extends AppCompatActivity {
 

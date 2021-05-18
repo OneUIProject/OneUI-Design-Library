@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.samsung;
+package de.dlyt.yanndroid.samsungexample;
 
 import android.os.Bundle;
 import android.view.Menu;
