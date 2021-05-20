@@ -1,5 +1,5 @@
-# SamsungDesign
-Samsung OneUI design for AndroidStudio
+# Samsung OneUi Design
+Samsung OneUI design library for AndroidStudio
 
 Installation:
 
