@@ -3,42 +3,32 @@ Samsung OneUI design for AndroidStudio
 
 Install:
 
-- gradle.properties
+- build.gradle (Module: ...)
 ```
-authToken=.....
-```
-
-
-
-- build.gradle (Project: ...)
-```
-allprojects {
-    repositories {
-        ...
-        maven {
-            url "https://jitpack.io"
-            credentials { username authToken }
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/yanndroid/SamsungDesign")
+        credentials {
+            username = "Yanndroid"
+            password = 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
         }
     }
 }
-```
 
-- build.gradle (Module: ...)
-```
 dependencies {
-    implementation 'com.github.Yanndroid:SamsungDesign:1.0.0'
-    ...
+    implementation 'de.dlyt.yanndroid:samsung:1.0.0'
+    ...   
 }
 ```
 
 - AndroidManifest.xml
 ```
 <application
-        ...
-        android:theme="@style/SamsungTheme"
-        >
-        ...
-    </application>
+    ...
+    android:theme="@style/SamsungTheme"
+    >
+    ...
+</application>
 ```
 
 
