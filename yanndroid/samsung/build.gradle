@@ -1,5 +1,27 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/yanndroid/SamsungDesign")
+            credentials {
+                username = "Yanndroid"
+                password = "$System.env.GithubToken"
+            }
+        }
+    }
+    publications {
+        bar(MavenPublication) {
+            groupId ='de.dlyt.yanndroid'
+            artifactId = 'samsung'
+            version = '1.0.0'
+            artifact("$buildDir/outputs/aar/samsung-release.aar")
+        }
+    }
 }
 
 android {
@@ -10,7 +32,7 @@ android {
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
