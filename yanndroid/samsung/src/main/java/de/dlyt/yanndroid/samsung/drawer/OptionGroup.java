@@ -47,7 +47,9 @@ public class OptionGroup extends LinearLayout {
                     selectedId = v.getId();
                     checkState.put(selectedId, true);
                     updateCheckState();
-                    mOnOptionButtonClickListener.onOptionButtonClick(selectedId, idPosition.get(v.getId()));
+                    if (mOnOptionButtonClickListener != null){
+                        mOnOptionButtonClickListener.onOptionButtonClick(selectedId, idPosition.get(selectedId));
+                    }
                 }
             });
 
