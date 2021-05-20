@@ -16,7 +16,6 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
 
-        //ToolbarLayout tview = findViewById(R.id.tview);
         DrawerLayout dview = findViewById(R.id.dview);
 
         setSupportActionBar(dview.getToolbar());
