@@ -1,7 +1,7 @@
 # SamsungDesign
 Samsung OneUI design for AndroidStudio
 
-Install:
+Installation:
 
 - build.gradle (Module: ...)
 ```
@@ -33,6 +33,7 @@ dependencies {
 
 
 
+Views to port:
 
 - [x] Cardview
 - [x] Button
