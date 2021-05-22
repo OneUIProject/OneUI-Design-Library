@@ -54,7 +54,7 @@
     </declare-styleable>
 
     <declare-styleable name="OptionGroup">
-        <attr name="checkedButton" />
+        <attr name="selectedOptionButton" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="DrawerLayout">

@@ -2,6 +2,7 @@ package de.dlyt.yanndroid.samsung.drawer;
 
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 
 import java.util.HashMap;
+
+import de.dlyt.yanndroid.samsung.R;
 
 public class OptionGroup extends LinearLayout {
 
@@ -22,6 +25,10 @@ public class OptionGroup extends LinearLayout {
     public OptionGroup(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setOrientation(VERTICAL);
+
+        TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.OptionGroup, 0, 0);
+        selectedId = attr.getResourceId(R.styleable.OptionGroup_selectedOptionButton, -1);
+        attr.recycle();
     }
 
 
@@ -35,23 +42,24 @@ public class OptionGroup extends LinearLayout {
                 id = View.generateViewId();
                 child.setId(id);
             }
-            checkState.put(id, false);
+
+            checkState.put(id, id == selectedId);
             idPosition.put(id, idPosition.size());
 
             optionButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (selectedId != -1) {
-                        checkState.put(selectedId, false);
-                    }
+                    if (selectedId != -1) checkState.put(selectedId, false);
                     selectedId = v.getId();
                     checkState.put(selectedId, true);
                     updateCheckState();
-                    if (mOnOptionButtonClickListener != null){
-                        mOnOptionButtonClickListener.onOptionButtonClick(selectedId, idPosition.get(selectedId));
+                    if (mOnOptionButtonClickListener != null) {
+                        mOnOptionButtonClickListener.onOptionButtonClick(optionButton, selectedId, idPosition.get(selectedId));
                     }
                 }
             });
+
+            updateCheckState();
 
         }
         super.addView(child, index, params);
@@ -64,8 +72,38 @@ public class OptionGroup extends LinearLayout {
         }
     }
 
+    public void setSelectedOptionButton(OptionButton optionButton) {
+        if (selectedId != -1) checkState.put(selectedId, false);
+        selectedId = optionButton.getId();
+        checkState.put(selectedId, true);
+        updateCheckState();
+    }
+
+    public void setSelectedOptionButton(int position) {
+        for (Integer id : idPosition.keySet()) {
+            if (idPosition.get(id) == position) {
+                if (selectedId != -1) checkState.put(selectedId, false);
+                selectedId = idPosition.get(id);
+                checkState.put(selectedId, true);
+                updateCheckState();
+                break;
+            }
+        }
+    }
+
+    public void setSelectedOptionButton(Integer id) {
+        if (selectedId != -1) checkState.put(selectedId, false);
+        selectedId = id;
+        checkState.put(selectedId, true);
+        updateCheckState();
+    }
+
+    public OptionButton getSelectedOptionButton() {
+        return findViewById(selectedId);
+    }
+
     public interface OnOptionButtonClickListener {
-        public void onOptionButtonClick(int checkedId, int position);
+        public void onOptionButtonClick(OptionButton view, int checkedId, int position);
     }
 
     public void setOnOptionButtonClickListener(OnOptionButtonClickListener listener) {
