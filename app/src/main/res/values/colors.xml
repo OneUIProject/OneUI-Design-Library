@@ -11,5 +11,15 @@
     <color name="secondary_color">#ffffb949</color>
     <color name="primary_dark_color">#ffbd7800</color>-->
 
+    <!--light green-->
+    <!--<color name="primary_color">#ff68b31a</color>
+    <color name="secondary_color">#ff7fa87f</color>
+    <color name="primary_dark_color">#ff569415</color>-->
+
+    <!--green-->
+    <!--<color name="primary_color">#ff008577</color>
+    <color name="secondary_color">#ff009e7c</color>
+    <color name="primary_dark_color">#ff00574b</color>-->
+
 
 </resources>
