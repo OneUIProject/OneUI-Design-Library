@@ -176,7 +176,7 @@
 
     <style name="Base.Widget.AppCompat.SeslSwitchBar" parent="@android:style/Widget">
         <item name="seslSwitchBarBackgroundActivatedColor">
-            @color/sesl_switchbar_on_background_color_dark
+            @color/sesl_switchbar_on_background_color
         </item>
         <item name="seslSwitchBarBackgroundColor">@color/sesl_switchbar_off_background_color</item>
         <item name="seslSwitchBarTextActivatedColor">@color/sesl_switchbar_text_color</item>

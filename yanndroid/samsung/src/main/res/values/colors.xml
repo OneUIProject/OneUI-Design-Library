@@ -2,15 +2,18 @@
 <resources>
 
     <!--Main-->
+    <color name="primary_color">#ff0381fe</color> <!--color_primary-->
+    <color name="secondary_color">#ff3e91ff</color> <!--color_control_activated-->
+    <color name="primary_dark_color">#ff0072de</color> <!--color_primary_dark-->
 
     <color name="accent_material">@color/material_deep_teal_500</color>
     <color name="sesl_background_floating">@color/sesl_white</color>
     <color name="sesl_ripple_color">#1a000000</color>
     <color name="sesl_error_color">#fff4511e</color>
-    <color name="sesl_primary_color">#ff0381fe</color>
-    <color name="sesl_secondary_color">#ff3e91ff</color>
-    <color name="sesl_primary_dark_color">#ff0072de</color>
-    <color name="sesl_control_color_normal">#4d0381fe</color>
+    <color name="sesl_primary_color">@color/primary_color</color>
+    <color name="sesl_secondary_color">@color/secondary_color</color>
+    <color name="sesl_primary_dark_color">@color/primary_dark_color</color>
+    <color name="sesl_control_color_normal">@color/control_color_normal</color>
 
 
     <color name="sesl_control_normal_color">#cc8f8f8f</color>
@@ -79,8 +82,8 @@
     <color name="sesl_switchbar_off_text_color_dark">#fffafafa</color>
     <color name="sesl_switchbar_off_text_color_light">#ff252525</color>
     <color name="sesl_switchbar_off_text_color">#ff252525</color>
-    <color name="sesl_switchbar_on_background_color_dark">#520381fe</color>
-    <color name="sesl_switchbar_on_background_color_light">#ffaad2fa</color>
+    <color name="sesl_switchbar_on_background_color">@color/sesl_control_color_normal</color>
+    <!--<color name="sesl_switchbar_on_background_color_light">#ffaad2fa</color>-->
     <color name="sesl_action_bar_text_color_title_dark">#fffafafa</color>
 
 

@@ -46,6 +46,8 @@ public class OptionGroup extends LinearLayout {
             checkState.put(id, id == selectedId);
             idPosition.put(id, idPosition.size());
 
+            optionButton.setButtonSelected(id == selectedId);
+
             optionButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -58,8 +60,6 @@ public class OptionGroup extends LinearLayout {
                     }
                 }
             });
-
-            updateCheckState();
 
         }
         super.addView(child, index, params);

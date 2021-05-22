@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--light red-->
+    <!--<color name="primary_color">#ffFF034A</color>
+    <color name="secondary_color">#ffFF3D67</color>
+    <color name="primary_dark_color">#ffDE0043</color>-->
+
+    <!--yellow-->
+    <!--<color name="primary_color">#fff3a425</color>
+    <color name="secondary_color">#ffffb949</color>
+    <color name="primary_dark_color">#ffbd7800</color>-->
+
+
 </resources>
