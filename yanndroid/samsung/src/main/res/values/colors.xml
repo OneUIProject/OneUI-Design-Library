@@ -107,7 +107,7 @@
     <color name="sesl_spinner_dropdown_item_checkmark">?colorPrimaryDark</color>
 
     <color name="sesl_spinner_dropdown_item_text_color_disabled_dark">#66fafafa</color>
-    <color name="sesl_spinner_dropdown_item_text_color_normal_dark">#fffafafa</color>
+    <color name="sesl_spinner_dropdown_item_text_color_normal_dark">#ff252525</color>
     <color name="sesl_spinner_icon_color_default_dark">#ffd9d9d9</color>
     <color name="sesl_spinner_icon_color_disabled_dark">#66d9d9d9</color>
     <color name="sesl_spinner_item_text_color_disabled_dark">#66fafafa</color>
@@ -125,10 +125,8 @@
     <color name="sesl_design_snackbar_action_text_color">@color/sesl_secondary_color</color>
 
 
-
     <!--Toolbar-->
     <color name="sesl_action_bar_background_color_dark">#ff010101</color>
-
 
 
     <!--Others-->

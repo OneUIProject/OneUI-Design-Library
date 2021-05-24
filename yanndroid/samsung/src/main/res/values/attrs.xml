@@ -34,6 +34,9 @@
         <flag name="start" value="0x00800003" />
     </attr>
 
+    <attr name="spinnerDropdownTextColor" format="reference|color" />
+
+
 
     <!--custom-->
     <attr name="text" format="string" />

@@ -37,6 +37,8 @@
     <!--Spinner-->
     <color name="sesl_menu_popup_background_color">#ff252525</color>
     <color name="sesl_menu_popup_background_stroke_color">#ff252525</color>
+    <color name="sesl_spinner_dropdown_item_text_color_normal_dark">#fffafafa</color>
+
 
 
     <!--Others-->
