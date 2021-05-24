@@ -223,7 +223,7 @@
 
 
             <com.google.android.material.button.MaterialButton
-                style="@style/TestTheme1"
+                style="@android:style/Widget.DeviceDefault.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

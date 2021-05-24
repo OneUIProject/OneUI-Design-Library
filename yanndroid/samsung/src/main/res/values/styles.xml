@@ -29,6 +29,9 @@
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
 
 
+        <!--<item name="popupTheme" tools:targetApi="q">@android:style/Theme.DeviceDefault.DayNight
+        </item>-->
+
     </style>
 
 
@@ -292,12 +295,5 @@
         <item name="android:src">@drawable/sesl_ic_menu_overflow_dark</item>
         <item name="android:contentDescription">@string/sesl_action_menu_overflow_description</item>
     </style>
-
-
-    <!--Testing Theme-->
-    <style name="TestTheme0" parent="android:Theme.DeviceDefault.DayNight" tools:targetApi="q" />
-
-    <style name="TestTheme1" parent="android:Widget.DeviceDefault.Button" tools:targetApi="q" />
-
 
 </resources>
