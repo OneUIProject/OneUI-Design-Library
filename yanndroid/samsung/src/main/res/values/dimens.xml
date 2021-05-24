@@ -34,7 +34,7 @@
     <dimen name="sesl_menu_popup_corner_radius">24.0dip</dimen>
     <dimen name="sesl_menu_popup_elevation">8.0dip</dimen>
     <item name="sesl_menu_popup_scale_anim_pivot_x" type="dimen">100.0%</item>
-    <dimen name="sesl_menu_popup_stroke_width">2.0px</dimen>
+    <dimen name="sesl_menu_popup_stroke_width">1.0px</dimen>
     <dimen name="sesl_menu_popup_top_margin">6.0dip</dimen>
     <dimen name="sesl_menu_popup_top_padding">6.0dip</dimen>
 

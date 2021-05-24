@@ -33,7 +33,6 @@
         <item name="android:spinnerItemStyle">@style/Widget.AppCompat.TextView.SpinnerItem</item>
 
 
-
         <!--<item name="popupTheme">@style/SpinnerDropDownItem</item>-->
 
 
@@ -270,16 +269,14 @@
         <item name="android:paddingEnd">@dimen/sesl_popup_menu_item_end_padding</item>
         <item name="checkMarkGravity">end</item>
     </style>
+
     <style name="Base.TextAppearance.AppCompat.Widget.DropDownItem" parent="@android:style/TextAppearance.Small">
         <item name="android:textSize">@dimen/sesl_popup_menu_item_text_size</item>
         <item name="android:textColor">?spinnerDropdownTextColor</item>
         <item name="fontFamily">@string/sesl_font_family_regular</item>
     </style>
+
     <style name="TextAppearance.AppCompat.Widget.DropDownItem" parent="@style/Base.TextAppearance.AppCompat.Widget.DropDownItem" />
-
-
-
-
 
 
     <!--Snackbar-->
