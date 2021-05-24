@@ -25,15 +25,8 @@
         <item name="seekBarStyle">@style/SeekBarStyle</item>
         <item name="snackbarStyle">@style/SnackbarStyle</item>
         <item name="actionOverflowButtonStyle">@style/ActionButtonOverflow</item>
-
-
         <item name="spinnerStyle">@style/SpinnerStyle</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
-        <item name="spinnerDropdownTextColor">@color/sesl_spinner_dropdown_text_color_dark</item>
-        <item name="android:spinnerItemStyle">@style/Widget.AppCompat.TextView.SpinnerItem</item>
-
-
-        <!--<item name="popupTheme">@style/SpinnerDropDownItem</item>-->
 
 
     </style>
@@ -257,7 +250,7 @@
     </style>
 
     <style name="SpinnerDropDownItem" parent="@android:style/Widget.Material.DropDownItem.Spinner">
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.DropDownItem
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Widget.DropDownItem
         </item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingTop">@dimen/sesl_popup_menu_item_top_padding</item>
@@ -272,11 +265,9 @@
 
     <style name="Base.TextAppearance.AppCompat.Widget.DropDownItem" parent="@android:style/TextAppearance.Small">
         <item name="android:textSize">@dimen/sesl_popup_menu_item_text_size</item>
-        <item name="android:textColor">?spinnerDropdownTextColor</item>
+        <item name="android:textColor">@color/sesl_spinner_dropdown_text_color_dark</item>
         <item name="fontFamily">@string/sesl_font_family_regular</item>
     </style>
-
-    <style name="TextAppearance.AppCompat.Widget.DropDownItem" parent="@style/Base.TextAppearance.AppCompat.Widget.DropDownItem" />
 
 
     <!--Snackbar-->
