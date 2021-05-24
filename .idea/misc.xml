@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Yanndroid/AppData/Local/Android/Sdk/platforms/android-30/data/res/drawable/ic_menu_moreoverflow_material.xml" value="0.2947916666666667" />
+        <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/drawable/sesl_action_bar_background_dark.xml" value="0.2947916666666667" />
+        <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/drawable/sesl_action_bar_background_stacked_dark.xml" value="0.2947916666666667" />
+        <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/drawable/sesl_ic_menu_overflow_dark.xml" value="0.2947916666666667" />
+        <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/drawable/sesl_spinner_checked_ic_selector.xml" value="0.1625" />
+        <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/layout/samsung_toolbarlayout.xml" value="0.2786458333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

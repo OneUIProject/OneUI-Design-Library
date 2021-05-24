@@ -27,7 +27,9 @@
 
 
         <item name="spinnerStyle">@style/SpinnerStyle</item>
-        <item name="popupTheme">@style/TestTheme0</item>
+        <!--<item name="popupTheme">@style/TestTheme0</item>-->
+
+        <item name="actionOverflowButtonStyle">@style/ActionButtonOverflow</item>
 
 
     </style>
@@ -281,6 +283,13 @@
         <item name="animationMode">fade</item>
         <item name="elevation">@dimen/design_snackbar_elevation</item>
         <item name="maxActionInlineWidth">@dimen/design_snackbar_action_inline_max_width</item>
+    </style>
+
+
+    <!--Toolbar-->
+    <style name="ActionButtonOverflow" parent="@android:style/Widget.Material.ActionButton.Overflow">
+        <item name="android:src">@drawable/sesl_ic_menu_overflow_dark</item>
+        <item name="android:contentDescription">@string/sesl_action_menu_overflow_description</item>
     </style>
 
 

@@ -125,6 +125,12 @@
     <color name="sesl_design_snackbar_action_text_color">@color/sesl_secondary_color</color>
 
 
+
+    <!--Toolbar-->
+    <color name="sesl_action_bar_background_color_dark">#ff010101</color>
+
+
+
     <!--Others-->
     <color name="button_ripple_color">#e1e1e1</color>
     <color name="button_background_color">#4dcccccc</color>

@@ -46,4 +46,10 @@
     <dimen name="sesl_popup_menu_item_top_padding">13.0dip</dimen>
 
 
+    <!--Toolbar-->
+    <dimen name="sesl_action_button_icon_size">24.0dip</dimen>
+    <dimen name="sesl_action_button_min_width">34.0dip</dimen>
+    <dimen name="sesl_action_button_padding_horizontal">12.0dip</dimen>
+
+
 </resources>
