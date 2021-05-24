@@ -24,12 +24,13 @@
         <item name="seslSwitchBarStyle">@style/Base.Widget.AppCompat.SeslSwitchBar</item>
         <item name="seekBarStyle">@style/SeekBarStyle</item>
         <item name="snackbarStyle">@style/SnackbarStyle</item>
+        <item name="actionOverflowButtonStyle">@style/ActionButtonOverflow</item>
+
 
 
         <item name="spinnerStyle">@style/SpinnerStyle</item>
         <!--<item name="popupTheme">@style/TestTheme0</item>-->
 
-        <item name="actionOverflowButtonStyle">@style/ActionButtonOverflow</item>
 
 
     </style>
