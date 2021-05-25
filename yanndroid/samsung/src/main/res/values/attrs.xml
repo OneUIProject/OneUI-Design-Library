@@ -34,6 +34,9 @@
         <flag name="start" value="0x00800003" />
     </attr>
 
+    <attr name="popupEnterTransition" format="reference" />
+    <attr name="popupExitTransition" format="reference" />
+
 
     <!--custom-->
     <attr name="text" format="string" />

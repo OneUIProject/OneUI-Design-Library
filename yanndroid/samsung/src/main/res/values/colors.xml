@@ -129,6 +129,10 @@
     <color name="sesl_action_bar_background_color_dark">#ff010101</color>
 
 
+    <!--Popup-->
+    <color name="sesl_list_ripple_color">@color/sesl_ripple_color</color>
+
+
     <!--Others-->
     <color name="button_ripple_color">#e1e1e1</color>
     <color name="button_background_color">#4dcccccc</color>
