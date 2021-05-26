@@ -222,14 +222,6 @@
             </LinearLayout>
 
 
-            <com.google.android.material.button.MaterialButton
-                style="@android:style/Widget.DeviceDefault.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Todo" />
-
-
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="match_parent"

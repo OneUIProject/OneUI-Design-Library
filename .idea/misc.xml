@@ -4,16 +4,23 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Yanndroid/AppData/Local/Android/Sdk/platforms/android-30/data/res/drawable/ic_menu_moreoverflow_material.xml" value="0.2947916666666667" />
-        <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/app/src/main/res/layout/content_view.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/Yanndroid/AppData/Local/Android/Sdk/platforms/android-30/data/res/drawable/popup_background_material.xml" value="0.2947916666666667" />
+        <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/app/src/main/res/drawable/ic_launcher.xml" value="0.2947916666666667" />
+        <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2947916666666667" />
+        <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/app/src/main/res/layout/activity_splash.xml" value="0.2786458333333333" />
+        <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/app/src/main/res/layout/content_view.xml" value="0.2086956590966153" />
         <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/drawable/sesl_action_bar_background_dark.xml" value="0.2947916666666667" />
         <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/drawable/sesl_action_bar_background_stacked_dark.xml" value="0.2947916666666667" />
         <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/drawable/sesl_ic_menu_overflow_dark.xml" value="0.2947916666666667" />
         <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/drawable/sesl_list_selector_dark.xml" value="0.2947916666666667" />
         <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/drawable/sesl_menu_popup_background_dark.xml" value="0.2947916666666667" />
+        <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/drawable/sesl_rounded_background.xml" value="0.2947916666666667" />
         <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/drawable/sesl_spinner_background_dark.xml" value="0.2947916666666667" />
         <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/drawable/sesl_spinner_background_mask.xml" value="0.2947916666666667" />
         <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/drawable/sesl_spinner_checked_ic_selector.xml" value="0.2086956590966153" />
         <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/drawable/sesl_spinneritem_background.xml" value="0.2947916666666667" />
+        <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/layout/samsung_splashview_animated.xml" value="0.2754782700075322" />
+        <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/layout/samsung_splashview_simple.xml" value="0.2786458333333333" />
         <entry key="..\:/Users/Yanndroid/Desktop/Projects/AndroidStudio/Samsung/yanndroid/samsung/src/main/res/layout/samsung_toolbarlayout.xml" value="0.2786458333333333" />
       </map>
     </option>

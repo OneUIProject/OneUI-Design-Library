@@ -40,12 +40,18 @@
 
     <!--custom-->
     <attr name="text" format="string" />
-    <attr name="image" format="reference|color" localization="suggested" />
+    <attr name="image" format="reference|color" />
     <attr name="selected" format="boolean" />
 
-    <declare-styleable name="SplashView">
+    <declare-styleable name="SplashViewSimple">
         <attr name="text" />
         <attr name="image" />
+    </declare-styleable>
+
+    <declare-styleable name="SplashViewAnimated">
+        <attr name="text" />
+        <attr name="foreground_image" format="reference|color" />
+        <attr name="background_image" format="reference|color" />
     </declare-styleable>
 
     <declare-styleable name="OptionButton">

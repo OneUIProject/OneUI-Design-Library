@@ -27,7 +27,7 @@ import de.dlyt.yanndroid.samsung.R;
  */
 
 
-public class SplashView extends LinearLayout {
+public class SplashViewSimple extends LinearLayout {
 
     private Drawable mImage;
     private String mText;
@@ -35,19 +35,19 @@ public class SplashView extends LinearLayout {
     private MaterialTextView textView;
     private ImageView imageview;
 
-    public SplashView(Context context, @Nullable AttributeSet attrs) {
+    public SplashViewSimple(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SplashView, 0, 0);
+        TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SplashViewSimple, 0, 0);
 
         try {
-            mText = attr.getString(R.styleable.SplashView_text);
-            mImage = attr.getDrawable(R.styleable.SplashView_image);
+            mText = attr.getString(R.styleable.SplashViewSimple_text);
+            mImage = attr.getDrawable(R.styleable.SplashViewSimple_image);
         } finally {
             attr.recycle();
         }
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.samsung_splashview, this, true);
+        inflater.inflate(R.layout.samsung_splashview_simple, this, true);
 
 
         textView = findViewById(R.id.sesl_splash_text);
