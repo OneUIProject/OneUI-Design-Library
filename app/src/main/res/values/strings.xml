@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sample App</string>
+    <string name="app_name">OneUI Sample</string>
     <string name="closed" translatable="false">closed</string>
     <string name="opend" translatable="false">opend</string>
 
