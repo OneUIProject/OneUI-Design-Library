@@ -46,7 +46,10 @@ Progress:
 - [x] Seekbar
 - [x] Drawer
 - [x] Drawer divider
-- [ ] Color picker
+- [x] SeslToggleSwitch
+- [x] SeslProgressbar
+- [x] SeslSwitchbar
+- [x] SeslSeekbar
 - [x] Collapsing Toolbar
 - [ ] Menu
 - [ ] Dialog
@@ -58,9 +61,6 @@ Progress:
 - [ ] Landscape 
 - [ ] Preferences
 - [ ] Tooltip
-- [x] SeslToggleSwitch
-- [x] SeslProgressbar
-- [x] SeslSwitchbar
-- [x] SeslSeekbar
+- [ ] Color picker
 - [ ] (Textview)
 - [ ] (Edittext)
