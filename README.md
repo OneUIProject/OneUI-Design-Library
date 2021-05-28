@@ -1,48 +1,39 @@
-# SamsungDesign
-Samsung OneUI design for AndroidStudio
+# Samsung OneUi Design
+Samsung OneUI design library for AndroidStudio
 
-Install:
-
-- gradle.properties
-```
-authToken=.....
-```
-
-
-
-- build.gradle (Project: ...)
-```
-allprojects {
-    repositories {
-        ...
-        maven {
-            url "https://jitpack.io"
-            credentials { username authToken }
-        }
-    }
-}
-```
+Installation:
 
 - build.gradle (Module: ...)
 ```
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/yanndroid/SamsungDesign")
+        credentials {
+            username = "Yanndroid"
+            password = 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
+        }
+    }
+}
+
 dependencies {
-    implementation 'com.github.Yanndroid:SamsungDesign:1.0.0'
-    ...
+    implementation 'de.dlyt.yanndroid:samsung:1.0.0'
+    ...   
 }
 ```
 
 - AndroidManifest.xml
 ```
 <application
-        ...
-        android:theme="@style/SamsungTheme"
-        >
-        ...
-    </application>
+    ...
+    android:theme="@style/SamsungTheme"
+    >
+    ...
+</application>
 ```
 
 
 
+Views to port:
 
 - [x] Cardview
 - [x] Button
