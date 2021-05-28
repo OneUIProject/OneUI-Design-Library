@@ -8,7 +8,7 @@
     tools:context=".SplashActivity">
 
     <de.dlyt.yanndroid.samsung.layout.SplashViewAnimated
-        android:id="@+id/sss"
+        android:id="@+id/splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:background_image="@color/primary_color"

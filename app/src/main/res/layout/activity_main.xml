@@ -8,7 +8,7 @@
     app:drawer_icon="@drawable/ic_samsung_info"
     app:drawer_viewId="@id/viewindrawer"
     app:toolbar_subtitle="Subtitle"
-    app:toolbar_title="Sample"
+    app:toolbar_title="@string/app_name"
     tools:context=".MainActivity">
 
     <include

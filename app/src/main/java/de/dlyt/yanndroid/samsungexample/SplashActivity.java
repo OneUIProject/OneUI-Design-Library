@@ -17,7 +17,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        SplashViewAnimated splashViewAnimated = findViewById(R.id.sss);
+        SplashViewAnimated splashViewAnimated = findViewById(R.id.splash);
 
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(() -> {
