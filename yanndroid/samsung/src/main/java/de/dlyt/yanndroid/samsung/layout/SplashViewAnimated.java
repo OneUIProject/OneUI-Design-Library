@@ -16,19 +16,6 @@ import com.google.android.material.textview.MaterialTextView;
 
 import de.dlyt.yanndroid.samsung.R;
 
-
-/**
- * Usage xml:
- * <pre>
- *     app:image="..."      Splash image
- *     app:text="..."       Splash text
- * </pre>
- *
- * <p>For more help, see <a
- * href="https://github.com/Yanndroid/SamsungDesign/">SamsungDesign</a>on Github.
- */
-
-
 public class SplashViewAnimated extends LinearLayout {
 
     private Drawable mImage_foreground;
@@ -85,11 +72,6 @@ public class SplashViewAnimated extends LinearLayout {
     public void clearSplashAnimation() {
         imageview_foreground.clearAnimation();
     }
-
-    public void postOnSplashAnimation(Runnable runnable) {
-        imageview_foreground.postOnAnimation(runnable);
-    }
-
 
     public String getText() {
         return mText;

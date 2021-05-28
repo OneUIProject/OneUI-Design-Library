@@ -10,4 +10,11 @@
         <item name="android:theme">@style/SamsungStyleMain</item>
 
     </style>
+
+    <style name="SamsungSplashTheme" parent="@style/SamsungTheme">
+        <item name="android:windowBackground">@color/splash_background</item>
+        <item name="android:statusBarColor">@color/splash_background</item>
+        <item name="android:navigationBarColor" tools:targetApi="27">@color/splash_background</item>
+    </style>
+
 </resources>

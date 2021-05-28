@@ -140,6 +140,8 @@
     <color name="item_divider_color">#ff979797</color>
     <color name="drawer_icon_color">#ff676768</color>
     <color name="badge_background_color">#fff56a0d</color>
+    <color name="splash_background">#ffffffff</color>
+
 
 
 </resources>

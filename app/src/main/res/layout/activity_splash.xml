@@ -8,9 +8,10 @@
     tools:context=".SplashActivity">
 
     <de.dlyt.yanndroid.samsung.layout.SplashViewAnimated
+        android:id="@+id/sss"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:background_image="@drawable/ic_launcher"
+        app:background_image="@color/primary_color"
         app:foreground_image="@drawable/ic_launcher_foreground"
         app:text="@string/app_name" />
 

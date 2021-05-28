@@ -9,12 +9,12 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/SamsungTheme">
-        <activity android:name="de.dlyt.yanndroid.samsungexample.TestActivity" />
         <activity
             android:name="de.dlyt.yanndroid.samsungexample.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="de.dlyt.yanndroid.samsungexample.SplashActivity"
+            android:theme="@style/SamsungSplashTheme"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
