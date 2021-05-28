@@ -36,7 +36,7 @@ dependencies {
 Progress:
 
 - [x] Cardview
-- [x] Button
+- [x] Button (incomplete)
 - [x] Checkbox
 - [x] Switch 
 - [x] Radiobutton
@@ -48,8 +48,6 @@ Progress:
 - [x] Drawer divider
 - [ ] Color picker
 - [x] Collapsing Toolbar
-- [ ] Textview
-- [ ] Edittext
 - [ ] Menu
 - [ ] Dialog
 - [ ] Bottomsheet
@@ -64,3 +62,5 @@ Progress:
 - [x] SeslProgressbar
 - [x] SeslSwitchbar
 - [x] SeslSeekbar
+- [ ] (Textview)
+- [ ] (Edittext)
