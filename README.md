@@ -7,7 +7,7 @@ Installation:
 ```
 repositories {
     maven {
-        url = uri("https://maven.pkg.github.com/yanndroid/SamsungDesign")
+        url = uri("https://maven.pkg.github.com/yanndroid/SamsungOneUi")
         credentials {
             username = "Yanndroid"
             password = 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
@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'de.dlyt.yanndroid:samsung:1.0.0'
+    implementation 'de.dlyt.yanndroid:samsung:1.1.0'
     ...   
 }
 ```
@@ -33,7 +33,7 @@ dependencies {
 
 
 
-Views to port:
+Progress:
 
 - [x] Cardview
 - [x] Button
