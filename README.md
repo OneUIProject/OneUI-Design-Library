@@ -144,7 +144,6 @@ The most app icons of Samsung apps are made of one solid color as background and
 - [x] Checkbox
 - [x] Switch 
 - [x] Radiobutton
-- [x] Switchbar
 - [x] Progressbar circle
 - [x] Progressbar horizontal
 - [x] Seekbar
