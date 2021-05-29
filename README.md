@@ -1,15 +1,14 @@
 # Samsung OneUi Design
-A library for Android, which make your app look like Samsung's OneUI.
-Tested in AndroidStudio.
+A library for Android, which make your app look like Samsung's OneUI. In this library there is a theme which will apply for each View (see [Progress](##Progress)) in your layout. This library has been tested in AndroidStudio, but should work in other IDEs too.
 
-Excuse my bad english, if you want you can correct it :)
+Excuse my bad english, feel free correct it :)
 
 ## Screenshots
 
 
 ## Installation
 
-- add the dependencies to build.gradle (Module: ...)
+1. add the dependencies to build.gradle (Module: ...)
 ```gradle
 repositories {
     maven {
@@ -27,7 +26,7 @@ dependencies {
 }
 ```
 
-- apply the theme in AndroidManifest.xml
+2. apply the theme in AndroidManifest.xml
 ```xml
 <application
     ...
