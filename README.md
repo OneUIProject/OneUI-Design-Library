@@ -1,5 +1,5 @@
 # Samsung OneUi Design
-A library for Android, which make your app look like Samsung's OneUI. In this library there is a theme which will apply for each View (see [Progress](##Progress)) in your layout. This library has been tested in AndroidStudio, but should work in other IDEs too.
+A library for Android, which make your app look like Samsung's OneUI. In this library there is a theme which will apply for each View (see [Progress](#Progress)) in your layout. This library has been tested in AndroidStudio, but should work in other IDEs too.
 
 Excuse my bad english, feel free correct it :)
 
