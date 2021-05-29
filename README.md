@@ -133,7 +133,7 @@ Here are some presets, if you want I can make more:
 ### App Icon
 The most app icons of Samsung apps are made of one solid color (```primary_color```) as background and a white icon as forground. Useually there is even a little part/detail of the foreground with a similar color as the background.
 
-### <img src="https://github.com/Yanndroid/Yanndroid/blob/main/readme-resources/app-icons/settings.png" width="50" height="50" />
+### <img src="https://github.com/Yanndroid/Yanndroid/blob/master/readme-resources/app-icons/settings.png" width="50" height="50" />
 
 
 
