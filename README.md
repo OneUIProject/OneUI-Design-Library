@@ -183,11 +183,11 @@ My sample app icon for example:
 - [x] SeslSeekbar
 - [x] Collapsing Toolbar
 - [x] Button (incomplete)
-- [ ] Menu
+- [ ] Menu (in progress)
 - [ ] Dialog
 - [ ] Bottomsheet
 - [ ] Snackbar
-- [ ] Spinner
+- [ ] Spinner (in progress)
 - [ ] Tablayout
 - [ ] Viewpager
 - [ ] Landscape 
