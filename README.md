@@ -4,7 +4,7 @@ A library for Android, which make your app look like Samsung's OneUI. In this li
 Excuse my bad english, feel free correct it :)
 
 ## Screenshots
-todo
+todo: add screenshots and videos/gifs
 
 
 ## Installation
@@ -39,7 +39,7 @@ dependencies {
 
 ## Usage
 ### DrawerLayout
-Ready-to-go DrawerLayout with collapsing toolbar.
+"Ready-to-go" DrawerLayout with collapsing toolbar.
 ```xml
 <de.dlyt.yanndroid.samsung.layout.DrawerLayout 
     android:id="@+id/drawer_layout"
@@ -98,10 +98,44 @@ How would a OneUI-like design look like without OneUI-like icons? Not like OneUI
 
 
 ### Own custom color theme
-The default color of the style is the same blue as Samsung. But like Samsung has different colors for different apps, you too can use other colors which will apply on the entire App and even on the [App Icon](#App-Icon)
+The default color of the style is the same blue as Samsung (see [Screenshots](#Screenshots)). But like Samsung has different colors for different apps, you too can use other colors which will apply on the entire App and even on the [App Icon](#App-Icon). To do that you need to add in your ```colors.xml``` these three colors:
+```xml
+<color name="primary_color">...</color>
+<color name="secondary_color">...</color>
+<color name="primary_dark_color">...</color>
+```
+These colors should have approximately the same color but with a different brightness. ```secondary_color``` the brightest, then ```primary_color``` and the darkest ```primary_dark_color```.  
 
-todo: add presets
+Here are some presets:
+- ![#f3a425](https://via.placeholder.com/15/f3a425/000000?text=+) Yellow like MyFiles App:
+```xml
+<color name="primary_color">#fff3a425</color>
+<color name="secondary_color">#ffffb949</color>
+<color name="primary_dark_color">#ffbd7800</color>
+```
 
+- ![#008577](https://via.placeholder.com/15/008577/000000?text=+) Dark green like Calendar App:
+```xml
+<color name="primary_color">#ff008577</color>
+<color name="secondary_color">#ff009e7c</color>
+<color name="primary_dark_color">#ff00574b</color>
+```
+
+- ![#68b31a](https://via.placeholder.com/15/68b31a/000000?text=+) Light green like Calculator App:
+```xml
+<color name="primary_color">#ff68b31a</color>
+<color name="secondary_color">#ff7fa87f</color>
+<color name="primary_dark_color">#ff569415</color>
+```
+
+- ![#ff034A](https://via.placeholder.com/15/ff034A/000000?text=+) Light red which I like a lot:
+```xml
+<color name="primary_color">#ffff034a</color>
+<color name="secondary_color">#ffff3d67</color>
+<color name="primary_dark_color">#ffde0043</color>
+```
+
+I can make others if you want.
 
 ### App Icon
 todo: show some examples
