@@ -98,7 +98,7 @@ How would a OneUI-like design look like without OneUI-like icons? Not like OneUI
 
 
 ### Own custom color theme
-The default color of the style is the same blue as Samsung. But like Samsung has different colors for different apps, you too can use other colors which will apply on the entire App and even on the [App Icon](#App_Icon)
+The default color of the style is the same blue as Samsung. But like Samsung has different colors for different apps, you too can use other colors which will apply on the entire App and even on the [App Icon](#App-Icon)
 
 todo: add presets
 
