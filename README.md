@@ -1,5 +1,5 @@
 # Samsung OneUi Design
-A library for Android, which make your app look like Samsung's OneUI. In this library there is a theme which will apply for each View (see [Progress](#Progress)) in your layout. This library has been tested in AndroidStudio, but should work in other IDEs too.
+A library for Android, which make your app look like Samsung's OneUI. In this library there is a theme which will apply for each View (see [Progress](#Progress)) in your layout. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk).
 
 Excuse my bad english, feel free correct it :)
 
@@ -88,11 +88,6 @@ Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
 
 
 
-
-
-
-
-
 ### Icons
 How would a OneUI-like design look like without OneUI-like icons? Not like OneUI... Thats's why I also included some of the stock icons you can see in Samsung apps, and more will come. You can use them with ```@drawable/ic_samsung_...```.
 
@@ -106,39 +101,40 @@ The default color of the style is the same blue as Samsung (see [Screenshots](#S
 ```
 These colors should have approximately the same color but with a different brightness. ```secondary_color``` the brightest, then ```primary_color``` and the darkest ```primary_dark_color```.  
 
-Here are some presets:
-- ![#f3a425](https://via.placeholder.com/15/f3a425/000000?text=+) Yellow like MyFiles App:
+Here are some presets, if you want I can make more:
+- ![#f3a425](https://via.placeholder.com/12/f3a425/000000?text=+) Yellow like MyFiles App:
 ```xml
 <color name="primary_color">#fff3a425</color>
 <color name="secondary_color">#ffffb949</color>
 <color name="primary_dark_color">#ffbd7800</color>
 ```
 
-- ![#008577](https://via.placeholder.com/15/008577/000000?text=+) Dark green like Calendar App:
+- ![#008577](https://via.placeholder.com/12/008577/000000?text=+) Dark green like Calendar App:
 ```xml
 <color name="primary_color">#ff008577</color>
 <color name="secondary_color">#ff009e7c</color>
 <color name="primary_dark_color">#ff00574b</color>
 ```
 
-- ![#68b31a](https://via.placeholder.com/15/68b31a/000000?text=+) Light green like Calculator App:
+- ![#68b31a](https://via.placeholder.com/12/68b31a/000000?text=+) Light green like Calculator App:
 ```xml
 <color name="primary_color">#ff68b31a</color>
 <color name="secondary_color">#ff7fa87f</color>
 <color name="primary_dark_color">#ff569415</color>
 ```
 
-- ![#ff034A](https://via.placeholder.com/15/ff034A/000000?text=+) Light red which I like a lot:
+- ![#ff034A](https://via.placeholder.com/12/ff034A/000000?text=+) Light red which I like a lot:
 ```xml
 <color name="primary_color">#ffff034a</color>
 <color name="secondary_color">#ffff3d67</color>
 <color name="primary_dark_color">#ffde0043</color>
 ```
 
-I can make others if you want.
-
 ### App Icon
-todo: show some examples
+The most app icons of Samsung apps are made of one solid color (```primary_color```) as background and a white icon as forground. Useually there is even a little part/detail of the foreground with a similar color as the background.
+
+### <img src="https://github.com/Yanndroid/Yanndroid/blob/main/cats.gif" width="50" height="50" />
+
 
 
 
