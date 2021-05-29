@@ -4,6 +4,7 @@ A library for Android, which make your app look like Samsung's OneUI. In this li
 Excuse my bad english, feel free correct it :)
 
 ## Screenshots
+todo
 
 
 ## Installation
@@ -38,9 +39,10 @@ dependencies {
 
 ## Usage
 ### DrawerLayout
+Ready-to-go DrawerLayout with collapsing toolbar.
 ```xml
 <de.dlyt.yanndroid.samsung.layout.DrawerLayout 
-    android:id="@+id/drawer_view"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:drawer_icon="..."
@@ -61,8 +63,48 @@ The view with the ID specified in ```app:drawer_viewId="..."``` will be shown in
 
 ```app:toolbar_title="..."``` and ```app:toolbar_subtitle="..."``` are setting the title and subtitle in the toolbar. If nothing is set for the subtitle, the toolbar will adjust the title position to match the space.  
 
-The drawable in ```app:drawer_icon="..."``` is the little icon at the top right in the drawer pane. There are already some stock Samsung icon included in the library (see <todo>).
+The drawable in ```app:drawer_icon="..."``` is the little icon at the top right in the drawer pane. There are already some stock Samsung icon included in the library (see [Icons](#Icons)).
 
+
+### ToolbarLayout
+Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
+```xml
+<de.dlyt.yanndroid.samsung.layout.ToolbarLayout
+        android:id="@+id/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:title="..."
+        app:subtitle="..."
+        app:navigationIcon="..."
+        >
+
+        <!--children-->
+
+</de.dlyt.yanndroid.samsung.layout.ToolbarLayout>
+```
+```app:navigationIcon="..."``` is the NavigationIcon of the toolbar. There are already some stock Samsung icon included in the library (see [Icons](#Icons)), like a drawer and back icon.
+
+
+
+
+
+
+
+
+
+
+### Icons
+How would a OneUI-like design look like without OneUI-like icons? Not like OneUI... Thats's why I also included some of the stock icons you can see in Samsung apps, and more will come. You can use them with ```@drawable/ic_samsung_...```.
+
+
+### Own custom color theme
+The default color of the style is the same blue as Samsung. But like Samsung has different colors for different apps, you too can use other colors which will apply on the entire App and even on the [App Icon](#App_Icon)
+
+todo: add presets
+
+
+### App Icon
+todo: show some examples
 
 
 
