@@ -136,7 +136,7 @@ The most app icons of Samsung apps are made of one solid color as background and
 <img src="readme-resources/app-icons/settings.png" width="50" height="50" />   <img src="readme-resources/app-icons/notes.png" width="50" height="50" />   <img src="readme-resources/app-icons/messages.png" width="50" height="50" />   <img src="readme-resources/app-icons/camera.png" width="50" height="50" />   <img src="readme-resources/app-icons/calculator.png" width="50" height="50" />   <img src="readme-resources/app-icons/contacts.png" width="50" height="50" />   <img src="readme-resources/app-icons/myfiles.png" width="50" height="50" />
 
  I would suggest you to use ```@color/primary_color``` for the background color and ```@color/control_color_normal``` for the foreground "detail" color, so [your color theme](#Own-custom-color-theme) applys for the app icon too.  
-The sample app icon for example:
+The sample app icon for example:  
 <img src="readme-resources/app-icons/sample.png" width="50" height="50" />
 
 
