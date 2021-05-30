@@ -1,6 +1,3 @@
-[![](https://jitpack.io/v/Yanndroid/SamsungOneUi.svg)](https://jitpack.io/#Yanndroid/SamsungOneUi)
-
-
 # Samsung OneUi Design
 A library for Android, which make your app look like Samsung's OneUI. In this library there is a theme which will apply for each View (see [Progress](#Progress)) in your layout. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk).
 
@@ -11,27 +8,27 @@ todo: add screenshots and videos/gifs
 
 
 ## Installation
-I am currently using [Jitpack](https://jitpack.io/) to publish this library but this probably won't be permanent.
-
-
-1. Add jitpack to build.gradle (Project: ...)
+1. Add the dependency to build.gradle (Module: ...)  
+create a new [token](https://github.com/settings/tokens) with ```read:packages```
 ```gradle
-allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
-	}
+repositories {
+        maven {
+                url = uri("https://maven.pkg.github.com/yanndroid/SamsungOneUi")
+                credentials {
+                        username = "your username"
+                        password = "your token"
+                }
+        }
 }
-```
-2. Add the dependencies to build.gradle (Module: ...)
-```gradle
+
+
 dependencies {
-        implementation 'com.github.Yanndroid:SamsungOneUi:1.1.0'
+        implementation 'de.dlyt.yanndroid:samsung:1.1.0'
 	...
 }
 ```
 
-3. Apply the theme in AndroidManifest.xml
+2. Apply the theme in AndroidManifest.xml
 ```xml
 <application
     ...
