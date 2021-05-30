@@ -11,7 +11,7 @@ todo: add screenshots and videos/gifs
 
 
 ## Installation
-I am currently using [Jitpack](https://jitpack.io/) to publish this library but this probably wont be permanent.
+I am currently using [Jitpack](https://jitpack.io/) to publish this library but this probably won't be permanent.
 
 
 1. Add jitpack to build.gradle (Project: ...)
