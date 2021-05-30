@@ -25,7 +25,7 @@ allprojects {
 ```gradle
 dependencies {
         implementation 'com.github.Yanndroid:SamsungOneUi:1.1.0'
-		...
+	...
 }
 ```
 
