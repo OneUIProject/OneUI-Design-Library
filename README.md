@@ -115,7 +115,7 @@ todo
 ### Icons
 How would a OneUI design look like without OneUI icons? Not like OneUI... Thats's why I also included some of the stock icons you can find in stock Samsung apps, and more will come. You can use them with ```@drawable/ic_samsung_...```.
 
-<img src="readme-resources/screenshots/icons.jpg"  height="20"/>
+<img src="readme-resources/screenshots/icons.png"  height="30"/>
 
 
 ### Own custom color theme
