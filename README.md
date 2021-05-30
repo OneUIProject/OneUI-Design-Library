@@ -8,8 +8,8 @@ todo: add screenshots and videos/gifs
 
 
 ## Installation
-1. Add the dependency to build.gradle (Module: ...)  
-create a new [token](https://github.com/settings/tokens) with ```read:packages```
+1. create a new [token](https://github.com/settings/tokens) with ```read:packages```
+2. Add the dependency to build.gradle (Module: ...)  
 ```gradle
 repositories {
         maven {
@@ -28,7 +28,7 @@ dependencies {
 }
 ```
 
-2. Apply the theme in AndroidManifest.xml
+3. Apply the theme in AndroidManifest.xml
 ```xml
 <application
     ...
