@@ -131,7 +131,7 @@ The default color of the style is the same blue as Samsung (see [Screenshots](#S
 These colors should have approximately the same color but with a different brightness. ```secondary_color``` the brightest, then ```primary_color``` and the darkest ```primary_dark_color```.  
 
 Here are some presets, if you want I can make more:
-- ![#f3a425](https://via.placeholder.com/12/f3a425/000000?text=+) Yellow like MyFiles App:
+- ![#f3a425](https://via.placeholder.com/12/f3a425/000000?text=+) Yellow like MyFiles App (also used in [FreshHub](https://github.com/Yanndroid/FreshHub)):
 ```xml
 <color name="primary_color">#fff3a425</color>
 <color name="secondary_color">#ffffb949</color>
