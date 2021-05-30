@@ -16,7 +16,7 @@ repositories {
         url = uri("https://maven.pkg.github.com/yanndroid/SamsungOneUi")
         credentials {
             username = "Yanndroid"
-            password = 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
+            password = >todo<
         }
     }
 }
