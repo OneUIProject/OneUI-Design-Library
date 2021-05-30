@@ -7,10 +7,10 @@
     android:orientation="vertical">
 
     <de.dlyt.yanndroid.samsung.drawer.OptionGroup
-        app:selectedOptionButton="@id/ob2"
         android:id="@+id/optiongroup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:selectedOptionButton="@id/ob2">
 
         <de.dlyt.yanndroid.samsung.drawer.OptionButton
             android:id="@+id/ob1"
@@ -46,8 +46,8 @@
     <de.dlyt.yanndroid.samsung.drawer.OptionButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:counterEnabled="true"
         app:counter="4"
+        app:counterEnabled="true"
         app:icon="@drawable/ic_samsung_add"
         app:text="Add" />
 

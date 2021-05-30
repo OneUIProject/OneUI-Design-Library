@@ -14,8 +14,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="de.dlyt.yanndroid.samsungexample.SplashActivity"
-            android:theme="@style/SamsungSplashTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/SamsungSplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
