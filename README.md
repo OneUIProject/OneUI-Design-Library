@@ -11,8 +11,10 @@ todo: add screenshots and videos/gifs
 
 
 ## Installation
+I am currently using [Jitpack](https://jitpack.io/) to publish this library but this probably wont be permanent.
 
-1. add jitpack to build.gradle (Project: ...)
+
+1. Add jitpack to build.gradle (Project: ...)
 ```gradle
 allprojects {
 	repositories {
@@ -21,7 +23,7 @@ allprojects {
 	}
 }
 ```
-2. add the dependencies to build.gradle (Module: ...)
+2. Add the dependencies to build.gradle (Module: ...)
 ```gradle
 dependencies {
         implementation 'com.github.Yanndroid:SamsungOneUi:1.1.0'
@@ -29,7 +31,7 @@ dependencies {
 }
 ```
 
-3. apply the theme in AndroidManifest.xml
+3. Apply the theme in AndroidManifest.xml
 ```xml
 <application
     ...
@@ -65,7 +67,7 @@ The view with the ID specified in ```app:drawer_viewId="..."``` will be shown in
 
 ```app:toolbar_title="..."``` and ```app:toolbar_subtitle="..."``` are setting the title and subtitle in the toolbar. If nothing is set for the subtitle, the toolbar will adjust the title position to match the space.  
 
-The drawable in ```app:drawer_icon="..."``` is the little icon at the top right in the drawer pane. There are already some stock Samsung icon included in the library (see [Icons](#Icons)).
+The drawable in ```app:drawer_icon="..."``` is the little icon at the top right in the drawer pane. There are already some stock Samsung [icons](#Icons) included in the library.
 
 
 ### ToolbarLayout
@@ -84,7 +86,7 @@ Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
 
 </de.dlyt.yanndroid.samsung.layout.ToolbarLayout>
 ```
-```app:navigationIcon="..."``` is the NavigationIcon of the toolbar. There are already some stock Samsung icon included in the library (see [Icons](#Icons)), like a drawer and back icon.
+```app:navigationIcon="..."``` is the NavigationIcon of the toolbar. There are already some stock Samsung [icons](#Icons) included in the library, like a drawer and back icon.
 
 
 ### OptionButton and OptionGroup
