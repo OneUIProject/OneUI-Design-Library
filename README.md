@@ -1,33 +1,50 @@
-[![](https://jitpack.io/v/Yanndroid/SamsungOneUi.svg)](https://jitpack.io/#Yanndroid/SamsungOneUi)
-
-
 # Samsung OneUi Design
-A library for Android, which make your app look like Samsung's OneUI. In this library there is a theme which will apply for each View (see [Progress](#Progress)) in your layout. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk).
+A library for Android, which makes your app look like Samsung's OneUI. In this library there is a theme which will apply for each View (see [Progress](#Progress)) in your layout. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk).
 
-Excuse my bad english, feel free to correct it :)
+Excuse my bad english, feel free to correct it. :)
+
+
+- [Screenshots](#Screenshots)
+- [Installation](#Installation)
+- [Usage](#Usage)
+  - [DrawerLayout](#DrawerLayout)
+  - [ToolbarLayout](#ToolbarLayout)
+  - [OptionButton and OptionGroup](#OptionButton-and-OptionGroup)
+  - [DrawerDivider](#DrawerDivider)
+  - [SplashViewSimple](#SplashViewSimple)
+  - [SplashViewAnimated](#SplashViewAnimated)
+  - [SwitchBar](#SwitchBar)
+  - [SeekBar](#SeekBar)
+  - [ProgressBar](#ProgressBar)
+  - [Button](#Button)
+  - [Icons](#Icons)
+  - [Own custom color theme](#Own-custom-color-theme)
+  - [App Icon](#App-Icon)
+- [Progress](#Progress)
+
 
 ## Screenshots
 todo: add screenshots and videos/gifs
 
 
 ## Installation
-I am currently using [Jitpack](https://jitpack.io/) to publish this library but this probably won't be permanent.
-
-
-1. Add jitpack to build.gradle (Project: ...)
+1. Create a [new token](https://github.com/settings/tokens) with ```read:packages``` permission.
+2. Add the dependency to build.gradle (Module: ...)
 ```gradle
-allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
-	}
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/yanndroid/SamsungOneUi")
+            credentials {
+                username = "your username"
+                password = "your token"
+            }
+    }
 }
-```
-2. Add the dependencies to build.gradle (Module: ...)
-```gradle
+
+
 dependencies {
-        implementation 'com.github.Yanndroid:SamsungOneUi:1.1.0'
-	...
+    implementation 'de.dlyt.yanndroid:samsung:1.1.0'
+    ...
 }
 ```
 
@@ -40,6 +57,7 @@ dependencies {
     ...
 </application>
 ```
+Alternatively you could use [Jitpack](https://jitpack.io/#Yanndroid/SamsungOneUi), but it might not always be the latest version.
 
 ## Usage
 ### DrawerLayout
@@ -74,15 +92,15 @@ The drawable in ```app:drawer_icon="..."``` is the little icon at the top right 
 Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
 ```xml
 <de.dlyt.yanndroid.samsung.layout.ToolbarLayout
-        android:id="@+id/toolbar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:title="..."
-        app:subtitle="..."
-        app:navigationIcon="..."
-        >
+    android:id="@+id/toolbar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:title="..."
+    app:subtitle="..."
+    app:navigationIcon="..."
+    >
 
-        <!--children-->
+    <!--children-->
 
 </de.dlyt.yanndroid.samsung.layout.ToolbarLayout>
 ```
@@ -93,7 +111,21 @@ Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
 todo
 
 ### DrawerDivider
-todo
+A divider between to options on the drawer.
+
+<img src="readme-resources/screenshots/drawerdivider.png"  width="240"/>
+
+```xml
+<de.dlyt.yanndroid.samsung.drawer.Divider
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="2dp" />
+```
+Alternatively you could use this, but it's less customizable:
+```xml
+<View style="@style/DrawerDividerStyle" />
+```
 
 ### SplashViewSimple
 todo
@@ -108,7 +140,15 @@ todo
 todo
 
 ### ProgressBar
-todo
+The theme won't apply for the ProgressBar, so you need to set it manually:
+```style="@style/ProgressBarStyle.Horizontal"```  
+```style="@style/ProgressBarStyle.Horizontal.Large"```  
+```style="@style/ProgressBarStyle.Circle"```  
+```style="@style/ProgressBarStyle.Circle.Large"```  
+```style="@style/ProgressBarStyle.Circle.Small"```  
+```style="@style/ProgressBarStyle.Circle.Title"```
+
+<img src="readme-resources/screenshots/progressbar.png"  width="240"/>
 
 ### Button
 todo
@@ -118,7 +158,7 @@ todo
 ### Icons
 How would a OneUI design look like without OneUI icons? Not like OneUI... Thats's why I also included some of the stock icons you can find in stock Samsung apps, and more will come. You can use them with ```@drawable/ic_samsung_...```.
 
-<img src="readme-resources/screenshots/icons.jpg"  height="20"/>
+<img src="readme-resources/screenshots/icons.png"  width="240"/>
 
 
 ### Own custom color theme
