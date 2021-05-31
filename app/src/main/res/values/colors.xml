@@ -23,4 +23,9 @@
     <color name="secondary_color">#ff009e7c</color>
     <color name="primary_dark_color">#ff00574b</color>-->
 
+    <!--balck--> <!--makes no sence in dark mode-->
+    <!--<color name="primary_color">#ff222222</color>
+    <color name="secondary_color">#ff444444</color>
+    <color name="primary_dark_color">#ff000000</color>-->
+
 </resources>
