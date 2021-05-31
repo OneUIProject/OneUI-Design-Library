@@ -1,7 +1,7 @@
 # Samsung OneUi Design
 A library for Android, which makes your app look like Samsung's OneUI. In this library there is a theme which will apply for each View (see [Progress](#Progress)) in your layout. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk).
 
-Excuse my bad english, feel free to correct it :)
+Excuse my bad english, feel free to correct it. :)
 
 
 - [Screenshots](#Screenshots)
@@ -28,8 +28,8 @@ todo: add screenshots and videos/gifs
 
 
 ## Installation
-1. create a new [token](https://github.com/settings/tokens) with ```read:packages```
-2. Add the dependency to build.gradle (Module: ...)  
+1. Create a [new token](https://github.com/settings/tokens) with ```read:packages``` permission.
+2. Add the dependency to build.gradle (Module: ...)
 ```gradle
 repositories {
     maven {
@@ -111,7 +111,9 @@ Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
 todo
 
 ### DrawerDivider
-<img src="readme-resources/screenshots/drawerdivider.png"  height="30"/>
+A divider between to options on the drawer.
+
+<img src="readme-resources/screenshots/drawerdivider.png"  width="240"/>
 
 ```xml
 <de.dlyt.yanndroid.samsung.drawer.Divider
@@ -144,7 +146,9 @@ The theme won't apply for the ProgressBar, so you need to set it manually:
 ```style="@style/ProgressBarStyle.Circle"```  
 ```style="@style/ProgressBarStyle.Circle.Large"```  
 ```style="@style/ProgressBarStyle.Circle.Small"```  
-```style="@style/ProgressBarStyle.Circle.Title"```  
+```style="@style/ProgressBarStyle.Circle.Title"```
+
+<img src="readme-resources/screenshots/progressbar.png"  width="240"/>
 
 ### Button
 todo
@@ -154,7 +158,7 @@ todo
 ### Icons
 How would a OneUI design look like without OneUI icons? Not like OneUI... Thats's why I also included some of the stock icons you can find in stock Samsung apps, and more will come. You can use them with ```@drawable/ic_samsung_...```.
 
-<img src="readme-resources/screenshots/icons.png"  height="30"/>
+<img src="readme-resources/screenshots/icons.png"  width="240"/>
 
 
 ### Own custom color theme
