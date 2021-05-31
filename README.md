@@ -5,6 +5,7 @@
 [![](https://img.shields.io/github/issues-pr-raw/Yanndroid/SamsungOneUi?color=%23bb00bb)](https://github.com/Yanndroid/SamsungOneUi/pulls)
 [![](https://img.shields.io/github/forks/Yanndroid/SamsungOneUi?color=%2300bbbb)](https://github.com/Yanndroid/SamsungOneUi/network/members)
 [![](https://img.shields.io/github/contributors/Yanndroid/SamsungOneUi)](https://github.com/Yanndroid/SamsungOneUi/graphs/contributors)
+[![](https://img.shields.io/static/v1?label=telegram&message=Yanndroid&color=blue)](https://t.me/Yanndroid)
 
 
 # Samsung OneUi Design
