@@ -112,6 +112,7 @@ todo
 
 ### DrawerDivider
 <img src="readme-resources/screenshots/drawerdivider.png"  height="30"/>
+
 ```xml
 <de.dlyt.yanndroid.samsung.drawer.Divider
         android:layout_width="match_parent"
