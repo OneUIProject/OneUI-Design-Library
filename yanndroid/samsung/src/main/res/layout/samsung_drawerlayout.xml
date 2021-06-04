@@ -17,19 +17,7 @@
             android:id="@+id/drawer_toolbarlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:navigationIcon="@drawable/ic_samsung_drawer">
-
-            <LinearLayout
-                android:id="@+id/main_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <!--main content with toolbar-->
-
-            </LinearLayout>
-
-        </de.dlyt.yanndroid.samsung.layout.ToolbarLayout>
+            app:navigationIcon="@drawable/ic_samsung_drawer" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

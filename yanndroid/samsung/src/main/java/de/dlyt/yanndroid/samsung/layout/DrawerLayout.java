@@ -46,7 +46,6 @@ public class DrawerLayout extends LinearLayout {
     private TextView drawerIcon_badge;
 
 
-    private LinearLayout main_container;
     private LinearLayout drawer_container;
 
 
@@ -73,7 +72,6 @@ public class DrawerLayout extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.samsung_drawerlayout, this, true);
 
-        main_container = findViewById(R.id.main_container);
         drawer_container = findViewById(R.id.drawer_container);
         toolbarLayout = findViewById(R.id.drawer_toolbarlayout);
         drawerIcon_badge = findViewById(R.id.drawerIcon_badge);
@@ -139,10 +137,6 @@ public class DrawerLayout extends LinearLayout {
         toolbarLayout.setExpanded(expanded, animate);
     }
 
-    public void setToolbarExpandable(boolean expandable) {
-        toolbarLayout.setExpandable(expandable);
-    }
-
 
     public void showIconNotification(boolean navigationIcon, boolean drawerIcon) {
         toolbarLayout.showNavIconNotification(navigationIcon);
@@ -173,13 +167,13 @@ public class DrawerLayout extends LinearLayout {
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
-        if (main_container == null) {
+        if (toolbarLayout == null) {
             super.addView(child, index, params);
         } else {
             if (viewIdForDrawer == child.getId()) {
                 drawer_container.addView(child, index, params);
             } else {
-                main_container.addView(child, index, params);
+                toolbarLayout.addView(child, index, params);
             }
         }
     }

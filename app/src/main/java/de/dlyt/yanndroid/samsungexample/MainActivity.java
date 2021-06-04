@@ -17,6 +17,7 @@ import de.dlyt.yanndroid.samsung.SeekBar;
 import de.dlyt.yanndroid.samsung.SwitchBar;
 import de.dlyt.yanndroid.samsung.drawer.OptionButton;
 import de.dlyt.yanndroid.samsung.layout.DrawerLayout;
+import de.dlyt.yanndroid.samsung.layout.ToolbarLayout;
 
 
 public class MainActivity extends AppCompatActivity {

@@ -47,7 +47,6 @@ public class ToolbarLayout extends LinearLayout {
     private MaterialTextView collapsed_title;
     private androidx.appcompat.widget.Toolbar toolbar;
     private AppBarLayout AppBar;
-    private NestedScrollView nestedScrollView;
     private LinearLayout main_container;
     private LinearLayout expand_container;
 
@@ -73,7 +72,6 @@ public class ToolbarLayout extends LinearLayout {
         expanded_title = findViewById(R.id.expanded_title);
         expanded_subtitle = findViewById(R.id.expanded_subtitle);
         collapsed_title = findViewById(R.id.collapsed_title);
-        nestedScrollView = findViewById(R.id.nestedsrcollview);
         navigation_icon_Badge = findViewById(R.id.navigationIcon_badge);
         navigation_icon_container = findViewById(R.id.navigationIcon_container);
         expand_container = findViewById(R.id.expand_container);
@@ -139,11 +137,6 @@ public class ToolbarLayout extends LinearLayout {
 
     public void setExpanded(boolean expanded, boolean animate) {
         AppBar.setExpanded(expanded, animate);
-    }
-
-    public void setExpandable(boolean expandable) {
-        nestedScrollView.setNestedScrollingEnabled(expandable);
-        setExpanded(expandable, false);
     }
 
 

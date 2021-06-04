@@ -15,6 +15,13 @@
         android:id="@+id/viewindrawer"
         layout="@layout/drawer_content" />
 
-    <include layout="@layout/main_content" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/main_content" />
+
+    </androidx.core.widget.NestedScrollView>
 
 </de.dlyt.yanndroid.samsung.layout.DrawerLayout>

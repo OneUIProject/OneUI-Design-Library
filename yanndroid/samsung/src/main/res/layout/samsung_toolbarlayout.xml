@@ -108,7 +108,9 @@
                     style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical" />
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:singleLine="true" />
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -117,32 +119,11 @@
 
 
     <LinearLayout
+        android:id="@+id/main_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:foreground="@drawable/rounded_corner_top"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nestedsrcollview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <LinearLayout
-                android:id="@+id/main_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <!--Main Content-->
-
-
-            </LinearLayout>
-
-
-        </androidx.core.widget.NestedScrollView>
-    </LinearLayout>
-
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
