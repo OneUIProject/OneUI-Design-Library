@@ -6,7 +6,7 @@
     <color name="secondary_color">#ff3e91ff</color> <!--color_control_activated-->
     <color name="primary_dark_color">#ff0072de</color> <!--color_primary_dark-->
 
-    <color name="accent_material">@color/material_deep_teal_500</color>
+    <color name="accent_material">@color/sesl_secondary_color</color>
     <color name="sesl_background_floating">@color/sesl_white</color>
     <color name="sesl_ripple_color">#1a000000</color>
     <color name="sesl_error_color">#fff4511e</color>

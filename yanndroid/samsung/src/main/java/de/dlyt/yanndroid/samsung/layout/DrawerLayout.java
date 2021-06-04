@@ -53,6 +53,10 @@ public class DrawerLayout extends LinearLayout {
     private int viewIdForDrawer;
 
 
+    private androidx.drawerlayout.widget.DrawerLayout drawerLayout;
+    private View drawer;
+
+
     public DrawerLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DrawerLayout, 0, 0);
@@ -85,8 +89,8 @@ public class DrawerLayout extends LinearLayout {
 
         /*drawer logic*/
         View content = findViewById(R.id.main_content);
-        androidx.drawerlayout.widget.DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
-        View drawer = findViewById(R.id.drawer);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        drawer = findViewById(R.id.drawer);
 
         ViewGroup.LayoutParams layoutParams = drawer.getLayoutParams();
         layoutParams.width = (int) ((double) this.getResources().getDisplayMetrics().widthPixels / 1.19);
@@ -143,6 +147,15 @@ public class DrawerLayout extends LinearLayout {
     public void showIconNotification(boolean navigationIcon, boolean drawerIcon) {
         toolbarLayout.showNavIconNotification(navigationIcon);
         drawerIcon_badge.setVisibility(drawerIcon ? VISIBLE : GONE);
+    }
+
+    public void setDrawerOpen(Boolean open, Boolean animate) {
+        if (open){
+            drawerLayout.openDrawer(drawer, animate);
+        }else {
+            drawerLayout.closeDrawer(drawer, animate);
+        }
+
     }
 
 

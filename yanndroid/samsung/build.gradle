@@ -18,7 +18,7 @@ publishing {
         bar(MavenPublication) {
             groupId ='de.dlyt.yanndroid'
             artifactId = 'samsung'
-            version = '1.1.0'
+            version = '1.1.1'
             artifact("$buildDir/outputs/aar/samsung-release.aar")
         }
     }
@@ -32,7 +32,7 @@ android {
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
-        versionName "1.1.0"
+        versionName "1.1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
