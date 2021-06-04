@@ -1,3 +1,13 @@
+[![](https://img.shields.io/github/v/release/Yanndroid/SamsungOneUi?color=%235555ff)](https://github.com/Yanndroid/SamsungOneUi/releases)
+[![](https://img.shields.io/static/v1?label=sample&message=apk&color=yellow)](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk)
+![](https://img.shields.io/github/last-commit/Yanndroid/SamsungOneUi)
+[![](https://img.shields.io/github/issues-raw/Yanndroid/SamsungOneUi?color=%23ff4400)](https://github.com/Yanndroid/SamsungOneUi/issues)
+[![](https://img.shields.io/github/issues-pr-raw/Yanndroid/SamsungOneUi?color=%23bb00bb)](https://github.com/Yanndroid/SamsungOneUi/pulls)
+[![](https://img.shields.io/github/forks/Yanndroid/SamsungOneUi?color=%2300bbbb)](https://github.com/Yanndroid/SamsungOneUi/network/members)
+[![](https://img.shields.io/github/contributors/Yanndroid/SamsungOneUi)](https://github.com/Yanndroid/SamsungOneUi/graphs/contributors)
+[![](https://img.shields.io/static/v1?label=telegram&message=Yanndroid&color=blue)](https://t.me/Yanndroid)
+
+
 # Samsung OneUi Design
 A library for Android, which makes your app look like Samsung's OneUI. In this library there is a theme which will apply for each View (see [Progress](#Progress)) in your layout. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk).
 
@@ -113,7 +123,7 @@ todo
 ### DrawerDivider
 A divider between to options on the drawer.
 
-<img src="readme-resources/screenshots/drawerdivider.png"  width="240"/>
+<img src="readme-resources/screenshots/drawerdivider.png"  width="260"/>
 
 ```xml
 <de.dlyt.yanndroid.samsung.drawer.Divider
@@ -143,12 +153,12 @@ todo
 The theme won't apply for the ProgressBar, so you need to set it manually:
 ```style="@style/ProgressBarStyle.Horizontal"```  
 ```style="@style/ProgressBarStyle.Horizontal.Large"```  
-```style="@style/ProgressBarStyle.Circle"```  
 ```style="@style/ProgressBarStyle.Circle.Large"```  
+```style="@style/ProgressBarStyle.Circle"```  
 ```style="@style/ProgressBarStyle.Circle.Small"```  
 ```style="@style/ProgressBarStyle.Circle.Title"```
 
-<img src="readme-resources/screenshots/progressbar.png"  width="240"/>
+<img src="readme-resources/screenshots/progressbar.png"  width="260"/>
 
 ### Button
 todo
@@ -158,7 +168,7 @@ todo
 ### Icons
 How would a OneUI design look like without OneUI icons? Not like OneUI... Thats's why I also included some of the stock icons you can find in stock Samsung apps, and more will come. You can use them with ```@drawable/ic_samsung_...```.
 
-<img src="readme-resources/screenshots/icons.png"  width="240"/>
+<img src="readme-resources/screenshots/icons.png"  width="260"/>
 
 
 ### Own custom color theme
