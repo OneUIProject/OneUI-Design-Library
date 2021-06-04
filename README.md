@@ -38,6 +38,8 @@ todo: add screenshots and videos/gifs
 
 
 ## Installation
+<!--
+
 1. Create a [new token](https://github.com/settings/tokens) with ```read:packages``` permission.
 2. Add the dependency to build.gradle (Module: ...)
 ```gradle
@@ -67,7 +69,11 @@ dependencies {
     ...
 </application>
 ```
+
 Alternatively you could use [Jitpack](https://jitpack.io/#Yanndroid/SamsungOneUi), but it might not always be the latest version.
+
+-->
+See [Jitpack](https://jitpack.io/#Yanndroid/SamsungOneUi)
 
 ## Usage
 ### DrawerLayout
