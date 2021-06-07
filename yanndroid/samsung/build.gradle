@@ -8,10 +8,10 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/yanndroid/SamsungOneUi")
+            url = uri("https://maven.pkg.github.com/leonbcode/SamsungOneUi")
             credentials {
-                username = "Yanndroid"
-                password = "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"
+                username = "leonbcode"
+                password = "$System.env.GITHUB_TOKEN"
             }
         }
     }
