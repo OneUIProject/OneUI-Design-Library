@@ -23,6 +23,6 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew -p ./yanndroid/samsung clean uploadArchives publish
+      run: ./gradlew -p ./yanndroid/samsung clean uploadArchives 
     - name: List files
       run: ls -LR ./yanndroid/samsung
