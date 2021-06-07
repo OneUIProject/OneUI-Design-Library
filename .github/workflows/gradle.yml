@@ -13,7 +13,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: "build"
     
     steps:
     - uses: actions/checkout@v2
@@ -24,6 +23,6 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: List files
-      run: ls -LR
+      run: ls -LR ./yanndroid/samsung
     - name: Build with Gradle
-      run: ./gradlew clean uploadArchives publish
+      run: ./gradlew -p ./yanndroid/samsung clean uploadArchives publish
