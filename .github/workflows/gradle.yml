@@ -26,5 +26,5 @@ jobs:
       run: ./gradlew -p ./yanndroid/samsung clean uploadArchives
     - name: publish
       run: ./gradlew -p ./yanndroid/samsung publish
-    - name: list files
-      run: find . -name \*.aar -print
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
