@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'maven-publish'
+    id 'maven'
 }
 
 publishing {
@@ -10,7 +11,7 @@ publishing {
             url = uri("https://maven.pkg.github.com/yanndroid/SamsungOneUi")
             credentials {
                 username = "Yanndroid"
-                password = "$System.env.GithubToken"
+                password = "$System.env.GITHUB_TOKEN"
             }
         }
     }
@@ -19,8 +20,17 @@ publishing {
             groupId ='de.dlyt.yanndroid'
             artifactId = 'samsung'
             version = '1.1.2'
-            artifact("$buildDir/outputs/aar/samsung-release.aar")
+            artifact("$rootDir/releases/de/dlyt/yanndroid/samsung/1.1.2/samsung-1.1.2.aar")
         }
+    }
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.groupId = 'de.dlyt.yanndroid'
+        pom.artifactId = 'samsung'
+        pom.version = "1.1.2"
+        repository(url: "file:./releases/")
     }
 }
 
