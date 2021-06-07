@@ -8,9 +8,9 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/leonbcode/SamsungOneUi")
+            url = uri("https://maven.pkg.github.com/yanndroid/SamsungOneUi")
             credentials {
-                username = "leonbcode"
+                username = "Yanndroid"
                 password = "$System.env.GITHUB_TOKEN"
             }
         }
@@ -19,8 +19,8 @@ publishing {
         bar(MavenPublication) {
             groupId ='de.dlyt.yanndroid'
             artifactId = 'samsung'
-            version = '0.0.1'
-            artifact("$rootDir/releases/de/dlyt/yanndroid/samsung/0.0.1/samsung-0.0.1.aar")
+            version = '1.1.2'
+            artifact("$rootDir/releases/de/dlyt/yanndroid/samsung/1.1.2/samsung-1.1.2.aar")
         }
     }
 }
@@ -29,7 +29,7 @@ uploadArchives {
     repositories.mavenDeployer {
         pom.groupId = 'de.dlyt.yanndroid'
         pom.artifactId = 'samsung'
-        pom.version = "0.0.1"
+        pom.version = "1.1.2"
         repository(url: "file:./releases/")
     }
 }
@@ -42,7 +42,7 @@ android {
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
-        versionName "0.0.1"
+        versionName "1.1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
