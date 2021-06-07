@@ -20,7 +20,7 @@ publishing {
             groupId ='de.dlyt.yanndroid'
             artifactId = 'samsung'
             version = '1.1.2'
-            artifact("$buildDir/outputs/aar/samsung-release.aar")
+            artifact("$rootDir/releases/de/dlyt/yanndroid/samsung/1.1.2/samsung-1.1.2.aar")
         }
     }
 }
