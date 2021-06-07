@@ -24,6 +24,15 @@ publishing {
     }
 }
 
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.groupId = 'de.dlyt.yanndroid'
+        pom.artifactId = 'samsung'
+        pom.version = "1.1.2"
+        repository(url: "file:./releases/")
+    }
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
