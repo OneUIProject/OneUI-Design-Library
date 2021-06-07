@@ -25,4 +25,4 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew -p ./yanndroid/samsung clean uploadArchives 
     - name: List files
-      run: ls */*.aar
+      run: ls -R |grep "\.aar$"
