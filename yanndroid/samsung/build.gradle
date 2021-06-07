@@ -11,7 +11,7 @@ publishing {
             url = uri("https://maven.pkg.github.com/yanndroid/SamsungOneUi")
             credentials {
                 username = "Yanndroid"
-                password = "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"
+                password = "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"
             }
         }
     }
