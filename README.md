@@ -8,6 +8,8 @@
 [![](https://img.shields.io/static/v1?label=telegram&message=Yanndroid&color=blue)](https://t.me/Yanndroid)
 
 
+The Readme of this project isn't complete and will be updated.
+
 # Samsung OneUi Design
 A library for Android, which makes your app look like Samsung's OneUI. In this library there is a theme which will apply for each View (see [Progress](#Progress)) in your layout. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk).
 
@@ -38,8 +40,35 @@ todo: add screenshots and videos/gifs
 
 
 ## Installation
-<!--
+### with [Jitpack](https://jitpack.io/#Yanndroid/SamsungOneUi):
+1. Add jitpack to build.gradle (Project: ...)
+```gradle
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+	}
+}
+```
+2. Add the dependency to build.gradle (Module: ...)
+```gradle
+dependencies {
+	implementation 'com.github.Yanndroid:SamsungOneUi:1.1.2'
+    ...
+}
+```
+3. Apply the theme in AndroidManifest.xml
+```xml
+<application
+    ...
+    android:theme="@style/SamsungTheme"
+    >
+    ...
+</application>
+```
 
+
+### with Github Packages:
 1. Create a [new token](https://github.com/settings/tokens) with ```read:packages``` permission.
 2. Add the dependency to build.gradle (Module: ...)
 ```gradle
@@ -55,7 +84,7 @@ repositories {
 
 
 dependencies {
-    implementation 'de.dlyt.yanndroid:samsung:1.1.0'
+    implementation 'de.dlyt.yanndroid:samsung:1.1.2'
     ...
 }
 ```
@@ -69,11 +98,6 @@ dependencies {
     ...
 </application>
 ```
-
-Alternatively you could use [Jitpack](https://jitpack.io/#Yanndroid/SamsungOneUi), but it might not always be the latest version.
-
--->
-See [Jitpack](https://jitpack.io/#Yanndroid/SamsungOneUi)
 
 ## Usage
 ### DrawerLayout
@@ -101,8 +125,39 @@ The view with the ID specified in ```app:drawer_viewId="..."``` will be shown in
 
 ```app:toolbar_title="..."``` and ```app:toolbar_subtitle="..."``` are setting the title and subtitle in the toolbar. If nothing is set for the subtitle, the toolbar will adjust the title position to match the space.  
 
-The drawable in ```app:drawer_icon="..."``` is the little icon at the top right in the drawer pane. There are already some stock Samsung [icons](#Icons) included in the library.
+The drawable in ```app:drawer_icon="..."``` is the little icon at the top right in the drawer pane. There are already some stock Samsung [icons](#Icons) included in the library.  
 
+If you want the toolbar collapsing when you scroll the content you should either use a [NestedScrollView](https://developer.android.com/reference/androidx/core/widget/NestedScrollView) as view child or set ```android:nestedScrollingEnabled="true"``` on the view you want the toolbar to collapse on scroll.
+
+#### Methods
+```java
+public Toolbar getToolbar()
+```
+Returns the toolbar, useful for ```setSupportActionBar()```.
+```java
+public void setDrawerIconOnClickListener(OnClickListener listener)
+```
+OnClickListener for the DrawerIcon (the icon in the top right corner of the drawer pane).
+```java
+public void setToolbarTitle(String title)
+```
+Sets the title of the toolbar.
+```java
+public void setToolbarSubtitle(String subtitle)
+```
+Sets the subtitle of the toolbar.
+```java
+public void setToolbarExpanded(boolean expanded, boolean animate)
+```
+Expand or collapse the toolbar with an optional animation.
+```java
+public void showIconNotification(boolean navigationIcon, boolean drawerIcon)
+```
+Show/hide the badges on the DrawerIcon and NavigationIcon.
+```java
+public void setDrawerOpen(Boolean open, Boolean animate)
+```
+Open/close the drawer pane with an optional animation.
 
 ### ToolbarLayout
 Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
@@ -120,14 +175,16 @@ Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
 
 </de.dlyt.yanndroid.samsung.layout.ToolbarLayout>
 ```
-```app:navigationIcon="..."``` is the NavigationIcon of the toolbar. There are already some stock Samsung [icons](#Icons) included in the library, like a drawer and back icon.
+```app:navigationIcon="..."``` is the NavigationIcon of the toolbar. There are already some stock Samsung [icons](#Icons) included in the library, like a drawer and back icon.  
+
+Same as the [DrawerLayout](#DrawerLayout) you need to use a [NestedScrollView](https://developer.android.com/reference/androidx/core/widget/NestedScrollView) or ```android:nestedScrollingEnabled="true"```.
 
 
 ### OptionButton and OptionGroup
 todo
 
 ### DrawerDivider
-A divider between to options on the drawer.
+A divider between to options on the drawer. It's the same divider you can find in almost any Samsung app drawer.
 
 <img src="readme-resources/screenshots/drawerdivider.png"  width="260"/>
 
@@ -138,19 +195,89 @@ A divider between to options on the drawer.
         android:layout_marginHorizontal="24dp"
         android:layout_marginVertical="2dp" />
 ```
-Alternatively you could use this, but it's less customizable:
+Alternatively you could use this, it's easier and all set but less customizable:
 ```xml
 <View style="@style/DrawerDividerStyle" />
 ```
 
 ### SplashViewSimple
-todo
+Simple Splash view. (I think Samsung removed the splashscreen of their apps since OneUI 3 but in former times it was still there.)
+
+```xml
+<de.dlyt.yanndroid.samsung.layout.SplashViewSimple
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:image="..."
+        app:text="..." />
+```
+```app:image="..."```is the icon and ```app:text="..."``` the text underneath the icon.
+
+#### Methods
+```java
+public void setImage(Drawable mImage)
+```
+Sets the icon drawable
+```java
+public void setText(String mText)
+```
+Sets the text of the splash textview
+```java
+public String getText()
+```
+Returns the text of the splash textview
 
 ### SplashViewAnimated
-todo
+An animated splash screen view like the one in the GalaxyStore.
+
+```xml
+<de.dlyt.yanndroid.samsung.layout.SplashViewAnimated
+        android:id="@+id/splash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:background_image="..."
+        app:foreground_image="..."
+        app:text="..." />
+```
+
+```app:background_image="..."``` only the background of your icon and ```app:foreground_image="..."``` only the foreground, which will have a shake animation.
+```app:text="..."``` will be the text under the icon. It has a very similar font and color as the GalaxyStore splash text.
+
+#### Methods
+```java
+public void setImage(Drawable foreground, Drawable background)
+```
+Sets the icon fore- and background
+```java
+public void setText(String mText)
+```
+Sets the text of the splash textview
+```java
+public String getText()
+```
+Returns the text of the splash textview
+```java
+public void startSplashAnimation()
+```
+Starts the shake animation of the foreground
+```java
+public void clearSplashAnimation()
+```
+Clears the animation
+```java
+public void setSplashAnimationListener(Animation.AnimationListener listener)
+```
+Listener for the splash animation
+
 
 ### SwitchBar
-todo
+A SwitchBar like in the wifi or bluetooth settings.
+
+```xml
+<de.dlyt.yanndroid.samsung.SwitchBar
+        android:id="@+id/switchbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+```
 
 ### SeekBar
 todo

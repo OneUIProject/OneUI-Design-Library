@@ -17,10 +17,10 @@ publishing {
     }
     publications {
         bar(MavenPublication) {
-            groupId ='de.dlyt.yanndroid'
+            groupId = 'de.dlyt.yanndroid'
             artifactId = 'samsung'
-            version = '1.1.2'
-            artifact("$rootDir/releases/de/dlyt/yanndroid/samsung/1.1.2/samsung-1.1.2.aar")
+            version = latest
+            artifact("$rootDir/releases/de/dlyt/yanndroid/samsung/${latest}/samsung-${latest}.aar")
         }
     }
 }
@@ -29,7 +29,7 @@ uploadArchives {
     repositories.mavenDeployer {
         pom.groupId = 'de.dlyt.yanndroid'
         pom.artifactId = 'samsung'
-        pom.version = "1.1.2"
+        pom.version = latest
         repository(url: "file:./releases/")
     }
 }
@@ -42,7 +42,7 @@ android {
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
-        versionName "1.1.2"
+        versionName "${latest}"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
