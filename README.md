@@ -68,7 +68,7 @@ dependencies {
 ```
 
 
-### with Maven:
+### with Github Packages:
 1. Create a [new token](https://github.com/settings/tokens) with ```read:packages``` permission.
 2. Add the dependency to build.gradle (Module: ...)
 ```gradle
@@ -129,6 +129,35 @@ The drawable in ```app:drawer_icon="..."``` is the little icon at the top right 
 
 If you want the toolbar collapsing when you scroll the content you should either use a [NestedScrollView](https://developer.android.com/reference/androidx/core/widget/NestedScrollView) as view child or set ```android:nestedScrollingEnabled="true"``` on the view you want the toolbar to collapse on scroll.
 
+#### Methods
+```java
+public Toolbar getToolbar()
+```
+Returns the toolbar, useful for ```setSupportActionBar()```.
+```java
+public void setDrawerIconOnClickListener(OnClickListener listener)
+```
+OnClickListener for the DrawerIcon (the icon in the top right corner of the drawer pane).
+```java
+public void setToolbarTitle(String title)
+```
+Sets the title of the toolbar.
+```java
+public void setToolbarSubtitle(String subtitle)
+```
+Sets the subtitle of the toolbar.
+```java
+public void setToolbarExpanded(boolean expanded, boolean animate)
+```
+Expand or collapse the toolbar with an optional animation.
+```java
+public void showIconNotification(boolean navigationIcon, boolean drawerIcon)
+```
+Show/hide the badges on the DrawerIcon and NavigationIcon.
+```java
+public void setDrawerOpen(Boolean open, Boolean animate)
+```
+Open/close the drawer pane with an optional animation.
 
 ### ToolbarLayout
 Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
@@ -183,6 +212,20 @@ Simple Splash view. (I think Samsung removed the splashscreen of their apps sinc
 ```
 ```app:image="..."```is the icon and ```app:text="..."``` the text underneath the icon.
 
+#### Methods
+```java
+public void setImage(Drawable mImage)
+```
+Sets the icon drawable
+```java
+public void setText(String mText)
+```
+Sets the text of the splash textview
+```java
+public String getText()
+```
+Returns the text of the splash textview
+
 ### SplashViewAnimated
 An animated splash screen view like the one in the GalaxyStore.
 
@@ -199,19 +242,42 @@ An animated splash screen view like the one in the GalaxyStore.
 ```app:background_image="..."``` only the background of your icon and ```app:foreground_image="..."``` only the foreground, which will have a shake animation.
 ```app:text="..."``` will be the text under the icon. It has a very similar font and color as the GalaxyStore splash text.
 
+#### Methods
 ```java
-SplashViewAnimated splashViewAnimated = findViewById(R.id.splash);
-
-splashViewAnimated.setImage(Drawable, Drawable); //sets the icon fore- and background
-splashViewAnimated.setText(String); //sets the text of the splash textview
-splashViewAnimated.getText(); //gets the text of the splash textview
-splashViewAnimated.startSplashAnimation(); //starts the shake animation of the foreground
-splashViewAnimated.clearSplashAnimation(); //clears the animation
-splashViewAnimated.setSplashAnimationListener(AnimationListener); //listener for the splash animation
+public void setImage(Drawable foreground, Drawable background)
 ```
+Sets the icon fore- and background
+```java
+public void setText(String mText)
+```
+Sets the text of the splash textview
+```java
+public String getText()
+```
+Returns the text of the splash textview
+```java
+public void startSplashAnimation()
+```
+Starts the shake animation of the foreground
+```java
+public void clearSplashAnimation()
+```
+Clears the animation
+```java
+public void setSplashAnimationListener(Animation.AnimationListener listener)
+```
+Listener for the splash animation
+
 
 ### SwitchBar
-todo
+A SwitchBar like in the wifi or bluetooth settings.
+
+```xml
+<de.dlyt.yanndroid.samsung.SwitchBar
+        android:id="@+id/switchbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+```
 
 ### SeekBar
 todo
