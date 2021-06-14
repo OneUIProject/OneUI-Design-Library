@@ -26,7 +26,7 @@ jobs:
       run: |
         echo ::set-output name=packages::$(curl -su yanndroid:${{ github.token }} https://api.github.com/users/yanndroid/packages/maven/de.dlyt.yanndroid.samsung/versions | grep -Po '(?<="name": ").*(?=")')
       id: packages
-    - run: echo {{ steps.packages.outputs.packages }}
+    - run: echo ${{ steps.packages.outputs.packages }}
 
   publish:
     runs-on: ubuntu-latest
