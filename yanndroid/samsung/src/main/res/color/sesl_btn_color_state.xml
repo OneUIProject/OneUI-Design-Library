@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:alpha="0.4" android:color="@color/sesl_control_activated_color" android:state_enabled="false" />
-    <item android:color="@color/sesl_control_activated_color" />
+    <item android:alpha="0.4" android:color="?colorSecondary" android:state_enabled="false" />
+    <item android:color="?colorSecondary" />
 </selector>

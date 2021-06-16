@@ -6,18 +6,12 @@
     <color name="secondary_color">#ff3e91ff</color> <!--color_control_activated-->
     <color name="primary_dark_color">#ff0072de</color> <!--color_primary_dark-->
 
-    <color name="accent_material">@color/sesl_secondary_color</color>
     <color name="sesl_background_floating">@color/sesl_white</color>
     <color name="sesl_ripple_color">#1a000000</color>
     <color name="sesl_error_color">#fff4511e</color>
-    <color name="sesl_primary_color">@color/primary_color</color>
-    <color name="sesl_secondary_color">@color/secondary_color</color>
-    <color name="sesl_primary_dark_color">@color/primary_dark_color</color>
     <color name="sesl_control_color_normal">@color/control_color_normal</color>
 
-
     <color name="sesl_control_normal_color">#cc8f8f8f</color>
-
 
     <color name="background_color">#fff2f2f2</color>
     <color name="item_background_color">#ffffffff</color>
@@ -40,22 +34,16 @@
 
 
     <!--Sesl-->
-    <color name="sesl_control_activated_color">@color/sesl_secondary_color</color>
     <color name="sesl_white">#fffafafa</color>
     <color name="sesl_black">#ff252525</color>
     <color name="divider_color">#ff979797</color>
-    <color name="sesl_thumb_control_color_activated">@color/sesl_primary_color</color>
 
 
     <!--ProgressBar-->
     <color name="sesl_loading_progress_color1">#ff06b485</color>
     <color name="sesl_loading_progress_color2">#ff0381fe</color>
-
-    <color name="sesl_progress_control_color_activated">@color/sesl_primary_color</color>
     <color name="sesl_progress_control_color_normal">@color/sesl_control_color_normal</color>
-
     <color name="progress_bar_background_color">#4d9c9c9c</color>
-    <color name="progress_bar_progress_color">@color/sesl_secondary_color</color>
 
 
     <!--Switch-->
@@ -66,13 +54,11 @@
     <color name="sesl_switch_thumb_off_color">@color/white</color>
     <color name="sesl_switch_thumb_off_stroke_color">#ffa1a1a1</color>
     <color name="sesl_switch_thumb_on_color">@color/white</color>
-    <color name="sesl_switch_thumb_on_stroke_color">@color/sesl_primary_color</color>
     <color name="sesl_switch_track_off_disabled_color">#00ffffff</color>
     <color name="sesl_switch_track_off_disabled_stroke_color">#66888888</color>
     <color name="sesl_switch_track_on_disabled_color">#668f8f8f</color>
     <color name="sesl_switch_track_off_color">#00ffffff</color>
     <color name="sesl_switch_track_off_stroke_color">#cc8f8f8f</color>
-    <color name="sesl_switch_track_on_color">@color/sesl_primary_color</color>
 
 
     <!--SwitchBar-->
@@ -83,13 +69,11 @@
     <color name="sesl_switchbar_off_text_color_light">#ff252525</color>
     <color name="sesl_switchbar_off_text_color">#ff252525</color>
     <color name="sesl_switchbar_on_background_color">@color/sesl_control_color_normal</color>
-    <!--<color name="sesl_switchbar_on_background_color_light">#ffaad2fa</color>-->
     <color name="sesl_action_bar_text_color_title_dark">#fffafafa</color>
 
 
     <!--Seekbar-->
     <color name="sesl_seekbar_control_color_normal">@color/sesl_control_color_normal</color>
-    <color name="sesl_seekbar_control_color_activated">@color/sesl_primary_color</color>
     <color name="sesl_seekbar_control_color_default">@color/sesl_control_color_normal</color>
     <color name="sesl_seekbar_control_color_secondary">#ff7ab9cb</color>
     <color name="sesl_seekbar_disable_color_activated_dark">#ff545454</color>
@@ -120,11 +104,6 @@
     <color name="sesl_spinner_item_text_color_disabled_light">#66252525</color>
     <color name="sesl_spinner_item_text_color_normal_light">@color/sesl_black</color>
 
-
-    <!--Snackbar-->
-    <color name="sesl_design_snackbar_action_text_color">@color/sesl_secondary_color</color>
-
-
     <!--Toolbar-->
     <color name="sesl_action_bar_background_color_dark">#ff010101</color>
 
@@ -141,7 +120,6 @@
     <color name="drawer_icon_color">#ff676768</color>
     <color name="badge_background_color">#fff56a0d</color>
     <color name="splash_background">#ffffffff</color>
-
 
 
 </resources>

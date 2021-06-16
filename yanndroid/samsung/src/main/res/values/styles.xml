@@ -3,17 +3,20 @@
 
     <!--Main-->
     <style name="SamsungStyleMain">
-        <item name="colorAccent">@color/accent_material</item>
+
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorSecondary">@color/secondary_color</item>
+        <item name="colorPrimaryDark">@color/primary_dark_color</item>
+
+
+        <item name="colorAccent">?colorSecondary</item>
         <item name="colorBackgroundFloating">@color/sesl_background_floating</item>
-        <item name="colorControlActivated">@color/sesl_control_activated_color</item>
+        <item name="colorControlActivated">?colorSecondary</item>
         <item name="colorControlHighlight">@color/sesl_ripple_color</item>
         <item name="colorControlNormal">@color/sesl_control_normal_color</item>
         <item name="colorError">@color/sesl_error_color</item>
-        <item name="colorPrimary">@color/sesl_primary_color</item>
-        <item name="colorSecondary">@color/sesl_secondary_color</item>
-        <item name="colorPrimaryDark">@color/sesl_primary_dark_color</item>
 
-        <item name="progressActivatedColor">@color/sesl_progress_control_color_activated</item>
+        <item name="progressActivatedColor">?colorPrimary</item>
         <item name="progressNormalColor">@color/sesl_progress_control_color_normal</item>
 
         <item name="checkboxStyle">@style/CheckBoxStyle</item>
@@ -28,7 +31,6 @@
         <item name="spinnerStyle">@style/SpinnerStyle</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
         <item name="actionOverflowMenuStyle">@style/ActionOverflowMenuStyle</item>
-
 
         <!--<item name="theme" tools:targetApi="q">@android:style/Theme.DeviceDefault.DayNight</item>-->
 
@@ -123,7 +125,7 @@
         <item name="rippleColor">@color/button_ripple_color</item>
         <item name="cornerRadius">26dp</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/sesl_control_activated_color</item>
+        <item name="android:textColor">?colorSecondary</item>
         <item name="fontFamily">sec-roboto-light</item>
     </style>
 
@@ -311,8 +313,7 @@
         <item name="android:paddingRight">@dimen/design_snackbar_padding_horizontal</item>
         <item name="android:maxWidth">@dimen/design_snackbar_max_width</item>
         <item name="android:minWidth">@dimen/design_snackbar_min_width</item>
-        <item name="android:colorControlActivated">@color/sesl_design_snackbar_action_text_color
-        </item>
+        <item name="android:colorControlActivated">?colorSecondary</item>
         <item name="actionTextColorAlpha">@dimen/design_snackbar_action_text_color_alpha</item>
         <item name="animationMode">fade</item>
         <item name="elevation">@dimen/design_snackbar_elevation</item>

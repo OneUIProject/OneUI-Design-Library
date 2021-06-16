@@ -21,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -256,9 +257,9 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         applyTickMarkTint();
         this.mScaledTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         this.mIsLightTheme = SeslMisc.isLightTheme(context);
-        this.mDefaultNormalProgressColor = colorToColorStateList(resources.getColor(R.color.sesl_seekbar_control_color_default));
+        this.mDefaultNormalProgressColor = colorToColorStateList(resources.getColor(R.color.sesl_seekbar_control_color_default, context.getTheme()));
         this.mDefaultSecondaryProgressColor = colorToColorStateList(resources.getColor(R.color.sesl_seekbar_control_color_secondary));
-        this.mDefaultActivatedProgressColor = colorToColorStateList(resources.getColor(R.color.sesl_seekbar_control_color_activated));
+        this.mDefaultActivatedProgressColor = colorToColorStateList(getColor(context, R.attr.colorPrimary));
         this.mOverlapNormalProgressColor = colorToColorStateList(resources.getColor(this.mIsLightTheme ? R.color.sesl_seekbar_overlap_color_default_light : R.color.sesl_seekbar_overlap_color_default_dark));
         this.mOverlapActivatedProgressColor = colorToColorStateList(resources.getColor(R.color.sesl_seekbar_overlap_color_activated));
         int[][] iArr = {new int[]{16842910}, new int[]{-16842910}};
@@ -271,7 +272,7 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         if (thumbTintList == null) {
             int[][] iArr3 = {new int[]{16842910}, new int[]{-16842910}};
             int[] iArr4 = new int[2];
-            iArr4[0] = resources.getColor(R.color.sesl_thumb_control_color_activated);
+            iArr4[0] = getColor(context, R.attr.colorPrimary);
             iArr4[1] = resources.getColor(this.mIsLightTheme ? R.color.sesl_seekbar_disable_color_activated_light : R.color.sesl_seekbar_disable_color_activated_dark);
             this.mDefaultActivatedThumbColor = new ColorStateList(iArr3, iArr4);
         }
@@ -285,6 +286,15 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
             setMode(i3);
         }
     }
+
+    private int getColor(Context context, int colorResId) {
+        TypedValue typedValue = new TypedValue();
+        TypedArray typedArray = context.obtainStyledAttributes(typedValue.data, new int[]{colorResId});
+        int color = typedArray.getColor(0, 0);
+        typedArray.recycle();
+        return color;
+    }
+
 
     private void applyThumbTint() {
         if (this.mThumb == null) {
