@@ -54,7 +54,7 @@ allprojects {
 2. Add the dependency to build.gradle (Module: ...)
 ```gradle
 dependencies {
-	implementation 'com.github.Yanndroid:SamsungOneUi:1.1.2'
+	implementation 'com.github.Yanndroid:SamsungOneUi:1.1.3'
     ...
 }
 ```
@@ -85,7 +85,7 @@ repositories {
 
 
 dependencies {
-    implementation 'de.dlyt.yanndroid:samsung:1.1.2'
+    implementation 'de.dlyt.yanndroid:samsung:1.1.3'
     ...
 }
 ```
