@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/SamsungTheme">
         <activity
-            android:theme="@style/ColorTheme"
+            android:theme="@style/ThemeName"
             android:name="de.dlyt.yanndroid.samsungexample.MainActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -26,3 +26,9 @@
     </application>
 
 </manifest>
+
+<!--todo:
+- launcher detail color
+- progress_button
+- simplify colors
+-->
