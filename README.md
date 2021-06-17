@@ -335,7 +335,7 @@ Here are some presets, if you want I can make more:
 <color name="primary_dark_color">#ff569415</color>
 ```
 
-- ![#ff034A](https://via.placeholder.com/12/ff034A/000000?text=+) Light red which I like a lot:
+- ![#ff034A](https://via.placeholder.com/12/ff034A/000000?text=+) Light red which I personally like:
 ```xml
 <color name="primary_color">#ffff034a</color>
 <color name="secondary_color">#ffff3d67</color>
@@ -373,7 +373,7 @@ My sample app icon for example:
 - [ ] Menu (in progress)
 - [ ] Dialog
 - [ ] Bottomsheet
-- [ ] Snackbar
+- [ ] Snackbar (in progress)
 - [ ] Spinner (in progress)
 - [ ] Tablayout
 - [ ] Viewpager

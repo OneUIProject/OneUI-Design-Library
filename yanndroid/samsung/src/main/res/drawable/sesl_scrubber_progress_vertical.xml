@@ -29,7 +29,7 @@
             android:scaleGravity="bottom">
             <nine-patch
                 android:src="@drawable/sesl_progress_bar"
-                android:tint="@color/sesl_seekbar_control_color_activated" />
+                android:tint="?colorPrimary" />
         </scale>
     </item>
 </layer-list>

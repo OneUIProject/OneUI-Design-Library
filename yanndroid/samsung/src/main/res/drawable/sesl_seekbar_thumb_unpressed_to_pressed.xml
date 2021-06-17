@@ -3,7 +3,7 @@
     android:name="sesl_seekbar_thumb_unpressed_to_pressed"
     android:width="22.0dip"
     android:height="22.0dip"
-    android:tint="@color/sesl_thumb_control_color_activated"
+    android:tint="?colorPrimary"
     android:viewportWidth="22.0"
     android:viewportHeight="22.0">
     <group

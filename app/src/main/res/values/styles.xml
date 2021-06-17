@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Yellow" parent="SamsungStyleMain">
+        <item name="colorPrimary">@color/custom1</item>
+        <item name="colorSecondary">@color/custom2</item>
+        <item name="colorPrimaryDark">@color/custom3</item>
+    </style>
+
+</resources>

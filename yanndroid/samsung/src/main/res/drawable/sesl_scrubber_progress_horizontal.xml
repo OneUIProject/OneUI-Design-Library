@@ -6,7 +6,7 @@
         android:gravity="fill_horizontal|center">
         <nine-patch
             android:src="@drawable/sesl_progress_bar"
-            android:tint="@color/sesl_seekbar_control_color_normal" />
+            android:tint="@color/control_color_normal" />
     </item>
     <item
         android:id="@id/secondaryProgress"
@@ -15,7 +15,7 @@
         <scale android:scaleWidth="100%">
             <nine-patch
                 android:src="@drawable/sesl_progress_bar"
-                android:tint="@color/sesl_seekbar_control_color_secondary" />
+                android:tint="@color/control_color_normal" />
         </scale>
     </item>
     <item
@@ -25,7 +25,7 @@
         <scale android:scaleWidth="100%">
             <nine-patch
                 android:src="@drawable/sesl_progress_bar"
-                android:tint="@color/sesl_seekbar_control_color_activated" />
+                android:tint="?colorPrimary" />
         </scale>
     </item>
 </layer-list>

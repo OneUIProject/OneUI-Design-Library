@@ -12,7 +12,7 @@
             <shape>
                 <corners android:radius="@dimen/progress_bar_radius" />
                 <size android:height="@dimen/progress_bar_height" />
-                <solid android:color="@color/progress_bar_progress_color" />
+                <solid android:color="?colorSecondary" />
             </shape>
         </clip>
     </item>

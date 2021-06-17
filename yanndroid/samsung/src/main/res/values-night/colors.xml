@@ -3,10 +3,8 @@
 
     <!--Main-->
 
-    <color name="accent_material">@color/material_deep_teal_200</color>
     <color name="sesl_background_floating">@color/sesl_black</color>
     <color name="sesl_ripple_color">#33ffffff</color>
-    <color name="sesl_primary_dark_color">@color/sesl_secondary_color</color>
 
 
     <color name="background_color">#ff000000</color>
@@ -30,15 +28,10 @@
     <color name="sesl_action_bar_text_color_title_dark">@color/sesl_black</color>
 
 
-    <!--ProgressBar-->
-    <color name="progress_bar_progress_color">@color/sesl_primary_dark_color</color>
-
-
     <!--Spinner-->
     <color name="sesl_menu_popup_background_color">#ff252525</color>
     <color name="sesl_menu_popup_background_stroke_color">#ff252525</color>
     <color name="sesl_spinner_dropdown_item_text_color_normal_dark">#fffafafa</color>
-
 
 
     <!--Others-->
