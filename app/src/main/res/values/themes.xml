@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="ColorTheme" parent="SamsungTheme">
-        <item name="theme">@style/Yellow</item>
+    <style name="ThemeName" parent="SamsungTheme">
+        <item name="theme">@style/StyleName</item>
     </style>
 
 </resources>
