@@ -37,7 +37,7 @@ Excuse my bad english, feel free to correct it. :)
 
 
 ## Screenshots
-todo: add screenshots and videos/gifs
+todo
 
 
 ## Installation
@@ -131,34 +131,34 @@ The drawable in ```app:drawer_icon="..."``` is the little icon at the top right 
 If you want the toolbar collapsing when you scroll the content you should either use a [NestedScrollView](https://developer.android.com/reference/androidx/core/widget/NestedScrollView) as view child or set ```android:nestedScrollingEnabled="true"``` on the view you want the toolbar to collapse on scroll.
 
 #### Methods
+Return the toolbar, useful for ```setSupportActionBar()```.
 ```java
 public Toolbar getToolbar()
 ```
-Returns the toolbar, useful for ```setSupportActionBar()```.
+OnClickListener for the DrawerIcon (the icon in the top right corner of the drawer pane).
 ```java
 public void setDrawerIconOnClickListener(OnClickListener listener)
 ```
-OnClickListener for the DrawerIcon (the icon in the top right corner of the drawer pane).
+Set the title of the toolbar.
 ```java
 public void setToolbarTitle(String title)
 ```
-Sets the title of the toolbar.
+Set the subtitle of the toolbar.
 ```java
 public void setToolbarSubtitle(String subtitle)
 ```
-Sets the subtitle of the toolbar.
+Expand or collapse the toolbar with an optional animation.
 ```java
 public void setToolbarExpanded(boolean expanded, boolean animate)
 ```
-Expand or collapse the toolbar with an optional animation.
+Show/hide the badges on the DrawerIcon and NavigationIcon.
 ```java
 public void showIconNotification(boolean navigationIcon, boolean drawerIcon)
 ```
-Show/hide the badges on the DrawerIcon and NavigationIcon.
+Open/close the drawer pane with an optional animation.
 ```java
 public void setDrawerOpen(Boolean open, Boolean animate)
 ```
-Open/close the drawer pane with an optional animation.
 
 ### ToolbarLayout
 Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
@@ -180,6 +180,35 @@ Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
 
 Same as the [DrawerLayout](#DrawerLayout) you need to use a [NestedScrollView](https://developer.android.com/reference/androidx/core/widget/NestedScrollView) or ```android:nestedScrollingEnabled="true"```.
 
+#### Methods
+Return the toolbar, useful for ```setSupportActionBar()```.
+```java
+public Toolbar getToolbar()
+```
+Set the title of the toolbar.
+```java
+public void setTitle(String title)
+```
+Set the subtitle of the toolbar.
+```java
+public void setSubtitle(String subtitle)
+```
+Expand or collapse the toolbar with an optional animation.
+```java
+public void setExpanded(boolean expanded, boolean animate)
+```
+Clicklistener for the NavigationIcon (Back icon).
+```java
+public void setNavigationOnClickListener(OnClickListener listener)
+```
+Show/hide the badges on the NavigationIcon.
+```java
+public void showNavIconNotification(boolean showNotification)
+```
+Set a drawable for the NavigationIcon.
+```java
+public void setNavigationIcon(Drawable navigationIcon)
+```
 
 ### OptionButton and OptionGroup
 todo
@@ -279,6 +308,8 @@ A SwitchBar like in the wifi or bluetooth settings.
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 ```
+#### Methods
+todo
 
 ### SeekBar
 todo
@@ -298,11 +329,43 @@ The theme won't apply for the ProgressBar, so you need to set it manually:
 todo
 
 
-
 ### Icons
-How would a OneUI design look like without OneUI icons? Not like OneUI... Thats's why I also included some of the stock icons you can find in stock Samsung apps, and more will come. You can use them with ```@drawable/ic_samsung_...```.
+How would a OneUI design look like without OneUI icons? Not like OneUI... Thats's why I also included some of the stock icons you can find in Samsung apps, and more are coming. You can use them with ```@drawable/ic_samsung_...``` and ```R.drawable.ic_samsung_...```.
 
-<img src="readme-resources/screenshots/icons.png"  width="260"/>
+<img src="readme-resources/screenshots/icons.png"  width="350"/>
+
+```ic_samsung_add```  
+```ic_samsung_arrow_down```  
+```ic_samsung_back```  
+```ic_samsung_bookmark```  
+```ic_samsung_brush```  
+```ic_samsung_close```  
+```ic_samsung_convert```  
+```ic_samsung_copy```  
+```ic_samsung_delete```  
+```ic_samsung_drawer```  
+```ic_samsung_edit```  
+```ic_samsung_help```  
+```ic_samsung_image```  
+```ic_samsung_info```  
+```ic_samsung_lock```  
+```ic_samsung_maximize```  
+```ic_samsung_minimize```  
+```ic_samsung_more```  
+```ic_samsung_move```  
+```ic_samsung_rectify```  
+```ic_samsung_rename```  
+```ic_samsung_restore```  
+```ic_samsung_save```  
+```ic_samsung_search```  
+```ic_samsung_selected```  
+```ic_samsung_settings```  
+```ic_samsung_share```  
+```ic_samsung_text```  
+```ic_samsung_voice```  
+```ic_samsung_warning```   
+
+
 
 
 ### Own custom color theme
