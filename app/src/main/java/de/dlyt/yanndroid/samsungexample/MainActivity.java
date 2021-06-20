@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 mImageView = (ImageView) convertView;
             }
-            mImageView.setClickable(false);
             mImageView.setImageResource(imageIDs[position]);
             return mImageView;
         }
