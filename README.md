@@ -42,7 +42,7 @@ todo
 
 ## Installation
 ### with [Jitpack](https://jitpack.io/#Yanndroid/SamsungOneUi):
-:warning: Jitpack has a problem with the 1.1.3 version, but you still can use 1.1.2
+:warning: Jitpack has a problem with the 1.1.3 version. You still can use 1.1.2 or use Github packages instead.
 1. Add jitpack to build.gradle (Project: ...)
 ```gradle
 allprojects {
@@ -55,7 +55,7 @@ allprojects {
 2. Add the dependency to build.gradle (Module: ...)
 ```gradle
 dependencies {
-	implementation 'com.github.Yanndroid:SamsungOneUi:1.1.3'
+	implementation 'com.github.Yanndroid:SamsungOneUi:1.1.2'
     ...
 }
 ```
