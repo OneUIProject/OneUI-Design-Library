@@ -17,7 +17,7 @@ jobs:
       run: |
         echo ::set-output name=version::$(grep -Po '(?<=latest=).*' ./gradle.properties)
       id: version
-    - name: get older versions from tags
+    - name: get old version-tags
       run: |
         echo ::set-output name=tags::$(curl -s https://api.github.com/repos/yanndroid/samsungoneui/tags | grep -Po '(?<="name": ").*(?=")')
       id: tags
@@ -44,7 +44,7 @@ jobs:
       run: chmod +x gradlew
     - name: build 
       run: ./gradlew -p ./yanndroid/samsung clean build
-    - name: publish to the github package registry
+    - name: publish to github-package-registry
       run: ./gradlew -p ./yanndroid/samsung publish
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
