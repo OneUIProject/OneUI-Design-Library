@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         /**SeekBar*/
         SeekBar seekBar1 = findViewById(R.id.seekbar1);
-        seekBar1.setMode(5);
         seekBar1.setOverlapPointForDualColor(70);
 
         android.widget.SeekBar seekBar2 = findViewById(R.id.seekbar2);
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         seekBar2.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(android.widget.SeekBar seekBar, int progress, boolean fromUser) {
-                seekBar1.setSecondaryProgress(progress);
+                //seekBar1.setSecondaryProgress(progress);
             }
 
             @Override

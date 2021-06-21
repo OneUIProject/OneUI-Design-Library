@@ -31,9 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"
-            android:numColumns="15"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginVertical="10dp" />
+            android:layout_marginVertical="10dp"
+            android:numColumns="15" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -64,7 +64,8 @@
                 android:id="@+id/seekbar1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp" />
+                android:layout_marginVertical="10dp"
+                app:seslSeekBarMode="expand" />
 
             <SeekBar
                 android:id="@+id/seekbar2"
@@ -301,11 +302,10 @@
     </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
-        >
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"

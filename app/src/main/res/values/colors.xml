@@ -14,9 +14,9 @@
     <color name="primary_dark_color">#ffbd7800</color>-->
 
     <!--light green--> <!--Calculator-->
-    <color name="primary_color">#ff68b31a</color>
+    <!--<color name="primary_color">#ff68b31a</color>
     <color name="secondary_color">#ff7fa87f</color>
-    <color name="primary_dark_color">#ff569415</color>
+    <color name="primary_dark_color">#ff569415</color>-->
 
     <!--green--> <!--Calendar-->
     <!--<color name="primary_color">#ff008577</color>

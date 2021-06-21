@@ -8,7 +8,7 @@
 [![](https://img.shields.io/static/v1?label=telegram&message=Yanndroid&color=blue)](https://t.me/Yanndroid)
 
 
-The Readme of this project isn't complete and will be updated.
+:warning: This Readme is incomplete and will be updated.
 
 # Samsung OneUi Design
 A library for Android, which makes your app look like Samsung's OneUI. In this library there is a theme which will apply for each View (see [Progress](#Progress)) in your layout. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk).
@@ -37,7 +37,17 @@ Excuse my bad english, feel free to correct it. :)
 
 
 ## Screenshots
-todo
+<img src="readme-resources/screenshots/screenshot_1.png"  width="150"/>
+<img src="readme-resources/screenshots/screenshot_2.png"  width="150"/>
+<img src="readme-resources/screenshots/screenshot_3.png"  width="150"/>
+<img src="readme-resources/screenshots/splash_simple.png"  width="150"/>
+<img src="readme-resources/screenshots/splash_animated.gif"  width="150"/>
+
+<img src="readme-resources/screenshots/seekbar.gif"  width="300"/>
+
+<img src="readme-resources/screenshots/progressbar.gif"  width="300"/>
+
+<img src="readme-resources/screenshots/switchbar.gif"  width="300"/>
 
 
 ## Installation
@@ -105,7 +115,6 @@ dependencies {
 "Ready-to-go" DrawerLayout with collapsing toolbar.
 ```xml
 <de.dlyt.yanndroid.samsung.layout.DrawerLayout 
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:drawer_icon="..."
@@ -164,7 +173,6 @@ public void setDrawerOpen(Boolean open, Boolean animate)
 Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
 ```xml
 <de.dlyt.yanndroid.samsung.layout.ToolbarLayout
-    android:id="@+id/toolbar_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:title="..."
@@ -220,10 +228,10 @@ A divider between to options on the drawer. It's the same divider you can find i
 
 ```xml
 <de.dlyt.yanndroid.samsung.drawer.Divider
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginVertical="2dp" />
+    android:layout_width="match_parent"
+    android:layout_height="4dp"
+    android:layout_marginHorizontal="24dp"
+    android:layout_marginVertical="2dp" />
 ```
 Alternatively you could use this, it's easier and all set but less customizable:
 ```xml
@@ -233,12 +241,14 @@ Alternatively you could use this, it's easier and all set but less customizable:
 ### SplashViewSimple
 Simple Splash view. (I think Samsung removed the splashscreen of their apps since OneUI 3 but in former times it was still there.)
 
+<img src="readme-resources/screenshots/splash_simple.png"  width="150"/>
+
 ```xml
 <de.dlyt.yanndroid.samsung.layout.SplashViewSimple
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:image="..."
-        app:text="..." />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:image="..."
+    app:text="..." />
 ```
 ```app:image="..."```is the icon and ```app:text="..."``` the text underneath the icon.
 
@@ -259,14 +269,15 @@ Returns the text of the splash textview
 ### SplashViewAnimated
 An animated splash screen view like the one in the GalaxyStore.
 
+<img src="readme-resources/screenshots/splash_animated.gif"  width="150"/>
+
 ```xml
 <de.dlyt.yanndroid.samsung.layout.SplashViewAnimated
-        android:id="@+id/splash"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:background_image="..."
-        app:foreground_image="..."
-        app:text="..." />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:background_image="..."
+    app:foreground_image="..."
+    app:text="..." />
 ```
 
 ```app:background_image="..."``` only the background of your icon and ```app:foreground_image="..."``` only the foreground, which will have a shake animation.
@@ -302,11 +313,12 @@ Listener for the splash animation
 ### SwitchBar
 A SwitchBar like in the wifi or bluetooth settings.
 
+<img src="readme-resources/screenshots/switchbar.gif"  width="300"/>
+
 ```xml
 <de.dlyt.yanndroid.samsung.SwitchBar
-        android:id="@+id/switchbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
 ```
 #### Methods
 On and Off text of the Switchbar.
@@ -327,18 +339,36 @@ public void addOnSwitchChangeListener(OnSwitchChangeListener onSwitchChangeListe
 ```
 
 ### SeekBar
-todo
+A Seekbar like the brightness slider in the QS.
+
+<img src="readme-resources/screenshots/seekbar.gif"  width="300"/>
+
+```xml
+<de.dlyt.yanndroid.samsung.SeekBar
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:seslSeekBarMode="expand" />
+```
+You might need to set a vertical margin, i case the seekbar thumb is cut of.
+
+#### Methods
+Set a warning at progress i.
+```java
+public void setOverlapPointForDualColor(int i)
+```
+Other methodes are the same as the normal [Seekbar](https://developer.android.com/reference/android/widget/SeekBar).
 
 ### ProgressBar
 The theme won't apply for the ProgressBar, so you need to set it manually:
+
+<img src="readme-resources/screenshots/progressbar.gif"  width="300"/>
+
 ```style="@style/ProgressBarStyle.Horizontal"```  
 ```style="@style/ProgressBarStyle.Horizontal.Large"```  
 ```style="@style/ProgressBarStyle.Circle.Large"```  
 ```style="@style/ProgressBarStyle.Circle"```  
 ```style="@style/ProgressBarStyle.Circle.Small"```  
 ```style="@style/ProgressBarStyle.Circle.Title"```
-
-<img src="readme-resources/screenshots/progressbar.png"  width="260"/>
 
 ### Button
 todo

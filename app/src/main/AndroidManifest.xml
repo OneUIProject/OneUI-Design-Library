@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/SamsungTheme">
         <activity
-            android:theme="@style/ThemeName"
             android:name="de.dlyt.yanndroid.samsungexample.MainActivity"
             android:screenOrientation="portrait" />
         <activity
