@@ -42,7 +42,6 @@ todo
 
 ## Installation
 ### with [Jitpack](https://jitpack.io/#Yanndroid/SamsungOneUi):
-:warning: Jitpack has a problem with the 1.1.3 version. You still can use 1.1.2 or use Github packages instead.
 1. Add jitpack to build.gradle (Project: ...)
 ```gradle
 allprojects {
@@ -55,7 +54,7 @@ allprojects {
 2. Add the dependency to build.gradle (Module: ...)
 ```gradle
 dependencies {
-	implementation 'com.github.Yanndroid:SamsungOneUi:1.1.2'
+	implementation 'com.github.Yanndroid:SamsungOneUi:1.1.3'
     ...
 }
 ```
@@ -310,7 +309,22 @@ A SwitchBar like in the wifi or bluetooth settings.
         android:layout_height="wrap_content" />
 ```
 #### Methods
-todo
+On and Off text of the Switchbar.
+```java
+public void setSwitchBarText(int i, int i2)
+```
+Enable and disable the Switchbar.
+```java
+public void setEnabled(boolean z)
+```
+Visibility of the ProgressBar in the Switchbar.
+```java
+public void setProgressBarVisible(boolean z)
+```
+Switchbar Listener.
+```java
+public void addOnSwitchChangeListener(OnSwitchChangeListener onSwitchChangeListener)
+```
 
 ### SeekBar
 todo
@@ -365,9 +379,6 @@ How would a OneUI design look like without OneUI icons? Not like OneUI... Thats'
 ```ic_samsung_text```  
 ```ic_samsung_voice```  
 ```ic_samsung_warning```   
-
-
-
 
 ### Own custom color theme
 The default color of the style is the same blue as Samsung (see [Screenshots](#Screenshots)). But like Samsung has different colors for different apps, you too can use other colors which will apply on the entire App and even on the [App Icon](#App-Icon). To do that you need to add in your ```colors.xml``` these three colors:
@@ -470,17 +481,17 @@ My sample app icon for example:
 - [x] SeslSeekbar
 - [x] Collapsing Toolbar
 - [x] Button (incomplete)
+- [x] Spinner (incomplete)
 - [ ] Menu (in progress)
-- [ ] Dialog
-- [ ] Bottomsheet
 - [ ] Snackbar (in progress)
-- [ ] Spinner (in progress)
+- [ ] Dialog
+- [ ] Color picker
+- [ ] Bottomsheet
 - [ ] Tablayout
 - [ ] Viewpager
 - [ ] Landscape 
 - [ ] Preferences
 - [ ] Tooltip
-- [ ] Color picker
 - [ ] (Textview)
 - [ ] (Edittext)
 

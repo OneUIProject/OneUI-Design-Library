@@ -20,20 +20,10 @@ publishing {
             groupId = 'de.dlyt.yanndroid'
             artifactId = 'samsung'
             version = latest
-            /*artifact("$rootDir/releases/de/dlyt/yanndroid/samsung/${latest}/samsung-${latest}.aar")*/
             artifact("$rootDir/yanndroid/samsung/build/outputs/aar/samsung-release.aar")
         }
     }
 }
-
-/*uploadArchives {
-    repositories.mavenDeployer {
-        pom.groupId = 'de.dlyt.yanndroid'
-        pom.artifactId = 'samsung'
-        pom.version = latest
-        repository(url: "file:./releases/")
-    }
-}*/
 
 android {
     compileSdkVersion 30
