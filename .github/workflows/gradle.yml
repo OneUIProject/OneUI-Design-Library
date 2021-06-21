@@ -11,22 +11,16 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.version }}
       tags: ${{ steps.tags.outputs.tags }}
-      packages: ${{ steps.packages.outputs.packages }}
     steps:
     - uses: actions/checkout@v2
-    - name: version
+    - name: get current version
       run: |
         echo ::set-output name=version::$(grep -Po '(?<=latest=).*' ./gradle.properties)
       id: version
-    - name: tags
+    - name: get old version-tags
       run: |
         echo ::set-output name=tags::$(curl -s https://api.github.com/repos/yanndroid/samsungoneui/tags | grep -Po '(?<="name": ").*(?=")')
       id: tags
-    - name: packages
-      run: |
-        echo ::set-output name=packages::$(curl -su yanndroid:${{ github.token }} https://api.github.com/users/yanndroid/packages/maven/de.dlyt.yanndroid.samsung/versions | grep -Po '(?<="name": ").*(?=")')
-      id: packages
-    - run: echo ${{ steps.packages.outputs.packages }}
 
   publish:
     runs-on: ubuntu-latest
@@ -48,9 +42,9 @@ jobs:
         java-version: '8'
     - name: grant execute permission for gradlew 
       run: chmod +x gradlew
-    - name: build
+    - name: build 
       run: ./gradlew -p ./yanndroid/samsung clean build
-    - name: publish
+    - name: publish to github-package-registry
       run: ./gradlew -p ./yanndroid/samsung publish
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -61,9 +55,8 @@ jobs:
     if: ${{ !contains(needs.versions.outputs.tags, needs.versions.outputs.version) }}
     steps:
     - uses: actions/checkout@v2
-    - name: release
+    - name: create release
       uses: actions/create-release@v1
-      id: create_release
       with:
         release_name: ${{ needs.versions.outputs.version }}
         tag_name: ${{ needs.versions.outputs.version }}
