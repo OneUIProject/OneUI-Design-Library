@@ -37,16 +37,9 @@ Excuse my bad english, feel free to correct it. :)
 
 
 ## Screenshots
-<img src="readme-resources/screenshots/screenshot_1.png"  width="150"/>
-<img src="readme-resources/screenshots/screenshot_2.png"  width="150"/>
-<img src="readme-resources/screenshots/screenshot_3.png"  width="150"/>
-<img src="readme-resources/screenshots/splash_simple.png"  width="150"/>
-<img src="readme-resources/screenshots/splash_animated.gif"  width="150"/>
-
+<img src="readme-resources/screenshots/screenshot_1.png"  width="150"/> <img src="readme-resources/screenshots/screenshot_2.png"  width="150"/> <img src="readme-resources/screenshots/screenshot_3.png"  width="150"/> <img src="readme-resources/screenshots/splash_simple.png"  width="150"/> <img src="readme-resources/screenshots/splash_animated.gif"  width="150"/>
 <img src="readme-resources/screenshots/seekbar.gif"  width="300"/>
-
 <img src="readme-resources/screenshots/progressbar.gif"  width="300"/>
-
 <img src="readme-resources/screenshots/switchbar.gif"  width="300"/>
 
 
@@ -488,7 +481,7 @@ The most app icons of Samsung apps are made of one solid color as background and
 
 <img src="readme-resources/app-icons/settings.png" width="50" height="50" />   <img src="readme-resources/app-icons/notes.png" width="50" height="50" />   <img src="readme-resources/app-icons/messages.png" width="50" height="50" />   <img src="readme-resources/app-icons/camera.png" width="50" height="50" />   <img src="readme-resources/app-icons/calculator.png" width="50" height="50" />   <img src="readme-resources/app-icons/contacts.png" width="50" height="50" />   <img src="readme-resources/app-icons/myfiles.png" width="50" height="50" />
 
- I would suggest you to use ```@color/primary_color``` for the background color and ```@color/control_color_normal``` for the foreground "detail" color, so [your color theme](#Own-custom-color-theme) applys for the app icon too.  
+ I would suggest you to use ```@color/primary_color``` for the background color and ```@color/launcher_foreground_detail_color``` for the foreground "detail" color, so [your color theme](#Own-custom-color-theme) applys for the app icon too.  
 My sample app icon for example:
 
 <img src="readme-resources/app-icons/sample.png" width="50" height="50" />
