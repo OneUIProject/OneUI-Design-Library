@@ -60,69 +60,75 @@
                 app:layout_collapseMode="pin">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="start|center_vertical"
+                    android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:id="@+id/navigationIcon_container"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
                         android:gravity="center">
 
-                        <ImageView
-                            android:id="@+id/navigationIcon"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:background="?selectableItemBackgroundBorderless"
-                            android:clickable="true"
-                            android:contentDescription="Show navigation menu"
-                            android:focusable="true"
-                            android:padding="5.5dp"
-                            android:src="@drawable/ic_samsung_back" />
+                        <RelativeLayout
+                            android:id="@+id/navigationIcon_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center">
 
-                        <TextView
-                            android:id="@+id/navigationIcon_badge"
-                            android:layout_width="17dp"
-                            android:layout_height="17dp"
-                            android:layout_alignTop="@+id/navigationIcon"
-                            android:layout_alignEnd="@+id/navigationIcon"
-                            android:layout_marginTop="1dp"
-                            android:layout_marginEnd="1dp"
-                            android:background="@drawable/new_badge_bg"
-                            android:fontFamily="sec-roboto-light"
-                            android:gravity="center"
-                            android:text="N"
-                            android:textColor="@color/white"
-                            android:textSize="11dp"
-                            android:textStyle="bold"
-                            android:visibility="gone" />
-                    </RelativeLayout>
+                            <ImageView
+                                android:id="@+id/navigationIcon"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:background="?selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:contentDescription="Show navigation menu"
+                                android:focusable="true"
+                                android:padding="5.5dp"
+                                android:src="@drawable/ic_samsung_back" />
+
+                            <TextView
+                                android:id="@+id/navigationIcon_badge"
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
+                                android:layout_alignTop="@+id/navigationIcon"
+                                android:layout_alignEnd="@+id/navigationIcon"
+                                android:layout_marginTop="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:background="@drawable/new_badge_bg"
+                                android:fontFamily="sec-roboto-light"
+                                android:gravity="center"
+                                android:text="N"
+                                android:textColor="@color/white"
+                                android:textSize="11dp"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/collapsed_title"
+                        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textAlignment="viewStart" />
 
                 </LinearLayout>
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/collapsed_title"
-                    style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical"
-                    android:singleLine="true" />
-
             </com.google.android.material.appbar.MaterialToolbar>
-
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
 
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:id="@+id/main_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
         android:foreground="@drawable/rounded_corner_top"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

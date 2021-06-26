@@ -2,5 +2,6 @@
 <resources>
 
     <bool name="sesl_seekbar_sliding_animation">true</bool>
+    <bool name="is_rtl">false</bool>
 
 </resources>

@@ -503,6 +503,7 @@ My sample app icon for example:
 - [x] SeslSwitchbar
 - [x] SeslSeekbar
 - [x] Collapsing toolbar
+- [x] Rtl
 - [x] Color picker dialog *
 - [x] Button *
 - [x] Spinner *

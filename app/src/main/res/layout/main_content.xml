@@ -15,10 +15,11 @@
         style="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="2dp"
         android:text="Icons"
+        android:textAlignment="viewStart"
         android:textStyle="bold" />
 
 
@@ -42,10 +43,11 @@
         style="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="2dp"
         android:text="SeekBar"
+        android:textAlignment="viewStart"
         android:textStyle="bold" />
 
 
@@ -79,10 +81,11 @@
 
 
     <com.google.android.material.textview.MaterialTextView
+        android:textAlignment="viewStart"
         style="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="2dp"
         android:text="ProgressBar"
@@ -145,10 +148,11 @@
 
 
     <com.google.android.material.textview.MaterialTextView
+        android:textAlignment="viewStart"
         style="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="2dp"
         android:text="Buttons"
@@ -170,10 +174,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
-                android:text="Switch" />
+                android:text="Switch"
+                android:textAlignment="viewStart" />
 
 
             <CheckBox
+                android:textAlignment="viewStart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="CheckBox" />
@@ -185,12 +191,14 @@
                 android:visibility="visible">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:textAlignment="viewStart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="RadioButton" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:textAlignment="viewStart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -258,10 +266,11 @@
 
 
     <com.google.android.material.textview.MaterialTextView
+        android:textAlignment="viewStart"
         style="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="2dp"
         android:text="Others"
@@ -280,6 +289,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.textview.MaterialTextView
+                android:textAlignment="viewStart"
                 style="?textAppearanceBody1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -287,12 +297,14 @@
                 android:textSize="18sp" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:textAlignment="viewStart"
                 style="?android:attr/textAppearanceSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
 
             <Spinner
+                android:textAlignment="viewStart"
                 android:id="@+id/spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -302,12 +314,12 @@
     </com.google.android.material.card.MaterialCardView>
 
 
-
     <com.google.android.material.textview.MaterialTextView
+        android:textAlignment="viewStart"
         style="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="2dp"
         android:text="Color"
@@ -326,11 +338,11 @@
             android:orientation="vertical">
 
             <com.google.android.material.button.MaterialButton
-                android:onClick="colorPicker"
                 style="@style/ButtonStyle.Invert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="colorPicker"
                 android:text="Change Color" />
 
             <LinearLayout

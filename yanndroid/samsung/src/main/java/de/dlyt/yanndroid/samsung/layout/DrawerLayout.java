@@ -21,26 +21,20 @@ import de.dlyt.yanndroid.samsung.R;
 
 public class DrawerLayout extends LinearLayout {
 
-
     private Drawable mDrawerIcon;
     private String mToolbarTitle;
     private String mToolbarSubtitle;
-
 
     private ImageView drawerIcon;
     private ToolbarLayout toolbarLayout;
     private TextView drawerIcon_badge;
 
-
     private LinearLayout drawer_container;
-
 
     private int viewIdForDrawer;
 
-
     private androidx.drawerlayout.widget.DrawerLayout drawerLayout;
     private View drawer;
-
 
     public DrawerLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -81,11 +75,14 @@ public class DrawerLayout extends LinearLayout {
         drawerLayout.setScrimColor(ContextCompat.getColor(getContext(), R.color.drawer_dim_color));
         drawerLayout.setDrawerElevation(0);
 
+        Boolean isRtl = getResources().getBoolean(R.bool.is_rtl);
+
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, R.string.opend, R.string.closed) {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
                 float slideX = drawerView.getWidth() * slideOffset;
+                if (isRtl) slideX = -(drawerView.getWidth() * slideOffset);
                 content.setTranslationX(slideX);
             }
         };
