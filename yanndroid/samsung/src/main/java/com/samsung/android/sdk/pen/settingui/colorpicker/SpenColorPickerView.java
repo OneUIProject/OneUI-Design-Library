@@ -86,7 +86,7 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
     private EditText mRedInputView;
     private SpenColorValueSeekBar mValueSeekBar;
 
-    SpenColorPickerView(Context context, int i, float[] fArr, SpenColorPickerViewInfo spenColorPickerViewInfo, boolean z) {
+    public SpenColorPickerView(Context context, int i, float[] fArr, SpenColorPickerViewInfo spenColorPickerViewInfo, boolean z) {
         super(context);
         this.mIsSupportRGBCode = z;
         this.mContext = context;

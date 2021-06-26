@@ -12,7 +12,7 @@ public class SpenColorPickerTheme {
     private float[] mOldColor = new float[3];
     private SpenIPickerColorTheme mPickerColorTheme;
 
-    SpenColorPickerTheme(Context context, float[] fArr) {
+    public SpenColorPickerTheme(Context context, float[] fArr) {
         this.mContext = context;
         System.arraycopy(fArr, 0, this.mOldColor, 0, 3);
         this.mColorTheme = new SpenPickerNormalColorTheme();

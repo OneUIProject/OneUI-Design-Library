@@ -18,7 +18,7 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
-import com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerPopup;
+import de.dlyt.yanndroid.samsung.ColorPickerDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,9 +153,9 @@ public class MainActivity extends AppCompatActivity {
         float[] fArr = new float[3];
         Color.colorToHSV(Color.parseColor("#" + stringColor), fArr);
 
-        SpenColorPickerPopup mSpenColorPickerPopup;
-        mSpenColorPickerPopup = new SpenColorPickerPopup(this, 2, fArr);
-        mSpenColorPickerPopup.setColorPickerChangeListener(new SpenColorPickerPopup.ColorPickerChangedListener() {
+        ColorPickerDialog mColorPickerDialog;
+        mColorPickerDialog = new ColorPickerDialog(this, 2, fArr);
+        mColorPickerDialog.setColorPickerChangeListener(new ColorPickerDialog.ColorPickerChangedListener() {
             @Override
             public void onColorChanged(int i, float[] fArr) {
                 ThemeColor.setColor(MainActivity.this, fArr);
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        mSpenColorPickerPopup.show();
+        mColorPickerDialog.show();
     }
 
 

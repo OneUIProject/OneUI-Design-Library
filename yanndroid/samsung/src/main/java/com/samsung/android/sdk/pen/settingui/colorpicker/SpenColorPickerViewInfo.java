@@ -4,24 +4,24 @@ public class SpenColorPickerViewInfo {
     protected static final int MODE_TYPE_BUTTON = 2;
     protected static final int MODE_TYPE_NONE = 0;
     protected static final int MODE_TYPE_TAB = 1;
-    protected int colorDisplayRadius;
-    protected int gradientCursorOutlineDimen;
-    protected int gradientCursorSizeDimen;
-    protected int gradientHeightDimen;
-    protected int gradientModeBtnSize;
-    protected int gradientModeBtnStartMargin;
-    protected int gradientSelectorRadiusDimen;
-    protected int itemLayoutId;
-    protected int layoutId;
-    protected int modeType;
-    protected int swatchBottomMarginDimen;
-    protected int swatchEndMarginDimen;
-    protected int swatchModeBtnSize;
-    protected int swatchModeBtnStartMargin;
-    protected int swatchStartMarginDimen;
-    protected int swatchTopMarginDimen;
+    public int colorDisplayRadius;
+    public int gradientCursorOutlineDimen;
+    public int gradientCursorSizeDimen;
+    public int gradientHeightDimen;
+    public int gradientModeBtnSize;
+    public int gradientModeBtnStartMargin;
+    public int gradientSelectorRadiusDimen;
+    public int itemLayoutId;
+    public int layoutId;
+    public int modeType;
+    public int swatchBottomMarginDimen;
+    public int swatchEndMarginDimen;
+    public int swatchModeBtnSize;
+    public int swatchModeBtnStartMargin;
+    public int swatchStartMarginDimen;
+    public int swatchTopMarginDimen;
 
-    SpenColorPickerViewInfo() {
+    public SpenColorPickerViewInfo() {
         this.modeType = 0;
     }
 

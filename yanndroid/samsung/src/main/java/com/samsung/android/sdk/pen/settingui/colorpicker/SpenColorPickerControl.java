@@ -44,7 +44,7 @@ public class SpenColorPickerControl {
     };
     private SpenColorPickerView mPickerView;
 
-    SpenColorPickerControl(int i, float[] fArr) {
+    public SpenColorPickerControl(int i, float[] fArr) {
         this.mPickerMode = i;
         this.mOldHsv = new float[3];
         this.mHsv = new float[3];
