@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="pen_string_done">Udført</string>
+    <string name="pen_string_current_any">Nuværende %s</string>
+    <string name="pen_string_spectrum">Spektrum</string>
+    <string name="pen_string_saturation">Mætning</string>
+    <string name="pen_string_select_color">Vælg en farve.</string>
+    <string name="pen_string_red">Rød</string>
+    <string name="pen_string_new_any">Ny %s</string>
+    <string name="pen_string_blue">Blå</string>
+    <string name="pen_string_swatches">Farveprøver</string>
+    <string name="sesl_action_menu_overflow_description">Flere indstillinger</string>
+    <string name="pen_palette_color_custom">Tilpasset farve</string>
+    <string name="pen_string_cancel">Annuller</string>
+    <string name="pen_string_button">Tast</string>
+    <string name="sesl_switchbar_off_text">Fra</string>
+    <string name="sesl_switchbar_on_text">Til</string>
+    <string name="pen_string_color_double_tap_to_apply">Dobbelttryk for at anvende.</string>
+    <string name="pen_string_color">Farve</string>
+    <string name="pen_string_green">Grøn</string>
+    <string name="pen_string_selected">Valgt</string>
+    <string name="pen_string_hex">Hex</string>
+</resources>

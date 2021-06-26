@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="pen_string_done">រួចរាល់</string>
+    <string name="pen_string_current_any">%s បច្ចុប្បន្ន</string>
+    <string name="pen_string_spectrum">វិសាលគម</string>
+    <string name="pen_string_saturation">ភាពសើម</string>
+    <string name="pen_string_select_color">ជ្រើស​ពណ៌។</string>
+    <string name="pen_string_red">ក្រហម</string>
+    <string name="pen_string_new_any">%s ថ្មី</string>
+    <string name="pen_string_blue">ខៀវ</string>
+    <string name="pen_string_swatches">គំរូ​តូចៗ</string>
+    <string name="sesl_action_menu_overflow_description">ជម្រើស​ច្រើនទៀត</string>
+    <string name="pen_palette_color_custom">ពណ៌​តាមបំណង</string>
+    <string name="pen_string_cancel">បោះបង់</string>
+    <string name="pen_string_button">ប៊ូតុង</string>
+    <string name="sesl_switchbar_off_text">បិទ</string>
+    <string name="sesl_switchbar_on_text">បើក</string>
+    <string name="pen_string_color_double_tap_to_apply">ប៉ះ​ពីរដង​ដើម្បី​ប្រើ។</string>
+    <string name="pen_string_color">ពណ៌</string>
+    <string name="pen_string_green">បៃតង</string>
+    <string name="pen_string_selected">បាន​ជ្រើស</string>
+    <string name="pen_string_hex">ឆពណ៌</string>
+</resources>

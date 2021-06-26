@@ -1,10 +1,10 @@
 <resources>
     <string name="closed" translatable="false">closed</string>
-    <string name="opend" translatable="false">opend</string>
-    <string name="sesl_switch">Switch</string>
+    <string name="opend" translatable="false">opened</string>
+    <string name="sesl_font_family_regular" translatable="false">sec-roboto-light</string>
+
     <string name="sesl_switchbar_off_text">Off</string>
     <string name="sesl_switchbar_on_text">On</string>
-    <string name="sesl_font_family_regular">sec-roboto-light</string>
     <string name="sesl_action_menu_overflow_description">More options</string>
 
     <string name="pen_string_cancel">Cancel</string>
@@ -18,7 +18,6 @@
     <string name="pen_string_color_double_tap_to_apply">Double tap to apply.</string>
     <string name="pen_string_selected">Selected</string>
 
-
     <string name="pen_string_saturation">Saturation</string>
     <string name="pen_string_swatches">Swatches</string>
     <string name="pen_string_spectrum">Spectrum</string>
@@ -26,6 +25,8 @@
     <string name="pen_string_red">Red</string>
     <string name="pen_string_green">Green</string>
     <string name="pen_string_blue">Blue</string>
+
+    <!--untranslated:-->
 
 
 </resources>

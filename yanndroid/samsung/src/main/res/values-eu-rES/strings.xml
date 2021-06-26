@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="pen_string_done">Eginda</string>
+    <string name="pen_string_current_any">Uneko %s</string>
+    <string name="pen_string_spectrum">Espektroa</string>
+    <string name="pen_string_saturation">Saturazioa</string>
+    <string name="pen_string_select_color">Hautatu kolorea</string>
+    <string name="pen_string_red">Gorria</string>
+    <string name="pen_string_new_any">%s berria</string>
+    <string name="pen_string_blue">Urdina</string>
+    <string name="pen_string_swatches">Laginak</string>
+    <string name="sesl_action_menu_overflow_description">Aukera gehiago</string>
+    <string name="pen_palette_color_custom">Kolore pertsonalizatua</string>
+    <string name="pen_string_cancel">Utzi</string>
+    <string name="pen_string_button">Botoia</string>
+    <string name="sesl_switchbar_off_text">Desaktibatuta</string>
+    <string name="sesl_switchbar_on_text">Aktibatu</string>
+    <string name="pen_string_color_double_tap_to_apply">Ukitu bi aldiz aplikatzeko.</string>
+    <string name="pen_string_color">Kolorea</string>
+    <string name="pen_string_green">Berdea</string>
+    <string name="pen_string_selected">Hautatuta</string>
+    <string name="pen_string_hex">Hexadezimala</string>
+</resources>

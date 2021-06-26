@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="pen_string_done">সম্পন্ন</string>
+    <string name="pen_string_current_any">সাম্প্ৰতিক %s</string>
+    <string name="pen_string_spectrum">স্পেকট্ৰাম</string>
+    <string name="pen_string_saturation">চেটুৰেশ্বন</string>
+    <string name="pen_string_select_color">এটা ৰং চয়ন কৰক৷</string>
+    <string name="pen_string_red">ৰঙা</string>
+    <string name="pen_string_new_any">নতুন %s</string>
+    <string name="pen_string_blue">নীলা</string>
+    <string name="pen_string_swatches">নমুনা</string>
+    <string name="sesl_action_menu_overflow_description">অধিক বিকল্প</string>
+    <string name="pen_palette_color_custom">"কাষ্ট'ম ৰং"</string>
+    <string name="pen_string_cancel">বাতিল কৰক</string>
+    <string name="pen_string_button">বুটাম</string>
+    <string name="sesl_switchbar_off_text">অফ</string>
+    <string name="sesl_switchbar_on_text">অন</string>
+    <string name="pen_string_color_double_tap_to_apply">প্ৰয়োগ কৰিবলৈ দুবাৰ টিপক।</string>
+    <string name="pen_string_color">ৰং</string>
+    <string name="pen_string_green">সেউজীয়া</string>
+    <string name="pen_string_selected">চয়নিত</string>
+    <string name="pen_string_hex">হেক্স</string>
+</resources>

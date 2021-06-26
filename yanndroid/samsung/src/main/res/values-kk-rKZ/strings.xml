@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="pen_string_done">Дайын</string>
+    <string name="pen_string_current_any">Қазіргі %s</string>
+    <string name="pen_string_spectrum">Ауқым</string>
+    <string name="pen_string_saturation">Қанықтық</string>
+    <string name="pen_string_select_color">Түс таңдау.</string>
+    <string name="pen_string_red">Қызыл</string>
+    <string name="pen_string_new_any">Жаңа %s</string>
+    <string name="pen_string_blue">Көк</string>
+    <string name="pen_string_swatches">Бояғыштар</string>
+    <string name="sesl_action_menu_overflow_description">Қосымша опциялар</string>
+    <string name="pen_palette_color_custom">Реттелмелі түс</string>
+    <string name="pen_string_cancel">Бас тарту</string>
+    <string name="pen_string_button">Түйме</string>
+    <string name="sesl_switchbar_off_text">Өшірілген</string>
+    <string name="sesl_switchbar_on_text">Қосылған</string>
+    <string name="pen_string_color_double_tap_to_apply">Қолдану үшін, екі рет түртіңіз.</string>
+    <string name="pen_string_color">Түс</string>
+    <string name="pen_string_green">Жасыл</string>
+    <string name="pen_string_selected">Таңдалған</string>
+    <string name="pen_string_hex">Он алтылық</string>
+</resources>

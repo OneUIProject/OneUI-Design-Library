@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="pen_string_done">Гатова</string>
+    <string name="pen_string_current_any">Бягучае значэнне %s</string>
+    <string name="pen_string_spectrum">Спектр</string>
+    <string name="pen_string_saturation">Насычанасць</string>
+    <string name="pen_string_select_color">Выберыце колер.</string>
+    <string name="pen_string_red">Чырвоны</string>
+    <string name="pen_string_new_any">Новая прылада %s</string>
+    <string name="pen_string_blue">Сіні</string>
+    <string name="pen_string_swatches">Swatches</string>
+    <string name="sesl_action_menu_overflow_description">Іншыя параметры</string>
+    <string name="pen_palette_color_custom">Адмысловы колер</string>
+    <string name="pen_string_cancel">Адмяніць</string>
+    <string name="pen_string_button">Кнопка</string>
+    <string name="sesl_switchbar_off_text">Выкл.</string>
+    <string name="sesl_switchbar_on_text">Укл.</string>
+    <string name="pen_string_color_double_tap_to_apply">Націсніце двойчы, каб ужыць.</string>
+    <string name="pen_string_color">Колер</string>
+    <string name="pen_string_green">Зялёны</string>
+    <string name="pen_string_selected">Выбрана</string>
+    <string name="pen_string_hex">Hex</string>
+</resources>

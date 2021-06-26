@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="pen_string_done">Bitti</string>
+    <string name="pen_string_current_any">Mevcut %s</string>
+    <string name="pen_string_spectrum">Spektrum</string>
+    <string name="pen_string_saturation">Doygunluk</string>
+    <string name="pen_string_select_color">Bir renk secin.</string>
+    <string name="pen_string_red">Kırmızı</string>
+    <string name="pen_string_new_any">Yeni %s</string>
+    <string name="pen_string_blue">Mavi</string>
+    <string name="pen_string_swatches">Kartelalar</string>
+    <string name="sesl_action_menu_overflow_description">Diğer seçenekler</string>
+    <string name="pen_palette_color_custom">Özel renk</string>
+    <string name="pen_string_cancel">İptal et</string>
+    <string name="pen_string_button">Düğme</string>
+    <string name="sesl_switchbar_off_text">Kapalı</string>
+    <string name="sesl_switchbar_on_text">Açık</string>
+    <string name="pen_string_color_double_tap_to_apply">Uygulamak için çift dokunun.</string>
+    <string name="pen_string_color">Renkli</string>
+    <string name="pen_string_green">Yeşil</string>
+    <string name="pen_string_selected">Seçildi</string>
+    <string name="pen_string_hex">Altıgen</string>
+</resources>

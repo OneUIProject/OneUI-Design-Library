@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="pen_string_done">Дууслаа</string>
+    <string name="pen_string_current_any">Одоогийн %s</string>
+    <string name="pen_string_spectrum">Спектр</string>
+    <string name="pen_string_saturation">Нэвтрэлт</string>
+    <string name="pen_string_select_color">Өнгө сонгох</string>
+    <string name="pen_string_red">Улаан</string>
+    <string name="pen_string_new_any">Шинэ %s</string>
+    <string name="pen_string_blue">Цэнхэр</string>
+    <string name="pen_string_swatches">Сонголтууд</string>
+    <string name="sesl_action_menu_overflow_description">Өөр сонголтууд</string>
+    <string name="pen_palette_color_custom">Хэрэглэгчийн өнгө</string>
+    <string name="pen_string_cancel">Цуцлах</string>
+    <string name="pen_string_button">Товч</string>
+    <string name="sesl_switchbar_off_text">Идэвхгүй</string>
+    <string name="sesl_switchbar_on_text">Идэвхтэй</string>
+    <string name="pen_string_color_double_tap_to_apply">Давхар товшоод хэрэглэ.</string>
+    <string name="pen_string_color">Өнгө</string>
+    <string name="pen_string_green">Ногоон</string>
+    <string name="pen_string_selected">Сонгогдсон</string>
+    <string name="pen_string_hex">Өнгө сонгогч</string>
+</resources>

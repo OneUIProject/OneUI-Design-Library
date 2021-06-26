@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="pen_string_done">בוצע</string>
+    <string name="pen_string_current_any">נוכחי: %s</string>
+    <string name="pen_string_spectrum">קשת</string>
+    <string name="pen_string_saturation">רוויה</string>
+    <string name="pen_string_select_color">בחר צבע.</string>
+    <string name="pen_string_red">אדום</string>
+    <string name="pen_string_new_any">%s חדש</string>
+    <string name="pen_string_blue">כחול</string>
+    <string name="pen_string_swatches">דוגמיות</string>
+    <string name="sesl_action_menu_overflow_description">אפשרויות נוספות</string>
+    <string name="pen_palette_color_custom">צבע מותאם</string>
+    <string name="pen_string_cancel">ביטול</string>
+    <string name="pen_string_button">לחצן</string>
+    <string name="sesl_switchbar_off_text">כבוי</string>
+    <string name="sesl_switchbar_on_text">מופעל</string>
+    <string name="pen_string_color_double_tap_to_apply">הקש הקשה כפולה כדי להחיל.</string>
+    <string name="pen_string_color">צבע</string>
+    <string name="pen_string_green">ירוק</string>
+    <string name="pen_string_selected">נבחר</string>
+    <string name="pen_string_hex">הקסדצימלי</string>
+</resources>

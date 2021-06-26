@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="pen_string_done">ལས་ཟིན།</string>
+    <string name="pen_string_current_any">མིག་སྔར།%s</string>
+    <string name="pen_string_spectrum">光谱</string>
+    <string name="pen_string_saturation">饱和度</string>
+    <string name="pen_string_select_color">ཁ་དོག་དབྱེ་འདེམ་བྱ།</string>
+    <string name="pen_string_red">དམར་པོ།</string>
+    <string name="pen_string_new_any">%sགསར་པ།</string>
+    <string name="pen_string_blue">སྔོན་པོ།</string>
+    <string name="pen_string_swatches">色板</string>
+    <string name="sesl_action_menu_overflow_description">དེ་བས་མང་བའི་འདེམས་ག།</string>
+    <string name="pen_palette_color_custom">རང་འཇོག་ཁ་དོག</string>
+    <string name="pen_string_cancel">རྩིས་མེད།</string>
+    <string name="pen_string_button">མཐེབ་གནོན།</string>
+    <string name="sesl_switchbar_off_text">ཁ་རྒྱག</string>
+    <string name="sesl_switchbar_on_text">ཁ་ཕྱེ།</string>
+    <string name="pen_string_color_double_tap_to_apply">ལག་བསྟར་བྱེད་པར་ཉིས་སྣུན་བྱ།</string>
+    <string name="pen_string_color">ཚོན་མདོག</string>
+    <string name="pen_string_green">ལྗང་མདོག</string>
+    <string name="pen_string_selected">བདམས་ཟིན།</string>
+    <string name="pen_string_hex">十六进制</string>
+</resources>

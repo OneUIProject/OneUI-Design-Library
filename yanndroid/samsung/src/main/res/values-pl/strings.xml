@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="pen_string_done">Gotowe</string>
+    <string name="pen_string_current_any">Aktualna %s</string>
+    <string name="pen_string_spectrum">Spektrum</string>
+    <string name="pen_string_saturation">Nasycenie</string>
+    <string name="pen_string_select_color">Wybierz kolor.</string>
+    <string name="pen_string_red">Czerwony</string>
+    <string name="pen_string_new_any">Nowe urządzenie %s</string>
+    <string name="pen_string_blue">Niebieski</string>
+    <string name="pen_string_swatches">Próbka</string>
+    <string name="sesl_action_menu_overflow_description">Więcej opcji</string>
+    <string name="pen_palette_color_custom">Niestandardowy kolor</string>
+    <string name="pen_string_cancel">Anuluj</string>
+    <string name="pen_string_button">Przycisk</string>
+    <string name="sesl_switchbar_off_text">Wyłączony</string>
+    <string name="sesl_switchbar_on_text">Włączony</string>
+    <string name="pen_string_color_double_tap_to_apply">Dotknij dwukrotnie, aby zastosować.</string>
+    <string name="pen_string_color">Kolor</string>
+    <string name="pen_string_green">Zielony</string>
+    <string name="pen_string_selected">Wybrane</string>
+    <string name="pen_string_hex">Hex</string>
+</resources>

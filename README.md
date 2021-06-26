@@ -29,6 +29,7 @@ Excuse my bad english, feel free to correct it. :)
   - [SeekBar](#SeekBar)
   - [ProgressBar](#ProgressBar)
   - [Button](#Button)
+  - [ColorPickerDialog](#ColorPickerDialog)
   - [Icons](#Icons)
   - [Color theme](#Color-theme)
     - [Entire App](#1.-Entire-App)
@@ -366,8 +367,12 @@ The theme won't apply for the ProgressBar, so you need to set it manually:
 ```style="@style/ProgressBarStyle.Circle.Title"```
 
 ### Button
-todo
+<img src="readme-resources/screenshots/button.png"  width="300"/>
 
+The first style is applied by default. The other two can be used with ```style="@style/ButtonStyle.Invert"``` and ```style="@style/ButtonStyle.Invert.Secondary"```.
+
+### ColorPickerDialog
+todo
 
 ### Icons
 How would a OneUI design look like without OneUI icons? Not like OneUI... Thats's why I also included some of the stock icons you can find in Samsung apps, and more are coming. You can use them with ```@drawable/ic_samsung_...``` and ```R.drawable.ic_samsung_...```.
@@ -459,7 +464,7 @@ If you want to use different colors for a single (or multiple, but not all) acti
 Then apply it on the activities you want with ```android:theme="@style/ThemeName"``` in ```AndroidManifest.xml```.
 
 #### 3. Via Code
-This methode allows you to change the color of your theme dynamicly within your app. It's based on [this idea](https://stackoverflow.com/a/48517223). In your activity onCreate add this line at the top before ```setContentView(...)```:
+This methode allows you to change the color of your theme dynamicly within your app. It's based on [this idea](https://stackoverflow.com/a/48517223). In your activity onCreate add this line at the top **before** ```setContentView(...)```:
 ```java
 new ThemeColor(this);
 ```
@@ -497,13 +502,13 @@ My sample app icon for example:
 - [x] SeslProgressbar
 - [x] SeslSwitchbar
 - [x] SeslSeekbar
-- [x] Collapsing Toolbar
-- [x] Button (incomplete)
-- [x] Spinner (incomplete)
+- [x] Collapsing toolbar
+- [x] Color picker dialog *
+- [x] Button *
+- [x] Spinner *
 - [ ] Menu (in progress)
 - [ ] Snackbar (in progress)
 - [ ] Dialog
-- [ ] Color picker
 - [ ] Bottomsheet
 - [ ] Tablayout
 - [ ] Viewpager
@@ -513,6 +518,7 @@ My sample app icon for example:
 - [ ] (Textview)
 - [ ] (Edittext)
 
+*needs improvement
 
 ## Special thanks to:
 - [leonbcode](https://github.com/leonbcode) for github actions, so this library is always up-to-date.

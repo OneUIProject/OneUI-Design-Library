@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -150,15 +151,15 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("ThemeColor", Context.MODE_PRIVATE);
         String stringColor = sharedPreferences.getString("color", "0381fe");
-        float[] fArr = new float[3];
-        Color.colorToHSV(Color.parseColor("#" + stringColor), fArr);
+        float[] currentColor = new float[3];
+        Color.colorToHSV(Color.parseColor("#" + stringColor), currentColor);
 
         ColorPickerDialog mColorPickerDialog;
-        mColorPickerDialog = new ColorPickerDialog(this, 2, fArr);
+        mColorPickerDialog = new ColorPickerDialog(this, 2, currentColor);
         mColorPickerDialog.setColorPickerChangeListener(new ColorPickerDialog.ColorPickerChangedListener() {
             @Override
             public void onColorChanged(int i, float[] fArr) {
-                ThemeColor.setColor(MainActivity.this, fArr);
+                if (!(fArr[0] == currentColor[0] && fArr[1] == currentColor[1] && fArr[2] == currentColor[2])) ThemeColor.setColor(MainActivity.this, fArr);
             }
 
             @Override

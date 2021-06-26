@@ -73,6 +73,7 @@ public class ColorPickerDialog extends Dialog {
             }
         }
     };
+
     private SpenColorPickerTheme mColorTheme;
     private Context mContext;
     private int mCurrentOrientation = 1;
@@ -354,7 +355,6 @@ public class ColorPickerDialog extends Dialog {
 
         spenColorPickerViewInfo.layoutId = R.layout.setting_color_picker_view_oneui30;
         spenColorPickerViewInfo.modeType = 1;
-
         spenColorPickerViewInfo.itemLayoutId = R.layout.setting_color_swatch_item;
         spenColorPickerViewInfo.gradientCursorSizeDimen = R.dimen.color_picker_popup_content_point_size;
         spenColorPickerViewInfo.gradientCursorOutlineDimen = R.dimen.color_picker_popup_content_point_outline;
