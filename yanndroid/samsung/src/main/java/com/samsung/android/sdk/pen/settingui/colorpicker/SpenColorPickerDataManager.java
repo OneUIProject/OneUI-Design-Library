@@ -2,16 +2,13 @@ package com.samsung.android.sdk.pen.settingui.colorpicker;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import java.util.ArrayList;
 
-/* access modifiers changed from: package-private */
 public class SpenColorPickerDataManager {
     private static final String KEY_RECENT_COLORS = "RECENT_COLORS_V52";
     private static final String RECENT_COLORS = "RECENT_COLORS";
     private static int RECENT_COLOR_BUTTON_MAX = 6;
-    public static final String TAG = "SpenColorPickerDataManager";
     private ArrayList<SpenHSVColor> mColorTableSet = null;
     private boolean mIsLoaded = false;
     private final SharedPreferences mSharedPreferences;
@@ -49,9 +46,7 @@ public class SpenColorPickerDataManager {
 
     private ArrayList<Integer> getRecentColors() {
         ArrayList<Integer> arrayList = new ArrayList<>();
-        if (!this.mIsLoaded) {
-            Log.i(TAG, "Need loadRecentColors() in advance.");
-        } else {
+        if (this.mIsLoaded) {
             for (int i = 0; i < this.mColorTableSet.size(); i++) {
                 arrayList.add(new Integer(this.mColorTableSet.get(i).getRGB()));
             }
@@ -102,13 +97,9 @@ public class SpenColorPickerDataManager {
 
     public ArrayList<Integer> loadRecentColors() {
         if (loadRecentColors_52()) {
-            Log.i(TAG, "loadRecentColors() - v52");
             this.mIsLoaded = true;
         } else if (loadRecentColors_51()) {
-            Log.i(TAG, "loadRecentColors() - v51");
             this.mIsLoaded = true;
-        } else {
-            Log.i(TAG, "loadRecentColors() - not exist recent colors");
         }
         return getRecentColors();
     }

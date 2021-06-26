@@ -6,7 +6,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -54,7 +53,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
 
         public void onClick(View view) {
             if (SpenColorPickerView.this.mContext == null) {
-                Log.i(SpenColorPickerView.TAG, "context is null.");
                 return;
             }
             SpenColorPickerView.this.toggleMode();
@@ -90,11 +88,9 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
     private SpenColorPickerViewInfo mPickerViewInfo;
     private SpenRGBCodeControl mRGBCodeControl;
     private OnClickListener mRecentColorClickListener = new OnClickListener() {
-        /* class com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerView.AnonymousClass3 */
 
         public void onClick(View view) {
             if (SpenColorPickerView.this.isReleaseResource()) {
-                Log.i(SpenColorPickerView.TAG, "resource is released.");
                 return;
             }
             float[] fArr = new float[3];
@@ -133,7 +129,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
         Resources resources = context.getResources();
         this.mCurrentColorString = resources.getString(R.string.pen_string_current_any, resources.getString(R.string.pen_string_color));
         this.mNewColorString = resources.getString(R.string.pen_string_new_any, resources.getString(R.string.pen_string_color));
-        Log.i(TAG, "SpenColorPickerLayout() Color[" + fArr[0] + ", " + fArr[1] + ", " + fArr[2] + "] mIsSupportEyedropper=" + this.mIsSupportEyedropper);
         construct(context);
         changeMode(i);
         setDisplayColor(this.mCurrentColorView, this.mOldHsv);
@@ -202,7 +197,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
 
     public void setColor(float[] fArr, float[] fArr2) {
         if (this.mContext == null || fArr == null || fArr2 == null) {
-            Log.i(TAG, "Invalid param.");
             return;
         }
         System.arraycopy(fArr, 0, this.mOldHsv, 0, 3);
@@ -226,7 +220,7 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
         }
     }
 
-    @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerColorEventListener
+    @Override
     public void update(String str, int i, float f, float f2, float f3) {
         StringBuilder sb = new StringBuilder();
         sb.append("update() who=");
@@ -241,7 +235,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
         sb.append(", ");
         sb.append(f3);
         sb.append("]");
-        Log.i(TAG, sb.toString());
         updateNewColor();
         if (!str.equals(TAG)) {
             if (str.equals("SpenColorValueSeekBar")) {
@@ -259,7 +252,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
             }
             return z;
         }
-        Log.i(TAG, "Not support mode change.");
         return false;
     }
 
@@ -294,7 +286,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
             }
             return;
         }
-        Log.i(TAG, "Invalid Color array. size=" + fArr.length + " numOfColor=" + i);
     }
 
     public void onFocusChange(View view, boolean z) {
@@ -355,12 +346,7 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
             this.mCurrentColorView.setBackground(SpenSettingUtilDrawable.getRoundedRectDrawable(f2, 0.0f, f2, 0.0f, this.mOutlineSize, this.mOutlineColor));
             this.mNewColorView.setBackground(SpenSettingUtilDrawable.getRoundedRectDrawable(0.0f, f2, 0.0f, f2, this.mOutlineSize, this.mOutlineColor));
         }
-        if (this.mPickerViewInfo.modeType == 2) {
-            this.mModeButton = (ImageButton) inflate.findViewById(R.id.display_mode_btn);
-            this.mModeButton.setOnClickListener(this.mModeButtonClickListener);
-        } else if (this.mPickerViewInfo.modeType == 1) {
-            initTabGroup(inflate, this.mMode);
-        }
+        initTabGroup(inflate, this.mMode);
         this.mPickerContainer = (LinearLayout) inflate.findViewById(R.id.color_pick_area);
         this.mValueSeekBar = (SpenColorValueSeekBar) inflate.findViewById(R.id.color_picker_seek_bar);
         setDisplayColor(this.mCurrentColorView, this.mOldHsv);
@@ -393,11 +379,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
             this.mRGBCodeControl.setPickerColor(this.mPickerColor);
             this.mRGBCodeControl.setEditorActionListener(this.mOnEditorActionListener);
         }
-        TextView textView2 = (TextView) inflate.findViewById(R.id.color_picker_recent_color_text_view);
-        if (textView2 != null) {
-            SpenSettingUtilText.setTypeFace(this.mContext, SpenSettingUtilText.STYLE_MEDIUM, textView2);
-            textView2.setContentDescription(this.mContext.getResources().getString(R.string.pen_string_recent_color) + ", " + this.mContext.getResources().getString(R.string.pen_string_header));
-        }
         this.mRecentParent = (ViewGroup) inflate.findViewById(R.id.color_picker_recent_color_button_layout);
         setRecentColors(null, 0);
         ViewGroup viewGroup = this.mRecentParent;
@@ -408,7 +389,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
         Button button = (Button) view.findViewById(R.id.tab_swatch);
         Button button2 = (Button) view.findViewById(R.id.tab_spectrum);
         if (button == null || button2 == null) {
-            Log.i(TAG, "Tab button is not existed.");
             return;
         }
         this.mPickerTabGroup = new SpenPickerTabGroup();
@@ -424,7 +404,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
 
             @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerTabGroup.OnTabSelectedListener
             public void onTabSelected(View view) {
-                Log.d(SpenColorPickerView.TAG, "(1) onTabSelected() ");
                 SpenColorPickerView.this.toggleMode();
                 if (SpenColorPickerView.this.mModeChangeListener != null) {
                     SpenColorPickerView.this.mModeChangeListener.onModeChanged(SpenColorPickerView.this.mMode);
@@ -433,7 +412,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
 
             @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerTabGroup.OnTabSelectedListener
             public void onTabReselected(View view) {
-                Log.d(SpenColorPickerView.TAG, "(3) onTabReselected() ");
             }
         });
     }
@@ -459,10 +437,7 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
         view.setContentDescription(str);
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private void toggleMode() {
-        Log.i(TAG, "toggleMode() mode=" + this.mMode);
         int i = 1;
         if (this.mMode == 1) {
             i = 2;
@@ -528,13 +503,10 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
         }
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private void notifyColorSelected(int i) {
         float[] fArr = {0.0f, 0.0f, 0.0f};
         SpenPickerColor spenPickerColor = this.mPickerColor;
         if (spenPickerColor == null || !spenPickerColor.getColor(fArr)) {
-            Log.i(TAG, "hsv is null.");
             return;
         }
         StringBuilder sb = new StringBuilder();
@@ -548,15 +520,12 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
         sb.append(fArr[2]);
         sb.append("] mColorListener is ");
         sb.append(this.mColorListener != null ? "NOT NULL" : "NULL");
-        Log.i(TAG, sb.toString());
         ColorListener colorListener = this.mColorListener;
         if (colorListener != null) {
             colorListener.onColorSelected(fArr[0], fArr[1], fArr[2], i);
         }
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private boolean isReleaseResource() {
         return this.mContext == null;
     }
@@ -569,7 +538,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
             SpenSettingUtilHover.setHoverText(view, resources.getString(R.string.pen_string_color_spuit));
             view.setContentDescription(resources.getString(R.string.pen_string_color_spuit));
             view.setOnClickListener(new OnClickListener() {
-                /* class com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerView.AnonymousClass4 */
 
                 public void onClick(View view) {
                     if (SpenColorPickerView.this.mEyedropperClickListener != null) {

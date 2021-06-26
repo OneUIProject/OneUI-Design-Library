@@ -9,7 +9,6 @@ import android.widget.ImageButton;
 public class SpenSettingUtilHover {
     private static final String HOVER_TAG = "SupportTag";
     private static final boolean SUPPORT_TOOLTIP = (Build.VERSION.SDK_INT > 26);
-    private static final String TAG = "SpenSettingUtilHover";
 
     public static void setHoverText(View view, CharSequence charSequence) {
         if (SUPPORT_TOOLTIP) {

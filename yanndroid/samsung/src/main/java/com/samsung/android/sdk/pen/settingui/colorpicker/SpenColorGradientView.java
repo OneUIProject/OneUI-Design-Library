@@ -10,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Shader;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -47,7 +46,7 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
 
-    @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorViewInterface
+    @Override
     public void setPickerColor(SpenPickerColor spenPickerColor) {
         this.mPickerColor = spenPickerColor;
         float[] fArr = {0.0f, 0.0f, 0.0f};
@@ -56,7 +55,7 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
         this.mPickerColor.addEventListener(this);
     }
 
-    @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorViewInterface
+    @Override
     public void release() {
         this.mGradientSize = null;
         this.mCursorPaint = null;
@@ -73,7 +72,7 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
         }
     }
 
-    @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerColorEventListener
+    @Override
     public void update(String str, int i, float f, float f2, float f3) {
         if (!str.equals(TAG)) {
             float[] fArr = this.mHsv;
@@ -84,7 +83,6 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
     }
 
     private void setColor(float[] fArr) {
-        Log.i(TAG, "updateColor HSV[" + fArr[0] + ", " + fArr[1] + ", " + fArr[2] + "]");
         float[] fArr2 = this.mHsv;
         fArr2[0] = fArr[0];
         fArr2[1] = fArr[1];
@@ -112,7 +110,6 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
         if (isInitComplete()) {
             this.mCurX = ((float) this.mGradientSize.left) + (((float) this.mGradientSize.width()) * (this.mHsv[0] / 359.0f));
             this.mCurY = ((float) this.mGradientSize.top) + (((float) this.mGradientSize.height()) * this.mHsv[1]);
-            Log.i(TAG, "updateCursorPosition() HSV[" + this.mHsv[0] + ", " + this.mHsv[1] + ", " + this.mHsv[1] + "] mCurX=" + this.mCurX + " mCurY=" + this.mCurY);
         }
     }
 
@@ -130,12 +127,10 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
                 fArr2[0] = width;
                 fArr2[1] = height;
                 z = true;
-                Log.i(TAG, "updatePickedColor() isChanged()=" + z + " hsv[" + this.mHsv[0] + ", " + this.mHsv[1] + ", " + this.mHsv[2] + "]");
                 return z;
             }
         }
         z = false;
-        Log.i(TAG, "updatePickedColor() isChanged()=" + z + " hsv[" + this.mHsv[0] + ", " + this.mHsv[1] + ", " + this.mHsv[2] + "]");
         return z;
     }
 
@@ -157,19 +152,16 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
         }
     }
 
-    /* access modifiers changed from: protected */
     public void onSizeChanged(int i, int i2, int i3, int i4) {
         super.onSizeChanged(i, i2, i3, i4);
         Rect rect = this.mGradientSize;
         if (rect != null) {
             int i5 = (this.mCursorSize + this.mCursorStrokeSize) / 2;
             rect.set(i5, i5, i - i5, i2 - i5);
-            Log.i(TAG, "onSizeChanged() [" + i + ", " + i2 + "] gradientRect" + this.mGradientSize.toString() + " GradientSize=" + this.mGradientSize.width());
             setColor(this.mHsv);
         }
     }
 
-    /* access modifiers changed from: protected */
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (isInitComplete()) {
@@ -212,7 +204,6 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
             return false;
         }
         boolean contains = this.mGradientSize.contains((int) motionEvent.getX(), (int) motionEvent.getY());
-        Log.i(TAG, "onTouchEvent() x=" + motionEvent.getX() + " y=" + motionEvent.getY() + " mGradientSize=" + this.mGradientSize.toString() + " isInsideGradient=" + contains);
         if (motionEvent.getAction() == 0 && !contains && !isCursorArea(motionEvent.getX(), motionEvent.getY())) {
             return false;
         }

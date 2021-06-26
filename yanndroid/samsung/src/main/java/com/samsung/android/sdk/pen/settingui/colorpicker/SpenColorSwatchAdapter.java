@@ -1,7 +1,6 @@
 package com.samsung.android.sdk.pen.settingui.colorpicker;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,7 @@ import java.util.List;
 
 import de.dlyt.yanndroid.samsung.R;
 
-/* access modifiers changed from: package-private */
 public class SpenColorSwatchAdapter extends BaseAdapter {
-    private static final String TAG = "SpenColorSwatchAdapter";
     private final LayoutInflater mInflater;
     private final int mItemResourceId;
     int mSelectedPosition = -1;
@@ -78,7 +75,6 @@ public class SpenColorSwatchAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
-        Log.i(TAG, "getView() position=" + i + " mSelectedPosition=" + this.mSelectedPosition);
         viewHolder.mItemView.setSelectorColor(getSelectorColor(i));
         viewHolder.mItemView.setSelected(i == this.mSelectedPosition);
         viewHolder.mItemView.setBackgroundColor(((Integer) getItem(i)).intValue());
@@ -93,7 +89,6 @@ public class SpenColorSwatchAdapter extends BaseAdapter {
     public void setSelectedPosition(int i) {
         int i2 = this.mSelectedPosition;
         this.mSelectedPosition = i;
-        Log.i(TAG, "setSelected() position=" + i);
         notifyDataSetChanged();
     }
 

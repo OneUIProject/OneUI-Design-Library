@@ -1,16 +1,12 @@
 package com.samsung.android.sdk.pen.settingui.colorpicker;
 
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/* access modifiers changed from: package-private */
 public class SpenPickerTabGroup {
-    private static final String TAG = "TabGroup";
     private View.OnClickListener mChildClickListener = new View.OnClickListener() {
-        /* class com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerTabGroup.AnonymousClass1 */
 
         public void onClick(View view) {
             SpenPickerTabGroup.this.select(view, true);
@@ -35,14 +31,12 @@ public class SpenPickerTabGroup {
         this.mSelectedListener = null;
     }
 
-    /* access modifiers changed from: package-private */
     public void addTab(View view) {
         if (view != null) {
             addTab(view, false);
         }
     }
 
-    /* access modifiers changed from: package-private */
     public void addTab(View view, boolean z) {
         List<View> list = this.mTabs;
         if (list != null) {
@@ -50,12 +44,10 @@ public class SpenPickerTabGroup {
         }
     }
 
-    /* access modifiers changed from: package-private */
     public void addTab(View view, int i) {
         addTab(view, i, false);
     }
 
-    /* access modifiers changed from: package-private */
     public void addTab(View view, int i, boolean z) {
         List<View> list = this.mTabs;
         if (list != null && view != null) {
@@ -79,8 +71,7 @@ public class SpenPickerTabGroup {
         }
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
+
     private void select(View view, boolean z) {
         OnTabSelectedListener onTabSelectedListener;
         OnTabSelectedListener onTabSelectedListener2;
@@ -89,7 +80,6 @@ public class SpenPickerTabGroup {
             View view2 = this.mSelectView;
             if (view2 != null) {
                 if (view2 == view) {
-                    Log.i(TAG, "Already Selected");
                     if (z && (onTabSelectedListener3 = this.mSelectedListener) != null) {
                         onTabSelectedListener3.onTabReselected(this.mSelectView);
                         return;
@@ -109,7 +99,6 @@ public class SpenPickerTabGroup {
         }
     }
 
-    /* access modifiers changed from: package-private */
     public int getSelectId() {
         View view = this.mSelectView;
         if (view != null) {
@@ -118,7 +107,6 @@ public class SpenPickerTabGroup {
         return 0;
     }
 
-    /* access modifiers changed from: package-private */
     public void setOnTabSelectedListener(OnTabSelectedListener onTabSelectedListener) {
         this.mSelectedListener = onTabSelectedListener;
     }

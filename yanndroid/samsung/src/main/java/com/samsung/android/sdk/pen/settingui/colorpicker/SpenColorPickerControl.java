@@ -1,20 +1,15 @@
 package com.samsung.android.sdk.pen.settingui.colorpicker;
 
-import android.util.Log;
-
 import com.samsung.android.sdk.pen.settingui.util.SpenSettingUtil;
 
-/* access modifiers changed from: package-private */
 public class SpenColorPickerControl {
-    private static final String TAG = "SpenColorPickerControl";
     private float[] mHsv;
     private float[] mOldHsv;
     private SpenColorPickerActionListener mPickerActionListener;
     private SpenColorPickerChangedListener mPickerChangedListener;
     private final SpenColorPickerView.ColorListener mPickerColorListener = new SpenColorPickerView.ColorListener() {
-        /* class com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerControl.AnonymousClass1 */
 
-        @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerView.ColorListener
+        @Override
         public void onColorSelected(float f, float f2, float f3, int i) {
             SpenColorPickerControl.this.mHsv[0] = f;
             SpenColorPickerControl.this.mHsv[1] = f2;
@@ -38,11 +33,9 @@ public class SpenColorPickerControl {
     };
     private int mPickerMode;
     private final SpenColorPickerView.OnModeChangeListener mPickerModeChangedListener = new SpenColorPickerView.OnModeChangeListener() {
-        /* class com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerControl.AnonymousClass2 */
 
-        @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerView.OnModeChangeListener
+        @Override
         public void onModeChanged(int i) {
-            Log.i(SpenColorPickerControl.TAG, "onModeChanged() mode=" + i);
             SpenColorPickerControl.this.mPickerMode = i;
             if (SpenColorPickerControl.this.mPickerChangedListener != null) {
                 SpenColorPickerControl.this.mPickerChangedListener.onViewModeChanged(SpenColorPickerControl.this.mPickerMode);
@@ -59,7 +52,6 @@ public class SpenColorPickerControl {
         System.arraycopy(fArr, 0, this.mHsv, 0, 3);
     }
 
-    /* access modifiers changed from: package-private */
     public void close() {
         this.mPickerView = null;
         this.mHsv = null;
@@ -69,7 +61,6 @@ public class SpenColorPickerControl {
     public void setColor(float[] fArr, float[] fArr2) {
         float[] fArr3 = this.mOldHsv;
         if (fArr3 == null || fArr == null || fArr2 == null) {
-            Log.i(TAG, "setColor() invalid state.");
             return;
         }
         System.arraycopy(fArr, 0, fArr3, 0, 3);
@@ -80,10 +71,8 @@ public class SpenColorPickerControl {
         }
     }
 
-    /* access modifiers changed from: package-private */
     public boolean getOldColor(float[] fArr) {
         if (fArr == null || this.mOldHsv == null || fArr.length < 3) {
-            Log.i(TAG, "getOldColor() - array null");
             return false;
         }
         for (int i = 0; i < 3; i++) {
@@ -94,7 +83,6 @@ public class SpenColorPickerControl {
 
     public boolean getCurrentColor(float[] fArr) {
         if (fArr == null || this.mHsv == null || fArr.length < 3) {
-            Log.i(TAG, "getCurrentColor() - array null");
             return false;
         }
         for (int i = 0; i < 3; i++) {
@@ -106,12 +94,10 @@ public class SpenColorPickerControl {
     public void setCurrentColor(float[] fArr) {
         SpenColorPickerView spenColorPickerView;
         if (fArr == null || (spenColorPickerView = this.mPickerView) == null) {
-            Log.i(TAG, "setCurrentColor() invalid state.");
             return;
         }
         spenColorPickerView.setCurrentColor(fArr);
         System.arraycopy(fArr, 0, this.mHsv, 0, 3);
-        Log.i(TAG, String.format("setCurrentColor() - step2 [H,S,V]=[%f,%f,%f]", Float.valueOf(this.mHsv[0]), Float.valueOf(this.mHsv[1]), Float.valueOf(this.mHsv[2])));
     }
 
     public void setColorPickerChangeListener(SpenColorPickerChangedListener spenColorPickerChangedListener) {
@@ -128,9 +114,7 @@ public class SpenColorPickerControl {
 
     public void setViewMode(int i) {
         if (i != 2 && i != 1) {
-            Log.i(TAG, "Invalid view mode=" + i);
         } else if (i == this.mPickerMode) {
-            Log.i(TAG, "[Same mode] current=" + this.mPickerMode);
         } else {
             this.mPickerMode = i;
             SpenColorPickerView spenColorPickerView = this.mPickerView;

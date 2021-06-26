@@ -4,7 +4,6 @@ import android.graphics.Color;
 
 import com.samsung.android.sdk.pen.settingui.util.SpenSettingUtil;
 
-/* access modifiers changed from: package-private */
 public class SpenHSVColor {
     float[] mHsvColor = {0.0f, 0.0f, 0.0f};
 

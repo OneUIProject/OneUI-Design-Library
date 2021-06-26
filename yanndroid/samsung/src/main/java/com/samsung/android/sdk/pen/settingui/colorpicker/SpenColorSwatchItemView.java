@@ -2,7 +2,6 @@ package com.samsung.android.sdk.pen.settingui.colorpicker;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -12,7 +11,6 @@ import de.dlyt.yanndroid.samsung.R;
 
 class SpenColorSwatchItemView extends View {
     private static final int SELECT_COLOR = -1;
-    private static final String TAG = "SpenColorSwatchItemView";
     private int mSelectStrokeSize;
     private int mSelectorColor = -1;
 
@@ -27,6 +25,5 @@ class SpenColorSwatchItemView extends View {
 
     public void setSelected(boolean z) {
         super.setSelected(z);
-        Log.i(TAG, "setSelected() selected=" + z);
     }
 }

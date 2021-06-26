@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,7 +25,6 @@ import de.dlyt.yanndroid.samsung.R;
 
 @TargetApi(17)
 public class SpenColorPickerPopup extends Dialog {
-    private static final String TAG = "SpenColorPickerPopup";
     private static final int TYPE_CUSTOMIZE = 0;
     public static final int VIEW_MODE_GRADIENT = 1;
     public static final int VIEW_MODE_SWATCH = 2;
@@ -80,7 +78,7 @@ public class SpenColorPickerPopup extends Dialog {
             }
         }
 
-        @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerActionListener
+        @Override
         public void onColorPickerChanged(int i) {
             if (SpenColorPickerPopup.this.mColorPickerListener != null) {
                 SpenColorPickerPopup.this.mColorPickerListener.onColorCirclePressed();
@@ -88,18 +86,13 @@ public class SpenColorPickerPopup extends Dialog {
         }
     };
     private final SpenColorPickerChangedListener mPickerChangedListener = new SpenColorPickerChangedListener() {
-        /* class com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerPopup.AnonymousClass4 */
 
         @Override
-        // com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerChangedListener
         public void onColorChanged(int i, float[] fArr) {
-            Log.i(SpenColorPickerPopup.TAG, "onColorChanged() color=" + i + String.format(" #%08X", Integer.valueOf(i & -1)));
         }
 
         @Override
-        // com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerChangedListener
         public void onViewModeChanged(int i) {
-            Log.i(SpenColorPickerPopup.TAG, "onModeChanged() mode=" + i);
             if (SpenColorPickerPopup.this.mColorPickerChangedListener != null) {
                 SpenColorPickerPopup.this.mColorPickerChangedListener.onViewModeChanged(i);
             }
@@ -110,11 +103,9 @@ public class SpenColorPickerPopup extends Dialog {
 
     public interface ColorPickerChangedListener extends SpenColorPickerChangedListener {
         @Override
-            // com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerChangedListener
         void onColorChanged(int i, float[] fArr);
 
         @Override
-            // com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerChangedListener
         void onViewModeChanged(int i);
     }
 
@@ -154,21 +145,17 @@ public class SpenColorPickerPopup extends Dialog {
         this.mIsSupportEyedropper = z;
     }
 
-    /* access modifiers changed from: protected */
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         this.mCurrentOrientation = this.mContext.getResources().getConfiguration().orientation;
-        Log.i(TAG, "onCreate() mCurrentOrientation=" + this.mCurrentOrientation);
         this.mDataManager = new SpenColorPickerDataManager(this.mContext);
         init();
     }
 
     public void setColorTheme(int i) {
-        Log.i(TAG, "setColorTheme() theme=" + i);
         SpenColorPickerTheme spenColorPickerTheme = this.mColorTheme;
         if (spenColorPickerTheme != null) {
             boolean z = spenColorPickerTheme.getTheme() != i;
-            Log.i(TAG, "isChanged() = " + z);
             if (z) {
                 float[] fArr = new float[3];
                 float[] fArr2 = new float[3];
@@ -178,7 +165,6 @@ public class SpenColorPickerPopup extends Dialog {
                 this.mColorTheme.getOldVisibleColor(fArr);
                 this.mColorTheme.getColor(fArr2, fArr3);
                 this.mPickerControl.setColor(fArr, fArr3);
-                Log.i(TAG, "COLOR[" + String.format(" #%08X", Integer.valueOf(SpenSettingUtil.HSVToColor(fArr) & -1)) + ", " + String.format(" #%08X", Integer.valueOf(SpenSettingUtil.HSVToColor(fArr3) & -1)) + "] ");
                 initColor();
             }
         }
@@ -192,13 +178,11 @@ public class SpenColorPickerPopup extends Dialog {
                 return this.mColorTheme.getContentColor(fArr2, fArr);
             }
         }
-        Log.i(TAG, "pickerControl is null.");
         return false;
     }
 
     public void setCurrentColor(float[] fArr) {
         if (fArr == null || this.mPickerLayout == null) {
-            Log.i(TAG, "setCurrentColor() invalid state.");
             return;
         }
         float[] fArr2 = new float[3];
@@ -245,7 +229,6 @@ public class SpenColorPickerPopup extends Dialog {
     }
 
     public void close() {
-        Log.i(TAG, "Color picker close!");
         this.mContext = null;
         this.mColorPickerChangedListener = null;
         this.mColorPickerListener = null;
@@ -279,7 +262,6 @@ public class SpenColorPickerPopup extends Dialog {
         StringBuilder sb = new StringBuilder();
         sb.append("setEyedropperButtonListener() mIsSupportEyedropper=");
         sb.append(this.mIsSupportEyedropper ? "SUPPORT" : "NOT SUPPORT");
-        Log.i(TAG, sb.toString());
         if (this.mIsSupportEyedropper) {
             this.mEyedropperButtonListener = pickerEyedropperButtonListener;
         }
@@ -298,7 +280,6 @@ public class SpenColorPickerPopup extends Dialog {
             SpenSettingUtilSIP.forceHideSoftInput(getContext(), this.mParentLayout);
         }
         super.dismiss();
-        Log.i(TAG, "dismiss");
         close();
     }
 
@@ -308,18 +289,14 @@ public class SpenColorPickerPopup extends Dialog {
     }
 
     public void setOrientationMode(int i) {
-        Log.i(TAG, "setOrientationMode = " + i);
         if (i == 1 || i == 2 || this.mCurrentOrientation != i) {
             this.mCurrentOrientation = i;
             if (this.mParentLayout != null) {
-                Log.i(TAG, "parnetLayout is not null.");
                 reInitView();
                 return;
             }
-            Log.i(TAG, "parnetLayout is null.");
             return;
         }
-        Log.i(TAG, "orientation is wrong. so not apply and return.");
     }
 
     public void apply() {
@@ -334,15 +311,12 @@ public class SpenColorPickerPopup extends Dialog {
         this.mPickerControl.setViewMode(i);
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private void doneAction() {
         float[] fArr = new float[3];
         if (this.mPickerControl != null) {
             getCurrentColor(fArr);
             if (this.mColorPickerChangedListener != null) {
                 if (fArr[1] > 1.0f) {
-                    Log.i(TAG, "HSV is wrong. current=" + fArr[1] + " change=1");
                     fArr[1] = 1.0f;
                 }
                 this.mColorPickerChangedListener.onColorChanged(SpenSettingUtil.HSVToColor(fArr), fArr);
@@ -357,7 +331,6 @@ public class SpenColorPickerPopup extends Dialog {
     }
 
     private void init() {
-        Log.i(TAG, "init()");
         SpenColorPickerView spenColorPickerView = this.mPickerLayout;
         if (spenColorPickerView != null) {
             spenColorPickerView.close();
@@ -395,7 +368,6 @@ public class SpenColorPickerPopup extends Dialog {
                 float[] fArr3 = {0.0f, 0.0f, 0.0f};
                 this.mDataManager.getRecentColor(i, fArr2);
                 this.mColorTheme.getColor(fArr2, fArr3);
-                Log.i(TAG, "recent[" + fArr2[0] + ", " + fArr2[1] + ", " + fArr2[2] + "] - visible[ " + fArr3[0] + ", " + fArr3[1] + ", " + fArr3[2] + "] ");
                 for (int i2 = 0; i2 < 3; i2++) {
                     fArr[(i * 3) + i2] = fArr3[i2];
                 }
@@ -423,7 +395,6 @@ public class SpenColorPickerPopup extends Dialog {
 
     @TargetApi(17)
     private void initView() {
-        Log.i(TAG, "initView()");
         SpenColorPickerViewInfo spenColorPickerViewInfo = new SpenColorPickerViewInfo();
 
         spenColorPickerViewInfo.layoutId = R.layout.setting_color_picker_view_oneui30;
@@ -498,7 +469,6 @@ public class SpenColorPickerPopup extends Dialog {
                 if (this.mIsSupportRGBCode && i != 0) {
                     View findViewById2 = this.mParentLayout.findViewById(i);
                     if (findViewById2 == null || !(findViewById2 instanceof EditText)) {
-                        Log.i(TAG, "reInitView() - lost focus view");
                         SpenSettingUtilSIP.forceHideSoftInput(this.mContext, findViewById2);
                         updateSIPState();
                         return;
@@ -550,13 +520,10 @@ public class SpenColorPickerPopup extends Dialog {
             }
             if (z) {
                 float f = ((float) i) / this.mContext.getResources().getDisplayMetrics().density;
-                Log.i(TAG, "isRTL = TRUE dp=" + f);
                 getWindow().getDecorView().getRootView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    /* class com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerPopup.AnonymousClass6 */
 
                     public void onGlobalLayout() {
                         SpenColorPickerPopup.this.getWindow().getDecorView().getRootView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        Log.i(SpenColorPickerPopup.TAG, "[onGlobarlLayout()] rootView width= " + SpenColorPickerPopup.this.getWindow().getDecorView().getRootView().getWidth());
                         int width = SpenColorPickerPopup.this.getWindow().getDecorView().getRootView().getWidth();
                         ViewGroup.LayoutParams layoutParams = SpenColorPickerPopup.this.mPickerLayout.getLayoutParams();
                         layoutParams.width = width + -1;

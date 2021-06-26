@@ -8,7 +8,6 @@ import android.view.View;
 
 public class SpenSettingUtilDrawable {
     private static final boolean SUPPORT_FOREGROUND = (Build.VERSION.SDK_INT >= 23);
-    private static final String TAG = "SpenSettingUtilDrawable";
 
     public static void setRoundedCornerBackground(View view, int i, int i2, int i3, int i4) {
         if (view != null) {
@@ -23,7 +22,7 @@ public class SpenSettingUtilDrawable {
 
     public static Drawable getRoundedCornerDrawable(int i, int i2, int i3, int i4) {
         GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setShape(0);
+        gradientDrawable.setShape(GradientDrawable.RECTANGLE);
         gradientDrawable.setCornerRadius((float) i);
         gradientDrawable.setColor(i2);
         if (i3 > 0) {
@@ -35,7 +34,7 @@ public class SpenSettingUtilDrawable {
     public static Drawable getRoundedRectDrawable(float f, float f2, float f3, float f4) {
         float[] fArr = {f, f, f2, f2, f4, f4, f3, f3};
         GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setShape(0);
+        gradientDrawable.setShape(GradientDrawable.RECTANGLE);
         gradientDrawable.setCornerRadii(fArr);
         return gradientDrawable;
     }

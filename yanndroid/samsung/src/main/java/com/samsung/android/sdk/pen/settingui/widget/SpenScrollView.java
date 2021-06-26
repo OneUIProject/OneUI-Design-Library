@@ -46,7 +46,6 @@ public class SpenScrollView extends ScrollView {
         return false;
     }
 
-    /* access modifiers changed from: protected */
     public void onDraw(Canvas canvas) {
         Path path = new Path();
         path.addRoundRect(new RectF(canvas.getClipBounds()), this.mRadii, Path.Direction.CW);

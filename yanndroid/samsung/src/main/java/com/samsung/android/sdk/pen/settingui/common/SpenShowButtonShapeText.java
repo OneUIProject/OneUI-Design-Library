@@ -11,7 +11,6 @@ import android.provider.Settings;
 import android.text.Layout;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -23,7 +22,6 @@ import de.dlyt.yanndroid.samsung.R;
 
 @SuppressLint("AppCompatCustomView")
 public class SpenShowButtonShapeText extends TextView {
-    private final String TAG = "SpenShowButtonShapeText";
     private int mButtonShapeBgColor;
     private Paint mButtonShapePaint = null;
     private RectF mButtonShapeRect = null;
@@ -56,7 +54,6 @@ public class SpenShowButtonShapeText extends TextView {
     }
 
     private void setButtonShapeEnabled(boolean z, int i) {
-        Log.i("SpenShowButtonShapeText", "setButtonShapeEnabled() enabled=" + z + " textColor=" + getColor(i));
         this.mIsButtonShapeTarget = z;
         this.mButtonShapeTextColor = i;
         this.mButtonShapeBgColor = getCurrentTextColor();
@@ -67,9 +64,7 @@ public class SpenShowButtonShapeText extends TextView {
         setButtonShapeSetting(this.mButtonShapeSettingEnabled);
     }
 
-    /* access modifiers changed from: protected */
     public void onDraw(Canvas canvas) {
-        Log.i("SpenShowButtonShape", "onDraw() + text=" + ((Object) getText()) + "(" + getText().length() + ")");
         if (this.mButtonShapeSettingEnabled && this.mIsButtonShapeTarget && this.mButtonShapePaint != null && this.mButtonShapeRect != null && !TextUtils.isEmpty(getText())) {
             int compoundPaddingLeft = getCompoundPaddingLeft();
             int extendedPaddingTop = getExtendedPaddingTop();
@@ -103,7 +98,6 @@ public class SpenShowButtonShapeText extends TextView {
         super.onDraw(canvas);
     }
 
-    /* access modifiers changed from: package-private */
     public int getVerticalOffset(boolean z) {
         int boxHeight;
         int height;
@@ -119,10 +113,9 @@ public class SpenShowButtonShapeText extends TextView {
         return getMeasuredHeight() - (getExtendedPaddingTop() + getExtendedPaddingBottom());
     }
 
-    @Override // android.widget.TextView
+    @Override
     public void setTextColor(@ColorInt int i) {
         super.setTextColor(i);
-        Log.i("SpenShowButtonShapeText", "++++++++++++++ setTextColor() color=" + getColor(i));
         if (!this.mIsSetTextForButtonShape) {
             this.mButtonShapeBgColor = i;
             Paint paint = this.mButtonShapePaint;
@@ -132,10 +125,8 @@ public class SpenShowButtonShapeText extends TextView {
         }
     }
 
-    /* access modifiers changed from: protected */
     public void onConfigurationChanged(Configuration configuration) {
         super.onConfigurationChanged(configuration);
-        Log.i("SpenShowButtonShape", "onConfigurationChanged() mButtonShapeSettingEnabled=" + this.mButtonShapeSettingEnabled);
         boolean isButtonShapeSettingEnable = isButtonShapeSettingEnable();
         if (isButtonShapeSettingEnable != this.mButtonShapeSettingEnabled) {
             setButtonShapeSetting(isButtonShapeSettingEnable);
@@ -157,7 +148,6 @@ public class SpenShowButtonShapeText extends TextView {
             this.mButtonShapeRect = new RectF();
         }
         this.mButtonShapeSettingEnabled = isButtonShapeSettingEnable();
-        Log.i("SpenShowButtonShapeText", "init(), mButtonShapeSettingEnabled=" + this.mButtonShapeSettingEnabled);
     }
 
     private boolean isButtonShapeSettingEnable() {

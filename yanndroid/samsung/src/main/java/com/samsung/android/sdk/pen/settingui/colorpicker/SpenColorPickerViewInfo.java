@@ -1,6 +1,5 @@
 package com.samsung.android.sdk.pen.settingui.colorpicker;
 
-/* access modifiers changed from: package-private */
 public class SpenColorPickerViewInfo {
     protected static final int MODE_TYPE_BUTTON = 2;
     protected static final int MODE_TYPE_NONE = 0;

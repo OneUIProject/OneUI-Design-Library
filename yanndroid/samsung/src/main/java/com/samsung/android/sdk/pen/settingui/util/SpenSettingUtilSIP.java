@@ -1,14 +1,12 @@
 package com.samsung.android.sdk.pen.settingui.util;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import java.lang.reflect.InvocationTargetException;
 
 public class SpenSettingUtilSIP {
-    private static final String TAG = "SpenSettingUtilSIP";
 
     public static boolean showSoftInput(Context context, View view, int i) {
         InputMethodManager inputMethodManager;
@@ -93,27 +91,21 @@ public class SpenSettingUtilSIP {
             try {
                 return ((Integer) inputMethodManager.getClass().getMethod("getSIPVisibleHeight", new Class[0]).invoke(inputMethodManager, new Object[0])).intValue();
             } catch (InvocationTargetException unused) {
-                Log.e(TAG, "getCurrentSIPHeight() : InvocationTargetException");
                 try {
                     try {
                         return ((Integer) inputMethodManager.getClass().getMethod("getInputMethodWindowVisibleHeight", new Class[0]).invoke(inputMethodManager, new Object[0])).intValue();
                     } catch (InvocationTargetException unused2) {
-                        Log.e(TAG, "getInputMethodWindowVisibleHeight() : InvocationTargetException");
                         return 0;
                     } catch (IllegalAccessException unused3) {
-                        Log.e(TAG, "getInputMethodWindowVisibleHeight() : IllegalAccessException");
                         return 0;
                     }
                 } catch (NoSuchMethodException unused4) {
-                    Log.e(TAG, "getInputMethodWindowVisibleHeight() : NoSuchMethodException");
                     return 0;
                 }
             } catch (IllegalAccessException unused5) {
-                Log.e(TAG, "getCurrentSIPHeight() : IllegalAccessException");
                 return ((Integer) inputMethodManager.getClass().getMethod("getInputMethodWindowVisibleHeight", new Class[0]).invoke(inputMethodManager, new Object[0])).intValue();
             }
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException unused6) {
-            Log.e(TAG, "getCurrentSIPHeight() : NoSuchMethodException");
             try {
                 return ((Integer) inputMethodManager.getClass().getMethod("getInputMethodWindowVisibleHeight", new Class[0]).invoke(inputMethodManager, new Object[0])).intValue();
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {

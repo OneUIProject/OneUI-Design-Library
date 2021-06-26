@@ -33,7 +33,6 @@ public class SpenHorizontalScrollView extends HorizontalScrollView {
         this.mRadii = fArr;
     }
 
-    /* access modifiers changed from: protected */
     public void onDraw(Canvas canvas) {
         Path path = new Path();
         path.addRoundRect(new RectF(canvas.getClipBounds()), this.mRadii, Path.Direction.CW);

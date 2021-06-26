@@ -6,11 +6,9 @@ import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
-/* access modifiers changed from: package-private */
 public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerColorEventListener {
     private static final int COLOR_CHANEL_MAX_VALUE = 255;
     private static final int COLOR_CHANEL_MIN_VALUE = 0;
@@ -25,7 +23,6 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
     public static final String KEY_HASH_TAG_CHAR = "#";
     private EditText mBlue;
     private final TextWatcher mColorTextWatcher = new TextWatcher() {
-        /* class com.samsung.android.sdk.pen.settingui.colorpicker.SpenRGBCodeControl.AnonymousClass2 */
 
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
         }
@@ -71,7 +68,6 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
     private SpenPickerColor mPickerColor;
     private EditText mRGBCode;
     private final InputFilter mRGBCodeTextFilter = new InputFilter() {
-        /* class com.samsung.android.sdk.pen.settingui.colorpicker.SpenRGBCodeControl.AnonymousClass3 */
 
         public CharSequence filter(CharSequence charSequence, int i, int i2, Spanned spanned, int i3, int i4) {
             String str = spanned.toString().substring(0, i3) + spanned.toString().substring(i4, spanned.toString().length());
@@ -89,7 +85,6 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
         }
     };
     private final TextWatcher mRGBCodeTextWatcher = new TextWatcher() {
-        /* class com.samsung.android.sdk.pen.settingui.colorpicker.SpenRGBCodeControl.AnonymousClass1 */
 
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
         }
@@ -119,7 +114,7 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
     SpenRGBCodeControl() {
     }
 
-    @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorViewInterface
+    @Override
     public void setPickerColor(SpenPickerColor spenPickerColor) {
         this.mPickerColor = spenPickerColor;
         SpenPickerColor spenPickerColor2 = this.mPickerColor;
@@ -130,7 +125,7 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
         }
     }
 
-    @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorViewInterface
+    @Override
     public void release() {
         SpenPickerColor spenPickerColor = this.mPickerColor;
         if (spenPickerColor != null) {
@@ -143,7 +138,6 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
         this.mBlue = null;
     }
 
-    /* access modifiers changed from: package-private */
     public void setRGBView(EditText editText, EditText editText2, EditText editText3, EditText editText4) {
         if (editText2 != null && editText3 != null && editText4 != null) {
             this.mRGBCode = editText;
@@ -161,13 +155,10 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
         }
     }
 
-    /* access modifiers changed from: package-private */
     public void setEditorActionListener(TextView.OnEditorActionListener onEditorActionListener) {
         this.mOnEditorActionListener = onEditorActionListener;
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private int getSelectionIndex(EditText editText, String str, int i) {
         if (editText == null || TextUtils.isEmpty(str)) {
             return -1;
@@ -178,8 +169,6 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
         return editText.getSelectionStart();
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private int getNumber(String str) {
         try {
             return Integer.parseInt(str);
@@ -188,8 +177,6 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
         }
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private void updateColorByUser(int i, int i2) {
         int i3;
         int i4;
@@ -212,24 +199,18 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
         notifyColorChanged(i3, i2, i4);
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private void notifyColorChanged(int i, int i2, int i3) {
-        Log.i(TAG, "notifyColorChanged(" + i + ", " + i2 + ", " + i3 + ")");
         SpenPickerColor spenPickerColor = this.mPickerColor;
         if (spenPickerColor != null) {
             spenPickerColor.setColor(TAG, Color.rgb(i, i2, i3));
         }
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private void updateColor(EditText editText, int i, int i2) {
         if (editText != null && !this.mIsUpdating) {
             String valueOf = String.valueOf(i);
             if (!valueOf.equals(editText.getEditableText().toString())) {
                 this.mIsUpdating = true;
-                Log.d(TAG, "updateColor() color=" + valueOf);
                 editText.setText(valueOf);
                 if (i2 == -1) {
                     editText.setSelection(valueOf.length());
@@ -244,7 +225,6 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
     @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerColorEventListener
     public void update(String str, int i, float f, float f2, float f3) {
         if (!str.equals(TAG)) {
-            Log.d(TAG, String.format("received update() eventType=%s, color=%X(%d,%d,%d), hsv[%f, %f, %f]", str, Integer.valueOf(i), Integer.valueOf(Color.red(i)), Integer.valueOf(Color.green(i)), Integer.valueOf(Color.blue(i)), Float.valueOf(f), Float.valueOf(f2), Float.valueOf(f3)));
             updateView(Color.red(i), Color.green(i), Color.blue(i));
         }
     }
@@ -261,12 +241,10 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
 
     private void updateCodeText(int i, int i2, int i3) {
         if (this.mRGBCode != null) {
-            Log.i(TAG, "updateCodeText() " + String.format("#%02X%02X%02X", Integer.valueOf(i), Integer.valueOf(i2), Integer.valueOf(i3)));
             this.mRGBCode.setText(String.format("%02X%02X%02X", Integer.valueOf(i), Integer.valueOf(i2), Integer.valueOf(i3)));
         }
     }
 
-    /* access modifiers changed from: private */
     public class InputFilterMinMax implements InputFilter {
         private int max;
         private int min;
@@ -301,8 +279,6 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
         }
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private void checkActionKey(CharSequence charSequence) {
         TextView.OnEditorActionListener onEditorActionListener;
         if (charSequence != null) {

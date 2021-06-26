@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.View;
 
 import com.samsung.android.sdk.pen.settingui.util.SpenSettingUtil;
@@ -13,7 +12,6 @@ import com.samsung.android.sdk.pen.settingui.util.SpenSettingUtil;
 import de.dlyt.yanndroid.samsung.R;
 
 public class SpenColorSwatchSelectorView extends View {
-    private static final String TAG = "SpenColorSwatchSelectorView";
     private boolean mIsShowOutline = false;
     private int mOutlineColor;
     private int mOutlineSize;
@@ -29,9 +27,7 @@ public class SpenColorSwatchSelectorView extends View {
         super.setBackgroundColor(i);
     }
 
-    /* access modifiers changed from: protected */
     public void onDraw(Canvas canvas) {
-        Log.i(TAG, "onDraw() isSelected=" + isSelected());
         super.onDraw(canvas);
         if (this.mIsShowOutline) {
             Paint paint = new Paint();

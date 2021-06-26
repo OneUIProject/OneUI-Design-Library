@@ -3,7 +3,6 @@ package com.samsung.android.sdk.pen.util.color;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.util.Log;
 
 import java.util.HashMap;
 
@@ -11,7 +10,6 @@ public class SpenReverseColorTheme implements SpenIColorTheme {
     private static final float STANDARD_AREA_MAX = 0.6f;
     private static final float STANDARD_AREA_MIN = 0.4f;
     private static final int TABLE_LIST_SIZE = 21;
-    private static final String TAG = "SpenReverseUIColorTheme";
     public final int SCOPE_ALL = 8;
     public final int SCOPE_PALETTE = 2;
     public final int SCOPE_PICKER = 1;
@@ -25,13 +23,13 @@ public class SpenReverseColorTheme implements SpenIColorTheme {
         initPaletteHash(context);
     }
 
-    @Override // com.samsung.android.sdk.pen.util.color.SpenIColorTheme
+    @Override
     public void close() {
         this.mPickerColorHash = null;
         this.mPaletteColorHash = null;
     }
 
-    @Override // com.samsung.android.sdk.pen.util.color.SpenIColorTheme
+    @Override
     public int getColor(int i) {
         int i2;
         boolean z;
@@ -43,21 +41,17 @@ public class SpenReverseColorTheme implements SpenIColorTheme {
             i2 = i;
             z = false;
         } else {
-            Log.i(TAG, "getColor() :: Find in Palette!");
             i2 = findColor2;
             z = true;
         }
         if (!z && containsScope(1) && (findColor = findColor(this.mPickerColorHash, i4, i3)) != -1) {
-            Log.i(TAG, "getColor() :: Find in Picker!");
             z = true;
             i2 = findColor;
         }
         if (!z && containsScope(8)) {
             i2 = GetColorByLightControl(i4, i3);
-            Log.i(TAG, "getColor() :: Find by LightControl!");
             z = true;
         }
-        Log.i(TAG, " isFind=" + z + "[" + String.format(" #%08X", Integer.valueOf(i & -1)) + ", " + String.format(" #%08X", Integer.valueOf(i2 & -1)) + "] ");
         return i2;
     }
 
@@ -71,7 +65,7 @@ public class SpenReverseColorTheme implements SpenIColorTheme {
         return ((i << 24) & -16777216) | (i2 & 16777215);
     }
 
-    @Override // com.samsung.android.sdk.pen.util.color.SpenIColorTheme
+    @Override
     public boolean getColor(float[] fArr, float[] fArr2) {
         if (fArr == null && fArr2 == null) {
             return false;
@@ -84,12 +78,10 @@ public class SpenReverseColorTheme implements SpenIColorTheme {
         this.mSearchScope = i;
     }
 
-    /* access modifiers changed from: protected */
     public boolean isContainsPickerColor(int i) {
         return findColor(this.mPickerColorHash, (i >> 24) & 255, (16777215 & i) | -16777216) != -1;
     }
 
-    /* access modifiers changed from: protected */
     public HashMap<Integer, Integer> getPaletteHash() {
         return this.mPaletteColorHash;
     }

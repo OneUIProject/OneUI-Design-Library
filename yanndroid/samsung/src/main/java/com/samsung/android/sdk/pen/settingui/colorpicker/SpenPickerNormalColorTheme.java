@@ -2,12 +2,11 @@ package com.samsung.android.sdk.pen.settingui.colorpicker;
 
 import com.samsung.android.sdk.pen.util.color.SpenNormalColorTheme;
 
-/* access modifiers changed from: package-private */
 public class SpenPickerNormalColorTheme extends SpenNormalColorTheme implements SpenIPickerColorTheme {
     SpenPickerNormalColorTheme() {
     }
 
-    @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenIPickerColorTheme
+    @Override
     public boolean getContentColor(float[] fArr, float[] fArr2) {
         if (fArr == null || fArr2 == null) {
             return false;

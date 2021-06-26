@@ -1,15 +1,12 @@
 package com.samsung.android.sdk.pen.settingui.colorpicker;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.samsung.android.sdk.pen.util.color.SpenIColorTheme;
 import com.samsung.android.sdk.pen.util.color.SpenNormalColorTheme;
 import com.samsung.android.sdk.pen.util.color.SpenReverseColorTheme;
 
-/* access modifiers changed from: package-private */
 public class SpenColorPickerTheme {
-    private static final String TAG = "SpenColorPickerTheme";
     private SpenIColorTheme mColorTheme;
     private Context mContext;
     private float[] mOldColor = new float[3];
@@ -39,7 +36,6 @@ public class SpenColorPickerTheme {
 
     public void setTheme(int i) {
         int theme = getTheme();
-        Log.i(TAG, "setTheme() current=" + theme + " theme=" + i);
         if (theme != -1 && theme != i) {
             closeTheme();
             if (i == 0) {
@@ -48,8 +44,6 @@ public class SpenColorPickerTheme {
             } else if (i == 1) {
                 this.mColorTheme = new SpenPickerReverseColorTheme(this.mContext);
                 this.mPickerColorTheme = (SpenIPickerColorTheme) this.mColorTheme;
-            } else {
-                Log.i(TAG, "Unknown theme.");
             }
         }
     }

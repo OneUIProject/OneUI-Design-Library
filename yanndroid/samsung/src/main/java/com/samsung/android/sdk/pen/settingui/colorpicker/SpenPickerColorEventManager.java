@@ -3,7 +3,6 @@ package com.samsung.android.sdk.pen.settingui.colorpicker;
 import java.util.ArrayList;
 import java.util.List;
 
-/* access modifiers changed from: package-private */
 public class SpenPickerColorEventManager {
     List<SpenPickerColorEventListener> mListeners = new ArrayList();
 

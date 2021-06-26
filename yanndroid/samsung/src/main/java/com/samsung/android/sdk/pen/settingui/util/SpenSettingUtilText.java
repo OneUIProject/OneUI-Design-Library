@@ -10,7 +10,6 @@ import android.os.Build;
 import android.provider.Settings;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -86,7 +85,6 @@ public class SpenSettingUtilText {
         if (isEllipsis(textView)) {
             int ellipsizedWidth = textView.getLayout().getEllipsizedWidth() - 10;
             float textSize = textView.getTextSize();
-            Log.i("SpenSettingUtilText", "isEllipsis is TRUE. [BEFORE] getWidth=" + ellipsizedWidth + " textSize=" + textSize);
             Paint paint = new Paint();
             Rect rect = new Rect();
             String charSequence = textView.getText().toString();
@@ -98,7 +96,6 @@ public class SpenSettingUtilText {
             } while (rect.width() >= ellipsizedWidth);
             textView.setEllipsize(null);
             textView.setTextSize(0, textSize);
-            Log.i("SpenSettingUtilText", "[AFTER] textSize=" + textSize);
         }
     }
 

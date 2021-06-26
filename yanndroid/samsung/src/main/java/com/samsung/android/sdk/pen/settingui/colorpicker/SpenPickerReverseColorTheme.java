@@ -2,7 +2,6 @@ package com.samsung.android.sdk.pen.settingui.colorpicker;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 
 import com.samsung.android.sdk.pen.util.color.SpenColorMatching;
 import com.samsung.android.sdk.pen.util.color.SpenReverseColorTheme;
@@ -11,9 +10,7 @@ import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Set;
 
-/* access modifiers changed from: package-private */
 public class SpenPickerReverseColorTheme extends SpenReverseColorTheme implements SpenIPickerColorTheme {
-    private static final String TAG = "SpenPickerReverseColorTheme";
     private final int MAX_CURRENT_VALUE = 1200;
     private SpenColorMatching mColorMatching = new SpenColorMatching();
     private float[][] mPaletteColor;
@@ -23,7 +20,7 @@ public class SpenPickerReverseColorTheme extends SpenReverseColorTheme implement
         initPaletteColor();
     }
 
-    @Override // com.samsung.android.sdk.pen.util.color.SpenIColorTheme, com.samsung.android.sdk.pen.util.color.SpenReverseColorTheme
+    @Override
     public void close() {
         super.close();
         this.mColorMatching = null;
@@ -44,7 +41,7 @@ public class SpenPickerReverseColorTheme extends SpenReverseColorTheme implement
         return true;
     }
 
-    @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenIPickerColorTheme
+    @Override
     public boolean getContentColor(float[] fArr, float[] fArr2) {
         setSearchScope(8);
         getColor(fArr, fArr2);
@@ -122,11 +119,9 @@ public class SpenPickerReverseColorTheme extends SpenReverseColorTheme implement
                 fArr2[i][2] = fArr[2];
                 i++;
             }
-            Log.i(TAG, "initPaletteColor() size=" + keySet.size() + " length=" + this.mPaletteColor.length);
         }
     }
 
-    /* access modifiers changed from: private */
     public class Point3 {
         private static final double PI = 3.14159d;
         private double x;
@@ -137,7 +132,6 @@ public class SpenPickerReverseColorTheme extends SpenReverseColorTheme implement
             setColor(fArr[0], fArr[1], fArr[2]);
         }
 
-        /* access modifiers changed from: package-private */
         public void setColor(float f, float f2, float f3) {
             double d = (double) f2;
             double d2 = (double) ((float) ((((double) f) * PI) / 180.0d));
@@ -146,7 +140,6 @@ public class SpenPickerReverseColorTheme extends SpenReverseColorTheme implement
             this.z = (double) f3;
         }
 
-        /* access modifiers changed from: package-private */
         public double getDistance(Point3 point3) {
             return Math.sqrt(Math.pow(Math.abs(this.x - point3.x), 2.0d) + Math.pow(Math.abs(this.y - point3.y), 2.0d) + Math.pow(Math.abs(this.z - point3.z), 2.0d));
         }

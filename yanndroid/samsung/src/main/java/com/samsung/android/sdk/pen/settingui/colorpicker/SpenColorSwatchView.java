@@ -2,7 +2,6 @@ package com.samsung.android.sdk.pen.settingui.colorpicker;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,7 +19,6 @@ import java.util.List;
 
 import de.dlyt.yanndroid.samsung.R;
 
-/* access modifiers changed from: package-private */
 public class SpenColorSwatchView extends RelativeLayout implements SpenColorViewInterface, SpenPickerColorEventListener {
     private static final int DARK_COLOR_NAME_IDX = 2;
     private static final int LIGHT_COLOR_NAME_IDX = 1;
@@ -40,9 +38,8 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
     private SpenColorSwatchSelectorView mSelectedView;
     private SpenColorSwatchAdapter mSwatchAdapter;
     private final AdapterView.OnItemClickListener mSwatchItemClickListener = new AdapterView.OnItemClickListener() {
-        /* class com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorSwatchView.AnonymousClass1 */
 
-        @Override // android.widget.AdapterView.OnItemClickListener
+        @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long j) {
             if (SpenColorSwatchView.this.mSwatchAdapter != null) {
                 SpenColorSwatchView.this.releaseDetected();
@@ -66,7 +63,7 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
         construct(context, i2, i3, i4, i5);
     }
 
-    @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorViewInterface
+    @Override
     public void setPickerColor(SpenPickerColor spenPickerColor) {
         this.mPickerColor = spenPickerColor;
         float[] fArr = {0.0f, 0.0f, 0.0f};
@@ -75,7 +72,7 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
         this.mPickerColor.addEventListener(this);
     }
 
-    @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorViewInterface
+    @Override
     public void release() {
         releaseDetected();
         SpenPickerColor spenPickerColor = this.mPickerColor;
@@ -88,10 +85,9 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
         this.mSwatchItemList = null;
     }
 
-    @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerColorEventListener
+    @Override
     public void update(String str, int i, float f, float f2, float f3) {
         if (!str.equals(TAG)) {
-            Log.i(TAG, "update() who=" + str + ", color=" + String.format("%X", Integer.valueOf(i)) + ", [" + f + ", " + f2 + ", " + f3 + "]");
             setColor(f, f2, f3);
         }
     }
@@ -144,7 +140,6 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
                 this.mSwatchAdapter = new SpenColorSwatchAdapter(context, this.mSwatchItemList, this.mItemLayoutID);
                 this.mSwatchView.setAdapter((ListAdapter) this.mSwatchAdapter);
                 this.mSwatchView.setOnItemClickListener(this.mSwatchItemClickListener);
-                Log.i(TAG, "initSwatchList() tableSize=" + this.mSwatchItemList.size());
                 return;
             }
         }
@@ -159,11 +154,9 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
     }
 
     private void notifyColorChanged(int i) {
-        Log.i(TAG, "onColorSelected() position=" + i);
         float[][] fArr = this.mHSV;
         float[] fArr2 = {fArr[i][0], fArr[i][1], fArr[i][2]};
         if (this.mPickerColor != null) {
-            Log.i(TAG, "notifyColorChanged() [" + fArr2[0] + ", " + fArr2[1] + ", " + fArr2[2] + "]");
             this.mPickerColor.setColor(TAG, 255, fArr2[0], fArr2[1], fArr2[2]);
         }
     }
@@ -185,8 +178,7 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
         return true;
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
+
     private void updatePosition(int i) {
         this.mSwatchAdapter.setSelectedPosition(i);
         notifyColorChanged(i);
@@ -194,17 +186,13 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
         updateSelector(i);
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
     private boolean updateSelector(int i) {
-        Log.i(TAG, "updateSelector() pos=" + i);
         if (i == -1) {
             this.mSelectedView.setVisibility(View.GONE);
             return true;
         }
         Rect childRect = getChildRect(i);
         if (childRect == null) {
-            Log.i(TAG, " child is null. so return.");
             return false;
         }
         int width = (int) (((float) childRect.width()) * 1.16f);
@@ -213,8 +201,7 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
         return true;
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
+
     private Rect getChildRect(int i) {
         View childAt;
         GridView gridView = this.mSwatchView;
@@ -225,7 +212,6 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
     }
 
     private void updateSelector(int i, int i2, float f, float f2, int i3) {
-        Log.i(TAG, "updateSelector() size[" + i + ", " + i2 + "]  pos[" + f + ", " + f2 + "] color=" + String.format("#%08X", Integer.valueOf(i3 & -1)));
         SpenColorSwatchSelectorView spenColorSwatchSelectorView = this.mSelectedView;
         if (spenColorSwatchSelectorView != null) {
             if (spenColorSwatchSelectorView.getVisibility() != View.VISIBLE) {
@@ -243,15 +229,12 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
     }
 
     private void needUpdate(int i) {
-        Log.i(TAG, "needUpdate() pos=" + i);
         this.mReqPosIndex = i;
         if (this.mSwatchView != null && this.mSwatchViewObserver == null) {
             this.mSwatchViewObserver = new ViewTreeObserver.OnGlobalLayoutListener() {
-                /* class com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorSwatchView.AnonymousClass2 */
 
                 public void onGlobalLayout() {
                     if (SpenColorSwatchView.this.mSwatchView != null && SpenColorSwatchView.this.mSwatchViewObserver != null) {
-                        Log.i(SpenColorSwatchView.TAG, "onGlobalLayout() Req=" + SpenColorSwatchView.this.mReqPosIndex + " mLast=" + SpenColorSwatchView.this.mLastPosIndex + " mLastCenterX=" + SpenColorSwatchView.this.mLastCenterX);
                         SpenColorSwatchView spenColorSwatchView = SpenColorSwatchView.this;
                         Rect childRect = spenColorSwatchView.getChildRect(spenColorSwatchView.mReqPosIndex);
                         if (childRect != null) {
@@ -261,7 +244,6 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
                                 spenColorSwatchView2.mLastPosIndex = spenColorSwatchView2.mReqPosIndex;
                                 SpenColorSwatchView.this.mLastCenterX = childRect.centerX();
                             }
-                            Log.i(SpenColorSwatchView.TAG, "updateSelector() in onGlobalLayout.  mLast=" + SpenColorSwatchView.this.mLastPosIndex);
                             SpenColorSwatchView spenColorSwatchView3 = SpenColorSwatchView.this;
                             spenColorSwatchView3.updateSelector(spenColorSwatchView3.mLastPosIndex);
                             if (z) {
@@ -275,11 +257,9 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
         }
     }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
+
     private void releaseDetected() {
         if (this.mSwatchView != null && this.mSwatchViewObserver != null) {
-            Log.i(TAG, "releaseDetected() ");
             this.mSwatchView.getViewTreeObserver().removeOnGlobalLayoutListener(this.mSwatchViewObserver);
             this.mSwatchViewObserver = null;
             this.mLastPosIndex = -1;
