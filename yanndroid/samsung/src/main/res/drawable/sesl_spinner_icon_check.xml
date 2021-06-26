@@ -2,7 +2,7 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="20.0dip"
     android:height="20.0dip"
-    android:tint="@color/sesl_spinner_dropdown_item_checkmark"
+    android:tint="?colorPrimaryDark"
     android:viewportWidth="60.0"
     android:viewportHeight="60.0">
     <path

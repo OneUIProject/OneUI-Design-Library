@@ -61,7 +61,7 @@
                             android:includeFontPadding="false"
                             android:singleLine="true"
                             android:text="@string/pen_string_cancel"
-                            android:textColor="@color/handwriting_primary_color"
+                            android:textColor="?colorPrimary"
                             android:textSize="16.0sp" />
                     </RelativeLayout>
 
@@ -87,7 +87,7 @@
                             android:gravity="center"
                             android:includeFontPadding="false"
                             android:text="@string/pen_string_done"
-                            android:textColor="@color/handwriting_primary_color"
+                            android:textColor="?colorPrimary"
                             android:textSize="16.0sp" />
                     </RelativeLayout>
                 </LinearLayout>

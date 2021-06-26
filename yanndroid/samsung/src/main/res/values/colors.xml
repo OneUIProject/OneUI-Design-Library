@@ -41,7 +41,8 @@
 
     <!--ProgressBar-->
     <color name="sesl_loading_progress_color1">#ff06b485</color>
-    <color name="sesl_loading_progress_color2">#ff0381fe</color>
+    <!--<color name="sesl_loading_progress_color2">#ff0381fe</color>-->
+    <color name="sesl_loading_progress_color2">?colorPrimary</color>
     <color name="sesl_progress_control_color_normal">@color/sesl_control_color_normal</color>
     <color name="progress_bar_background_color">#4d9c9c9c</color>
 
@@ -87,9 +88,6 @@
     <color name="sesl_menu_popup_background_color">#fffcfcfc</color>
     <color name="sesl_menu_popup_background_stroke_color">#fffcfcfc</color>
 
-
-    <color name="sesl_spinner_dropdown_item_checkmark">?colorPrimaryDark</color>
-
     <color name="sesl_spinner_dropdown_item_text_color_disabled_dark">#66fafafa</color>
     <color name="sesl_spinner_dropdown_item_text_color_normal_dark">#ff252525</color>
     <color name="sesl_spinner_icon_color_default_dark">#ffd9d9d9</color>
@@ -121,13 +119,11 @@
     <color name="badge_background_color">#fff56a0d</color>
     <color name="splash_background">#ffffffff</color>
 
-
     <!--ColorPicker-->
     <color name="setting_bg_color">#fffcfcfc</color>
     <color name="setting_pressed_color">#14000000</color>
     <color name="setting_color_picker_adaptive_outline">#ffd9d9d9</color>
     <color name="setting_color_picker_swatch_selected_stroke_color">#4cffffff</color>
-    <color name="handwriting_primary_color">@color/primary_color</color>
     <color name="setting_color_picker_color_value_text">#ff252525</color>
     <color name="setting_ripple_color">#29000000</color>
     <color name="setting_brush_picker_layout_divider_shape_color">#ff979797</color>
@@ -137,9 +133,5 @@
     <color name="setting_color_picker_mode_text_unselected_color">#ff858585</color>
     <color name="background_color_white">@color/base_background_color_white</color>
     <color name="base_background_color_white">#fffcfcfc</color>
-
-
-
-
 
 </resources>

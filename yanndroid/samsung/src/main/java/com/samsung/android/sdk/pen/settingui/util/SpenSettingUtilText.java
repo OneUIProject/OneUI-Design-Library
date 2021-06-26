@@ -27,17 +27,6 @@ public class SpenSettingUtilText {
     private static float mFontScale = -1.0f;
     private static int mLargeFontIndex = -1;
 
-    public static void setDefaultButtonTextStyle(Context context, TextView... textViewArr) {
-        Typeface fontTypeFace = getFontTypeFace(context, STYLE_MEDIUM);
-        int color = ContextCompat.getColor(context, R.color.handwriting_primary_color);
-        for (int i = 0; i < textViewArr.length; i++) {
-            if (fontTypeFace != null) {
-                textViewArr[i].setTypeface(fontTypeFace);
-            }
-            textViewArr[i].setTextColor(color);
-        }
-    }
-
     public static void setTypeFace(Context context, String str, TextView... textViewArr) {
         Typeface fontTypeFace = getFontTypeFace(context, str);
         if (fontTypeFace != null) {
