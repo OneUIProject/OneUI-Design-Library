@@ -358,8 +358,8 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
     }
 
     private void initTabGroup(View view, int i) {
-        Button button = view.findViewById(R.id.tab_swatch);
-        Button button2 = view.findViewById(R.id.tab_spectrum);
+        View button = view.findViewById(R.id.tab_swatch);
+        View button2 = view.findViewById(R.id.tab_spectrum);
         if (button == null || button2 == null) {
             return;
         }
@@ -368,15 +368,12 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
         this.mPickerTabGroup.addTab(button2);
         this.mPickerTabGroup.select(i == 1 ? R.id.tab_spectrum : R.id.tab_swatch);
         this.mPickerTabGroup.setOnTabSelectedListener(new SpenPickerTabGroup.OnTabSelectedListener() {
-            /* class com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerView.AnonymousClass1 */
 
             @Override
-            // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerTabGroup.OnTabSelectedListener
             public void onTabUnselected(View view) {
             }
 
             @Override
-            // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerTabGroup.OnTabSelectedListener
             public void onTabSelected(View view) {
                 SpenColorPickerView.this.toggleMode();
                 if (SpenColorPickerView.this.mModeChangeListener != null) {
@@ -385,7 +382,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
             }
 
             @Override
-            // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerTabGroup.OnTabSelectedListener
             public void onTabReselected(View view) {
             }
         });
@@ -424,11 +420,7 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
     private void changeMode(int i) {
         SpenColorViewInterface spenColorViewInterface;
         int i2;
-        int i3;
-        int i4;
         int i5;
-        int i6;
-        int i7;
         Resources resources = this.mContext.getResources();
         if (i == 1) {
             spenColorViewInterface = new SpenColorGradientView(this.mContext, this.mPickerViewInfo.gradientCursorSizeDimen, this.mPickerViewInfo.gradientCursorOutlineDimen);

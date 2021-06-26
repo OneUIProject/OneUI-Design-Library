@@ -26,7 +26,7 @@
         <item name="radioButtonStyle">@style/RadioButtonStyle</item>
         <item name="seslSwitchBarStyle">@style/Base.Widget.AppCompat.SeslSwitchBar</item>
         <item name="seekBarStyle">@style/SeekBarStyle</item>
-        <item name="snackbarStyle">@style/SnackbarStyle</item>
+        <item name="snackbarStyle">@style/SnackBarStyle</item>
         <item name="actionOverflowButtonStyle">@style/ActionButtonOverflow</item>
         <item name="spinnerStyle">@style/SpinnerStyle</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
@@ -306,7 +306,7 @@
 
     <!--Snackbar-->
     <!--todo-->
-    <style name="SnackbarStyle" parent="@android:style/Widget">
+    <style name="SnackBarStyle" parent="@android:style/Widget">
         <item name="android:background">@drawable/sem_snackbar_frame_mtrl</item>
         <item name="android:paddingLeft">@dimen/design_snackbar_padding_horizontal</item>
         <item name="android:paddingRight">@dimen/design_snackbar_padding_horizontal</item>

@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
-    <Button
+    <TextView
         android:id="@+id/tab_swatch"
         android:layout_width="0.0dip"
         android:layout_height="36.0dip"
@@ -17,7 +17,7 @@
         android:textColor="@color/picker_tab_text_color"
         android:textSize="15.0dip" />
 
-    <Button
+    <TextView
         android:id="@+id/tab_spectrum"
         android:layout_width="0.0dip"
         android:layout_height="36.0dip"
@@ -31,4 +31,5 @@
         android:textAllCaps="false"
         android:textColor="@color/picker_tab_text_color"
         android:textSize="15.0dip" />
+
 </merge>

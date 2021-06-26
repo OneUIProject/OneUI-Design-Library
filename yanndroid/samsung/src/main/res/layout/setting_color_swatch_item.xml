@@ -8,5 +8,3 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/setting_color_picker_color_swatch_item_height" />
 </FrameLayout>
-
-<!--todo-->
