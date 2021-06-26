@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         Color.colorToHSV(Color.parseColor("#" + stringColor), fArr);
 
         SpenColorPickerPopup mSpenColorPickerPopup;
-        mSpenColorPickerPopup = new SpenColorPickerPopup(this, 2, fArr, false);
+        mSpenColorPickerPopup = new SpenColorPickerPopup(this, 2, fArr);
         mSpenColorPickerPopup.setColorPickerChangeListener(new SpenColorPickerPopup.ColorPickerChangedListener() {
             @Override
             public void onColorChanged(int i, float[] fArr) {

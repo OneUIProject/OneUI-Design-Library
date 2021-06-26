@@ -18,10 +18,21 @@ import de.dlyt.yanndroid.samsung.R;
 public class SpenColorValueSeekBar extends RelativeLayout implements SpenColorViewInterface, SpenPickerColorEventListener {
     private static final String TAG = "SpenColorValueSeekBar";
     int[] mColors = {-16777216, -1};
-    private float[] mHsv = {0.0f, 0.0f, 0.0f};
+    private final float[] mHsv = {0.0f, 0.0f, 0.0f};
     private SpenPickerColor mPickerColor;
     private GradientDrawable mProgressDrawable;
     private SeekBar mSeekBar;
+    private final OnTouchListener mSeekBarOnTouchListener = new OnTouchListener() {
+
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            ViewParent parent = view.getParent();
+            if (parent != null) {
+                parent.requestDisallowInterceptTouchEvent(true);
+            }
+            return motionEvent.getAction() == 0;
+        }
+    };
+    private TextView mSeekBarText;
     private final SeekBar.OnSeekBarChangeListener mSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
 
         public void onStartTrackingTouch(SeekBar seekBar) {
@@ -41,20 +52,6 @@ public class SpenColorValueSeekBar extends RelativeLayout implements SpenColorVi
             spenColorValueSeekBar.updateSeekBarText(spenColorValueSeekBar.mHsv[2]);
         }
     };
-    private OnTouchListener mSeekBarOnTouchListener = new OnTouchListener() {
-
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            ViewParent parent = view.getParent();
-            if (parent != null) {
-                parent.requestDisallowInterceptTouchEvent(true);
-            }
-            if (motionEvent.getAction() == 0) {
-                return true;
-            }
-            return false;
-        }
-    };
-    private TextView mSeekBarText;
 
     public SpenColorValueSeekBar(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -101,7 +98,7 @@ public class SpenColorValueSeekBar extends RelativeLayout implements SpenColorVi
     private void init() {
         View findViewById = findViewById(R.id.seekbar_accessibility_view);
         findViewById.setContentDescription(getContext().getResources().getString(R.string.pen_string_select_color) + " " + getContext().getResources().getString(R.string.pen_string_color_double_tap_to_apply));
-        this.mSeekBar = (SeekBar) findViewById(R.id.color_value_seek_bar);
+        this.mSeekBar = findViewById(R.id.color_value_seek_bar);
         if (this.mSeekBar != null) {
             this.mColors = new int[]{-16777216, -1};
             this.mProgressDrawable = initProgressDrawable();
@@ -110,7 +107,7 @@ public class SpenColorValueSeekBar extends RelativeLayout implements SpenColorVi
             this.mSeekBar.setOnTouchListener(this.mSeekBarOnTouchListener);
             this.mSeekBar.setOnSeekBarChangeListener(this.mSeekBarChangeListener);
         }
-        this.mSeekBarText = (TextView) findViewById(R.id.color_value_seek_bar_text);
+        this.mSeekBarText = findViewById(R.id.color_value_seek_bar_text);
         if (this.mSeekBarText != null) {
             SpenSettingUtilText.setTypeFace(getContext(), SpenSettingUtilText.STYLE_REGULAR, this.mSeekBarText);
             SpenSettingUtilText.applyUpToLargeLevel(getContext(), 14.0f, this.mSeekBarText);

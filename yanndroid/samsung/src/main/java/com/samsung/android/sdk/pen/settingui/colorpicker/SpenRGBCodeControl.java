@@ -6,10 +6,12 @@ import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerColorEventListener {
+    public static final String KEY_HASH_TAG_CHAR = "#";
     private static final int COLOR_CHANEL_MAX_VALUE = 255;
     private static final int COLOR_CHANEL_MIN_VALUE = 0;
     private static final int HEX_BLUE = 3;
@@ -20,8 +22,30 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
     private static final int RGB_HEX_MAX_LENGHT = 6;
     private static final String RGB_HEX_STRING_DEFAULT = "000000";
     private static final String TAG = "SpenHexColorControl";
-    public static final String KEY_HASH_TAG_CHAR = "#";
     private EditText mBlue;
+    private EditText mGreen;
+    private EditText mRGBCode;
+    private EditText mRed;
+    private boolean mIsUpdating = false;
+    private TextView.OnEditorActionListener mOnEditorActionListener;
+    private final InputFilter mRGBCodeTextFilter = new InputFilter() {
+
+        public CharSequence filter(CharSequence charSequence, int i, int i2, Spanned spanned, int i3, int i4) {
+            String str = spanned.toString().substring(0, i3) + spanned.toString().substring(i4);
+            SpenRGBCodeControl.this.checkActionKey(charSequence);
+            if ((str.substring(0, i3) + charSequence.toString() + str.substring(i3)).length() > 6) {
+                return "";
+            }
+            while (i < i2) {
+                if (!Character.isDigit(charSequence.charAt(i)) && SpenRGBCodeControl.RGB_HEX_CHARACTERS.indexOf(charSequence.charAt(i)) == -1) {
+                    return "";
+                }
+                i++;
+            }
+            return null;
+        }
+    };
+    private SpenPickerColor mPickerColor;
     private final TextWatcher mColorTextWatcher = new TextWatcher() {
 
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -62,28 +86,6 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
             }
         }
     };
-    private EditText mGreen;
-    private boolean mIsUpdating = false;
-    private TextView.OnEditorActionListener mOnEditorActionListener;
-    private SpenPickerColor mPickerColor;
-    private EditText mRGBCode;
-    private final InputFilter mRGBCodeTextFilter = new InputFilter() {
-
-        public CharSequence filter(CharSequence charSequence, int i, int i2, Spanned spanned, int i3, int i4) {
-            String str = spanned.toString().substring(0, i3) + spanned.toString().substring(i4, spanned.toString().length());
-            SpenRGBCodeControl.this.checkActionKey(charSequence);
-            if ((str.substring(0, i3) + charSequence.toString() + str.substring(i3, str.length())).length() > 6) {
-                return "";
-            }
-            while (i < i2) {
-                if (!Character.isDigit(charSequence.charAt(i)) && SpenRGBCodeControl.RGB_HEX_CHARACTERS.indexOf(charSequence.charAt(i)) == -1) {
-                    return "";
-                }
-                i++;
-            }
-            return null;
-        }
-    };
     private final TextWatcher mRGBCodeTextWatcher = new TextWatcher() {
 
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -99,8 +101,8 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
                 int red = Color.red(parseColor);
                 int green = Color.green(parseColor);
                 int blue = Color.blue(parseColor);
-                SpenRGBCodeControl spenRGBCodeControl = SpenRGBCodeControl.this;
-                spenRGBCodeControl.updateColor(spenRGBCodeControl.mRed, red, -1);
+                SpenRGBCodeControl spenRGBCodeControl1 = SpenRGBCodeControl.this;
+                spenRGBCodeControl1.updateColor(spenRGBCodeControl1.mRed, red, -1);
                 SpenRGBCodeControl spenRGBCodeControl2 = SpenRGBCodeControl.this;
                 spenRGBCodeControl2.updateColor(spenRGBCodeControl2.mGreen, green, -1);
                 SpenRGBCodeControl spenRGBCodeControl3 = SpenRGBCodeControl.this;
@@ -109,7 +111,6 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
             }
         }
     };
-    private EditText mRed;
 
     SpenRGBCodeControl() {
     }
@@ -177,26 +178,27 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
         }
     }
 
-    private void updateColorByUser(int i, int i2) {
-        int i3;
-        int i4;
+    private void updateColorByUser(int i, int number) {
+        int r;
+        int g;
+        int b;
         if (i == 1) {
-            int parseInt = Integer.parseInt(this.mGreen.getText().toString());
-            i4 = Integer.parseInt(this.mBlue.getText().toString());
-            i2 = parseInt;
-            i3 = i2;
+            r = number;
+            g = Integer.parseInt(this.mGreen.getText().toString());
+            b = Integer.parseInt(this.mBlue.getText().toString());
         } else if (i == 2) {
-            i3 = Integer.parseInt(this.mRed.getText().toString());
-            i4 = Integer.parseInt(this.mBlue.getText().toString());
+            r = Integer.parseInt(this.mRed.getText().toString());
+            g = number;
+            b = Integer.parseInt(this.mBlue.getText().toString());
         } else if (i == 3) {
-            i3 = Integer.parseInt(this.mRed.getText().toString());
-            i4 = i2;
-            i2 = Integer.parseInt(this.mGreen.getText().toString());
+            r = Integer.parseInt(this.mRed.getText().toString());
+            g = Integer.parseInt(this.mGreen.getText().toString());
+            b = number;
         } else {
             return;
         }
-        updateCodeText(i3, i2, i4);
-        notifyColorChanged(i3, i2, i4);
+        updateCodeText(r, g, b);
+        notifyColorChanged(r, g, b);
     }
 
     private void notifyColorChanged(int i, int i2, int i3) {
@@ -222,7 +224,7 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
         }
     }
 
-    @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerColorEventListener
+    @Override
     public void update(String str, int i, float f, float f2, float f3) {
         if (!str.equals(TAG)) {
             updateView(Color.red(i), Color.green(i), Color.blue(i));
@@ -245,45 +247,40 @@ public class SpenRGBCodeControl implements SpenColorViewInterface, SpenPickerCol
         }
     }
 
-    public class InputFilterMinMax implements InputFilter {
-        private int max;
-        private int min;
-
-        private boolean isInRange(int i, int i2, int i3) {
-            if (i2 > i) {
-                if (i3 >= i && i3 <= i2) {
-                    return true;
-                }
-            } else if (i3 >= i2 && i3 <= i) {
-                return true;
+    private void checkActionKey(CharSequence charSequence) {
+        TextView.OnEditorActionListener onEditorActionListener;
+        if (charSequence != null) {
+            if ((charSequence == null || charSequence.length() == 1) && charSequence.charAt(0) == '\n' && (onEditorActionListener = this.mOnEditorActionListener) != null) {
+                onEditorActionListener.onEditorAction(null, 6, null);
             }
-            return false;
         }
+    }
+
+    public class InputFilterMinMax implements InputFilter {
+        private final int max;
+        private final int min;
 
         public InputFilterMinMax(int i, int i2) {
             this.min = i;
             this.max = i2;
         }
 
+        private boolean isInRange(int i, int i2, int i3) {
+            if (i2 > i) {
+                return i3 >= i && i3 <= i2;
+            } else return i3 >= i2 && i3 <= i;
+        }
+
         public CharSequence filter(CharSequence charSequence, int i, int i2, Spanned spanned, int i3, int i4) {
             SpenRGBCodeControl.this.checkActionKey(charSequence);
             try {
-                String str = spanned.toString().substring(0, i3) + spanned.toString().substring(i4, spanned.toString().length());
-                if (isInRange(this.min, this.max, Integer.parseInt(str.substring(0, i3) + charSequence.toString() + str.substring(i3, str.length())))) {
+                String str = spanned.toString().substring(0, i3) + spanned.toString().substring(i4);
+                if (isInRange(this.min, this.max, Integer.parseInt(str.substring(0, i3) + charSequence.toString() + str.substring(i3)))) {
                     return null;
                 }
                 return "";
             } catch (NumberFormatException unused) {
                 return "";
-            }
-        }
-    }
-
-    private void checkActionKey(CharSequence charSequence) {
-        TextView.OnEditorActionListener onEditorActionListener;
-        if (charSequence != null) {
-            if ((charSequence == null || charSequence.length() == 1) && charSequence.charAt(0) == '\n' && (onEditorActionListener = this.mOnEditorActionListener) != null) {
-                onEditorActionListener.onEditorAction(null, 6, null);
             }
         }
     }

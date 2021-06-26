@@ -129,8 +129,8 @@ public class SpenReverseColorTheme implements SpenIColorTheme {
             Resources resources = context.getResources();
             String packageName = context.getPackageName();
             for (int i = 1; i <= 21; i++) {
-                int identifier = resources.getIdentifier("spen_setting_swatch_" + Integer.toString(i), "array", packageName);
-                int identifier2 = resources.getIdentifier("spen_setting_swatch_adaptive_" + Integer.toString(i), "array", packageName);
+                int identifier = resources.getIdentifier("spen_setting_swatch_" + i, "array", packageName);
+                int identifier2 = resources.getIdentifier("spen_setting_swatch_adaptive_" + i, "array", packageName);
                 if (identifier > 0 && identifier2 > 0) {
                     int[] intArray = resources.getIntArray(identifier);
                     int[] intArray2 = resources.getIntArray(identifier2);

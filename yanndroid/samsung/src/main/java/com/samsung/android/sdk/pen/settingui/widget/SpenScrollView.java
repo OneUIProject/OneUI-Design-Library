@@ -40,10 +40,7 @@ public class SpenScrollView extends ScrollView {
         }
         int computeVerticalScrollOffset = computeVerticalScrollOffset();
         int computeVerticalScrollRange = computeVerticalScrollRange() - computeVerticalScrollExtent();
-        if (computeVerticalScrollRange != 0 && computeVerticalScrollOffset < computeVerticalScrollRange) {
-            return true;
-        }
-        return false;
+        return computeVerticalScrollRange != 0 && computeVerticalScrollOffset < computeVerticalScrollRange;
     }
 
     public void onDraw(Canvas canvas) {

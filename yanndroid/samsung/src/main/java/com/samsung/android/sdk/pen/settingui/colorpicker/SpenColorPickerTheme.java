@@ -34,6 +34,17 @@ public class SpenColorPickerTheme {
         }
     }
 
+    public int getTheme() {
+        SpenIColorTheme spenIColorTheme = this.mColorTheme;
+        if (spenIColorTheme == null) {
+            return -1;
+        }
+        if (spenIColorTheme instanceof SpenNormalColorTheme) {
+            return 0;
+        }
+        return spenIColorTheme instanceof SpenReverseColorTheme ? 1 : -1;
+    }
+
     public void setTheme(int i) {
         int theme = getTheme();
         if (theme != -1 && theme != i) {
@@ -46,17 +57,6 @@ public class SpenColorPickerTheme {
                 this.mPickerColorTheme = (SpenIPickerColorTheme) this.mColorTheme;
             }
         }
-    }
-
-    public int getTheme() {
-        SpenIColorTheme spenIColorTheme = this.mColorTheme;
-        if (spenIColorTheme == null) {
-            return -1;
-        }
-        if (spenIColorTheme instanceof SpenNormalColorTheme) {
-            return 0;
-        }
-        return spenIColorTheme instanceof SpenReverseColorTheme ? 1 : -1;
     }
 
     public boolean getColor(float[] fArr, float[] fArr2) {

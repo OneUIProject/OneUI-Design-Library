@@ -13,8 +13,8 @@ import de.dlyt.yanndroid.samsung.R;
 
 public class SpenColorSwatchSelectorView extends View {
     private boolean mIsShowOutline = false;
-    private int mOutlineColor;
-    private int mOutlineSize;
+    private final int mOutlineColor;
+    private final int mOutlineSize;
 
     public SpenColorSwatchSelectorView(Context context) {
         super(context);
@@ -44,10 +44,6 @@ public class SpenColorSwatchSelectorView extends View {
         Color.colorToHSV(i, fArr);
         if (fArr[1] > 0.0f && fArr[2] <= 0.64f) {
             this.mIsShowOutline = true;
-        } else if (fArr[1] != 0.0f || fArr[2] > 0.15f) {
-            this.mIsShowOutline = false;
-        } else {
-            this.mIsShowOutline = true;
-        }
+        } else this.mIsShowOutline = fArr[1] == 0.0f && !(fArr[2] > 0.15f);
     }
 }

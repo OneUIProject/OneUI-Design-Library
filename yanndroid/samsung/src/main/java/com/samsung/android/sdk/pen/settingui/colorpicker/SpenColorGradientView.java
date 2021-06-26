@@ -29,12 +29,8 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
     private int mCursorStrokeSize;
     private Paint mGradientPaint;
     private Rect mGradientSize;
-    private float[] mHsv = {0.0f, 0.0f, 0.0f};
+    private final float[] mHsv = {0.0f, 0.0f, 0.0f};
     private SpenPickerColor mPickerColor;
-
-    public interface ActionListener {
-        void onColorSelected(float f, float f2);
-    }
 
     public SpenColorGradientView(Context context, int i, int i2) {
         super(context);
@@ -148,7 +144,7 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
             for (int i = 0; i < iArr.length; i++) {
                 iArr[i] = SpenSettingUtil.HSVToColor(new float[]{fArr[i], 1.0f, 1.0f});
             }
-            this.mGradientPaint.setShader(new ComposeShader(new LinearGradient((float) this.mGradientSize.left, (float) this.mGradientSize.top, (float) this.mGradientSize.right, (float) this.mGradientSize.top, iArr, (float[]) null, Shader.TileMode.CLAMP), new LinearGradient((float) this.mGradientSize.left, (float) this.mGradientSize.top, (float) this.mGradientSize.left, (float) this.mGradientSize.bottom, 16777215, -1, Shader.TileMode.CLAMP), PorterDuff.Mode.MULTIPLY));
+            this.mGradientPaint.setShader(new ComposeShader(new LinearGradient((float) this.mGradientSize.left, (float) this.mGradientSize.top, (float) this.mGradientSize.right, (float) this.mGradientSize.top, iArr, null, Shader.TileMode.CLAMP), new LinearGradient((float) this.mGradientSize.left, (float) this.mGradientSize.top, (float) this.mGradientSize.left, (float) this.mGradientSize.bottom, 16777215, -1, Shader.TileMode.CLAMP), PorterDuff.Mode.MULTIPLY));
         }
     }
 
@@ -196,7 +192,7 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
     }
 
     private boolean isCursorArea(float f, float f2) {
-        return ((float) this.mCursorSize) / 2.0f >= ((float) Math.sqrt(Math.pow((double) (this.mCurX - f), 2.0d) + Math.pow((double) (this.mCurY - f2), 2.0d)));
+        return ((float) this.mCursorSize) / 2.0f >= ((float) Math.sqrt(Math.pow(this.mCurX - f, 2.0d) + Math.pow(this.mCurY - f2, 2.0d)));
     }
 
     public boolean onTouchEvent(MotionEvent motionEvent) {
@@ -250,5 +246,9 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
     private boolean isInitComplete() {
         Rect rect = this.mGradientSize;
         return rect != null && !rect.isEmpty();
+    }
+
+    public interface ActionListener {
+        void onColorSelected(float f, float f2);
     }
 }

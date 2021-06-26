@@ -6,21 +6,17 @@ class SpenColorSwatchItem {
     private static final int ADAPTIVE_SELECTOR_COLOR = 1291845632;
     private static final int DEFAULT_SELECTOR_COLOR = -1;
     private static final String TAG = "SpenColorSwathItem";
+    int mSelectorColor;
     private float mHue;
     private int mRGBColor;
     private float mSaturation;
-    int mSelectorColor;
     private float mValue;
-    String mVoiceAssistant;
 
     public SpenColorSwatchItem(float f, float f2, float f3) {
         setColor(f, f2, f3);
         setSelectorColor(f2, f3);
     }
 
-    public void setVoiceAssistant(String str, String str2) {
-        this.mVoiceAssistant = String.format("%s, %d, %s", str, Integer.valueOf((int) (this.mValue * 100.0f)), str2);
-    }
 
     public int getColor() {
         return this.mRGBColor;
@@ -30,9 +26,6 @@ class SpenColorSwatchItem {
         return this.mSelectorColor;
     }
 
-    public String getVoiceAssistant() {
-        return this.mVoiceAssistant;
-    }
 
     private void setColor(float f, float f2, float f3) {
         this.mHue = f;

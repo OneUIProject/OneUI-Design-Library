@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-
 import java.util.List;
 
 import de.dlyt.yanndroid.samsung.R;
@@ -14,19 +13,19 @@ import de.dlyt.yanndroid.samsung.R;
 public class SpenColorSwatchAdapter extends BaseAdapter {
     private final LayoutInflater mInflater;
     private final int mItemResourceId;
-    int mSelectedPosition = -1;
-    private String mSelectedString;
     private final List<SpenColorSwatchItem> mSwatchItemList;
-
-    public long getItemId(int i) {
-        return (long) i;
-    }
+    int mSelectedPosition = -1;
+    private final String mSelectedString;
 
     SpenColorSwatchAdapter(Context context, List<SpenColorSwatchItem> list, int i) {
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mSwatchItemList = list;
         this.mItemResourceId = i;
         this.mSelectedString = context.getResources().getString(R.string.pen_string_selected);
+    }
+
+    public long getItemId(int i) {
+        return i;
     }
 
     private SpenColorSwatchItem getSwatchItem(int i) {
@@ -39,17 +38,6 @@ public class SpenColorSwatchAdapter extends BaseAdapter {
             return swatchItem.getSelectorColor();
         }
         return -16777216;
-    }
-
-    private String getContentDescription(int i, boolean z) {
-        SpenColorSwatchItem swatchItem = getSwatchItem(i);
-        if (swatchItem == null) {
-            return null;
-        }
-        if (!z) {
-            return swatchItem.getVoiceAssistant();
-        }
-        return this.mSelectedString + ", " + swatchItem.getVoiceAssistant();
     }
 
     public int getCount() {
@@ -70,7 +58,7 @@ public class SpenColorSwatchAdapter extends BaseAdapter {
         if (view == null) {
             view = this.mInflater.inflate(this.mItemResourceId, viewGroup, false);
             viewHolder = new ViewHolder();
-            viewHolder.mItemView = (SpenColorSwatchItemView) view.findViewById(R.id.swatch_item);
+            viewHolder.mItemView = view.findViewById(R.id.swatch_item);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -78,22 +66,17 @@ public class SpenColorSwatchAdapter extends BaseAdapter {
         viewHolder.mItemView.setSelectorColor(getSelectorColor(i));
         viewHolder.mItemView.setSelected(i == this.mSelectedPosition);
         viewHolder.mItemView.setBackgroundColor(((Integer) getItem(i)).intValue());
-        SpenColorSwatchItemView spenColorSwatchItemView = viewHolder.mItemView;
-        if (i == this.mSelectedPosition) {
-            z = true;
-        }
-        spenColorSwatchItemView.setContentDescription(getContentDescription(i, z));
         return view;
+    }
+
+    public int getSelectedPosition() {
+        return this.mSelectedPosition;
     }
 
     public void setSelectedPosition(int i) {
         int i2 = this.mSelectedPosition;
         this.mSelectedPosition = i;
         notifyDataSetChanged();
-    }
-
-    public int getSelectedPosition() {
-        return this.mSelectedPosition;
     }
 
     class ViewHolder {

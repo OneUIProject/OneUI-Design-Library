@@ -14,14 +14,11 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.samsung.android.sdk.pen.settingui.util.SpenSettingUtil;
 import com.samsung.android.sdk.pen.settingui.util.SpenSettingUtilDrawable;
-import com.samsung.android.sdk.pen.settingui.util.SpenSettingUtilHover;
 import com.samsung.android.sdk.pen.settingui.util.SpenSettingUtilSIP;
 import com.samsung.android.sdk.pen.settingui.util.SpenSettingUtilText;
 
@@ -31,40 +28,29 @@ import java.util.List;
 import de.dlyt.yanndroid.samsung.R;
 
 public class SpenColorPickerView extends LinearLayout implements SpenPickerColorEventListener, View.OnFocusChangeListener {
-    private static final int DEFAULT_COLOR = -1644826;
-    private static int RECENT_COLOR_BUTTON_MAX = 6;
-    private static final String TAG = "SpenColorPickerView";
     public static final int VIEW_MODE_GRADIENT = 1;
     public static final int VIEW_MODE_SWATCH = 2;
+    private static final int DEFAULT_COLOR = -1644826;
+    private static final String TAG = "SpenColorPickerView";
+    private static final int RECENT_COLOR_BUTTON_MAX = 6;
     private EditText mBlueInputView;
     private ColorListener mColorListener;
     private Context mContext;
-    private String mCurrentColorString;
+    private final String mCurrentColorString;
     private View mCurrentColorView;
-    private SpenColorPickerEyedropperListener mEyedropperClickListener;
     private int mFocusViewID = 0;
     private EditText mGreenInputView;
     private EditText mHexInputView;
-    private boolean mIsSupportEyedropper;
-    private boolean mIsSupportRGBCode;
+    private final boolean mIsSupportRGBCode;
     private int mMode;
-    private ImageButton mModeButton;
-    private final OnClickListener mModeButtonClickListener = new OnClickListener() {
-
-        public void onClick(View view) {
-            if (SpenColorPickerView.this.mContext == null) {
-                return;
-            }
-            SpenColorPickerView.this.toggleMode();
-            if (SpenColorPickerView.this.mModeChangeListener != null) {
-                SpenColorPickerView.this.mModeChangeListener.onModeChanged(SpenColorPickerView.this.mMode);
-            }
-        }
-    };
     private OnModeChangeListener mModeChangeListener;
-    private String mNewColorString;
+    private final String mNewColorString;
     private View mNewColorView;
     private float[] mOldHsv;
+    private int mOutlineColor;
+    private int mOutlineSize;
+    private SpenPickerColor mPickerColor;
+    private LinearLayout mPickerContainer;
     private final TextView.OnEditorActionListener mOnEditorActionListener = new TextView.OnEditorActionListener() {
 
         public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -79,47 +65,30 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
             return true;
         }
     };
-    private int mOutlineColor;
-    private int mOutlineSize;
-    private SpenPickerColor mPickerColor;
-    private LinearLayout mPickerContainer;
     private SpenPickerTabGroup mPickerTabGroup;
     private SpenColorViewInterface mPickerView;
     private SpenColorPickerViewInfo mPickerViewInfo;
     private SpenRGBCodeControl mRGBCodeControl;
-    private OnClickListener mRecentColorClickListener = new OnClickListener() {
+    private List<SpenHSVColor> mRecentColors;
+    private final OnClickListener mRecentColorClickListener = new OnClickListener() {
 
         public void onClick(View view) {
             if (SpenColorPickerView.this.isReleaseResource()) {
                 return;
             }
             float[] fArr = new float[3];
-            ((SpenHSVColor) SpenColorPickerView.this.mRecentColors.get(((Integer) view.getTag()).intValue())).getHSV(fArr);
+            SpenColorPickerView.this.mRecentColors.get(((Integer) view.getTag()).intValue()).getHSV(fArr);
             SpenColorPickerView.this.setCurrentColor(fArr);
             SpenColorPickerView.this.notifyColorSelected(3);
         }
     };
-    private List<SpenHSVColor> mRecentColors;
     private ViewGroup mRecentParent;
     private EditText mRedInputView;
     private SpenColorValueSeekBar mValueSeekBar;
 
-    public interface ColorListener {
-        public static final int TYPE_COLOR = 1;
-        public static final int TYPE_RECENT = 3;
-        public static final int TYPE_SEEKBAR = 2;
-
-        void onColorSelected(float f, float f2, float f3, int i);
-    }
-
-    public interface OnModeChangeListener {
-        void onModeChanged(int i);
-    }
-
-    SpenColorPickerView(Context context, int i, float[] fArr, SpenColorPickerViewInfo spenColorPickerViewInfo, boolean z, boolean z2) {
+    SpenColorPickerView(Context context, int i, float[] fArr, SpenColorPickerViewInfo spenColorPickerViewInfo, boolean z) {
         super(context);
         this.mIsSupportRGBCode = z;
-        this.mIsSupportEyedropper = z2;
         this.mContext = context;
         this.mPickerColor = new SpenPickerColor();
         this.mPickerColor.setColor(TAG, 255, fArr[0], fArr[1], fArr[2]);
@@ -136,6 +105,17 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
         setDisplayColor(this.mNewColorView, fArr);
         setColorAccessibility(this.mNewColorView, fArr, this.mNewColorString);
         this.mPickerColor.addEventListener(this);
+    }
+
+    public static void setForegroundDrawable(Context context, View view, int i) {
+        if (Build.VERSION.SDK_INT < 23) {
+            return;
+        }
+        if (i == 0) {
+            view.setForeground(null);
+        } else {
+            view.setForeground(context.getResources().getDrawable(i, null));
+        }
     }
 
     public void close() {
@@ -186,12 +166,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
     public void setModeChangeListener(OnModeChangeListener onModeChangeListener) {
         if (this.mPickerViewInfo.modeType == 1 || this.mPickerViewInfo.modeType == 2) {
             this.mModeChangeListener = onModeChangeListener;
-        }
-    }
-
-    public void setEyedropperClickListener(SpenColorPickerEyedropperListener spenColorPickerEyedropperListener) {
-        if (this.mIsSupportEyedropper) {
-            this.mEyedropperClickListener = spenColorPickerEyedropperListener;
         }
     }
 
@@ -265,7 +239,7 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
                 int i3 = i2 * 3;
                 this.mRecentColors.add(new SpenHSVColor(fArr[i3], fArr[i3 + 1], fArr[i3 + 2]));
             }
-            int i4 = this.mIsSupportEyedropper ? RECENT_COLOR_BUTTON_MAX - 1 : RECENT_COLOR_BUTTON_MAX;
+            int i4 = RECENT_COLOR_BUTTON_MAX;
             for (int i5 = 0; i5 < i4; i5++) {
                 View childAt = this.mRecentParent.getChildAt(i5);
                 GradientDrawable gradientDrawable = (GradientDrawable) ((RippleDrawable) childAt.getBackground()).getDrawable(0);
@@ -330,7 +304,7 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
     }
 
     private void construct(Context context) {
-        View inflate = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(this.mPickerViewInfo.layoutId, (ViewGroup) this, false);
+        View inflate = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(this.mPickerViewInfo.layoutId, this, false);
         addView(inflate);
         this.mOutlineSize = context.getResources().getDimensionPixelOffset(R.dimen.setting_color_picker_select_outline);
         this.mOutlineColor = SpenSettingUtil.getColor(context, R.color.setting_color_picker_adaptive_outline);
@@ -347,25 +321,25 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
             this.mNewColorView.setBackground(SpenSettingUtilDrawable.getRoundedRectDrawable(0.0f, f2, 0.0f, f2, this.mOutlineSize, this.mOutlineColor));
         }
         initTabGroup(inflate, this.mMode);
-        this.mPickerContainer = (LinearLayout) inflate.findViewById(R.id.color_pick_area);
-        this.mValueSeekBar = (SpenColorValueSeekBar) inflate.findViewById(R.id.color_picker_seek_bar);
+        this.mPickerContainer = inflate.findViewById(R.id.color_pick_area);
+        this.mValueSeekBar = inflate.findViewById(R.id.color_picker_seek_bar);
         setDisplayColor(this.mCurrentColorView, this.mOldHsv);
         setColorAccessibility(this.mCurrentColorView, this.mOldHsv, this.mCurrentColorString);
         SpenColorValueSeekBar spenColorValueSeekBar = this.mValueSeekBar;
         if (spenColorValueSeekBar != null) {
             spenColorValueSeekBar.setPickerColor(this.mPickerColor);
         }
-        TextView textView = (TextView) inflate.findViewById(R.id.seek_bar_title);
+        TextView textView = inflate.findViewById(R.id.seek_bar_title);
         if (textView != null) {
             SpenSettingUtilText.applyUpToLargeLevel(context, 14.0f, textView);
         }
         if (this.mIsSupportRGBCode) {
             this.mRGBCodeControl = new SpenRGBCodeControl();
-            this.mHexInputView = (EditText) inflate.findViewById(R.id.rgb_code);
-            this.mRedInputView = (EditText) inflate.findViewById(R.id.red_code);
-            this.mGreenInputView = (EditText) inflate.findViewById(R.id.green_code);
-            this.mBlueInputView = (EditText) inflate.findViewById(R.id.blue_code);
-            SpenSettingUtilText.applyUpToLargeLevel(context, 12.0f, (TextView) inflate.findViewById(R.id.rgb_title), (TextView) inflate.findViewById(R.id.red_title), (TextView) inflate.findViewById(R.id.green_title), (TextView) inflate.findViewById(R.id.blue_title));
+            this.mHexInputView = inflate.findViewById(R.id.rgb_code);
+            this.mRedInputView = inflate.findViewById(R.id.red_code);
+            this.mGreenInputView = inflate.findViewById(R.id.green_code);
+            this.mBlueInputView = inflate.findViewById(R.id.blue_code);
+            SpenSettingUtilText.applyUpToLargeLevel(context, 12.0f, inflate.findViewById(R.id.rgb_title), inflate.findViewById(R.id.red_title), inflate.findViewById(R.id.green_title), inflate.findViewById(R.id.blue_title));
             SpenSettingUtilText.applyUpToLargeLevel(context, 14.0f, this.mHexInputView, this.mRedInputView, this.mGreenInputView, this.mBlueInputView);
             this.mHexInputView.setOnFocusChangeListener(this);
             this.mRedInputView.setOnFocusChangeListener(this);
@@ -379,15 +353,13 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
             this.mRGBCodeControl.setPickerColor(this.mPickerColor);
             this.mRGBCodeControl.setEditorActionListener(this.mOnEditorActionListener);
         }
-        this.mRecentParent = (ViewGroup) inflate.findViewById(R.id.color_picker_recent_color_button_layout);
+        this.mRecentParent = inflate.findViewById(R.id.color_picker_recent_color_button_layout);
         setRecentColors(null, 0);
-        ViewGroup viewGroup = this.mRecentParent;
-        initEyedropperButton(viewGroup.getChildAt(viewGroup.getChildCount() - 1));
     }
 
     private void initTabGroup(View view, int i) {
-        Button button = (Button) view.findViewById(R.id.tab_swatch);
-        Button button2 = (Button) view.findViewById(R.id.tab_spectrum);
+        Button button = view.findViewById(R.id.tab_swatch);
+        Button button2 = view.findViewById(R.id.tab_spectrum);
         if (button == null || button2 == null) {
             return;
         }
@@ -398,11 +370,13 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
         this.mPickerTabGroup.setOnTabSelectedListener(new SpenPickerTabGroup.OnTabSelectedListener() {
             /* class com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerView.AnonymousClass1 */
 
-            @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerTabGroup.OnTabSelectedListener
+            @Override
+            // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerTabGroup.OnTabSelectedListener
             public void onTabUnselected(View view) {
             }
 
-            @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerTabGroup.OnTabSelectedListener
+            @Override
+            // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerTabGroup.OnTabSelectedListener
             public void onTabSelected(View view) {
                 SpenColorPickerView.this.toggleMode();
                 if (SpenColorPickerView.this.mModeChangeListener != null) {
@@ -410,7 +384,8 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
                 }
             }
 
-            @Override // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerTabGroup.OnTabSelectedListener
+            @Override
+            // com.samsung.android.sdk.pen.settingui.colorpicker.SpenPickerTabGroup.OnTabSelectedListener
             public void onTabReselected(View view) {
             }
         });
@@ -457,24 +432,16 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
         Resources resources = this.mContext.getResources();
         if (i == 1) {
             spenColorViewInterface = new SpenColorGradientView(this.mContext, this.mPickerViewInfo.gradientCursorSizeDimen, this.mPickerViewInfo.gradientCursorOutlineDimen);
-            i7 = R.drawable.note_pensettings_picker_01;
-            i6 = R.string.pen_string_swatch_mode;
             i5 = resources.getDimensionPixelSize(this.mPickerViewInfo.gradientHeightDimen);
             View view = (View) spenColorViewInterface;
             view.setSoundEffectsEnabled(true);
             view.setClickable(true);
             view.setFocusable(false);
             view.setContentDescription(this.mContext.getResources().getString(R.string.pen_string_select_color) + " " + this.mContext.getResources().getString(R.string.pen_string_color_double_tap_to_apply));
-            i4 = resources.getDimensionPixelSize(this.mPickerViewInfo.gradientModeBtnSize);
-            i3 = resources.getDimensionPixelSize(this.mPickerViewInfo.gradientModeBtnStartMargin);
             i2 = 0;
         } else {
             int dimensionPixelSize = resources.getDimensionPixelSize(this.mPickerViewInfo.swatchTopMarginDimen);
             spenColorViewInterface = new SpenColorSwatchView(this.mContext, this.mPickerViewInfo.itemLayoutId, resources.getDimensionPixelSize(this.mPickerViewInfo.swatchStartMarginDimen), dimensionPixelSize, resources.getDimensionPixelSize(this.mPickerViewInfo.swatchEndMarginDimen), resources.getDimensionPixelSize(this.mPickerViewInfo.swatchBottomMarginDimen));
-            i7 = R.drawable.note_pensettings_picker_02;
-            i6 = R.string.pen_string_spectrum_mode;
-            i4 = resources.getDimensionPixelSize(this.mPickerViewInfo.swatchModeBtnSize);
-            i3 = resources.getDimensionPixelSize(this.mPickerViewInfo.swatchModeBtnStartMargin);
             i5 = -2;
             i2 = 8;
         }
@@ -486,17 +453,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
             this.mPickerView.release();
         }
         this.mPickerView = spenColorViewInterface;
-        ImageButton imageButton = this.mModeButton;
-        if (imageButton != null) {
-            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imageButton.getLayoutParams();
-            layoutParams.width = i4;
-            layoutParams.height = i4;
-            layoutParams.setMarginStart(i3);
-            this.mModeButton.setLayoutParams(layoutParams);
-            this.mModeButton.setBackgroundResource(i7);
-            this.mModeButton.setContentDescription(resources.getString(i6));
-            SpenSettingUtilHover.setHoverText(this.mModeButton, resources.getString(i6), true);
-        }
         SpenColorValueSeekBar spenColorValueSeekBar = this.mValueSeekBar;
         if (spenColorValueSeekBar != null) {
             spenColorValueSeekBar.setVisibility(i2);
@@ -530,35 +486,6 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
         return this.mContext == null;
     }
 
-    private void initEyedropperButton(View view) {
-        if (this.mIsSupportEyedropper) {
-            view.setBackgroundResource(this.mPickerViewInfo.eyedropperBgResourceId);
-            setForegroundDrawable(this.mContext, view, R.drawable.spen_round_ripple);
-            Resources resources = this.mContext.getResources();
-            SpenSettingUtilHover.setHoverText(view, resources.getString(R.string.pen_string_color_spuit));
-            view.setContentDescription(resources.getString(R.string.pen_string_color_spuit));
-            view.setOnClickListener(new OnClickListener() {
-
-                public void onClick(View view) {
-                    if (SpenColorPickerView.this.mEyedropperClickListener != null) {
-                        SpenColorPickerView.this.mEyedropperClickListener.onEyedropperButtonClicked();
-                    }
-                }
-            });
-        }
-    }
-
-    public static void setForegroundDrawable(Context context, View view, int i) {
-        if (Build.VERSION.SDK_INT < 23) {
-            return;
-        }
-        if (i == 0) {
-            view.setForeground(null);
-        } else {
-            view.setForeground(context.getResources().getDrawable(i, null));
-        }
-    }
-
     private boolean isSupportModeChange() {
         SpenColorPickerViewInfo spenColorPickerViewInfo = this.mPickerViewInfo;
         return spenColorPickerViewInfo != null && (spenColorPickerViewInfo.modeType == 2 || this.mPickerViewInfo.modeType == 1);
@@ -568,5 +495,17 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
         int[] iArr = new int[2];
         view.getLocationOnScreen(iArr);
         return new Rect(iArr[0], iArr[1], iArr[0] + view.getWidth(), iArr[1] + view.getHeight()).contains(i, i2);
+    }
+
+    public interface ColorListener {
+        int TYPE_COLOR = 1;
+        int TYPE_RECENT = 3;
+        int TYPE_SEEKBAR = 2;
+
+        void onColorSelected(float f, float f2, float f3, int i);
+    }
+
+    public interface OnModeChangeListener {
+        void onModeChanged(int i);
     }
 }

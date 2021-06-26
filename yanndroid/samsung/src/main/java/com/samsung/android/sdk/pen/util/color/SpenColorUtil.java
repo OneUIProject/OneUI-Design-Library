@@ -31,7 +31,7 @@ public class SpenColorUtil {
             if (fArr[0] >= 0.0f && fArr[0] < 360.0f) {
                 f = fArr[0] / 60.0f;
             }
-            int floor = (int) Math.floor((double) f);
+            int floor = (int) Math.floor(f);
             float f2 = f - ((float) floor);
             int round2 = Math.round((1.0f - max) * max2 * 255.0f);
             int round3 = Math.round((1.0f - (max * f2)) * max2 * 255.0f);

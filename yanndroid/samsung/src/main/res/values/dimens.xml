@@ -93,7 +93,6 @@
     <dimen name="setting_color_picker_button_layout_side_margin">24.0dip</dimen>
     <dimen name="setting_color_picker_popup_margin_top">0.0dip</dimen>
     <dimen name="setting_color_picker_popup_width_land">520.0dip</dimen>
-
-
+    <dimen name="setting_show_button_bottom">4.0dip</dimen>
 
 </resources>

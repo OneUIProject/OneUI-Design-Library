@@ -6,24 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpenPickerTabGroup {
-    private View.OnClickListener mChildClickListener = new View.OnClickListener() {
+    private final int mDefaultId = 0;
+    private View mSelectView = null;
+    private OnTabSelectedListener mSelectedListener;
+    private final View.OnClickListener mChildClickListener = new View.OnClickListener() {
 
         public void onClick(View view) {
             SpenPickerTabGroup.this.select(view, true);
         }
     };
-    private int mDefaultId = 0;
-    private View mSelectView = null;
-    private OnTabSelectedListener mSelectedListener;
     private List<View> mTabs = new ArrayList();
-
-    public interface OnTabSelectedListener {
-        void onTabReselected(View view);
-
-        void onTabSelected(View view);
-
-        void onTabUnselected(View view);
-    }
 
     public void close() {
         this.mTabs = null;
@@ -70,7 +62,6 @@ public class SpenPickerTabGroup {
             select(child, false);
         }
     }
-
 
     private void select(View view, boolean z) {
         OnTabSelectedListener onTabSelectedListener;
@@ -122,5 +113,13 @@ public class SpenPickerTabGroup {
             }
         }
         return null;
+    }
+
+    public interface OnTabSelectedListener {
+        void onTabReselected(View view);
+
+        void onTabSelected(View view);
+
+        void onTabUnselected(View view);
     }
 }

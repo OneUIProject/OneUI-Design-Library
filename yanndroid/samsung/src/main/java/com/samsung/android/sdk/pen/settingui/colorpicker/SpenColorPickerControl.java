@@ -7,6 +7,7 @@ public class SpenColorPickerControl {
     private float[] mOldHsv;
     private SpenColorPickerActionListener mPickerActionListener;
     private SpenColorPickerChangedListener mPickerChangedListener;
+    private int mPickerMode;
     private final SpenColorPickerView.ColorListener mPickerColorListener = new SpenColorPickerView.ColorListener() {
 
         @Override
@@ -31,7 +32,6 @@ public class SpenColorPickerControl {
             }
         }
     };
-    private int mPickerMode;
     private final SpenColorPickerView.OnModeChangeListener mPickerModeChangedListener = new SpenColorPickerView.OnModeChangeListener() {
 
         @Override

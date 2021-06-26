@@ -17,15 +17,15 @@ import androidx.core.content.ContextCompat;
 import de.dlyt.yanndroid.samsung.R;
 
 public class SpenSettingUtilText {
-    private static final String FONT_SIZE = "font_size";
-    private static final String SETTINGS_PACKAGE = "com.android.settings";
     public static final String STYLE_CONDENSED_BOLD = "/system/fonts/RobotoCondensed-Bold.ttf";
     public static final String STYLE_MEDIUM = "/system/fonts/Roboto-Medium.ttf";
     public static final String STYLE_REGULAR = "/system/fonts/Roboto-Regular.ttf";
+    public static final String ZIP_FILE_SEPARATOR = "/";
+    private static final String FONT_SIZE = "font_size";
+    private static final String SETTINGS_PACKAGE = "com.android.settings";
     private static int mDeviceCorpCheck = -1;
     private static float mFontScale = -1.0f;
     private static int mLargeFontIndex = -1;
-    public static final String ZIP_FILE_SEPARATOR = "/";
 
     public static void setDefaultButtonTextStyle(Context context, TextView... textViewArr) {
         Typeface fontTypeFace = getFontTypeFace(context, STYLE_MEDIUM);
@@ -75,10 +75,7 @@ public class SpenSettingUtilText {
     }
 
     private static boolean isEllipsis(TextView textView) {
-        if (textView.getLayout() == null || textView.getLayout().getEllipsisCount(textView.getLineCount() - 1) <= 0) {
-            return false;
-        }
-        return true;
+        return textView.getLayout() != null && textView.getLayout().getEllipsisCount(textView.getLineCount() - 1) > 0;
     }
 
     public static void resizeTextSize(TextView textView) {

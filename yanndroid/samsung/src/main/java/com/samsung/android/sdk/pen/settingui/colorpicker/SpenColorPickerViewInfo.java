@@ -5,7 +5,6 @@ public class SpenColorPickerViewInfo {
     protected static final int MODE_TYPE_NONE = 0;
     protected static final int MODE_TYPE_TAB = 1;
     protected int colorDisplayRadius;
-    protected int eyedropperBgResourceId;
     protected int gradientCursorOutlineDimen;
     protected int gradientCursorSizeDimen;
     protected int gradientHeightDimen;
@@ -43,6 +42,5 @@ public class SpenColorPickerViewInfo {
         this.swatchModeBtnStartMargin = spenColorPickerViewInfo.swatchModeBtnStartMargin;
         this.colorDisplayRadius = spenColorPickerViewInfo.colorDisplayRadius;
         this.modeType = spenColorPickerViewInfo.modeType;
-        this.eyedropperBgResourceId = spenColorPickerViewInfo.eyedropperBgResourceId;
     }
 }

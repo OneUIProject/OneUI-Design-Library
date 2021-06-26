@@ -89,8 +89,8 @@ public class SpenShowButtonShapeText extends TextView {
             this.mButtonShapeRect.top = (((float) layout.getLineTop(lineForOffset)) + f2) - ((float) this.mButtonShapeStrokeTop);
             this.mButtonShapeRect.bottom = ((float) layout.getLineBottom(lineForOffset2)) + f2 + ((float) this.mButtonShapeStrokeBottom);
             float f3 = (float) compoundPaddingLeft;
-            this.mButtonShapeRect.left = (((float) Math.floor((double) f)) + f3) - ((float) this.mButtonShapeStrokeHorizontal);
-            this.mButtonShapeRect.right = ((float) Math.ceil((double) lineRight)) + f3 + ((float) this.mButtonShapeStrokeHorizontal);
+            this.mButtonShapeRect.left = (((float) Math.floor(f)) + f3) - ((float) this.mButtonShapeStrokeHorizontal);
+            this.mButtonShapeRect.right = ((float) Math.ceil(lineRight)) + f3 + ((float) this.mButtonShapeStrokeHorizontal);
             RectF rectF = this.mButtonShapeRect;
             int i2 = this.mButtonShapeStrokeRadius;
             canvas.drawRoundRect(rectF, (float) i2, (float) i2, this.mButtonShapePaint);

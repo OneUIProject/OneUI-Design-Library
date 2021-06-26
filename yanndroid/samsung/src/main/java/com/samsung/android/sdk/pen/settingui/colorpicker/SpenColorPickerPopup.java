@@ -25,43 +25,26 @@ import de.dlyt.yanndroid.samsung.R;
 
 @TargetApi(17)
 public class SpenColorPickerPopup extends Dialog {
-    private static final int TYPE_CUSTOMIZE = 0;
     public static final int VIEW_MODE_GRADIENT = 1;
     public static final int VIEW_MODE_SWATCH = 2;
+    private static final int TYPE_CUSTOMIZE = 0;
     private SpenShowButtonShapeText cancelTextView;
     private SpenShowButtonShapeText doneTextView;
-    private final View.OnClickListener mCancelButtonClickListener = new View.OnClickListener() {
-
-        public void onClick(View view) {
-            SpenColorPickerPopup.this.dismiss();
-        }
-    };
     private ColorPickerChangedListener mColorPickerChangedListener;
-    private ColorPickerListener mColorPickerListener = null;
-    private SpenColorPickerTheme mColorTheme;
-    private Context mContext;
-    private int mCurrentOrientation = 1;
-    private SpenColorPickerDataManager mDataManager;
-    private final View.OnClickListener mDoneButtonClickListener = new View.OnClickListener() {
-
-        public void onClick(View view) {
-            SpenColorPickerPopup.this.doneAction();
-        }
-    };
-    private final SpenColorPickerEyedropperListener mEyedropperButtonClickListener = new SpenColorPickerEyedropperListener() {
+    private final SpenColorPickerChangedListener mPickerChangedListener = new SpenColorPickerChangedListener() {
 
         @Override
-        public void onEyedropperButtonClicked() {
-            if (SpenColorPickerPopup.this.mEyedropperButtonListener != null) {
-                SpenColorPickerPopup.this.mEyedropperButtonListener.onEyedropperButtonClicked();
+        public void onColorChanged(int i, float[] fArr) {
+        }
+
+        @Override
+        public void onViewModeChanged(int i) {
+            if (SpenColorPickerPopup.this.mColorPickerChangedListener != null) {
+                SpenColorPickerPopup.this.mColorPickerChangedListener.onViewModeChanged(i);
             }
         }
     };
-    private PickerEyedropperButtonListener mEyedropperButtonListener;
-    private boolean mIsKeyboardShowing = false;
-    private boolean mIsSupportEyedropper;
-    private boolean mIsSupportRGBCode;
-    private RelativeLayout mParentLayout;
+    private ColorPickerListener mColorPickerListener = null;
     private final SpenColorPickerActionListener mPickerActionListener = new SpenColorPickerActionListener() {
 
         @Override
@@ -85,64 +68,48 @@ public class SpenColorPickerPopup extends Dialog {
             }
         }
     };
-    private final SpenColorPickerChangedListener mPickerChangedListener = new SpenColorPickerChangedListener() {
-
-        @Override
-        public void onColorChanged(int i, float[] fArr) {
-        }
-
-        @Override
-        public void onViewModeChanged(int i) {
-            if (SpenColorPickerPopup.this.mColorPickerChangedListener != null) {
-                SpenColorPickerPopup.this.mColorPickerChangedListener.onViewModeChanged(i);
-            }
-        }
-    };
+    private SpenColorPickerTheme mColorTheme;
+    private Context mContext;
+    private int mCurrentOrientation = 1;
+    private SpenColorPickerDataManager mDataManager;
+    private boolean mIsKeyboardShowing = false;
+    private final boolean mIsSupportRGBCode;
+    private RelativeLayout mParentLayout;
     private SpenColorPickerControl mPickerControl;
     private SpenColorPickerView mPickerLayout;
+    private final View.OnClickListener mCancelButtonClickListener = new View.OnClickListener() {
 
-    public interface ColorPickerChangedListener extends SpenColorPickerChangedListener {
-        @Override
-        void onColorChanged(int i, float[] fArr);
+        public void onClick(View view) {
+            SpenColorPickerPopup.this.dismiss();
+        }
+    };
+    private final View.OnClickListener mDoneButtonClickListener = new View.OnClickListener() {
 
-        @Override
-        void onViewModeChanged(int i);
-    }
+        public void onClick(View view) {
+            SpenColorPickerPopup.this.doneAction();
+        }
+    };
 
-    public interface ColorPickerListener {
-        void onColorCirclePressed();
-
-        void onColorPickerUsage(int i);
-
-        void onColorSeekBarPressed();
-
-        void onRecentColorSelected();
-    }
-
-    public interface PickerEyedropperButtonListener extends SpenColorPickerEyedropperListener {
-    }
-
-    public SpenColorPickerPopup(Context context, int i, float[] fArr, boolean z) {
+    public SpenColorPickerPopup(Context context, int mode, float[] fArr) {
         super(context, R.style.ColorPickerPopupDialog);
         SpenSettingUtil.initDialogWindow(this, 5376, -1);
         getWindow().setFlags(256, 256);
         getWindow().setSoftInputMode(33);
         this.mIsSupportRGBCode = true;
-        construct(context, i, fArr, z);
+        construct(context, mode, fArr);
     }
 
     public SpenColorPickerPopup(Context context, float[] fArr) {
         super(context, R.style.ColorPickerPopupDialog);
         SpenSettingUtil.initDialogWindow(this, 4096, -1);
         this.mIsSupportRGBCode = false;
-        construct(context, 2, fArr, false);
+        construct(context, 2, fArr);
     }
 
-    private void construct(Context context, int i, float[] fArr, boolean z) {
+    private void construct(Context context, int i, float[] fArr) {
         this.mContext = context;
         this.mColorTheme = new SpenColorPickerTheme(context, fArr);
         this.mPickerControl = new SpenColorPickerControl(i, fArr);
-        this.mIsSupportEyedropper = z;
     }
 
     public void onCreate(Bundle bundle) {
@@ -201,9 +168,6 @@ public class SpenColorPickerPopup extends Dialog {
     }
 
     public void show() {
-        if (this.mIsSupportRGBCode && !this.mIsKeyboardShowing) {
-            SpenSettingUtilSIP.forceHideSoftInput(getContext(), getCurrentFocus());
-        }
         super.show();
     }
 
@@ -213,7 +177,6 @@ public class SpenColorPickerPopup extends Dialog {
         if (this.mContext != null && this.mIsSupportRGBCode) {
             if (!z) {
                 updateSIPState();
-                SpenSettingUtilSIP.forceHideSoftInput(this.mContext, getCurrentFocus());
                 return;
             }
             SpenColorPickerView spenColorPickerView = this.mPickerLayout;
@@ -232,7 +195,6 @@ public class SpenColorPickerPopup extends Dialog {
         this.mContext = null;
         this.mColorPickerChangedListener = null;
         this.mColorPickerListener = null;
-        this.mEyedropperButtonListener = null;
         SpenColorPickerView spenColorPickerView = this.mPickerLayout;
         if (spenColorPickerView != null) {
             spenColorPickerView.close();
@@ -258,15 +220,6 @@ public class SpenColorPickerPopup extends Dialog {
         }
     }
 
-    public void setColorPickerEyedropperButtonListener(PickerEyedropperButtonListener pickerEyedropperButtonListener) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("setEyedropperButtonListener() mIsSupportEyedropper=");
-        sb.append(this.mIsSupportEyedropper ? "SUPPORT" : "NOT SUPPORT");
-        if (this.mIsSupportEyedropper) {
-            this.mEyedropperButtonListener = pickerEyedropperButtonListener;
-        }
-    }
-
     public void setColorPickerListener(ColorPickerListener colorPickerListener) {
         this.mColorPickerListener = colorPickerListener;
     }
@@ -276,9 +229,6 @@ public class SpenColorPickerPopup extends Dialog {
     }
 
     public void dismiss() {
-        if (this.mIsSupportRGBCode) {
-            SpenSettingUtilSIP.forceHideSoftInput(getContext(), this.mParentLayout);
-        }
         super.dismiss();
         close();
     }
@@ -414,22 +364,18 @@ public class SpenColorPickerPopup extends Dialog {
         spenColorPickerViewInfo.swatchModeBtnSize = R.dimen.setting_color_picker_popup_swatch_mode_btn_size;
         spenColorPickerViewInfo.swatchModeBtnStartMargin = R.dimen.setting_color_picker_popup_swatch_mode_btn_margin_start;
         spenColorPickerViewInfo.colorDisplayRadius = R.dimen.setting_color_picker_popup_color_display_radius;
-        spenColorPickerViewInfo.eyedropperBgResourceId = R.drawable.color_picker_recent_eyedropper;
 
         LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Resources mSdkResources = mContext.getResources();
         this.mParentLayout = (RelativeLayout) mInflater.inflate(mSdkResources.getLayout(R.layout.setting_color_picker_layout), null);
 
-        FrameLayout frameLayout = (FrameLayout) this.mParentLayout.findViewById(R.id.popup_content_view);
+        FrameLayout frameLayout = this.mParentLayout.findViewById(R.id.popup_content_view);
         float[] fArr = new float[3];
         this.mPickerControl.getOldColor(fArr);
-        this.mPickerLayout = new SpenColorPickerView(this.mContext, this.mPickerControl.getViewMode(), fArr, spenColorPickerViewInfo, this.mIsSupportRGBCode, this.mIsSupportEyedropper);
-        if (this.mIsSupportEyedropper) {
-            this.mPickerLayout.setEyedropperClickListener(this.mEyedropperButtonClickListener);
-        }
+        this.mPickerLayout = new SpenColorPickerView(this.mContext, this.mPickerControl.getViewMode(), fArr, spenColorPickerViewInfo, this.mIsSupportRGBCode);
         frameLayout.addView(this.mPickerLayout, new ViewGroup.LayoutParams(getPickerLayoutWidth(), -2));
-        this.cancelTextView = (SpenShowButtonShapeText) this.mParentLayout.findViewById(R.id.color_picker_button_cancel);
-        this.doneTextView = (SpenShowButtonShapeText) this.mParentLayout.findViewById(R.id.color_picker_button_done);
+        this.cancelTextView = this.mParentLayout.findViewById(R.id.color_picker_button_cancel);
+        this.doneTextView = this.mParentLayout.findViewById(R.id.color_picker_button_done);
         SpenSettingUtilText.setTypeFace(this.mContext, SpenSettingUtilText.STYLE_MEDIUM, this.cancelTextView, this.doneTextView);
         SpenSettingUtilText.applyUpToLargeLevel(this.mContext, 16.0f, this.cancelTextView, this.doneTextView);
         SpenShowButtonShapeText spenShowButtonShapeText = this.cancelTextView;
@@ -448,7 +394,7 @@ public class SpenColorPickerPopup extends Dialog {
         float[] fArr;
         SpenShowButtonShapeText spenShowButtonShapeText = this.doneTextView;
         int i = TYPE_CUSTOMIZE;
-        boolean isFocused = spenShowButtonShapeText != null ? spenShowButtonShapeText.isFocused() : false;
+        boolean isFocused = spenShowButtonShapeText != null && spenShowButtonShapeText.isFocused();
         if (this.mIsSupportRGBCode) {
             updateSIPState();
             i = this.mPickerLayout.getFocusID();
@@ -469,7 +415,6 @@ public class SpenColorPickerPopup extends Dialog {
                 if (this.mIsSupportRGBCode && i != 0) {
                     View findViewById2 = this.mParentLayout.findViewById(i);
                     if (findViewById2 == null || !(findViewById2 instanceof EditText)) {
-                        SpenSettingUtilSIP.forceHideSoftInput(this.mContext, findViewById2);
                         updateSIPState();
                         return;
                     }
@@ -498,7 +443,6 @@ public class SpenColorPickerPopup extends Dialog {
         if (this.mIsSupportRGBCode) {
         }
     }
-
 
     private void updateSIPState() {
         Context context = this.mContext;
@@ -534,5 +478,24 @@ public class SpenColorPickerPopup extends Dialog {
             }
         }
         return -1;
+    }
+
+
+    public interface ColorPickerChangedListener extends SpenColorPickerChangedListener {
+        @Override
+        void onColorChanged(int i, float[] fArr);
+
+        @Override
+        void onViewModeChanged(int i);
+    }
+
+    public interface ColorPickerListener {
+        void onColorCirclePressed();
+
+        void onColorPickerUsage(int i);
+
+        void onColorSeekBarPressed();
+
+        void onRecentColorSelected();
     }
 }

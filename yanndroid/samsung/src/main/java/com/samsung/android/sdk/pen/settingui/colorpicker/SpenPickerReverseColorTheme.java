@@ -90,10 +90,7 @@ public class SpenPickerReverseColorTheme extends SpenReverseColorTheme implement
         if (i > -1) {
             copyColor(this.mPaletteColor[i], fArr2);
         }
-        if (findInPickerColor != 1200.0d) {
-            return true;
-        }
-        return false;
+        return findInPickerColor != 1200.0d;
     }
 
     private void copyColor(float[] fArr, float[] fArr2) {
@@ -133,11 +130,11 @@ public class SpenPickerReverseColorTheme extends SpenReverseColorTheme implement
         }
 
         public void setColor(float f, float f2, float f3) {
-            double d = (double) f2;
-            double d2 = (double) ((float) ((((double) f) * PI) / 180.0d));
-            this.x = (double) ((float) (Math.cos(d2) * d));
-            this.y = (double) ((float) (d * Math.sin(d2)));
-            this.z = (double) f3;
+            double d = f2;
+            double d2 = (float) ((((double) f) * PI) / 180.0d);
+            this.x = (float) (Math.cos(d2) * d);
+            this.y = (float) (d * Math.sin(d2));
+            this.z = f3;
         }
 
         public double getDistance(Point3 point3) {

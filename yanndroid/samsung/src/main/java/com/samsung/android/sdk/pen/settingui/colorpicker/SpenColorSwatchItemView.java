@@ -11,7 +11,7 @@ import de.dlyt.yanndroid.samsung.R;
 
 class SpenColorSwatchItemView extends View {
     private static final int SELECT_COLOR = -1;
-    private int mSelectStrokeSize;
+    private final int mSelectStrokeSize;
     private int mSelectorColor = -1;
 
     public SpenColorSwatchItemView(Context context, @Nullable AttributeSet attributeSet) {

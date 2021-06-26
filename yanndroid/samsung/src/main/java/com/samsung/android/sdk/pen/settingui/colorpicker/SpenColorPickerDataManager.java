@@ -6,13 +6,13 @@ import android.content.SharedPreferences;
 import java.util.ArrayList;
 
 public class SpenColorPickerDataManager {
+    public static final String CACHE_VALUE_SEPARATOR = "-";
     private static final String KEY_RECENT_COLORS = "RECENT_COLORS_V52";
     private static final String RECENT_COLORS = "RECENT_COLORS";
-    private static int RECENT_COLOR_BUTTON_MAX = 6;
+    private static final int RECENT_COLOR_BUTTON_MAX = 6;
+    private final SharedPreferences mSharedPreferences;
     private ArrayList<SpenHSVColor> mColorTableSet = null;
     private boolean mIsLoaded = false;
-    private final SharedPreferences mSharedPreferences;
-    public static final String CACHE_VALUE_SEPARATOR = "-";
 
 
     public SpenColorPickerDataManager(Context context) {
