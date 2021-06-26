@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.samsung.android.sdk.pen.settingui.widget.SpenHorizontalScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:fillViewport="true"
+        android:scrollbarSize="@dimen/setting_color_picker_popup_scroll_bar_size">
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/color_picker_dialog_bg_shape">
+
+            <LinearLayout
+                android:id="@+id/content_main"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:importantForAccessibility="no"
+                android:orientation="vertical">
+
+                <com.samsung.android.sdk.pen.settingui.widget.SpenScrollView
+                    android:id="@+id/popup_content_view"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:scrollbarSize="4.0dip" />
+
+                <LinearLayout
+                    android:id="@+id/color_picker_button_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/setting_color_picker_text_button_height"
+                    android:layout_marginStart="@dimen/setting_color_picker_button_layout_side_margin"
+                    android:layout_marginTop="16.0dip"
+                    android:layout_marginEnd="@dimen/setting_color_picker_button_layout_side_margin"
+                    android:layout_marginBottom="20.0dip"
+                    android:background="@android:color/transparent"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/negative_button"
+                        android:layout_width="1.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1.0">
+
+                        <com.samsung.android.sdk.pen.settingui.common.SpenShowButtonShapeText
+                            android:id="@+id/color_picker_button_cancel"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:background="@drawable/setting_dialog_action_button_ripple"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:singleLine="true"
+                            android:text="@string/pen_string_cancel"
+                            android:textColor="@color/handwriting_primary_color"
+                            android:textSize="16.0sp" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="1.0dip"
+                        android:layout_height="16.0dip"
+                        android:layout_gravity="center_vertical"
+                        android:background="#ffe6e6e6" />
+
+                    <RelativeLayout
+                        android:id="@+id/positive_button"
+                        android:layout_width="1.0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1.0">
+
+                        <com.samsung.android.sdk.pen.settingui.common.SpenShowButtonShapeText
+                            android:id="@+id/color_picker_button_done"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:background="@drawable/setting_dialog_action_button_ripple"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:text="@string/pen_string_done"
+                            android:textColor="@color/handwriting_primary_color"
+                            android:textSize="16.0sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </com.samsung.android.sdk.pen.settingui.widget.SpenHorizontalScrollView>
+</RelativeLayout>

@@ -4,9 +4,9 @@
     <!--Main-->
     <style name="SamsungStyleMain">
 
-        <item name="colorPrimary">@color/primary_color</item>
+        <!--<item name="colorPrimary">@color/primary_color</item>
         <item name="colorSecondary">@color/secondary_color</item>
-        <item name="colorPrimaryDark">@color/primary_dark_color</item>
+        <item name="colorPrimaryDark">@color/primary_dark_color</item>-->
 
 
         <item name="colorAccent">?colorSecondary</item>
@@ -324,6 +324,25 @@
     <style name="ActionButtonOverflow" parent="@android:style/Widget.Material.ActionButton.Overflow">
         <item name="android:src">@drawable/sesl_ic_menu_overflow_dark</item>
         <item name="android:contentDescription">@string/sesl_action_menu_overflow_description</item>
+    </style>
+
+
+    <!--ColorPicker-->
+    <style name="ColorPickerPopupDialog" parent="@android:style/Theme.DeviceDefault.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowMinWidthMajor">99.90001%</item>
+    </style>
+
+    <style name="ColorPickerHexTitleStyle">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textColor">#ff909090</item>
+    </style>
+    <style name="ColorPickerHexEditStyle">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/setting_color_picker_mode_text_selected_color</item>
     </style>
 
 </resources>

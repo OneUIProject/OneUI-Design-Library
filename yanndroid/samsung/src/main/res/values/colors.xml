@@ -122,4 +122,24 @@
     <color name="splash_background">#ffffffff</color>
 
 
+    <!--ColorPicker-->
+    <color name="setting_bg_color">#fffcfcfc</color>
+    <color name="setting_pressed_color">#14000000</color>
+    <color name="setting_color_picker_adaptive_outline">#ffd9d9d9</color>
+    <color name="setting_color_picker_swatch_selected_stroke_color">#4cffffff</color>
+    <color name="handwriting_primary_color">@color/primary_color</color>
+    <color name="setting_color_picker_color_value_text">#ff252525</color>
+    <color name="setting_ripple_color">#29000000</color>
+    <color name="setting_brush_picker_layout_divider_shape_color">#ff979797</color>
+    <color name="setting_color_picker_mode_bg_selected_color">#cc717171</color>
+    <color name="dialog_action_ripple">#1a000000</color>
+    <color name="setting_color_picker_mode_text_selected_color">#ff252525</color>
+    <color name="setting_color_picker_mode_text_unselected_color">#ff858585</color>
+    <color name="background_color_white">@color/base_background_color_white</color>
+    <color name="base_background_color_white">#fffcfcfc</color>
+
+
+
+
+
 </resources>

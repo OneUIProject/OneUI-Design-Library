@@ -41,4 +41,17 @@
     <color name="splash_background">#ff000000</color>
 
 
+    <!--ColorPicker-->
+    <color name="setting_bg_color">#ff252525</color>
+    <color name="setting_pressed_color">#33ffffff</color>
+    <color name="setting_color_picker_adaptive_outline">#4dd9d9d9</color>
+    <color name="setting_color_picker_color_value_text">#fffafafa</color>
+    <color name="setting_ripple_color">#33ffffff</color>
+    <color name="setting_brush_picker_layout_divider_shape_color">#fffcfcfc</color>
+    <color name="setting_color_picker_mode_bg_selected_color">#99ffffff</color>
+    <color name="dialog_action_ripple">#33ffffff</color>
+    <color name="setting_color_picker_mode_text_selected_color">#fffcfcfc</color>
+    <color name="setting_color_picker_mode_text_unselected_color">#ff999999</color>
+
+
 </resources>

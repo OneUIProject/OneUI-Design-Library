@@ -30,8 +30,10 @@ Excuse my bad english, feel free to correct it. :)
   - [ProgressBar](#ProgressBar)
   - [Button](#Button)
   - [Icons](#Icons)
-  - [Own custom color theme](#Own-custom-color-theme)
-    - [Different colors for different activities](#Different-colors-for-different-activities)
+  - [Color theme](#Color-theme)
+    - [Entire App](#1.-Entire-App)
+    - [Single/Multiple activities](#2.-Single/Multiple-activities)
+    - [Via Code](#3.-Via-Code)
   - [App Icon](#App-Icon)
 - [Progress](#Progress)
 
@@ -403,8 +405,11 @@ How would a OneUI design look like without OneUI icons? Not like OneUI... Thats'
 ```ic_samsung_voice```  
 ```ic_samsung_warning```   
 
-### Own custom color theme
-The default color of the style is the same blue as Samsung (see [Screenshots](#Screenshots)). But like Samsung has different colors for different apps, you too can use other colors which will apply on the entire App and even on the [App Icon](#App-Icon). To do that you need to add in your ```colors.xml``` these three colors:
+### Color theme
+The default color of the style is the same blue as Samsung (see [Screenshots](#Screenshots)). But like Samsung has different colors for different apps, you too can use other colors which will apply on the entire App and even on the [App Icon](#App-Icon). In this library there are there are three different ways to do that and all three can be used simultaneously:
+
+#### 1. Entire App
+This methode will apply the color theme on the entire app and on the app icon. You need to add these three colors in your ```colors.xml``` :
 ```xml
 <color name="primary_color">...</color>
 <color name="secondary_color">...</color>
@@ -412,7 +417,7 @@ The default color of the style is the same blue as Samsung (see [Screenshots](#S
 ```
 These colors should have approximately the same color but with a different brightness. ```secondary_color``` the brightest, then ```primary_color``` and the darkest ```primary_dark_color```.  
 
-Here are some presets, if you want I can make more:
+Here are some presets (if you want I can make more):
 - ![#f3a425](https://via.placeholder.com/12/f3a425/000000?text=+) Yellow like MyFiles App (also used in [FreshHub](https://github.com/Yanndroid/FreshHub)):
 ```xml
 <color name="primary_color">#fff3a425</color>
@@ -441,40 +446,30 @@ Here are some presets, if you want I can make more:
 <color name="primary_dark_color">#ffde0043</color>
 ```
 
-#### Different colors for different activities
-If you want to use different colors for a single (or multiple, but not all) activity, this is also possible but more complicated. You can of course still use your [own custom color theme](#Own-custom-color-theme), which will apply on the entire app and also on the [App Icon](#App-Icon). The difference here is that this will only apply for the activities you want. I will try to make this easier in future.
-1. Add the three colors to your ```colors.xml```, but you have to rename them to something else. For example:
-```xml
-<color name="custom1">#fff3a425</color>
-<color name="custom2">#ffffb949</color>
-<color name="custom3">#ffbd7800</color>
-```
-2. In your ```styles.xml```, create a new style:
-```xml
-<style name="StyleName" parent="SamsungStyleMain">
-    <item name="colorPrimary">@color/custom1</item>
-    <item name="colorSecondary">@color/custom2</item>
-    <item name="colorPrimaryDark">@color/custom3</item>
-</style>
-```
-3. In your ```themes.xml```, create a new theme:
+#### 2. Single/Multiple activities
+If you want to use different colors for a single (or multiple, but not all) activities, this is also possible. The difference here is that this will only apply for the activities you want. Add the three colors (see [Entire App](#1.-Entire-App)) in a theme in ```themes.xml```:
+
 ```xml
 <style name="ThemeName" parent="SamsungTheme">
-    <item name="theme">@style/StyleName</item>
+    <item name="colorPrimary">#fff3a425</item>
+    <item name="colorSecondary">#ffffb949</item>
+    <item name="colorPrimaryDark">#ffbd7800</item>
 </style>
 ```
-4. Apply the theme on your activity in ```AndroidManifest.xml```:
-```xml
-<application
-    ...
-    >
-    <activity
-        android:theme="@style/ThemeName"
-        ...
-    />
-</application>
-```
+Then apply it on the activities you want with ```android:theme="@style/ThemeName"``` in ```AndroidManifest.xml```.
 
+#### 3. Via Code
+This methode allows you to change the color of your theme dynamicly within your app. It's based on [this idea](https://stackoverflow.com/a/48517223). In your activity onCreate add this line at the top before ```setContentView(...)```:
+```java
+new ThemeColor(this);
+```
+This will apply the color theme at launch. If you want to chnage the color you can use these functions:
+```java
+ThemeColor.setColor(Activity activity, int red, int green, int blue)
+ThemeColor.setColor(Activity activity, float red, float green, float blue)
+ThemeColor.setColor(Activity activity, float[] hsv)
+```
+The color you apply with these functions will apply on every activity with ```new ThemeColor(this)``` at the top.
 
 ### App Icon
 The most app icons of Samsung apps are made of one solid color as background and a white icon as forground. Useually there is even a little part/detail of the foreground with a similar color as the background.

@@ -58,5 +58,42 @@
     <dimen name="sesl_action_button_min_width">34.0dip</dimen>
     <dimen name="sesl_action_button_padding_horizontal">12.0dip</dimen>
 
+    <!--ColorPicker-->
+    <dimen name="setting_color_picker_popup_margin_bottom">16.0dip</dimen>
+    <dimen name="setting_color_picker_color_area_min_width">320.0dip</dimen>
+    <dimen name="color_picker_popup_content_point_size">28.0dip</dimen>
+    <dimen name="color_picker_popup_content_point_outline">2.5dip</dimen>
+    <dimen name="setting_color_picker_color_swatch_margin_start">14.0dip</dimen>
+    <dimen name="setting_color_picker_color_gradient_height">274.0dip</dimen>
+    <dimen name="setting_color_picker_color_swatch_margin_top">14.0dip</dimen>
+    <dimen name="setting_color_picker_color_swatch_margin_end">14.0dip</dimen>
+    <dimen name="setting_color_picker_color_swatch_margin_bottom">10.0dip</dimen>
+    <dimen name="setting_color_picker_popup_gradient_mode_btn_size">23.0dip</dimen>
+    <dimen name="setting_color_picker_popup_gradient_mode_btn_margin_start">2.0dip</dimen>
+    <dimen name="setting_color_picker_popup_swatch_mode_btn_size">26.0dip</dimen>
+    <dimen name="setting_color_picker_popup_swatch_mode_btn_margin_start">0.0dip</dimen>
+    <dimen name="setting_color_picker_popup_color_display_radius">15.0dip</dimen>
+    <dimen name="setting_color_picker_swatch_item_selected_size">2.0dip</dimen>
+    <dimen name="setting_color_picker_color_swatch_item_height">24.0dip</dimen>
+    <dimen name="setting_color_picker_select_outline">0.5dip</dimen>
+    <dimen name="setting_color_picker_swatch_selected_stroke_size">0.5dip</dimen>
+    <dimen name="setting_color_picker_selector_elevation">5.0dip</dimen>
+    <dimen name="color_picker_popup_seekbar_track_height">10.0dip</dimen>
+    <dimen name="setting_show_button_top">2.0dip</dimen>
+    <dimen name="setting_show_button_left_right">6.0dip</dimen>
+    <dimen name="setting_show_button_radius">3.0dip</dimen>
+    <dimen name="setting_color_picker_seekbar_height">20.0dip</dimen>
+    <dimen name="setting_color_picker_recent_color_layout_side_margin">24.0dip</dimen>
+    <dimen name="color_picker_popup_seekbar_offset">5.0dip</dimen>
+    <dimen name="setting_color_picker_seekbar_layout_width_land">258.0dip</dimen>
+    <dimen name="setting_color_picker_seekbar_layout_height_land">58.0dip</dimen>
+    <dimen name="setting_color_picker_recent_color_text_end_margin">16.0dip</dimen>
+    <dimen name="setting_color_picker_popup_scroll_bar_size">4.0dip</dimen>
+    <dimen name="setting_color_picker_text_button_height">36.0dip</dimen>
+    <dimen name="setting_color_picker_button_layout_side_margin">24.0dip</dimen>
+    <dimen name="setting_color_picker_popup_margin_top">0.0dip</dimen>
+    <dimen name="setting_color_picker_popup_width_land">520.0dip</dimen>
+
+
 
 </resources>

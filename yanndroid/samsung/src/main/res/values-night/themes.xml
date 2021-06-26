@@ -7,6 +7,10 @@
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
 
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/secondary_color</item>
+        <item name="colorSecondary">@color/primary_dark_color</item>
+
         <item name="android:theme">@style/SamsungStyleMain</item>
 
     </style>

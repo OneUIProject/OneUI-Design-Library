@@ -33,10 +33,4 @@
     <color name="secondary_color">#ff444444</color>
     <color name="primary_dark_color">#ff000000</color>-->
 
-
-    <!--Custom per Activity-->
-    <color name="custom1">#fff3a425</color>
-    <color name="custom2">#ffffb949</color>
-    <color name="custom3">#ffbd7800</color>
-
 </resources>

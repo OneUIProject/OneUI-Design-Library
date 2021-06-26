@@ -1,6 +1,8 @@
 package de.dlyt.yanndroid.samsungexample;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -16,23 +18,26 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
+import com.samsung.android.sdk.pen.settingui.colorpicker.SpenColorPickerPopup;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import de.dlyt.yanndroid.samsung.SeekBar;
 import de.dlyt.yanndroid.samsung.SwitchBar;
+import de.dlyt.yanndroid.samsung.ThemeColor;
 import de.dlyt.yanndroid.samsung.drawer.OptionButton;
 import de.dlyt.yanndroid.samsung.layout.DrawerLayout;
-import de.dlyt.yanndroid.samsung.layout.ToolbarLayout;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    Integer[] imageIDs = {R.drawable.ic_samsung_add , R.drawable.ic_samsung_arrow_down , R.drawable.ic_samsung_back , R.drawable.ic_samsung_bookmark , R.drawable.ic_samsung_brush , R.drawable.ic_samsung_close , R.drawable.ic_samsung_convert , R.drawable.ic_samsung_copy , R.drawable.ic_samsung_delete , R.drawable.ic_samsung_drawer , R.drawable.ic_samsung_edit , R.drawable.ic_samsung_help , R.drawable.ic_samsung_image , R.drawable.ic_samsung_info , R.drawable.ic_samsung_lock , R.drawable.ic_samsung_maximize , R.drawable.ic_samsung_minimize , R.drawable.ic_samsung_more , R.drawable.ic_samsung_move , R.drawable.ic_samsung_rectify , R.drawable.ic_samsung_rename , R.drawable.ic_samsung_restore , R.drawable.ic_samsung_save , R.drawable.ic_samsung_search , R.drawable.ic_samsung_selected , R.drawable.ic_samsung_settings , R.drawable.ic_samsung_share , R.drawable.ic_samsung_text , R.drawable.ic_samsung_voice , R.drawable.ic_samsung_warning};
+    Integer[] imageIDs = {R.drawable.ic_samsung_add, R.drawable.ic_samsung_arrow_down, R.drawable.ic_samsung_back, R.drawable.ic_samsung_bookmark, R.drawable.ic_samsung_brush, R.drawable.ic_samsung_close, R.drawable.ic_samsung_convert, R.drawable.ic_samsung_copy, R.drawable.ic_samsung_delete, R.drawable.ic_samsung_drawer, R.drawable.ic_samsung_edit, R.drawable.ic_samsung_help, R.drawable.ic_samsung_image, R.drawable.ic_samsung_info, R.drawable.ic_samsung_lock, R.drawable.ic_samsung_maximize, R.drawable.ic_samsung_minimize, R.drawable.ic_samsung_more, R.drawable.ic_samsung_move, R.drawable.ic_samsung_rectify, R.drawable.ic_samsung_rename, R.drawable.ic_samsung_restore, R.drawable.ic_samsung_save, R.drawable.ic_samsung_search, R.drawable.ic_samsung_selected, R.drawable.ic_samsung_settings, R.drawable.ic_samsung_share, R.drawable.ic_samsung_text, R.drawable.ic_samsung_voice, R.drawable.ic_samsung_warning};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new ThemeColor(this);
         setContentView(R.layout.activity_main);
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_view);
@@ -109,10 +114,23 @@ public class MainActivity extends AppCompatActivity {
 
     public class ImageAdapter extends BaseAdapter {
         private Context mContext;
-        public ImageAdapter(Context c) {mContext = c;}
-        public int getCount() {return imageIDs.length;}
-        public Object getItem(int position) {return null;}
-        public long getItemId(int position) {return 0;}
+
+        public ImageAdapter(Context c) {
+            mContext = c;
+        }
+
+        public int getCount() {
+            return imageIDs.length;
+        }
+
+        public Object getItem(int position) {
+            return null;
+        }
+
+        public long getItemId(int position) {
+            return 0;
+        }
+
         public View getView(int position, View convertView, ViewGroup parent) {
             ImageView mImageView;
             if (convertView == null) {
@@ -126,6 +144,31 @@ public class MainActivity extends AppCompatActivity {
             return mImageView;
         }
     }
+
+
+    public void colorPicker(View view) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ThemeColor", Context.MODE_PRIVATE);
+        String stringColor = sharedPreferences.getString("color", "0381fe");
+        float[] fArr = new float[3];
+        Color.colorToHSV(Color.parseColor("#" + stringColor), fArr);
+
+        SpenColorPickerPopup mSpenColorPickerPopup;
+        mSpenColorPickerPopup = new SpenColorPickerPopup(this, 2, fArr, false);
+        mSpenColorPickerPopup.setColorPickerChangeListener(new SpenColorPickerPopup.ColorPickerChangedListener() {
+            @Override
+            public void onColorChanged(int i, float[] fArr) {
+                ThemeColor.setColor(MainActivity.this, fArr);
+            }
+
+            @Override
+            public void onViewModeChanged(int i) {
+
+            }
+        });
+        mSpenColorPickerPopup.show();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
