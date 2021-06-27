@@ -38,10 +38,10 @@ Excuse my bad english, feel free to correct it. :)
 
 
 ## Screenshots
-<img src="readme-resources/screenshots/screenshot_1.png"  width="150"/> <img src="readme-resources/screenshots/screenshot_2.png"  width="150"/> <img src="readme-resources/screenshots/screenshot_3.png"  width="150"/> <img src="readme-resources/screenshots/splash_simple.png"  width="150"/> <img src="readme-resources/screenshots/splash_animated.gif"  width="150"/>
-<img src="readme-resources/screenshots/seekbar.gif"  width="300"/>
-<img src="readme-resources/screenshots/progressbar.gif"  width="300"/>
-<img src="readme-resources/screenshots/switchbar.gif"  width="300"/>
+<img src="readme-resources/screenshots/screenshot_1.png"  width="150"/> <img src="readme-resources/screenshots/screenshot_2.png"  width="150"/> <img src="readme-resources/screenshots/screenshot_3.png"  width="150"/> <img src="readme-resources/screenshots/splash_simple.png"  width="150"/> <img src="readme-resources/screenshots/splash_animated.gif"  width="150"/>  
+<img src="readme-resources/screenshots/seekbar.gif"  width="300"/>  
+<img src="readme-resources/screenshots/progressbar.gif"  width="300"/>  
+<img src="readme-resources/screenshots/switchbar.gif"  width="300"/>  
 
 
 ## Installation

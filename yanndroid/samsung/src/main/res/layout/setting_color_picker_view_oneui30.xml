@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -113,7 +114,8 @@
             android:background="@drawable/color_picker_recent_color_circle"
             app:layout_constraintEnd_toStartOf="@+id/recent_2"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
 
         <View
             android:id="@+id/recent_2"
@@ -121,7 +123,8 @@
             android:layout_height="fill_parent"
             android:background="@drawable/color_picker_recent_color_circle"
             app:layout_constraintEnd_toStartOf="@+id/recent_3"
-            app:layout_constraintStart_toEndOf="@+id/recent_1" />
+            app:layout_constraintStart_toEndOf="@+id/recent_1"
+            tools:ignore="MissingConstraints" />
 
         <View
             android:id="@+id/recent_3"
@@ -129,7 +132,8 @@
             android:layout_height="fill_parent"
             android:background="@drawable/color_picker_recent_color_circle"
             app:layout_constraintEnd_toStartOf="@+id/recent_4"
-            app:layout_constraintStart_toEndOf="@+id/recent_2" />
+            app:layout_constraintStart_toEndOf="@+id/recent_2"
+            tools:ignore="MissingConstraints" />
 
         <View
             android:id="@+id/recent_4"
@@ -137,7 +141,8 @@
             android:layout_height="fill_parent"
             android:background="@drawable/color_picker_recent_color_circle"
             app:layout_constraintEnd_toStartOf="@+id/recent_5"
-            app:layout_constraintStart_toEndOf="@+id/recent_3" />
+            app:layout_constraintStart_toEndOf="@+id/recent_3"
+            tools:ignore="MissingConstraints" />
 
         <View
             android:id="@+id/recent_5"
@@ -145,7 +150,8 @@
             android:layout_height="42.0dip"
             android:background="@drawable/color_picker_recent_color_circle"
             app:layout_constraintEnd_toStartOf="@+id/recent_6"
-            app:layout_constraintStart_toEndOf="@+id/recent_4" />
+            app:layout_constraintStart_toEndOf="@+id/recent_4"
+            tools:ignore="MissingConstraints" />
 
         <View
             android:id="@+id/recent_6"
@@ -153,6 +159,7 @@
             android:layout_height="fill_parent"
             android:background="@drawable/color_picker_recent_color_circle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/recent_5" />
+            app:layout_constraintStart_toEndOf="@+id/recent_5"
+            tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
