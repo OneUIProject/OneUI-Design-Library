@@ -372,7 +372,50 @@ The theme won't apply for the ProgressBar, so you need to set it manually:
 The first style is applied by default. The other two can be used with ```style="@style/ButtonStyle.Invert"``` and ```style="@style/ButtonStyle.Invert.Secondary"```.
 
 ### ColorPickerDialog
-todo
+A color picker dialog like in Samsung Notes.
+
+<img src="readme-resources/screenshots/colorpicker_1.png"  width="200"/> <img src="readme-resources/screenshots/colorpicker_2.png"  width="200"/>
+
+Create dialog with mode (1 = Spectrum, 2 = Swatches) and fArr (starting color).
+```java
+public ColorPickerDialog(Context context, int mode, float[] fArr)
+public ColorPickerDialog(Context context, float[] fArr)
+```
+Show the dialog.
+```java
+public void show()
+```
+Dismiss the dialog.
+```java
+public void dismiss()
+```
+Close the dialog.
+```java
+public void close()
+```
+Listener when "Done" is pressed.
+```java
+public void setColorPickerChangeListener(ColorPickerChangedListener colorPickerChangedListener)
+```
+Example:
+```java
+float[] scolor = new float[3];
+Color.colorToHSV(Color.parseColor("#0381fe5"), scolor);
+
+ColorPickerDialog mColorPickerDialog = new ColorPickerDialog(this, scolor);
+mColorPickerDialog.setColorPickerChangeListener(new ColorPickerDialog.ColorPickerChangedListener() {
+    @Override
+    public void onColorChanged(int i, float[] fArr) {
+        
+    }
+
+    @Override
+    public void onViewModeChanged(int i) {
+
+    }
+});
+mColorPickerDialog.show();
+```
 
 ### Icons
 How would a OneUI design look like without OneUI icons? Not like OneUI... Thats's why I also included some of the stock icons you can find in Samsung apps, and more are coming. You can use them with ```@drawable/ic_samsung_...``` and ```R.drawable.ic_samsung_...```.
