@@ -11,6 +11,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.view.MotionEvent;
+import android.view.SoundEffectConstants;
 import android.view.View;
 
 import com.samsung.android.sdk.pen.settingui.util.SpenSettingUtil;
@@ -221,7 +222,7 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
             }
         }
         if (motionEvent.getAction() == 0 && getParent() != null) {
-            ((View) getParent()).playSoundEffect(0);
+            ((View) getParent()).playSoundEffect(SoundEffectConstants.CLICK);
         }
         if (updatePickedColor()) {
             updateCursorColor();

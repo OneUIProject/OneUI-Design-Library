@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -159,7 +160,7 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
             }
         }
         if (motionEvent.getAction() == 0 && getParent() != null) {
-            ((View) getParent()).playSoundEffect(0);
+            ((View) getParent()).playSoundEffect(SoundEffectConstants.CLICK);
         }
         return true;
     }
