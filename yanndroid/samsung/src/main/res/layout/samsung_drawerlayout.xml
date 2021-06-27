@@ -54,7 +54,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:padding="5.5dp"
-                        android:src="@drawable/ic_samsung_add"
+                        android:src="@drawable/ic_samsung_plus"
                         app:tint="@color/drawer_icon_color" />
 
                     <TextView

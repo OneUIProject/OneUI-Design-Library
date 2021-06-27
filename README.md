@@ -7,9 +7,6 @@
 [![](https://img.shields.io/github/contributors/Yanndroid/SamsungOneUi)](https://github.com/Yanndroid/SamsungOneUi/graphs/contributors)
 [![](https://img.shields.io/static/v1?label=telegram&message=Yanndroid&color=blue)](https://t.me/Yanndroid)
 
-
-:warning: This Readme is incomplete and will be updated.
-
 # Samsung OneUi Design
 A library for Android, which makes your app look like Samsung's OneUI. In this library there is a theme which will apply for each View (see [Progress](#Progress)) in your layout. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk).
 
@@ -345,7 +342,9 @@ A Seekbar like the brightness slider in the QS.
     android:layout_height="wrap_content"
     app:seslSeekBarMode="expand" />
 ```
-You might need to set a vertical margin, i case the seekbar thumb is cut of.
+:warning: You might need to set a vertical margin, in case the seekbar thumb is cut of.
+
+If you don't want the expanding seekbar, you can use the default seekbar instead of ```de.dlyt.yanndroid.samsung.SeekBar```, as the style will also apply on the default one.
 
 #### Methods
 Set a warning at progress i.
@@ -418,40 +417,93 @@ mColorPickerDialog.show();
 ```
 
 ### Icons
-How would a OneUI design look like without OneUI icons? Not like OneUI... Thats's why I also included some of the stock icons you can find in Samsung apps, and more are coming. You can use them with ```@drawable/ic_samsung_...``` and ```R.drawable.ic_samsung_...```.
+There are also some of the stock icons you can find in Samsung apps included in this library, and I will add more over time. You can use them with ```@drawable/ic_samsung_...``` and ```R.drawable.ic_samsung_...```.
 
 <img src="readme-resources/screenshots/icons.png"  width="350"/>
 
-```ic_samsung_add```  
+<details>
+<summary>See the icon list</summary>
+<p>
+
 ```ic_samsung_arrow_down```  
+```ic_samsung_arrow_left```  
+```ic_samsung_arrow_right```  
+```ic_samsung_arrow_up```  
+```ic_samsung_attach```  
+```ic_samsung_audio```  
 ```ic_samsung_back```  
+```ic_samsung_book```  
 ```ic_samsung_bookmark```  
 ```ic_samsung_brush```  
+```ic_samsung_camera```  
 ```ic_samsung_close```  
 ```ic_samsung_convert```  
 ```ic_samsung_copy```  
 ```ic_samsung_delete```  
+```ic_samsung_document```  
+```ic_samsung_download```  
 ```ic_samsung_drawer```  
 ```ic_samsung_edit```  
+```ic_samsung_equalizer```  
+```ic_samsung_favorite```  
+```ic_samsung_group```  
 ```ic_samsung_help```  
 ```ic_samsung_image```  
+```ic_samsung_image_2```  
+```ic_samsung_import```  
 ```ic_samsung_info```  
+```ic_samsung_keyboard```  
 ```ic_samsung_lock```  
+```ic_samsung_mail```  
 ```ic_samsung_maximize```  
 ```ic_samsung_minimize```  
+```ic_samsung_minus```  
 ```ic_samsung_more```  
 ```ic_samsung_move```  
+```ic_samsung_mute```  
+```ic_samsung_page```  
+```ic_samsung_pause```  
+```ic_samsung_pdf```  
+```ic_samsung_pen```  
+```ic_samsung_pen_calligraphy```  
+```ic_samsung_pen_calligraphy_brush```  
+```ic_samsung_pen_eraser```  
+```ic_samsung_pen_fountain```  
+```ic_samsung_pen_marker```  
+```ic_samsung_pen_marker_round```  
+```ic_samsung_pen_pencil```  
+```ic_samsung_play```  
+```ic_samsung_plus```  
 ```ic_samsung_rectify```  
+```ic_samsung_redo```  
+```ic_samsung_remind```  
 ```ic_samsung_rename```  
+```ic_samsung_reorder```  
 ```ic_samsung_restore```  
 ```ic_samsung_save```  
+```ic_samsung_scan```  
 ```ic_samsung_search```  
 ```ic_samsung_selected```  
+```ic_samsung_send```  
 ```ic_samsung_settings```  
 ```ic_samsung_share```  
+```ic_samsung_shuffle```  
+```ic_samsung_smart_view```  
+```ic_samsung_stop```  
+```ic_samsung_tag```  
 ```ic_samsung_text```  
+```ic_samsung_text_2```  
+```ic_samsung_time```  
+```ic_samsung_undo```  
+```ic_samsung_unlock```  
 ```ic_samsung_voice```  
-```ic_samsung_warning```   
+```ic_samsung_volume```  
+```ic_samsung_warning```  
+```ic_samsung_web_search.xml```  
+
+</p>
+</details>
+&nbsp;
 
 ### Color theme
 The default color of the style is the same blue as Samsung (see [Screenshots](#Screenshots)). But like Samsung has different colors for different apps, you too can use other colors which will apply on the entire App and even on the [App Icon](#App-Icon). In this library there are there are three different ways to do that and all three can be used simultaneously:

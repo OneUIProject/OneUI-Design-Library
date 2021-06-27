@@ -12,7 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_samsung_add" />
+        app:srcCompat="@drawable/ic_samsung_plus" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/sesl_splash_text"

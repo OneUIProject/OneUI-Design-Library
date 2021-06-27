@@ -19,6 +19,8 @@
             app:icon="@drawable/ic_samsung_info"
             app:text="Option 1" />
 
+        <View style="@style/DrawerDividerStyle" />
+
         <de.dlyt.yanndroid.samsung.drawer.OptionButton
             android:id="@+id/ob2"
             android:layout_width="match_parent"
@@ -48,7 +50,7 @@
         android:layout_height="wrap_content"
         app:counter="4"
         app:counterEnabled="true"
-        app:icon="@drawable/ic_samsung_add"
+        app:icon="@drawable/ic_samsung_plus"
         app:text="Add" />
 
     <View style="@style/DrawerDividerStyle" />

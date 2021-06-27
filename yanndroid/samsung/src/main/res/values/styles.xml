@@ -36,7 +36,6 @@
 
     </style>
 
-
     <!--ProgressBar-->
     <style name="ProgressBarStyle.Horizontal.Large" parent="@android:style/Widget.ProgressBar.Horizontal">
         <item name="android:layout_width">fill_parent</item>
@@ -344,5 +343,9 @@
         <item name="android:textSize">14.0sp</item>
         <item name="android:textColor">@color/setting_color_picker_mode_text_selected_color</item>
     </style>
+
+
+    <!--Dialog-->
+    <style name="DialogStyle" parent="android:Theme.DeviceDefault.DayNight" tools:targetApi="q" />
 
 </resources>
