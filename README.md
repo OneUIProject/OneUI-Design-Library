@@ -18,7 +18,8 @@ Excuse my bad english, feel free to correct it. :)
 - [Usage](#Usage)
   - [DrawerLayout](#DrawerLayout)
   - [ToolbarLayout](#ToolbarLayout)
-  - [OptionButton and OptionGroup](#OptionButton-and-OptionGroup)
+  - [OptionButton](#OptionButton)
+  - [OptionGroup](#OptionGroup)
   - [DrawerDivider](#DrawerDivider)
   - [SplashViewSimple](#SplashViewSimple)
   - [SplashViewAnimated](#SplashViewAnimated)
@@ -57,7 +58,7 @@ allprojects {
 2. Add the dependency to build.gradle (Module: ...)
 ```gradle
 dependencies {
-	implementation 'com.github.Yanndroid:SamsungOneUi:1.1.3'
+	implementation 'com.github.Yanndroid:SamsungOneUi:1.2.0'
     ...
 }
 ```
@@ -88,7 +89,7 @@ repositories {
 
 
 dependencies {
-    implementation 'de.dlyt.yanndroid:samsung:1.1.3'
+    implementation 'de.dlyt.yanndroid:samsung:1.2.0'
     ...
 }
 ```
@@ -104,6 +105,8 @@ dependencies {
 ```
 
 ## Usage
+In general most of the views (see [Progress](#Progress)) are styled automatically when you set ```android:theme="@style/SamsungTheme"``` in AndroidManifest.xml.
+
 ### DrawerLayout
 "Ready-to-go" DrawerLayout with collapsing toolbar.
 ```xml
@@ -211,11 +214,108 @@ Set a drawable for the NavigationIcon.
 public void setNavigationIcon(Drawable navigationIcon)
 ```
 
-### OptionButton and OptionGroup
-todo
+### OptionButton
+These are the buttons you can see in the drawer of Samsung apps.
+
+<img src="readme-resources/screenshots/optionbutton.png"  width="260"/>
+
+```xml
+<de.dlyt.yanndroid.samsung.drawer.OptionButton
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:icon="..."
+    app:text="..."
+    app:selected="..."
+    app:counter="..."
+    app:counterEnabled="..." />
+```
+
+```app:icon="..."``` the drawable icon and ```app:text="..."``` the text. ```app:selected="..."``` is to show the OptionButton as selected (colored, bold text), it's false by default. ```app:counterEnabled="..."``` and ```app:counter="..."``` are there for the counter, which is disabled by default. If you only set ```app:counter="..."``` it still will be hidden. You don't need to add all attributes.
+
+#### Methods
+Set/get the icon and text.
+```java
+public String getText()
+public void setText(String text)
+
+public void setIcon(Drawable icon)
+```
+Manage the counter.
+```java
+public Integer getCounter()
+public void setCounter(Integer integer)
+public void setCounterEnabled(Boolean enabled)
+public void toggleCounterEnabled()
+public Boolean isCounterEnabled()
+```
+Control the state (colored, bold text).
+```java
+public void setButtonSelected(Boolean selected)
+public void toggleButtonSelected()
+public Boolean isButtonSelcted()
+```
+Enable/disable the OptionButton.
+```java
+public void setButtonEnabled(Boolean enabled)
+```
+
+
+### OptionGroup
+[OptionButton](#OptionButton) and OptionGroup are working together like [RadioButton](https://developer.android.com/reference/android/widget/RadioButton) and [RadioGroup](https://developer.android.com/reference/android/widget/RadioGroup). It will select (colored, bold text) a OptionButton on click.
+
+<img src="readme-resources/screenshots/optiongroup.gif"  width="260"/>
+
+```xml
+<de.dlyt.yanndroid.samsung.drawer.OptionGroup
+    android:id="@+id/optiongroup"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:selectedOptionButton="@id/ob1">
+
+    <de.dlyt.yanndroid.samsung.drawer.OptionButton
+        android:id="@+id/ob1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/ic_samsung_info"
+        app:text="Option 1" />
+
+    <de.dlyt.yanndroid.samsung.drawer.OptionButton
+        android:id="@+id/ob2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/ic_samsung_info"
+        app:text="Option 2" />
+
+    <de.dlyt.yanndroid.samsung.drawer.OptionButton
+        android:id="@+id/ob3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/ic_samsung_info"
+        app:text="Option 3" />
+
+</de.dlyt.yanndroid.samsung.drawer.OptionGroup>
+```
+
+```app:selectedOptionButton="..."``` will select (colored, bold text) the OptionButton with this id. This view can also have other children, for example [DrawerDivider](#DrawerDivider).
+
+#### Methods
+Select an OptionButton with either the view, id or position.
+```java
+public void setSelectedOptionButton(OptionButton optionButton)
+public void setSelectedOptionButton(Integer id)
+public void setSelectedOptionButton(int position)
+```
+Get the currently selected OptionButton.
+```java
+public OptionButton getSelectedOptionButton()
+```
+Listener which will provide you view, id and position of the clicked OptionButton.
+```java
+public void setOnOptionButtonClickListener(OnOptionButtonClickListener listener)
+```
 
 ### DrawerDivider
-A divider between to options on the drawer. It's the same divider you can find in almost any Samsung app drawer.
+A divider between the [OptionButtons](#OptionButton) on the drawer. It's the same divider you can find in almost any Samsung app drawer.
 
 <img src="readme-resources/screenshots/drawerdivider.png"  width="260"/>
 
@@ -576,7 +676,7 @@ The most app icons of Samsung apps are made of one solid color as background and
 
 <img src="readme-resources/app-icons/settings.png" width="50" height="50" />   <img src="readme-resources/app-icons/notes.png" width="50" height="50" />   <img src="readme-resources/app-icons/messages.png" width="50" height="50" />   <img src="readme-resources/app-icons/camera.png" width="50" height="50" />   <img src="readme-resources/app-icons/calculator.png" width="50" height="50" />   <img src="readme-resources/app-icons/contacts.png" width="50" height="50" />   <img src="readme-resources/app-icons/myfiles.png" width="50" height="50" />
 
- I would suggest you to use ```@color/primary_color``` for the background color and ```@color/launcher_foreground_detail_color``` for the foreground "detail" color, so [your color theme](#Own-custom-color-theme) applys for the app icon too.  
+ I would suggest you to use ```@color/primary_color``` for the background color and either ```@color/launcher_foreground_detail_color``` , ```@color/secondary_color``` or ```@color/primary_dark_color``` for the foreground "detail" color, so [your color theme](#Own-custom-color-theme) applys for the app icon too.  
 My sample app icon for example:
 
 <img src="readme-resources/app-icons/sample.png" width="50" height="50" />
@@ -611,6 +711,7 @@ My sample app icon for example:
 - [ ] Landscape 
 - [ ] Preferences
 - [ ] Tooltip
+- [ ] About screen
 - [ ] (Textview)
 - [ ] (Edittext)
 

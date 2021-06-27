@@ -53,8 +53,6 @@
         app:icon="@drawable/ic_samsung_plus"
         app:text="Add" />
 
-    <View style="@style/DrawerDividerStyle" />
-
     <de.dlyt.yanndroid.samsung.drawer.OptionButton
         android:id="@+id/ob_help"
         android:layout_width="match_parent"
