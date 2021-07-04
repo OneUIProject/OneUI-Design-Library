@@ -8,10 +8,10 @@
         android:id="@+id/sesl_splash_image_background"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginLeft="200dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/sesl_splash_text"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_samsung_plus" />
 
     <ImageView
@@ -28,15 +28,15 @@
         android:id="@+id/sesl_splash_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="170dp"
         android:fontFamily="@font/lexend"
         android:gravity="center"
         android:text="Splash"
         android:textColor="#BCBCBC"
         android:textSize="24dp"
         android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/sesl_splash_image_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -153,6 +153,10 @@ Set the subtitle of the toolbar.
 ```java
 public void setToolbarSubtitle(String subtitle)
 ```
+Set the subtitle color of the toolbar.
+```java
+public void setToolbarSubtitleColor(int color)
+```
 Expand or collapse the toolbar with an optional animation.
 ```java
 public void setToolbarExpanded(boolean expanded, boolean animate)
@@ -204,6 +208,10 @@ public void setTitle(String title)
 Set the subtitle of the toolbar.
 ```java
 public void setSubtitle(String subtitle)
+```
+Set the subtitle color.
+```java
+public void setSubtitleColor(int color)
 ```
 Expand or collapse the toolbar with an optional animation.
 ```java
@@ -713,6 +721,7 @@ My sample app icon for example:
 - [x] Rtl
 - [x] Landscape support
 - [x] Tablet support
+- [x] Desktop support (DeX)*
 - [x] Color picker dialog *
 - [x] Button *
 - [x] Spinner *

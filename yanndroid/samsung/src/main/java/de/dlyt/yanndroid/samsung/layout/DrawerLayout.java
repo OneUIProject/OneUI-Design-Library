@@ -120,6 +120,10 @@ public class DrawerLayout extends LinearLayout {
         toolbarLayout.setSubtitle(subtitle);
     }
 
+    public void setToolbarSubtitleColor(int color) {
+        toolbarLayout.setSubtitleColor(color);
+    }
+
     public void setToolbarExpanded(boolean expanded, boolean animate) {
         toolbarLayout.setExpanded(expanded, animate);
     }

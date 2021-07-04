@@ -130,6 +130,10 @@ public class ToolbarLayout extends LinearLayout {
         expanded_subtitle.setVisibility(subtitle == null || subtitle.equals("") ? GONE : VISIBLE);
     }
 
+    public void setSubtitleColor(int color){
+        expanded_subtitle.setTextColor(color);
+    }
+
     public void setExpanded(boolean expanded, boolean animate) {
         AppBar.setExpanded(expanded, animate);
     }
