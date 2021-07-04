@@ -9,8 +9,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:foreground="@drawable/rounded_corner_bottom">
+        android:layout_height="match_parent">
 
 
         <de.dlyt.yanndroid.samsung.layout.ToolbarLayout

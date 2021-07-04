@@ -81,6 +81,10 @@ public class ToolbarLayout extends LinearLayout {
         MarginLayoutParams params = (MarginLayoutParams) main_container.getLayoutParams();
         params.leftMargin = content_margin;
         params.rightMargin = content_margin;
+        View bottom_corners = findViewById(R.id.bottom_corners);
+        MarginLayoutParams paramsCorners = (MarginLayoutParams) bottom_corners.getLayoutParams();
+        paramsCorners.leftMargin = content_margin;
+        paramsCorners.rightMargin = content_margin;
 
         AppBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
             float percentage = (AppBar.getY() / AppBar.getTotalScrollRange());

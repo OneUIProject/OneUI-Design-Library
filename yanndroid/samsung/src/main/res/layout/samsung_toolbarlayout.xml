@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:foreground="@drawable/rounded_corner_bottom">
-
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -133,5 +131,11 @@
         android:foreground="@drawable/rounded_corner_top"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <View
+        android:id="@+id/bottom_corners"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/rounded_corner_bottom" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
