@@ -5,383 +5,404 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <de.dlyt.yanndroid.samsung.SwitchBar
         android:id="@+id/switchbar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.google.android.material.textview.MaterialTextView
-        style="?android:attr/textAppearanceSmall"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="2dp"
-        android:text="Icons"
-        android:textAlignment="viewStart"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:foreground="@drawable/rounded_corner_top"
+        android:orientation="vertical">
 
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <GridView
-            android:id="@+id/images"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginVertical="10dp"
-            android:numColumns="15" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-
-    <com.google.android.material.textview.MaterialTextView
-        style="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="2dp"
-        android:text="SeekBar"
-        android:textAlignment="viewStart"
-        android:textStyle="bold" />
-
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginVertical="10dp"
-            android:orientation="vertical">
-
-            <de.dlyt.yanndroid.samsung.SeekBar
-                android:id="@+id/seekbar1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                app:seslSeekBarMode="expand" />
-
-            <SeekBar
-                android:id="@+id/seekbar2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp" />
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-
-    <com.google.android.material.textview.MaterialTextView
-        android:textAlignment="viewStart"
-        style="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="2dp"
-        android:text="ProgressBar"
-        android:textStyle="bold" />
-
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginVertical="10dp"
-            android:orientation="vertical">
-
-
-            <ProgressBar
-                style="@style/ProgressBarStyle.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:indeterminate="true" />
-
-            <ProgressBar
-                style="@style/ProgressBarStyle.Horizontal.Large"
-                android:indeterminate="true" />
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ProgressBar
-                    style="@style/ProgressBarStyle.Circle.Large"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ProgressBar
-                    style="@style/ProgressBarStyle.Circle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ProgressBar
-                    style="@style/ProgressBarStyle.Circle.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ProgressBar
-                    style="@style/ProgressBarStyle.Circle.Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-
-    <com.google.android.material.textview.MaterialTextView
-        android:textAlignment="viewStart"
-        style="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="2dp"
-        android:text="Buttons"
-        android:textStyle="bold" />
-
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginVertical="10dp"
-            android:orientation="vertical">
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:text="Switch"
-                android:textAlignment="viewStart" />
-
-
-            <CheckBox
-                android:textAlignment="viewStart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CheckBox" />
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="visible">
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
+                <com.google.android.material.textview.MaterialTextView
+                    style="?android:attr/textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="Icons"
                     android:textAlignment="viewStart"
+                    android:textStyle="bold" />
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <GridView
+                        android:id="@+id/images"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginVertical="10dp"
+                        android:numColumns="15" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="?android:attr/textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="RadioButton" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="SeekBar"
                     android:textAlignment="viewStart"
+                    android:textStyle="bold" />
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="vertical">
+
+                        <de.dlyt.yanndroid.samsung.SeekBar
+                            android:id="@+id/seekbar1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            app:seslSeekBarMode="expand" />
+
+                        <SeekBar
+                            android:id="@+id/seekbar2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="?android:attr/textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="RadioButton" />
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="ProgressBar"
+                    android:textAlignment="viewStart"
+                    android:textStyle="bold" />
 
 
-            </RadioGroup>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="vertical">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                        <ProgressBar
+                            style="@style/ProgressBarStyle.Horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:indeterminate="true" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:onClick="nDialog"
+                        <ProgressBar
+                            style="@style/ProgressBarStyle.Horizontal.Large"
+                            android:indeterminate="true" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ProgressBar
+                                style="@style/ProgressBarStyle.Circle.Large"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ProgressBar
+                                style="@style/ProgressBarStyle.Circle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ProgressBar
+                                style="@style/ProgressBarStyle.Circle.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ProgressBar
+                                style="@style/ProgressBarStyle.Circle.Title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="?android:attr/textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Button" />
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="Buttons"
+                    android:textAlignment="viewStart"
+                    android:textStyle="bold" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="5dp"
-                    android:layout_marginVertical="15dp"
-                    android:background="@color/divider_color" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:onClick="sChoiceDialog"
-                    style="@style/ButtonStyle.Invert"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            android:text="Switch"
+                            android:textAlignment="viewStart" />
+
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="CheckBox"
+                            android:textAlignment="viewStart" />
+
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="RadioButton"
+                                android:textAlignment="viewStart" />
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="RadioButton"
+                                android:textAlignment="viewStart" />
+
+
+                        </RadioGroup>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:onClick="nDialog"
+                                android:text="Button" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="15dp"
+                                android:background="@color/divider_color" />
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/ButtonStyle.Invert"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:onClick="sChoiceDialog"
+                                android:text="Button" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="15dp"
+                                android:background="@color/divider_color" />
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/ButtonStyle.Invert.Secondary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:onClick="mChoiceDialog"
+                                android:text="Button" />
+
+
+                        </LinearLayout>
+
+
+                        <de.dlyt.yanndroid.samsung.drawer.OptionButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:counter="44"
+                            app:counterEnabled="true"
+                            app:icon="@drawable/ic_samsung_info"
+                            app:selected="true"
+                            app:text="OptionButton" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="?android:attr/textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Button" />
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="Others"
+                    android:textAlignment="viewStart"
+                    android:textStyle="bold" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="5dp"
-                    android:layout_marginVertical="15dp"
-                    android:background="@color/divider_color" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:onClick="mChoiceDialog"
-                    style="@style/ButtonStyle.Invert.Secondary"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="?textAppearanceBody1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textAlignment="viewStart"
+                            android:textSize="18sp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="?android:attr/textAppearanceSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textAlignment="viewStart" />
+
+                        <Spinner
+                            android:id="@+id/spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="viewStart" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="?android:attr/textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Button" />
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="Color"
+                    android:textAlignment="viewStart"
+                    android:textStyle="bold" />
 
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.button.MaterialButton
+                            style="@style/ButtonStyle.Invert"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="colorPicker"
+                            android:text="Change Color" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="?colorPrimary" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="?colorPrimaryDark" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="?colorSecondary" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@color/sesl_control_color_normal" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
+    </LinearLayout>
 
-            <de.dlyt.yanndroid.samsung.drawer.OptionButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:counter="44"
-                app:counterEnabled="true"
-                app:icon="@drawable/ic_samsung_info"
-                app:selected="true"
-                app:text="OptionButton" />
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-
-    <com.google.android.material.textview.MaterialTextView
-        android:textAlignment="viewStart"
-        style="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="2dp"
-        android:text="Others"
-        android:textStyle="bold" />
-
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginVertical="10dp"
-            android:orientation="vertical">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:textAlignment="viewStart"
-                style="?textAppearanceBody1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="18sp" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:textAlignment="viewStart"
-                style="?android:attr/textAppearanceSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
-
-            <Spinner
-                android:textAlignment="viewStart"
-                android:id="@+id/spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-
-    <com.google.android.material.textview.MaterialTextView
-        android:textAlignment="viewStart"
-        style="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="2dp"
-        android:text="Color"
-        android:textStyle="bold" />
-
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginVertical="10dp"
-            android:orientation="vertical">
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/ButtonStyle.Invert"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="colorPicker"
-                android:text="Change Color" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?colorPrimary" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?colorPrimaryDark" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?colorSecondary" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/sesl_control_color_normal" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

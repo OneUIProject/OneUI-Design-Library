@@ -725,7 +725,6 @@ My sample app icon for example:
 - [ ] Preferences
 - [ ] Tooltip
 - [ ] About screen
-- [ ] Desktop support (DeX)
 - [ ] (Textview)
 - [ ] (Edittext)
 
