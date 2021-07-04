@@ -69,6 +69,7 @@
     <declare-styleable name="DrawerLayout">
         <attr name="toolbar_title" format="string" />
         <attr name="toolbar_subtitle" format="string" />
+        <attr name="toolbar_expandable" format="boolean" />
         <attr name="drawer_icon" format="reference|color" />
         <attr name="drawer_viewId" format="reference|enum" />
     </declare-styleable>
@@ -77,6 +78,7 @@
         <attr name="title" format="string" />
         <attr name="subtitle" format="string" />
         <attr name="navigationIcon" />
+        <attr name="expandable" format="boolean" />
     </declare-styleable>
 
 

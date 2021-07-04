@@ -276,7 +276,7 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
             iArr4[1] = resources.getColor(this.mIsLightTheme ? R.color.sesl_seekbar_disable_color_activated_light : R.color.sesl_seekbar_disable_color_activated_dark);
             this.mDefaultActivatedThumbColor = new ColorStateList(iArr3, iArr4);
         }
-        boolean z2 = resources.getBoolean(R.bool.sesl_seekbar_sliding_animation);
+        boolean z2 = true;
         this.mAllowedSeekBarAnimation = z2;
         if (z2) {
             initMuteAnimation();

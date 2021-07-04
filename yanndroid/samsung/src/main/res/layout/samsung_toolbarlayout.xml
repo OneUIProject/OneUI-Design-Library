@@ -116,7 +116,8 @@
                         android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:singleLine="true"
-                        android:textAlignment="viewStart" />
+                        android:textAlignment="viewStart"
+                        android:textSize="20dp" />
 
                 </LinearLayout>
             </com.google.android.material.appbar.MaterialToolbar>

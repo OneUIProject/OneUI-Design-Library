@@ -116,7 +116,8 @@ In general most of the views (see [Progress](#Progress)) are styled automaticall
     app:drawer_icon="..."
     app:drawer_viewId="@id/viewindrawer"
     app:toolbar_subtitle="..."
-    app:toolbar_title="...">
+    app:toolbar_title="..."
+    app:toolbar_expandable="...">
 
     <View
         android:id="@+id/viewindrawer"
@@ -129,7 +130,7 @@ In general most of the views (see [Progress](#Progress)) are styled automaticall
 ```
 The view with the ID specified in ```app:drawer_viewId="..."``` will be shown in the drawer and the rest of the children on the main screen.  
 
-```app:toolbar_title="..."``` and ```app:toolbar_subtitle="..."``` are setting the title and subtitle in the toolbar. If nothing is set for the subtitle, the toolbar will adjust the title position to match the space.  
+```app:toolbar_title="..."``` and ```app:toolbar_subtitle="..."``` are setting the title and subtitle in the toolbar. If nothing is set for the subtitle, the toolbar will adjust the title position to match the space. The toolbar is expandable by default, it can be changed with ```app:toolbar_expandable="..."```.  
 
 The drawable in ```app:drawer_icon="..."``` is the little icon at the top right in the drawer pane. There are already some stock Samsung [icons](#Icons) included in the library.  
 
@@ -156,6 +157,10 @@ Expand or collapse the toolbar with an optional animation.
 ```java
 public void setToolbarExpanded(boolean expanded, boolean animate)
 ```
+Set the toolbar expandable.
+```java
+public void setToolbarExpandable(boolean expandable)
+```
 Show/hide the badges on the DrawerIcon and NavigationIcon.
 ```java
 public void showIconNotification(boolean navigationIcon, boolean drawerIcon)
@@ -174,6 +179,7 @@ Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
     app:title="..."
     app:subtitle="..."
     app:navigationIcon="..."
+    app:expandable="..."
     >
 
     <!--children-->
@@ -181,6 +187,8 @@ Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
 </de.dlyt.yanndroid.samsung.layout.ToolbarLayout>
 ```
 ```app:navigationIcon="..."``` is the NavigationIcon of the toolbar. There are already some stock Samsung [icons](#Icons) included in the library, like a drawer and back icon.  
+
+The toolbar is expandable by default, it can be changed with ```app:expandable="..."```.  
 
 Same as the [DrawerLayout](#DrawerLayout) you need to use a [NestedScrollView](https://developer.android.com/reference/androidx/core/widget/NestedScrollView) or ```android:nestedScrollingEnabled="true"```.
 
@@ -200,6 +208,10 @@ public void setSubtitle(String subtitle)
 Expand or collapse the toolbar with an optional animation.
 ```java
 public void setExpanded(boolean expanded, boolean animate)
+```
+Set the toolbar expandable.
+```java
+public void setExpandable(boolean expandable)
 ```
 Clicklistener for the NavigationIcon (Back icon).
 ```java
@@ -444,7 +456,7 @@ A Seekbar like the brightness slider in the QS.
 ```
 :warning: You might need to set a vertical margin, in case the seekbar thumb is cut of.
 
-If you don't want the expanding seekbar, you can use the default seekbar instead of ```de.dlyt.yanndroid.samsung.SeekBar```, as the style will also apply on the default one.
+If you don't want the expanding seekbar, you can use the default seekbar instead , as the style will also apply on this one.
 
 #### Methods
 Set a warning at progress i.
@@ -676,7 +688,7 @@ The most app icons of Samsung apps are made of one solid color as background and
 
 <img src="readme-resources/app-icons/settings.png" width="50" height="50" />   <img src="readme-resources/app-icons/notes.png" width="50" height="50" />   <img src="readme-resources/app-icons/messages.png" width="50" height="50" />   <img src="readme-resources/app-icons/camera.png" width="50" height="50" />   <img src="readme-resources/app-icons/calculator.png" width="50" height="50" />   <img src="readme-resources/app-icons/contacts.png" width="50" height="50" />   <img src="readme-resources/app-icons/myfiles.png" width="50" height="50" />
 
- I would suggest you to use ```@color/primary_color``` for the background color and either ```@color/launcher_foreground_detail_color``` , ```@color/secondary_color``` or ```@color/primary_dark_color``` for the foreground "detail" color, so [your color theme](#Own-custom-color-theme) applys for the app icon too.  
+ I would suggest you to use ```@color/primary_color``` for the background color and either ```@color/launcher_foreground_detail_color``` , ```@color/secondary_color``` or ```@color/primary_dark_color``` for the foreground "detail" color, so [your color theme](#Color-theme) applys for the app icon too.  
 My sample app icon for example:
 
 <img src="readme-resources/app-icons/sample.png" width="50" height="50" />
@@ -699,6 +711,8 @@ My sample app icon for example:
 - [x] SeslSeekbar
 - [x] Collapsing toolbar
 - [x] Rtl
+- [x] Landscape support
+- [x] Tablet support
 - [x] Color picker dialog *
 - [x] Button *
 - [x] Spinner *
@@ -708,10 +722,10 @@ My sample app icon for example:
 - [ ] Bottomsheet
 - [ ] Tablayout
 - [ ] Viewpager
-- [ ] Landscape 
 - [ ] Preferences
 - [ ] Tooltip
 - [ ] About screen
+- [ ] Desktop support (DeX)
 - [ ] (Textview)
 - [ ] (Edittext)
 

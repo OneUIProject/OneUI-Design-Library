@@ -24,6 +24,7 @@ public class DrawerLayout extends LinearLayout {
     private Drawable mDrawerIcon;
     private String mToolbarTitle;
     private String mToolbarSubtitle;
+    private Boolean mToolbarExpandable;
 
     private ImageView drawerIcon;
     private ToolbarLayout toolbarLayout;
@@ -45,6 +46,7 @@ public class DrawerLayout extends LinearLayout {
             mToolbarSubtitle = attr.getString(R.styleable.DrawerLayout_toolbar_subtitle);
             mDrawerIcon = attr.getDrawable(R.styleable.DrawerLayout_drawer_icon);
             viewIdForDrawer = attr.getResourceId(R.styleable.DrawerLayout_drawer_viewId, -2);
+            mToolbarExpandable = attr.getBoolean(R.styleable.DrawerLayout_toolbar_expandable, true);
         } finally {
             attr.recycle();
         }
@@ -59,9 +61,9 @@ public class DrawerLayout extends LinearLayout {
 
         toolbarLayout.setTitle(mToolbarTitle);
         toolbarLayout.setSubtitle(mToolbarSubtitle);
+        toolbarLayout.setExpandable(mToolbarExpandable);
         drawerIcon = findViewById(R.id.drawerIcon);
         drawerIcon.setImageDrawable(mDrawerIcon);
-
 
 
 
@@ -70,8 +72,10 @@ public class DrawerLayout extends LinearLayout {
         drawerLayout = findViewById(R.id.drawerLayout);
         drawer = findViewById(R.id.drawer);
 
+
         ViewGroup.LayoutParams layoutParams = drawer.getLayoutParams();
-        layoutParams.width = (int) ((double) this.getResources().getDisplayMetrics().widthPixels / 1.19);
+        layoutParams.width = Math.min((int) ((double) this.getResources().getDisplayMetrics().widthPixels * ((double) getResources().getInteger(R.integer.drawerMaxWidth) / 1000)), this.getResources().getDimensionPixelSize(R.dimen.drawer_width));
+
         drawerLayout.setScrimColor(ContextCompat.getColor(getContext(), R.color.drawer_dim_color));
         drawerLayout.setDrawerElevation(0);
 
@@ -120,6 +124,10 @@ public class DrawerLayout extends LinearLayout {
         toolbarLayout.setExpanded(expanded, animate);
     }
 
+    public void setToolbarExpandable(boolean expandable) {
+        toolbarLayout.setExpandable(expandable);
+    }
+
 
     public void showIconNotification(boolean navigationIcon, boolean drawerIcon) {
         toolbarLayout.showNavIconNotification(navigationIcon);
@@ -127,9 +135,9 @@ public class DrawerLayout extends LinearLayout {
     }
 
     public void setDrawerOpen(Boolean open, Boolean animate) {
-        if (open){
+        if (open) {
             drawerLayout.openDrawer(drawer, animate);
-        }else {
+        } else {
             drawerLayout.closeDrawer(drawer, animate);
         }
 

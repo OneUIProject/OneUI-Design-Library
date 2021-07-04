@@ -27,6 +27,8 @@
     <dimen name="progress_bar_height">24.0dip</dimen>
     <dimen name="progress_bar_radius">12.0dip</dimen>
 
+    <dimen name="drawer_width">350dp</dimen>
+
 
     <!--Spinner-->
     <dimen name="sesl_menu_popup_bottom_margin">6.0dip</dimen>

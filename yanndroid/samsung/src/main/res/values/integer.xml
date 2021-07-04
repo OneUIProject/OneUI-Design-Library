@@ -4,4 +4,9 @@
     <integer name="sesl_loading_progress_rot_duration">3000</integer>
     <integer name="setting_color_picker_column_count">13</integer>
 
+    <!--/1000-->
+    <integer name="content_margin">0</integer>
+    <integer name="appBarHeight">385</integer>
+    <integer name="drawerMaxWidth">840</integer>
+
 </resources>
