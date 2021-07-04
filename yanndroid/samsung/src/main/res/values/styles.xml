@@ -355,6 +355,7 @@
     </style>
 
     <!--Dialog-->
-    <style name="DialogStyle" parent="android:Theme.DeviceDefault.DayNight" tools:targetApi="q" />
+    <style name="DialogStyle" parent="android:Theme.DeviceDefault.Light.Dialog.Alert" />
+
 
 </resources>
