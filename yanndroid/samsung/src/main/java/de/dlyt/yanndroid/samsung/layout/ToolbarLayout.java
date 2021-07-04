@@ -75,11 +75,7 @@ public class ToolbarLayout extends LinearLayout {
         AppBar = findViewById(R.id.app_bar);
 
         appBarLayoutParams = AppBar.getLayoutParams();
-        if (getResources().getInteger(R.integer.appBarHeight) == 0 || !mExpandable) {
-            setExpandable(false);
-        } else {
-            setExpandable(true);
-        }
+        setExpandable(mExpandable);
 
         int content_margin = (int) ((double) this.getResources().getDisplayMetrics().widthPixels * ((double) getResources().getInteger(R.integer.content_margin) / 1000));
         MarginLayoutParams params = (MarginLayoutParams) main_container.getLayoutParams();
@@ -136,7 +132,7 @@ public class ToolbarLayout extends LinearLayout {
 
     public void setExpandable(boolean expandable) {
         this.mExpandable = expandable;
-        if (expandable) {
+        if (expandable && getResources().getInteger(R.integer.appBarHeight) != 0) {
             appBarLayoutParams.height = (int) ((double) this.getResources().getDisplayMetrics().heightPixels * ((double) getResources().getInteger(R.integer.appBarHeight) / 1000));
         } else {
             final TypedArray styledAttributes = getContext().getTheme().obtainStyledAttributes(new int[]{android.R.attr.actionBarSize});
