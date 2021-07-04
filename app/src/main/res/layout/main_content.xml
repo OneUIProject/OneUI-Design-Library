@@ -28,15 +28,8 @@
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="?android:attr/textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginBottom="2dp"
-                    android:text="Icons"
-                    android:textAlignment="viewStart"
-                    android:textStyle="bold" />
-
+                    style="@style/SubHeaderStyle"
+                    android:text="Icons" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -55,15 +48,9 @@
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="?android:attr/textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    style="@style/SubHeaderStyle"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="2dp"
-                    android:text="SeekBar"
-                    android:textAlignment="viewStart"
-                    android:textStyle="bold" />
+                    android:text="SeekBar" />
 
 
                 <com.google.android.material.card.MaterialCardView
@@ -96,15 +83,9 @@
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="?android:attr/textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    style="@style/SubHeaderStyle"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="2dp"
-                    android:text="ProgressBar"
-                    android:textAlignment="viewStart"
-                    android:textStyle="bold" />
+                    android:text="ProgressBar" />
 
 
                 <com.google.android.material.card.MaterialCardView
@@ -163,15 +144,9 @@
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="?android:attr/textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    style="@style/SubHeaderStyle"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="2dp"
-                    android:text="Buttons"
-                    android:textAlignment="viewStart"
-                    android:textStyle="bold" />
+                    android:text="Buttons" />
 
 
                 <com.google.android.material.card.MaterialCardView
@@ -284,15 +259,9 @@
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="?android:attr/textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    style="@style/SubHeaderStyle"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="2dp"
-                    android:text="Others"
-                    android:textAlignment="viewStart"
-                    android:textStyle="bold" />
+                    android:text="Others" />
 
 
                 <com.google.android.material.card.MaterialCardView
@@ -333,15 +302,9 @@
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="?android:attr/textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    style="@style/SubHeaderStyle"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="2dp"
-                    android:text="Color"
-                    android:textAlignment="viewStart"
-                    android:textStyle="bold" />
+                    android:text="Color" />
 
 
                 <com.google.android.material.card.MaterialCardView
