@@ -129,6 +129,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
         android:foreground="@drawable/rounded_corner_top"
+        android:foregroundTint="?android:attr/windowBackground"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
@@ -136,6 +137,7 @@
         android:id="@+id/bottom_corners"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:foreground="@drawable/rounded_corner_bottom" />
+        android:foreground="@drawable/rounded_corner_bottom"
+        android:foregroundTint="?android:attr/windowBackground" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

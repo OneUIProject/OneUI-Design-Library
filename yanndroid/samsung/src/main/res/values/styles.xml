@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!--Main-->
     <style name="SamsungStyleMain">
@@ -125,6 +125,7 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">?colorSecondary</item>
         <item name="fontFamily">sec-roboto-light</item>
+        <item name="android:letterSpacing">0</item>
     </style>
 
     <style name="ButtonStyle.Invert">
@@ -136,6 +137,15 @@
         <item name="rippleColor">@color/item_color</item>
         <item name="android:backgroundTint">@color/button_background_color</item>
         <item name="android:textColor">@color/item_color</item>
+    </style>
+
+    <style name="ButtonStyle.AboutPage" parent="ButtonStyle.Invert.Secondary">
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingVertical">10dp</item>
+        <item name="fontFamily">sec-roboto-light</item>
+        <item name="android:layout_marginVertical">4dp</item>
+        <item name="android:layout_width">250dp</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 
@@ -297,6 +307,7 @@
         <item name="android:dropDownSelector">@drawable/sesl_list_selector_dark</item>
         <item name="android:dropDownWidth">wrap_content</item>
     </style>
+
     <style name="Base.Animation.AppCompat.MenuPopup" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/sesl_menu_popup_enter</item>
         <item name="android:windowExitAnimation">@anim/sesl_menu_popup_exit</item>
@@ -339,13 +350,14 @@
         <item name="android:textSize">12.0sp</item>
         <item name="android:textColor">#ff909090</item>
     </style>
+
     <style name="ColorPickerHexEditStyle">
         <item name="android:textSize">14.0sp</item>
         <item name="android:textColor">@color/setting_color_picker_mode_text_selected_color</item>
     </style>
 
     <!--SubHeader-->
-    <style name="SubHeaderStyle" >
+    <style name="SubHeaderStyle">
         <item name="android:textStyle">bold</item>
         <item name="android:textAlignment">viewStart</item>
         <item name="android:layout_marginStart">24dp</item>

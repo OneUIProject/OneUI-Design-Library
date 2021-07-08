@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<de.dlyt.yanndroid.samsung.layout.AboutPage xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/about_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AboutActivity">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/about_btn1"
+        style="@style/ButtonStyle.AboutPage"
+        android:text="Loading" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/about_btn2"
+        style="@style/ButtonStyle.AboutPage"
+        android:text="No Update" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/about_btn3"
+        style="@style/ButtonStyle.AboutPage"
+        android:text="Update available" />
+
+</de.dlyt.yanndroid.samsung.layout.AboutPage>

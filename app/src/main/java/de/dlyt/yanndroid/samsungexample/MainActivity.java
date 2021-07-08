@@ -2,6 +2,7 @@ package de.dlyt.yanndroid.samsungexample;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -43,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_view);
         setSupportActionBar(drawerLayout.getToolbar());
+        drawerLayout.setDrawerIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent().setClass(getApplicationContext(), AboutActivity.class));
+            }
+        });
 
         demo();
 

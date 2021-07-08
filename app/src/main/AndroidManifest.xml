@@ -9,10 +9,10 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/SamsungTheme">
+        <activity android:name=".AboutActivity" android:theme="@style/SamsungAboutTheme"/>
+        <activity android:name=".MainActivity" />
         <activity
-            android:name="de.dlyt.yanndroid.samsungexample.MainActivity" />
-        <activity
-            android:name="de.dlyt.yanndroid.samsungexample.SplashActivity"
+            android:name=".SplashActivity"
             android:theme="@style/SamsungSplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

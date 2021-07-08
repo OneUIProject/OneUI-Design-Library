@@ -352,7 +352,7 @@ Alternatively you could use this, it's easier and all set but less customizable:
 ```
 
 ### SplashViewSimple
-Simple Splash view. (I think Samsung removed the splashscreen of their apps since OneUI 3 but in former times it was still there.)
+Simple Splash view. (I think Samsung removed the splashscreen of their apps since OneUI 3 but in former times it was still there.) Add this ```android:theme="@style/SamsungSplashTheme"``` to your splash activity in AndroidManifest.
 
 <img src="readme-resources/screenshots/splash_simple.png"  width="150"/>
 
@@ -366,21 +366,22 @@ Simple Splash view. (I think Samsung removed the splashscreen of their apps sinc
 ```app:image="..."```is the icon and ```app:text="..."``` the text underneath the icon.
 
 #### Methods
+Sets the icon drawable
 ```java
 public void setImage(Drawable mImage)
 ```
-Sets the icon drawable
+Sets the text of the splash textview
 ```java
 public void setText(String mText)
 ```
-Sets the text of the splash textview
+Returns the text of the splash textview
 ```java
 public String getText()
 ```
-Returns the text of the splash textview
+
 
 ### SplashViewAnimated
-An animated splash screen view like the one in the GalaxyStore.
+An animated splash screen view like the one in the GalaxyStore. Add this ```android:theme="@style/SamsungSplashTheme"``` to your splash activity in AndroidManifest.
 
 <img src="readme-resources/screenshots/splash_animated.gif"  width="150"/>
 
@@ -397,30 +398,30 @@ An animated splash screen view like the one in the GalaxyStore.
 ```app:text="..."``` will be the text under the icon. It has a very similar font and color as the GalaxyStore splash text.
 
 #### Methods
+Sets the icon fore- and background
 ```java
 public void setImage(Drawable foreground, Drawable background)
 ```
-Sets the icon fore- and background
+Sets the text of the splash textview
 ```java
 public void setText(String mText)
 ```
-Sets the text of the splash textview
+Returns the text of the splash textview
 ```java
 public String getText()
 ```
-Returns the text of the splash textview
+Starts the shake animation of the foreground
 ```java
 public void startSplashAnimation()
 ```
-Starts the shake animation of the foreground
+Clears the animation
 ```java
 public void clearSplashAnimation()
 ```
-Clears the animation
+Listener for the splash animation
 ```java
 public void setSplashAnimationListener(Animation.AnimationListener listener)
 ```
-Listener for the splash animation
 
 
 ### SwitchBar
@@ -721,19 +722,20 @@ My sample app icon for example:
 - [x] Rtl
 - [x] Landscape support
 - [x] Tablet support
-- [x] Desktop support (DeX)*
+- [x] About screen
+- [x] Button
+- [x] Desktop support (DeX) *
 - [x] Color picker dialog *
-- [x] Button *
 - [x] Spinner *
-- [ ] Menu (in progress)
-- [ ] Snackbar (in progress)
-- [ ] Dialog
+- [ ] Menu *
+- [ ] Snackbar *
+- [ ] Dialog *
 - [ ] Bottomsheet
 - [ ] Tablayout
 - [ ] Viewpager
 - [ ] Preferences
 - [ ] Tooltip
-- [ ] About screen
+- [ ] Related card
 - [ ] (Textview)
 - [ ] (Edittext)
 

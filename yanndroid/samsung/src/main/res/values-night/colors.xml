@@ -9,7 +9,8 @@
 
     <color name="background_color">#ff000000</color>
     <color name="item_background_color">#ff171717</color>
-    <color name="item_color">#ffffffff</color>
+    <color name="item_color">@color/sesl_white</color>
+    <!--<color name="item_color">#ffffffff</color>-->
 
     <!--Sesl-->
     <color name="divider_color">#42fafafa</color>
