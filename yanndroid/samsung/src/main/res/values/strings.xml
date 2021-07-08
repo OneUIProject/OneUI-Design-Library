@@ -31,6 +31,8 @@
     <string name="latest_version_installed">The latest version is already installed.</string>
     <string name="new_version_is_available">A new version is available.</string>
     <string name="version">Version</string>
+    <string name="string_update">Update</string>
+
 
 
     <!--untranslated:-->

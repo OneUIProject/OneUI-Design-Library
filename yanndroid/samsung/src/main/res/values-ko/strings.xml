@@ -19,6 +19,7 @@
     <string name="sesl_switchbar_on_text">사용 중</string>
     <string name="pen_string_color_double_tap_to_apply">적용하려면 두 번 누르세요.</string>
     <string name="pen_string_color">색상</string>
+    <string name="string_update">업데이트</string>
     <string name="pen_string_green">녹색</string>
     <string name="pen_string_selected">선택됨</string>
     <string name="pen_string_hex">헥스</string>

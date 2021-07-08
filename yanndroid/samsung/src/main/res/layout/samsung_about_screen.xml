@@ -59,7 +59,7 @@
             style="@style/ButtonStyle.Invert"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Update"
+            android:text="@string/string_update"
             android:visibility="gone" />
 
 
