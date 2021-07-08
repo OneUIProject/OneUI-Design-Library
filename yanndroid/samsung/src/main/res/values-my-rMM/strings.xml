@@ -5,6 +5,7 @@
     <string name="pen_string_spectrum">ရောင်စဉ်</string>
     <string name="pen_string_saturation">ပြည့်ဝမှု</string>
     <string name="pen_string_select_color">အရောင်တစ်ခု ရွေးပါ။</string>
+    <string name="new_version_is_available">ဗားရှင်း အသစ်တစ်ခု ရနိုင်သည်။</string>
     <string name="pen_string_red">အနီ</string>
     <string name="pen_string_new_any">%s အသစ်</string>
     <string name="pen_string_blue">အပြာ</string>
@@ -13,6 +14,7 @@
     <string name="pen_palette_color_custom">စိတ်ကြိုက်အရောင်</string>
     <string name="pen_string_cancel">ပယ်ဖျက်ပါ</string>
     <string name="pen_string_button">ခလုတ်</string>
+    <string name="version">ဗားရှင်း</string>
     <string name="sesl_switchbar_off_text">ပိတ်</string>
     <string name="sesl_switchbar_on_text">ဖွင့်</string>
     <string name="pen_string_color_double_tap_to_apply">ကျင့်သုံးရန် နှစ်ချက်နှိပ်ပါ။</string>
@@ -20,4 +22,5 @@
     <string name="pen_string_green">အစိမ်း</string>
     <string name="pen_string_selected">ရွေးထားသည်</string>
     <string name="pen_string_hex">ဟက်စ်</string>
+    <string name="latest_version_installed">နောက်ဆုံးပေါ်ဗားရှင်းကို ထည့်သွင်းထားပြီးဖြစ်သည်။</string>
 </resources>

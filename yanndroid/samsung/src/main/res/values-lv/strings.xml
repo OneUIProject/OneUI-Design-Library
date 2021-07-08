@@ -5,6 +5,7 @@
     <string name="pen_string_spectrum">Spektrs</string>
     <string name="pen_string_saturation">Piesātinājums</string>
     <string name="pen_string_select_color">Izvēlieties krāsu.</string>
+    <string name="new_version_is_available">Ir pieejama jauna versija.</string>
     <string name="pen_string_red">Sarkana</string>
     <string name="pen_string_new_any">Jauna %s</string>
     <string name="pen_string_blue">Zila</string>
@@ -13,6 +14,7 @@
     <string name="pen_palette_color_custom">Pielāgota krāsa</string>
     <string name="pen_string_cancel">Atcelt</string>
     <string name="pen_string_button">Poga</string>
+    <string name="version">Versija</string>
     <string name="sesl_switchbar_off_text">Izslēgts</string>
     <string name="sesl_switchbar_on_text">Ieslēgts</string>
     <string name="pen_string_color_double_tap_to_apply">Veiciet dubultskārienu, lai lietotu.</string>
@@ -20,4 +22,5 @@
     <string name="pen_string_green">Zaļa</string>
     <string name="pen_string_selected">Izvēlēts</string>
     <string name="pen_string_hex">Heksadecimāli dati</string>
+    <string name="latest_version_installed">Jaunākā versija jau ir instalēta.</string>
 </resources>

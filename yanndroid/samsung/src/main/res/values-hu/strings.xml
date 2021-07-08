@@ -5,6 +5,7 @@
     <string name="pen_string_spectrum">Spektrum</string>
     <string name="pen_string_saturation">Telítettség</string>
     <string name="pen_string_select_color">Válasszon színt.</string>
+    <string name="new_version_is_available">Új verzió érhető el.</string>
     <string name="pen_string_red">Piros</string>
     <string name="pen_string_new_any">Új %s</string>
     <string name="pen_string_blue">Kék</string>
@@ -13,6 +14,7 @@
     <string name="pen_palette_color_custom">Egyéni szín</string>
     <string name="pen_string_cancel">Mégse</string>
     <string name="pen_string_button">Gomb</string>
+    <string name="version">Verzió</string>
     <string name="sesl_switchbar_off_text">Ki</string>
     <string name="sesl_switchbar_on_text">Be</string>
     <string name="pen_string_color_double_tap_to_apply">Érintse meg kétszer az alkalmazáshoz.</string>
@@ -20,4 +22,5 @@
     <string name="pen_string_green">Zöld</string>
     <string name="pen_string_selected">Kijelölve</string>
     <string name="pen_string_hex">Hexadecimális</string>
+    <string name="latest_version_installed">Már telepítve van a legfrissebb verzió.</string>
 </resources>

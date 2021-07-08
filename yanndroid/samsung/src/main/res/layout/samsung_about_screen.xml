@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8.0dip"
             android:gravity="center"
-            android:text="Version"
+            android:text="@string/version"
             android:textColor="@color/sesl_radiobutton_text_color"
             android:textSize="16.0sp"
             android:textStyle="normal" />

@@ -5,6 +5,7 @@
     <string name="pen_string_spectrum">ແຖບສີ</string>
     <string name="pen_string_saturation">ລະດັບສີ</string>
     <string name="pen_string_select_color">ເລືອກສີ.</string>
+    <string name="new_version_is_available">ມີເວີເຊິນໃໝ່ໃຫ້ຢູ່.</string>
     <string name="pen_string_red">ສີແດງ</string>
     <string name="pen_string_new_any">%s ໃໝ່</string>
     <string name="pen_string_blue">ສີຟ້າ</string>
@@ -13,6 +14,7 @@
     <string name="pen_palette_color_custom">ສີທີ່ກຳນົດເອງ</string>
     <string name="pen_string_cancel">ຍົກ​ເລີກ</string>
     <string name="pen_string_button">ປຸ່ມ</string>
+    <string name="version">ລຸ້ນ</string>
     <string name="sesl_switchbar_off_text">ປິດ</string>
     <string name="sesl_switchbar_on_text">ເປີດ</string>
     <string name="pen_string_color_double_tap_to_apply">ແຕະສອງຄັ້ງເພື່ອນຳໃຊ້.</string>
@@ -20,4 +22,5 @@
     <string name="pen_string_green">ສີຂຽວ</string>
     <string name="pen_string_selected">​ເລືອກ​ແລ້ວ</string>
     <string name="pen_string_hex">ຫົກຫຼ່ຽມ</string>
+    <string name="latest_version_installed">ຕິດຕັ້ງລຸ້ນຫຼ້າສຸດຮຽບຮ້ອຍແລ້ວ.</string>
 </resources>

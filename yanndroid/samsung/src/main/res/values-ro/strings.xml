@@ -5,6 +5,7 @@
     <string name="pen_string_spectrum">Spectru</string>
     <string name="pen_string_saturation">Saturație</string>
     <string name="pen_string_select_color">Selectați o culoare.</string>
+    <string name="new_version_is_available">Este disponibilă o versiune nouă.</string>
     <string name="pen_string_red">Roșu</string>
     <string name="pen_string_new_any">%s nou</string>
     <string name="pen_string_blue">Albastru</string>
@@ -13,6 +14,7 @@
     <string name="pen_palette_color_custom">Culoare personalizată</string>
     <string name="pen_string_cancel">Anulare</string>
     <string name="pen_string_button">Buton</string>
+    <string name="version">Versiune</string>
     <string name="sesl_switchbar_off_text">Oprit</string>
     <string name="sesl_switchbar_on_text">Activat</string>
     <string name="pen_string_color_double_tap_to_apply">Atingeți de două ori pentru a aplica.</string>
@@ -20,4 +22,5 @@
     <string name="pen_string_green">Verde</string>
     <string name="pen_string_selected">Selectată</string>
     <string name="pen_string_hex">Hexazecimal</string>
+    <string name="latest_version_installed">Cea mai recentă versiune este deja instalată.</string>
 </resources>

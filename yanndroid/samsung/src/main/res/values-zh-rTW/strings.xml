@@ -5,6 +5,7 @@
     <string name="pen_string_spectrum">色彩頻譜</string>
     <string name="pen_string_saturation">飽和度</string>
     <string name="pen_string_select_color">選擇色彩。</string>
+    <string name="new_version_is_available">已有新版本可用。</string>
     <string name="pen_string_red">紅色</string>
     <string name="pen_string_new_any">新 %s</string>
     <string name="pen_string_blue">藍色</string>
@@ -13,6 +14,7 @@
     <string name="pen_palette_color_custom">自訂色彩</string>
     <string name="pen_string_cancel">取消</string>
     <string name="pen_string_button">按鍵</string>
+    <string name="version">版本</string>
     <string name="sesl_switchbar_off_text">關</string>
     <string name="sesl_switchbar_on_text">開</string>
     <string name="pen_string_color_double_tap_to_apply">輕觸兩下來套用。</string>
@@ -20,4 +22,5 @@
     <string name="pen_string_green">綠色</string>
     <string name="pen_string_selected">已選擇</string>
     <string name="pen_string_hex">十六進位</string>
+    <string name="latest_version_installed">已安裝最新版本。</string>
 </resources>

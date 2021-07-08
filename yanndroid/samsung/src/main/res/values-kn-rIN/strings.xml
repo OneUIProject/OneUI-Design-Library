@@ -5,6 +5,7 @@
     <string name="pen_string_spectrum">ಸ್ಪೆಕ್ಟ್ರಮ್</string>
     <string name="pen_string_saturation">ಸ್ಯಾಚುರೇಶನ್</string>
     <string name="pen_string_select_color">ಬಣ್ಣವೊಂದನ್ನು ಆಯ್ಕೆಮಾಡಿ.</string>
+    <string name="new_version_is_available">ಒಂದು ಹೊಸ ಆವೃತ್ತಿಯು ಲಭ್ಯವಿರುತ್ತದೆ.</string>
     <string name="pen_string_red">ಕೆಂಪು</string>
     <string name="pen_string_new_any">ಹೊಸ %s</string>
     <string name="pen_string_blue">ನೀಲಿ</string>
@@ -13,6 +14,7 @@
     <string name="pen_palette_color_custom">ಕಸ್ಟಮ್ ಕಲರ್</string>
     <string name="pen_string_cancel">ರದ್ದುಮಾಡಿ</string>
     <string name="pen_string_button">ಬಟನ್</string>
+    <string name="version">ಆವೃತ್ತಿ</string>
     <string name="sesl_switchbar_off_text">ಆಫ್</string>
     <string name="sesl_switchbar_on_text">ಆನ್</string>
     <string name="pen_string_color_double_tap_to_apply">ಅನ್ವಯಿಸಲು ಎರಡುಬಾರಿ ತಟ್ಟಿ.</string>
@@ -20,4 +22,5 @@
     <string name="pen_string_green">ಹಸಿರು</string>
     <string name="pen_string_selected">ಆಯ್ಕೆ ಮಾಡಿದೆ</string>
     <string name="pen_string_hex">ಹೆಕ್ಸ್</string>
+    <string name="latest_version_installed">ಈಗಾಗಲೇ ಇತ್ತೀಚಿನ ಆವೃತ್ತಿಯನ್ನು ಸ್ಥಾಪಿಸಲಾಗಿದೆ.</string>
 </resources>

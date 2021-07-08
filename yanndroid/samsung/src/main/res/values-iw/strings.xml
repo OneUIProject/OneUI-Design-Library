@@ -5,6 +5,7 @@
     <string name="pen_string_spectrum">קשת</string>
     <string name="pen_string_saturation">רוויה</string>
     <string name="pen_string_select_color">בחר צבע.</string>
+    <string name="new_version_is_available">גרסה חדשה זמינה.</string>
     <string name="pen_string_red">אדום</string>
     <string name="pen_string_new_any">%s חדש</string>
     <string name="pen_string_blue">כחול</string>
@@ -13,6 +14,7 @@
     <string name="pen_palette_color_custom">צבע מותאם</string>
     <string name="pen_string_cancel">ביטול</string>
     <string name="pen_string_button">לחצן</string>
+    <string name="version">גרסה</string>
     <string name="sesl_switchbar_off_text">כבוי</string>
     <string name="sesl_switchbar_on_text">מופעל</string>
     <string name="pen_string_color_double_tap_to_apply">הקש הקשה כפולה כדי להחיל.</string>
@@ -20,4 +22,5 @@
     <string name="pen_string_green">ירוק</string>
     <string name="pen_string_selected">נבחר</string>
     <string name="pen_string_hex">הקסדצימלי</string>
+    <string name="latest_version_installed">הגרסה העדכנית ביותר כבר מותקנת.</string>
 </resources>

@@ -5,6 +5,7 @@
     <string name="pen_string_spectrum">Spektrum</string>
     <string name="pen_string_saturation">To‘yinish</string>
     <string name="pen_string_select_color">Rang tanlash.</string>
+    <string name="new_version_is_available">Yangi versiya mavjud.</string>
     <string name="pen_string_red">Qizil</string>
     <string name="pen_string_new_any">Yangi %s</string>
     <string name="pen_string_blue">Ko‘k</string>
@@ -13,6 +14,7 @@
     <string name="pen_palette_color_custom">Maxsus rang</string>
     <string name="pen_string_cancel">Bekor qil</string>
     <string name="pen_string_button">Tugma</string>
+    <string name="version">Versiya</string>
     <string name="sesl_switchbar_off_text">O‘chir-gan</string>
     <string name="sesl_switchbar_on_text">Yoq.</string>
     <string name="pen_string_color_double_tap_to_apply">Qo‘llash uchun ikki marta teging.</string>
@@ -20,4 +22,5 @@
     <string name="pen_string_green">Yashil</string>
     <string name="pen_string_selected">Tanlangan</string>
     <string name="pen_string_hex">Oltiburchak</string>
+    <string name="latest_version_installed">So‘nggi versiya oldinroq o‘rnatilgan.</string>
 </resources>

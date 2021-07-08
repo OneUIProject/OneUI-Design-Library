@@ -5,6 +5,7 @@
     <string name="pen_string_spectrum">स्पेक्ट्रम</string>
     <string name="pen_string_saturation">सॅचुरेशन</string>
     <string name="pen_string_select_color">रंग निवडा.</string>
+    <string name="new_version_is_available">नवी आवृत्ती उपलब्‍ध आहे.</string>
     <string name="pen_string_red">लाल</string>
     <string name="pen_string_new_any">नवीन %s</string>
     <string name="pen_string_blue">निळा</string>
@@ -13,6 +14,7 @@
     <string name="pen_palette_color_custom">सानुकूल रंग</string>
     <string name="pen_string_cancel">रद्द करा</string>
     <string name="pen_string_button">बटण</string>
+    <string name="version">आवृत्ती</string>
     <string name="sesl_switchbar_off_text">बंद</string>
     <string name="sesl_switchbar_on_text">चालू</string>
     <string name="pen_string_color_double_tap_to_apply">लागू करण्यासाठी दोनदा टॅप करा.</string>
@@ -20,4 +22,5 @@
     <string name="pen_string_green">हिरवा</string>
     <string name="pen_string_selected">निवडले</string>
     <string name="pen_string_hex">हेक्स</string>
+    <string name="latest_version_installed">नवीनतम आवृत्‍ती आधीपासूनच इन्‍स्‍टॉल केली आहे.</string>
 </resources>

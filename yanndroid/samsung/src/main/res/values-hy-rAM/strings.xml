@@ -5,6 +5,7 @@
     <string name="pen_string_spectrum">Սպեկտր</string>
     <string name="pen_string_saturation">Հագեցում</string>
     <string name="pen_string_select_color">Ընտրել գույն:</string>
+    <string name="new_version_is_available">Նոր վարկած է մատչելի:</string>
     <string name="pen_string_red">Կարմիր</string>
     <string name="pen_string_new_any">Նոր %s</string>
     <string name="pen_string_blue">Կապույտ</string>
@@ -13,6 +14,7 @@
     <string name="pen_palette_color_custom">Ընտրակայված գույն</string>
     <string name="pen_string_cancel">Դադարեցնել</string>
     <string name="pen_string_button">Կոճակ</string>
+    <string name="version">Տարբերակ</string>
     <string name="sesl_switchbar_off_text">Անջտված է</string>
     <string name="sesl_switchbar_on_text">Միացած</string>
     <string name="pen_string_color_double_tap_to_apply">Կրկնակի թակեք կիրառելու համար:</string>
@@ -20,4 +22,5 @@
     <string name="pen_string_green">Կանաչ</string>
     <string name="pen_string_selected">Ընտրված</string>
     <string name="pen_string_hex">Տասնվեցական</string>
+    <string name="latest_version_installed">Ամենավերջին վարկածն արդեն տեղադրված է:</string>
 </resources>

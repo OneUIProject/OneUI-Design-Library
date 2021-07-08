@@ -5,6 +5,7 @@
     <string name="pen_string_spectrum">Spectrum</string>
     <string name="pen_string_saturation">Saturação</string>
     <string name="pen_string_select_color">Seleccionar uma cor.</string>
+    <string name="new_version_is_available">Está disponível uma nova versão.</string>
     <string name="pen_string_red">Vermelho</string>
     <string name="pen_string_new_any">Novo %s</string>
     <string name="pen_string_blue">Azul</string>
@@ -13,6 +14,7 @@
     <string name="pen_palette_color_custom">Cor personalizada</string>
     <string name="pen_string_cancel">Cancelar</string>
     <string name="pen_string_button">Tecla</string>
+    <string name="version">Versão</string>
     <string name="sesl_switchbar_off_text">Desligado</string>
     <string name="sesl_switchbar_on_text">Ligado</string>
     <string name="pen_string_color_double_tap_to_apply">Toque duas vezes para aplicar.</string>
@@ -20,4 +22,5 @@
     <string name="pen_string_green">Verde</string>
     <string name="pen_string_selected">Seleccionado</string>
     <string name="pen_string_hex">Hexadecimal</string>
+    <string name="latest_version_installed">A versão mais recente já está instalada.</string>
 </resources>

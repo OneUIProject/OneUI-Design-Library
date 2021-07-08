@@ -81,7 +81,7 @@ public class DrawerLayout extends LinearLayout {
 
         Boolean isRtl = getResources().getBoolean(R.bool.is_rtl);
 
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, R.string.opend, R.string.closed) {
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, R.string.opened, R.string.closed) {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);

@@ -5,6 +5,7 @@
     <string name="pen_string_spectrum">Espectre</string>
     <string name="pen_string_saturation">Saturació</string>
     <string name="pen_string_select_color">Seleccioni un color</string>
+    <string name="new_version_is_available">Hi ha una nova versió disponible</string>
     <string name="pen_string_red">Vermell</string>
     <string name="pen_string_new_any">%s nou</string>
     <string name="pen_string_blue">Blau</string>
@@ -13,6 +14,7 @@
     <string name="pen_palette_color_custom">Color personalitzat</string>
     <string name="pen_string_cancel">Cancel·lar</string>
     <string name="pen_string_button">Botó</string>
+    <string name="version">Versió</string>
     <string name="sesl_switchbar_off_text">Desactivat</string>
     <string name="sesl_switchbar_on_text">Activat</string>
     <string name="pen_string_color_double_tap_to_apply">Toqui dues vegades per aplicar-ho.</string>
@@ -20,4 +22,5 @@
     <string name="pen_string_green">Verd</string>
     <string name="pen_string_selected">Seleccionat</string>
     <string name="pen_string_hex">Hex</string>
+    <string name="latest_version_installed">"Ja s'ha instal·lat l'última versió."</string>
 </resources>

@@ -1,6 +1,6 @@
 <resources>
     <string name="closed" translatable="false">closed</string>
-    <string name="opend" translatable="false">opened</string>
+    <string name="opened" translatable="false">opened</string>
     <string name="sesl_font_family_regular" translatable="false">sec-roboto-light</string>
     <string name="app_name" translatable="false" />
 
@@ -28,13 +28,12 @@
     <string name="pen_string_green">Green</string>
     <string name="pen_string_blue">Blue</string>
 
-
-
-    <!--untranslated:-->
-    <!--notes-->
     <string name="latest_version_installed">The latest version is already installed.</string>
     <string name="new_version_is_available">A new version is available.</string>
     <string name="version">Version</string>
+
+
+    <!--untranslated:-->
 
 
 </resources>
