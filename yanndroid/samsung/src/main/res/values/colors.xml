@@ -119,6 +119,8 @@
     <color name="drawer_icon_color">#ff676768</color>
     <color name="badge_background_color">#fff56a0d</color>
     <color name="splash_background">#ffffffff</color>
+    <color name="sesl_scrollbar_handle_tint">#ffdedede</color>
+
 
     <!--ColorPicker-->
     <color name="setting_bg_color">#fffcfcfc</color>

@@ -32,6 +32,9 @@
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
         <item name="actionOverflowMenuStyle">@style/ActionOverflowMenuStyle</item>
 
+        <item name="android:scrollbarThumbHorizontal">@drawable/sesl_scrollbar_handle</item>
+        <item name="android:scrollbarThumbVertical">@drawable/sesl_scrollbar_handle</item>
+
         <!--<item name="theme" tools:targetApi="q">@android:style/Theme.DeviceDefault.DayNight</item>-->
 
     </style>

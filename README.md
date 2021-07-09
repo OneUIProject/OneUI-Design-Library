@@ -8,7 +8,7 @@
 [![](https://img.shields.io/static/v1?label=telegram&message=Yanndroid&color=blue)](https://t.me/Yanndroid)
 
 # Samsung OneUi Design
-A library for Android, which makes your app look like Samsung's OneUI. In this library there is a theme which will apply for each View (see [Progress](#Progress)) in your layout. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk).
+A library for Android, which makes your app look like Samsung's OneUI. In this library, there is a theme which will apply for each view (see [Progress](#Progress)) in your layout. Of course it also has dark mode and even landscape/dex support. The texts which are the custom views are all translated to 90 languages, so you don't need to worry for these. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk).
 
 Excuse my bad english, feel free to correct it. :)
 
@@ -30,9 +30,9 @@ Excuse my bad english, feel free to correct it. :)
   - [ColorPickerDialog](#ColorPickerDialog)
   - [Icons](#Icons)
   - [Color theme](#Color-theme)
-    - [Entire App](#1.-Entire-App)
-    - [Single/Multiple activities](#2.-Single/Multiple-activities)
-    - [Via Code](#3.-Via-Code)
+    - [Entire App](#1-entire-App)
+    - [Single/Multiple activities](#2-singleMultiple-activities)
+    - [Via Code](#3-Via-Code)
   - [App Icon](#App-Icon)
 - [Progress](#Progress)
 
@@ -684,7 +684,7 @@ This methode allows you to change the color of your theme dynamicly within your 
 ```java
 new ThemeColor(this);
 ```
-This will apply the color theme at launch. If you want to chnage the color you can use these functions:
+This will apply the color theme at launch. If you want to change the color you can use these functions:
 ```java
 ThemeColor.setColor(Activity activity, int red, int green, int blue)
 ThemeColor.setColor(Activity activity, float red, float green, float blue)
@@ -724,6 +724,7 @@ My sample app icon for example:
 - [x] Tablet support
 - [x] About screen
 - [x] Button
+- [x] Scrollbar
 - [x] Desktop support (DeX) *
 - [x] Color picker dialog *
 - [x] Spinner *
@@ -731,11 +732,12 @@ My sample app icon for example:
 - [ ] Snackbar *
 - [ ] Dialog *
 - [ ] Bottomsheet
-- [ ] Tablayout
-- [ ] Viewpager
+- [ ] Tablayout & Viewpager
 - [ ] Preferences
 - [ ] Tooltip
 - [ ] Related card
+- [ ] Progress dialog
+- [ ] Bottom navigation
 - [ ] (Textview)
 - [ ] (Edittext)
 
