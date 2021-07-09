@@ -37,6 +37,17 @@
             android:textStyle="normal" />
 
         <TextView
+            android:id="@+id/about_optional_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8.0dip"
+            android:gravity="center"
+            android:textColor="@color/sesl_radiobutton_text_color"
+            android:textSize="16.0sp"
+            android:textStyle="normal"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/status_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

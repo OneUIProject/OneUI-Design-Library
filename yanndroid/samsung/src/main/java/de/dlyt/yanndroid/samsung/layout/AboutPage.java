@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -30,9 +31,12 @@ public class AboutPage extends LinearLayout {
     private LinearLayout about_content;
     private TextView version;
     private TextView status_text;
+    private TextView about_optional_text;
     private MaterialButton update_button;
     private ProgressBar loading_bar;
     private ToolbarLayout toolbarLayout;
+
+    private String optional_text;
 
     public static final int LOADING = 0;
     public static final int UPDATE_AVAILABLE = 1;
@@ -46,15 +50,25 @@ public class AboutPage extends LinearLayout {
     public AboutPage(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
+        TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.AboutPage, 0, 0);
+        try {
+            optional_text = attr.getString(R.styleable.AboutPage_optional_text);
+        } finally {
+            attr.recycle();
+        }
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.samsung_about_screen, this, true);
 
         about_content = findViewById(R.id.about_content);
         version = findViewById(R.id.version);
         status_text = findViewById(R.id.status_text);
+        about_optional_text = findViewById(R.id.about_optional_text);
         update_button = findViewById(R.id.update_button);
         loading_bar = findViewById(R.id.loading_bar);
         toolbarLayout = findViewById(R.id.toolbar_layout);
+
+        setOptionalText(optional_text);
 
         toolbarLayout.getToolbar().inflateMenu(R.menu.app_info);
         toolbarLayout.getToolbar().setOnMenuItemClickListener(item -> {
@@ -110,6 +124,11 @@ public class AboutPage extends LinearLayout {
         }
     }
 
+    public void setOptionalText(String text) {
+        optional_text = text;
+        about_optional_text.setText(text);
+        about_optional_text.setVisibility(text == null || text.isEmpty() ? GONE : VISIBLE);
+    }
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {

@@ -81,5 +81,9 @@
         <attr name="expandable" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="AboutPage">
+        <attr name="optional_text" format="string" />
+    </declare-styleable>
+
 
 </resources>

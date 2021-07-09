@@ -463,8 +463,6 @@ A Seekbar like the brightness slider in the QS.
     android:layout_height="wrap_content"
     app:seslSeekBarMode="expand" />
 ```
-:warning: You might need to set a vertical margin, in case the seekbar thumb is cut of.
-
 If you don't want the expanding seekbar, you can use the default seekbar instead , as the style will also apply on this one.
 
 #### Methods
