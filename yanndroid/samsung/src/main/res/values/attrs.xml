@@ -52,6 +52,7 @@
         <attr name="text" />
         <attr name="foreground_image" format="reference|color" />
         <attr name="background_image" format="reference|color" />
+        <attr name="animation" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="OptionButton">

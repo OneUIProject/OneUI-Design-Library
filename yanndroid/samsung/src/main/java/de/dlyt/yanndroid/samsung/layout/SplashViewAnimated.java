@@ -36,6 +36,7 @@ public class SplashViewAnimated extends LinearLayout {
             mText = attr.getString(R.styleable.SplashViewAnimated_text);
             mImage_foreground = attr.getDrawable(R.styleable.SplashViewAnimated_foreground_image);
             mImage_background = attr.getDrawable(R.styleable.SplashViewAnimated_background_image);
+            splash_anim = AnimationUtils.loadAnimation(context, attr.getResourceId(R.styleable.SplashViewAnimated_animation, R.anim.sesl_splash_animation));
         } finally {
             attr.recycle();
         }
@@ -52,9 +53,6 @@ public class SplashViewAnimated extends LinearLayout {
         textView.setText(mText);
         imageview_foreground.setImageDrawable(mImage_foreground);
         imageview_background.setImageDrawable(mImage_background);
-
-
-        splash_anim = AnimationUtils.loadAnimation(context, R.anim.sesl_splash_animation);
 
 
     }

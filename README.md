@@ -391,11 +391,14 @@ An animated splash screen view like the one in the GalaxyStore. Add this ```andr
     android:layout_height="match_parent"
     app:background_image="..."
     app:foreground_image="..."
+    app:animation="..."
     app:text="..." />
 ```
 
 ```app:background_image="..."``` only the background of your icon and ```app:foreground_image="..."``` only the foreground, which will have a shake animation.
 ```app:text="..."``` will be the text under the icon. It has a very similar font and color as the GalaxyStore splash text.
+
+The default animation will be like the one of the galaxy store but you can change this with ```app:animation="@anim/..."``` if you want to use your own.
 
 #### Methods
 Sets the icon fore- and background
