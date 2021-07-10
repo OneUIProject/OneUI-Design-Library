@@ -6,7 +6,7 @@
 
     <!--/1000-->
     <integer name="content_margin">0</integer>
-    <integer name="appBarHeight">385</integer>
+    <integer name="appBarHeight">380</integer>
     <integer name="drawerMaxWidth">840</integer>
 
 </resources>

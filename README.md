@@ -117,6 +117,7 @@ In general most of the views (see [Progress](#Progress)) are styled automaticall
     app:drawer_viewId="@id/viewindrawer"
     app:toolbar_subtitle="..."
     app:toolbar_title="..."
+    app:toolbar_expanded="..."
     app:toolbar_expandable="...">
 
     <View
@@ -130,7 +131,7 @@ In general most of the views (see [Progress](#Progress)) are styled automaticall
 ```
 The view with the ID specified in ```app:drawer_viewId="..."``` will be shown in the drawer and the rest of the children on the main screen.  
 
-```app:toolbar_title="..."``` and ```app:toolbar_subtitle="..."``` are setting the title and subtitle in the toolbar. If nothing is set for the subtitle, the toolbar will adjust the title position to match the space. The toolbar is expandable by default, it can be changed with ```app:toolbar_expandable="..."```.  
+```app:toolbar_title="..."``` and ```app:toolbar_subtitle="..."``` are setting the title and subtitle in the toolbar. The toolbar is expandable by default, it can be changed with ```app:toolbar_expandable="..."```. If you only want it to be collapsed, you can use ```app:toolbar_expanded="..."``` instead.  
 
 The drawable in ```app:drawer_icon="..."``` is the little icon at the top right in the drawer pane. There are already some stock Samsung [icons](#Icons) included in the library.  
 
@@ -183,6 +184,7 @@ Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
     app:title="..."
     app:subtitle="..."
     app:navigationIcon="..."
+    app:expanded="..."
     app:expandable="..."
     >
 
@@ -192,7 +194,7 @@ Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
 ```
 ```app:navigationIcon="..."``` is the NavigationIcon of the toolbar. There are already some stock Samsung [icons](#Icons) included in the library, like a drawer and back icon.  
 
-The toolbar is expandable by default, it can be changed with ```app:expandable="..."```.  
+The toolbar is expandable by default, it can be changed with ```app:expandable="..."```.. If you only want it to be collapsed, you can use ```app:expanded="..."``` instead.  
 
 Same as the [DrawerLayout](#DrawerLayout) you need to use a [NestedScrollView](https://developer.android.com/reference/androidx/core/widget/NestedScrollView) or ```android:nestedScrollingEnabled="true"```.
 

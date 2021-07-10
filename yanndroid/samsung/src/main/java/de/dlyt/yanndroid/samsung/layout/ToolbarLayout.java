@@ -25,6 +25,7 @@ public class ToolbarLayout extends LinearLayout {
     private String mTitle;
     private String mSubtitle;
     private Boolean mExpandable;
+    private Boolean mExpanded;
 
     private ImageView navigation_icon;
     private TextView navigation_icon_Badge;
@@ -48,6 +49,7 @@ public class ToolbarLayout extends LinearLayout {
             mSubtitle = attr.getString(R.styleable.ToolBarLayout_subtitle);
             mNavigationIcon = attr.getDrawable(R.styleable.ToolBarLayout_navigationIcon);
             mExpandable = attr.getBoolean(R.styleable.ToolBarLayout_expandable, true);
+            mExpanded = attr.getBoolean(R.styleable.ToolBarLayout_expanded, true);
         } finally {
             attr.recycle();
         }
@@ -93,6 +95,8 @@ public class ToolbarLayout extends LinearLayout {
             collapsed_title.setAlpha((float) ((percentage * -2) - 0.8));
         });
 
+        setExpanded(mExpanded, false);
+
 
     }
 
@@ -127,7 +131,7 @@ public class ToolbarLayout extends LinearLayout {
     public void setSubtitle(String subtitle) {
         this.mSubtitle = subtitle;
         expanded_subtitle.setText(mSubtitle);
-        expanded_subtitle.setVisibility(subtitle == null || subtitle.equals("") ? GONE : VISIBLE);
+        expanded_subtitle.setVisibility(subtitle == null || subtitle.equals("") ? INVISIBLE : VISIBLE);
     }
 
     public void setSubtitleColor(int color){
@@ -135,6 +139,7 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     public void setExpanded(boolean expanded, boolean animate) {
+        this.mExpanded = expanded;
         AppBar.setExpanded(expanded, animate);
     }
 
@@ -143,9 +148,7 @@ public class ToolbarLayout extends LinearLayout {
         if (expandable && getResources().getInteger(R.integer.appBarHeight) != 0) {
             appBarLayoutParams.height = (int) ((double) this.getResources().getDisplayMetrics().heightPixels * ((double) getResources().getInteger(R.integer.appBarHeight) / 1000));
         } else {
-            final TypedArray styledAttributes = getContext().getTheme().obtainStyledAttributes(new int[]{android.R.attr.actionBarSize});
-            appBarLayoutParams.height = (int) styledAttributes.getDimension(0, 0);
-            styledAttributes.recycle();
+            appBarLayoutParams.height = 56;
         }
     }
 

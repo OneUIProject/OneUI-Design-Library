@@ -25,6 +25,7 @@ public class DrawerLayout extends LinearLayout {
     private String mToolbarTitle;
     private String mToolbarSubtitle;
     private Boolean mToolbarExpandable;
+    private Boolean mToolbarExpanded;
 
     private ImageView drawerIcon;
     private ToolbarLayout toolbarLayout;
@@ -47,6 +48,7 @@ public class DrawerLayout extends LinearLayout {
             mDrawerIcon = attr.getDrawable(R.styleable.DrawerLayout_drawer_icon);
             viewIdForDrawer = attr.getResourceId(R.styleable.DrawerLayout_drawer_viewId, -2);
             mToolbarExpandable = attr.getBoolean(R.styleable.DrawerLayout_toolbar_expandable, true);
+            mToolbarExpanded = attr.getBoolean(R.styleable.DrawerLayout_toolbar_expanded, true);
         } finally {
             attr.recycle();
         }
@@ -62,6 +64,7 @@ public class DrawerLayout extends LinearLayout {
         toolbarLayout.setTitle(mToolbarTitle);
         toolbarLayout.setSubtitle(mToolbarSubtitle);
         toolbarLayout.setExpandable(mToolbarExpandable);
+        toolbarLayout.setExpanded(mToolbarExpanded, false);
         drawerIcon = findViewById(R.id.drawerIcon);
         drawerIcon.setImageDrawable(mDrawerIcon);
 
