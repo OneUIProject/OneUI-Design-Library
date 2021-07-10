@@ -3,6 +3,7 @@ package de.dlyt.yanndroid.samsung.layout;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -75,12 +76,10 @@ public class DrawerLayout extends LinearLayout {
         drawerLayout = findViewById(R.id.drawerLayout);
         drawer = findViewById(R.id.drawer);
 
-
-        ViewGroup.LayoutParams layoutParams = drawer.getLayoutParams();
-        layoutParams.width = Math.min((int) ((double) this.getResources().getDisplayMetrics().widthPixels * ((double) getResources().getInteger(R.integer.drawerMaxWidth) / 1000)), this.getResources().getDimensionPixelSize(R.dimen.drawer_width));
-
         drawerLayout.setScrimColor(ContextCompat.getColor(getContext(), R.color.drawer_dim_color));
         drawerLayout.setDrawerElevation(0);
+
+        init();
 
         Boolean isRtl = getResources().getBoolean(R.bool.is_rtl);
 
@@ -102,6 +101,11 @@ public class DrawerLayout extends LinearLayout {
             }
         });
 
+    }
+
+    private void init() {
+        ViewGroup.LayoutParams layoutParams = drawer.getLayoutParams();
+        layoutParams.width = Math.min((int) ((double) this.getResources().getDisplayMetrics().widthPixels * ((double) getResources().getInteger(R.integer.drawerMaxWidth) / 1000)), this.getResources().getDimensionPixelSize(R.dimen.drawer_width));
     }
 
 
@@ -174,6 +178,12 @@ public class DrawerLayout extends LinearLayout {
                 toolbarLayout.addView(child, index, params);
             }
         }
+    }
+
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        init();
     }
 
 }

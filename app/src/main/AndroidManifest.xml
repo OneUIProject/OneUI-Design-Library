@@ -9,8 +9,12 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/SamsungTheme">
-        <activity android:name=".AboutActivity" android:theme="@style/SamsungAboutTheme"/>
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".AboutActivity"
+            android:theme="@style/SamsungAboutTheme" />
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SamsungSplashTheme">

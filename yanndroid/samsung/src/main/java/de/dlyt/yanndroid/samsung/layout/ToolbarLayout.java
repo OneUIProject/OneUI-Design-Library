@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -79,6 +78,12 @@ public class ToolbarLayout extends LinearLayout {
         AppBar = findViewById(R.id.app_bar);
 
         appBarLayoutParams = AppBar.getLayoutParams();
+
+        init();
+
+    }
+
+    private void init() {
         setExpandable(mExpandable);
 
         int content_margin = (int) ((double) this.getResources().getDisplayMetrics().widthPixels * ((double) getResources().getInteger(R.integer.content_margin) / 1000));
@@ -98,8 +103,6 @@ public class ToolbarLayout extends LinearLayout {
         });
 
         setExpanded(mExpanded, false);
-
-
     }
 
 
@@ -136,7 +139,7 @@ public class ToolbarLayout extends LinearLayout {
         expanded_subtitle.setVisibility(subtitle == null || subtitle.equals("") ? INVISIBLE : VISIBLE);
     }
 
-    public void setSubtitleColor(int color){
+    public void setSubtitleColor(int color) {
         expanded_subtitle.setTextColor(color);
     }
 
@@ -151,8 +154,8 @@ public class ToolbarLayout extends LinearLayout {
             appBarLayoutParams.height = (int) ((double) this.getResources().getDisplayMetrics().heightPixels * ((double) getResources().getInteger(R.integer.appBarHeight) / 1000));
         } else {
             float height = getContext().getTheme().obtainStyledAttributes(new int[]{android.R.attr.actionBarSize}).getDimension(0, 0);
-            if (getResources().getConfiguration().smallestScreenWidthDp < 600 && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-                height *= 7.0/6;
+            if (getResources().getConfiguration().smallestScreenWidthDp < 600 && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                height *= 7.0 / 6;
             }
             appBarLayoutParams.height = (int) height;
         }
@@ -165,6 +168,12 @@ public class ToolbarLayout extends LinearLayout {
         } else {
             main_container.addView(child, index, params);
         }
+    }
+
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        init();
     }
 
 }
