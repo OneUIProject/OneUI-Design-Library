@@ -23,7 +23,12 @@
 
     <LinearLayout
         android:id="@+id/drawer"
-        style="@style/DrawerStyle">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@drawable/drawer_background"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"

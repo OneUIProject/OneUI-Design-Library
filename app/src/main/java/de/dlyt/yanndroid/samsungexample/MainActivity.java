@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
@@ -59,13 +60,17 @@ public class MainActivity extends AppCompatActivity {
         GridView images = findViewById(R.id.images);
         images.setAdapter(new ImageAdapter(this));
 
+        init();
+
+    }
+
+    private void init(){
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-
     }
 
     public void demo() {
@@ -232,6 +237,12 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        init();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
