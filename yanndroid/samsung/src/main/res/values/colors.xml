@@ -88,20 +88,12 @@
     <!--Spinner-->
     <color name="sesl_menu_popup_background_color">#fffcfcfc</color>
     <color name="sesl_menu_popup_background_stroke_color">#fffcfcfc</color>
-
-    <color name="sesl_spinner_dropdown_item_text_color_disabled_dark">#66fafafa</color>
-    <color name="sesl_spinner_dropdown_item_text_color_normal_dark">#ff252525</color>
-    <color name="sesl_spinner_icon_color_default_dark">#ffd9d9d9</color>
-    <color name="sesl_spinner_icon_color_disabled_dark">#66d9d9d9</color>
-    <color name="sesl_spinner_item_text_color_disabled_dark">#66fafafa</color>
-    <color name="sesl_spinner_item_text_color_normal_dark">@color/sesl_white</color>
-
-    <color name="sesl_spinner_dropdown_item_text_color_disabled_light">#66000000</color>
-    <color name="sesl_spinner_dropdown_item_text_color_normal_light">#ff000000</color>
-    <color name="sesl_spinner_icon_color_default_light">#ff3b3b3b</color>
-    <color name="sesl_spinner_icon_color_disabled_light">#663b3b3b</color>
-    <color name="sesl_spinner_item_text_color_disabled_light">#66252525</color>
-    <color name="sesl_spinner_item_text_color_normal_light">@color/sesl_black</color>
+    <color name="sesl_spinner_dropdown_item_text_color_disabled">#66000000</color>
+    <color name="sesl_spinner_dropdown_item_text_color_normal">#ff000000</color>
+    <color name="sesl_spinner_icon_color_default">#ff3b3b3b</color>
+    <color name="sesl_spinner_icon_color_disabled">#663b3b3b</color>
+    <color name="sesl_spinner_item_text_color_disabled">#66252525</color>
+    <color name="sesl_spinner_item_text_color_normal">@color/sesl_black</color>
 
     <!--Toolbar-->
     <color name="sesl_action_bar_background_color_dark">#ff010101</color>

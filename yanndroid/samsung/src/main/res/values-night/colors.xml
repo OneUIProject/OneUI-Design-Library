@@ -32,7 +32,12 @@
     <!--Spinner-->
     <color name="sesl_menu_popup_background_color">#ff252525</color>
     <color name="sesl_menu_popup_background_stroke_color">#ff252525</color>
-    <color name="sesl_spinner_dropdown_item_text_color_normal_dark">#fffafafa</color>
+    <color name="sesl_spinner_dropdown_item_text_color_normal">#fffafafa</color>
+    <color name="sesl_spinner_dropdown_item_text_color_disabled">#66fafafa</color>
+    <color name="sesl_spinner_icon_color_default">#ffd9d9d9</color>
+    <color name="sesl_spinner_icon_color_disabled">#66d9d9d9</color>
+    <color name="sesl_spinner_item_text_color_disabled">#66fafafa</color>
+    <color name="sesl_spinner_item_text_color_normal">@color/sesl_white</color>
 
 
     <!--Others-->
@@ -41,7 +46,6 @@
     <color name="drawer_dim_color">#cc000000</color>
     <color name="splash_background">#ff000000</color>
     <color name="sesl_scrollbar_handle_tint">#ff595959</color>
-
 
 
     <!--ColorPicker-->

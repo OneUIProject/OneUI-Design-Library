@@ -35,6 +35,7 @@ Excuse my bad english, feel free to correct it. :)
     - [Via Code](#3-Via-Code)
   - [App Icon](#App-Icon)
 - [Progress](#Progress)
+- [Changelog](#Changelog)
 
 
 ## Screenshots
@@ -223,7 +224,7 @@ Set the toolbar expandable.
 ```java
 public void setExpandable(boolean expandable)
 ```
-Clicklistener for the NavigationIcon (Back icon).
+OnClickListener for the NavigationIcon (Back icon).
 ```java
 public void setNavigationOnClickListener(OnClickListener listener)
 ```
@@ -547,7 +548,7 @@ There are also some of the stock icons you can find in Samsung apps included in 
 
 <details>
 <summary>See the icon list</summary>
-<p>
+
 
 ```ic_samsung_arrow_down```  
 ```ic_samsung_arrow_left```  
@@ -625,7 +626,6 @@ There are also some of the stock icons you can find in Samsung apps included in 
 ```ic_samsung_warning```  
 ```ic_samsung_web_search.xml```  
 
-</p>
 </details>
 &nbsp;
 
@@ -683,7 +683,7 @@ If you want to use different colors for a single (or multiple, but not all) acti
 Then apply it on the activities you want with ```android:theme="@style/ThemeName"``` in ```AndroidManifest.xml```.
 
 #### 3. Via Code
-This methode allows you to change the color of your theme dynamicly within your app. It's based on [this idea](https://stackoverflow.com/a/48517223). In your activity onCreate add this line at the top **before** ```setContentView(...)```:
+This methode allows you to change the color of your theme dynamically within your app. It's based on [this idea](https://stackoverflow.com/a/48517223). In your activity onCreate add this line at the top **before** ```setContentView(...)```:
 ```java
 new ThemeColor(this);
 ```
@@ -696,11 +696,11 @@ ThemeColor.setColor(Activity activity, float[] hsv)
 The color you apply with these functions will apply on every activity with ```new ThemeColor(this)``` at the top.
 
 ### App Icon
-The most app icons of Samsung apps are made of one solid color as background and a white icon as forground. Useually there is even a little part/detail of the foreground with a similar color as the background.
+The most app icons of Samsung apps are made of one solid color as background and a white icon as foreground. Usually there is even a little part/detail of the foreground with a similar color as the background.
 
 <img src="readme-resources/app-icons/settings.png" width="50" height="50" />   <img src="readme-resources/app-icons/notes.png" width="50" height="50" />   <img src="readme-resources/app-icons/messages.png" width="50" height="50" />   <img src="readme-resources/app-icons/camera.png" width="50" height="50" />   <img src="readme-resources/app-icons/calculator.png" width="50" height="50" />   <img src="readme-resources/app-icons/contacts.png" width="50" height="50" />   <img src="readme-resources/app-icons/myfiles.png" width="50" height="50" />
 
- I would suggest you to use ```@color/primary_color``` for the background color and either ```@color/launcher_foreground_detail_color``` , ```@color/secondary_color``` or ```@color/primary_dark_color``` for the foreground "detail" color, so [your color theme](#Color-theme) applys for the app icon too.  
+ I would suggest you to use ```@color/primary_color``` for the background color and either ```@color/launcher_foreground_detail_color``` , ```@color/secondary_color``` or ```@color/primary_dark_color``` for the foreground "detail" color, so [your color theme](#Color-theme) applies for the app icon too.  
 My sample app icon for example:
 
 <img src="readme-resources/app-icons/sample.png" width="50" height="50" />
@@ -708,7 +708,7 @@ My sample app icon for example:
 
 ## Progress
 
-- [x] Cardview
+- [x] CardView
 - [x] Checkbox
 - [x] Switch 
 - [x] Radiobutton
@@ -719,7 +719,7 @@ My sample app icon for example:
 - [x] Drawer divider
 - [x] SeslToggleSwitch
 - [x] SeslProgressbar
-- [x] SeslSwitchbar
+- [x] SeslSwitchBar
 - [x] SeslSeekbar
 - [x] Collapsing toolbar
 - [x] Rtl
@@ -732,10 +732,10 @@ My sample app icon for example:
 - [x] Color picker dialog *
 - [x] Spinner *
 - [ ] Menu *
-- [ ] Snackbar *
+- [ ] SnackBar *
 - [ ] Dialog *
-- [ ] Bottomsheet
-- [ ] Tablayout & Viewpager
+- [ ] BottomSheet
+- [ ] TabLayout & Viewpager
 - [ ] Preferences
 - [ ] Tooltip
 - [ ] Related card
@@ -745,6 +745,60 @@ My sample app icon for example:
 - [ ] (Edittext)
 
 *needs improvement
+
+## Changelog
+
+<details>
+<summary>1.2.2</summary>
+
+- Scrollbar
+- AboutPage
+- corner fix
+- language update
+- customizable splash animation
+- expanded attribute for toolbar
+- fixed landscape toolbar height
+- improved orientation switching
+- button text fix
+- added changelog to readme
+
+</details>
+
+<details>
+<summary>1.2.1</summary>
+
+- landscape support
+- table support
+- dex support
+- expandable attribute for toolbar
+- toolbar subtitle color
+- added subheader style
+
+</details>
+
+<details>
+<summary>1.2.0</summary>
+
+- colorPicker
+- color Changer
+- readme finished
+- much more icons
+- rtl support
+- 90 languages
+
+</details>
+
+<details>
+<summary>1.1.3 - 1.0.0</summary>
+
+- initial release/publish
+- most of the stuff (I don't remember anymore...)
+
+</details>
+
+
+
+
 
 ## Special thanks to:
 - [leonbcode](https://github.com/leonbcode) for github actions, so this library is always up-to-date.
