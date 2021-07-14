@@ -12,9 +12,9 @@ import com.samsung.android.sdk.pen.settingui.util.SpenSettingUtil;
 import de.dlyt.yanndroid.samsung.R;
 
 public class SpenColorSwatchSelectorView extends View {
-    private boolean mIsShowOutline = false;
     private final int mOutlineColor;
     private final int mOutlineSize;
+    private boolean mIsShowOutline = false;
 
     public SpenColorSwatchSelectorView(Context context) {
         super(context);

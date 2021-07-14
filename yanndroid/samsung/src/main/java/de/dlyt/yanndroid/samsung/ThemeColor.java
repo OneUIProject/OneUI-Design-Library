@@ -33,12 +33,12 @@ public class ThemeColor {
     }
 
     public static void setColor(Activity activity, float red, float green, float blue) {
-        setColor(activity, (int) (red*255), (int) (green*255),(int) (blue*255));
+        setColor(activity, (int) (red * 255), (int) (green * 255), (int) (blue * 255));
     }
 
     public static void setColor(Activity activity, float[] hsv) {
         Color c = Color.valueOf(Color.HSVToColor(hsv));
-        setColor(activity, (int) (c.red()*255), (int) (c.green()*255),(int) (c.blue()*255));
+        setColor(activity, (int) (c.red() * 255), (int) (c.green() * 255), (int) (c.blue() * 255));
     }
 
 }

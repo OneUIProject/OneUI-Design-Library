@@ -12,10 +12,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
-
-import de.dlyt.yanndroid.samsung.R;
-
 public class SpenSettingUtilText {
     public static final String STYLE_CONDENSED_BOLD = "/system/fonts/RobotoCondensed-Bold.ttf";
     public static final String STYLE_MEDIUM = "/system/fonts/Roboto-Medium.ttf";

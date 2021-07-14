@@ -33,6 +33,7 @@ public class ColorPickerDialog extends Dialog {
     public static final int VIEW_MODE_GRADIENT = 1;
     public static final int VIEW_MODE_SWATCH = 2;
     private static final int TYPE_CUSTOMIZE = 0;
+    private final boolean mIsSupportRGBCode;
     private SpenShowButtonShapeText cancelTextView;
     private SpenShowButtonShapeText doneTextView;
     private ColorPickerChangedListener mColorPickerChangedListener;
@@ -73,13 +74,11 @@ public class ColorPickerDialog extends Dialog {
             }
         }
     };
-
     private SpenColorPickerTheme mColorTheme;
     private Context mContext;
     private int mCurrentOrientation = 1;
     private SpenColorPickerDataManager mDataManager;
     private boolean mIsKeyboardShowing = false;
-    private final boolean mIsSupportRGBCode;
     private RelativeLayout mParentLayout;
     private SpenColorPickerControl mPickerControl;
     private SpenColorPickerView mPickerLayout;

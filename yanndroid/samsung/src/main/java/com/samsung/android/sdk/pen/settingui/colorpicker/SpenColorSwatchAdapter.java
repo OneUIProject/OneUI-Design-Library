@@ -14,8 +14,8 @@ public class SpenColorSwatchAdapter extends BaseAdapter {
     private final LayoutInflater mInflater;
     private final int mItemResourceId;
     private final List<SpenColorSwatchItem> mSwatchItemList;
-    int mSelectedPosition = -1;
     private final String mSelectedString;
+    int mSelectedPosition = -1;
 
     SpenColorSwatchAdapter(Context context, List<SpenColorSwatchItem> list, int i) {
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

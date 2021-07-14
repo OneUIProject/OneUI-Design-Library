@@ -22,6 +22,7 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
     private static final int CURSOR_COLOR = -1;
     private static final String TAG = "SpenColorGradientView";
     private static final int TRANSPARENT_WHITE = 16777215;
+    private final float[] mHsv = {0.0f, 0.0f, 0.0f};
     private float mCurX;
     private float mCurY;
     private Paint mCursorColorPaint;
@@ -30,7 +31,6 @@ class SpenColorGradientView extends View implements SpenColorViewInterface, Spen
     private int mCursorStrokeSize;
     private Paint mGradientPaint;
     private Rect mGradientSize;
-    private final float[] mHsv = {0.0f, 0.0f, 0.0f};
     private SpenPickerColor mPickerColor;
 
     public SpenColorGradientView(Context context, int i, int i2) {

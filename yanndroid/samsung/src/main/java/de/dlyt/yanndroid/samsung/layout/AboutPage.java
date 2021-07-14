@@ -28,6 +28,9 @@ import de.dlyt.yanndroid.samsung.R;
 
 public class AboutPage extends LinearLayout {
 
+    public static final int LOADING = 0;
+    public static final int UPDATE_AVAILABLE = 1;
+    public static final int NO_UPDATE = 2;
     private LinearLayout about_content;
     private TextView version;
     private TextView status_text;
@@ -35,17 +38,7 @@ public class AboutPage extends LinearLayout {
     private MaterialButton update_button;
     private ProgressBar loading_bar;
     private ToolbarLayout toolbarLayout;
-
     private String optional_text;
-
-    public static final int LOADING = 0;
-    public static final int UPDATE_AVAILABLE = 1;
-    public static final int NO_UPDATE = 2;
-
-    @IntDef({LOADING, UPDATE_AVAILABLE, NO_UPDATE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface UpdateState {
-    }
 
     public AboutPage(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -137,6 +130,11 @@ public class AboutPage extends LinearLayout {
         } else {
             about_content.addView(child, index, params);
         }
+    }
+
+    @IntDef({LOADING, UPDATE_AVAILABLE, NO_UPDATE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface UpdateState {
     }
 
 

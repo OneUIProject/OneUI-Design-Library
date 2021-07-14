@@ -72,6 +72,10 @@ public class OptionGroup extends LinearLayout {
         }
     }
 
+    public OptionButton getSelectedOptionButton() {
+        return findViewById(selectedId);
+    }
+
     public void setSelectedOptionButton(OptionButton optionButton) {
         if (selectedId != -1) checkState.put(selectedId, false);
         selectedId = optionButton.getId();
@@ -98,16 +102,12 @@ public class OptionGroup extends LinearLayout {
         updateCheckState();
     }
 
-    public OptionButton getSelectedOptionButton() {
-        return findViewById(selectedId);
+    public void setOnOptionButtonClickListener(OnOptionButtonClickListener listener) {
+        mOnOptionButtonClickListener = listener;
     }
 
     public interface OnOptionButtonClickListener {
         public void onOptionButtonClick(OptionButton view, int checkedId, int position);
-    }
-
-    public void setOnOptionButtonClickListener(OnOptionButtonClickListener listener) {
-        mOnOptionButtonClickListener = listener;
     }
 
 }

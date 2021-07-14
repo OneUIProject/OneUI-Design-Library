@@ -17,11 +17,7 @@ import de.dlyt.yanndroid.samsung.R;
 
 public class SpenColorValueSeekBar extends RelativeLayout implements SpenColorViewInterface, SpenPickerColorEventListener {
     private static final String TAG = "SpenColorValueSeekBar";
-    int[] mColors = {-16777216, -1};
     private final float[] mHsv = {0.0f, 0.0f, 0.0f};
-    private SpenPickerColor mPickerColor;
-    private GradientDrawable mProgressDrawable;
-    private SeekBar mSeekBar;
     private final OnTouchListener mSeekBarOnTouchListener = new OnTouchListener() {
 
         public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -32,6 +28,10 @@ public class SpenColorValueSeekBar extends RelativeLayout implements SpenColorVi
             return motionEvent.getAction() == 0;
         }
     };
+    int[] mColors = {-16777216, -1};
+    private SpenPickerColor mPickerColor;
+    private GradientDrawable mProgressDrawable;
+    private SeekBar mSeekBar;
     private TextView mSeekBarText;
     private final SeekBar.OnSeekBarChangeListener mSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
 

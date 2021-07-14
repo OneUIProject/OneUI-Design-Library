@@ -131,42 +131,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public class ImageAdapter extends BaseAdapter {
-        private Context mContext;
-
-        public ImageAdapter(Context c) {
-            mContext = c;
-        }
-
-        public int getCount() {
-            return imageIDs.length;
-        }
-
-        public Object getItem(int position) {
-            return null;
-        }
-
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView mImageView;
-            if (convertView == null) {
-                mImageView = new ImageView(mContext);
-                mImageView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            } else {
-                mImageView = (ImageView) convertView;
-            }
-            mImageView.setImageResource(imageIDs[position]);
-            return mImageView;
-        }
-
-
-    }
-
-
     public void colorPicker(View view) {
 
         SharedPreferences sharedPreferences = getSharedPreferences("ThemeColor", Context.MODE_PRIVATE);
@@ -233,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -249,6 +212,41 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    public class ImageAdapter extends BaseAdapter {
+        private Context mContext;
+
+        public ImageAdapter(Context c) {
+            mContext = c;
+        }
+
+        public int getCount() {
+            return imageIDs.length;
+        }
+
+        public Object getItem(int position) {
+            return null;
+        }
+
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ImageView mImageView;
+            if (convertView == null) {
+                mImageView = new ImageView(mContext);
+                mImageView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            } else {
+                mImageView = (ImageView) convertView;
+            }
+            mImageView.setImageResource(imageIDs[position]);
+            return mImageView;
+        }
+
+
     }
 
 }
