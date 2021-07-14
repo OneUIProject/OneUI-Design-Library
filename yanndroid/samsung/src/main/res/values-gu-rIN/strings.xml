@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <string name="pen_string_done">પૂર્ણ થયું</string>
     <string name="pen_string_current_any">વર્તમાન %s</string>
     <string name="pen_string_spectrum">સ્પેક્ટ્રમ</string>
     <string name="pen_string_saturation">સંતૃપ્તિ</string>
     <string name="pen_string_select_color">રંગ પસંદ કરો.</string>
     <string name="new_version_is_available">એક નવું વર્ઝન ઉપલબ્ધ છે.</string>
-    <string name="pen_string_red">લાલ</string>
     <string name="pen_string_new_any">નવું %s</string>
     <string name="pen_string_blue">ભૂરો</string>
     <string name="pen_string_swatches">સ્વૉચિસ</string>
+    <string name="action_navigate_up">ઉપર નેવિગેટ કરો</string>
+    <string name="pen_string_green">લીલો</string>
+    <string name="pen_string_selected">પસંદ કરેલ</string>
+    <string name="pen_string_done">પૂર્ણ થયું</string>
+    <string name="pen_string_red">લાલ</string>
     <string name="sesl_action_menu_overflow_description">વધુ વિકલ્પો</string>
     <string name="pen_palette_color_custom">કસ્ટમ રંગ</string>
     <string name="pen_string_cancel">રદ કરો</string>
@@ -18,10 +21,9 @@
     <string name="sesl_switchbar_off_text">બંધ</string>
     <string name="sesl_switchbar_on_text">ચાલુ</string>
     <string name="pen_string_color_double_tap_to_apply">લાગુ કરવા માટે બે વાર ટૅપ કરો.</string>
+    <string name="drawer_description">નૅવિગેશન ડ્રૉઅર</string>
     <string name="pen_string_color">રંગ</string>
     <string name="string_update">અપડેટ કરો</string>
-    <string name="pen_string_green">લીલો</string>
-    <string name="pen_string_selected">પસંદ કરેલ</string>
     <string name="pen_string_hex">હેક્સ</string>
     <string name="latest_version_installed">નવીનતમ વર્ઝન પહેલેથી જ ઇન્સ્ટૉલ કરેલ છે.</string>
 </resources>

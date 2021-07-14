@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <string name="pen_string_done">முடிந்தது</string>
     <string name="pen_string_current_any">நடப்பு %s</string>
     <string name="pen_string_spectrum">ஸ்பெக்ட்ரம்</string>
     <string name="pen_string_saturation">செறிவு</string>
     <string name="pen_string_select_color">ஒரு நிறத்தைத் தேர்வுசெய்யவும்.</string>
     <string name="new_version_is_available">புதிய பதிப்பு கிடைக்கிறது.</string>
-    <string name="pen_string_red">சிவப்பு</string>
     <string name="pen_string_new_any">புதிய %s</string>
     <string name="pen_string_blue">நீலம்</string>
     <string name="pen_string_swatches">Swatches</string>
+    <string name="action_navigate_up">மேலே நகர்த்தவும்</string>
+    <string name="pen_string_green">பச்சை</string>
+    <string name="pen_string_selected">தேர்வுசெய்யப்பட்டது</string>
+    <string name="pen_string_done">முடிந்தது</string>
+    <string name="pen_string_red">சிவப்பு</string>
     <string name="sesl_action_menu_overflow_description">மேலும் தெரிவுகள்</string>
     <string name="pen_palette_color_custom">தனிப்பயன் நிறம்</string>
     <string name="pen_string_cancel">ரத்துசெய்க</string>
@@ -18,10 +21,9 @@
     <string name="sesl_switchbar_off_text">ஆஃப்</string>
     <string name="sesl_switchbar_on_text">ஆன்</string>
     <string name="pen_string_color_double_tap_to_apply">பயன்படுத்துவதற்கு இருமுறை டேப் செய்க.</string>
+    <string name="drawer_description">நகர்தல் ட்ராயர்</string>
     <string name="pen_string_color">நிறம்</string>
     <string name="string_update">புதுப்பி.</string>
-    <string name="pen_string_green">பச்சை</string>
-    <string name="pen_string_selected">தேர்வுசெய்யப்பட்டது</string>
     <string name="pen_string_hex">Hex</string>
     <string name="latest_version_installed">சமீபத்திய பதிப்பு ஏற்கனவே நிறுவப்பட்டது.</string>
 </resources>

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <string name="pen_string_done">Selesai</string>
     <string name="pen_string_current_any">Semasa %s</string>
     <string name="pen_string_spectrum">Spektrum</string>
     <string name="pen_string_saturation">Ketepuan</string>
     <string name="pen_string_select_color">Pilih warna.</string>
     <string name="new_version_is_available">Versi baru tersedia.</string>
-    <string name="pen_string_red">Merah</string>
     <string name="pen_string_new_any">%s baru</string>
     <string name="pen_string_blue">Biru</string>
     <string name="pen_string_swatches">Contoh warna</string>
+    <string name="action_navigate_up">Pandu arah ke atas</string>
+    <string name="pen_string_green">Hijau</string>
+    <string name="pen_string_selected">Dipilih</string>
+    <string name="pen_string_done">Selesai</string>
+    <string name="pen_string_red">Merah</string>
     <string name="sesl_action_menu_overflow_description">Lbh byk pilihan</string>
     <string name="pen_palette_color_custom">Warna tersuai</string>
     <string name="pen_string_cancel">Batal</string>
@@ -18,10 +21,9 @@
     <string name="sesl_switchbar_off_text">Matikan</string>
     <string name="sesl_switchbar_on_text">Hidupkan</string>
     <string name="pen_string_color_double_tap_to_apply">Dwiketik untuk gunakan.</string>
+    <string name="drawer_description">Laci pemanduan arah</string>
     <string name="pen_string_color">Warna</string>
     <string name="string_update">Kemas kini</string>
-    <string name="pen_string_green">Hijau</string>
-    <string name="pen_string_selected">Dipilih</string>
     <string name="pen_string_hex">Heks</string>
     <string name="latest_version_installed">Versi terkini telah dipasang.</string>
 </resources>

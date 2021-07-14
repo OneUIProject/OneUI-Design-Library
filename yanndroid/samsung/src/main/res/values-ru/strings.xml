@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <string name="pen_string_done">Готово</string>
     <string name="pen_string_current_any">Текущее значение: %s</string>
     <string name="pen_string_spectrum">Цветовой спектр</string>
     <string name="pen_string_saturation">Насыщенность</string>
     <string name="pen_string_select_color">Выбрать цвет.</string>
     <string name="new_version_is_available">Доступна новая версия.</string>
-    <string name="pen_string_red">Красный</string>
     <string name="pen_string_new_any">Новое устройство %s</string>
     <string name="pen_string_blue">Синий</string>
     <string name="pen_string_swatches">Образцы цветов</string>
+    <string name="action_navigate_up">Переход вверх</string>
+    <string name="pen_string_green">Зеленый</string>
+    <string name="pen_string_selected">Выбрано</string>
+    <string name="pen_string_done">Готово</string>
+    <string name="pen_string_red">Красный</string>
     <string name="sesl_action_menu_overflow_description">Другие параметры</string>
     <string name="pen_palette_color_custom">Другой цвет</string>
     <string name="pen_string_cancel">Отмена</string>
@@ -18,10 +21,9 @@
     <string name="sesl_switchbar_off_text">Выключено</string>
     <string name="sesl_switchbar_on_text">Включено</string>
     <string name="pen_string_color_double_tap_to_apply">Дважды коснитесь для применения.</string>
+    <string name="drawer_description">Панель навигации</string>
     <string name="pen_string_color">Цвет</string>
     <string name="string_update">Обновить</string>
-    <string name="pen_string_green">Зеленый</string>
-    <string name="pen_string_selected">Выбрано</string>
     <string name="pen_string_hex">Hex</string>
     <string name="latest_version_installed">Последняя версия уже установлена.</string>
 </resources>

@@ -106,6 +106,10 @@ public class ToolbarLayout extends LinearLayout {
     }
 
 
+    public void setNavigationIconTooltip(CharSequence tooltipText) {
+        navigation_icon.setTooltipText(tooltipText);
+    }
+
     public androidx.appcompat.widget.Toolbar getToolbar() {
         return toolbar;
     }

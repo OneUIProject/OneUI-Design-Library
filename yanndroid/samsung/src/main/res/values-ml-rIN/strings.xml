@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <string name="pen_string_done">ചെയ്‌തു</string>
     <string name="pen_string_current_any">നിലവിലുള്ള %s</string>
     <string name="pen_string_spectrum">സ്പെക്ട്രം</string>
     <string name="pen_string_saturation">വ്യാപനം</string>
     <string name="pen_string_select_color">ഒരു നിറം തിരഞ്ഞെടുക്കുക.</string>
     <string name="new_version_is_available">ഒരു പുതിയ പതിപ്പ് ലഭ്യമാണ്.</string>
-    <string name="pen_string_red">ചുവപ്പ്</string>
     <string name="pen_string_new_any">പുതിയ %s</string>
     <string name="pen_string_blue">നീല</string>
     <string name="pen_string_swatches">സ്വാച്ചുകൾ</string>
+    <string name="action_navigate_up">മുകളിലേക്ക് നാവിഗേറ്റ് ചെയ്യുക</string>
+    <string name="pen_string_green">പച്ച</string>
+    <string name="pen_string_selected">തിരഞ്ഞെടുത്തു</string>
+    <string name="pen_string_done">ചെയ്‌തു</string>
+    <string name="pen_string_red">ചുവപ്പ്</string>
     <string name="sesl_action_menu_overflow_description">കൂടുതൽ ഐച്ഛികങ്ങൾ</string>
     <string name="pen_palette_color_custom">ഇച്ഛാനുസൃത നിറം</string>
     <string name="pen_string_cancel">റദ്ദാക്കുക</string>
@@ -18,10 +21,9 @@
     <string name="sesl_switchbar_off_text">ഓഫ്</string>
     <string name="sesl_switchbar_on_text">ഓണ്‍</string>
     <string name="pen_string_color_double_tap_to_apply">പ്രയോഗിക്കുന്നതിന് രണ്ടുതവണ സ്പർശിക്കുക.</string>
+    <string name="drawer_description">നാവിഗേഷൻ ഡ്രോയർ</string>
     <string name="pen_string_color">വര്‍‌ണ്ണം</string>
     <string name="string_update">അപ്‌ഡേറ്റ്</string>
-    <string name="pen_string_green">പച്ച</string>
-    <string name="pen_string_selected">തിരഞ്ഞെടുത്തു</string>
     <string name="pen_string_hex">ഹെക്സ്</string>
     <string name="latest_version_installed">ഏറ്റവും പുതിയ പതിപ്പ് നേരത്തേതന്നെ ഇൻസ്റ്റാൾ ചെയ്തിട്ടുണ്ട്.</string>
 </resources>

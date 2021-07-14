@@ -33,6 +33,8 @@
     <string name="version">Version</string>
     <string name="string_update">Update</string>
 
+    <string name="action_navigate_up">Navigate up</string>
+    <string name="drawer_description">Navigation drawer</string>
 
 
     <!--untranslated:-->

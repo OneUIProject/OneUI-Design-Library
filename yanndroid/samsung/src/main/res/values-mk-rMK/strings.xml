@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <string name="pen_string_done">Готово</string>
     <string name="pen_string_current_any">Тековно %s</string>
     <string name="pen_string_spectrum">Спектар</string>
     <string name="pen_string_saturation">Заситеност</string>
     <string name="pen_string_select_color">Изберете боја.</string>
     <string name="new_version_is_available">Достапна е нова верзија.</string>
-    <string name="pen_string_red">Црвена</string>
     <string name="pen_string_new_any">Нов %s</string>
     <string name="pen_string_blue">Сина</string>
     <string name="pen_string_swatches">Часовници</string>
+    <string name="action_navigate_up">Навигација нагоре</string>
+    <string name="pen_string_green">Зелено</string>
+    <string name="pen_string_selected">Избрано</string>
+    <string name="pen_string_done">Готово</string>
+    <string name="pen_string_red">Црвена</string>
     <string name="sesl_action_menu_overflow_description">Повеќе опции</string>
     <string name="pen_palette_color_custom">Прилагодена боја</string>
     <string name="pen_string_cancel">Откажи</string>
@@ -18,10 +21,9 @@
     <string name="sesl_switchbar_off_text">Исклучено</string>
     <string name="sesl_switchbar_on_text">Вклучено</string>
     <string name="pen_string_color_double_tap_to_apply">Допрете двапати за да примените.</string>
+    <string name="drawer_description">Фиока за навигација</string>
     <string name="pen_string_color">Боја</string>
     <string name="string_update">Ажурирај</string>
-    <string name="pen_string_green">Зелено</string>
-    <string name="pen_string_selected">Избрано</string>
     <string name="pen_string_hex">Хекс</string>
     <string name="latest_version_installed">Најновата верзија веќе е инсталирана.</string>
 </resources>

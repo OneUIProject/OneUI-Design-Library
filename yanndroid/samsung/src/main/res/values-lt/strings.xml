@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <string name="pen_string_done">Atlikta</string>
     <string name="pen_string_current_any">Dabartinė %s</string>
     <string name="pen_string_spectrum">Spektras</string>
     <string name="pen_string_saturation">Sotis</string>
     <string name="pen_string_select_color">Pasirinkite spalvą.</string>
     <string name="new_version_is_available">Yra nauja versija.</string>
-    <string name="pen_string_red">Raudona</string>
     <string name="pen_string_new_any">Naujas %s</string>
     <string name="pen_string_blue">Mėlyna</string>
     <string name="pen_string_swatches">Atkarpos</string>
+    <string name="action_navigate_up">Pereiti aukštyn</string>
+    <string name="pen_string_green">Žalia</string>
+    <string name="pen_string_selected">Pasirinkta</string>
+    <string name="pen_string_done">Atlikta</string>
+    <string name="pen_string_red">Raudona</string>
     <string name="sesl_action_menu_overflow_description">Daugiau parinkčių</string>
     <string name="pen_palette_color_custom">Pasirinktinė spalva</string>
     <string name="pen_string_cancel">Atšaukti</string>
@@ -18,10 +21,9 @@
     <string name="sesl_switchbar_off_text">Išjungta</string>
     <string name="sesl_switchbar_on_text">Įjungta</string>
     <string name="pen_string_color_double_tap_to_apply">Jei norite pritaikyti, bakstelėkite dukart.</string>
+    <string name="drawer_description">Naršymo stalčius</string>
     <string name="pen_string_color">Spalva</string>
     <string name="string_update">Naujinti</string>
-    <string name="pen_string_green">Žalia</string>
-    <string name="pen_string_selected">Pasirinkta</string>
     <string name="pen_string_hex">Kerai</string>
     <string name="latest_version_installed">Naujausia versija jau įdiegta.</string>
 </resources>

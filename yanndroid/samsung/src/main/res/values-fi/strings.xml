@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <string name="pen_string_done">Valmis</string>
     <string name="pen_string_current_any">Nykyinen %s</string>
     <string name="pen_string_spectrum">Spektri</string>
     <string name="pen_string_saturation">Kylläisyys</string>
     <string name="pen_string_select_color">Valitse väri.</string>
     <string name="new_version_is_available">Uusi versio saatavilla</string>
-    <string name="pen_string_red">Punainen</string>
     <string name="pen_string_new_any">Uusi %s</string>
     <string name="pen_string_blue">Sininen</string>
     <string name="pen_string_swatches">Värimallit</string>
+    <string name="action_navigate_up">Siirry ylös kohteeseen</string>
+    <string name="pen_string_green">Vihreä</string>
+    <string name="pen_string_selected">Valittu</string>
+    <string name="pen_string_done">Valmis</string>
+    <string name="pen_string_red">Punainen</string>
     <string name="sesl_action_menu_overflow_description">Lisää vaihtoehtoja</string>
     <string name="pen_palette_color_custom">Mukautettu väri</string>
     <string name="pen_string_cancel">Peruuta</string>
@@ -18,10 +21,9 @@
     <string name="sesl_switchbar_off_text">Pois päältä</string>
     <string name="sesl_switchbar_on_text">Päällä</string>
     <string name="pen_string_color_double_tap_to_apply">Ota käyttöön kaksoisnapauttamalla.</string>
+    <string name="drawer_description">Siirtymisvalikko</string>
     <string name="pen_string_color">Väri</string>
     <string name="string_update">Päivitä</string>
-    <string name="pen_string_green">Vihreä</string>
-    <string name="pen_string_selected">Valittu</string>
     <string name="pen_string_hex">Hex</string>
     <string name="latest_version_installed">Uusin versio on jo asennettu.</string>
 </resources>

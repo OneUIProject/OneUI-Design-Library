@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <string name="pen_string_done">పూర్తయింది</string>
     <string name="pen_string_current_any">ప్రస్తుతం %s</string>
     <string name="pen_string_spectrum">స్పెక్ట్రమ్‌</string>
     <string name="pen_string_saturation">సంతృప్తత</string>
     <string name="pen_string_select_color">రంగుని ఎంచుకోండి.</string>
     <string name="new_version_is_available">కొత్త సంస్కరణ అందుబాటులో ఉంది.</string>
-    <string name="pen_string_red">ఎరుపు రంగు</string>
     <string name="pen_string_new_any">కొత్త %s</string>
     <string name="pen_string_blue">నీలం</string>
     <string name="pen_string_swatches">Swatches</string>
+    <string name="action_navigate_up">పైకి నావిగేట్ చేయి</string>
+    <string name="pen_string_green">ఆకుపచ్చ రంగు</string>
+    <string name="pen_string_selected">ఎంచుకోబడ్డాయి</string>
+    <string name="pen_string_done">పూర్తయింది</string>
+    <string name="pen_string_red">ఎరుపు రంగు</string>
     <string name="sesl_action_menu_overflow_description">మరిన్ని ఎంపికలు</string>
     <string name="pen_palette_color_custom">అనుకూల రంగు</string>
     <string name="pen_string_cancel">రద్దు చేయి</string>
@@ -18,10 +21,9 @@
     <string name="sesl_switchbar_off_text">ఆఫ్</string>
     <string name="sesl_switchbar_on_text">ఆన్</string>
     <string name="pen_string_color_double_tap_to_apply">వర్తింపజేయడానికి రెండు సార్లు ట్యాప్ చేయండి.</string>
+    <string name="drawer_description">నావిగేషన్ డ్రాయర్</string>
     <string name="pen_string_color">రంగు</string>
     <string name="string_update">అప్‌డేట్ చేయి</string>
-    <string name="pen_string_green">ఆకుపచ్చ రంగు</string>
-    <string name="pen_string_selected">ఎంచుకోబడ్డాయి</string>
     <string name="pen_string_hex">Hex</string>
     <string name="latest_version_installed">తాజా వెర్షన్ ఇప్పటికే ఇన్‌స్టాల్ చేయబడింది.</string>
 </resources>

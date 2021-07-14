@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <string name="pen_string_done">Končano</string>
     <string name="pen_string_current_any">Trenut. %s</string>
     <string name="pen_string_spectrum">Spekter</string>
     <string name="pen_string_saturation">Nasičenost</string>
     <string name="pen_string_select_color">Izberite barvo.</string>
     <string name="new_version_is_available">Na voljo je nova različica.</string>
-    <string name="pen_string_red">Rdeča</string>
     <string name="pen_string_new_any">Nova naprava %s</string>
     <string name="pen_string_blue">Modra</string>
     <string name="pen_string_swatches">Barvne kombinacije</string>
+    <string name="action_navigate_up">Usmerjanje gor</string>
+    <string name="pen_string_green">Zelena</string>
+    <string name="pen_string_selected">Izbrano</string>
+    <string name="pen_string_done">Končano</string>
+    <string name="pen_string_red">Rdeča</string>
     <string name="sesl_action_menu_overflow_description">Več možnosti</string>
     <string name="pen_palette_color_custom">Barva po meri</string>
     <string name="pen_string_cancel">Prekliči</string>
@@ -18,10 +21,9 @@
     <string name="sesl_switchbar_off_text">Izključ.</string>
     <string name="sesl_switchbar_on_text">Vključeno</string>
     <string name="pen_string_color_double_tap_to_apply">Dvakrat pritisnite, da uporabite.</string>
+    <string name="drawer_description">Navigacijski predal</string>
     <string name="pen_string_color">Barva</string>
     <string name="string_update">Posodobi</string>
-    <string name="pen_string_green">Zelena</string>
-    <string name="pen_string_selected">Izbrano</string>
     <string name="pen_string_hex">Šestnajstiško</string>
     <string name="latest_version_installed">Najnovejša različica je že nameščena.</string>
 </resources>

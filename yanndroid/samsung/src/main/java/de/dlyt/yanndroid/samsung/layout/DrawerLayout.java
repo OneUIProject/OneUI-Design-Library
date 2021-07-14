@@ -65,6 +65,7 @@ public class DrawerLayout extends LinearLayout {
         toolbarLayout.setTitle(mToolbarTitle);
         toolbarLayout.setSubtitle(mToolbarSubtitle);
         toolbarLayout.setExpandable(mToolbarExpandable);
+        toolbarLayout.setNavigationIconTooltip(getResources().getText(R.string.drawer_description));
         toolbarLayout.setExpanded(mToolbarExpanded, false);
         drawerIcon = findViewById(R.id.drawerIcon);
         drawerIcon.setImageDrawable(mDrawerIcon);

@@ -80,10 +80,10 @@
                                 android:layout_height="35dp"
                                 android:background="?selectableItemBackgroundBorderless"
                                 android:clickable="true"
-                                android:contentDescription="Show navigation menu"
                                 android:focusable="true"
                                 android:padding="5.5dp"
-                                android:src="@drawable/ic_samsung_back" />
+                                android:src="@drawable/ic_samsung_back"
+                                android:tooltipText="@string/action_navigate_up" />
 
                             <TextView
                                 android:id="@+id/navigationIcon_badge"

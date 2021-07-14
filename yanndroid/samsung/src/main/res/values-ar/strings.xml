@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <string name="pen_string_done">تم</string>
     <string name="pen_string_current_any">%s الحالية</string>
     <string name="pen_string_spectrum">طيف</string>
     <string name="pen_string_saturation">التشبع</string>
     <string name="pen_string_select_color">حدد اللون.</string>
     <string name="new_version_is_available">يتوفر إصدار جديد.</string>
-    <string name="pen_string_red">أحمر</string>
     <string name="pen_string_new_any">%s جديد</string>
     <string name="pen_string_blue">أزرق</string>
     <string name="pen_string_swatches">عينات الألوان</string>
+    <string name="action_navigate_up">الرجوع للخلف</string>
+    <string name="pen_string_green">أخضر</string>
+    <string name="pen_string_selected">تم التحديد</string>
+    <string name="pen_string_done">تم</string>
+    <string name="pen_string_red">أحمر</string>
     <string name="sesl_action_menu_overflow_description">مزيد من الخيارات</string>
     <string name="pen_palette_color_custom">لون مخصص</string>
     <string name="pen_string_cancel">إلغاء</string>
@@ -18,10 +21,9 @@
     <string name="sesl_switchbar_off_text">غير مفعل</string>
     <string name="sesl_switchbar_on_text">مفعل</string>
     <string name="pen_string_color_double_tap_to_apply">انقر نقراً مزدوجاً للتطبيق.</string>
+    <string name="drawer_description">درج التنقل</string>
     <string name="pen_string_color">اللون</string>
     <string name="string_update">تحديث</string>
-    <string name="pen_string_green">أخضر</string>
-    <string name="pen_string_selected">تم التحديد</string>
     <string name="pen_string_hex">سداسي</string>
     <string name="latest_version_installed">تم مسبقاً تثبيت أحدث إصدار.</string>
 </resources>

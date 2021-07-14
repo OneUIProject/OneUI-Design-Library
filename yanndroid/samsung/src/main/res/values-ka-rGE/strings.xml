@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <string name="pen_string_done">მზადაა</string>
     <string name="pen_string_current_any">მიმდინარე %s</string>
     <string name="pen_string_spectrum">სპექტრი</string>
     <string name="pen_string_saturation">გაჯერება</string>
     <string name="pen_string_select_color">აირჩიეთ ფერი.</string>
     <string name="new_version_is_available">გამოვიდა ახალი ვერსია.</string>
-    <string name="pen_string_red">წითელი</string>
     <string name="pen_string_new_any">ახალი %s</string>
     <string name="pen_string_blue">ლურჯი</string>
     <string name="pen_string_swatches">გადამრთველები</string>
+    <string name="action_navigate_up">ნავიგაცია ზემოთ</string>
+    <string name="pen_string_green">მწვანე</string>
+    <string name="pen_string_selected">არჩეულია</string>
+    <string name="pen_string_done">მზადაა</string>
+    <string name="pen_string_red">წითელი</string>
     <string name="sesl_action_menu_overflow_description">სხვა ოფციები</string>
     <string name="pen_palette_color_custom">შერჩეული ფერი</string>
     <string name="pen_string_cancel">გაუქმება</string>
@@ -18,10 +21,9 @@
     <string name="sesl_switchbar_off_text">გამორთ.</string>
     <string name="sesl_switchbar_on_text">ჩართ.</string>
     <string name="pen_string_color_double_tap_to_apply">გამოსაყენებლად, შეეხეთ ორჯერ.</string>
+    <string name="drawer_description">ნავიგაციის მხაზავი</string>
     <string name="pen_string_color">ფერი</string>
     <string name="string_update">განახლება</string>
-    <string name="pen_string_green">მწვანე</string>
-    <string name="pen_string_selected">არჩეულია</string>
     <string name="pen_string_hex">ფერის ამრჩევი</string>
     <string name="latest_version_installed">უახლესი ვერსია უკვე დაინსტალირებულია.</string>
 </resources>
