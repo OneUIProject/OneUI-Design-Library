@@ -46,6 +46,8 @@
     <color name="drawer_dim_color">#cc000000</color>
     <color name="splash_background">#ff000000</color>
     <color name="sesl_scrollbar_handle_tint">#ff595959</color>
+    <color name="sesl_list_subheader_text_color">#ff999999</color>
+
 
 
     <!--ColorPicker-->

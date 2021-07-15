@@ -737,6 +737,7 @@ My sample app icon for example:
 - [ ] BottomSheet
 - [ ] TabLayout & Viewpager
 - [ ] Preferences
+- [ ] SearchView
 - [ ] Tooltip
 - [ ] Related card
 - [ ] Progress dialog
@@ -797,7 +798,8 @@ My sample app icon for example:
 </details>
 
 
-
+## More info
+- [Official OneUI Guide](https://design.samsung.com/global/contents/one-ui/download/oneui_design_guide_eng.pdf)
 
 
 ## Special thanks to:

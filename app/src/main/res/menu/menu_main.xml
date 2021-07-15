@@ -4,15 +4,9 @@
     tools:context="de.dlyt.yanndroid.movies.AppInfoActivity">
 
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_samsung_search"
-        android:title="Search"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/info"
         android:icon="@drawable/ic_samsung_info"
-        android:title="Info"
+        android:title="@string/app_info"
         app:showAsAction="always" />
 
     <item

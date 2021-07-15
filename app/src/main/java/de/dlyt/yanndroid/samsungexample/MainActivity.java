@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_view);
         setSupportActionBar(drawerLayout.getToolbar());
-        drawerLayout.setDrawerIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent().setClass(getApplicationContext(), AboutActivity.class));
-            }
-        });
+        drawerLayout.setDrawerIconOnClickListener(v -> startActivity(new Intent().setClass(getApplicationContext(), SettingsActivity.class)));
 
         demo();
 
@@ -97,20 +91,14 @@ public class MainActivity extends AppCompatActivity {
 
         /**SwitchBar*/
         SwitchBar switchbar = findViewById(R.id.switchbar1);
-        switchbar.addOnSwitchChangeListener(new SwitchBar.OnSwitchChangeListener() {
-            @Override
-            public void onSwitchChanged(SwitchCompat switchCompat, boolean z) {
-                switchbar.setEnabled(false);
-                switchbar.setProgressBarVisible(true);
+        switchbar.addOnSwitchChangeListener((switchCompat, z) -> {
+            switchbar.setEnabled(false);
+            switchbar.setProgressBarVisible(true);
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        switchbar.setEnabled(true);
-                        switchbar.setProgressBarVisible(false);
-                    }
-                }, 700);
-            }
+            new Handler().postDelayed(() -> {
+                switchbar.setEnabled(true);
+                switchbar.setProgressBarVisible(false);
+            }, 700);
         });
 
 
@@ -211,6 +199,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.info:
+                startActivity(new Intent().setClass(getApplicationContext(), AboutActivity.class));
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 

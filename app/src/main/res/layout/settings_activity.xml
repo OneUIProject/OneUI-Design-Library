@@ -1,0 +1,15 @@
+<de.dlyt.yanndroid.samsung.layout.ToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:navigationIcon="@drawable/ic_samsung_back"
+    app:title="@string/action_settings">
+
+    <FrameLayout
+        android:id="@+id/settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</de.dlyt.yanndroid.samsung.layout.ToolbarLayout>
+

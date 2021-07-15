@@ -51,9 +51,6 @@
     <!--Popup-->
     <dimen name="sesl_popup_menu_item_text_size">17.0sp</dimen>
 
-    <dimen name="sesl_menu_popup_offset_horizontal">12.0dip</dimen>
-    <dimen name="sesl_menu_popup_offset_vertical">0.0dip</dimen>
-
     <!--Toolbar-->
     <dimen name="sesl_action_button_icon_size">24.0dip</dimen>
     <dimen name="sesl_action_button_min_width">34.0dip</dimen>

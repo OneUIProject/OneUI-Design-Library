@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/SamsungTheme">
         <activity
+            android:name=".SettingsActivity"
+            android:label="@string/action_settings" />
+        <activity
             android:name=".AboutActivity"
             android:theme="@style/SamsungAboutTheme" />
         <activity

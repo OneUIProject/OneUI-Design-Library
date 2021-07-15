@@ -35,7 +35,7 @@
         <item name="android:scrollbarThumbHorizontal">@drawable/sesl_scrollbar_handle</item>
         <item name="android:scrollbarThumbVertical">@drawable/sesl_scrollbar_handle</item>
 
-        <!--<item name="theme" tools:targetApi="q">@android:style/Theme.DeviceDefault.DayNight</item>-->
+        <!--<item name="popupTheme" tools:targetApi="q">@android:style/Theme.DeviceDefault.DayNight</item>-->
 
     </style>
 
@@ -290,10 +290,7 @@
     <!--actionOverflowMenuStyle-->
     <style name="ActionOverflowMenuStyle" parent="@android:style/Widget.Material.ListPopupWindow">
         <item name="android:popupElevation">8.0dip</item>
-        <item name="android:dropDownVerticalOffset">1.0px</item>
         <item name="android:popupBackground">@drawable/sesl_menu_popup_background_dark</item>
-        <item name="android:dropDownHorizontalOffset">@dimen/sesl_menu_popup_offset_horizontal
-        </item>
         <item name="android:popupAnimationStyle">@style/Base.Animation.AppCompat.MenuPopup</item>
         <item name="overlapAnchor">true</item>
         <item name="popupEnterTransition">@null</item>
@@ -353,6 +350,7 @@
     <!--SubHeader-->
     <style name="SubHeaderStyle">
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/sesl_list_subheader_text_color</item>
         <item name="android:textAlignment">viewStart</item>
         <item name="android:layout_marginStart">24dp</item>
         <item name="android:layout_marginBottom">2dp</item>

@@ -38,6 +38,9 @@
 
 
     <!--untranslated:-->
+    <string name="app_info">App info</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
 
 
 </resources>

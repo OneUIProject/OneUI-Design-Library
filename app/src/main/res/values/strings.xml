@@ -1,6 +1,3 @@
 <resources>
     <string name="app_name">OneUI Sample</string>
-    <string name="closed" translatable="false">closed</string>
-    <string name="opened" translatable="false">opend</string>
-
 </resources>
