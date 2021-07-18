@@ -5,4 +5,4 @@
     android:layout_height="wrap_content"
     android:choiceMode="singleChoice"
     android:importantForAccessibility="no"
-    android:numColumns="@integer/setting_color_picker_column_count" />
+    android:numColumns="13" />

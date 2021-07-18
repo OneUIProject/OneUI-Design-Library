@@ -32,8 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SwitchBar extends LinearLayout implements CompoundButton.OnCheckedChangeListener {
-    private static final int SWITCH_OFF_STRING_RESOURCE_ID = R.string.sesl_switchbar_off_text;
-    private static final int SWITCH_ON_STRING_RESOURCE_ID = R.string.sesl_switchbar_on_text;
+    private static final int SWITCH_OFF_STRING_RESOURCE_ID = R.string.sesl_off_text;
+    private static final int SWITCH_ON_STRING_RESOURCE_ID = R.string.sesl_on_text;
     private final List<OnSwitchChangeListener> mSwitchChangeListeners;
     private LinearLayout mBackground;
     @ColorInt

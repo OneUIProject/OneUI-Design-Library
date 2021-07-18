@@ -16,8 +16,6 @@
     <color name="background_color">#fff2f2f2</color>
     <color name="item_background_color">#ffffffff</color>
     <color name="item_color">@color/sesl_black</color>
-    <!--<color name="item_color">#ff000000</color>-->
-
 
     <!--Colors-->
     <color name="red">#ffD50000</color>
@@ -42,7 +40,6 @@
 
     <!--ProgressBar-->
     <color name="sesl_loading_progress_color1">#ff06b485</color>
-    <!--<color name="sesl_loading_progress_color2">#ff0381fe</color>-->
     <color name="sesl_loading_progress_color2">?colorPrimary</color>
     <color name="sesl_progress_control_color_normal">@color/sesl_control_color_normal</color>
     <color name="progress_bar_background_color">#4d9c9c9c</color>
@@ -94,13 +91,6 @@
     <color name="sesl_spinner_icon_color_disabled">#663b3b3b</color>
     <color name="sesl_spinner_item_text_color_disabled">#66252525</color>
     <color name="sesl_spinner_item_text_color_normal">@color/sesl_black</color>
-
-    <!--Toolbar-->
-    <color name="sesl_action_bar_background_color_dark">#ff010101</color>
-
-
-    <!--Popup-->
-    <color name="sesl_list_ripple_color">@color/sesl_ripple_color</color>
 
 
     <!--Others-->

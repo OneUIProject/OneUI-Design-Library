@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <de.dlyt.yanndroid.samsung.SwitchBar
-        android:id="@+id/switchbar1"
+        android:id="@+id/switchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -208,7 +208,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:onClick="nDialog"
+                                android:onClick="standardDialog"
                                 android:text="Button" />
 
                             <View
@@ -223,7 +223,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:onClick="sChoiceDialog"
+                                android:onClick="singleChoiceDialog"
                                 android:text="Button" />
 
                             <View
@@ -238,7 +238,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:onClick="mChoiceDialog"
+                                android:onClick="multiChoiceDialog"
                                 android:text="Button" />
 
 
@@ -324,13 +324,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:onClick="colorPicker"
+                            android:onClick="colorPickerDialog"
                             android:text="Change Color" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_marginTop="5dp"
+                            android:background="@color/background_color"
                             android:orientation="horizontal">
 
                             <LinearLayout
@@ -362,6 +363,26 @@
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
+
+                <de.dlyt.yanndroid.samsung.RelatedCard
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    app:title="Looking for something else?">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/RelatedButtonStyle"
+                        android:text="This" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/RelatedButtonStyle"
+                        android:text="That" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/RelatedButtonStyle"
+                        android:text="There" />
+
+                </de.dlyt.yanndroid.samsung.RelatedCard>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

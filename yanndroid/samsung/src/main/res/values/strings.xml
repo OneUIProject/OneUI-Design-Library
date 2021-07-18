@@ -4,14 +4,20 @@
     <string name="sesl_font_family_regular" translatable="false">sec-roboto-light</string>
     <string name="app_name" translatable="false" />
 
+    <string name="sesl_off_text">Off</string>
+    <string name="sesl_on_text">On</string>
+    <string name="sesl_more_options">More options</string>
+    <string name="sesl_cancel">Cancel</string>
+    <string name="sesl_done">Done</string>
+    <string name="sesl_button">Button</string>
+    <string name="sesl_version">Version</string>
+    <string name="sesl_update">Update</string>
+    <string name="sesl_navigate_up">Navigate up</string>
+    <string name="sesl_navigation_drawer">Navigation drawer</string>
 
-    <string name="sesl_switchbar_off_text">Off</string>
-    <string name="sesl_switchbar_on_text">On</string>
-    <string name="sesl_action_menu_overflow_description">More options</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
 
-    <string name="pen_string_cancel">Cancel</string>
-    <string name="pen_string_done">Done</string>
-    <string name="pen_string_button">Button</string>
     <string name="pen_string_current_any">Current %s</string>
     <string name="pen_string_new_any">New %s</string>
     <string name="pen_string_color">Colour</string>
@@ -19,7 +25,6 @@
     <string name="pen_string_select_color">Select a colour</string>
     <string name="pen_string_color_double_tap_to_apply">Double tap to apply.</string>
     <string name="pen_string_selected">Selected</string>
-
     <string name="pen_string_saturation">Saturation</string>
     <string name="pen_string_swatches">Swatches</string>
     <string name="pen_string_spectrum">Spectrum</string>
@@ -30,17 +35,7 @@
 
     <string name="latest_version_installed">The latest version is already installed.</string>
     <string name="new_version_is_available">A new version is available.</string>
-    <string name="version">Version</string>
-    <string name="string_update">Update</string>
-
-    <string name="action_navigate_up">Navigate up</string>
-    <string name="drawer_description">Navigation drawer</string>
-
-
-    <!--untranslated:-->
     <string name="app_info">App info</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_search">Search</string>
 
 
 </resources>

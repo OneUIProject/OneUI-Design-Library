@@ -102,7 +102,7 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
     private void construct(Context context, int i, int i2, int i3, int i4) {
         this.mSwatchItemList = null;
         this.mCurrentPosition = -1;
-        this.mColumNum = context.getResources().getInteger(R.integer.setting_color_picker_column_count);
+        this.mColumNum = 13;
         this.mSelectElevation = context.getResources().getDimensionPixelOffset(R.dimen.setting_color_picker_selector_elevation);
         this.mSwatchStartMargin = i;
         this.mSwatchTopMargin = i2;
@@ -119,7 +119,7 @@ public class SpenColorSwatchView extends RelativeLayout implements SpenColorView
     }
 
     private void initSwatchList(Context context) {
-        String string = context.getResources().getString(R.string.pen_string_button);
+        String string = context.getResources().getString(R.string.sesl_button);
         this.mSwatchItemList = new ArrayList();
         int i = 0;
         while (true) {

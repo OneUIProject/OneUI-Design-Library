@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!--Dialog--> <!--temporary as it only works on samsung devices-->
     <style name="DialogStyle" parent="android:Theme.DeviceDefault.Dialog.Alert" />
+
+    <!--Related Card-->
+    <style name="RelatedButtonStyle">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:textColor">?colorSecondary</item>
+        <item name="android:fontFamily">sec-roboto-light</item>
+        <item name="android:background">@drawable/related_button_ripple_background</item>
+        <item name="android:radius">26dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
 </resources>

@@ -18,9 +18,12 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,15 +45,19 @@ public class MainActivity extends AppCompatActivity {
         new ThemeColor(this);
         setContentView(R.layout.activity_main);
 
+        //DrawerLayout
         DrawerLayout drawerLayout = findViewById(R.id.drawer_view);
         setSupportActionBar(drawerLayout.getToolbar());
-        drawerLayout.setDrawerIconOnClickListener(v -> startActivity(new Intent().setClass(getApplicationContext(), SettingsActivity.class)));
+        drawerLayout.setDrawerIconOnClickListener(v -> startActivity(new Intent().setClass(getApplicationContext(), AboutActivity.class)));
 
+        //Library Demo
         demo();
 
+        //Icons
         GridView images = findViewById(R.id.images);
         images.setAdapter(new ImageAdapter(this));
 
+        //Fullscreen
         init();
 
     }
@@ -65,12 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void demo() {
 
-        /**SeekBar*/
+        //SeekBar
         SeekBar seekBar1 = findViewById(R.id.seekbar1);
-        seekBar1.setOverlapPointForDualColor(70);
-
         android.widget.SeekBar seekBar2 = findViewById(R.id.seekbar2);
-
+        seekBar1.setOverlapPointForDualColor(70);
         seekBar2.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(android.widget.SeekBar seekBar, int progress, boolean fromUser) {
@@ -79,18 +84,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(android.widget.SeekBar seekBar) {
-
             }
 
             @Override
             public void onStopTrackingTouch(android.widget.SeekBar seekBar) {
-
             }
         });
 
 
-        /**SwitchBar*/
-        SwitchBar switchbar = findViewById(R.id.switchbar1);
+        //SwitchBar
+        SwitchBar switchbar = findViewById(R.id.switchBar);
         switchbar.addOnSwitchChangeListener((switchCompat, z) -> {
             switchbar.setEnabled(false);
             switchbar.setProgressBarVisible(true);
@@ -102,31 +105,29 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /**Spinner*/
+        //Spinner
         Spinner spinner = findViewById(R.id.spinner);
         List<String> categories = new ArrayList<String>();
-        categories.add("Spinner Item 1");
-        categories.add("Spinner Item 2");
-        categories.add("Spinner Item 3");
+        for (int i = 1; i < 16; i++) categories.add("Spinner Item " + i);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
 
 
-        /**OptionButton*/
-        OptionButton ob_help = findViewById(R.id.ob_help);
-        ob_help.setButtonEnabled(false);
+        //OptionButton
+        OptionButton optionButton = findViewById(R.id.ob_help);
+        optionButton.setButtonEnabled(false);
 
     }
 
-    public void colorPicker(View view) {
-
+    public void colorPickerDialog(View view) {
+        ColorPickerDialog mColorPickerDialog;
         SharedPreferences sharedPreferences = getSharedPreferences("ThemeColor", Context.MODE_PRIVATE);
         String stringColor = sharedPreferences.getString("color", "0381fe");
+
         float[] currentColor = new float[3];
         Color.colorToHSV(Color.parseColor("#" + stringColor), currentColor);
 
-        ColorPickerDialog mColorPickerDialog;
         mColorPickerDialog = new ColorPickerDialog(this, 2, currentColor);
         mColorPickerDialog.setColorPickerChangeListener(new ColorPickerDialog.ColorPickerChangedListener() {
             @Override
@@ -143,11 +144,10 @@ public class MainActivity extends AppCompatActivity {
         mColorPickerDialog.show();
     }
 
-    public void nDialog(View view) {
+    public void standardDialog(View view) {
         Context context = new ContextThemeWrapper(this, R.style.DialogStyle);
         new AlertDialog.Builder(context)
                 .setTitle("Title")
-                .setCancelable(false)
                 .setIcon(R.drawable.ic_launcher)
                 .setMessage("Message")
                 .setNeutralButton("Maybe", null)
@@ -156,12 +156,11 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    public void sChoiceDialog(View view) {
+    public void singleChoiceDialog(View view) {
         Context context = new ContextThemeWrapper(this, R.style.DialogStyle);
         CharSequence[] charSequences = {"Choice1", "Choice2", "Choice3"};
         new AlertDialog.Builder(context)
                 .setTitle("Title")
-                .setCancelable(false)
                 .setIcon(R.drawable.ic_launcher)
                 .setNeutralButton("Maybe", null)
                 .setNegativeButton("No", null)
@@ -170,13 +169,12 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    public void mChoiceDialog(View view) {
+    public void multiChoiceDialog(View view) {
         Context context = new ContextThemeWrapper(this, R.style.DialogStyle);
         CharSequence[] charSequences = {"Choice1", "Choice2", "Choice3"};
         boolean[] booleans = {true, false, true};
         new AlertDialog.Builder(context)
                 .setTitle("Title")
-                .setCancelable(false)
                 .setIcon(R.drawable.ic_launcher)
                 .setNeutralButton("Maybe", null)
                 .setNegativeButton("No", null)
@@ -184,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
                 .setMultiChoiceItems(charSequences, booleans, null)
                 .show();
     }
+
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -207,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Adapter for the Icon GridView
     public class ImageAdapter extends BaseAdapter {
         private Context mContext;
 
@@ -238,8 +238,6 @@ public class MainActivity extends AppCompatActivity {
             mImageView.setImageResource(imageIDs[position]);
             return mImageView;
         }
-
-
     }
 
 }

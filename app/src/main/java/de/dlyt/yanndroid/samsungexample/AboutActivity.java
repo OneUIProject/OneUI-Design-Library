@@ -1,6 +1,8 @@
 package de.dlyt.yanndroid.samsungexample;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,12 +22,16 @@ public class AboutActivity extends AppCompatActivity {
         AboutPage about_page = findViewById(R.id.about_page);
         about_page.initAboutPage(this);
 
-        MaterialButton about_btn1 = findViewById(R.id.about_btn1);
-        MaterialButton about_btn2 = findViewById(R.id.about_btn2);
-        MaterialButton about_btn3 = findViewById(R.id.about_btn3);
-        about_btn1.setOnClickListener(v -> about_page.setUpdateState(AboutPage.LOADING));
-        about_btn2.setOnClickListener(v -> about_page.setUpdateState(AboutPage.NO_UPDATE));
-        about_btn3.setOnClickListener(v -> about_page.setUpdateState(AboutPage.UPDATE_AVAILABLE));
+        ((MaterialButton) findViewById(R.id.about_btn1)).setOnClickListener(v -> about_page.setUpdateState(AboutPage.LOADING));
+        ((MaterialButton) findViewById(R.id.about_btn2)).setOnClickListener(v -> about_page.setUpdateState(AboutPage.NO_UPDATE));
+        ((MaterialButton) findViewById(R.id.about_btn3)).setOnClickListener(v -> about_page.setUpdateState(AboutPage.UPDATE_AVAILABLE));
+
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
 
     }
 }

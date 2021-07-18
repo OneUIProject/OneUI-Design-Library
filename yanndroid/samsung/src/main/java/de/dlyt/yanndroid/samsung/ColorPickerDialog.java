@@ -383,9 +383,9 @@ public class ColorPickerDialog extends Dialog {
         SpenSettingUtilText.setTypeFace(this.mContext, SpenSettingUtilText.STYLE_MEDIUM, this.cancelTextView, this.doneTextView);
         SpenSettingUtilText.applyUpToLargeLevel(this.mContext, 16.0f, this.cancelTextView, this.doneTextView);
         SpenShowButtonShapeText spenShowButtonShapeText = this.cancelTextView;
-        spenShowButtonShapeText.setContentDescription(this.mContext.getResources().getString(R.string.pen_string_cancel) + " " + this.mContext.getResources().getString(R.string.pen_string_button));
+        spenShowButtonShapeText.setContentDescription(this.mContext.getResources().getString(R.string.sesl_cancel) + " " + this.mContext.getResources().getString(R.string.sesl_button));
         SpenShowButtonShapeText spenShowButtonShapeText2 = this.doneTextView;
-        spenShowButtonShapeText2.setContentDescription(this.mContext.getResources().getString(R.string.pen_string_done) + " " + this.mContext.getResources().getString(R.string.pen_string_button));
+        spenShowButtonShapeText2.setContentDescription(this.mContext.getResources().getString(R.string.sesl_done) + " " + this.mContext.getResources().getString(R.string.sesl_button));
         this.cancelTextView.setButtonShapeEnabled(true);
         this.doneTextView.setButtonShapeEnabled(true);
         if (Build.VERSION.SDK_INT >= 26) {

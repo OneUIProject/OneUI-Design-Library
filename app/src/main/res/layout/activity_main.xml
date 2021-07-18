@@ -5,16 +5,16 @@
     android:id="@+id/drawer_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:drawer_icon="@drawable/ic_samsung_settings"
-    app:drawer_viewId="@id/viewindrawer"
+    app:drawer_icon="@drawable/ic_samsung_info"
+    app:drawer_viewId="@id/viewInDrawer"
     app:toolbar_subtitle="Design"
     app:toolbar_title="@string/app_name"
     tools:context=".MainActivity">
 
     <include
-        android:id="@+id/viewindrawer"
-        layout="@layout/drawer_content" />
+        android:id="@+id/viewInDrawer"
+        layout="@layout/content_drawer" />
 
-    <include layout="@layout/main_content" />
+    <include layout="@layout/content_main" />
 
 </de.dlyt.yanndroid.samsung.layout.DrawerLayout>

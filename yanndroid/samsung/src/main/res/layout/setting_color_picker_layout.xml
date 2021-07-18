@@ -58,7 +58,7 @@
                             android:gravity="center"
                             android:includeFontPadding="false"
                             android:singleLine="true"
-                            android:text="@string/pen_string_cancel"
+                            android:text="@string/sesl_cancel"
                             android:textColor="?colorPrimary"
                             android:textSize="16.0sp" />
                     </RelativeLayout>
@@ -84,7 +84,7 @@
                             android:focusable="true"
                             android:gravity="center"
                             android:includeFontPadding="false"
-                            android:text="@string/pen_string_done"
+                            android:text="@string/sesl_done"
                             android:textColor="?colorPrimary"
                             android:textSize="16.0sp" />
                     </RelativeLayout>

@@ -12,7 +12,6 @@
     <attr name="seslSwitchBarTextActivatedColor" format="color" />
     <attr name="seslSwitchBarTextColor" format="color" />
 
-    <attr name="min" format="integer" />
     <attr name="useDisabledAlpha" format="boolean" />
 
     <attr name="seslSeekBarMode">
@@ -38,7 +37,7 @@
     <attr name="popupExitTransition" format="reference" />
 
 
-    <!--custom-->
+    <!--custom views-->
     <attr name="text" format="string" />
     <attr name="image" format="reference|color" />
     <attr name="selected" format="boolean" />
@@ -86,6 +85,10 @@
 
     <declare-styleable name="AboutPage">
         <attr name="optional_text" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="RelatedCard">
+        <attr name="title" />
     </declare-styleable>
 
 

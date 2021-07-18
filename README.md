@@ -8,7 +8,7 @@
 [![](https://img.shields.io/static/v1?label=telegram&message=Yanndroid&color=blue)](https://t.me/Yanndroid)
 
 # Samsung OneUi Design
-A library for Android, which makes your app look like Samsung's OneUI. In this library, there is a theme which will apply for each view (see [Progress](#Progress)) in your layout. Of course it also has dark mode and even landscape/dex support. The texts which are the custom views are all translated to 90 languages, so you don't need to worry for these. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk).
+A library for Android, which makes your app look like Samsung's OneUI 3. In this library, there is a theme which will apply for each view (see [Progress](#Progress)) in your layout. Of course it also has dark mode and even landscape/dex support. The text which is in the custom views is translated to 90 languages, so you don't need to worry for these. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk). Suggestions, improvements and help are always welcome.
 
 Excuse my bad english, feel free to correct it. :)
 
@@ -23,7 +23,9 @@ Excuse my bad english, feel free to correct it. :)
   - [DrawerDivider](#DrawerDivider)
   - [SplashViewSimple](#SplashViewSimple)
   - [SplashViewAnimated](#SplashViewAnimated)
+  - [AboutPage](#AboutPage)
   - [SwitchBar](#SwitchBar)
+  - [RelatedCard](#RelatedCard)
   - [SeekBar](#SeekBar)
   - [ProgressBar](#ProgressBar)
   - [Button](#Button)
@@ -59,7 +61,7 @@ allprojects {
 2. Add the dependency to build.gradle (Module: ...)
 ```gradle
 dependencies {
-	implementation 'com.github.Yanndroid:SamsungOneUi:1.2.0'
+	implementation 'com.github.Yanndroid:SamsungOneUi:1.2.2'
     ...
 }
 ```
@@ -90,7 +92,7 @@ repositories {
 
 
 dependencies {
-    implementation 'de.dlyt.yanndroid:samsung:1.2.0'
+    implementation 'de.dlyt.yanndroid:samsung:1.2.2'
     ...
 }
 ```
@@ -106,7 +108,7 @@ dependencies {
 ```
 
 ## Usage
-In general most of the views (see [Progress](#Progress)) are styled automatically when you set ```android:theme="@style/SamsungTheme"``` in AndroidManifest.xml.
+In general, most of the views (see [Progress](#Progress)) are styled automatically when you set ```android:theme="@style/SamsungTheme"``` in AndroidManifest.xml.
 
 ### DrawerLayout
 "Ready-to-go" DrawerLayout with collapsing toolbar.
@@ -115,14 +117,14 @@ In general most of the views (see [Progress](#Progress)) are styled automaticall
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:drawer_icon="..."
-    app:drawer_viewId="@id/viewindrawer"
+    app:drawer_viewId="@id/viewInDrawer"
     app:toolbar_subtitle="..."
     app:toolbar_title="..."
     app:toolbar_expanded="..."
     app:toolbar_expandable="...">
 
     <View
-        android:id="@+id/viewindrawer"
+        android:id="@+id/viewInDrawer"
         ... />
 
     <!--other views-->
@@ -429,6 +431,44 @@ Listener for the splash animation
 public void setSplashAnimationListener(Animation.AnimationListener listener)
 ```
 
+### AboutPage
+A layout that looks like and has the same functions as the about screen in any Samsung app.
+
+<img src="readme-resources/screenshots/aboutpage_1.png"  width="150"/> <img src="readme-resources/screenshots/aboutpage_2.png"  width="150"/> <img src="readme-resources/screenshots/aboutpage_3.png"  width="150"/>
+
+```xml
+<de.dlyt.yanndroid.samsung.layout.AboutPage
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:optional_text="...">
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/ButtonStyle.AboutPage"
+        android:text="..." />
+
+
+</de.dlyt.yanndroid.samsung.layout.AboutPage>
+```
+The app name and version are automatically added to the view. The info icon at the top right will redirect the user to the app info in settings. The ```app:optional_text="..."``` is the text between the version and the status text. The status text will change according to the state you set the view (see below). You can use ```style="@style/ButtonStyle.AboutPage"``` for the buttons, which are shown at the bottom.  
+:warning: For the back button (top left) to work you need to call this methode in your activity ```aboutPage.initAboutPage(this);```
+
+#### Methods
+Essential for the back button to work.
+```java
+public void initAboutPage(Activity activity)
+```
+Set the update state of the view to either ```AboutPage.LOADING```, ```AboutPage.NO_UPDATE``` or ```AboutPage.UPDATE_AVAILABLE```. This will change the visibility of certain views and the text of the Status.
+```java
+public void setUpdateState(@UpdateState int state)
+```
+Set the optional text between the version and the status text.
+```java
+public void setOptionalText(String text)
+```
+OnClickListener for the update button.
+```java
+public void setUpdateButtonOnClickListener(OnClickListener listener)
+```
 
 ### SwitchBar
 A SwitchBar like in the wifi or bluetooth settings.
@@ -458,6 +498,36 @@ Switchbar Listener.
 public void addOnSwitchChangeListener(OnSwitchChangeListener onSwitchChangeListener)
 ```
 
+### RelatedCard
+It's like the "Looking for something else?" card in settings.
+
+<img src="readme-resources/screenshots/relatedcard.png"  width="300"/>  
+
+(Depending on your screen right now you might not see it, but there's actually a light blue card around it.)
+
+```xml
+<de.dlyt.yanndroid.samsung.RelatedCard
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:title="...">
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/RelatedButtonStyle"
+        android:text="..." />
+
+
+</de.dlyt.yanndroid.samsung.RelatedCard>
+```
+You can simply use ```style="@style/RelatedButtonStyle"``` for the child TextViews.
+
+#### Methods
+Get/set the title text.
+```java
+public String getTitle()
+public void setTitle(String title)
+```
+
+
 ### SeekBar
 A Seekbar like the brightness slider in the QS.
 
@@ -469,7 +539,7 @@ A Seekbar like the brightness slider in the QS.
     android:layout_height="wrap_content"
     app:seslSeekBarMode="expand" />
 ```
-If you don't want the expanding seekbar, you can use the default seekbar instead , as the style will also apply on this one.
+If you don't want/need the expanding seekbar, you can use the default seekbar instead, as the style will also apply on this one.
 
 #### Methods
 Set a warning at progress i.
@@ -726,6 +796,7 @@ My sample app icon for example:
 - [x] Landscape support
 - [x] Tablet support
 - [x] About screen
+- [x] Related card
 - [x] Button
 - [x] Scrollbar
 - [x] Desktop support (DeX) *
@@ -739,7 +810,6 @@ My sample app icon for example:
 - [ ] Preferences
 - [ ] SearchView
 - [ ] Tooltip
-- [ ] Related card
 - [ ] Progress dialog
 - [ ] Bottom navigation
 - [ ] (Textview)
@@ -754,6 +824,7 @@ My sample app icon for example:
 
 - Scrollbar
 - AboutPage
+- RelatedCard
 - corner fix
 - language update
 - customizable splash animation
@@ -769,11 +840,11 @@ My sample app icon for example:
 <summary>1.2.1</summary>
 
 - landscape support
-- table support
+- tablet support
 - dex support
 - expandable attribute for toolbar
 - toolbar subtitle color
-- added subheader style
+- added Header style
 
 </details>
 
@@ -785,7 +856,7 @@ My sample app icon for example:
 - readme finished
 - much more icons
 - rtl support
-- 90 languages
+- translated to 90 languages
 
 </details>
 
@@ -796,10 +867,10 @@ My sample app icon for example:
 - most of the stuff (I don't remember anymore...)
 
 </details>
-
+&nbsp;
 
 ## More info
-- [Official OneUI Guide](https://design.samsung.com/global/contents/one-ui/download/oneui_design_guide_eng.pdf)
+- [Official OneUI Design Guide](https://design.samsung.com/global/contents/one-ui/download/oneui_design_guide_eng.pdf)
 
 
 ## Special thanks to:

@@ -20,14 +20,11 @@ public class SplashActivity extends AppCompatActivity {
         SplashViewAnimated splashViewAnimated = findViewById(R.id.splash);
 
         Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(() -> {
-            splashViewAnimated.startSplashAnimation();
-        }, 500);
+        handler.postDelayed(splashViewAnimated::startSplashAnimation, 500);
 
         splashViewAnimated.setSplashAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
             }
 
             @Override
@@ -38,7 +35,6 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
             }
         });
 

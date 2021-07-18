@@ -249,7 +249,7 @@ public class SpenColorPickerView extends LinearLayout implements SpenPickerColor
                     childAt.setEnabled(true);
                     childAt.setFocusable(true);
                     childAt.setImportantForAccessibility(1);
-                    childAt.setContentDescription(getContext().getResources().getString(R.string.pen_palette_color_custom) + ", " + getContext().getResources().getString(R.string.pen_string_button));
+                    childAt.setContentDescription(getContext().getResources().getString(R.string.pen_palette_color_custom) + ", " + getContext().getResources().getString(R.string.sesl_button));
                 } else {
                     gradientDrawable.setColor(-1644826);
                     childAt.setEnabled(false);

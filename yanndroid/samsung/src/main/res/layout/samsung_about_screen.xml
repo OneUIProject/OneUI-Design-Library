@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8.0dip"
             android:gravity="center"
-            android:text="@string/version"
+            android:text="@string/sesl_version"
             android:textColor="@color/sesl_radiobutton_text_color"
             android:textSize="16.0sp"
             android:textStyle="normal" />
@@ -70,7 +70,7 @@
             style="@style/ButtonStyle.Invert"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="@string/string_update"
+            android:text="@string/sesl_update"
             android:visibility="gone" />
 
 

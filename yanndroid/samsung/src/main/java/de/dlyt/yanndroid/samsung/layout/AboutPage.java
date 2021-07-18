@@ -80,7 +80,7 @@ public class AboutPage extends LinearLayout {
 
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            version.setText(context.getString(R.string.version) + " " + packageInfo.versionName);
+            version.setText(context.getString(R.string.sesl_version) + " " + packageInfo.versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

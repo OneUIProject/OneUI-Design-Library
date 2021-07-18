@@ -3,12 +3,6 @@
 
     <!--Main-->
     <style name="SamsungStyleMain">
-
-        <!--<item name="colorPrimary">@color/primary_color</item>
-        <item name="colorSecondary">@color/secondary_color</item>
-        <item name="colorPrimaryDark">@color/primary_dark_color</item>-->
-
-
         <item name="colorAccent">?colorSecondary</item>
         <item name="colorBackgroundFloating">@color/sesl_background_floating</item>
         <item name="colorControlActivated">?colorSecondary</item>
@@ -323,7 +317,7 @@
     <!--Toolbar-->
     <style name="ActionButtonOverflow" parent="@android:style/Widget.Material.ActionButton.Overflow">
         <item name="android:src">@drawable/sesl_ic_menu_overflow_dark</item>
-        <item name="android:contentDescription">@string/sesl_action_menu_overflow_description</item>
+        <item name="android:contentDescription">@string/sesl_more_options</item>
     </style>
 
 
@@ -357,8 +351,23 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <!--Dialog-->
-    <style name="DialogStyle" parent="android:Theme.DeviceDefault.Light.Dialog.Alert" />
+    <!--Related Card-->
+    <style name="RelatedButtonStyle">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:textColor">?colorPrimaryDark</item>
+        <item name="android:fontFamily">sec-roboto-light</item>
+        <item name="android:background">@drawable/related_button_ripple_background</item>
+        <item name="android:radius">26dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
 
+    <!--Dialog--> <!--temporary as it only works on samsung devices-->
+    <style name="DialogStyle" parent="android:Theme.DeviceDefault.Light.Dialog.Alert" />
 
 </resources>

@@ -65,7 +65,7 @@ public class DrawerLayout extends LinearLayout {
         toolbarLayout.setTitle(mToolbarTitle);
         toolbarLayout.setSubtitle(mToolbarSubtitle);
         toolbarLayout.setExpandable(mToolbarExpandable);
-        toolbarLayout.setNavigationIconTooltip(getResources().getText(R.string.drawer_description));
+        toolbarLayout.setNavigationIconTooltip(getResources().getText(R.string.sesl_navigation_drawer));
         toolbarLayout.setExpanded(mToolbarExpanded, false);
         drawerIcon = findViewById(R.id.drawerIcon);
         drawerIcon.setImageDrawable(mDrawerIcon);
@@ -82,14 +82,14 @@ public class DrawerLayout extends LinearLayout {
 
         init();
 
-        Boolean isRtl = getResources().getBoolean(R.bool.is_rtl);
+        Boolean isRtl = getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
 
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, R.string.opened, R.string.closed) {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
                 float slideX = drawerView.getWidth() * slideOffset;
-                if (isRtl) slideX = -(drawerView.getWidth() * slideOffset);
+                if (isRtl) slideX *= -1;
                 content.setTranslationX(slideX);
             }
         };

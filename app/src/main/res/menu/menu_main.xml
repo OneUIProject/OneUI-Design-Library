@@ -10,13 +10,13 @@
         app:showAsAction="always" />
 
     <item
-        android:title="Menuitem"
+        android:title="Menu Item"
         app:showAsAction="never" />
     <item
-        android:title="Menuitem"
+        android:title="Menu Item"
         app:showAsAction="never" />
     <item
-        android:title="Menuitem"
+        android:title="Menu Item"
         app:showAsAction="never" />
 
 
