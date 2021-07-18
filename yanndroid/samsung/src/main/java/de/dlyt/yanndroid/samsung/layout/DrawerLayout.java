@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -83,6 +85,7 @@ public class DrawerLayout extends LinearLayout {
         init();
 
         Boolean isRtl = getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        Window window = getActivity().getWindow();
 
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, R.string.opened, R.string.closed) {
             @Override
@@ -91,17 +94,17 @@ public class DrawerLayout extends LinearLayout {
                 float slideX = drawerView.getWidth() * slideOffset;
                 if (isRtl) slideX *= -1;
                 content.setTranslationX(slideX);
+
+                float[] hsv = new float[3];
+                Color.colorToHSV(ContextCompat.getColor(getContext(), R.color.background_color), hsv);
+                hsv[2] *= 1f - (slideOffset * 0.2f);
+                window.setStatusBarColor(Color.HSVToColor(hsv));
+                window.setNavigationBarColor(Color.HSVToColor(hsv));
+                
             }
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
-
-        toolbarLayout.setNavigationOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(drawer, true);
-            }
-        });
-
+        toolbarLayout.setNavigationOnClickListener(v -> drawerLayout.openDrawer(drawer, true));
     }
 
     private void init() {

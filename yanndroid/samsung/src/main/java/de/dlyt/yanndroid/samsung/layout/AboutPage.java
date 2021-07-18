@@ -3,6 +3,7 @@ package de.dlyt.yanndroid.samsung.layout;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -84,11 +85,18 @@ public class AboutPage extends LinearLayout {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-
+        toolbarLayout.setNavigationOnClickListener(v -> getActivity().onBackPressed());
     }
 
-    public void initAboutPage(Activity activity) {
-        toolbarLayout.setNavigationOnClickListener(v -> activity.onBackPressed());
+    private Activity getActivity() {
+        Context context = getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity) context;
+            }
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+        return null;
     }
 
     public void setUpdateButtonOnClickListener(OnClickListener listener) {

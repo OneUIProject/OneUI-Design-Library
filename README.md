@@ -449,14 +449,9 @@ A layout that looks like and has the same functions as the about screen in any S
 
 </de.dlyt.yanndroid.samsung.layout.AboutPage>
 ```
-The app name and version are automatically added to the view. The info icon at the top right will redirect the user to the app info in settings. The ```app:optional_text="..."``` is the text between the version and the status text. The status text will change according to the state you set the view (see below). You can use ```style="@style/ButtonStyle.AboutPage"``` for the buttons, which are shown at the bottom.  
-:warning: For the back button (top left) to work you need to call this methode in your activity ```aboutPage.initAboutPage(this);```
+The app name and version are automatically added to the view. The info icon at the top right will redirect the user to the app info in settings. The ```app:optional_text="..."``` is the text between the version and the status text. The status text will change according to the state you set the view (see below). You can use ```style="@style/ButtonStyle.AboutPage"``` for the buttons, which are shown at the bottom.
 
 #### Methods
-Essential for the back button to work.
-```java
-public void initAboutPage(Activity activity)
-```
 Set the update state of the view to either ```AboutPage.LOADING```, ```AboutPage.NO_UPDATE``` or ```AboutPage.UPDATE_AVAILABLE```. This will change the visibility of certain views and the text of the Status.
 ```java
 public void setUpdateState(@UpdateState int state)
@@ -832,6 +827,7 @@ My sample app icon for example:
 - fixed landscape toolbar height
 - improved orientation switching
 - button text fix
+- status & navigation bar dim on drawer slide
 - added changelog to readme
 
 </details>
