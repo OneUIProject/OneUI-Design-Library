@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:navigationIcon="@drawable/ic_samsung_back"
+    app:expanded="false"
     app:title="@string/action_settings">
 
     <FrameLayout

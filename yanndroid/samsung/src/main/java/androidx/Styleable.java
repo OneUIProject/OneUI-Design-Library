@@ -1,5 +1,7 @@
 package androidx;
 
+import de.dlyt.yanndroid.samsung.R;
+
 public final class Styleable {
 
     public static final class styleable {
@@ -55,6 +57,11 @@ public final class Styleable {
         public static final int AppCompatSeekBar_useDisabledAlpha = 12;
 
         public static final int AppCompatTheme_android_disabledAlpha = 0;
+
+
+        public static final int[] PreferenceImageView = {16843039, 16843040, R.attr.maxHeight, R.attr.maxWidth};
+        public static final int PreferenceImageView_maxHeight = 2;
+        public static final int PreferenceImageView_maxWidth = 3;
 
 
     }

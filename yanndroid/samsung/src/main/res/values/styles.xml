@@ -30,7 +30,7 @@
         <item name="actionOverflowButtonStyle">@style/ActionButtonOverflow</item>
         <item name="spinnerStyle">@style/SpinnerStyle</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
-        <item name="actionOverflowMenuStyle">@style/ActionOverflowMenuStyle</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenuStyle</item>
 
         <item name="android:scrollbarThumbHorizontal">@drawable/sesl_scrollbar_handle</item>
         <item name="android:scrollbarThumbVertical">@drawable/sesl_scrollbar_handle</item>
@@ -287,8 +287,8 @@
     </style>
 
 
-    <!--actionOverflowMenuStyle-->
-    <style name="ActionOverflowMenuStyle" parent="@android:style/Widget.Material.ListPopupWindow">
+    <!--PopupMenuStyle-->
+    <style name="PopupMenuStyle" parent="@android:style/Widget.Material.ListPopupWindow">
         <item name="android:popupElevation">8.0dip</item>
         <item name="android:popupBackground">@drawable/sesl_menu_popup_background_dark</item>
         <item name="android:popupAnimationStyle">@style/Base.Animation.AppCompat.MenuPopup</item>
@@ -306,7 +306,6 @@
 
 
     <!--Snackbar-->
-    <!--todo-->
     <style name="SnackBarStyle" parent="@android:style/Widget">
         <item name="android:background">@drawable/sem_snackbar_frame_mtrl</item>
         <item name="android:paddingLeft">@dimen/design_snackbar_padding_horizontal</item>
