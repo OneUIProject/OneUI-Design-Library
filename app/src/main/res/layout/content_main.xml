@@ -380,7 +380,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@color/sesl_control_color_normal" />
+                                android:background="@color/background_color"
+                                android:backgroundTint="@color/sesl_control_color_normal" />
 
                         </LinearLayout>
 
