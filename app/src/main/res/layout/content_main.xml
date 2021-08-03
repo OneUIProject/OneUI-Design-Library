@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <de.dlyt.yanndroid.samsung.SwitchBar
+    <de.dlyt.yanndroid.oneui.SwitchBar
         android:id="@+id/switchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -65,7 +65,7 @@
                         android:layout_marginVertical="10dp"
                         android:orientation="vertical">
 
-                        <de.dlyt.yanndroid.samsung.SeekBar
+                        <de.dlyt.yanndroid.oneui.SeekBar
                             android:id="@+id/seekbar1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -245,7 +245,7 @@
                         </LinearLayout>
 
 
-                        <de.dlyt.yanndroid.samsung.drawer.OptionButton
+                        <de.dlyt.yanndroid.oneui.drawer.OptionButton
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:counter="44"
@@ -389,7 +389,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <de.dlyt.yanndroid.samsung.RelatedCard
+                <de.dlyt.yanndroid.oneui.RelatedCard
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="15dp"
@@ -407,7 +407,7 @@
                         style="@style/RelatedButtonStyle"
                         android:text="There" />
 
-                </de.dlyt.yanndroid.samsung.RelatedCard>
+                </de.dlyt.yanndroid.oneui.RelatedCard>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

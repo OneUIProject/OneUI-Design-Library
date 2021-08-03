@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.dlyt.yanndroid.samsungexample">
+    package="de.dlyt.yanndroid.oneuiexample">
 
     <application
         android:allowBackup="true"
@@ -10,16 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/SamsungTheme">
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/action_settings" />
-        <activity
-            android:name=".AboutActivity"
+            android:name="de.dlyt.yanndroid.oneuiexample.AboutActivity"
             android:theme="@style/SamsungAboutTheme" />
         <activity
-            android:name=".MainActivity"
+            android:name="de.dlyt.yanndroid.oneuiexample.MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
         <activity
-            android:name=".SplashActivity"
+            android:name="de.dlyt.yanndroid.oneuiexample.SplashActivity"
             android:theme="@style/SamsungSplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

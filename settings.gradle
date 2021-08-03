@@ -1,3 +1,3 @@
-include ':yanndroid:samsung'
+include ':yanndroid:oneui'
 include ':app'
 rootProject.name = "Samsung"

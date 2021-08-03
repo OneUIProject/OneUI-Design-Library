@@ -15,27 +15,27 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <de.dlyt.yanndroid.samsung.drawer.OptionGroup
+            <de.dlyt.yanndroid.oneui.drawer.OptionGroup
                 android:id="@+id/optiongroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:selectedOptionButton="@id/ob2">
 
-                <de.dlyt.yanndroid.samsung.drawer.OptionButton
+                <de.dlyt.yanndroid.oneui.drawer.OptionButton
                     android:id="@+id/ob1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_samsung_info"
                     app:text="Option 1" />
 
-                <de.dlyt.yanndroid.samsung.drawer.OptionButton
+                <de.dlyt.yanndroid.oneui.drawer.OptionButton
                     android:id="@+id/ob2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_samsung_info"
                     app:text="Option 2" />
 
-                <de.dlyt.yanndroid.samsung.drawer.OptionButton
+                <de.dlyt.yanndroid.oneui.drawer.OptionButton
                     android:id="@+id/ob3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -43,16 +43,16 @@
                     app:text="Option 3" />
 
 
-            </de.dlyt.yanndroid.samsung.drawer.OptionGroup>
+            </de.dlyt.yanndroid.oneui.drawer.OptionGroup>
 
 
-            <de.dlyt.yanndroid.samsung.drawer.Divider
+            <de.dlyt.yanndroid.oneui.drawer.Divider
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginVertical="2dp" />
 
-            <de.dlyt.yanndroid.samsung.drawer.OptionButton
+            <de.dlyt.yanndroid.oneui.drawer.OptionButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:counter="4"
@@ -60,7 +60,7 @@
                 app:icon="@drawable/ic_samsung_plus"
                 app:text="Add" />
 
-            <de.dlyt.yanndroid.samsung.drawer.OptionButton
+            <de.dlyt.yanndroid.oneui.drawer.OptionButton
                 android:id="@+id/ob_help"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

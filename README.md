@@ -1,14 +1,17 @@
-[![](https://img.shields.io/github/v/release/Yanndroid/SamsungOneUi?color=%235555ff)](https://github.com/Yanndroid/SamsungOneUi/releases)
-[![](https://img.shields.io/static/v1?label=sample&message=apk&color=yellow)](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk)
-![](https://img.shields.io/github/last-commit/Yanndroid/SamsungOneUi)
-[![](https://img.shields.io/github/issues-raw/Yanndroid/SamsungOneUi?color=%23ff4400)](https://github.com/Yanndroid/SamsungOneUi/issues)
-[![](https://img.shields.io/github/issues-pr-raw/Yanndroid/SamsungOneUi?color=%23bb00bb)](https://github.com/Yanndroid/SamsungOneUi/pulls)
-[![](https://img.shields.io/github/forks/Yanndroid/SamsungOneUi?color=%2300bbbb)](https://github.com/Yanndroid/SamsungOneUi/network/members)
-[![](https://img.shields.io/github/contributors/Yanndroid/SamsungOneUi)](https://github.com/Yanndroid/SamsungOneUi/graphs/contributors)
+[![](https://img.shields.io/github/v/release/Yanndroid/OneUI-Design-Library?color=%235555ff)](https://github.com/Yanndroid/OneUI-Design-Library/releases)
+[![](https://img.shields.io/static/v1?label=sample&message=apk&color=yellow)](https://github.com/Yanndroid/OneUI-Design-Library/raw/master/app/release/app-release.apk)
+![](https://img.shields.io/github/last-commit/Yanndroid/OneUI-Design-Library)
+[![](https://img.shields.io/github/issues-raw/Yanndroid/OneUI-Design-Library?color=%23ff4400)](https://github.com/Yanndroid/OneUI-Design-Library/issues)
+[![](https://img.shields.io/github/issues-pr-raw/Yanndroid/OneUI-Design-Library?color=%23bb00bb)](https://github.com/Yanndroid/OneUI-Design-Library/pulls)
+[![](https://img.shields.io/github/forks/Yanndroid/OneUI-Design-Library?color=%2300bbbb)](https://github.com/Yanndroid/OneUI-Design-Library/network/members)
+[![](https://img.shields.io/github/contributors/Yanndroid/OneUI-Design-Library)](https://github.com/Yanndroid/OneUI-Design-Library/graphs/contributors)
 [![](https://img.shields.io/static/v1?label=telegram&message=Yanndroid&color=blue)](https://t.me/Yanndroid)
 
-# Samsung OneUi Design
-A library for Android, which makes your app look like Samsung's OneUI 3. In this library, there is a theme which will apply for each view (see [Progress](#Progress)) in your layout. Of course it also has dark mode and even landscape/dex support. The text which is in the custom views is translated to 90 languages, so you don't need to worry for these. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/SamsungOneUi/raw/master/app/release/app-release.apk). Suggestions, improvements and help are always welcome.
+# OneUi Design
+
+:warning: v1.3.0: moved from ```de.dlyt.yanndroid.samsung``` to ```de.dlyt.yanndroid.oneui```
+
+A library for Android, which makes your app look like Samsung's OneUI 3. In this library, there is a theme which will apply for each view (see [Progress](#Progress)) in your layout. Of course it also has dark mode and even landscape/dex support. The text which is in the custom views is translated to 90 languages, so you don't need to worry for these. This library has been tested in AndroidStudio, but should work in other IDEs too. You can try out the latest example [here](https://github.com/Yanndroid/OneUI-Design-Library/raw/master/app/release/app-release.apk). Suggestions, improvements and help are always welcome.
 
 Excuse my bad english, feel free to correct it. :)
 
@@ -36,6 +39,7 @@ Excuse my bad english, feel free to correct it. :)
     - [Single/Multiple activities](#2-singleMultiple-activities)
     - [Via Code](#3-Via-Code)
   - [App Icon](#App-Icon)
+  - [Advanced](#Advanced)
 - [Progress](#Progress)
 - [Changelog](#Changelog)
 
@@ -61,7 +65,7 @@ allprojects {
 2. Add the dependency to build.gradle (Module: ...)
 ```gradle
 dependencies {
-	implementation 'com.github.Yanndroid:SamsungOneUi:1.2.2'
+	implementation 'com.github.Yanndroid:OneUI-Design-Library:1.3.0'
     ...
 }
 ```
@@ -82,7 +86,7 @@ dependencies {
 ```gradle
 repositories {
     maven {
-        url = uri("https://maven.pkg.github.com/yanndroid/SamsungOneUi")
+        url = uri("https://maven.pkg.github.com/Yanndroid/OneUI-Design-Library")
             credentials {
                 username = "your username"
                 password = "your token"
@@ -92,7 +96,7 @@ repositories {
 
 
 dependencies {
-    implementation 'de.dlyt.yanndroid:samsung:1.2.2'
+    implementation 'de.dlyt.yanndroid:oneui:1.3.0'
     ...
 }
 ```
@@ -113,7 +117,7 @@ In general, most of the views (see [Progress](#Progress)) are styled automatical
 ### DrawerLayout
 "Ready-to-go" DrawerLayout with collapsing toolbar.
 ```xml
-<de.dlyt.yanndroid.samsung.layout.DrawerLayout 
+<de.dlyt.yanndroid.oneui.layout.DrawerLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:drawer_icon="..."
@@ -129,7 +133,7 @@ In general, most of the views (see [Progress](#Progress)) are styled automatical
 
     <!--other views-->
 
-</de.dlyt.yanndroid.samsung.layout.DrawerLayout>
+</de.dlyt.yanndroid.oneui.layout.DrawerLayout>
 
 ```
 The view with the ID specified in ```app:drawer_viewId="..."``` will be shown in the drawer and the rest of the children on the main screen.  
@@ -181,7 +185,7 @@ public void setDrawerOpen(Boolean open, Boolean animate)
 ### ToolbarLayout
 Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
 ```xml
-<de.dlyt.yanndroid.samsung.layout.ToolbarLayout
+<de.dlyt.yanndroid.oneui.layout.ToolbarLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:title="..."
@@ -193,7 +197,7 @@ Basically the same as [DrawerLayout](#DrawerLayout) but without the drawer.
 
     <!--children-->
 
-</de.dlyt.yanndroid.samsung.layout.ToolbarLayout>
+</de.dlyt.yanndroid.oneui.layout.ToolbarLayout>
 ```
 ```app:navigationIcon="..."``` is the NavigationIcon of the toolbar. There are already some stock Samsung [icons](#Icons) included in the library, like a drawer and back icon.  
 
@@ -245,7 +249,7 @@ These are the buttons you can see in the drawer of Samsung apps.
 <img src="readme-resources/screenshots/optionbutton.png"  width="260"/>
 
 ```xml
-<de.dlyt.yanndroid.samsung.drawer.OptionButton
+<de.dlyt.yanndroid.oneui.drawer.OptionButton
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:icon="..."
@@ -291,34 +295,34 @@ public void setButtonEnabled(Boolean enabled)
 <img src="readme-resources/screenshots/optiongroup.gif"  width="260"/>
 
 ```xml
-<de.dlyt.yanndroid.samsung.drawer.OptionGroup
+<de.dlyt.yanndroid.oneui.drawer.OptionGroup
     android:id="@+id/optiongroup"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:selectedOptionButton="@id/ob1">
 
-    <de.dlyt.yanndroid.samsung.drawer.OptionButton
+    <de.dlyt.yanndroid.oneui.drawer.OptionButton
         android:id="@+id/ob1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:icon="@drawable/ic_samsung_info"
         app:text="Option 1" />
 
-    <de.dlyt.yanndroid.samsung.drawer.OptionButton
+    <de.dlyt.yanndroid.oneui.drawer.OptionButton
         android:id="@+id/ob2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:icon="@drawable/ic_samsung_info"
         app:text="Option 2" />
 
-    <de.dlyt.yanndroid.samsung.drawer.OptionButton
+    <de.dlyt.yanndroid.oneui.drawer.OptionButton
         android:id="@+id/ob3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:icon="@drawable/ic_samsung_info"
         app:text="Option 3" />
 
-</de.dlyt.yanndroid.samsung.drawer.OptionGroup>
+</de.dlyt.yanndroid.oneui.drawer.OptionGroup>
 ```
 
 ```app:selectedOptionButton="..."``` will select (colored, bold text) the OptionButton with this id. This view can also have other children, for example [DrawerDivider](#DrawerDivider).
@@ -345,7 +349,7 @@ A divider between the [OptionButtons](#OptionButton) on the drawer. It's the sam
 <img src="readme-resources/screenshots/drawerdivider.png"  width="260"/>
 
 ```xml
-<de.dlyt.yanndroid.samsung.drawer.Divider
+<de.dlyt.yanndroid.oneui.drawer.Divider
     android:layout_width="match_parent"
     android:layout_height="4dp"
     android:layout_marginHorizontal="24dp"
@@ -362,7 +366,7 @@ Simple Splash view. (I think Samsung removed the splashscreen of their apps sinc
 <img src="readme-resources/screenshots/splash_simple.png"  width="150"/>
 
 ```xml
-<de.dlyt.yanndroid.samsung.layout.SplashViewSimple
+<de.dlyt.yanndroid.oneui.layout.SplashViewSimple
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:image="..."
@@ -391,7 +395,7 @@ An animated splash screen view like the one in the GalaxyStore. Add this ```andr
 <img src="readme-resources/screenshots/splash_animated.gif"  width="150"/>
 
 ```xml
-<de.dlyt.yanndroid.samsung.layout.SplashViewAnimated
+<de.dlyt.yanndroid.oneui.layout.SplashViewAnimated
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:background_image="..."
@@ -437,7 +441,7 @@ A layout that looks like and has the same functions as the about screen in any S
 <img src="readme-resources/screenshots/aboutpage_1.png"  width="150"/> <img src="readme-resources/screenshots/aboutpage_2.png"  width="150"/> <img src="readme-resources/screenshots/aboutpage_3.png"  width="150"/>
 
 ```xml
-<de.dlyt.yanndroid.samsung.layout.AboutPage
+<de.dlyt.yanndroid.oneui.layout.AboutPage
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:optional_text="...">
@@ -447,7 +451,7 @@ A layout that looks like and has the same functions as the about screen in any S
         android:text="..." />
 
 
-</de.dlyt.yanndroid.samsung.layout.AboutPage>
+</de.dlyt.yanndroid.oneui.layout.AboutPage>
 ```
 The app name and version are automatically added to the view. The info icon at the top right will redirect the user to the app info in settings. The ```app:optional_text="..."``` is the text between the version and the status text. The status text will change according to the state you set the view (see below). You can use ```style="@style/ButtonStyle.AboutPage"``` for the buttons, which are shown at the bottom.
 
@@ -471,7 +475,7 @@ A SwitchBar like in the wifi or bluetooth settings.
 <img src="readme-resources/screenshots/switchbar.gif"  width="300"/>
 
 ```xml
-<de.dlyt.yanndroid.samsung.SwitchBar
+<de.dlyt.yanndroid.oneui.SwitchBar
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
 ```
@@ -501,7 +505,7 @@ It's like the "Looking for something else?" card in settings.
 (Depending on your screen right now you might not see it, but there's actually a light blue card around it.)
 
 ```xml
-<de.dlyt.yanndroid.samsung.RelatedCard
+<de.dlyt.yanndroid.oneui.RelatedCard
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:title="...">
@@ -511,7 +515,7 @@ It's like the "Looking for something else?" card in settings.
         android:text="..." />
 
 
-</de.dlyt.yanndroid.samsung.RelatedCard>
+</de.dlyt.yanndroid.oneui.RelatedCard>
 ```
 You can simply use ```style="@style/RelatedButtonStyle"``` for the child TextViews.
 
@@ -529,7 +533,7 @@ A Seekbar like the brightness slider in the QS.
 <img src="readme-resources/screenshots/seekbar.gif"  width="300"/>
 
 ```xml
-<de.dlyt.yanndroid.samsung.SeekBar
+<de.dlyt.yanndroid.oneui.SeekBar
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:seslSeekBarMode="expand" />
@@ -770,6 +774,8 @@ My sample app icon for example:
 
 <img src="readme-resources/app-icons/sample.png" width="50" height="50" />
 
+### Advanced
+This is for further customization. I added the methode ```getView(int view)``` to some of the custom view to access the views inside it and change them directly. This can be helpful if you want to do something which isn't implemented in the custom views yet as I can't think of all possible uses. Currently this methode is available in OptionButton, AboutPage, DrawerLayout, ToolbarLayout and SplashView (both).
 
 ## Progress
 
@@ -813,6 +819,16 @@ My sample app icon for example:
 *needs improvement
 
 ## Changelog
+
+<details>
+<summary>1.3.0</summary>
+
+- renamed library
+- getView methode added
+- splash screen display size fix
+- minor changes
+
+</details>
 
 <details>
 <summary>1.2.2</summary>
