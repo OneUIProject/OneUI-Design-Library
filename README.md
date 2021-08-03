@@ -765,7 +765,7 @@ ThemeColor.setColor(Activity activity, float[] hsv)
 The color you apply with these functions will apply on every activity with ```new ThemeColor(this)``` at the top.
 
 ### App Icon
-The most app icons of Samsung apps are made of one solid color as background and a white icon as foreground. Usually there is even a little part/detail of the foreground with a similar color as the background.
+The most app icons of Samsung apps are made of one solid color as background and a white icon as foreground. Usually there is even a little detail of the foreground with a similar color as the background.
 
 <img src="readme-resources/app-icons/settings.png" width="50" height="50" />   <img src="readme-resources/app-icons/notes.png" width="50" height="50" />   <img src="readme-resources/app-icons/messages.png" width="50" height="50" />   <img src="readme-resources/app-icons/camera.png" width="50" height="50" />   <img src="readme-resources/app-icons/calculator.png" width="50" height="50" />   <img src="readme-resources/app-icons/contacts.png" width="50" height="50" />   <img src="readme-resources/app-icons/myfiles.png" width="50" height="50" />
 
