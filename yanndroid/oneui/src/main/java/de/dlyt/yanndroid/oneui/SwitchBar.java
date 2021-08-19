@@ -22,7 +22,6 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.StringRes;
 import androidx.appcompat.util.SeslMisc;
 import androidx.appcompat.widget.SeslToggleSwitch;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.ViewCompat;
@@ -30,6 +29,8 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.dlyt.yanndroid.oneui.widget.Switch;
 
 public class SwitchBar extends LinearLayout implements CompoundButton.OnCheckedChangeListener {
     private static final int SWITCH_OFF_STRING_RESOURCE_ID = R.string.sesl_off_text;
@@ -107,7 +108,7 @@ public class SwitchBar extends LinearLayout implements CompoundButton.OnCheckedC
             /* class de.dlyt.yanndroid.samsung.SeslSwitchBar.AnonymousClass2 */
 
             @Override // de.dlyt.yanndroid.samsung.SeslSwitchBar.OnSwitchChangeListener
-            public void onSwitchChanged(SwitchCompat switchCompat, boolean z) {
+            public void onSwitchChanged(Switch switchCompat, boolean z) {
                 SwitchBar.this.setTextViewLabelAndBackground(z);
             }
         });
@@ -301,7 +302,7 @@ public class SwitchBar extends LinearLayout implements CompoundButton.OnCheckedC
     }
 
     public interface OnSwitchChangeListener {
-        void onSwitchChanged(SwitchCompat switchCompat, boolean z);
+        void onSwitchChanged(Switch switchCompat, boolean z);
     }
 
     /* access modifiers changed from: package-private */

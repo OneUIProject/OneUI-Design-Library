@@ -2,7 +2,7 @@
 <selector
   xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="false" android:state_checked="true" android:drawable="@drawable/sesl_switch_track_disabled_on" />
-    <item android:state_enabled="false" android:drawable="@drawable/sesl_switch_track_disabled_off" />
+    <item android:state_enabled="false" android:drawable="@drawable/sesl_switch_track_dark_disabled_off" />
     <item android:state_checked="true" android:drawable="@drawable/sesl_switch_track_on" />
-    <item android:drawable="@drawable/sesl_switch_track_off" />
+    <item android:drawable="@drawable/sesl_switch_track_dark_off" />
 </selector>

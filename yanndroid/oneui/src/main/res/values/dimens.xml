@@ -108,4 +108,7 @@
     <dimen name="sesl_hover_popup_corner_radius">22.0dip</dimen>
     <dimen name="sesl_navigation_bar_height">48.0dip</dimen>
 
+    <!--Switch-->
+    <dimen name="sesl_switch_width">43.0dip</dimen>
+
 </resources>

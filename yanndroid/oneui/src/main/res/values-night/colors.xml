@@ -15,13 +15,6 @@
     <color name="divider_color">#42fafafa</color>
 
 
-    <!--Switch-->
-    <color name="sesl_switch_thumb_off_disabled_color">#ff828282</color>
-    <color name="sesl_switch_thumb_off_disabled_stroke_color">#ff3b3b3b</color>
-    <color name="sesl_switch_thumb_on_disabled_color">#ff858585</color>
-    <color name="sesl_switch_thumb_on_disabled_stroke_color">#ff3b3b3b</color>
-
-
     <!--SwitchBar-->
     <color name="sesl_switchbar_off_background_color">#2bfafafa</color>
     <color name="sesl_switchbar_off_text_color">#fffafafa</color>

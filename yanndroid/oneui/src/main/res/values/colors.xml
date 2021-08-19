@@ -46,18 +46,24 @@
 
 
     <!--Switch-->
-    <color name="sesl_switch_thumb_off_disabled_color">@color/white</color>
-    <color name="sesl_switch_thumb_off_disabled_stroke_color">#ffcbcbcb</color>
-    <color name="sesl_switch_thumb_on_disabled_color">@color/white</color>
-    <color name="sesl_switch_thumb_on_disabled_stroke_color">#ffcbcbcb</color>
-    <color name="sesl_switch_thumb_off_color">@color/white</color>
-    <color name="sesl_switch_thumb_off_stroke_color">#ffa1a1a1</color>
-    <color name="sesl_switch_thumb_on_color">@color/white</color>
-    <color name="sesl_switch_track_off_disabled_color">#00ffffff</color>
-    <color name="sesl_switch_track_off_disabled_stroke_color">#66888888</color>
-    <color name="sesl_switch_track_on_disabled_color">#668f8f8f</color>
+    <color name="sesl_switch_thumb_off_color">#fffafafa</color>
+    <color name="sesl_switch_thumb_off_disabled_color">#fffafafa</color>
+    <color name="sesl_switch_thumb_off_disabled_color_dark">#ff858585</color>
+    <color name="sesl_switch_thumb_off_disabled_stroke_color">#ffd0d0d0</color>
+    <color name="sesl_switch_thumb_off_disabled_stroke_color_dark">#ff3d3d3d</color>
+    <color name="sesl_switch_thumb_off_stroke_color">#ff8c8c8c</color>
+    <color name="sesl_switch_thumb_on_color">#fffafafa</color>
+    <color name="sesl_switch_thumb_on_disabled_color">#fffafafa</color>
+    <color name="sesl_switch_thumb_on_disabled_color_dark">#ff858585</color>
+    <color name="sesl_switch_thumb_on_disabled_stroke_color">#ffd0d0d0</color>
+    <color name="sesl_switch_thumb_on_disabled_stroke_color_dark">#ff3d3d3d</color>
     <color name="sesl_switch_track_off_color">#00ffffff</color>
-    <color name="sesl_switch_track_off_stroke_color">#cc8f8f8f</color>
+    <color name="sesl_switch_track_off_disabled_color">#00ffffff</color>
+    <color name="sesl_switch_track_off_disabled_stroke_color">#668c8c8c</color>
+    <color name="sesl_switch_track_off_disabled_stroke_color_dark">#668f8f8f</color>
+    <color name="sesl_switch_track_off_stroke_color">#ff8c8c8c</color>
+    <color name="sesl_switch_track_off_stroke_color_dark">#ff8f8f8f</color>
+    <color name="sesl_switch_track_on_disabled_color">#668f8f8f</color>
 
 
     <!--SwitchBar-->

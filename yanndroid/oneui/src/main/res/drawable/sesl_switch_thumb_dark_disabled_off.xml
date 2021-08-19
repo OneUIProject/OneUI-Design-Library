@@ -2,11 +2,10 @@
 <layer-list
   xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:gravity="center" android:left="3.0dip" android:right="3.0dip">
-        <shape android:shape="oval"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+        <shape android:shape="oval">
             <size android:height="22.0dip" android:width="22.0dip" />
-            <solid android:color="@color/sesl_switch_thumb_on_disabled_color" />
-            <stroke android:width="1.0dip" android:color="@color/sesl_switch_thumb_on_disabled_stroke_color" />
+            <solid android:color="@color/sesl_switch_thumb_off_disabled_color_dark" />
+            <stroke android:width="1.0dip" android:color="@color/sesl_switch_thumb_off_disabled_stroke_color_dark" />
         </shape>
     </item>
 </layer-list>
