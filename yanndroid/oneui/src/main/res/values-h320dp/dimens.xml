@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--AppBarLayout-->
+    <dimen name="sesl_extended_appbar_bottom_padding">8.0dip</dimen>
+</resources>

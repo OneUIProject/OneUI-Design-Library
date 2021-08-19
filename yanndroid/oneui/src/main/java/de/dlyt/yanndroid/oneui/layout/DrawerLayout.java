@@ -31,7 +31,6 @@ public class DrawerLayout extends LinearLayout {
     private Drawable mDrawerIcon;
     private String mToolbarTitle;
     private String mToolbarSubtitle;
-    private Boolean mToolbarExpandable;
     private Boolean mToolbarExpanded;
 
     private ImageView drawerIcon;
@@ -84,7 +83,6 @@ public class DrawerLayout extends LinearLayout {
             mToolbarSubtitle = attr.getString(R.styleable.DrawerLayout_toolbar_subtitle);
             mDrawerIcon = attr.getDrawable(R.styleable.DrawerLayout_drawer_icon);
             viewIdForDrawer = attr.getResourceId(R.styleable.DrawerLayout_drawer_viewId, -2);
-            mToolbarExpandable = attr.getBoolean(R.styleable.DrawerLayout_toolbar_expandable, true);
             mToolbarExpanded = attr.getBoolean(R.styleable.DrawerLayout_toolbar_expanded, true);
         } finally {
             attr.recycle();
@@ -100,7 +98,6 @@ public class DrawerLayout extends LinearLayout {
 
         toolbarLayout.setTitle(mToolbarTitle);
         toolbarLayout.setSubtitle(mToolbarSubtitle);
-        toolbarLayout.setExpandable(mToolbarExpandable);
         toolbarLayout.setNavigationIconTooltip(getResources().getText(R.string.sesl_navigation_drawer));
         toolbarLayout.setExpanded(mToolbarExpanded, false);
         drawerIcon = findViewById(R.id.drawerIcon);
@@ -165,16 +162,8 @@ public class DrawerLayout extends LinearLayout {
         toolbarLayout.setSubtitle(subtitle);
     }
 
-    public void setToolbarSubtitleColor(int color) {
-        toolbarLayout.setSubtitleColor(color);
-    }
-
     public void setToolbarExpanded(boolean expanded, boolean animate) {
         toolbarLayout.setExpanded(expanded, animate);
-    }
-
-    public void setToolbarExpandable(boolean expandable) {
-        toolbarLayout.setExpandable(expandable);
     }
 
 

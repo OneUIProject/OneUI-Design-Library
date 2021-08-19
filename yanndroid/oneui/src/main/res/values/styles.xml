@@ -25,6 +25,9 @@
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenuStyle</item>
 
+        <item name="toolbarStyle">@style/ToolbarStyle</item>
+        <item name="toolbarNavigationButtonStyle">@style/ToolbarNavButtonStyle</item>
+
         <item name="android:scrollbarThumbHorizontal">@drawable/sesl_scrollbar_handle</item>
         <item name="android:scrollbarThumbVertical">@drawable/sesl_scrollbar_handle</item>
 
@@ -376,6 +379,94 @@
     <style name="TooltipAnimation" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/sesl_tooltip_enter</item>
         <item name="android:windowExitAnimation">@anim/sesl_tooltip_exit</item>
+    </style>
+
+    <!--AppBarLayout-->
+    <style name="AppBarLayoutStyle" parent="@android:style/Widget">
+        <item name="android:paddingBottom">@dimen/sesl_extended_appbar_bottom_padding</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:touchscreenBlocksFocus">false</item>
+        <item name="android:keyboardNavigationCluster">true</item>
+    </style>
+    <style name="CollapsingToolbarLayoutStyle" parent="@android:style/Widget">
+        <item name="android:background">@color/sesl_action_bar_background_color_dark</item>
+        <item name="android:minHeight">?actionBarSize</item>
+        <item name="extendTitleTextAppearance">@style/CollapsingToolbarExpandTitleStyle</item>
+        <item name="extendSubTitleTextAppearance">@style/CollapsingToolbarExpandSubtitleStyle</item>
+        <item name="collapseTitleTextAppearance">@style/CollapsedActionBarTitleTextStyle</item>
+        <item name="statusBarScrim">?colorPrimaryDark</item>
+    </style>
+    <style name="CollapsingToolbarLayoutStyle.Light" parent="@android:style/Widget">
+        <item name="android:background">@color/sesl_action_bar_background_color_light</item>
+        <item name="android:minHeight">?actionBarSize</item>
+        <item name="extendTitleTextAppearance">@style/CollapsingToolbarExpandTitleStyle.Light</item>
+        <item name="extendSubTitleTextAppearance">@style/CollapsingToolbarExpandSubtitleStyle.Light</item>
+        <item name="collapseTitleTextAppearance">@style/CollapsedActionBarTitleTextStyle.Light</item>
+        <item name="statusBarScrim">@android:color/transparent</item>
+    </style>
+    <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="android:paddingLeft">0.0dip</item>
+        <item name="android:paddingRight">0.0dip</item>
+        <item name="android:minHeight">?actionBarSize</item>
+        <item name="background">@color/sesl_action_bar_background_color_dark</item>
+        <item name="contentInsetStart">0.0dip</item>
+        <item name="contentInsetEnd">0.0dip</item>
+        <item name="contentInsetStartWithNavigation">@dimen/sesl_action_bar_content_inset_with_nav</item>
+        <item name="titleTextAppearance">@style/CollapsedActionBarTitleTextStyle</item>
+        <item name="subtitleTextAppearance">@style/CollapsedActionBarSubtitleTextStyle</item>
+        <item name="titleMargin">0.0dip</item>
+        <item name="maxButtonHeight">?actionBarSize</item>
+        <item name="buttonGravity">top</item>
+        <item name="collapseIcon">?homeAsUpIndicator</item>
+        <item name="collapseContentDescription">@string/sesl_toolbar_collapse_description</item>
+        <item name="paddingStart">0.0dip</item>
+        <item name="paddingEnd">0.0dip</item>
+    </style>
+    <style name="ToolbarStyle.Light" parent="ToolbarStyle">
+        <item name="background">@color/sesl_action_bar_background_color_light</item>
+        <item name="titleTextAppearance">@style/CollapsedActionBarTitleTextStyle.Light</item>
+        <item name="subtitleTextAppearance">@style/CollapsedActionBarSubtitleTextStyle.Light</item>
+    </style>
+    <style name="ToolbarNavButtonStyle" parent="@android:style/Widget.Material.Toolbar.Button.Navigation">
+        <item name="android:background">?actionBarItemBackground</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:paddingStart">8.0dip</item>
+    </style>
+    <style name="CollapsedActionBarTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">@dimen/sesl_toolbar_title_text_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/sesl_action_bar_text_color_title_dark</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
+    </style>
+    <style name="CollapsedActionBarTitleTextStyle.Light" parent="@style/CollapsedActionBarTitleTextStyle">
+        <item name="android:textColor">@color/sesl_action_bar_text_color_title_light</item>
+    </style>
+    <style name="CollapsedActionBarSubtitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
+        <item name="android:textSize">@dimen/sesl_toolbar_subtitle_text_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/sesl_action_bar_text_color_subtitle_dark</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
+    </style>
+    <style name="CollapsedActionBarSubtitleTextStyle.Light" parent="@style/CollapsedActionBarSubtitleTextStyle">
+        <item name="android:textColor">@color/sesl_action_bar_text_color_subtitle_light</item>
+    </style>
+    <style name="CollapsingToolbarExpandTitleStyle" parent="@style/CollapsedActionBarTitleTextStyle">
+        <item name="android:textSize">@dimen/sesl_appbar_extended_title_text_size</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="fontFamily">sans-serif-light</item>
+    </style>
+    <style name="CollapsingToolbarExpandTitleStyle.Light" parent="@style/CollapsedActionBarTitleTextStyle.Light">
+        <item name="android:textSize">@dimen/sesl_appbar_extended_title_text_size</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="fontFamily">sans-serif-light</item>
+    </style>
+    <style name="CollapsingToolbarExpandSubtitleStyle" parent="@style/CollapsedActionBarSubtitleTextStyle">
+        <item name="android:textColor">@color/sesl_extended_appbar_subtitle_dark</item>
+    </style>
+    <style name="CollapsingToolbarExpandSubtitleStyle.Light" parent="@style/CollapsedActionBarSubtitleTextStyle.Light">
+        <item name="android:textColor">@color/sesl_extended_appbar_subtitle_light</item>
     </style>
 
 </resources>

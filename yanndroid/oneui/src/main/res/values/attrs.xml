@@ -14,6 +14,10 @@
 
     <attr name="useDisabledAlpha" format="boolean" />
 
+    <attr name="layout_isTitleCustom" format="boolean" />
+
+    <attr name="collapsingToolbarLayoutStyle" format="reference" />
+
     <attr name="seslSeekBarMode">
         <enum name="expand" value="5" />
         <enum name="expand_vertical" value="6" />
@@ -110,6 +114,64 @@
         <attr name="switchPadding" format="dimension" />
         <attr name="splitTrack" format="boolean" />
         <attr name="showText" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="SamsungCoordinatorLayout">
+        <attr name="keylines" format="reference"/>
+        <attr name="statusBarBackground" format="color|reference"/>
+    </declare-styleable>
+    <declare-styleable name="SamsungCoordinatorLayout_Layout">
+        <attr name="android:layout_gravity"/>
+        <attr name="layout_behavior" format="string"/>
+        <attr name="layout_anchor" format="reference"/>
+        <attr name="layout_keyline" format="integer"/>
+        <attr name="layout_anchorGravity"/>
+        <attr name="layout_insetEdge" />
+        <attr name="layout_dodgeInsetEdges" />
+    </declare-styleable>
+    <declare-styleable name="SamsungAppBarLayout">
+        <attr name="elevation"/>
+        <attr name="android:background"/>
+        <attr name="expanded"/>
+        <attr name="android:keyboardNavigationCluster"/>
+        <attr name="android:touchscreenBlocksFocus"/>
+        <attr name="liftOnScroll" format="boolean"/>
+        <attr name="liftOnScrollTargetViewId" format="reference"/>
+        <attr name="statusBarForeground" format="color"/>
+        <attr name="sesl_layout_heightPercent" format="float" />
+        <attr name="android:paddingBottom"/>
+    </declare-styleable>
+    <declare-styleable name="SamsungAppBarLayout_Layout">
+        <attr name="layout_scrollFlags" />
+        <attr name="layout_scrollInterpolator" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="SamsungCollapsingToolbarLayout">
+        <attr name="expandedTitleMargin" format="dimension"/>
+        <attr name="expandedTitleMarginStart" format="dimension"/>
+        <attr name="expandedTitleMarginTop" format="dimension"/>
+        <attr name="expandedTitleMarginEnd" format="dimension"/>
+        <attr name="expandedTitleMarginBottom" format="dimension"/>
+        <attr name="expandedTitleTextAppearance" format="reference"/>
+        <attr name="extendTitleEnabled" format="boolean" />
+        <attr name="extendTitleTextAppearance" format="reference" />
+        <attr name="extendSubTitleTextAppearance" format="reference" />
+        <attr name="collapseTitleTextAppearance" format="reference" />
+        <attr name="collapsedTitleTextAppearance" format="reference"/>
+        <attr name="contentScrim" format="color"/>
+        <attr name="statusBarScrim" format="color" />
+        <attr name="toolbarId" format="reference"/>
+        <attr name="scrimVisibleHeightTrigger" format="dimension"/>
+        <attr name="scrimAnimationDuration" format="integer"/>
+        <attr name="collapsedTitleGravity" />
+        <attr name="expandedTitleGravity" />
+        <attr name="titleEnabled" format="boolean"/>
+        <attr name="title"/>
+        <attr name="subtitle" />
+    </declare-styleable>
+    <declare-styleable name="SamsungCollapsingToolbarLayout_Layout">
+        <attr name="layout_collapseMode" />
+        <attr name="layout_collapseParallaxMultiplier" format="float"/>
+        <attr name="layout_isTitleCustom" />
     </declare-styleable>
 
 </resources>

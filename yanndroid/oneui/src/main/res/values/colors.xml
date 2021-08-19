@@ -74,7 +74,6 @@
     <color name="sesl_switchbar_off_text_color_light">#ff252525</color>
     <color name="sesl_switchbar_off_text_color">#ff252525</color>
     <color name="sesl_switchbar_on_background_color">@color/sesl_control_color_normal</color>
-    <color name="sesl_action_bar_text_color_title_dark">#fffafafa</color>
 
 
     <!--Seekbar-->
@@ -131,5 +130,15 @@
     <color name="sesl_tooltip_foreground_light">@color/sesl_black</color>
     <color name="sesl_tooltip_background_dark">#ff393939</color>
     <color name="sesl_tooltip_background_light">#fff7f7f7</color>
+
+    <!--AppBarLayout-->
+    <color name="sesl_action_bar_background_color_dark">#ff010101</color>
+    <color name="sesl_action_bar_background_color_light">#fff2f2f2</color>
+    <color name="sesl_extended_appbar_subtitle_dark">#ff9c9c9c</color>
+    <color name="sesl_extended_appbar_subtitle_light">#ff636363</color>
+    <color name="sesl_action_bar_text_color_title_dark">#fffafafa</color>
+    <color name="sesl_action_bar_text_color_title_light">#ff252525</color>
+    <color name="sesl_action_bar_text_color_subtitle_dark">#ff9c9c9c</color>
+    <color name="sesl_action_bar_text_color_subtitle_light">#ff636363</color>
 
 </resources>

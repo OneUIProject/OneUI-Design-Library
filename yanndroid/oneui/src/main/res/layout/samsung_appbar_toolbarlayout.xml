@@ -1,60 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<de.dlyt.yanndroid.oneui.coordinatorlayout.SamsungCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <de.dlyt.yanndroid.oneui.appbar.SamsungAppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="?android:windowBackground"
-        android:fitsSystemWindows="true"
-        app:elevation="0dp">
+        style="@style/AppBarLayoutStyle">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <de.dlyt.yanndroid.oneui.appbar.SamsungCollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="exitUntilCollapsed|scroll|snap"
-            app:toolbarId="@+id/toolbar">
-
-            <LinearLayout
-                android:id="@+id/expand_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/expanded_title"
-                    style="@style/TextAppearance.Design.CollapsingToolbar.Expanded"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="40sp" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/expanded_subtitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="16dp" />
-
-            </LinearLayout>
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar"
+            style="?collapsingToolbarLayoutStyle">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="?actionBarSize"
                 android:layout_gravity="bottom"
-                android:paddingEnd="10dp"
-                app:contentInsetStartWithNavigation="0dp"
-                app:layout_collapseMode="pin">
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/SamsungStyleMain">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -64,25 +36,23 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
+                        android:layout_height="match_parent"
                         android:gravity="center">
 
                         <RelativeLayout
                             android:id="@+id/navigationIcon_container"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center">
 
                             <de.dlyt.yanndroid.oneui.widget.ToolbarImageButton
                                 android:id="@+id/navigationIcon"
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:background="?selectableItemBackgroundBorderless"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:padding="5.5dp"
+                                android:layout_width="48dp"
+                                android:layout_height="?actionBarSize"
+                                android:layout_marginStart="8dp"
+                                android:background="@drawable/sesl_action_bar_item_background"
                                 android:src="@drawable/ic_samsung_back"
+                                android:scaleType="center"
                                 app:seslTooltipText="@string/sesl_navigate_up" />
 
                             <TextView
@@ -107,19 +77,18 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/collapsed_title"
-                        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                        style="@style/CollapsedActionBarTitleTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:gravity="center_vertical"
+                        android:alpha="0.0"
                         android:singleLine="true"
-                        android:textAlignment="viewStart"
-                        android:textSize="20dp" />
+                        android:textColor="?actionMenuTextColor"
+                        android:textDirection="locale" />
 
                 </LinearLayout>
             </com.google.android.material.appbar.MaterialToolbar>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+        </de.dlyt.yanndroid.oneui.appbar.SamsungCollapsingToolbarLayout>
+    </de.dlyt.yanndroid.oneui.appbar.SamsungAppBarLayout>
 
 
     <LinearLayout
@@ -130,7 +99,7 @@
         android:foreground="@drawable/rounded_corner_top"
         android:foregroundTint="?android:attr/windowBackground"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior" />
 
     <View
         android:id="@+id/bottom_corners"
@@ -139,4 +108,4 @@
         android:foreground="@drawable/rounded_corner_bottom"
         android:foregroundTint="?android:attr/windowBackground" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</de.dlyt.yanndroid.oneui.coordinatorlayout.SamsungCoordinatorLayout>

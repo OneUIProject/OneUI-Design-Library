@@ -111,4 +111,16 @@
     <!--Switch-->
     <dimen name="sesl_switch_width">43.0dip</dimen>
 
+    <!--AppBarLayout-->
+    <item type="dimen" name="sesl_appbar_height_proportion">0.0</item>
+    <dimen name="sesl_extended_appbar_bottom_padding">0.0dip</dimen>
+    <dimen name="sesl_appbar_extended_title_padding">24.0dip</dimen>
+    <dimen name="sesl_toolbar_subtitle_text_size">15.0dip</dimen>
+    <dimen name="sesl_action_bar_default_height">56.0dip</dimen>
+    <dimen name="sesl_action_bar_height_with_padding">64.0dip</dimen>
+    <dimen name="sesl_appbar_extended_title_text_size">38.0sp</dimen>
+    <dimen name="sesl_appbar_extended_title_text_size_with_subtitle">38.0dip</dimen>
+    <dimen name="sesl_action_bar_content_inset_with_nav">56.0px</dimen>
+
+
 </resources>

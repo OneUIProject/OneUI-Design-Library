@@ -18,8 +18,6 @@
     <!--SwitchBar-->
     <color name="sesl_switchbar_off_background_color">#2bfafafa</color>
     <color name="sesl_switchbar_off_text_color">#fffafafa</color>
-    <color name="sesl_action_bar_text_color_title_dark">@color/sesl_black</color>
-
 
     <!--Spinner-->
     <color name="sesl_menu_popup_background_color">#ff252525</color>
