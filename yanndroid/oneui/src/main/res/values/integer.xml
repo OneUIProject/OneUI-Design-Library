@@ -4,5 +4,6 @@
     <integer name="content_margin">0</integer>
     <integer name="appBarHeight">380</integer>
     <integer name="drawerMaxWidth">840</integer>
+    <integer name="sesl_config_tooltipAnimTime">150</integer>
 
 </resources>

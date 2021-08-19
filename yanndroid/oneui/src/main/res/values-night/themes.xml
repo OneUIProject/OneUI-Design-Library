@@ -13,5 +13,8 @@
 
         <item name="android:theme">@style/SamsungStyleMain</item>
 
+        <item name="tooltipForegroundColor">@color/sesl_tooltip_foreground_dark</item>
+        <item name="tooltipFrameBackground">@color/sesl_tooltip_background_dark</item>
+
     </style>
 </resources>

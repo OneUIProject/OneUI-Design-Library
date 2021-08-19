@@ -91,5 +91,9 @@
         <attr name="title" />
     </declare-styleable>
 
+    <declare-styleable name="ToolbarImageButton">
+        <attr name="seslTooltipText" format="string" />
+    </declare-styleable>
+
 
 </resources>

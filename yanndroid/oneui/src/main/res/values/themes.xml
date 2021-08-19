@@ -13,6 +13,9 @@
 
         <item name="android:theme">@style/SamsungStyleMain</item>
 
+        <item name="tooltipForegroundColor">@color/sesl_tooltip_foreground_light</item>
+        <item name="tooltipFrameBackground">@color/sesl_tooltip_background_light</item>
+
     </style>
 
     <style name="SamsungSplashTheme" parent="@style/SamsungTheme">

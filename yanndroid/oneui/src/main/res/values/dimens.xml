@@ -93,4 +93,19 @@
     <dimen name="setting_color_picker_popup_width_land">520.0dip</dimen>
     <dimen name="setting_show_button_bottom">4.0dip</dimen>
 
+    <!--Tooltip-->
+    <dimen name="sesl_hover_popup_elevation">8.0dip</dimen>
+    <dimen name="sesl_hover_popup_text_size">16.0sp</dimen>
+    <dimen name="sesl_hover_tooltip_popup_left_margin">12.0dip</dimen>
+    <dimen name="sesl_hover_tooltip_popup_top_margin">6.0dip</dimen>
+    <dimen name="sesl_hover_tooltip_popup_right_margin">12.0dip</dimen>
+    <dimen name="sesl_hover_tooltip_popup_bottom_margin">6.0dip</dimen>
+    <dimen name="sesl_hover_tooltip_popup_area_margin">20.0dip</dimen>
+    <dimen name="sesl_hover_popup_padding_left">28.0dip</dimen>
+    <dimen name="sesl_hover_popup_padding_top">16.0dip</dimen>
+    <dimen name="sesl_hover_popup_padding_right">28.0dip</dimen>
+    <dimen name="sesl_hover_popup_padding_bottom">16.0dip</dimen>
+    <dimen name="sesl_hover_popup_corner_radius">22.0dip</dimen>
+    <dimen name="sesl_navigation_bar_height">48.0dip</dimen>
+
 </resources>

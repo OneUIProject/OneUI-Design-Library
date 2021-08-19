@@ -120,4 +120,10 @@
     <color name="background_color_white">@color/base_background_color_white</color>
     <color name="base_background_color_white">#fffcfcfc</color>
 
+    <!--Tooltip-->
+    <color name="sesl_tooltip_foreground_dark">@color/sesl_white</color>
+    <color name="sesl_tooltip_foreground_light">@color/sesl_black</color>
+    <color name="sesl_tooltip_background_dark">#ff393939</color>
+    <color name="sesl_tooltip_background_light">#fff7f7f7</color>
+
 </resources>

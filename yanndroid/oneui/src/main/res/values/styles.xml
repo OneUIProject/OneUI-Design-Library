@@ -370,4 +370,10 @@
     <!--Dialog--> <!--temporary as it only works on samsung devices-->
     <style name="DialogStyle" parent="android:Theme.DeviceDefault.Light.Dialog.Alert" />
 
+    <!--Tooltip-->
+    <style name="TooltipAnimation" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/sesl_tooltip_enter</item>
+        <item name="android:windowExitAnimation">@anim/sesl_tooltip_exit</item>
+    </style>
+
 </resources>

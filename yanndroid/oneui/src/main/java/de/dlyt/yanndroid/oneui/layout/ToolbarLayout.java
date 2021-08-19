@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +22,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import de.dlyt.yanndroid.oneui.R;
+import de.dlyt.yanndroid.oneui.widget.ToolbarImageButton;
 
 public class ToolbarLayout extends LinearLayout {
 
@@ -32,7 +32,7 @@ public class ToolbarLayout extends LinearLayout {
     private Boolean mExpandable;
     private Boolean mExpanded;
 
-    private ImageView navigation_icon;
+    private ToolbarImageButton navigation_icon;
     private TextView navigation_icon_Badge;
     private RelativeLayout navigation_icon_container;
     private MaterialTextView expanded_title;
