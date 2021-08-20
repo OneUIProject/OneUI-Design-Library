@@ -97,6 +97,50 @@
     <dimen name="setting_color_picker_popup_width_land">520.0dip</dimen>
     <dimen name="setting_show_button_bottom">4.0dip</dimen>
 
+    <dimen name="sesl_color_picker_color_swatch_view_container_margin_bottom">27.0dip</dimen>
+    <dimen name="sesl_color_picker_color_swatch_view_container_margin_right">15.0dip</dimen>
+    <dimen name="sesl_color_picker_color_swatch_view_container_margin_top">20.0dip</dimen>
+    <dimen name="sesl_color_picker_color_swatch_view_cursor_stroke_radius">2.0dip</dimen>
+    <dimen name="sesl_color_picker_color_swatch_view_cursor_stroke_size">3.0dip</dimen>
+    <dimen name="sesl_color_picker_color_swatch_view_height">296.0dip</dimen>
+    <dimen name="sesl_color_picker_color_swatch_view_width">272.0dip</dimen>
+    <dimen name="sesl_color_picker_dialog_padding_bottom">32.0dip</dimen>
+    <dimen name="sesl_color_picker_dialog_padding_left">19.0dip</dimen>
+    <dimen name="sesl_color_picker_dialog_padding_right">19.0dip</dimen>
+    <dimen name="sesl_color_picker_dialog_padding_top">24.0dip</dimen>
+    <dimen name="sesl_color_picker_main_content_width">320.0dip</dimen>
+    <dimen name="sesl_color_picker_opacity_seekbar_background_height">19.5dip</dimen>
+    <dimen name="sesl_color_picker_opacity_seekbar_background_width">271.5dip</dimen>
+    <dimen name="sesl_color_picker_opacity_seekbar_margin_bottom">27.0dip</dimen>
+    <dimen name="sesl_color_picker_opacity_seekbar_margin_top">10.0dip</dimen>
+    <dimen name="sesl_color_picker_seekbar_content_width">268.0dip</dimen>
+    <dimen name="sesl_color_picker_seekbar_cursor_inner_size">16.0dip</dimen>
+    <dimen name="sesl_color_picker_seekbar_cursor_out_stroke_size">1.0dip</dimen>
+    <dimen name="sesl_color_picker_seekbar_cursor_outer_size">17.0dip</dimen>
+    <dimen name="sesl_color_picker_seekbar_height">30.0dip</dimen>
+    <dimen name="sesl_color_picker_seekbar_padding">5.0dip</dimen>
+    <dimen name="sesl_color_picker_seekbar_track_height">20.0dip</dimen>
+    <dimen name="sesl_color_picker_seekbar_track_radius">10.0dip</dimen>
+    <dimen name="sesl_color_picker_seekbar_width">282.0dip</dimen>
+    <dimen name="sesl_color_picker_selected_color_focus_height">52.0dip</dimen>
+    <dimen name="sesl_color_picker_selected_color_focus_width">136.0dip</dimen>
+    <dimen name="sesl_color_picker_selected_color_group_background_padding_vertical">4.0dip</dimen>
+    <dimen name="sesl_color_picker_selected_color_group_height">52.0dip</dimen>
+    <dimen name="sesl_color_picker_selected_color_group_width">272.0dip</dimen>
+    <dimen name="sesl_color_picker_selected_color_item_height">30.0dip</dimen>
+    <dimen name="sesl_color_picker_selected_color_item_radius">15.0dip</dimen>
+    <dimen name="sesl_color_picker_selected_color_item_width">50.0dip</dimen>
+    <dimen name="sesl_color_picker_selected_color_text_height">44.0dip</dimen>
+    <dimen name="sesl_color_picker_selected_color_text_margin">4.0dip</dimen>
+    <dimen name="sesl_color_picker_selected_color_text_size">15.0sp</dimen>
+    <dimen name="sesl_color_picker_selected_color_text_width">78.0dip</dimen>
+    <dimen name="sesl_color_picker_used_color_divider_container_height">36.0dip</dimen>
+    <dimen name="sesl_color_picker_used_color_divider_container_margin_bottom">16.0dip</dimen>
+    <dimen name="sesl_color_picker_used_color_group_width">274.0dip</dimen>
+    <dimen name="sesl_color_picker_used_color_item_gap_margin">10.0dip</dimen>
+    <dimen name="sesl_color_picker_used_color_item_size">37.0dip</dimen>
+    <dimen name="sesl_color_picker_used_color_item_stroke_size">1.0px</dimen>
+
     <!--Tooltip-->
     <dimen name="sesl_hover_popup_elevation">8.0dip</dimen>
     <dimen name="sesl_hover_popup_text_size">16.0sp</dimen>
@@ -138,6 +182,10 @@
     <dimen name="sesl_tablayout_subtab_n_badge_xoffset">3.0dip</dimen>
     <dimen name="sesl_tablayout_subtab_side_space">12.0dip</dimen>
     <dimen name="sesl_tab_icon_size">24.0dip</dimen>
+    <dimen name="bnv_padding">8.0dip</dimen>
+    <dimen name="bnv_layout_padding">24.0dip</dimen>
+    <dimen name="tablayout_start_end_margin">24.0dip</dimen>
+    <dimen name="tablayout_text_padding">12.0dip</dimen>
 
     <!--Dialog-->
     <dimen name="sesl_dialog_background_inset_horizontal">0.0dip</dimen>

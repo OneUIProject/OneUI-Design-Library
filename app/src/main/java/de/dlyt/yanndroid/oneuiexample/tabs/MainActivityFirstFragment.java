@@ -2,9 +2,7 @@ package de.dlyt.yanndroid.oneuiexample.tabs;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -21,17 +19,14 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ContextThemeWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.dlyt.yanndroid.oneui.ColorPickerDialog;
 import de.dlyt.yanndroid.oneui.SeekBar;
 import de.dlyt.yanndroid.oneui.SwitchBar;
-import de.dlyt.yanndroid.oneui.ThemeColor;
+import de.dlyt.yanndroid.oneui.TabLayout;
 import de.dlyt.yanndroid.oneui.drawer.OptionButton;
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneuiexample.AboutActivity;
@@ -132,6 +127,15 @@ public class MainActivityFirstFragment extends BaseTabFragment {
     }
 
     public void demo() {
+
+        // TabLayout
+        TabLayout tabLayout = mRootView.findViewById(R.id.tabLayout);
+        String[] tabsName = {"Menu", "Big menu", "Very big menu"};
+        for (String s: tabsName) {
+            tabLayout.addTab(tabLayout.newTab().setText(s));
+        }
+        tabLayout.setup();
+
 
         //SeekBar
         SeekBar seekBar1 = mRootView.findViewById(R.id.seekbar1);

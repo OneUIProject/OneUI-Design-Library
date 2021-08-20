@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.samsung.android.sdk.pen.settingui.widget.SpenHorizontalScrollView
+    <de.dlyt.yanndroid.oneui.colorpicker.widget.SpenHorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignWithParentIfMissing="true"
@@ -26,7 +26,7 @@
                 android:importantForAccessibility="no"
                 android:orientation="vertical">
 
-                <com.samsung.android.sdk.pen.settingui.widget.SpenScrollView
+                <de.dlyt.yanndroid.oneui.colorpicker.widget.SpenScrollView
                     android:id="@+id/popup_content_view"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1.0">
 
-                        <com.samsung.android.sdk.pen.settingui.common.SpenShowButtonShapeText
+                        <de.dlyt.yanndroid.oneui.colorpicker.common.SpenShowButtonShapeText
                             android:id="@+id/color_picker_button_cancel"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
@@ -78,7 +78,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1.0">
 
-                        <com.samsung.android.sdk.pen.settingui.common.SpenShowButtonShapeText
+                        <de.dlyt.yanndroid.oneui.colorpicker.common.SpenShowButtonShapeText
                             android:id="@+id/color_picker_button_done"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
@@ -93,5 +93,5 @@
                 </LinearLayout>
             </LinearLayout>
         </FrameLayout>
-    </com.samsung.android.sdk.pen.settingui.widget.SpenHorizontalScrollView>
+    </de.dlyt.yanndroid.oneui.colorpicker.widget.SpenHorizontalScrollView>
 </RelativeLayout>

@@ -23,6 +23,7 @@
     <attr name="layout_isTitleCustom" format="boolean" />
 
     <attr name="collapsingToolbarLayoutStyle" format="reference" />
+    <attr name="bottomNaviViewStyle" format="reference" />
     <attr name="tabLayoutStyle" format="reference" />
 
     <attr name="roundedCorners"  format="integer">

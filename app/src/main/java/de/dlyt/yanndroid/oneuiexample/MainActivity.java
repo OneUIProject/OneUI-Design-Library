@@ -10,16 +10,16 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import de.dlyt.yanndroid.oneui.ColorPickerDialog;
+import de.dlyt.yanndroid.oneui.BottomNavigationView;
+import de.dlyt.yanndroid.oneui.ClassicColorPickerDialog;
+import de.dlyt.yanndroid.oneui.DetailedColorPickerDialog;
 import de.dlyt.yanndroid.oneui.ThemeColor;
 import de.dlyt.yanndroid.oneui.dialog.ProgressDialog;
 import de.dlyt.yanndroid.oneui.dialog.SamsungAlertDialog;
-import de.dlyt.yanndroid.oneui.tabs.SamsungTabLayout;
 import de.dlyt.yanndroid.oneuiexample.utils.BaseTabFragment;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private BaseTabFragment mFragment;
     private TabsManager mTabsManager;
 
-    private SamsungTabLayout tabLayout;
+    private BottomNavigationView bnvLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+
+        if (bnvLayout != null) {
+            bnvLayout.setResumeStatus(false);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (bnvLayout != null) {
+            bnvLayout.setResumeStatus(true);
+        }
+    }
+
+    @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        View focusedTab = tabLayout.getFocusedChild();
+        View focusedTab = bnvLayout.getFocusedChild();
         int keyCode = event.getKeyCode();
 
         if (mFragment == null || !mFragment.isResumed()) {
@@ -78,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        tabLayout = findViewById(R.id.main_samsung_tabs);
+        bnvLayout = findViewById(R.id.main_samsung_tabs);
 
         sharedPrefName = "mainactivity_tabs";
         mTabsTagName = getResources().getStringArray(R.array.mainactivity_tab_tag);
@@ -91,11 +109,11 @@ public class MainActivity extends AppCompatActivity {
         mFragmentManager = getSupportFragmentManager();
 
         for (String s: mTabsTitleName) {
-            tabLayout.addTab(tabLayout.newTab().setText(s));
+            bnvLayout.addTab(bnvLayout.newTab().setText(s));
         }
 
-        tabLayout.addOnTabSelectedListener(new SamsungTabLayout.OnTabSelectedListener() {
-            public void onTabSelected(SamsungTabLayout.Tab tab) {
+        bnvLayout.addOnTabSelectedListener(new BottomNavigationView.OnTabSelectedListener() {
+            public void onTabSelected(BottomNavigationView.Tab tab) {
                 int tabPosition = tab.getPosition();
                 mTabsManager.setTabPosition(tabPosition);
                 setCurrentItem();
@@ -103,24 +121,22 @@ public class MainActivity extends AppCompatActivity {
                 if (fragment != null) fragment.onTabSelected();
             }
 
-            public void onTabUnselected(SamsungTabLayout.Tab tab) {
+            public void onTabUnselected(BottomNavigationView.Tab tab) {
                 int tabPosition = tab.getPosition();
                 BaseTabFragment fragment = (BaseTabFragment) mFragmentManager.findFragmentByTag(mTabsTagName[tabPosition]);
                 if (fragment != null) fragment.onTabUnselected();
             }
 
-            public void onTabReselected(SamsungTabLayout.Tab tab) { }
+            public void onTabReselected(BottomNavigationView.Tab tab) { }
         });
-
-        //SamsungTabLayout.setup(this);
-
+        bnvLayout.setup(this);
         setCurrentItem();
     }
 
     private void setCurrentItem() {
-        if (tabLayout.isEnabled()) {
+        if (bnvLayout.isEnabled()) {
             int tabPosition = mTabsManager.getCurrentTab();
-            SamsungTabLayout.Tab tab = tabLayout.getTabAt(tabPosition);
+            BottomNavigationView.Tab tab = bnvLayout.getTabAt(tabPosition);
             if (tab != null) {
                 tab.select();
                 setFragment(tabPosition);
@@ -150,16 +166,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // onClick
-    public void colorPickerDialog(View view) {
-        ColorPickerDialog mColorPickerDialog;
+    public void classicColorPickerDialog(View view) {
+        ClassicColorPickerDialog mClassicColorPickerDialog;
+        SharedPreferences sharedPreferences = getSharedPreferences("ThemeColor", Context.MODE_PRIVATE);
+        String stringColor = sharedPreferences.getString("color", "0381fe");
+
+        int currentColor = Color.parseColor("#" + stringColor);
+
+        try {
+            mClassicColorPickerDialog = new ClassicColorPickerDialog(this,
+                    new ClassicColorPickerDialog.ColorPickerChangedListener() {
+                        @Override
+                        public void onColorChanged(int i) {
+                            if (currentColor != i)
+                                ThemeColor.setColor(MainActivity.this, Color.red(i), Color.green(i), Color.blue(i));
+                        }
+                    },
+                    currentColor);
+            mClassicColorPickerDialog.show();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    public void detailedColorPickerDialog(View view) {
+        DetailedColorPickerDialog mDetailedColorPickerDialog;
         SharedPreferences sharedPreferences = getSharedPreferences("ThemeColor", Context.MODE_PRIVATE);
         String stringColor = sharedPreferences.getString("color", "0381fe");
 
         float[] currentColor = new float[3];
         Color.colorToHSV(Color.parseColor("#" + stringColor), currentColor);
 
-        mColorPickerDialog = new ColorPickerDialog(this, 2, currentColor);
-        mColorPickerDialog.setColorPickerChangeListener(new ColorPickerDialog.ColorPickerChangedListener() {
+        mDetailedColorPickerDialog = new DetailedColorPickerDialog(this, 2, currentColor);
+        mDetailedColorPickerDialog.setColorPickerChangeListener(new DetailedColorPickerDialog.ColorPickerChangedListener() {
             @Override
             public void onColorChanged(int i, float[] fArr) {
                 if (!(fArr[0] == currentColor[0] && fArr[1] == currentColor[1] && fArr[2] == currentColor[2]))
@@ -171,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        mColorPickerDialog.show();
+        mDetailedColorPickerDialog.show();
     }
 
     public void standardDialog(View view) {

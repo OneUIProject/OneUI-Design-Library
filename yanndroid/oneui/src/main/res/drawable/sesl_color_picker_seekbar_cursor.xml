@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/sesl_color_picker_seekbar_cursor_stroke_color" />
+            <size android:height="@dimen/sesl_color_picker_seekbar_cursor_outer_size" android:width="@dimen/sesl_color_picker_seekbar_cursor_outer_size" />
+        </shape>
+    </item>
+    <item android:left="@dimen/sesl_color_picker_seekbar_cursor_out_stroke_size" android:top="@dimen/sesl_color_picker_seekbar_cursor_out_stroke_size" android:right="@dimen/sesl_color_picker_seekbar_cursor_out_stroke_size" android:bottom="@dimen/sesl_color_picker_seekbar_cursor_out_stroke_size">
+        <shape android:shape="oval">
+            <solid android:color="@color/sesl_color_picker_seekbar_cursor_background_color" />
+            <size android:height="@dimen/sesl_color_picker_seekbar_cursor_inner_size" android:width="@dimen/sesl_color_picker_seekbar_cursor_inner_size" />
+        </shape>
+    </item>
+</layer-list>

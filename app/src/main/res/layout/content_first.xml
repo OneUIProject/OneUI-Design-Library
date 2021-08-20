@@ -10,10 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <de.dlyt.yanndroid.oneui.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="12dp"
+        android:layout_marginHorizontal="@dimen/tablayout_start_end_margin"/>
+
     <de.dlyt.yanndroid.oneui.RoundLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
         android:orientation="vertical"
         app:roundedCorners="top_left|top_right">
 
@@ -308,7 +314,7 @@
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/SubHeaderStyle"
                     android:layout_marginTop="15dp"
-                    android:text="Color" />
+                    android:text="Color Pickers" />
 
 
                 <com.google.android.material.card.MaterialCardView
@@ -324,16 +330,25 @@
 
                         <com.google.android.material.button.MaterialButton
                             style="@style/ButtonStyle.Invert"
-                            android:layout_width="match_parent"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:onClick="colorPickerDialog"
-                            android:text="Change Color" />
+                            android:layout_marginBottom="10.0dip"
+                            android:layout_gravity="center"
+                            android:onClick="classicColorPickerDialog"
+                            android:text="Classic" />
+
+                        <com.google.android.material.button.MaterialButton
+                            style="@style/ButtonStyle.Invert"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:onClick="detailedColorPickerDialog"
+                            android:text="Detailed" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="10dp"
                             android:background="@color/background_color"
                             android:orientation="horizontal">
 

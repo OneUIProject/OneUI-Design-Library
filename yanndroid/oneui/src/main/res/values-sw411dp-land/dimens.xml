@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sesl_color_picker_color_swatch_view_height">194.0dip</dimen>
+    <dimen name="sesl_color_picker_color_swatch_view_width">194.0dip</dimen>
+    <dimen name="sesl_color_picker_main_content_width">520.0dip</dimen>
+    <dimen name="sesl_color_picker_opacity_seekbar_background_width">257.5dip</dimen>
+    <dimen name="sesl_color_picker_seekbar_width">268.0dip</dimen>
+    <dimen name="sesl_color_picker_selected_color_focus_width">129.0dip</dimen>
+    <dimen name="sesl_color_picker_selected_color_group_width">258.0dip</dimen>
+    <dimen name="sesl_color_picker_selected_color_text_width">71.0dip</dimen>
+    <dimen name="sesl_color_picker_used_color_group_width">260.0dip</dimen>
+    <dimen name="sesl_color_picker_used_color_item_gap_margin">8.399994dip</dimen>
+    <dimen name="sesl_color_picker_used_color_item_size">36.0dip</dimen>
+</resources>
