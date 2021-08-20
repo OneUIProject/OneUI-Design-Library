@@ -1,122 +1,152 @@
 package de.dlyt.yanndroid.oneuiexample;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.ContextThemeWrapper;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.Spinner;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import de.dlyt.yanndroid.oneui.ColorPickerDialog;
-import de.dlyt.yanndroid.oneui.SeekBar;
-import de.dlyt.yanndroid.oneui.SwitchBar;
 import de.dlyt.yanndroid.oneui.ThemeColor;
-import de.dlyt.yanndroid.oneui.drawer.OptionButton;
-import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
+import de.dlyt.yanndroid.oneui.tabs.SamsungTabLayout;
+import de.dlyt.yanndroid.oneuiexample.utils.BaseTabFragment;
+import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
 
 public class MainActivity extends AppCompatActivity {
+    private String[] mTabsTagName;
+    private String[] mTabsTitleName;
+    private String[] mTabsClassName;
 
-    Integer[] imageIDs = {R.drawable.ic_samsung_arrow_down, R.drawable.ic_samsung_arrow_left, R.drawable.ic_samsung_arrow_right, R.drawable.ic_samsung_arrow_up, R.drawable.ic_samsung_attach, R.drawable.ic_samsung_audio, R.drawable.ic_samsung_back, R.drawable.ic_samsung_book, R.drawable.ic_samsung_bookmark, R.drawable.ic_samsung_brush, R.drawable.ic_samsung_camera, R.drawable.ic_samsung_close, R.drawable.ic_samsung_convert, R.drawable.ic_samsung_copy, R.drawable.ic_samsung_delete, R.drawable.ic_samsung_document, R.drawable.ic_samsung_download, R.drawable.ic_samsung_drawer, R.drawable.ic_samsung_edit, R.drawable.ic_samsung_equalizer, R.drawable.ic_samsung_favorite, R.drawable.ic_samsung_group, R.drawable.ic_samsung_help, R.drawable.ic_samsung_image, R.drawable.ic_samsung_image_2, R.drawable.ic_samsung_import, R.drawable.ic_samsung_info, R.drawable.ic_samsung_keyboard, R.drawable.ic_samsung_lock, R.drawable.ic_samsung_mail, R.drawable.ic_samsung_maximize, R.drawable.ic_samsung_minimize, R.drawable.ic_samsung_minus, R.drawable.ic_samsung_more, R.drawable.ic_samsung_move, R.drawable.ic_samsung_mute, R.drawable.ic_samsung_page, R.drawable.ic_samsung_pause, R.drawable.ic_samsung_pdf, R.drawable.ic_samsung_pen, R.drawable.ic_samsung_pen_calligraphy, R.drawable.ic_samsung_pen_calligraphy_brush, R.drawable.ic_samsung_pen_eraser, R.drawable.ic_samsung_pen_fountain, R.drawable.ic_samsung_pen_marker, R.drawable.ic_samsung_pen_marker_round, R.drawable.ic_samsung_pen_pencil, R.drawable.ic_samsung_play, R.drawable.ic_samsung_plus, R.drawable.ic_samsung_rectify, R.drawable.ic_samsung_redo, R.drawable.ic_samsung_remind, R.drawable.ic_samsung_rename, R.drawable.ic_samsung_reorder, R.drawable.ic_samsung_restore, R.drawable.ic_samsung_save, R.drawable.ic_samsung_scan, R.drawable.ic_samsung_search, R.drawable.ic_samsung_selected, R.drawable.ic_samsung_send, R.drawable.ic_samsung_settings, R.drawable.ic_samsung_share, R.drawable.ic_samsung_shuffle, R.drawable.ic_samsung_smart_view, R.drawable.ic_samsung_stop, R.drawable.ic_samsung_tag, R.drawable.ic_samsung_text, R.drawable.ic_samsung_text_2, R.drawable.ic_samsung_time, R.drawable.ic_samsung_undo, R.drawable.ic_samsung_unlock, R.drawable.ic_samsung_voice, R.drawable.ic_samsung_volume, R.drawable.ic_samsung_warning, R.drawable.ic_samsung_web_search};
+    private String sharedPrefName;
+
+    private Context mContext;
+    private FragmentManager mFragmentManager;
+    private BaseTabFragment mFragment;
+    private TabsManager mTabsManager;
+
+    private SamsungTabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new ThemeColor(this);
+        mContext = this;
         setContentView(R.layout.activity_main);
-
-        //DrawerLayout
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_view);
-        setSupportActionBar(drawerLayout.getToolbar());
-        drawerLayout.setDrawerIconOnClickListener(v -> startActivity(new Intent().setClass(getApplicationContext(), AboutActivity.class)));
-
-        //Library Demo
-        demo();
-
-        //Icons
-        GridView images = findViewById(R.id.images);
-        images.setAdapter(new ImageAdapter(this));
-
-        //Fullscreen
         init();
-
     }
 
-    private void init() {
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        View focusedTab = tabLayout.getFocusedChild();
+        int keyCode = event.getKeyCode();
+
+        if (mFragment == null || !mFragment.isResumed()) {
+            return super.dispatchKeyEvent(event);
+        } else if (focusedTab == null) {
+            if (mFragment.onDispatchKeyEvent(event, null) || super.dispatchKeyEvent(event)) {
+                return true;
+            }
+            return false;
+        } else if (keyCode != KeyEvent.KEYCODE_N && keyCode != KeyEvent.KEYCODE_A && keyCode != KeyEvent.KEYCODE_D && keyCode != KeyEvent.KEYCODE_FORWARD_DEL) {
+            return super.dispatchKeyEvent(event);
         } else {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            if (mFragment.onDispatchKeyEvent(event, focusedTab) || super.dispatchKeyEvent(event)) {
+                return true;
+            }
+            return false;
         }
     }
 
-    public void demo() {
-
-        //SeekBar
-        SeekBar seekBar1 = findViewById(R.id.seekbar1);
-        android.widget.SeekBar seekBar2 = findViewById(R.id.seekbar2);
-        seekBar1.setOverlapPointForDualColor(70);
-        seekBar2.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(android.widget.SeekBar seekBar, int progress, boolean fromUser) {
-                seekBar1.setSecondaryProgress(progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(android.widget.SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(android.widget.SeekBar seekBar) {
-            }
-        });
-
-
-        //SwitchBar
-        SwitchBar switchbar = findViewById(R.id.switchBar);
-        switchbar.addOnSwitchChangeListener((switchCompat, z) -> {
-            switchbar.setEnabled(false);
-            switchbar.setProgressBarVisible(true);
-
-            new Handler().postDelayed(() -> {
-                switchbar.setEnabled(true);
-                switchbar.setProgressBarVisible(false);
-            }, 700);
-        });
-
-
-        //Spinner
-        Spinner spinner = findViewById(R.id.spinner);
-        List<String> categories = new ArrayList<String>();
-        for (int i = 1; i < 16; i++) categories.add("Spinner Item " + i);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
-
-
-        //OptionButton
-        OptionButton optionButton = findViewById(R.id.ob_help);
-        optionButton.setButtonEnabled(false);
-
+    @Override
+    public void onMultiWindowModeChanged(boolean isMultiWindowMode) {
+        super.onMultiWindowModeChanged(isMultiWindowMode);
+        for (String tabName : mTabsTagName) {
+            BaseTabFragment fragment = (BaseTabFragment) mFragmentManager.findFragmentByTag(tabName);
+            if (fragment != null) fragment.onMultiWindowModeChanged(isMultiWindowMode);
+        }
     }
 
+    private void init() {
+        tabLayout = findViewById(R.id.main_samsung_tabs);
+
+        sharedPrefName = "mainactivity_tabs";
+        mTabsTagName = getResources().getStringArray(R.array.mainactivity_tab_tag);
+        mTabsTitleName = getResources().getStringArray(R.array.mainactivity_tab_title);
+        mTabsClassName = getResources().getStringArray(R.array.mainactivity_tab_class);
+
+        mTabsManager = new TabsManager(mContext, sharedPrefName);
+        mTabsManager.initTabPosition();
+
+        mFragmentManager = getSupportFragmentManager();
+
+        for (String s: mTabsTitleName) {
+            tabLayout.addTab(tabLayout.newTab().setText(s));
+        }
+
+        tabLayout.addOnTabSelectedListener(new SamsungTabLayout.OnTabSelectedListener() {
+            public void onTabSelected(SamsungTabLayout.Tab tab) {
+                int tabPosition = tab.getPosition();
+                mTabsManager.setTabPosition(tabPosition);
+                setCurrentItem();
+                BaseTabFragment fragment = (BaseTabFragment) mFragmentManager.findFragmentByTag(mTabsTagName[tabPosition]);
+                if (fragment != null) fragment.onTabSelected();
+            }
+
+            public void onTabUnselected(SamsungTabLayout.Tab tab) {
+                int tabPosition = tab.getPosition();
+                BaseTabFragment fragment = (BaseTabFragment) mFragmentManager.findFragmentByTag(mTabsTagName[tabPosition]);
+                if (fragment != null) fragment.onTabUnselected();
+            }
+
+            public void onTabReselected(SamsungTabLayout.Tab tab) { }
+        });
+
+        //SamsungTabLayout.setup(this);
+
+        setCurrentItem();
+    }
+
+    private void setCurrentItem() {
+        if (tabLayout.isEnabled()) {
+            int tabPosition = mTabsManager.getCurrentTab();
+            SamsungTabLayout.Tab tab = tabLayout.getTabAt(tabPosition);
+            if (tab != null) {
+                tab.select();
+                setFragment(tabPosition);
+            }
+        }
+    }
+
+    private void setFragment(int tabPosition) {
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        String tabName = mTabsTagName[tabPosition];
+        Fragment fragment = mFragmentManager.findFragmentByTag(tabName);
+        if (mFragment != null) {
+            transaction.hide(mFragment);
+        }
+        if (fragment != null) {
+            mFragment = (BaseTabFragment) fragment;
+            transaction.show(fragment);
+        } else {
+            try {
+                mFragment = (BaseTabFragment) Class.forName(mTabsClassName[tabPosition]).newInstance();
+            } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            transaction.add(R.id.fragment_container, mFragment, tabName);
+        }
+        transaction.commit();
+    }
+
+    // onClick
     public void colorPickerDialog(View view) {
         ColorPickerDialog mColorPickerDialog;
         SharedPreferences sharedPreferences = getSharedPreferences("ThemeColor", Context.MODE_PRIVATE);
@@ -179,62 +209,4 @@ public class MainActivity extends AppCompatActivity {
                 .setMultiChoiceItems(charSequences, booleans, null)
                 .show();
     }
-
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        init();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.info:
-                startActivity(new Intent().setClass(getApplicationContext(), AboutActivity.class));
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    //Adapter for the Icon GridView
-    public class ImageAdapter extends BaseAdapter {
-        private Context mContext;
-
-        public ImageAdapter(Context c) {
-            mContext = c;
-        }
-
-        public int getCount() {
-            return imageIDs.length;
-        }
-
-        public Object getItem(int position) {
-            return null;
-        }
-
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView mImageView;
-            if (convertView == null) {
-                mImageView = new ImageView(mContext);
-                mImageView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            } else {
-                mImageView = (ImageView) convertView;
-            }
-            mImageView.setImageResource(imageIDs[position]);
-            return mImageView;
-        }
-    }
-
 }

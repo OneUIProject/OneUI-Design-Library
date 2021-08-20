@@ -30,8 +30,6 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.dlyt.yanndroid.oneui.widget.Switch;
-
 public class SwitchBar extends LinearLayout implements CompoundButton.OnCheckedChangeListener {
     private static final int SWITCH_OFF_STRING_RESOURCE_ID = R.string.sesl_off_text;
     private static final int SWITCH_ON_STRING_RESOURCE_ID = R.string.sesl_on_text;

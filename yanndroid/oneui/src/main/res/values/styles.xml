@@ -469,4 +469,41 @@
         <item name="android:textColor">@color/sesl_extended_appbar_subtitle_light</item>
     </style>
 
+    <!--TabLayout-->
+    <style name="TabLayoutStyle" parent="@android:style/Widget">
+        <item name="android:background">@null</item>
+        <item name="tabBackground">@null</item>
+        <item name="tabIconTint">@null</item>
+        <item name="tabIndicator">@drawable/sesl_tabs_default_indicator</item>
+        <item name="tabIndicatorAnimationDuration">@integer/design_tab_indicator_anim_duration_ms</item>
+        <item name="tabIndicatorColor">@color/sesl_tablayout_selected_indicator_color</item>
+        <item name="tabIndicatorGravity">bottom</item>
+        <item name="tabIndicatorHeight">2.0dip</item>
+        <item name="tabMaxWidth">@dimen/sesl_tab_max_width</item>
+        <item name="tabPaddingBottom">0.0dip</item>
+        <item name="tabPaddingEnd">10.0dip</item>
+        <item name="tabPaddingStart">10.0dip</item>
+        <item name="tabPaddingTop">0.0dip</item>
+        <item name="tabRippleColor">@null</item>
+        <item name="tabSelectedTextColor">@color/sesl_tablayout_selected_text_color</item>
+        <item name="tabTextAppearance">@style/TabLayoutTextStyle</item>
+        <item name="tabTextColor">@null</item>
+        <item name="tabUnboundedRipple">false</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabIndicatorFullWidth">true</item>
+        <item name="tabMode">fixed</item>
+    </style>
+    <style name="TabLayoutStyle.Light" parent="@style/TabLayoutStyle">
+        <item name="tabTextAppearance">@style/TabLayoutTextStyle.Light</item>
+    </style>
+    <style name="TabLayoutTextStyle" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">@dimen/sesl_tab_text_size</item>
+        <item name="android:textColor">@color/sesl_tablayout_text_color_dark</item>
+        <item name="fontFamily">@string/sesl_font_family_regular</item>
+        <item name="textAllCaps">false</item>
+    </style>
+    <style name="TabLayoutTextStyle.Light" parent="@style/TabLayoutTextStyle">
+        <item name="android:textColor">@color/sesl_tablayout_text_color</item>
+    </style>
+
 </resources>

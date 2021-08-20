@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
+    <de.dlyt.yanndroid.oneui.RoundLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
-        android:foreground="@drawable/rounded_corner_top"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:roundedCorners="top_left|top_right">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -161,7 +161,7 @@
                         android:layout_marginVertical="10dp"
                         android:orientation="vertical">
 
-                        <de.dlyt.yanndroid.oneui.widget.Switch
+                        <de.dlyt.yanndroid.oneui.Switch
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="10dp"
@@ -412,7 +412,7 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-    </LinearLayout>
+    </de.dlyt.yanndroid.oneui.RoundLinearLayout>
 
 
 </LinearLayout>

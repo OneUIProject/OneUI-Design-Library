@@ -125,10 +125,6 @@ public class ToolbarLayout extends LinearLayout {
         MarginLayoutParams params = (MarginLayoutParams) main_container.getLayoutParams();
         params.leftMargin = content_margin;
         params.rightMargin = content_margin;
-        View bottom_corners = findViewById(R.id.bottom_corners);
-        MarginLayoutParams paramsCorners = (MarginLayoutParams) bottom_corners.getLayoutParams();
-        paramsCorners.leftMargin = content_margin;
-        paramsCorners.rightMargin = content_margin;
 
         if (mExpandable) {
             AppBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
@@ -174,7 +170,12 @@ public class ToolbarLayout extends LinearLayout {
     public void setNavigationIcon(Drawable navigationIcon) {
         this.mNavigationIcon = navigationIcon;
         navigation_icon.setImageDrawable(mNavigationIcon);
-        navigation_icon_container.setVisibility(navigationIcon == null ? GONE : VISIBLE);
+        if (navigationIcon != null) {
+            toolbar.setPadding(0, 0, 0, 0);
+            navigation_icon_container.setVisibility(VISIBLE);
+        } else
+            navigation_icon_container.setVisibility(GONE);
+
     }
 
     public void setTitle(CharSequence title) {

@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.oneui.widget;
+package de.dlyt.yanndroid.oneui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -23,7 +23,6 @@ import android.text.method.TransformationMethod;
 import android.util.AttributeSet;
 import android.util.Property;
 import android.view.Gravity;
-import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.VelocityTracker;
@@ -43,8 +42,6 @@ import androidx.appcompat.widget.ViewUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.reflect.view.SeslHapticFeedbackConstantsReflector;
-
-import de.dlyt.yanndroid.oneui.R;
 
 @SuppressLint("RestrictedApi")
 public class Switch extends CompoundButton {

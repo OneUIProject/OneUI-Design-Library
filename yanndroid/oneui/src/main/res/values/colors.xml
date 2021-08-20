@@ -141,4 +141,21 @@
     <color name="sesl_action_bar_text_color_subtitle_dark">#ff9c9c9c</color>
     <color name="sesl_action_bar_text_color_subtitle_light">#ff636363</color>
 
+    <!--TabLayout-->
+    <color name="sesl_tablayout_badge_text_color">#FAFAFA</color>
+    <color name="sesl_tablayout_show_button_text_color">#FAFAFA</color>
+    <color name="sesl_tablayout_show_button_text_color_dark">#252525</color>
+    <color name="sesl_tablayout_subtab_background_stroke_color_dark">#99FFFFFF</color>
+    <color name="sesl_tablayout_subtab_background_stroke_color_light">#717171</color>
+    <color name="sesl_tablayout_subtab_text_color_default">#858585</color>
+    <color name="sesl_tablayout_subtab_text_color_default_dark">#999999</color>
+    <color name="sesl_tablayout_subtab_text_color_disabled">#66858585</color>
+    <color name="sesl_tablayout_subtab_text_color_disabled_dark">#33A8A9A9</color>
+    <color name="sesl_tablayout_subtab_text_color_selected">#252525</color>
+    <color name="sesl_tablayout_subtab_text_color_selected_dark">#FFFFFF</color>
+    <color name="sesl_tablayout_text_color_default">#858585</color>
+    <color name="sesl_tablayout_text_color_default_dark">#A8A9A9</color>
+    <color name="sesl_tablayout_text_color_disabled">#66858585</color>
+    <color name="sesl_tablayout_text_color_disabled_dark">#66A8A9A9</color>
+
 </resources>

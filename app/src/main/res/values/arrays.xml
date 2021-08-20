@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mainactivity_tab_tag">
+        <item>appbar</item>
+        <item>toolbar</item>
+    </string-array>
+    <string-array name="mainactivity_tab_title">
+        <item>AppBar</item>
+        <item>Toolbar</item>
+    </string-array>
+    <string-array name="mainactivity_tab_class">
+        <item>de.dlyt.yanndroid.oneuiexample.tabs.MainActivityFirstFragment</item>
+        <item>de.dlyt.yanndroid.oneuiexample.tabs.MainActivitySecondFragment</item>
+    </string-array>
+</resources>

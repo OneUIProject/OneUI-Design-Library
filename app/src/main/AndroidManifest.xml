@@ -9,6 +9,9 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/SamsungTheme">
+
+        <meta-data android:name="SamsungBasicInteraction" android:value="SEP10"/>
+
         <activity
             android:name="de.dlyt.yanndroid.oneuiexample.AboutActivity"
             android:theme="@style/SamsungAboutTheme" />

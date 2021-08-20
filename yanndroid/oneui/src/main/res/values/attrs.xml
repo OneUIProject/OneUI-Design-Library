@@ -18,6 +18,17 @@
 
     <attr name="collapsingToolbarLayoutStyle" format="reference" />
 
+    <attr name="tabLayoutStyle" format="reference" />
+
+    <attr name="roundedCorners"  format="integer">
+        <flag name="all" value="0x0000000f" />
+        <flag name="bottom_left" value="0x00000004" />
+        <flag name="bottom_right" value="0x00000008" />
+        <flag name="none" value="0x00000000" />
+        <flag name="top_left" value="0x00000001" />
+        <flag name="top_right" value="0x00000002" />
+    </attr>
+
     <attr name="seslSeekBarMode">
         <enum name="expand" value="5" />
         <enum name="expand_vertical" value="6" />
@@ -172,6 +183,41 @@
         <attr name="layout_collapseMode" />
         <attr name="layout_collapseParallaxMultiplier" format="float"/>
         <attr name="layout_isTitleCustom" />
+    </declare-styleable>
+
+    <declare-styleable name="SamsungTabLayout">
+        <attr name="tabIndicator" format="reference" />
+        <attr name="tabIndicatorColor" format="color"/>
+        <attr name="tabIndicatorHeight" format="dimension"/>
+        <attr name="tabIndicatorFullWidth" format="boolean" />
+        <attr name="tabIndicatorGravity" />
+        <attr name="tabIconTint" format="color" />
+        <attr name="tabIconTintMode" />
+        <attr name="tabContentStart" format="dimension"/>
+        <attr name="tabBackground" format="reference"/>
+        <attr name="tabRippleColor" format="color" />
+        <attr name="tabIndicatorAnimationDuration" format="integer" />
+        <attr name="tabMode" />
+        <attr name="tabGravity" />
+        <attr name="tabInlineLabel" format="boolean" />
+        <attr name="tabUnboundedRipple" format="boolean" />
+        <attr name="tabMinWidth" format="dimension"/>
+        <attr name="tabMaxWidth" format="dimension"/>
+        <attr name="tabTextAppearance" format="reference"/>
+        <attr name="tabTextColor" format="color"/>
+        <attr name="tabSelectedTextColor" format="color"/>
+        <attr name="tabPaddingStart" format="dimension"/>
+        <attr name="tabPaddingTop" format="dimension"/>
+        <attr name="tabPaddingEnd" format="dimension"/>
+        <attr name="tabPaddingBottom" format="dimension"/>
+        <attr name="tabPadding" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="RoundFrameLayout">
+        <attr name="roundedCorners" />
+    </declare-styleable>
+    <declare-styleable name="RoundLinearLayout">
+        <attr name="roundedCorners" />
     </declare-styleable>
 
 </resources>

@@ -122,5 +122,18 @@
     <dimen name="sesl_appbar_extended_title_text_size_with_subtitle">38.0dip</dimen>
     <dimen name="sesl_action_bar_content_inset_with_nav">56.0px</dimen>
 
+    <!--TabLayout-->
+    <dimen name="sesl_tab_max_width">0.0dip</dimen>
+    <dimen name="sesl_tab_scrollable_min_width">72.0dip</dimen>
+    <dimen name="sesl_tab_text_size">15.0sp</dimen>
+    <dimen name="sesl_tab_text_size_2line">12.0sp</dimen>
+    <dimen name="sesl_tablayout_subtab_dot_badge_offset_x">4.0dip</dimen>
+    <dimen name="sesl_tablayout_subtab_indicator_height">36.0dip</dimen>
+    <dimen name="sesl_tablayout_subtab_indicator_radius">18.0dip</dimen>
+    <dimen name="sesl_tablayout_subtab_indicator_stroke_width">1.0dip</dimen>
+    <dimen name="sesl_tablayout_subtab_n_badge_xoffset">3.0dip</dimen>
+    <dimen name="sesl_tablayout_subtab_side_space">12.0dip</dimen>
+    <dimen name="sesl_tab_icon_size">24.0dip</dimen>
+
 
 </resources>

@@ -17,6 +17,8 @@
 
         <item name="collapsingToolbarLayoutStyle">@style/CollapsingToolbarLayoutStyle</item>
 
+        <item name="tabLayoutStyle">@style/TabLayoutStyle</item>
+
         <item name="tooltipForegroundColor">@color/sesl_tooltip_foreground_dark</item>
         <item name="tooltipFrameBackground">@color/sesl_tooltip_background_dark</item>
 
