@@ -6,6 +6,8 @@
     <color name="secondary_color">#ff3e91ff</color> <!--color_control_activated-->
     <color name="primary_dark_color">#ff0072de</color> <!--color_primary_dark-->
 
+    <color name="sesl_primary_text_color">@color/sesl_black</color>
+
     <color name="sesl_background_floating">@color/sesl_white</color>
     <color name="sesl_ripple_color">#1a000000</color>
     <color name="sesl_error_color">#fff4511e</color>
@@ -16,6 +18,9 @@
     <color name="background_color">#fff2f2f2</color>
     <color name="item_background_color">#ffffffff</color>
     <color name="item_color">@color/sesl_black</color>
+
+    <color name="sesl_btn_default_text_color">@color/sesl_black</color>
+
 
     <!--Colors-->
     <color name="red">#ffD50000</color>
@@ -48,21 +53,15 @@
     <!--Switch-->
     <color name="sesl_switch_thumb_off_color">#fffafafa</color>
     <color name="sesl_switch_thumb_off_disabled_color">#fffafafa</color>
-    <color name="sesl_switch_thumb_off_disabled_color_dark">#ff858585</color>
     <color name="sesl_switch_thumb_off_disabled_stroke_color">#ffd0d0d0</color>
-    <color name="sesl_switch_thumb_off_disabled_stroke_color_dark">#ff3d3d3d</color>
     <color name="sesl_switch_thumb_off_stroke_color">#ff8c8c8c</color>
     <color name="sesl_switch_thumb_on_color">#fffafafa</color>
     <color name="sesl_switch_thumb_on_disabled_color">#fffafafa</color>
-    <color name="sesl_switch_thumb_on_disabled_color_dark">#ff858585</color>
     <color name="sesl_switch_thumb_on_disabled_stroke_color">#ffd0d0d0</color>
-    <color name="sesl_switch_thumb_on_disabled_stroke_color_dark">#ff3d3d3d</color>
     <color name="sesl_switch_track_off_color">#00ffffff</color>
     <color name="sesl_switch_track_off_disabled_color">#00ffffff</color>
     <color name="sesl_switch_track_off_disabled_stroke_color">#668c8c8c</color>
-    <color name="sesl_switch_track_off_disabled_stroke_color_dark">#668f8f8f</color>
     <color name="sesl_switch_track_off_stroke_color">#ff8c8c8c</color>
-    <color name="sesl_switch_track_off_stroke_color_dark">#ff8f8f8f</color>
     <color name="sesl_switch_track_on_disabled_color">#668f8f8f</color>
 
 
@@ -126,36 +125,44 @@
     <color name="base_background_color_white">#fffcfcfc</color>
 
     <!--Tooltip-->
-    <color name="sesl_tooltip_foreground_dark">@color/sesl_white</color>
-    <color name="sesl_tooltip_foreground_light">@color/sesl_black</color>
-    <color name="sesl_tooltip_background_dark">#ff393939</color>
-    <color name="sesl_tooltip_background_light">#fff7f7f7</color>
+    <color name="sesl_tooltip_foreground">@color/sesl_black</color>
+    <color name="sesl_tooltip_background">#fff7f7f7</color>
 
     <!--AppBarLayout-->
-    <color name="sesl_action_bar_background_color_dark">#ff010101</color>
-    <color name="sesl_action_bar_background_color_light">#fff2f2f2</color>
-    <color name="sesl_extended_appbar_subtitle_dark">#ff9c9c9c</color>
-    <color name="sesl_extended_appbar_subtitle_light">#ff636363</color>
-    <color name="sesl_action_bar_text_color_title_dark">#fffafafa</color>
-    <color name="sesl_action_bar_text_color_title_light">#ff252525</color>
-    <color name="sesl_action_bar_text_color_subtitle_dark">#ff9c9c9c</color>
-    <color name="sesl_action_bar_text_color_subtitle_light">#ff636363</color>
+    <color name="sesl_action_bar_background_color">#fff2f2f2</color>
+    <color name="sesl_action_bar_text_color_title">#ff252525</color>
+    <color name="sesl_action_bar_text_color_subtitle">#ff636363</color>
+    <color name="sesl_extended_appbar_subtitle">#ff636363</color>
 
     <!--TabLayout-->
     <color name="sesl_tablayout_badge_text_color">#FAFAFA</color>
     <color name="sesl_tablayout_show_button_text_color">#FAFAFA</color>
-    <color name="sesl_tablayout_show_button_text_color_dark">#252525</color>
-    <color name="sesl_tablayout_subtab_background_stroke_color_dark">#99FFFFFF</color>
-    <color name="sesl_tablayout_subtab_background_stroke_color_light">#717171</color>
+    <color name="sesl_tablayout_subtab_background_stroke_color">#717171</color>
     <color name="sesl_tablayout_subtab_text_color_default">#858585</color>
-    <color name="sesl_tablayout_subtab_text_color_default_dark">#999999</color>
     <color name="sesl_tablayout_subtab_text_color_disabled">#66858585</color>
-    <color name="sesl_tablayout_subtab_text_color_disabled_dark">#33A8A9A9</color>
     <color name="sesl_tablayout_subtab_text_color_selected">#252525</color>
-    <color name="sesl_tablayout_subtab_text_color_selected_dark">#FFFFFF</color>
     <color name="sesl_tablayout_text_color_default">#858585</color>
-    <color name="sesl_tablayout_text_color_default_dark">#A8A9A9</color>
     <color name="sesl_tablayout_text_color_disabled">#66858585</color>
-    <color name="sesl_tablayout_text_color_disabled_dark">#66A8A9A9</color>
+
+    <!--Dialog-->
+    <color name="sesl_dialog_body_text_color">#ff505050</color>
+    <color name="sesl_dialog_button_text_color">#ff0074d4</color>
+    <color name="sesl_dialog_divider_color_material">#ffe6e6e6</color>
+    <color name="sesl_dialog_list_text_color">#ff252525</color>
+    <color name="sesl_dialog_scrollbar_handle_tint_color_mtrl">#ffdedede</color>
+    <color name="sesl_dialog_show_button_background_color">#47ffffff</color>
+    <color name="sesl_dialog_sub_text_color_material">#ff3b3b3b</color>
+    <color name="sesl_dialog_text_body_color">#ff505050</color>
+    <color name="sesl_dialog_title_text_color">#ff252525</color>
+    <color name="sesl_dialog_window_background_color_material">#fffcfcfc</color>
+    <color name="sesl_progress_dialog_horizontal_text_color">#ff545454</color>
+
+    <color name="sesl_color_picker_seekbar_cursor_background_color">#FAFAFA</color>
+    <color name="sesl_color_picker_seekbar_cursor_stroke_color">#33000000</color>
+    <color name="sesl_color_picker_selected_color_item_text_color">#5D5D5D</color>
+    <color name="sesl_color_picker_stroke_color">#D4D4D4</color>
+    <color name="sesl_color_picker_used_color_item_empty_slot_color">#E6E6E6</color>
+    <color name="sesl_color_picker_used_color_text_color">#979797</color>
+
 
 </resources>

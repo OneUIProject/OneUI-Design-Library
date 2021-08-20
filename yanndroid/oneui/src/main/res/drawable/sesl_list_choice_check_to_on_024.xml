@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector android:drawable="@drawable/sesl_list_choice_check_to_on_000"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <target android:name="circle_outline" android:animation="@anim/sesl_list_checkbox_to_checked_circle_outline_anim" />
+    <target android:name="circle_fill" android:animation="@anim/sesl_list_checkbox_to_checked_circle_fill_anim" />
+    <target android:name="check_mark" android:animation="@anim/sesl_list_checkbox_to_checked_check_mark_anim" />
+</animated-vector>

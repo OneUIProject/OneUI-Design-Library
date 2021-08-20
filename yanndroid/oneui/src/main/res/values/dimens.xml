@@ -29,6 +29,10 @@
 
     <dimen name="drawer_width">350dp</dimen>
 
+    <dimen name="sesl_button_corner_radius">18.0dip</dimen>
+    <dimen name="sesl_button_text_size">15.0sp</dimen>
+    <dimen name="sesl_show_button_background_radius">2.0dip</dimen>
+
 
     <!--Spinner-->
     <dimen name="sesl_menu_popup_bottom_margin">6.0dip</dimen>
@@ -134,6 +138,69 @@
     <dimen name="sesl_tablayout_subtab_n_badge_xoffset">3.0dip</dimen>
     <dimen name="sesl_tablayout_subtab_side_space">12.0dip</dimen>
     <dimen name="sesl_tab_icon_size">24.0dip</dimen>
+
+    <!--Dialog-->
+    <dimen name="sesl_dialog_background_inset_horizontal">0.0dip</dimen>
+    <dimen name="sesl_dialog_background_inset_vertical">16.0dip</dimen>
+    <dimen name="sesl_dialog_body_text_line_spacing_extra">4.0sp</dimen>
+    <dimen name="sesl_dialog_body_text_margin_end">4.0dip</dimen>
+    <dimen name="sesl_dialog_body_text_margin_start">4.0dip</dimen>
+    <dimen name="sesl_dialog_body_text_padding_bottom">24.0dip</dimen>
+    <dimen name="sesl_dialog_body_text_padding_top">16.0dip</dimen>
+    <dimen name="sesl_dialog_body_text_scroll_margin_bottom">8.0dip</dimen>
+    <dimen name="sesl_dialog_body_text_scroll_margin_top">8.0dip</dimen>
+    <dimen name="sesl_dialog_body_text_scroll_padding_end">20.0dip</dimen>
+    <dimen name="sesl_dialog_body_text_scroll_padding_start">20.0dip</dimen>
+    <dimen name="sesl_dialog_body_text_size">16.0sp</dimen>
+    <dimen name="sesl_dialog_button_bar_padding_bottom">20.0dip</dimen>
+    <dimen name="sesl_dialog_button_bar_padding_horizontal">24.0dip</dimen>
+    <dimen name="sesl_dialog_button_min_height">36.0dip</dimen>
+    <dimen name="sesl_dialog_button_min_width">42.0dip</dimen>
+    <dimen name="sesl_dialog_button_padding_horizontal">18.0dip</dimen>
+    <dimen name="sesl_dialog_button_padding_horizontal_with_three_button">15.0dip</dimen>
+    <dimen name="sesl_dialog_button_padding_vertical">4.0dip</dimen>
+    <dimen name="sesl_dialog_button_shape_corner">4.0dip</dimen>
+    <dimen name="sesl_dialog_button_shape_inset_horizontal">4.0dip</dimen>
+    <dimen name="sesl_dialog_button_shape_inset_vertical">0.0dip</dimen>
+    <dimen name="sesl_dialog_button_shape_padding_horizontal">4.0dip</dimen>
+    <dimen name="sesl_dialog_button_show_background_inset_horizontal">4.0dip</dimen>
+    <dimen name="sesl_dialog_button_show_background_inset_vertical">2.0dip</dimen>
+    <dimen name="sesl_dialog_button_text_size">16.0sp</dimen>
+    <dimen name="sesl_dialog_button_text_size_with_three_button">16.0sp</dimen>
+    <item type="dimen" name="sesl_dialog_fixed_height_major">79.99999%</item>
+    <item type="dimen" name="sesl_dialog_fixed_height_minor">100.0%</item>
+    <dimen name="sesl_dialog_fixed_width_major">320.0dip</dimen>
+    <dimen name="sesl_dialog_fixed_width_minor">320.0dip</dimen>
+    <dimen name="sesl_dialog_list_padding_bottom_no_buttons">24.0dip</dimen>
+    <dimen name="sesl_dialog_list_padding_top_no_title">24.0dip</dimen>
+    <item type="dimen" name="sesl_dialog_min_width_major">100.0%</item>
+    <item type="dimen" name="sesl_dialog_min_width_minor">100.0%</item>
+    <dimen name="sesl_dialog_padding">24.0dip</dimen>
+    <item type="dimen" name="sesl_dialog_padding_horizontal">@dimen/sesl_dialog_padding</item>
+    <item type="dimen" name="sesl_dialog_padding_top">@dimen/sesl_dialog_padding</item>
+    <item type="dimen" name="sesl_dialog_padding_vertical">@dimen/sesl_dialog_padding</item>
+    <dimen name="sesl_dialog_title_padding_bottom">18.0dip</dimen>
+    <dimen name="sesl_dialog_title_padding_top">24.0dip</dimen>
+    <dimen name="sesl_dialog_title_text_size">20.0sp</dimen>
+    <dimen name="sesl_dialog_window_elevation">1.0dip</dimen>
+    <dimen name="sesl_select_dialog_item_padding_horizontal">6.0dip</dimen>
+    <dimen name="sesl_select_dialog_item_padding_vertical">14.0dip</dimen>
+    <item type="dimen" name="sesl_select_dialog_list_item_text_disabled_alpha">0.4</item>
+    <dimen name="sesl_select_dialog_list_item_text_size">18.0sp</dimen>
+    <dimen name="sesl_select_dialog_list_item_text_size_secondary">13.0sp</dimen>
+    <dimen name="sesl_select_dialog_padding_bottom">24.0dip</dimen>
+    <dimen name="sesl_select_dialog_padding_end">24.0dip</dimen>
+    <dimen name="sesl_select_dialog_padding_start">18.0dip</dimen>
+    <dimen name="sesl_select_dialog_padding_top">18.0dip</dimen>
+    <dimen name="sesl_list_preferred_item_height_small">56.0dip</dimen>
+    <dimen name="sesl_progress_dialog_circle_message_text_size">14.0dip</dimen>
+    <dimen name="sesl_progress_dialog_circle_message_width">40.0dip</dimen>
+    <dimen name="sesl_progress_dialog_circle_size">70.0dip</dimen>
+    <dimen name="sesl_progress_dialog_padding_horizontal">16.0dip</dimen>
+    <dimen name="sesl_progress_dialog_padding_vertical">16.0dip</dimen>
+    <dimen name="sesl_progress_dialog_text_size">14.0dip</dimen>
+    <dimen name="sesl_alert_dialog_button_bar_height">48.0dip</dimen>
+
 
 
 </resources>

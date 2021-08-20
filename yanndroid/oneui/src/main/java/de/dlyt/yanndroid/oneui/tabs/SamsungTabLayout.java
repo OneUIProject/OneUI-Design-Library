@@ -152,12 +152,7 @@ public class SamsungTabLayout extends HorizontalScrollView {
         this.slidingTabIndicator = new SlidingTabIndicator(var1);
         super.addView(this.slidingTabIndicator, 0, new LayoutParams(-2, -1));
         int[] var4 = R.styleable.SamsungTabLayout;
-        int var5;
-        if (SeslMisc.isLightTheme(var1)) {
-            var5 = R.style.TabLayoutStyle_Light;
-        } else {
-            var5 = R.style.TabLayoutStyle;
-        }
+        int var5 = R.style.TabLayoutStyle;
 
         TypedArray var9 = var1.obtainStyledAttributes(var2, var4, var3, var5);
         if (this.getBackground() instanceof ColorDrawable) {
@@ -2492,7 +2487,7 @@ public class SamsungTabLayout extends HorizontalScrollView {
                         }
                         this.mMainTabTouchBackground = relativeLayout3.findViewById(R.id.main_tab_touch_background);
                         if (this.mMainTabTouchBackground != null && this.tab.icon == null) {
-                            ViewCompat.setBackground(this.mMainTabTouchBackground, ContextCompat.getDrawable(context, SeslMisc.isLightTheme(context) ? R.drawable.sesl_tablayout_maintab_touch_background_light : R.drawable.sesl_tablayout_maintab_touch_background_dark));
+                            ViewCompat.setBackground(this.mMainTabTouchBackground, ContextCompat.getDrawable(context, SeslMisc.isLightTheme(context) ? R.drawable.sesl_tablayout_maintab_touch_background : R.drawable.sesl_tablayout_maintab_touch_background));
                             this.mMainTabTouchBackground.setAlpha(0.0f);
                         }
                         relativeLayout2 = relativeLayout3;

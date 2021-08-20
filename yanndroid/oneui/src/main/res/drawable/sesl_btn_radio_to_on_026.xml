@@ -1,31 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="32.0dip"
-    android:height="32.0dip"
-    android:viewportWidth="96.0"
-    android:viewportHeight="96.0">
-    <group
-        android:name="circle_inner_group"
-        android:pivotX="48.0"
-        android:pivotY="48.0">
-        <path
-            android:name="circle_inner"
-            android:fillColor="?colorControlActivated"
-            android:pathData="M48,48m-17,0a17,17 0 1,0 34,0a17,17 0 1,0-34,0" />
+<vector android:height="32.0dip" android:width="32.0dip" android:viewportWidth="96.0" android:viewportHeight="96.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:name="circle_inner_group" android:pivotX="48.0" android:pivotY="48.0">
+        <path android:name="circle_inner" android:fillColor="?colorControlActivated" android:pathData="M48,48m-17,0a17,17 0 1,0 34,0a17,17 0 1,0-34,0" />
     </group>
-    <group
-        android:name="circle_outline_group"
-        android:pivotX="48.0"
-        android:pivotY="48.0">
-        <path
-            android:name="circle_outline_normal"
-            android:pathData="M48,48m-29.5,0a29.5,29.5 0 1,0 59,0a29.5,29.5 0 1,0-59,0"
-            android:strokeWidth="3.0"
-            android:strokeColor="?colorControlNormal" />
-        <path
-            android:name="circle_outline"
-            android:pathData="M48,48m-29.5,0a29.5,29.5 0 1,0 59,0a29.5,29.5 0 1,0-59,0"
-            android:strokeWidth="3.0"
-            android:strokeColor="?colorControlActivated" />
+    <group android:name="circle_outline_group" android:pivotX="48.0" android:pivotY="48.0">
+        <path android:name="circle_outline_normal" android:pathData="M48,48m-29.5,0a29.5,29.5 0 1,0 59,0a29.5,29.5 0 1,0-59,0" android:strokeColor="?colorControlNormal" android:strokeWidth="3.0" />
+        <path android:name="circle_outline" android:pathData="M48,48m-29.5,0a29.5,29.5 0 1,0 59,0a29.5,29.5 0 1,0-59,0" android:strokeColor="?colorControlActivated" android:strokeWidth="3.0" />
     </group>
 </vector>

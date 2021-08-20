@@ -12,12 +12,17 @@
     <attr name="seslSwitchBarTextActivatedColor" format="color" />
     <attr name="seslSwitchBarTextColor" format="color" />
 
+    <attr name="colorPickerEmptySlotColor" format="reference|color" />
+    <attr name="colorPickerSelectedItemTextColor" format="reference|color" />
+    <attr name="colorPickerStrokeColor" format="reference|color" />
+    <attr name="progressLayout" format="reference" />
+    <attr name="horizontalProgressLayout" format="reference" />
+
     <attr name="useDisabledAlpha" format="boolean" />
 
     <attr name="layout_isTitleCustom" format="boolean" />
 
     <attr name="collapsingToolbarLayoutStyle" format="reference" />
-
     <attr name="tabLayoutStyle" format="reference" />
 
     <attr name="roundedCorners"  format="integer">
@@ -218,6 +223,40 @@
     </declare-styleable>
     <declare-styleable name="RoundLinearLayout">
         <attr name="roundedCorners" />
+    </declare-styleable>
+
+    <declare-styleable name="SamsungAlertDialog">
+        <attr name="android:layout" />
+        <attr name="buttonIconDimen" format="dimension" />
+        <attr name="fullDark" format="reference|color" />
+        <attr name="topDark" format="reference|color" />
+        <attr name="centerDark" format="reference|color" />
+        <attr name="bottomDark" format="reference|color" />
+        <attr name="fullBright" format="reference|color" />
+        <attr name="topBright" format="reference|color" />
+        <attr name="centerBright" format="reference|color" />
+        <attr name="bottomBright" format="reference|color" />
+        <attr name="bottomMedium" format="reference|color" />
+        <attr name="centerMedium" format="reference|color" />
+        <attr name="layout" />
+        <attr name="buttonPanelSideLayout" format="reference" />
+        <attr name="listLayout" format="reference" />
+        <attr name="multiChoiceItemLayout" format="reference" />
+        <attr name="singleChoiceItemLayout" format="reference" />
+        <attr name="listItemLayout" format="reference" />
+        <attr name="progressLayout" />
+        <attr name="horizontalProgressLayout" />
+        <attr name="showTitle" format="boolean" />
+        <attr name="needsDefaultBackgrounds" format="boolean" />
+        <attr name="controllerType">
+            <enum name="normal" value="0" />
+            <enum name="micro" value="1" />
+        </attr>
+        <attr name="selectionScrollOffset" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="RecycleListView">
+        <attr name="paddingBottomNoButtons" format="dimension" />
+        <attr name="paddingTopNoTitle" format="dimension" />
     </declare-styleable>
 
 </resources>

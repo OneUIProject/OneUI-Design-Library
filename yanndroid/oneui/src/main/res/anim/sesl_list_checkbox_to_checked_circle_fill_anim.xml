@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set android:ordering="together"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <objectAnimator android:interpolator="@interpolator/interpolator_sine_out_70" android:duration="133" android:valueFrom="M48,31m-31,0a31,31 0 1,0 62,0a31,31 0 1,0-62,0" android:valueTo="M48,31m-26,0a26,26 0 1,0 52,0a26,26 0 1,0-52,0" android:valueType="pathType" android:propertyName="pathData" />
+    <set android:ordering="sequentially">
+        <objectAnimator android:duration="133" android:valueFrom="0" android:valueTo="1.0" android:valueType="floatType" android:propertyName="fillAlpha" />
+        <objectAnimator android:duration="2" android:valueFrom="1.0" android:valueTo="0" android:valueType="floatType" android:propertyName="fillAlpha" />
+    </set>
+</set>

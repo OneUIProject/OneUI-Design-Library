@@ -1,13 +1,14 @@
 package de.dlyt.yanndroid.oneuiexample;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import de.dlyt.yanndroid.oneui.ColorPickerDialog;
 import de.dlyt.yanndroid.oneui.ThemeColor;
+import de.dlyt.yanndroid.oneui.dialog.ProgressDialog;
+import de.dlyt.yanndroid.oneui.dialog.SamsungAlertDialog;
 import de.dlyt.yanndroid.oneui.tabs.SamsungTabLayout;
 import de.dlyt.yanndroid.oneuiexample.utils.BaseTabFragment;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
@@ -172,10 +175,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void standardDialog(View view) {
-        Context context = new ContextThemeWrapper(this, R.style.DialogStyle);
-        new AlertDialog.Builder(context)
+        new SamsungAlertDialog.Builder(this)
                 .setTitle("Title")
-                .setIcon(R.drawable.ic_launcher)
                 .setMessage("Message")
                 .setNeutralButton("Maybe", null)
                 .setNegativeButton("No", null)
@@ -184,11 +185,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void singleChoiceDialog(View view) {
-        Context context = new ContextThemeWrapper(this, R.style.DialogStyle);
         CharSequence[] charSequences = {"Choice1", "Choice2", "Choice3"};
-        new AlertDialog.Builder(context)
+        new SamsungAlertDialog.Builder(this)
                 .setTitle("Title")
-                .setIcon(R.drawable.ic_launcher)
                 .setNeutralButton("Maybe", null)
                 .setNegativeButton("No", null)
                 .setPositiveButton("Yes", null)
@@ -197,16 +196,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void multiChoiceDialog(View view) {
-        Context context = new ContextThemeWrapper(this, R.style.DialogStyle);
         CharSequence[] charSequences = {"Choice1", "Choice2", "Choice3"};
         boolean[] booleans = {true, false, true};
-        new AlertDialog.Builder(context)
+        new SamsungAlertDialog.Builder(this)
                 .setTitle("Title")
-                .setIcon(R.drawable.ic_launcher)
                 .setNeutralButton("Maybe", null)
                 .setNegativeButton("No", null)
                 .setPositiveButton("Yes", null)
                 .setMultiChoiceItems(charSequences, booleans, null)
                 .show();
+    }
+
+    public void progressDialog(View view) {
+        ProgressDialog dialog = new ProgressDialog(mContext);
+        dialog.setIndeterminate(true);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setTitle("Title");
+        dialog.setMessage("ProgressDialog");
+        dialog.setButton(ProgressDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                progressDialogCircleOnly();
+            }
+        });
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                progressDialogCircleOnly();
+            }
+        });
+        dialog.show();
+    }
+
+    private void progressDialogCircleOnly() {
+        Toast.makeText(mContext, "Click anywhere to dismiss", Toast.LENGTH_SHORT).show();
+        ProgressDialog dialog = new ProgressDialog(mContext);
+        dialog.setProgressStyle(ProgressDialog.STYLE_CIRCLE_ONLY);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 }

@@ -4,5 +4,11 @@
     <integer name="content_margin">0</integer>
     <integer name="drawerMaxWidth">840</integer>
     <integer name="sesl_config_tooltipAnimTime">150</integer>
+    <integer name="sesl_loading_progress_anim_duration">750</integer>
+    <integer name="sesl_loading_progress_rot_duration">3000</integer>
+    <integer name="sesl_dialog_disabled_anim_duration">100</integer>
+    <integer name="sesl_dialog_enter_anim_duration">100</integer>
+    <integer name="sesl_dialog_exit_anim_duration">100</integer>
+    <item name="sesl_dialog_background_dim_amount" type="integer" format="float">0.65</item>
 
 </resources>

@@ -102,11 +102,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             ViewCompat.setBackground(this, this.mBackground);
         } else {
             this.mBackground = null;
-            if (this.isLightTheme()) {
-                this.setBackgroundColor(this.getResources().getColor(R.color.sesl_action_bar_background_color_light, null));
-            } else {
-                this.setBackgroundColor(this.getResources().getColor(R.color.sesl_action_bar_background_color_dark, null));
-            }
+            this.setBackgroundColor(this.getResources().getColor(R.color.sesl_action_bar_background_color, var1.getTheme()));
         }
 
         if (var4.hasValue(R.styleable.SamsungAppBarLayout_expanded)) {
@@ -529,11 +525,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             this.setBackground(this.mBackground);
         } else {
             this.mBackground = null;
-            if (this.isLightTheme()) {
-                this.setBackgroundColor(this.getResources().getColor(R.color.sesl_action_bar_background_color_light, null));
-            } else {
-                this.setBackgroundColor(this.getResources().getColor(R.color.sesl_action_bar_background_color_dark, null));
-            }
+            this.setBackgroundColor(this.getResources().getColor(R.color.sesl_action_bar_background_color, getContext().getTheme()));
         }
 
         this.mBottomPadding = this.getContext().getResources().getDimensionPixelSize(R.dimen.sesl_extended_appbar_bottom_padding);

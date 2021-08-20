@@ -34,8 +34,7 @@ public class TabRoundRectIndicator extends AbsIndicatorView {
 
     public TabRoundRectIndicator(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        boolean isLightTheme = SeslMisc.isLightTheme(context);
-        ViewCompat.setBackground(this, ContextCompat.getDrawable(context, isLightTheme ? R.drawable.sesl_tablayout_subtab_indicator_background_light : R.drawable.sesl_tablayout_subtab_indicator_background_dark));
+        ViewCompat.setBackground(this, ContextCompat.getDrawable(context, R.drawable.sesl_tablayout_subtab_indicator_background));
     }
 
     @Override

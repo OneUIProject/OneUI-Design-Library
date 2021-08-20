@@ -13,14 +13,8 @@
 
         <item name="android:theme">@style/SamsungStyleMain</item>
 
-        <item name="switchStyle">@style/SwitchStyle</item>
-
-        <item name="collapsingToolbarLayoutStyle">@style/CollapsingToolbarLayoutStyle</item>
-
-        <item name="tabLayoutStyle">@style/TabLayoutStyle</item>
-
-        <item name="tooltipForegroundColor">@color/sesl_tooltip_foreground_dark</item>
-        <item name="tooltipFrameBackground">@color/sesl_tooltip_background_dark</item>
+        <item name="alertDialogTheme">@style/DialogTheme</item>
+        <item name="alertDialogStyle">@style/AlertDialogStyle</item>
 
     </style>
 </resources>
