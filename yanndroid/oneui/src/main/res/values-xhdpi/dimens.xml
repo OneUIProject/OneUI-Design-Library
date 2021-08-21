@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <bool name="sesl_material_desktop_mode">false</bool>
+    <dimen name="sesl_list_divider_height">1.0px</dimen>
 </resources>

@@ -33,6 +33,21 @@
     <dimen name="sesl_button_text_size">15.0sp</dimen>
     <dimen name="sesl_show_button_background_radius">2.0dip</dimen>
 
+    <dimen name="sesl_list_divider_inset">10.0dip</dimen>
+    <dimen name="sesl_list_divider_height">1.0px</dimen>
+
+    <dimen name="sesl_list_item_padding_horizontal">12.0dip</dimen>
+
+    <dimen name="sesl_edit_text_size">16.0sp</dimen>
+    <dimen name="sesl_edit_textfield_cursor_inset">0.0px</dimen>
+    <dimen name="sesl_edit_textfield_cursor_width">2.0px</dimen>
+
+    <dimen name="sesl_list_primary_text_size">18.0sp</dimen>
+    <dimen name="sesl_list_secondary_text_size">13.0sp</dimen>
+    <item type="dimen" name="sesl_text_size_subhead">@dimen/sesl_list_primary_text_size</item>
+    <item type="dimen" name="sesl_text_size_small">@dimen/sesl_list_secondary_text_size</item>
+
+
 
     <!--Spinner-->
     <dimen name="sesl_menu_popup_bottom_margin">6.0dip</dimen>
@@ -50,6 +65,8 @@
     <dimen name="sesl_popup_menu_item_min_width">168.0dip</dimen>
     <dimen name="sesl_popup_menu_item_start_padding">24.0dip</dimen>
     <dimen name="sesl_popup_menu_item_top_padding">13.0dip</dimen>
+
+    <dimen name="sesl_checked_text_padding">18.0dip</dimen>
 
 
     <!--Popup-->
@@ -240,6 +257,7 @@
     <dimen name="sesl_select_dialog_padding_end">24.0dip</dimen>
     <dimen name="sesl_select_dialog_padding_start">18.0dip</dimen>
     <dimen name="sesl_select_dialog_padding_top">18.0dip</dimen>
+    <dimen name="sesl_list_preferred_item_height">58.5dip</dimen>
     <dimen name="sesl_list_preferred_item_height_small">56.0dip</dimen>
     <dimen name="sesl_progress_dialog_circle_message_text_size">14.0dip</dimen>
     <dimen name="sesl_progress_dialog_circle_message_width">40.0dip</dimen>
@@ -248,6 +266,32 @@
     <dimen name="sesl_progress_dialog_padding_vertical">16.0dip</dimen>
     <dimen name="sesl_progress_dialog_text_size">14.0dip</dimen>
     <dimen name="sesl_alert_dialog_button_bar_height">48.0dip</dimen>
+
+    <!--RecyclerView-->
+    <dimen name="sesl_round_stroke_height">1.0px</dimen>
+    <dimen name="sesl_go_to_top_elevation">8.0dip</dimen>
+    <dimen name="sesl_go_to_top_scrollable_view_gap">20.0dip</dimen>
+    <dimen name="sesl_go_to_top_scrollable_view_size">40.0dip</dimen>
+    <dimen name="sesl_fast_scroll_additional_touch_area">11.0dip</dimen>
+    <dimen name="sesl_fast_scroll_preview_margin_end">24.0dip</dimen>
+    <dimen name="sesl_fast_scroll_thumb_margin_end">8.0dip</dimen>
+    <dimen name="sesl_fast_scroller_additional_bottom_padding">18.0dip</dimen>
+    <dimen name="sesl_fast_scroller_touch_target_min_size">48.0dip</dimen>
+    <dimen name="sesl_fast_scroller_track_padding">6.0dip</dimen>
+
+    <!--Preference-->
+    <dimen name="sesl_list_subheader_min_height">20.0dip</dimen>
+    <dimen name="sesl_list_image_end_padding">10.0dip</dimen>
+    <dimen name="sesl_preference_item_icon_size">36.0dip</dimen>
+    <dimen name="sesl_list_widget_start_padding">16.0dip</dimen>
+    <dimen name="sesl_preference_item_padding_vertical">14.0dip</dimen>
+    <dimen name="sesl_switch_divider_height">1.0px</dimen>
+    <dimen name="sesl_list_subheader_padding_top">11.75dip</dimen>
+    <dimen name="sesl_list_subheader_padding_bottom">5.0dip</dimen>
+    <dimen name="sesl_list_subheader_text_size">14.0sp</dimen>
+    <dimen name="sesl_preference_switch_padding_vertical">12.0dip</dimen>
+    <dimen name="layout_preference_padding_bottom">0.0dip</dimen>
+    <dimen name="inset_preference_category_height">16.0dip</dimen>
 
 
 

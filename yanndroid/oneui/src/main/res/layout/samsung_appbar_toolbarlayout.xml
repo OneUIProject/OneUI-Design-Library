@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/sesl_round_and_bgcolor"
     app:roundedCorners="bottom_left|bottom_right">
 
     <de.dlyt.yanndroid.oneui.coordinatorlayout.SamsungCoordinatorLayout
@@ -16,7 +17,6 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?android:windowBackground"
             style="@style/AppBarLayoutStyle">
 
             <de.dlyt.yanndroid.oneui.appbar.SamsungCollapsingToolbarLayout

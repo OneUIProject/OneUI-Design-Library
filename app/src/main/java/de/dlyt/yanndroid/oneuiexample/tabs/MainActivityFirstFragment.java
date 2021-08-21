@@ -41,18 +41,6 @@ public class MainActivityFirstFragment extends BaseTabFragment {
     private View mRootView;
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        if (mRootView == null) {
-            mRootView = getView();
-        }
-        if (mContext == null) {
-            mContext = mActivity.getApplicationContext();
-        }
-    }
-
-    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mActivity = (AppCompatActivity) getActivity();
@@ -68,6 +56,8 @@ public class MainActivityFirstFragment extends BaseTabFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         //DrawerLayout
         DrawerLayout drawerLayout = mRootView.findViewById(R.id.drawer_view);
         mActivity.setSupportActionBar(drawerLayout.getToolbar());
@@ -135,26 +125,6 @@ public class MainActivityFirstFragment extends BaseTabFragment {
             tabLayout.addTab(tabLayout.newTab().setText(s));
         }
         tabLayout.setup();
-
-
-        //SeekBar
-        SeekBar seekBar1 = mRootView.findViewById(R.id.seekbar1);
-        android.widget.SeekBar seekBar2 = mRootView.findViewById(R.id.seekbar2);
-        seekBar1.setOverlapPointForDualColor(70);
-        seekBar2.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(android.widget.SeekBar seekBar, int progress, boolean fromUser) {
-                seekBar1.setSecondaryProgress(progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(android.widget.SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(android.widget.SeekBar seekBar) {
-            }
-        });
 
 
         //SwitchBar

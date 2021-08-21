@@ -100,4 +100,8 @@
     <string name="sesl_color_picker_yellow">Yellow</string>
     <string name="sesl_picker_done">Done</string>
 
+    <string name="sesl_preferencecategory_added_title">Header</string>
+    <string name="sesl_preference_off">OFF</string>
+    <string name="sesl_preference_on">ON</string>
+
 </resources>

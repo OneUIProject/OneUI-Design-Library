@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import androidx.reflect.content.res.SeslConfigurationReflector;
+
 import java.util.ArrayList;
 
 import de.dlyt.yanndroid.oneui.tabs.SamsungBaseTabLayout;
@@ -179,7 +182,7 @@ public class BottomNavigationView extends SamsungBaseTabLayout implements View.O
     }
 
     private boolean isInSamsungDeXMode(Context context) {
-        return context.getResources().getBoolean(R.bool.sesl_material_desktop_mode);
+        return SeslConfigurationReflector.isDexEnabled(context.getResources().getConfiguration());
     }
 
     private boolean isMultiWindowMinSize(Context context, int minSizeDp, boolean isWidth) {
