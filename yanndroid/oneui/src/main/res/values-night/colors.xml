@@ -2,31 +2,34 @@
 <resources>
 
     <!--Main-->
+    <color name="sesl_primary_text_color">@color/sesl_white</color>
 
     <color name="sesl_background_floating">@color/sesl_black</color>
     <color name="sesl_ripple_color">#33ffffff</color>
 
 
-    <color name="background_color">#ff000000</color>
+    <color name="background_color">#ff010101</color>
     <color name="item_background_color">#ff171717</color>
     <color name="item_color">@color/sesl_white</color>
+
+    <color name="sesl_btn_default_text_color">@color/sesl_white</color>
 
     <!--Sesl-->
     <color name="divider_color">#42fafafa</color>
 
 
     <!--Switch-->
-    <color name="sesl_switch_thumb_off_disabled_color">#ff828282</color>
-    <color name="sesl_switch_thumb_off_disabled_stroke_color">#ff3b3b3b</color>
+    <color name="sesl_switch_thumb_off_disabled_color">#ff858585</color>
+    <color name="sesl_switch_thumb_off_disabled_stroke_color">#ff3d3d3d</color>
     <color name="sesl_switch_thumb_on_disabled_color">#ff858585</color>
-    <color name="sesl_switch_thumb_on_disabled_stroke_color">#ff3b3b3b</color>
+    <color name="sesl_switch_thumb_on_disabled_stroke_color">#ff3d3d3d</color>
+    <color name="sesl_switch_track_off_disabled_stroke_color">#668f8f8f</color>
+    <color name="sesl_switch_track_off_stroke_color">#ff8f8f8f</color>
 
 
     <!--SwitchBar-->
     <color name="sesl_switchbar_off_background_color">#2bfafafa</color>
     <color name="sesl_switchbar_off_text_color">#fffafafa</color>
-    <color name="sesl_action_bar_text_color_title_dark">@color/sesl_black</color>
-
 
     <!--Spinner-->
     <color name="sesl_menu_popup_background_color">#ff252525</color>
@@ -43,7 +46,7 @@
     <color name="button_background_color">#4d555555</color>
     <color name="button_ripple_color">#515151</color>
     <color name="drawer_dim_color">#cc000000</color>
-    <color name="splash_background">#ff000000</color>
+    <color name="splash_background">#ff010101</color>
     <color name="sesl_scrollbar_handle_tint">#ff595959</color>
     <color name="sesl_list_subheader_text_color">#ff999999</color>
 
@@ -60,6 +63,43 @@
     <color name="dialog_action_ripple">#33ffffff</color>
     <color name="setting_color_picker_mode_text_selected_color">#fffcfcfc</color>
     <color name="setting_color_picker_mode_text_unselected_color">#ff999999</color>
+
+
+    <!--Tooltip-->
+    <color name="sesl_tooltip_foreground">@color/sesl_white</color>
+    <color name="sesl_tooltip_background">#ff393939</color>
+
+
+    <!--AppBarLayout-->
+    <color name="sesl_action_bar_background_color">#ff010101</color>
+    <color name="sesl_action_bar_text_color_title">#fffafafa</color>
+    <color name="sesl_action_bar_text_color_subtitle">#ff9c9c9c</color>
+    <color name="sesl_extended_appbar_subtitle">#ff9c9c9c</color>
+
+
+    <!--TabLayout-->
+    <color name="sesl_tablayout_show_button_text_color">#252525</color>
+    <color name="sesl_tablayout_subtab_background_stroke_color">#99FFFFFF</color>
+    <color name="sesl_tablayout_subtab_text_color_default">#999999</color>
+    <color name="sesl_tablayout_subtab_text_color_disabled">#33A8A9A9</color>
+    <color name="sesl_tablayout_subtab_text_color_selected">#FFFFFF</color>
+    <color name="sesl_tablayout_text_color_default">#A8A9A9</color>
+    <color name="sesl_tablayout_text_color_disabled">#66A8A9A9</color>
+
+
+    <!--Dialog-->
+    <color name="sesl_dialog_body_text_color">#ffe5e5e5</color>
+    <color name="sesl_dialog_button_text_color">#ff008cff</color>
+    <color name="sesl_dialog_divider_color_material">#33e6e6e6</color>
+    <color name="sesl_dialog_list_text_color">#fffafafa</color>
+    <color name="sesl_dialog_scrollbar_handle_tint_color_mtrl">#ff595959</color>
+    <color name="sesl_dialog_sub_text_color_material">#ff666666</color>
+    <color name="sesl_dialog_title_text_color">#fffafafa</color>
+    <color name="sesl_dialog_window_background_color_material">#ff252525</color>
+    <color name="sesl_color_picker_selected_color_item_text_color">#B0B0B0</color>
+    <color name="sesl_color_picker_stroke_color">#000000</color>
+    <color name="sesl_color_picker_used_color_item_empty_slot_color">#3B3B3B</color>
+    <color name="sesl_color_picker_used_color_text_color">#42FAFAFA</color>
 
 
 </resources>

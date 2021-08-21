@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <de.dlyt.yanndroid.oneui.SwitchBar
+        android:id="@+id/switchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <de.dlyt.yanndroid.oneui.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="12dp"
+        android:layout_marginHorizontal="@dimen/tablayout_start_end_margin"/>
+
+    <de.dlyt.yanndroid.oneui.RoundLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:roundedCorners="top_left|top_right">
+
+        <de.dlyt.yanndroid.oneui.widget.SamsungNestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/SubHeaderStyle"
+                    android:text="Icons" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <GridView
+                        android:id="@+id/images"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginVertical="10dp"
+                        android:numColumns="15" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/SubHeaderStyle"
+                    android:layout_marginTop="15dp"
+                    android:text="SeekBar" />
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="vertical">
+
+                        <de.dlyt.yanndroid.oneui.SeekBar
+                            android:id="@+id/seekbar1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            app:seslSeekBarMode="expand" />
+
+                        <SeekBar
+                            android:id="@+id/seekbar2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/SubHeaderStyle"
+                    android:layout_marginTop="15dp"
+                    android:text="ProgressBar" />
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="vertical">
+
+
+                        <ProgressBar
+                            style="@style/ProgressBarStyle.Horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:indeterminate="true" />
+
+                        <ProgressBar
+                            style="@style/ProgressBarStyle.Horizontal.Large"
+                            android:indeterminate="true" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ProgressBar
+                                style="@style/ProgressBarStyle.Circle.Large"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ProgressBar
+                                style="@style/ProgressBarStyle.Circle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ProgressBar
+                                style="@style/ProgressBarStyle.Circle.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ProgressBar
+                                style="@style/ProgressBarStyle.Title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/SubHeaderStyle"
+                    android:layout_marginTop="15dp"
+                    android:text="Buttons" />
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="vertical">
+
+                        <de.dlyt.yanndroid.oneui.Switch
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            android:text="Switch"
+                            android:textAlignment="viewStart" />
+
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="CheckBox"
+                            android:textAlignment="viewStart" />
+
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="RadioButton"
+                                android:textAlignment="viewStart" />
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="RadioButton"
+                                android:textAlignment="viewStart" />
+
+
+                        </RadioGroup>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:onClick="standardDialog"
+                                android:text="Button" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="15dp"
+                                android:background="@color/divider_color" />
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/ButtonStyle.Invert"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:onClick="singleChoiceDialog"
+                                android:text="Button" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="15dp"
+                                android:background="@color/divider_color" />
+
+                            <com.google.android.material.button.MaterialButton
+                                style="@style/ButtonStyle.Invert.Secondary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:onClick="multiChoiceDialog"
+                                android:text="Button" />
+
+
+                        </LinearLayout>
+
+
+                        <de.dlyt.yanndroid.oneui.drawer.OptionButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12.0dip"
+                            app:counter="44"
+                            app:counterEnabled="true"
+                            app:icon="@drawable/ic_samsung_info"
+                            app:selected="true"
+                            app:text="OptionButton"
+                            android:onClick="progressDialog" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/SubHeaderStyle"
+                    android:layout_marginTop="15dp"
+                    android:text="Others" />
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="?textAppearanceBody1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textAlignment="viewStart"
+                            android:textSize="18sp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="?android:attr/textAppearanceSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textAlignment="viewStart" />
+
+                        <Spinner
+                            android:id="@+id/spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="viewStart" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/SubHeaderStyle"
+                    android:layout_marginTop="15dp"
+                    android:text="Color Pickers" />
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.button.MaterialButton
+                            style="@style/ButtonStyle.Invert"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10.0dip"
+                            android:layout_gravity="center"
+                            android:onClick="classicColorPickerDialog"
+                            android:text="Classic" />
+
+                        <com.google.android.material.button.MaterialButton
+                            style="@style/ButtonStyle.Invert"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:onClick="detailedColorPickerDialog"
+                            android:text="Detailed" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/background_color"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="?colorPrimary"
+                                android:gravity="center">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="?colorPrimary" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="?colorPrimaryDark"
+                                android:gravity="center">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="?colorPrimaryDark" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="?colorSecondary"
+                                android:gravity="center">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="?colorSecondary" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@color/background_color"
+                                android:backgroundTint="@color/sesl_control_color_normal" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <de.dlyt.yanndroid.oneui.RelatedCard
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    app:title="Looking for something else?">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/RelatedButtonStyle"
+                        android:text="This" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/RelatedButtonStyle"
+                        android:text="That" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/RelatedButtonStyle"
+                        android:text="There" />
+
+                </de.dlyt.yanndroid.oneui.RelatedCard>
+
+            </LinearLayout>
+        </de.dlyt.yanndroid.oneui.widget.SamsungNestedScrollView>
+
+    </de.dlyt.yanndroid.oneui.RoundLinearLayout>
+
+
+</LinearLayout>

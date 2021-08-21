@@ -2,6 +2,5 @@
 <resources>
 
     <integer name="content_margin">120</integer>
-    <integer name="appBarHeight">380</integer>
 
 </resources>

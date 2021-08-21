@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<de.dlyt.yanndroid.oneui.RoundLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:roundedCorners="bottom_left|bottom_right">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="bottom"
+        android:paddingStart="14.0dip"
+        app:layout_collapseMode="pin"
+        app:popupTheme="@style/SamsungStyleMain">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start|center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:gravity="center">
+
+                <RelativeLayout
+                    android:id="@+id/navigationIcon_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <de.dlyt.yanndroid.oneui.widget.ToolbarImageButton
+                        android:id="@+id/navigationIcon"
+                        android:layout_width="48dp"
+                        android:layout_height="?actionBarSize"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/sesl_action_bar_item_background"
+                        android:src="@drawable/ic_samsung_back"
+                        android:scaleType="center"
+                        app:seslTooltipText="@string/sesl_navigate_up" />
+
+                    <TextView
+                        android:id="@+id/navigationIcon_badge"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_alignTop="@+id/navigationIcon"
+                        android:layout_alignEnd="@+id/navigationIcon"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:background="@drawable/new_badge_bg"
+                        android:fontFamily="sec-roboto-light"
+                        android:gravity="center"
+                        android:text="N"
+                        android:textColor="@color/white"
+                        android:textSize="11dp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/collapsed_title"
+                style="@style/CollapsedActionBarTitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="?actionMenuTextColor"
+                android:textDirection="locale" />
+
+        </LinearLayout>
+    </com.google.android.material.appbar.MaterialToolbar>
+
+
+    <de.dlyt.yanndroid.oneui.RoundLinearLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        app:roundedCorners="top_left|top_right"
+        app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior" />
+
+</de.dlyt.yanndroid.oneui.RoundLinearLayout>

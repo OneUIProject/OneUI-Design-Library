@@ -13,5 +13,8 @@
 
         <item name="android:theme">@style/SamsungStyleMain</item>
 
+        <item name="alertDialogTheme">@style/DialogTheme</item>
+        <item name="alertDialogStyle">@style/AlertDialogStyle</item>
+
     </style>
 </resources>

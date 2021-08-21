@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector android:drawable="@drawable/sesl_list_choice_radio_to_on_000"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <target android:name="circle_inner" android:animation="@anim/sesl_radio_to_on_circle_inner_anim" />
+    <target android:name="circle_inner_group" android:animation="@anim/sesl_radio_to_on_circle_inner_group_anim" />
+    <target android:name="circle_outline" android:animation="@anim/sesl_radio_to_on_circle_outline_anim" />
+    <target android:name="circle_outline_group" android:animation="@anim/sesl_radio_to_on_circle_outline_group_anim" />
+</animated-vector>
