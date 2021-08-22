@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/background_color"
-    tools:context=".MainActivity" >
-    <FrameLayout
+    tools:context=".MainActivity">
+    <de.dlyt.yanndroid.oneui.RoundFrameLayout
         android:layout_width="fill_parent"
         android:layout_height="0.0dip"
         android:layout_weight="1.0"
-        android:paddingBottom="1.0px">
+        android:paddingBottom="1.0px"
+        app:roundedCorners="bottom_left|bottom_right">
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
-    </FrameLayout>
+    </de.dlyt.yanndroid.oneui.RoundFrameLayout>
     <RelativeLayout
         android:orientation="vertical"
         android:background="@color/background_color"

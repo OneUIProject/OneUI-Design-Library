@@ -186,6 +186,14 @@
     <dimen name="sesl_appbar_extended_title_text_size">38.0sp</dimen>
     <dimen name="sesl_appbar_extended_title_text_size_with_subtitle">38.0dip</dimen>
     <dimen name="sesl_action_bar_content_inset_with_nav">56.0px</dimen>
+    <dimen name="sesl_action_bar_content_inset">24.0dip</dimen>
+    <dimen name="overflow_big_button_dimens">48.0dip</dimen>
+    <dimen name="sesl_badge_additional_width">4.0dip</dimen>
+    <dimen name="sesl_badge_default_width">13.0dip</dimen>
+    <dimen name="sesl_menu_item_badge_end_margin">16.0dip</dimen>
+    <dimen name="sesl_menu_item_badge_size">17.0dip</dimen>
+    <dimen name="sesl_menu_item_badge_text_size">11.0dip</dimen>
+    <dimen name="sesl_menu_item_badge_top_margin">10.0dip</dimen>
 
     <!--TabLayout-->
     <dimen name="sesl_tab_max_width">0.0dip</dimen>

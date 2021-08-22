@@ -44,6 +44,8 @@
 
     <string name="sesl_appbar_scrolling_view_behavior" translatable="false">de.dlyt.yanndroid.oneui.appbar.SamsungAppBarLayout$ScrollingViewBehavior</string>
     <string name="sesl_toolbar_collapse_description">Collapse</string>
+    <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="sesl_action_menu_overflow_description">More options</string>
 
     <string name="bnv_tts">Tab %1$d of %2$d</string>
 

@@ -26,6 +26,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import de.dlyt.yanndroid.oneui.R;
+import de.dlyt.yanndroid.oneui.widget.ToolbarImageButton;
 
 public class AboutPage extends LinearLayout {
 
@@ -38,7 +39,6 @@ public class AboutPage extends LinearLayout {
     private TextView about_optional_text;
     private MaterialButton update_button;
     private ProgressBar loading_bar;
-    private ToolbarLayout toolbarLayout;
     private String optional_text;
 
 
@@ -49,7 +49,7 @@ public class AboutPage extends LinearLayout {
     public static final int LOADING_BAR = 4;
     public static final int TOOLBAR = 5;
 
-    @IntDef({CONTENT_VIEW, VERSION_TEXT, OPTIONAL_TEXT, UPDATE_BUTTON, LOADING_BAR, TOOLBAR})
+    @IntDef({CONTENT_VIEW, VERSION_TEXT, OPTIONAL_TEXT, UPDATE_BUTTON, LOADING_BAR})
     @Retention(RetentionPolicy.SOURCE)
     public @interface AboutPageView {
     }
@@ -66,8 +66,6 @@ public class AboutPage extends LinearLayout {
                 return update_button;
             case LOADING_BAR:
                 return loading_bar;
-            case TOOLBAR:
-                return toolbarLayout;
             default:
                 return null;
         }
@@ -93,24 +91,36 @@ public class AboutPage extends LinearLayout {
         about_optional_text = findViewById(R.id.about_optional_text);
         update_button = findViewById(R.id.update_button);
         loading_bar = findViewById(R.id.loading_bar);
-        toolbarLayout = findViewById(R.id.toolbar_layout);
+
+        ToolbarLayout toolbarLayout = findViewById(R.id.toolbar_layout);
+        toolbarLayout.setNavigationButtonIcon(getResources().getDrawable(R.drawable.ic_samsung_back, context.getTheme()));
+        toolbarLayout.setNavigationIconTooltip(getResources().getText(R.string.sesl_navigate_up));
+        toolbarLayout.setNavigationOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+        toolbarLayout.addOverflowButton(true,
+                R.drawable.ic_samsung_info,
+                R.string.app_info,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.setData(Uri.parse("package:" + getActivity().getApplicationContext().getPackageName()));
+                            getActivity().startActivity(intent);
+                        } catch (ActivityNotFoundException unused) {
+                            getActivity().startActivity(new Intent("android.settings.MANAGE_APPLICATIONS_SETTINGS"));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
 
         setOptionalText(optional_text);
-
-        toolbarLayout.getToolbar().inflateMenu(R.menu.app_info);
-        toolbarLayout.getToolbar().setOnMenuItemClickListener(item -> {
-            try {
-                Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.setData(Uri.parse("package:" + context.getApplicationContext().getPackageName()));
-                context.startActivity(intent);
-            } catch (ActivityNotFoundException unused) {
-                context.startActivity(new Intent("android.settings.MANAGE_APPLICATIONS_SETTINGS"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return false;
-        });
 
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -118,7 +128,6 @@ public class AboutPage extends LinearLayout {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        toolbarLayout.setNavigationOnClickListener(v -> getActivity().onBackPressed());
     }
 
     private Activity getActivity() {

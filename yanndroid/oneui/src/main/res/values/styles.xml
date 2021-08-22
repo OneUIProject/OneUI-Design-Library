@@ -347,7 +347,7 @@
         <item name="android:clickable">true</item>
         <item name="android:dropDownSelector">?android:listChoiceBackgroundIndicator</item>
         <item name="android:popupBackground">@drawable/sesl_menu_popup_background</item>
-        <item name="android:popupAnimationStyle">@style/ListPopupAnimation</item>
+        <item name="android:popupAnimationStyle">@style/ListPopupAnimStyle</item>
         <item name="android:dropDownHorizontalOffset">0.0dip</item>
         <item name="android:dropDownVerticalOffset">0.0dip</item>
         <item name="android:stateListAnimator">@null</item>
@@ -355,7 +355,7 @@
         <item name="overlapAnchor">true</item>
     </style>
 
-    <style name="ListPopupAnimation" parent="@android:style/Animation">
+    <style name="ListPopupAnimStyle" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/sesl_list_popup_enter</item>
         <item name="android:windowExitAnimation">@anim/sesl_list_popup_exit</item>
     </style>
@@ -384,7 +384,7 @@
     <style name="PopupMenuStyle" parent="@android:style/Widget.Material.ListPopupWindow">
         <item name="android:popupElevation">8.0dip</item>
         <item name="android:popupBackground">@drawable/sesl_menu_popup_background</item>
-        <item name="android:popupAnimationStyle">@style/MenuPopupAnimation</item>
+        <item name="android:popupAnimationStyle">@style/MenuPopupAnimStyle</item>
         <item name="overlapAnchor">true</item>
         <item name="popupEnterTransition">@null</item>
         <item name="popupExitTransition">@null</item>
@@ -392,7 +392,7 @@
         <item name="android:dropDownWidth">wrap_content</item>
     </style>
 
-    <style name="MenuPopupAnimation" parent="@android:style/Animation">
+    <style name="MenuPopupAnimStyle" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/sesl_menu_popup_enter</item>
         <item name="android:windowExitAnimation">@anim/sesl_menu_popup_exit</item>
     </style>
@@ -463,7 +463,7 @@
     <style name="DialogStyle" parent="android:Theme.DeviceDefault.Light.Dialog.Alert" />
 
     <!--Tooltip-->
-    <style name="TooltipAnimation" parent="@android:style/Animation">
+    <style name="TooltipAnimStyle" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/sesl_tooltip_enter</item>
         <item name="android:windowExitAnimation">@anim/sesl_tooltip_exit</item>
     </style>

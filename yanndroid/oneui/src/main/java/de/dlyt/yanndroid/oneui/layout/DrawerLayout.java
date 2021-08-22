@@ -98,6 +98,7 @@ public class DrawerLayout extends LinearLayout {
 
         toolbarLayout.setTitle(mToolbarTitle);
         toolbarLayout.setSubtitle(mToolbarSubtitle);
+        toolbarLayout.setNavigationButtonIcon(getResources().getDrawable(R.drawable.ic_samsung_drawer, context.getTheme()));
         toolbarLayout.setNavigationIconTooltip(getResources().getText(R.string.sesl_navigation_drawer));
         toolbarLayout.setExpanded(mToolbarExpanded, false);
         drawerIcon = findViewById(R.id.drawerIcon);
@@ -106,7 +107,7 @@ public class DrawerLayout extends LinearLayout {
 
 
         /*drawer logic*/
-        View content = findViewById(R.id.main_content);
+        View content = findViewById(R.id.toolbar_layout_coordinator_layout);
         drawerLayout = findViewById(R.id.drawerLayout);
         drawer = findViewById(R.id.drawer);
 

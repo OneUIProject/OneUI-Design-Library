@@ -36,6 +36,9 @@
 
     <color name="sesl_action_bar_text_color_menu">@color/sesl_black</color>
 
+    <color name="sesl_menu_badge_background_color">#fff56a0d</color>
+    <color name="sesl_menu_badge_text_color">@color/sesl_white</color>
+
 
     <!--Colors-->
     <color name="red">#ffD50000</color>

@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/item_background_color"
+        android:nestedScrollingEnabled="true"
         app:roundedCorners="top_left|top_right"/>
 
 </de.dlyt.yanndroid.oneui.layout.ToolbarLayout>

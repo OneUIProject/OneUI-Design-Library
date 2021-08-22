@@ -22,12 +22,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import de.dlyt.yanndroid.oneui.SwitchBar;
 import de.dlyt.yanndroid.oneui.TabLayout;
 import de.dlyt.yanndroid.oneui.drawer.OptionButton;
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
+import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneuiexample.AboutActivity;
 import de.dlyt.yanndroid.oneuiexample.R;
 import de.dlyt.yanndroid.oneuiexample.utils.BaseTabFragment;
@@ -49,7 +51,6 @@ public class MainActivityFirstFragment extends BaseTabFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_first, container, false);
-        setHasOptionsMenu(true);
         return mRootView;
     }
 
@@ -61,6 +62,21 @@ public class MainActivityFirstFragment extends BaseTabFragment {
         DrawerLayout drawerLayout = mRootView.findViewById(R.id.drawer_view);
         mActivity.setSupportActionBar(drawerLayout.getToolbar());
         drawerLayout.setDrawerIconOnClickListener(v -> startActivity(new Intent().setClass(getContext(), AboutActivity.class)));
+
+        ToolbarLayout toolbarLayout = (ToolbarLayout) drawerLayout.getView(DrawerLayout.TOOLBAR);
+        toolbarLayout.addOverflowButton(false,
+                R.drawable.ic_samsung_info,
+                R.string.app_info,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent().setClass(getContext(), AboutActivity.class));
+                    }
+                });
+        toolbarLayout.setMoreMenuButton(getMoreMenuButtonList(),
+                (adapterView, view2, i, j) -> {
+                    toolbarLayout.dismissMoreMenuPopupWindow();
+                });
 
         //Library Demo
         demo();
@@ -77,22 +93,6 @@ public class MainActivityFirstFragment extends BaseTabFragment {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         init();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_first, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.info:
-                startActivity(new Intent().setClass(getContext(), AboutActivity.class));
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -153,6 +153,15 @@ public class MainActivityFirstFragment extends BaseTabFragment {
         optionButton.setButtonEnabled(false);
 
     }
+
+    private LinkedHashMap<String, Integer> getMoreMenuButtonList() {
+        LinkedHashMap linkedHashMap = new LinkedHashMap();
+        linkedHashMap.put("Menu Item 1", 0);
+        linkedHashMap.put("Menu Item 2", 87);
+        linkedHashMap.put("Menu Item 3", ToolbarLayout.N_BADGE);
+        return linkedHashMap;
+    }
+
 
     //Adapter for the Icon GridView
     public class ImageAdapter extends BaseAdapter {

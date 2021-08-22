@@ -89,7 +89,6 @@
     <declare-styleable name="ToolBarLayout">
         <attr name="title" format="string" />
         <attr name="subtitle" format="string" />
-        <attr name="navigationIcon" />
         <attr name="expandable" format="boolean" />
         <attr name="expanded" format="boolean" />
     </declare-styleable>
