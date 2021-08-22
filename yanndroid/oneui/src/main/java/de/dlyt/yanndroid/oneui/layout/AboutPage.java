@@ -33,6 +33,7 @@ public class AboutPage extends LinearLayout {
     public static final int LOADING = 0;
     public static final int UPDATE_AVAILABLE = 1;
     public static final int NO_UPDATE = 2;
+    private ToolbarLayout toolbarLayout;
     private LinearLayout about_content;
     private TextView version;
     private TextView status_text;
@@ -42,12 +43,13 @@ public class AboutPage extends LinearLayout {
     private String optional_text;
 
 
-    public static final int CONTENT_VIEW = 0;
-    public static final int VERSION_TEXT = 1;
-    public static final int OPTIONAL_TEXT = 2;
-    public static final int UPDATE_BUTTON = 3;
-    public static final int LOADING_BAR = 4;
-    public static final int TOOLBAR = 5;
+    public static final int TOOLBAR = 0;
+    public static final int CONTENT_VIEW = 1;
+    public static final int VERSION_TEXT = 2;
+    public static final int OPTIONAL_TEXT = 3;
+    public static final int UPDATE_BUTTON = 4;
+    public static final int LOADING_BAR = 5;
+
 
     @IntDef({CONTENT_VIEW, VERSION_TEXT, OPTIONAL_TEXT, UPDATE_BUTTON, LOADING_BAR})
     @Retention(RetentionPolicy.SOURCE)
@@ -56,6 +58,8 @@ public class AboutPage extends LinearLayout {
 
     public View getView(@AboutPageView int view) {
         switch (view) {
+            case TOOLBAR:
+                return toolbarLayout;
             case CONTENT_VIEW:
                 return about_content;
             case VERSION_TEXT:
@@ -85,6 +89,7 @@ public class AboutPage extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.samsung_about_screen, this, true);
 
+        toolbarLayout = findViewById(R.id.toolbar_layout);
         about_content = findViewById(R.id.about_content);
         version = findViewById(R.id.version);
         status_text = findViewById(R.id.status_text);
@@ -92,7 +97,8 @@ public class AboutPage extends LinearLayout {
         update_button = findViewById(R.id.update_button);
         loading_bar = findViewById(R.id.loading_bar);
 
-        ToolbarLayout toolbarLayout = findViewById(R.id.toolbar_layout);
+        setOptionalText(optional_text);
+
         toolbarLayout.setNavigationButtonIcon(getResources().getDrawable(R.drawable.ic_samsung_back, context.getTheme()));
         toolbarLayout.setNavigationIconTooltip(getResources().getText(R.string.sesl_navigate_up));
         toolbarLayout.setNavigationOnClickListener(new OnClickListener() {
@@ -119,8 +125,6 @@ public class AboutPage extends LinearLayout {
                         }
                     }
                 });
-
-        setOptionalText(optional_text);
 
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);

@@ -167,10 +167,6 @@ public class ToolbarLayout extends LinearLayout {
         }
     }
 
-    private float getDIPForPX(int i) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) i, getResources().getDisplayMetrics());
-    }
-
     private Activity getActivity() {
         Context context = getContext();
         while (context instanceof ContextWrapper) {
@@ -180,6 +176,10 @@ public class ToolbarLayout extends LinearLayout {
             context = ((ContextWrapper) context).getBaseContext();
         }
         return null;
+    }
+
+    private float getDIPForPX(int i) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) i, getResources().getDisplayMetrics());
     }
 
     private int getWindowHeight() {
@@ -309,6 +309,7 @@ public class ToolbarLayout extends LinearLayout {
         navigationButton.setImageDrawable(mNavigationIcon);
         setNavigationButtonVisible(navigationIcon != null);
     }
+
     public void setNavigationButtonVisible(boolean visible) {
         navigationButtonContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
         toolbar.setPaddingRelative(visible ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), 0, 0, 0);
@@ -378,7 +379,7 @@ public class ToolbarLayout extends LinearLayout {
         if (overflowContainer != null && overflowContainer.getChildCount() != 0) {
             return (ToolbarImageButton) overflowContainer.getChildAt(index);
         } else {
-            Log.w("ToolbarLayout.getOverflowIcon", "overflowContainer is null or contains no icons.");
+            Log.w(TAG + ".getOverflowIcon", "overflowContainer is null or contains no icons.");
             return null;
         }
     }
@@ -390,14 +391,14 @@ public class ToolbarLayout extends LinearLayout {
         if (moreMenuPopupWindow != null || !moreMenuPopupWindow.isShowing())
             moreMenuPopupWindow.showAsDropDown(moreMenuPopupAnchor, moreMenuPopupOffX, 0);
         else
-            Log.w("ToolbarLayout.showMoreMenuPopupWindow", "moreMenuPopupWindow is null or already shown.");
+            Log.w(TAG + ".showMoreMenuPopupWindow", "moreMenuPopupWindow is null or already shown.");
     }
 
     public void dismissMoreMenuPopupWindow() {
         if (moreMenuPopupWindow != null || moreMenuPopupWindow.isShowing()) {
             moreMenuPopupWindow.dismiss();
         } else
-            Log.w("ToolbarLayout.dismissMoreMenuPopupWindow", "moreMenuPopupWindow is null or already hidden.");
+            Log.w(TAG + ".dismissMoreMenuPopupWindow", "moreMenuPopupWindow is null or already hidden.");
     }
 
     public void setMoreMenuButton(LinkedHashMap<String, Integer> linkedHashMap, AdapterView.OnItemClickListener ocl) {

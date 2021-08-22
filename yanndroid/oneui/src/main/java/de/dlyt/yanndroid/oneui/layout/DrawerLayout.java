@@ -169,7 +169,7 @@ public class DrawerLayout extends LinearLayout {
 
 
     public void showIconNotification(boolean navigationIcon, boolean drawerIcon) {
-        toolbarLayout.setNavigationButtonBadge(ToolbarLayout.N_BADGE);
+        toolbarLayout.setNavigationButtonBadge(navigationIcon ? ToolbarLayout.N_BADGE : 0);
         drawerIcon_badge.setVisibility(drawerIcon ? VISIBLE : GONE);
     }
 
