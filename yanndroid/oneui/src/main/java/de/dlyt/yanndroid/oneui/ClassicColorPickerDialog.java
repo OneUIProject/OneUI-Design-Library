@@ -29,14 +29,14 @@ public class ClassicColorPickerDialog extends SamsungAlertDialog implements Dial
         this.mColorPicker = (SeslColorPicker)var4.findViewById(R.id.sesl_color_picker_content_view);
     }
 
-    public ClassicColorPickerDialog(Context context, ClassicColorPickerDialog.ColorPickerChangedListener listener, int currentColor) throws Throwable {
+    public ClassicColorPickerDialog(Context context, ClassicColorPickerDialog.ColorPickerChangedListener listener, int currentColor) {
         this(context, listener);
         this.mColorPicker.getRecentColorInfo().setCurrentColor(currentColor);
         this.mCurrentColor = currentColor;
         this.mColorPicker.updateRecentColorLayout();
     }
 
-    public ClassicColorPickerDialog(Context context, ClassicColorPickerDialog.ColorPickerChangedListener listener, int currentColor, int[] recentColors) throws Throwable {
+    public ClassicColorPickerDialog(Context context, ClassicColorPickerDialog.ColorPickerChangedListener listener, int currentColor, int[] recentColors) {
         this(context, listener);
         this.mColorPicker.getRecentColorInfo().initRecentColorInfo(recentColors);
         this.mColorPicker.getRecentColorInfo().setCurrentColor(currentColor);
@@ -44,7 +44,7 @@ public class ClassicColorPickerDialog extends SamsungAlertDialog implements Dial
         this.mColorPicker.updateRecentColorLayout();
     }
 
-    public ClassicColorPickerDialog(Context context, ClassicColorPickerDialog.ColorPickerChangedListener listener, int[] recentColors) throws Throwable {
+    public ClassicColorPickerDialog(Context context, ClassicColorPickerDialog.ColorPickerChangedListener listener, int[] recentColors) {
         this(context, listener);
         this.mColorPicker.getRecentColorInfo().initRecentColorInfo(recentColors);
         this.mColorPicker.updateRecentColorLayout();
@@ -80,7 +80,7 @@ public class ClassicColorPickerDialog extends SamsungAlertDialog implements Dial
         super.onDetachedFromWindow();
     }
 
-    public void setNewColor(Integer var1) throws Throwable {
+    public void setNewColor(Integer var1) {
         this.mColorPicker.getRecentColorInfo().setNewColor(var1);
         this.mColorPicker.updateRecentColorLayout();
     }

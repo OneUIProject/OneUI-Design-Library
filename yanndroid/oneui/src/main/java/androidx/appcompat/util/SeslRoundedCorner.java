@@ -2,6 +2,7 @@ package androidx.appcompat.util;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -103,7 +104,7 @@ public class SeslRoundedCorner {
             this.mBottomLeftRound = this.mRes.getDrawable(R.drawable.sesl_bottom_left_round, theme);
             this.mBottomRightRound = this.mRes.getDrawable(R.drawable.sesl_bottom_right_round, theme);
         }
-        int color = this.mRes.getColor(R.color.background_color, null);
+        int color = getColor(mContext, android.R.attr.windowBackground);
         this.mBottomRightRoundColor = color;
         this.mBottomLeftRoundColor = color;
         this.mTopRightRoundColor = color;
@@ -210,5 +211,13 @@ public class SeslRoundedCorner {
             return;
         }
         throw new IllegalArgumentException("Use wrong rounded corners to the param, corners = " + i);
+    }
+
+    private int getColor(Context context, int colorResId) {
+        TypedValue typedValue = new TypedValue();
+        TypedArray typedArray = context.obtainStyledAttributes(typedValue.data, new int[]{colorResId});
+        int color = typedArray.getColor(0, 0);
+        typedArray.recycle();
+        return color;
     }
 }

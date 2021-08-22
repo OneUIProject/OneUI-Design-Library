@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="?colorPrimary" android:padding="18.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="8.0dip" android:paddingStart="5.0dip">
+        <TextView android:textColor="@color/tips_card_view_item_color" android:id="@android:id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginBottom="8.0dip" android:fontFamily="@string/sesl_font_family_regular" android:layout_alignParentStart="true" android:textAppearance="?textAppearanceListItem" />
+        <TextView android:textColor="@color/tips_card_view_item_color" android:id="@android:id/summary" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@android:id/title" android:fontFamily="@string/sesl_font_family_regular" android:textAlignment="viewStart" android:textStyle="normal" android:textSize="15.0sp" android:layout_marginEnd="38.0dip" android:layout_alignParentStart="true" />
+        <ImageView android:id="@+id/tips_cancel_button" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="22.0dip" android:layout_height="22.0dip" android:src="@drawable/tips_card_view_cancel_button" android:tint="@color/tips_card_view_item_color" android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</RelativeLayout>

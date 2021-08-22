@@ -70,7 +70,7 @@ class TooltipPopup {
         mLayoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
         mLayoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         mLayoutParams.format = -0x3;
-        mLayoutParams.windowAnimations = R.style.TooltipAnimation;
+        mLayoutParams.windowAnimations = R.style.TooltipAnimStyle;
         mLayoutParams.flags = 0x40008;
     }
 

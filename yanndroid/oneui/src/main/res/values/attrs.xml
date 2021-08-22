@@ -26,6 +26,8 @@
     <attr name="bottomNaviViewStyle" format="reference" />
     <attr name="tabLayoutStyle" format="reference" />
 
+    <attr name="goToTopStyle" format="reference" />
+
     <attr name="roundedCorners"  format="integer">
         <flag name="all" value="0x0000000f" />
         <flag name="bottom_left" value="0x00000004" />
@@ -34,18 +36,6 @@
         <flag name="top_left" value="0x00000001" />
         <flag name="top_right" value="0x00000002" />
     </attr>
-
-    <attr name="seslSeekBarMode">
-        <enum name="expand" value="5" />
-        <enum name="expand_vertical" value="6" />
-        <enum name="split" value="4" />
-        <enum name="standard" value="0" />
-        <enum name="vertical" value="3" />
-        <enum name="warning" value="1" />
-    </attr>
-    <attr name="seslThumbRadius" format="dimension" />
-    <attr name="seslTrackMaxWidth" format="dimension" />
-    <attr name="seslTrackMinWidth" format="dimension" />
 
     <attr name="checkMarkGravity">
         <flag name="end" value="0x00800005" />
@@ -99,7 +89,6 @@
     <declare-styleable name="ToolBarLayout">
         <attr name="title" format="string" />
         <attr name="subtitle" format="string" />
-        <attr name="navigationIcon" />
         <attr name="expandable" format="boolean" />
         <attr name="expanded" format="boolean" />
     </declare-styleable>
@@ -112,8 +101,42 @@
         <attr name="title" />
     </declare-styleable>
 
+    <declare-styleable name="SeslCheckedTextView">
+        <attr name="android:checked" />
+        <attr name="android:checkMark" />
+        <attr name="android:checkMarkTint" />
+        <attr name="android:checkMarkTintMode" />
+        <attr name="checkMarkGravity" />
+    </declare-styleable>
+
     <declare-styleable name="ToolbarImageButton">
         <attr name="seslTooltipText" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="SeslAbsSeekBar">
+        <attr name="android:thumb" />
+        <attr name="android:thumbTint" />
+        <attr name="android:thumbTintMode" />
+        <attr name="android:thumbOffset" />
+        <attr name="android:splitTrack" />
+        <attr name="tickMark" format="reference" />
+        <attr name="tickMarkTint" format="color" />
+        <attr name="tickMarkTintMode" />
+        <attr name="useDisabledAlpha" />
+        <attr name="seslThumbRadius" format="dimension" />
+        <attr name="seslTrackMaxWidth" format="dimension" />
+        <attr name="seslTrackMinWidth" format="dimension" />
+        <attr name="seslSeekBarMode">
+            <enum name="expand" value="5" />
+            <enum name="expand_vertical" value="6" />
+            <enum name="split" value="4" />
+            <enum name="standard" value="0" />
+            <enum name="vertical" value="3" />
+            <enum name="warning" value="1" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="AppCompatTheme">
+        <attr name="android:disabledAlpha" />
     </declare-styleable>
 
     <declare-styleable name="Switch">
@@ -258,6 +281,195 @@
     <declare-styleable name="RecycleListView">
         <attr name="paddingBottomNoButtons" format="dimension" />
         <attr name="paddingTopNoTitle" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="SeslRecyclerView">
+        <attr name="layoutManager" format="string" />
+        <attr name="android:orientation" />
+        <attr name="android:descendantFocusability" />
+        <attr name="spanCount" format="integer"/>
+        <attr name="reverseLayout" format="boolean" />
+        <attr name="stackFromEnd" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="SeslRecyclerViewFastScroller">
+        <attr name="position">
+            <enum name="aboveThumb" value="2" />
+            <enum name="atThumb" value="1" />
+            <enum name="floating" value="0" />
+        </attr>
+        <attr name="backgroundLeft" format="reference" />
+        <attr name="backgroundRight" format="reference" />
+        <attr name="thumbDrawable" format="reference" />
+        <attr name="trackDrawable" format="reference" />
+        <attr name="android:textAppearance" />
+        <attr name="android:textColor" />
+        <attr name="android:textSize" />
+        <attr name="android:minWidth" />
+        <attr name="android:minHeight" />
+        <attr name="thumbMinWidth" format="dimension" />
+        <attr name="thumbMinHeight" format="dimension" />
+        <attr name="android:padding" />
+        <attr name="thumbPosition">
+            <enum name="inside" value="1" />
+            <enum name="midpoint" value="0" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="View">
+        <attr name="android:background" />
+    </declare-styleable>
+    <declare-styleable name="PreferenceTheme">
+        <attr name="preferenceTheme" format="reference" />
+        <attr name="preferenceCategoryTitleTextAppearance" format="reference" />
+        <attr name="preferenceCategoryTitleTextColor" format="color|reference" />
+        <attr name="preferenceScreenStyle" format="reference" />
+        <attr name="preferenceFragmentStyle" format="reference" />
+        <attr name="preferenceFragmentCompatStyle" format="reference" />
+        <attr name="preferenceCategoryStyle" format="reference" />
+        <attr name="preferenceStyle" format="reference" />
+        <attr name="preferenceInformationStyle" format="reference" />
+        <attr name="checkBoxPreferenceStyle" format="reference" />
+        <attr name="dialogPreferenceStyle" format="reference" />
+        <attr name="editTextPreferenceStyle" format="reference" />
+        <attr name="dropdownPreferenceStyle" format="reference" />
+        <attr name="preferenceFragmentListStyle" format="reference" />
+        <attr name="switchPreferenceStyle" format="reference" />
+        <attr name="switchPreferenceCompatStyle" format="reference" />
+        <attr name="seekBarPreferenceStyle" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="Preference">
+        <attr name="icon" />
+        <attr name="android:icon" />
+        <attr name="key" format="string" />
+        <attr name="android:key" />
+        <attr name="title" />
+        <attr name="android:title" />
+        <attr name="summary" format="string" />
+        <attr name="android:summary" />
+        <attr name="order" format="integer" />
+        <attr name="android:order" />
+        <attr name="fragment" format="string" />
+        <attr name="android:fragment" />
+        <attr name="layout" />
+        <attr name="android:layout" />
+        <attr name="widgetLayout" format="reference" />
+        <attr name="android:widgetLayout" />
+        <attr name="enabled" format="boolean" />
+        <attr name="android:enabled" />
+        <attr name="selectable" format="boolean" />
+        <attr name="android:selectable" />
+        <attr name="dependency" format="string" />
+        <attr name="android:dependency" />
+        <attr name="persistent" format="boolean" />
+        <attr name="android:persistent" />
+        <attr name="defaultValue" format="string|boolean|integer|reference|float" />
+        <attr name="android:defaultValue" />
+        <attr name="shouldDisableView" format="boolean" />
+        <attr name="android:shouldDisableView" />
+        <attr name="allowDividerAbove" format="boolean" />
+        <attr name="allowDividerBelow" format="boolean" />
+        <attr name="singleLineTitle" format="boolean" />
+        <attr name="android:singleLineTitle" />
+        <attr name="iconSpaceReserved" format="boolean" />
+        <attr name="android:iconSpaceReserved" />
+    </declare-styleable>
+    <declare-styleable name="PreferenceCategory">
+        <attr name="roundStroke">
+            <flag name="all" value="0x0000000f" />
+            <flag name="bottom_left" value="0x00000004" />
+            <flag name="bottom_right" value="0x00000008" />
+            <flag name="none" value="0x00000000" />
+            <flag name="top_left" value="0x00000001" />
+            <flag name="top_right" value="0x00000002" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="SeslPreferenceFragmentCompat">
+        <attr name="android:layout" />
+        <attr name="android:divider" />
+        <attr name="android:dividerHeight" />
+        <attr name="allowDividerAfterLastItem" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="PreferenceGroup">
+        <attr name="orderingFromXml" format="boolean" />
+        <attr name="android:orderingFromXml" />
+    </declare-styleable>
+    <declare-styleable name="SeslPreferenceImageView">
+        <attr name="maxWidth" format="dimension" />
+        <attr name="android:maxWidth" />
+        <attr name="maxHeight" format="dimension" />
+        <attr name="android:maxHeight" />
+    </declare-styleable>
+    <declare-styleable name="DialogPreference">
+        <attr name="dialogTitle" format="string" />
+        <attr name="android:dialogTitle" />
+        <attr name="dialogMessage" format="string" />
+        <attr name="android:dialogMessage" />
+        <attr name="dialogIcon" format="reference" />
+        <attr name="android:dialogIcon" />
+        <attr name="positiveButtonText" format="string" />
+        <attr name="android:positiveButtonText" />
+        <attr name="negativeButtonText" format="string" />
+        <attr name="android:negativeButtonText" />
+        <attr name="dialogLayout" format="reference" />
+        <attr name="android:dialogLayout" />
+    </declare-styleable>
+    <declare-styleable name="CheckBoxPreference">
+        <attr name="summaryOn" format="string" />
+        <attr name="android:summaryOn" />
+        <attr name="summaryOff" format="string" />
+        <attr name="android:summaryOff" />
+        <attr name="disableDependentsState" format="boolean" />
+        <attr name="android:disableDependentsState" />
+    </declare-styleable>
+    <declare-styleable name="ListPreference">
+        <attr name="entries" format="reference" />
+        <attr name="android:entries" />
+        <attr name="entryValues" format="reference" />
+        <attr name="android:entryValues" />
+    </declare-styleable>
+    <declare-styleable name="MultiSelectListPreference">
+        <attr name="entries" />
+        <attr name="android:entries" />
+        <attr name="entryValues" />
+        <attr name="android:entryValues" />
+    </declare-styleable>
+    <declare-styleable name="SeekBarPreference">
+        <attr name="min" format="integer" />
+        <attr name="android:max"/>
+        <attr name="max" format="integer" />
+        <attr name="overlap" format="integer" />
+        <attr name="units" format="string" />
+        <attr name="seekBarIncrement" format="integer" />
+        <attr name="adjustable" format="boolean" />
+        <attr name="showSeekBarValue" format="boolean" />
+        <attr name="updatesContinuously" format="boolean" />
+        <attr name="seekBarMode">
+            <enum name="expand" value="5" />
+            <enum name="standard" value="0" />
+        </attr>
+        <attr name="seekBarSeamless" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="SwitchPreference">
+        <attr name="summaryOn" />
+        <attr name="android:summaryOn" />
+        <attr name="summaryOff" />
+        <attr name="android:summaryOff" />
+        <attr name="switchTextOn" format="string" />
+        <attr name="android:switchTextOn" />
+        <attr name="switchTextOff" format="string" />
+        <attr name="android:switchTextOff" />
+        <attr name="disableDependentsState" />
+        <attr name="android:disableDependentsState" />
+    </declare-styleable>
+    <declare-styleable name="InsetPreferenceCategory">
+        <attr name="height" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="ColorPickerPreference">
+        <attr name="showAlphaSlider" format="boolean" />
+        <attr name="pickerType">
+            <enum name="classic" value="0" />
+            <enum name="detailed" value="1" />
+        </attr>
     </declare-styleable>
 
 </resources>

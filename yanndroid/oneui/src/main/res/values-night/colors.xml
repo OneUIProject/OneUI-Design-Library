@@ -3,10 +3,13 @@
 
     <!--Main-->
     <color name="sesl_primary_text_color">@color/sesl_white</color>
+    <color name="sesl_secondary_text_color">#ff999999</color>
+    <color name="sesl_highlighted_text_color">#ff66b2cc</color>
 
     <color name="sesl_background_floating">@color/sesl_black</color>
     <color name="sesl_ripple_color">#33ffffff</color>
 
+    <color name="sesl_round_and_bgcolor">#010101</color>
 
     <color name="background_color">#ff010101</color>
     <color name="item_background_color">#ff171717</color>
@@ -14,8 +17,23 @@
 
     <color name="sesl_btn_default_text_color">@color/sesl_white</color>
 
+    <color name="sesl_list_ripple_color">@color/sesl_ripple_color</color>
+
+    <color name="sesl_edit_text_color">@color/sesl_white</color>
+    <color name="sesl_edit_text_color_disabled">#ff454545</color>
+    <color name="sesl_edit_text_hint_color">#ff999999</color>
+    <color name="sesl_edit_text_tint_color_disabled">#ff454545</color>
+    <color name="sesl_edit_text_tint_color_unfocused">#ff999999</color>
+
+    <color name="sesl_action_bar_text_color_menu">#fffafafa</color>
+
     <!--Sesl-->
     <color name="divider_color">#42fafafa</color>
+
+
+    <!--Seekbar-->
+    <color name="sesl_seekbar_disable_color_activated">#ff545454</color>
+    <color name="sesl_seekbar_overlap_color_default">#ff673724</color>
 
 
     <!--Switch-->
@@ -96,10 +114,25 @@
     <color name="sesl_dialog_sub_text_color_material">#ff666666</color>
     <color name="sesl_dialog_title_text_color">#fffafafa</color>
     <color name="sesl_dialog_window_background_color_material">#ff252525</color>
+
     <color name="sesl_color_picker_selected_color_item_text_color">#B0B0B0</color>
     <color name="sesl_color_picker_stroke_color">#000000</color>
     <color name="sesl_color_picker_used_color_item_empty_slot_color">#3B3B3B</color>
     <color name="sesl_color_picker_used_color_text_color">#42FAFAFA</color>
+
+
+    <!--RecyclerView-->
+    <color name="sesl_list_go_to_top_arrow_bottom">#FAFAFA</color>
+    <color name="sesl_list_go_to_top_arrow_top">#AAAAAA</color>
+    <color name="sesl_list_go_to_top_inner_round">#3D3D3D</color>
+    <color name="sesl_list_go_to_top_outer_round">#5E5E5E</color>
+
+
+    <!--Preference-->
+    <color name="sesl_switch_divider_color">#33d4d4d4</color>
+    <color name="sesl_list_divider_color">#26d4d4d4</color>
+
+
 
 
 </resources>

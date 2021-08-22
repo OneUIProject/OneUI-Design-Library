@@ -45,7 +45,7 @@ import java.lang.ref.WeakReference;
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneui.widget.SamsungEdgeEffect;
-import de.dlyt.yanndroid.oneui.widget.SamsungNestedScrollView;
+import de.dlyt.yanndroid.oneui.NestedScrollView;
 
 public class SamsungAlertController {
     public ListAdapter mAdapter;
@@ -123,7 +123,7 @@ public class SamsungAlertController {
     public CharSequence mMessage;
     public TextView mMessageView;
     public int mMultiChoiceItemLayout;
-    public SamsungNestedScrollView mScrollView;
+    public NestedScrollView mScrollView;
     public boolean mShowTitle;
     public int mSingleChoiceItemLayout;
     public CharSequence mTitle;
@@ -314,8 +314,8 @@ public class SamsungAlertController {
                 if (this.mMessage != null) {
                     final View finalVar = var2;
                     final View finalVar1 = var6;
-                    this.mScrollView.setOnScrollChangeListener(new SamsungNestedScrollView.OnScrollChangeListener() {
-                        public void onScrollChange(SamsungNestedScrollView var1, int var2x, int var3, int var4, int var5) {
+                    this.mScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+                        public void onScrollChange(NestedScrollView var1, int var2x, int var3, int var4, int var5) {
                             SamsungAlertController.manageScrollIndicators(var1, finalVar, finalVar1);
                         }
                     });
@@ -515,7 +515,7 @@ public class SamsungAlertController {
 
     @SuppressLint({"WrongConstant", "ResourceType"})
     private void setupContent(ViewGroup var1) {
-        this.mScrollView = (SamsungNestedScrollView)this.mWindow.findViewById(R.id.scrollView);
+        this.mScrollView = (NestedScrollView)this.mWindow.findViewById(R.id.scrollView);
         this.mScrollView.setFocusable(false);
         this.mScrollView.setNestedScrollingEnabled(false);
         this.mMessageView = (TextView)var1.findViewById(16908299);
@@ -761,7 +761,7 @@ public class SamsungAlertController {
 
         this.adjustButtonsPadding();
         if (var10 != 0) {
-            SamsungNestedScrollView var15 = this.mScrollView;
+            NestedScrollView var15 = this.mScrollView;
             if (var15 != null) {
                 var15.setClipToPadding(true);
             }
@@ -851,7 +851,7 @@ public class SamsungAlertController {
     }
 
     public boolean onKeyDown(int var1, KeyEvent var2) {
-        SamsungNestedScrollView var3 = this.mScrollView;
+        NestedScrollView var3 = this.mScrollView;
         boolean var4;
         if (var3 != null && var3.executeKeyEvent(var2)) {
             var4 = true;
@@ -863,7 +863,7 @@ public class SamsungAlertController {
     }
 
     public boolean onKeyUp(int var1, KeyEvent var2) {
-        SamsungNestedScrollView var3 = this.mScrollView;
+        NestedScrollView var3 = this.mScrollView;
         boolean var4;
         if (var3 != null && var3.executeKeyEvent(var2)) {
             var4 = true;
