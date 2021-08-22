@@ -17,7 +17,7 @@ import androidx.core.view.ViewConfigurationCompat;
 import androidx.reflect.hardware.input.SeslInputManagerReflector;
 import androidx.reflect.view.SeslViewReflector;
 
-class Tooltip implements View.OnLongClickListener, View.OnHoverListener, View.OnAttachStateChangeListener {
+public class Tooltip implements View.OnLongClickListener, View.OnHoverListener, View.OnAttachStateChangeListener {
     private static final String TAG = "Tooltip";
 
     private static final long LONG_CLICK_HIDE_TIMEOUT_MS = 2500;

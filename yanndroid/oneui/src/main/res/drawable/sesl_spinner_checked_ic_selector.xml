@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" android:autoMirrored="false">
+<selector android:autoMirrored="false"
+  xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/sesl_spinner_icon_check" android:state_activated="true" />
-    <item android:drawable="@drawable/sesl_spinner_icon_check" android:state_checked="true" />
+    <item android:state_checked="true" android:drawable="@drawable/sesl_spinner_icon_check" />
 </selector>

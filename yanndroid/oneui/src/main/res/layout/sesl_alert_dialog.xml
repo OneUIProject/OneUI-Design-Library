@@ -10,9 +10,10 @@
     </LinearLayout>
     <FrameLayout android:id="@+id/contentPanel" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="24.0dip" android:layout_weight="1.0">
         <View android:layout_gravity="top" android:id="@+id/scrollIndicatorUp" android:background="?colorControlHighlight" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="1.0dip" />
-        <de.dlyt.yanndroid.oneui.widget.SamsungNestedScrollView android:scrollbarStyle="outsideOverlay" android:id="@+id/scrollView" android:paddingBottom="@dimen/sesl_dialog_body_text_padding_bottom" android:scrollbars="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingStart="@dimen/sesl_dialog_body_text_scroll_padding_start" android:paddingEnd="@dimen/sesl_dialog_body_text_scroll_padding_end">
+        <de.dlyt.yanndroid.oneui.NestedScrollView
+            android:scrollbarStyle="outsideOverlay" android:id="@+id/scrollView" android:paddingBottom="@dimen/sesl_dialog_body_text_padding_bottom" android:scrollbars="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingStart="@dimen/sesl_dialog_body_text_scroll_padding_start" android:paddingEnd="@dimen/sesl_dialog_body_text_scroll_padding_end">
             <TextView android:id="@android:id/message" android:layout_width="fill_parent" android:layout_height="wrap_content" android:lineSpacingExtra="@dimen/sesl_dialog_body_text_line_spacing_extra" android:textAlignment="viewStart" android:layout_marginStart="@dimen/sesl_dialog_body_text_margin_start" android:layout_marginEnd="@dimen/sesl_dialog_body_text_margin_end" style="?android:textAppearance" />
-        </de.dlyt.yanndroid.oneui.widget.SamsungNestedScrollView>
+        </de.dlyt.yanndroid.oneui.NestedScrollView>
         <View android:layout_gravity="bottom" android:id="@+id/scrollIndicatorDown" android:background="?colorControlHighlight" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="1.0dip" />
     </FrameLayout>
     <FrameLayout android:id="@+id/customPanel" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="48.0dip" android:layout_weight="1.0">

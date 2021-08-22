@@ -276,12 +276,15 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         return Math.max(0, this.slidingTabIndicator.getWidth() - this.getWidth() - this.getPaddingLeft() - this.getPaddingRight());
     }
 
+    public void addOnTabSelectedListener(OnTabSelectedListener var1) {
+        addOnTabSelectedListener((BaseOnTabSelectedListener) var1);
+    }
+
     @Deprecated
     public void addOnTabSelectedListener(BaseOnTabSelectedListener var1) {
         if (!this.selectedListeners.contains(var1)) {
             this.selectedListeners.add(var1);
         }
-
     }
 
     public void addTab(Tab var1) {
@@ -798,6 +801,10 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         }
 
         this.selectedTab = null;
+    }
+    
+    public void removeOnTabSelectedListener(OnTabSelectedListener var1) {
+        removeOnTabSelectedListener((BaseOnTabSelectedListener) var1);
     }
 
     @Deprecated

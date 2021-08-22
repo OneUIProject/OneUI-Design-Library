@@ -4,26 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:title="@string/app_name"
-    app:expanded="false"
-    app:expandable="false">
+    app:subtitle="RecyclerView"
+    app:expandable="true">
 
     <de.dlyt.yanndroid.oneui.RoundFrameLayout
+        android:id="@+id/preference_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/item_background_color"
-        app:roundedCorners="top_left|top_right">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="24.0dp"
-            android:textSize="24.0sp"
-            android:textColor="@color/item_color"
-            android:fontFamily="sans-serif-light"
-            android:textAlignment="center"
-            android:text="Creating apps has never been so cool!"/>
-
-    </de.dlyt.yanndroid.oneui.RoundFrameLayout>
+        android:nestedScrollingEnabled="true"
+        app:roundedCorners="top_left|top_right"/>
 
 </de.dlyt.yanndroid.oneui.layout.ToolbarLayout>

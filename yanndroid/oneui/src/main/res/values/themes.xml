@@ -7,9 +7,20 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
 
+        <item name="android:listSeparatorTextViewStyle">@style/ListSeparatorStyle</item>
+
         <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryDark">@color/primary_dark_color</item>
         <item name="colorSecondary">@color/secondary_color</item>
+
+        <item name="android:textColorPrimary">@color/sesl_primary_text</item>
+        <item name="android:textColorPrimaryInverse">@color/sesl_primary_text</item>
+        <item name="android:textColorSecondary">@color/sesl_secondary_text</item>
+        <item name="android:textColorSecondaryInverse">@color/sesl_secondary_text</item>
+        <item name="android:textColorHighlight">@color/sesl_highlighted_text_color</item>
+        <item name="android:textColorAlertDialogListItem">@color/sesl_select_dialog_list_item_text</item>
+
+        <item name="android:listDivider">@drawable/sesl_list_divider</item>
 
         <item name="android:theme">@style/SamsungStyleMain</item>
 

@@ -23,7 +23,7 @@
         android:orientation="vertical"
         app:roundedCorners="top_left|top_right">
 
-        <de.dlyt.yanndroid.oneui.widget.SamsungNestedScrollView
+        <de.dlyt.yanndroid.oneui.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
@@ -32,11 +32,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:nestedScrollingEnabled="true">
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/SubHeaderStyle"
+                    style="@style/ListSeparatorStyle"
                     android:text="Icons" />
 
                 <com.google.android.material.card.MaterialCardView
@@ -46,7 +47,7 @@
                     <GridView
                         android:id="@+id/images"
                         android:layout_width="match_parent"
-                        android:layout_height="120dp"
+                        android:layout_height="125dp"
                         android:layout_gravity="center"
                         android:layout_marginHorizontal="24dp"
                         android:layout_marginVertical="10dp"
@@ -56,42 +57,7 @@
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/SubHeaderStyle"
-                    android:layout_marginTop="15dp"
-                    android:text="SeekBar" />
-
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="24dp"
-                        android:layout_marginVertical="10dp"
-                        android:orientation="vertical">
-
-                        <de.dlyt.yanndroid.oneui.SeekBar
-                            android:id="@+id/seekbar1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="10dp"
-                            app:seslSeekBarMode="expand" />
-
-                        <SeekBar
-                            android:id="@+id/seekbar2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="10dp" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/SubHeaderStyle"
+                    style="@style/ListSeparatorStyle"
                     android:layout_marginTop="15dp"
                     android:text="ProgressBar" />
 
@@ -152,7 +118,7 @@
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/SubHeaderStyle"
+                    style="@style/ListSeparatorStyle"
                     android:layout_marginTop="15dp"
                     android:text="Buttons" />
 
@@ -269,7 +235,7 @@
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/SubHeaderStyle"
+                    style="@style/ListSeparatorStyle"
                     android:layout_marginTop="15dp"
                     android:text="Others" />
 
@@ -300,7 +266,7 @@
                             android:text="TextView"
                             android:textAlignment="viewStart" />
 
-                        <Spinner
+                        <androidx.appcompat.widget.AppCompatSpinner
                             android:id="@+id/spinner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -312,7 +278,7 @@
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/SubHeaderStyle"
+                    style="@style/ListSeparatorStyle"
                     android:layout_marginTop="15dp"
                     android:text="Color Pickers" />
 
@@ -428,7 +394,7 @@
                 </de.dlyt.yanndroid.oneui.RelatedCard>
 
             </LinearLayout>
-        </de.dlyt.yanndroid.oneui.widget.SamsungNestedScrollView>
+        </de.dlyt.yanndroid.oneui.NestedScrollView>
 
     </de.dlyt.yanndroid.oneui.RoundLinearLayout>
 

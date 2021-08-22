@@ -17,18 +17,19 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSpinner;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
-import de.dlyt.yanndroid.oneui.SeekBar;
 import de.dlyt.yanndroid.oneui.SwitchBar;
 import de.dlyt.yanndroid.oneui.TabLayout;
 import de.dlyt.yanndroid.oneui.drawer.OptionButton;
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
+import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneuiexample.AboutActivity;
 import de.dlyt.yanndroid.oneuiexample.R;
 import de.dlyt.yanndroid.oneuiexample.utils.BaseTabFragment;
@@ -41,18 +42,6 @@ public class MainActivityFirstFragment extends BaseTabFragment {
     private View mRootView;
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        if (mRootView == null) {
-            mRootView = getView();
-        }
-        if (mContext == null) {
-            mContext = mActivity.getApplicationContext();
-        }
-    }
-
-    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mActivity = (AppCompatActivity) getActivity();
@@ -62,16 +51,33 @@ public class MainActivityFirstFragment extends BaseTabFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_first, container, false);
-        setHasOptionsMenu(true);
         return mRootView;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         //DrawerLayout
         DrawerLayout drawerLayout = mRootView.findViewById(R.id.drawer_view);
         mActivity.setSupportActionBar(drawerLayout.getToolbar());
         drawerLayout.setDrawerIconOnClickListener(v -> startActivity(new Intent().setClass(getContext(), AboutActivity.class)));
+
+        ToolbarLayout toolbarLayout = (ToolbarLayout) drawerLayout.getView(DrawerLayout.TOOLBAR);
+        toolbarLayout.addOverflowButton(false,
+                R.drawable.ic_samsung_info,
+                R.string.app_info,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent().setClass(getContext(), AboutActivity.class));
+                    }
+                });
+        toolbarLayout.setNavigationButtonBadge(ToolbarLayout.N_BADGE);
+        toolbarLayout.setMoreMenuButton(getMoreMenuButtonList(),
+                (adapterView, view2, i, j) -> {
+                    toolbarLayout.dismissMoreMenuPopupWindow();
+                });
 
         //Library Demo
         demo();
@@ -88,22 +94,6 @@ public class MainActivityFirstFragment extends BaseTabFragment {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         init();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_first, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.info:
-                startActivity(new Intent().setClass(getContext(), AboutActivity.class));
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -137,26 +127,6 @@ public class MainActivityFirstFragment extends BaseTabFragment {
         tabLayout.setup();
 
 
-        //SeekBar
-        SeekBar seekBar1 = mRootView.findViewById(R.id.seekbar1);
-        android.widget.SeekBar seekBar2 = mRootView.findViewById(R.id.seekbar2);
-        seekBar1.setOverlapPointForDualColor(70);
-        seekBar2.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(android.widget.SeekBar seekBar, int progress, boolean fromUser) {
-                seekBar1.setSecondaryProgress(progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(android.widget.SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(android.widget.SeekBar seekBar) {
-            }
-        });
-
-
         //SwitchBar
         SwitchBar switchbar = mRootView.findViewById(R.id.switchBar);
         switchbar.addOnSwitchChangeListener((switchCompat, z) -> {
@@ -171,11 +141,11 @@ public class MainActivityFirstFragment extends BaseTabFragment {
 
 
         //Spinner
-        Spinner spinner = mRootView.findViewById(R.id.spinner);
+        AppCompatSpinner spinner = mRootView.findViewById(R.id.spinner);
         List<String> categories = new ArrayList<String>();
         for (int i = 1; i < 16; i++) categories.add("Spinner Item " + i);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_item, categories);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.setDropDownViewResource(R.layout.sesl_simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
 
 
@@ -184,6 +154,15 @@ public class MainActivityFirstFragment extends BaseTabFragment {
         optionButton.setButtonEnabled(false);
 
     }
+
+    private LinkedHashMap<String, Integer> getMoreMenuButtonList() {
+        LinkedHashMap linkedHashMap = new LinkedHashMap();
+        linkedHashMap.put("Menu Item 1", 0);
+        linkedHashMap.put("Menu Item 2", 87);
+        linkedHashMap.put("Menu Item 3", ToolbarLayout.N_BADGE);
+        return linkedHashMap;
+    }
+
 
     //Adapter for the Icon GridView
     public class ImageAdapter extends BaseAdapter {

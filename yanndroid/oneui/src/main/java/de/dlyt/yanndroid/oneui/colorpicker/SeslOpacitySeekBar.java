@@ -14,11 +14,11 @@ class SeslOpacitySeekBar extends SeekBar {
     private int[] mColors = new int[]{-1, -16777216};
     private GradientDrawable mProgressDrawable;
 
-    public SeslOpacitySeekBar(Context var1, AttributeSet var2) throws Throwable {
+    public SeslOpacitySeekBar(Context var1, AttributeSet var2) {
         super(var1, var2);
     }
 
-    private void initColor(int var1) throws Throwable {
+    private void initColor(int var1) {
         float[] var2 = new float[3];
         Color.colorToHSV(var1, var2);
         var1 = Color.alpha(var1);
@@ -27,7 +27,7 @@ class SeslOpacitySeekBar extends SeekBar {
         this.setProgress(var1);
     }
 
-    void changeColorBase(int var1) throws Throwable {
+    void changeColorBase(int var1) {
         GradientDrawable var2 = this.mProgressDrawable;
         if (var2 != null) {
             int[] var3 = this.mColors;
@@ -39,7 +39,7 @@ class SeslOpacitySeekBar extends SeekBar {
 
     }
 
-    void init(Integer var1) throws Throwable {
+    void init(Integer var1) {
         this.setMax(255);
         if (var1 != null) {
             this.initColor(var1);
@@ -51,7 +51,7 @@ class SeslOpacitySeekBar extends SeekBar {
         this.setThumbOffset(0);
     }
 
-    void restoreColor(int var1) throws Throwable {
+    void restoreColor(int var1) {
         this.initColor(var1);
         this.mProgressDrawable.setColors(this.mColors);
         this.setProgressDrawable(this.mProgressDrawable);
