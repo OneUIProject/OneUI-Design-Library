@@ -73,6 +73,7 @@ public class MainActivityFirstFragment extends BaseTabFragment {
                         startActivity(new Intent().setClass(getContext(), AboutActivity.class));
                     }
                 });
+        toolbarLayout.setNavigationButtonBadge(ToolbarLayout.N_BADGE);
         toolbarLayout.setMoreMenuButton(getMoreMenuButtonList(),
                 (adapterView, view2, i, j) -> {
                     toolbarLayout.dismissMoreMenuPopupWindow();

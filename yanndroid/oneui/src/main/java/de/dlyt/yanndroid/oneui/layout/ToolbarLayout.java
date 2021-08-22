@@ -67,6 +67,8 @@ public class ToolbarLayout extends LinearLayout {
     private MaterialToolbar toolbar;
     private FrameLayout navigationButtonContainer;
     private ToolbarImageButton navigationButton;
+    public ViewGroup navigationBadgeBackground;
+    public TextView navigationBadgeText;
     private MaterialTextView collapsedTitle;
     private LinearLayout overflowContainer;
     private FrameLayout moreOverflowButtonContainer;
@@ -308,12 +310,37 @@ public class ToolbarLayout extends LinearLayout {
         setNavigationButtonVisible(navigationIcon != null);
     }
     public void setNavigationButtonVisible(boolean visible) {
-        navigationButton.setVisibility(visible ? View.VISIBLE : View.GONE);
+        navigationButtonContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
         toolbar.setPaddingRelative(visible ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), 0, 0, 0);
     }
 
-    public void showNavIconNotification(boolean showNotification) {
-        //navigation_icon_Badge.setVisibility(showNotification ? VISIBLE : GONE);
+    public void setNavigationButtonBadge(int count) {
+        if (navigationBadgeBackground == null) {
+            navigationBadgeBackground = (ViewGroup) ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.navigation_button_badge_layout, navigationButtonContainer, false);
+            navigationBadgeText = (TextView) navigationBadgeBackground.getChildAt(0);
+            navigationBadgeText.setTextSize(0, (float) ((int) getResources().getDimension(R.dimen.sesl_menu_item_badge_text_size)));
+            navigationButtonContainer.addView(navigationBadgeBackground);
+        }
+        if (navigationBadgeText != null) {
+            if (count > 0) {
+                if (count > 99) {
+                    count = 99;
+                }
+                String countString = numberFormat.format((long) count);
+                navigationBadgeText.setText(countString);
+                int width = (int) (getResources().getDimension(R.dimen.sesl_badge_default_width) + (float) countString.length() * getResources().getDimension(R.dimen.sesl_badge_additional_width));
+                ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) navigationBadgeBackground.getLayoutParams();
+                lp.width = width;
+                lp.height = (int) getResources().getDimension(R.dimen.sesl_menu_item_badge_size);
+                navigationBadgeBackground.setLayoutParams(lp);
+                navigationBadgeBackground.setVisibility(View.VISIBLE);
+            } else if (count == N_BADGE) {
+                navigationBadgeText.setText(getResources().getString(R.string.sesl_action_menu_overflow_badge_text_n));
+                navigationBadgeBackground.setVisibility(View.VISIBLE);
+            } else {
+                navigationBadgeBackground.setVisibility(View.GONE);
+            }
+        }
     }
 
     public void setNavigationIconTooltip(CharSequence tooltipText) {

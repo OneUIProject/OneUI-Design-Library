@@ -47,7 +47,7 @@
                     <GridView
                         android:id="@+id/images"
                         android:layout_width="match_parent"
-                        android:layout_height="120dp"
+                        android:layout_height="125dp"
                         android:layout_gravity="center"
                         android:layout_marginHorizontal="24dp"
                         android:layout_marginVertical="10dp"
