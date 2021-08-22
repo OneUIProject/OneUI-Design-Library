@@ -66,8 +66,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
         if (mPickerType == CLASSIC)
             onColorChanged(restoreValue ? getPersistedInt(mValue) : (Integer) defaultValue);
         else {
-            float[] fArr = {};
-            onColorChanged(restoreValue ? getPersistedInt(mValue) : (Integer) defaultValue, fArr);
+            onColorChanged(restoreValue ? getPersistedInt(mValue) : (Integer) defaultValue, null);
         }
     }
 

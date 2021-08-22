@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <bool name="sesl_config_closeDialogWhenTouchOutside">true</bool>
+    <bool name="sesl_seekbar_sliding_animation">true</bool>
 </resources>

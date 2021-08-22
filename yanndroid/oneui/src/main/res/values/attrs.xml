@@ -37,18 +37,6 @@
         <flag name="top_right" value="0x00000002" />
     </attr>
 
-    <attr name="seslSeekBarMode">
-        <enum name="expand" value="5" />
-        <enum name="expand_vertical" value="6" />
-        <enum name="split" value="4" />
-        <enum name="standard" value="0" />
-        <enum name="vertical" value="3" />
-        <enum name="warning" value="1" />
-    </attr>
-    <attr name="seslThumbRadius" format="dimension" />
-    <attr name="seslTrackMaxWidth" format="dimension" />
-    <attr name="seslTrackMinWidth" format="dimension" />
-
     <attr name="checkMarkGravity">
         <flag name="end" value="0x00800005" />
         <flag name="left" value="0x00000003" />
@@ -124,6 +112,32 @@
 
     <declare-styleable name="ToolbarImageButton">
         <attr name="seslTooltipText" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="SeslAbsSeekBar">
+        <attr name="android:thumb" />
+        <attr name="android:thumbTint" />
+        <attr name="android:thumbTintMode" />
+        <attr name="android:thumbOffset" />
+        <attr name="android:splitTrack" />
+        <attr name="tickMark" format="reference" />
+        <attr name="tickMarkTint" format="color" />
+        <attr name="tickMarkTintMode" />
+        <attr name="useDisabledAlpha" />
+        <attr name="seslThumbRadius" format="dimension" />
+        <attr name="seslTrackMaxWidth" format="dimension" />
+        <attr name="seslTrackMinWidth" format="dimension" />
+        <attr name="seslSeekBarMode">
+            <enum name="expand" value="5" />
+            <enum name="expand_vertical" value="6" />
+            <enum name="split" value="4" />
+            <enum name="standard" value="0" />
+            <enum name="vertical" value="3" />
+            <enum name="warning" value="1" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="AppCompatTheme">
+        <attr name="android:disabledAlpha" />
     </declare-styleable>
 
     <declare-styleable name="Switch">
