@@ -35,6 +35,10 @@
             android:key="key2" android:title="DropDownPreference" android:summary="Summary" android:entries="@array/inner_preferences_test_entries" android:entryValues="@array/inner_preferences_test_values" />
         <MultiSelectListPreference
             android:key="key3" android:title="MultiSelectListPreference" android:summary="Summary" android:entries="@array/inner_preferences_test_entries" android:entryValues="@array/inner_preferences_test_values"/>
+        <ColorPickerPreference
+            android:key="key4" android:title="ColorPickerPreference" android:summary="pickerType classic; showAlphaSlider" android:defaultValue="#085265" app:pickerType="classic" app:showAlphaSlider="true"/>
+        <ColorPickerPreference
+            android:key="key5" android:title="ColorPickerPreference" android:summary="pickerType detailed" android:defaultValue="#FF2563" app:pickerType="detailed"/>
     </PreferenceCategory>
 
     <InsetPreferenceCategory app:height="80.0dip"/>

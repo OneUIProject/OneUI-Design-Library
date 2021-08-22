@@ -258,14 +258,14 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         this.mScaledTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         this.mIsLightTheme = SeslMisc.isLightTheme(context);
         this.mDefaultNormalProgressColor = colorToColorStateList(resources.getColor(R.color.sesl_seekbar_control_color_default, context.getTheme()));
-        this.mDefaultSecondaryProgressColor = colorToColorStateList(resources.getColor(R.color.sesl_seekbar_control_color_secondary));
+        this.mDefaultSecondaryProgressColor = colorToColorStateList(resources.getColor(R.color.sesl_seekbar_control_color_secondary, context.getTheme()));
         this.mDefaultActivatedProgressColor = colorToColorStateList(getColor(context, R.attr.colorPrimary));
-        this.mOverlapNormalProgressColor = colorToColorStateList(resources.getColor(this.mIsLightTheme ? R.color.sesl_seekbar_overlap_color_default_light : R.color.sesl_seekbar_overlap_color_default_dark));
-        this.mOverlapActivatedProgressColor = colorToColorStateList(resources.getColor(R.color.sesl_seekbar_overlap_color_activated));
+        this.mOverlapNormalProgressColor = colorToColorStateList(resources.getColor(R.color.sesl_seekbar_overlap_color_default, context.getTheme()));
+        this.mOverlapActivatedProgressColor = colorToColorStateList(resources.getColor(R.color.sesl_seekbar_overlap_color_activated, context.getTheme()));
         int[][] iArr = {new int[]{16842910}, new int[]{-16842910}};
         int[] iArr2 = new int[2];
-        iArr2[0] = resources.getColor(R.color.sesl_seekbar_overlap_color_activated);
-        iArr2[1] = resources.getColor(this.mIsLightTheme ? R.color.sesl_seekbar_disable_color_activated_light : R.color.sesl_seekbar_disable_color_activated_dark);
+        iArr2[0] = resources.getColor(R.color.sesl_seekbar_overlap_color_activated, context.getTheme());
+        iArr2[1] = resources.getColor(R.color.sesl_seekbar_disable_color_activated, context.getTheme());
         this.mOverlapActivatedThumbColor = new ColorStateList(iArr, iArr2);
         ColorStateList thumbTintList = getThumbTintList();
         this.mDefaultActivatedThumbColor = thumbTintList;
@@ -273,7 +273,7 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
             int[][] iArr3 = {new int[]{16842910}, new int[]{-16842910}};
             int[] iArr4 = new int[2];
             iArr4[0] = getColor(context, R.attr.colorPrimary);
-            iArr4[1] = resources.getColor(this.mIsLightTheme ? R.color.sesl_seekbar_disable_color_activated_light : R.color.sesl_seekbar_disable_color_activated_dark);
+            iArr4[1] = resources.getColor(R.color.sesl_seekbar_disable_color_activated, context.getTheme());
             this.mDefaultActivatedThumbColor = new ColorStateList(iArr3, iArr4);
         }
         boolean z2 = true;
@@ -1681,10 +1681,10 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
             } else if (i == 1) {
                 updateWarningMode(getProgress());
             } else if (i == 3) {
-                setThumb(getContext().getResources().getDrawable(this.mIsLightTheme ? R.drawable.sesl_scrubber_control_anim_light : R.drawable.sesl_scrubber_control_anim_dark));
+                setThumb(getContext().getResources().getDrawable(R.drawable.sesl_scrubber_control_anim, getContext().getTheme()));
             } else if (i == 4) {
-                this.mSplitProgress = getContext().getResources().getDrawable(R.drawable.sesl_split_seekbar_primary_progress);
-                this.mDivider = getContext().getResources().getDrawable(R.drawable.sesl_split_seekbar_vertical_bar);
+                this.mSplitProgress = getContext().getResources().getDrawable(R.drawable.sesl_split_seekbar_primary_progress, getContext().getTheme());
+                this.mDivider = getContext().getResources().getDrawable(R.drawable.sesl_split_seekbar_vertical_bar, getContext().getTheme());
                 updateSplitProgress();
             } else if (i == 5) {
                 initializeExpandMode();

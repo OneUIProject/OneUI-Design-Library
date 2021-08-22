@@ -25,8 +25,15 @@
     <color name="sesl_edit_text_tint_color_disabled">#ff454545</color>
     <color name="sesl_edit_text_tint_color_unfocused">#ff999999</color>
 
+    <color name="sesl_action_bar_text_color_menu">#fffafafa</color>
+
     <!--Sesl-->
     <color name="divider_color">#42fafafa</color>
+
+
+    <!--Seekbar-->
+    <color name="sesl_seekbar_disable_color_activated">#ff545454</color>
+    <color name="sesl_seekbar_overlap_color_default">#ff673724</color>
 
 
     <!--Switch-->

@@ -57,7 +57,7 @@ public class SeslColorPicker extends LinearLayout {
     private GradientDrawable mSelectedColorBackground;
     private final int[] mSmallestWidthDp = new int[]{320, 360, 411};
 
-    public SeslColorPicker(Context var1, AttributeSet var2) throws Throwable {
+    public SeslColorPicker(Context var1, AttributeSet var2) {
         super(var1, var2);
         boolean var3 = false;
         this.mIsInputFromUser = false;
@@ -170,7 +170,7 @@ public class SeslColorPicker extends LinearLayout {
 
     }
 
-    private void initOpacitySeekBar() throws Throwable {
+    private void initOpacitySeekBar() {
         this.mOpacitySeekBar = (SeslOpacitySeekBar)this.findViewById(R.id.sesl_color_picker_opacity_seekbar);
         this.mOpacitySeekBarContainer = (FrameLayout)this.findViewById(R.id.sesl_color_picker_opacity_seekbar_container);
         if (!this.mIsOpacityBarEnabled) {
@@ -269,7 +269,7 @@ public class SeslColorPicker extends LinearLayout {
         return false;
     }
 
-    private void mapColorOnColorWheel(int var1) throws Throwable {
+    private void mapColorOnColorWheel(int var1) {
         this.mPickedColor.setColor(var1);
         SeslColorSwatchView var2 = this.mColorSwatchView;
         if (var2 != null) {
@@ -322,7 +322,7 @@ public class SeslColorPicker extends LinearLayout {
         var1.setOnClickListener(this.mImageButtonClickListener);
     }
 
-    private void setInitialColors() throws Throwable {
+    private void setInitialColors() {
         Integer var1 = this.mPickedColor.getColor();
         if (var1 != null) {
             this.mapColorOnColorWheel(var1);
@@ -330,7 +330,7 @@ public class SeslColorPicker extends LinearLayout {
 
     }
 
-    private void updateCurrentColor() throws Throwable {
+    private void updateCurrentColor() {
         Integer var1 = this.mPickedColor.getColor();
         if (var1 != null) {
             SeslOpacitySeekBar var2 = this.mOpacitySeekBar;
@@ -386,7 +386,7 @@ public class SeslColorPicker extends LinearLayout {
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
-    public void updateRecentColorLayout() throws Throwable {
+    public void updateRecentColorLayout() {
         ArrayList var1 = this.mRecentColorValues;
         int var2;
         if (var1 != null) {

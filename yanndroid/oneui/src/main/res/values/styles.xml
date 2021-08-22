@@ -54,6 +54,8 @@
 
         <item name="listChoiceBackgroundIndicator">@drawable/sesl_list_selector</item>
 
+        <item name="actionMenuTextColor">@color/sesl_action_menu_text</item>
+
         <item name="tooltipForegroundColor">@color/sesl_tooltip_foreground</item>
         <item name="tooltipFrameBackground">@color/sesl_tooltip_background</item>
 
@@ -275,11 +277,10 @@
         <item name="android:focusable">true</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_min_height</item>
         <item name="android:indeterminateOnly">false</item>
-        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal
-        </item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
         <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_min_height</item>
-        <item name="android:thumb">@drawable/sesl_scrubber_control_anim_dark</item>
+        <item name="android:thumb">@drawable/sesl_scrubber_control_anim</item>
         <item name="android:paddingStart">@dimen/sesl_seekbar_padding_horizontal</item>
         <item name="android:paddingEnd">@dimen/sesl_seekbar_padding_horizontal</item>
         <item name="android:mirrorForRtl">true</item>
@@ -345,7 +346,7 @@
         <item name="android:background">@drawable/sesl_spinner_background</item>
         <item name="android:clickable">true</item>
         <item name="android:dropDownSelector">?android:listChoiceBackgroundIndicator</item>
-        <item name="android:popupBackground">@drawable/sesl_menu_popup_background_dark</item>
+        <item name="android:popupBackground">@drawable/sesl_menu_popup_background</item>
         <item name="android:popupAnimationStyle">@style/ListPopupAnimation</item>
         <item name="android:dropDownHorizontalOffset">0.0dip</item>
         <item name="android:dropDownVerticalOffset">0.0dip</item>
@@ -382,12 +383,12 @@
     <!--PopupMenuStyle-->
     <style name="PopupMenuStyle" parent="@android:style/Widget.Material.ListPopupWindow">
         <item name="android:popupElevation">8.0dip</item>
-        <item name="android:popupBackground">@drawable/sesl_menu_popup_background_dark</item>
+        <item name="android:popupBackground">@drawable/sesl_menu_popup_background</item>
         <item name="android:popupAnimationStyle">@style/MenuPopupAnimation</item>
         <item name="overlapAnchor">true</item>
         <item name="popupEnterTransition">@null</item>
         <item name="popupExitTransition">@null</item>
-        <item name="android:dropDownSelector">@drawable/sesl_list_selector_dark</item>
+        <item name="android:dropDownSelector">@drawable/sesl_list_selector</item>
         <item name="android:dropDownWidth">wrap_content</item>
     </style>
 
@@ -414,7 +415,7 @@
 
     <!--Toolbar-->
     <style name="ActionButtonOverflow" parent="@android:style/Widget.Material.ActionButton.Overflow">
-        <item name="android:src">@drawable/sesl_ic_menu_overflow_dark</item>
+        <item name="android:src">@drawable/sesl_ic_menu_overflow</item>
         <item name="android:contentDescription">@string/sesl_more_options</item>
     </style>
 
@@ -725,7 +726,7 @@
     <style name="SeekBarPreferenceStyle" parent="@style/PreferenceStyle">
         <item name="android:layout">@layout/sesl_preference_widget_seekbar</item>
         <item name="adjustable">true</item>
-        <item name="showSeekBarValue">true</item>
+        <item name="showSeekBarValue">false</item>
     </style>
     <style name="SeekBarPreferenceCompatStyle" parent="@style/PreferenceStyle">
         <item name="android:layout">@layout/sesl_preference_widget_seekbar</item>

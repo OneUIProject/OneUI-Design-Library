@@ -7,14 +7,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 
-import androidx.appcompat.widget.SeslAppCompatSpinner;
+import androidx.appcompat.widget.AppCompatSpinner;
 
 import de.dlyt.yanndroid.oneui.R;
 
 public class DropDownPreference extends ListPreference {
     private final ArrayAdapter mAdapter;
     private final Context mContext;
-    private SeslAppCompatSpinner mSpinner;
+    private AppCompatSpinner mSpinner;
 
     public DropDownPreference(Context context) {
         this(context, null);
@@ -62,7 +62,7 @@ public class DropDownPreference extends ListPreference {
                 }
             }
         }
-        return SeslAppCompatSpinner.INVALID_POSITION;
+        return AppCompatSpinner.INVALID_POSITION;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class DropDownPreference extends ListPreference {
     }
 
     public void onBindViewHolder(PreferenceViewHolder view) {
-        mSpinner = (SeslAppCompatSpinner) view.itemView.findViewById(R.id.spinner);
+        mSpinner = (AppCompatSpinner) view.itemView.findViewById(R.id.spinner);
         mSpinner.setSoundEffectsEnabled(false);
         if (!mAdapter.equals(mSpinner.getAdapter())) {
             mSpinner.setAdapter(mAdapter);

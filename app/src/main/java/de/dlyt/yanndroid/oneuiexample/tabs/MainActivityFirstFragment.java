@@ -17,14 +17,13 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSpinner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.dlyt.yanndroid.oneui.SeekBar;
 import de.dlyt.yanndroid.oneui.SwitchBar;
 import de.dlyt.yanndroid.oneui.TabLayout;
 import de.dlyt.yanndroid.oneui.drawer.OptionButton;
@@ -141,11 +140,11 @@ public class MainActivityFirstFragment extends BaseTabFragment {
 
 
         //Spinner
-        Spinner spinner = mRootView.findViewById(R.id.spinner);
+        AppCompatSpinner spinner = mRootView.findViewById(R.id.spinner);
         List<String> categories = new ArrayList<String>();
         for (int i = 1; i < 16; i++) categories.add("Spinner Item " + i);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_item, categories);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.setDropDownViewResource(R.layout.sesl_simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
 
 

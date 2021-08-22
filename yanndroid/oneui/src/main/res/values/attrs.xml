@@ -451,5 +451,12 @@
     <declare-styleable name="InsetPreferenceCategory">
         <attr name="height" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="ColorPickerPreference">
+        <attr name="showAlphaSlider" format="boolean" />
+        <attr name="pickerType">
+            <enum name="classic" value="0" />
+            <enum name="detailed" value="1" />
+        </attr>
+    </declare-styleable>
 
 </resources>
