@@ -3,16 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:title="@string/app_name"
-    app:subtitle="RecyclerView"
-    app:expandable="true">
+    app:expandable="true"
+    app:subtitle="Preferences"
+    app:title="@string/app_name">
 
-    <de.dlyt.yanndroid.oneui.RoundFrameLayout
+    <FrameLayout
         android:id="@+id/preference_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/item_background_color"
-        android:nestedScrollingEnabled="true"
-        app:roundedCorners="top_left|top_right"/>
+        android:nestedScrollingEnabled="true" />
 
 </de.dlyt.yanndroid.oneui.layout.ToolbarLayout>

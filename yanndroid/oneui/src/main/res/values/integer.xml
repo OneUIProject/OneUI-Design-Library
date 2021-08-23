@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer name="content_margin">0</integer>
     <integer name="drawerMaxWidth">840</integer>
     <integer name="sesl_config_tooltipAnimTime">150</integer>
     <integer name="sesl_loading_progress_anim_duration">750</integer>

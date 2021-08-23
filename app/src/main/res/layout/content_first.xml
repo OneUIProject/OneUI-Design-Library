@@ -5,17 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <de.dlyt.yanndroid.oneui.SwitchBar
-        android:id="@+id/switchBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <de.dlyt.yanndroid.oneui.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="12dp"
-        android:layout_marginHorizontal="@dimen/tablayout_start_end_margin"/>
+        android:layout_marginHorizontal="@dimen/tablayout_start_end_margin"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="12dp" />
 
     <de.dlyt.yanndroid.oneui.RoundLinearLayout
         android:layout_width="match_parent"
@@ -32,9 +28,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:nestedScrollingEnabled="true">
+                android:nestedScrollingEnabled="true"
+                android:orientation="vertical">
 
+                <de.dlyt.yanndroid.oneui.SwitchBar
+                    android:id="@+id/switchBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/ListSeparatorStyle"
@@ -58,7 +58,6 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/ListSeparatorStyle"
-                    android:layout_marginTop="15dp"
                     android:text="ProgressBar" />
 
 
@@ -119,7 +118,6 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/ListSeparatorStyle"
-                    android:layout_marginTop="15dp"
                     android:text="Buttons" />
 
 
@@ -178,6 +176,7 @@
                             android:orientation="horizontal">
 
                             <com.google.android.material.button.MaterialButton
+                                style="@style/ButtonStyle.Transparent"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -222,12 +221,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12.0dip"
+                            android:onClick="progressDialog"
                             app:counter="44"
                             app:counterEnabled="true"
                             app:icon="@drawable/ic_samsung_info"
                             app:selected="true"
-                            app:text="OptionButton"
-                            android:onClick="progressDialog" />
+                            app:text="OptionButton" />
 
                     </LinearLayout>
 
@@ -236,7 +235,6 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/ListSeparatorStyle"
-                    android:layout_marginTop="15dp"
                     android:text="Others" />
 
 
@@ -279,7 +277,6 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/ListSeparatorStyle"
-                    android:layout_marginTop="15dp"
                     android:text="Color Pickers" />
 
 
@@ -298,8 +295,8 @@
                             style="@style/ButtonStyle.Invert"
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10.0dip"
                             android:layout_gravity="center"
+                            android:layout_marginBottom="10.0dip"
                             android:onClick="classicColorPickerDialog"
                             android:text="Classic" />
 

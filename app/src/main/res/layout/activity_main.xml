@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/background_color"
+    android:orientation="vertical"
     tools:context=".MainActivity">
-    <de.dlyt.yanndroid.oneui.RoundFrameLayout
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="fill_parent"
         android:layout_height="0.0dip"
         android:layout_weight="1.0"
-        android:paddingBottom="1.0px"
-        app:roundedCorners="bottom_left|bottom_right">
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
-    </de.dlyt.yanndroid.oneui.RoundFrameLayout>
+        android:paddingBottom="1.0px" />
+
     <RelativeLayout
-        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
         android:background="@color/background_color"
         android:gravity="center_horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="60.0dip">
+        android:orientation="vertical">
+
         <de.dlyt.yanndroid.oneui.BottomNavigationView
             android:id="@+id/main_samsung_tabs"
+            style="?bottomNaviViewStyle"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            style="?bottomNaviViewStyle"/>
+            android:layout_height="fill_parent" />
     </RelativeLayout>
 </LinearLayout>
