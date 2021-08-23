@@ -35,7 +35,7 @@ public class BottomNavigationView extends SamsungBaseTabLayout implements View.O
         mDepthStyle = 1;
     }
 
-    public void setup(Activity activity) {
+    public void updateWidget(Activity activity) {
         mActivity = activity;
         mTextViews = new ArrayList<>();
 
@@ -72,7 +72,7 @@ public class BottomNavigationView extends SamsungBaseTabLayout implements View.O
     private void addTabPaddingValue(ArrayList<Float> tabTextWidthList, float tabTextWidthSum) {
         float tabTextPadding = (float) getResources().getDimensionPixelSize(R.dimen.bnv_padding);
         float tabTextPaddingSum = tabTextPadding * 8.0f;
-        float tabLayoutPadding = (float) getResources().getDimensionPixelSize(R.dimen.bnv_layout_padding);
+        float tabLayoutPadding = (float) getResources().getDimensionPixelSize(R.dimen.tab_layout_padding);
 
         Window window = mActivity.getWindow();
         Point size = new Point();

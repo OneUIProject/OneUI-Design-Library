@@ -1,6 +1,7 @@
 package de.dlyt.yanndroid.oneui;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -19,16 +20,18 @@ public class TabLayout extends SamsungBaseTabLayout {
         mDepthStyle = 2;
     }
 
-    public void setup() {
+    public void updateWidget() {
         Float[] tabCount = new Float[getTabCount()];
         float f = 0.0f;
         for (int i = 0; i < getTabCount(); i++) {
             TabLayout.Tab tab = getTabAt(i);
             if (tab != null) {
-                tabCount[i] = getTextMeasure(tab.seslGetTextView());
+                tabCount[i] = getTabTextWidth(tab.seslGetTextView());
                 f += tabCount[i];
             }
         }
+        float tabLayoutPadding = (float) getResources().getDimensionPixelSize(R.dimen.tab_layout_padding);
+        ((MarginLayoutParams) getLayoutParams()).setMargins((int) tabLayoutPadding, 0, (int) tabLayoutPadding, 0);
         setViewDimens(tabCount, f);
         post(new Runnable() {
             public final void run() {
@@ -37,11 +40,17 @@ public class TabLayout extends SamsungBaseTabLayout {
         });
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        updateWidget();
+    }
+
     private void setSelectedTabScrollPosition() {
         setScrollPosition(getSelectedTabPosition(), 0.0f, true);
     }
 
-    private float getTextMeasure(TextView textView) {
+    private float getTabTextWidth(TextView textView) {
         return textView.getPaint().measureText(textView.getText().toString());
     }
 
