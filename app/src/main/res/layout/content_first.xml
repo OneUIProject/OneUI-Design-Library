@@ -13,9 +13,7 @@
     <de.dlyt.yanndroid.oneui.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="12dp"
-        android:layout_marginHorizontal="@dimen/tablayout_start_end_margin"/>
+        android:layout_height="60dp"/>
 
     <de.dlyt.yanndroid.oneui.RoundLinearLayout
         android:layout_width="match_parent"

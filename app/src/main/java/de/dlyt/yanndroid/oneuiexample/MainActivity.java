@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onTabReselected(BottomNavigationView.Tab tab) { }
         });
-        bnvLayout.setup(this);
+        bnvLayout.updateWidget(this);
         setCurrentItem();
     }
 

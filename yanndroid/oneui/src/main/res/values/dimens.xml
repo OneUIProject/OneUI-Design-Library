@@ -208,7 +208,7 @@
     <dimen name="sesl_tablayout_subtab_side_space">12.0dip</dimen>
     <dimen name="sesl_tab_icon_size">24.0dip</dimen>
     <dimen name="bnv_padding">8.0dip</dimen>
-    <dimen name="bnv_layout_padding">24.0dip</dimen>
+    <dimen name="tab_layout_padding">24.0dip</dimen>
     <dimen name="tablayout_start_end_margin">24.0dip</dimen>
     <dimen name="tablayout_text_padding">12.0dip</dimen>
 
