@@ -117,7 +117,7 @@ public class MainActivityFirstFragment extends BaseTabFragment {
 
         // TabLayout
         TabLayout tabLayout = mRootView.findViewById(R.id.tabLayout);
-        String[] tabsName = {"Menu", "Big menu", "Very big menu"};
+        String[] tabsName = {"Views", "Icons", "Nothing"};
         for (String s: tabsName) {
             tabLayout.addTab(tabLayout.newTab().setText(s));
         }

@@ -1,29 +1,56 @@
 plugins {
     id 'com.android.library'
     id 'maven-publish'
-    id 'maven'
+    id 'signing'
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/yanndroid/OneUI-Design-Library")
-            credentials {
-                username = "Yanndroid"
-                password = "$System.env.GITHUB_TOKEN"
-            }
-        }
-    }
     publications {
-        bar(MavenPublication) {
-            groupId = 'de.dlyt.yanndroid'
-            artifactId = 'oneui'
-            version = latest
+        release(MavenPublication) {
+            groupId = GROUP_ID
+            artifactId = ARTIFACT_ID
+            version = VERSION_NAME
             artifact("$rootDir/yanndroid/oneui/build/outputs/aar/oneui-release.aar")
+
+            pom {
+                name = GROUP_ID
+                description = POM_DESCRIPTION
+                url = POM_URL
+                licenses {
+                    license {
+                        name = POM_LICENSE_NAME
+                        url = POM_LICENSE_URL
+                    }
+                }
+                developers {
+                    developer {
+                        id = POM_DEVELOPER_ID
+                        name = POM_DEVELOPER_NAME
+                        email = POM_DEVELOPER_EMAIL
+                    }
+                }
+                scm {
+                    connection = POM_SCM_CONNECTION
+                    developerConnection = POM_SCM_DEV_CONNECTION
+                    url = POM_SCM_URL
+                }
+            }
+
         }
     }
 }
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+ext["signing.keyId"] = properties.getProperty('signing.keyId')
+ext["signing.password"] = properties.getProperty('signing.password')
+ext["signing.secretKeyRingFile"] = properties.getProperty('signing.secretKeyRingFile')
+signing {
+    sign publishing.publications
+}
+
+//gradlew publishToSonatype closeSonatypeStagingRepository
+
 
 android {
     compileSdkVersion 30
@@ -32,8 +59,8 @@ android {
     defaultConfig {
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 2
-        versionName "${latest}"
+        versionCode = VERSION_CODE
+        versionName = VERSION_NAME
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -52,7 +79,6 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     testImplementation 'junit:junit:4.+'

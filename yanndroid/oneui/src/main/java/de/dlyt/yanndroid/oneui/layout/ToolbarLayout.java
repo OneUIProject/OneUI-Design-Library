@@ -39,8 +39,10 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 
 import de.dlyt.yanndroid.oneui.R;
+import de.dlyt.yanndroid.oneui.RoundLinearLayout;
 import de.dlyt.yanndroid.oneui.appbar.SamsungAppBarLayout;
 import de.dlyt.yanndroid.oneui.appbar.SamsungCollapsingToolbarLayout;
+import de.dlyt.yanndroid.oneui.coordinatorlayout.SamsungCoordinatorLayout;
 import de.dlyt.yanndroid.oneui.widget.ToolbarImageButton;
 
 public class ToolbarLayout extends LinearLayout {
@@ -75,7 +77,7 @@ public class ToolbarLayout extends LinearLayout {
     private ToolbarImageButton moreOverflowButton;
     public ViewGroup moreOverflowBadgeBackground;
     public TextView moreOverflowBadgeText;
-    private LinearLayout mainContainer;
+    private RoundLinearLayout mainContainer;
 
     public static final int APPBAR_LAYOUT = 0;
     public static final int COLLAPSING_TOOLBAR = 1;
@@ -162,6 +164,9 @@ public class ToolbarLayout extends LinearLayout {
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        updateListBothSideMargin(mainContainer);
+        updateListBothSideMargin(findViewById(R.id.toolbar_layout_bottom_corners));
+
         if (mExpandable) {
             resetAppBarHeight();
         }
@@ -201,6 +206,7 @@ public class ToolbarLayout extends LinearLayout {
 
     private void init() {
         updateListBothSideMargin(mainContainer);
+        updateListBothSideMargin(findViewById(R.id.toolbar_layout_bottom_corners));
 
         if (mExpandable) {
             appBarLayout.addOnOffsetChangedListener(new AppBarOffsetListener());
@@ -242,7 +248,8 @@ public class ToolbarLayout extends LinearLayout {
                     int width = getActivity().findViewById(android.R.id.content).getWidth();
                     Configuration configuration = getActivity().getResources().getConfiguration();
                     if (configuration.screenHeightDp <= 411 || configuration.screenWidthDp < 512) {
-                        viewGroup.setPadding(0, 0, 0, 0);
+                        //viewGroup.setPadding(0, 0, 0, 0);
+                        setHorizontalMargin(viewGroup, 0);
                         return;
                     }
                     viewGroup.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -250,19 +257,36 @@ public class ToolbarLayout extends LinearLayout {
                     if (screenWidthDp < 685 || screenWidthDp > 959) {
                         if (screenWidthDp >= 960 && screenWidthDp <= 1919) {
                             int i = (int) (((float) width) * 0.125f);
-                            viewGroup.setPadding(i, 0, i, 0);
+                            //viewGroup.setPadding(i, 0, i, 0);
+                            setHorizontalMargin(viewGroup, i);
                         } else if (configuration.screenWidthDp >= 1920) {
                             int i = (int) (((float) width) * 0.25f);
-                            viewGroup.setPadding(i, 0, i, 0);
+                            //viewGroup.setPadding(i, 0, i, 0);
+                            setHorizontalMargin(viewGroup, i);
                         } else {
-                            viewGroup.setPadding(0, 0, 0, 0);
+                            //viewGroup.setPadding(0, 0, 0, 0);
+                            setHorizontalMargin(viewGroup, 0);
                         }
                     } else {
                         int i = (int) (((float) width) * 0.05f);
-                        viewGroup.setPadding(i, 0, i, 0);
+                        //viewGroup.setPadding(i, 0, i, 0);
+                        setHorizontalMargin(viewGroup, i);
                     }
                 }
             });
+        }
+    }
+
+    private void setHorizontalMargin(ViewGroup viewGroup, int margin) {
+        ViewGroup.LayoutParams layoutParams = viewGroup.getLayoutParams();
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) layoutParams;
+            lp.setMargins(margin, 0, margin, 0);
+            viewGroup.setLayoutParams(lp);
+        } else if (layoutParams instanceof SamsungCoordinatorLayout.LayoutParams) {
+            SamsungCoordinatorLayout.LayoutParams lp = (SamsungCoordinatorLayout.LayoutParams) layoutParams;
+            lp.setMargins(margin, 0, margin, 0);
+            viewGroup.setLayoutParams(lp);
         }
     }
 
@@ -550,115 +574,113 @@ public class ToolbarLayout extends LinearLayout {
     }
 
 
+private class AppBarOffsetListener implements SamsungAppBarLayout.OnOffsetChangedListener {
+    @SuppressLint("Range")
+    @Override
+    public void onOffsetChanged(SamsungAppBarLayout layout, int verticalOffset) {
+        int layoutPosition = Math.abs(appBarLayout.getTop());
+        float alphaRange = ((float) collapsingToolbarLayout.getHeight()) * 0.17999999f;
+        float toolbarTitleAlphaStart = ((float) collapsingToolbarLayout.getHeight()) * 0.35f;
 
-    private class AppBarOffsetListener implements SamsungAppBarLayout.OnOffsetChangedListener {
-        @SuppressLint("Range")
-        @Override
-        public void onOffsetChanged(SamsungAppBarLayout layout, int verticalOffset) {
-            int layoutPosition = Math.abs(appBarLayout.getTop());
-            float alphaRange = ((float) collapsingToolbarLayout.getHeight()) * 0.17999999f;
-            float toolbarTitleAlphaStart = ((float) collapsingToolbarLayout.getHeight()) * 0.35f;
+        if (appBarLayout.getHeight() <= ((int) getResources().getDimension(R.dimen.sesl_action_bar_height_with_padding))) {
+            collapsedTitle.setAlpha(1.0f);
+        } else {
+            float collapsedTitleAlpha = ((150.0f / alphaRange) * (((float) layoutPosition) - toolbarTitleAlphaStart));
 
-            if (appBarLayout.getHeight() <= ((int) getResources().getDimension(R.dimen.sesl_action_bar_height_with_padding))) {
+            if (collapsedTitleAlpha >= 0.0f && collapsedTitleAlpha <= 255.0f) {
+                collapsedTitleAlpha /= 255.0f;
+                collapsedTitle.setAlpha(collapsedTitleAlpha);
+            } else if (collapsedTitleAlpha < 0.0f)
+                collapsedTitle.setAlpha(0.0f);
+            else
                 collapsedTitle.setAlpha(1.0f);
-            } else {
-                float collapsedTitleAlpha = ((150.0f / alphaRange) * (((float) layoutPosition) - toolbarTitleAlphaStart));
-
-                if (collapsedTitleAlpha >= 0.0f && collapsedTitleAlpha <= 255.0f) {
-                    collapsedTitleAlpha /= 255.0f;
-                    collapsedTitle.setAlpha(collapsedTitleAlpha);
-                }
-                else if (collapsedTitleAlpha < 0.0f)
-                    collapsedTitle.setAlpha(0.0f);
-                else
-                    collapsedTitle.setAlpha(1.0f);
-            }
         }
     }
+}
 
-    private class MoreMenuPopupAdapter extends ArrayAdapter {
-        ArrayList<String> itemTitle;
-        ArrayList<Integer> badgeCount;
-        Activity activity;
+private class MoreMenuPopupAdapter extends ArrayAdapter {
+    ArrayList<String> itemTitle;
+    ArrayList<Integer> badgeCount;
+    Activity activity;
 
-        public MoreMenuPopupAdapter(Activity instance, LinkedHashMap<String, Integer> linkedHashMap) {
-            super(instance, 0);
-            activity = instance;
-            itemTitle = new ArrayList(linkedHashMap.keySet());
-            badgeCount = new ArrayList(linkedHashMap.values());
-        }
-
-        public void setArrays(LinkedHashMap<String, Integer> linkedHashMap) {
-            itemTitle = new ArrayList(linkedHashMap.keySet());
-            badgeCount = new ArrayList(linkedHashMap.values());
-        }
-
-        @Override
-        public int getCount() {
-            return itemTitle.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return itemTitle.get(position);
-        }
-
-        @Override
-        public View getView(int index, View view, ViewGroup parent) {
-            PopupMenuItem itemVar;
-
-            if (view == null) {
-                view = ((LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.menu_popup_item_layout, parent, false);
-                itemVar = new PopupMenuItem(this);
-                itemVar.titleText = view.findViewById(R.id.more_menu_popup_title_text);
-                itemVar.badgeIcon = view.findViewById(R.id.more_menu_popup_badge);
-                view.setTag(itemVar);
-            } else {
-                itemVar = (PopupMenuItem) view.getTag();
-            }
-
-            itemVar.titleText.setText(itemTitle.get(index));
-            if (badgeCount.get(index) > 0) {
-                int count = badgeCount.get(index);
-                if (count > 99) {
-                    count = 99;
-                }
-                String countString = numberFormat.format((long) count);
-                itemVar.badgeIcon.setText(countString);
-                int width = (int) (getResources().getDimension(R.dimen.sesl_badge_default_width) + (float) countString.length() * getResources().getDimension(R.dimen.sesl_badge_additional_width));
-                LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) itemVar.badgeIcon.getLayoutParams();
-                lp.width = width;
-                itemVar.badgeIcon.setLayoutParams(lp);
-                itemVar.badgeIcon.setVisibility(View.VISIBLE);
-            } else if (badgeCount.get(index) == N_BADGE) {
-                itemVar.badgeIcon.setText("N");
-                itemVar.badgeIcon.setVisibility(View.VISIBLE);
-            } else {
-                itemVar.badgeIcon.setVisibility(View.GONE);
-            }
-
-            if (getCount() <= 1) {
-                view.setBackgroundResource(R.drawable.menu_popup_item_bg_all_round);
-            } else if (index == 0) {
-                view.setBackgroundResource(R.drawable.menu_popup_item_bg_top_round);
-            } else if (index == getCount() - 1) {
-                view.setBackgroundResource(R.drawable.menu_popup_item_bg_bottom_round);
-            } else {
-                view.setBackgroundResource(R.drawable.menu_popup_item_bg_no_round);
-            }
-
-            return view;
-        }
+    public MoreMenuPopupAdapter(Activity instance, LinkedHashMap<String, Integer> linkedHashMap) {
+        super(instance, 0);
+        activity = instance;
+        itemTitle = new ArrayList(linkedHashMap.keySet());
+        badgeCount = new ArrayList(linkedHashMap.values());
     }
 
-    private class PopupMenuItem {
-        MoreMenuPopupAdapter adapter;
-        TextView titleText;
-        TextView badgeIcon;
-
-        PopupMenuItem(MoreMenuPopupAdapter instance) {
-            adapter = instance;
-        }
+    public void setArrays(LinkedHashMap<String, Integer> linkedHashMap) {
+        itemTitle = new ArrayList(linkedHashMap.keySet());
+        badgeCount = new ArrayList(linkedHashMap.values());
     }
+
+    @Override
+    public int getCount() {
+        return itemTitle.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return itemTitle.get(position);
+    }
+
+    @Override
+    public View getView(int index, View view, ViewGroup parent) {
+        PopupMenuItem itemVar;
+
+        if (view == null) {
+            view = ((LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.menu_popup_item_layout, parent, false);
+            itemVar = new PopupMenuItem(this);
+            itemVar.titleText = view.findViewById(R.id.more_menu_popup_title_text);
+            itemVar.badgeIcon = view.findViewById(R.id.more_menu_popup_badge);
+            view.setTag(itemVar);
+        } else {
+            itemVar = (PopupMenuItem) view.getTag();
+        }
+
+        itemVar.titleText.setText(itemTitle.get(index));
+        if (badgeCount.get(index) > 0) {
+            int count = badgeCount.get(index);
+            if (count > 99) {
+                count = 99;
+            }
+            String countString = numberFormat.format((long) count);
+            itemVar.badgeIcon.setText(countString);
+            int width = (int) (getResources().getDimension(R.dimen.sesl_badge_default_width) + (float) countString.length() * getResources().getDimension(R.dimen.sesl_badge_additional_width));
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) itemVar.badgeIcon.getLayoutParams();
+            lp.width = width;
+            itemVar.badgeIcon.setLayoutParams(lp);
+            itemVar.badgeIcon.setVisibility(View.VISIBLE);
+        } else if (badgeCount.get(index) == N_BADGE) {
+            itemVar.badgeIcon.setText("N");
+            itemVar.badgeIcon.setVisibility(View.VISIBLE);
+        } else {
+            itemVar.badgeIcon.setVisibility(View.GONE);
+        }
+
+        if (getCount() <= 1) {
+            view.setBackgroundResource(R.drawable.menu_popup_item_bg_all_round);
+        } else if (index == 0) {
+            view.setBackgroundResource(R.drawable.menu_popup_item_bg_top_round);
+        } else if (index == getCount() - 1) {
+            view.setBackgroundResource(R.drawable.menu_popup_item_bg_bottom_round);
+        } else {
+            view.setBackgroundResource(R.drawable.menu_popup_item_bg_no_round);
+        }
+
+        return view;
+    }
+}
+
+private class PopupMenuItem {
+    MoreMenuPopupAdapter adapter;
+    TextView titleText;
+    TextView badgeIcon;
+
+    PopupMenuItem(MoreMenuPopupAdapter instance) {
+        adapter = instance;
+    }
+}
 
 }

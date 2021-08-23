@@ -2,11 +2,11 @@
 <resources>
     <string-array name="mainactivity_tab_tag">
         <item>design</item>
-        <item>recyclerview</item>
+        <item>preferences</item>
     </string-array>
     <string-array name="mainactivity_tab_title">
-        <item>Tab 1</item>
-        <item>Tab 2</item>
+        <item>Drawer</item>
+        <item>Toolbar</item>
     </string-array>
     <string-array name="mainactivity_tab_class">
         <item>de.dlyt.yanndroid.oneuiexample.tabs.MainActivityFirstFragment</item>

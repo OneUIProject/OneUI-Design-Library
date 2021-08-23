@@ -7,7 +7,7 @@
 [![](https://img.shields.io/github/contributors/Yanndroid/OneUI-Design-Library)](https://github.com/Yanndroid/OneUI-Design-Library/graphs/contributors)
 [![](https://img.shields.io/static/v1?label=telegram&message=Yanndroid&color=blue)](https://t.me/Yanndroid)
 
-# OneUi Design
+# OneUI Design
 
 :warning: v1.3.0: moved from ```de.dlyt.yanndroid.samsung``` to ```de.dlyt.yanndroid.oneui```
 

@@ -31,8 +31,11 @@
         <item name="snackbarStyle">@style/SnackBarStyle</item>
         <item name="actionOverflowButtonStyle">@style/ActionButtonOverflow</item>
 
-        <item name="android:listPreferredItemPaddingStart">@dimen/sesl_list_item_padding_horizontal</item>
-        <item name="android:listPreferredItemPaddingEnd">@dimen/sesl_list_item_padding_horizontal</item>
+        <item name="android:listPreferredItemPaddingStart">
+            @dimen/sesl_list_item_padding_horizontal
+        </item>
+        <item name="android:listPreferredItemPaddingEnd">@dimen/sesl_list_item_padding_horizontal
+        </item>
 
         <item name="android:textSelectHandle">@drawable/sesl_text_select_handle_middle</item>
         <item name="android:textSelectHandleLeft">@drawable/sesl_text_select_handle_left</item>
@@ -42,7 +45,8 @@
         <item name="textAppearanceListItem">@style/SubheadTextStyle</item>
         <item name="textAppearanceListItemSmall">@style/SubheadTextStyle</item>
         <item name="listPreferredItemHeight">@dimen/sesl_list_preferred_item_height</item>
-        <item name="listPreferredItemHeightSmall">@dimen/sesl_list_preferred_item_height_small</item>
+        <item name="listPreferredItemHeightSmall">@dimen/sesl_list_preferred_item_height_small
+        </item>
         <item name="listPreferredItemPaddingLeft">?android:listPreferredItemPaddingStart</item>
         <item name="listPreferredItemPaddingRight">?android:listPreferredItemPaddingEnd</item>
 
@@ -92,36 +96,40 @@
         <item name="android:scrollbarThumbHorizontal">@drawable/sesl_scrollbar_handle</item>
         <item name="android:scrollbarThumbVertical">@drawable/sesl_scrollbar_handle</item>
 
-        <!--<item name="popupTheme" tools:targetApi="q">@android:style/Theme.DeviceDefault.DayNight</item>-->
-
     </style>
 
     <!--ProgressBar-->
     <style name="ProgressBarStyle" parent="@android:style/Widget.ProgressBar">
         <item name="android:indeterminateDrawable">@drawable/sesl_progress</item>
     </style>
+
     <style name="ProgressBarStyle.Small" parent="@style/ProgressBarStyle">
         <item name="android:maxWidth">@dimen/sesl_progress_bar_size_small</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_size_small</item>
         <item name="android:minWidth">@dimen/sesl_progress_bar_size_small</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_size_small</item>
     </style>
+
     <style name="ProgressBarStyle.Large" parent="@style/ProgressBarStyle">
         <item name="android:maxWidth">@dimen/sesl_progress_bar_size_large</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_size_large</item>
         <item name="android:minWidth">@dimen/sesl_progress_bar_size_large</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_size_large</item>
     </style>
+
     <style name="ProgressBarStyle.Title" parent="@style/ProgressBarStyle">
         <item name="android:maxWidth">@dimen/sesl_progress_bar_size_small_title</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_size_small_title</item>
         <item name="android:minWidth">@dimen/sesl_progress_bar_size_small_title</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_size_small_title</item>
     </style>
+
     <style name="ProgressBarStyle.Horizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
-        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal
+        </item>
         <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
     </style>
+
     <style name="ProgressBarStyle.Horizontal.Large" parent="@android:style/Widget.ProgressBar.Horizontal">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -132,6 +140,7 @@
         <item name="android:progressDrawable">@drawable/progress_bar</item>
         <item name="android:minHeight">@dimen/progress_bar_height</item>
     </style>
+
     <style name="ProgressBarStyle.Circle" parent="@android:style/Widget.ProgressBar">
         <item name="android:maxWidth">@dimen/sesl_progress_circle_size</item>
         <item name="android:maxHeight">@dimen/sesl_progress_circle_size</item>
@@ -142,12 +151,14 @@
         <item name="android:minWidth">55.0dip</item>
         <item name="android:minHeight">55.0dip</item>
     </style>
+
     <style name="ProgressBarStyle.Circle.Small" parent="@style/ProgressBarStyle.Circle">
         <item name="android:maxWidth">@dimen/sesl_progress_bar_size_small</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_size_small</item>
         <item name="android:minWidth">@dimen/sesl_progress_bar_size_small</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_size_small</item>
     </style>
+
     <style name="ProgressBarStyle.Circle.Large" parent="@style/ProgressBarStyle.Circle">
         <item name="android:maxWidth">@dimen/sesl_progress_bar_size_large</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_size_large</item>
@@ -194,12 +205,18 @@
         <item name="android:maxLines">2</item>
         <item name="android:stateListAnimator">@null</item>
     </style>
+
     <style name="ButtonTextStyle" parent="TextAppearance.AppCompat.Widget.Button">
         <item name="android:textSize">@dimen/sesl_button_text_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/sesl_btn_text_color</item>
         <item name="textAllCaps">false</item>
         <item name="fontFamily">@string/sesl_font_family_regular</item>
+    </style>
+
+    <style name="ButtonStyle.Transparent">
+        <item name="android:textColor">?colorSecondary</item>
+        <item name="android:background">@drawable/sesl_btn_transparent</item>
     </style>
 
     <style name="ButtonStyle.Invert">
@@ -277,7 +294,8 @@
         <item name="android:focusable">true</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_min_height</item>
         <item name="android:indeterminateOnly">false</item>
-        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal
+        </item>
         <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_min_height</item>
         <item name="android:thumb">@drawable/sesl_scrubber_control_anim</item>
@@ -475,6 +493,7 @@
         <item name="android:touchscreenBlocksFocus">false</item>
         <item name="android:keyboardNavigationCluster">true</item>
     </style>
+
     <style name="CollapsingToolbarLayoutStyle" parent="@android:style/Widget">
         <item name="android:background">@color/sesl_action_bar_background_color</item>
         <item name="android:minHeight">?actionBarSize</item>
@@ -483,6 +502,7 @@
         <item name="collapseTitleTextAppearance">@style/CollapsedActionBarTitleTextStyle</item>
         <item name="statusBarScrim">?colorPrimaryDark</item>
     </style>
+
     <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
         <item name="android:paddingLeft">0.0dip</item>
         <item name="android:paddingRight">0.0dip</item>
@@ -490,7 +510,8 @@
         <item name="background">@color/sesl_action_bar_background_color</item>
         <item name="contentInsetStart">0.0dip</item>
         <item name="contentInsetEnd">0.0dip</item>
-        <item name="contentInsetStartWithNavigation">@dimen/sesl_action_bar_content_inset_with_nav</item>
+        <item name="contentInsetStartWithNavigation">@dimen/sesl_action_bar_content_inset_with_nav
+        </item>
         <item name="titleTextAppearance">@style/CollapsedActionBarTitleTextStyle</item>
         <item name="subtitleTextAppearance">@style/CollapsedActionBarSubtitleTextStyle</item>
         <item name="titleMargin">0.0dip</item>
@@ -501,11 +522,13 @@
         <item name="paddingStart">0.0dip</item>
         <item name="paddingEnd">0.0dip</item>
     </style>
+
     <style name="ToolbarNavButtonStyle" parent="@android:style/Widget.Material.Toolbar.Button.Navigation">
         <item name="android:background">?actionBarItemBackground</item>
         <item name="android:scaleType">center</item>
         <item name="android:paddingStart">8.0dip</item>
     </style>
+
     <style name="CollapsedActionBarTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">@dimen/sesl_toolbar_title_text_size</item>
         <item name="android:textStyle">normal</item>
@@ -513,6 +536,7 @@
         <item name="textAllCaps">false</item>
         <item name="android:fontFamily">@string/sesl_font_family_regular</item>
     </style>
+
     <style name="CollapsedActionBarSubtitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
         <item name="android:textSize">@dimen/sesl_toolbar_subtitle_text_size</item>
         <item name="android:textStyle">normal</item>
@@ -520,11 +544,13 @@
         <item name="textAllCaps">false</item>
         <item name="android:fontFamily">@string/sesl_font_family_regular</item>
     </style>
+
     <style name="CollapsingToolbarExpandTitleStyle" parent="@style/CollapsedActionBarTitleTextStyle">
         <item name="android:textSize">@dimen/sesl_appbar_extended_title_text_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="fontFamily">sans-serif-light</item>
     </style>
+
     <style name="CollapsingToolbarExpandSubtitleStyle" parent="@style/CollapsedActionBarSubtitleTextStyle">
         <item name="android:textColor">@color/sesl_extended_appbar_subtitle</item>
     </style>
@@ -535,7 +561,8 @@
         <item name="tabBackground">@null</item>
         <item name="tabIconTint">@null</item>
         <item name="tabIndicator">@drawable/sesl_tabs_default_indicator</item>
-        <item name="tabIndicatorAnimationDuration">@integer/design_tab_indicator_anim_duration_ms</item>
+        <item name="tabIndicatorAnimationDuration">@integer/design_tab_indicator_anim_duration_ms
+        </item>
         <item name="tabIndicatorColor">@color/sesl_tablayout_selected_indicator_color</item>
         <item name="tabIndicatorGravity">bottom</item>
         <item name="tabIndicatorHeight">2.0dip</item>
@@ -553,19 +580,22 @@
         <item name="tabIndicatorFullWidth">true</item>
         <item name="tabMode">fixed</item>
     </style>
+
     <style name="TabLayoutTextStyle" parent="TextAppearance.AppCompat.Button">
         <item name="android:textSize">@dimen/sesl_tab_text_size</item>
         <item name="android:textColor">@color/sesl_tablayout_text_color</item>
         <item name="fontFamily">@string/sesl_font_family_regular</item>
         <item name="textAllCaps">false</item>
     </style>
+
     <style name="TabLayoutStyle" parent="@style/BaseTabLayoutStyle">
         <item name="tabSelectedTextColor">@color/sesl_tablayout_subtab_text_color_selected</item>
     </style>
 
     <!--Dialog-->
     <style name="DialogTheme" parent="Base.ThemeOverlay.AppCompat">
-        <item name="android:colorBackground">@color/sesl_dialog_window_background_color_material</item>
+        <item name="android:colorBackground">@color/sesl_dialog_window_background_color_material
+        </item>
         <item name="android:backgroundDimAmount">@integer/sesl_dialog_background_dim_amount</item>
         <item name="android:disabledAlpha">0.4</item>
         <item name="android:textAppearance">@style/DialogTextStyle</item>
@@ -581,17 +611,26 @@
         <item name="android:windowSoftInputMode">adjustPan</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowActionBar">false</item>
-        <item name="android:windowCloseOnTouchOutside">@bool/sesl_config_closeDialogWhenTouchOutside</item>
-        <item name="android:listPreferredItemPaddingStart">@dimen/sesl_select_dialog_padding_start</item>
-        <item name="android:listPreferredItemPaddingEnd">@dimen/sesl_select_dialog_padding_end</item>
+        <item name="android:windowCloseOnTouchOutside">
+            @bool/sesl_config_closeDialogWhenTouchOutside
+        </item>
+        <item name="android:listPreferredItemPaddingStart">@dimen/sesl_select_dialog_padding_start
+        </item>
+        <item name="android:listPreferredItemPaddingEnd">@dimen/sesl_select_dialog_padding_end
+        </item>
         <item name="android:windowElevation">@dimen/sesl_dialog_window_elevation</item>
         <item name="borderlessButtonStyle">@style/ButtonStyle</item>
         <item name="colorControlHighlight">@color/sesl_ripple_color</item>
-        <item name="colorPickerEmptySlotColor">@color/sesl_color_picker_used_color_item_empty_slot_color</item>
-        <item name="colorPickerSelectedItemTextColor">@color/sesl_color_picker_selected_color_item_text_color</item>
+        <item name="colorPickerEmptySlotColor">
+            @color/sesl_color_picker_used_color_item_empty_slot_color
+        </item>
+        <item name="colorPickerSelectedItemTextColor">
+            @color/sesl_color_picker_selected_color_item_text_color
+        </item>
         <item name="colorPickerStrokeColor">@color/sesl_color_picker_stroke_color</item>
         <item name="dialogPreferredPadding">@dimen/sesl_dialog_padding</item>
-        <item name="listPreferredItemHeightSmall">@dimen/sesl_list_preferred_item_height_small</item>
+        <item name="listPreferredItemHeightSmall">@dimen/sesl_list_preferred_item_height_small
+        </item>
         <item name="listPreferredItemPaddingLeft">@dimen/sesl_select_dialog_padding_start</item>
         <item name="listPreferredItemPaddingRight">@dimen/sesl_select_dialog_padding_end</item>
         <item name="textAppearanceListItem">@style/DialogTextListItemStyle</item>
@@ -605,6 +644,7 @@
         <item name="windowMinWidthMajor">@dimen/sesl_dialog_min_width_major</item>
         <item name="windowMinWidthMinor">@dimen/sesl_dialog_min_width_minor</item>
     </style>
+
     <style name="AlertDialogStyle" parent="@android:style/Widget">
         <item name="android:layout">@layout/sesl_alert_dialog</item>
         <item name="horizontalProgressLayout">@layout/sesl_progress_dialog</item>
@@ -614,10 +654,12 @@
         <item name="progressLayout">@layout/sesl_progress_dialog_circle</item>
         <item name="singleChoiceItemLayout">@layout/sesl_select_dialog_singlechoice</item>
     </style>
+
     <style name="DialogAnimStyle" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/sesl_dialog_enter</item>
         <item name="android:windowExitAnimation">@anim/sesl_dialog_exit</item>
     </style>
+
     <style name="DialogTitleStyle" parent="@android:style/Widget">
         <item name="android:textAppearance">@style/DialogTitleTextStyle</item>
         <item name="android:textSize">20.0sp</item>
@@ -625,38 +667,46 @@
         <item name="android:scrollHorizontally">true</item>
         <item name="android:textAlignment">viewStart</item>
     </style>
+
     <style name="DialogTitleTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/sesl_dialog_title_text_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/sesl_dialog_title_text_color</item>
         <item name="fontFamily">@string/sesl_font_family_regular</item>
     </style>
+
     <style name="DialogTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/sesl_dialog_body_text_size</item>
         <item name="android:textColor">@color/sesl_dialog_body_text_color</item>
         <item name="fontFamily">@string/sesl_font_family_regular</item>
     </style>
+
     <style name="DialogTextInverseStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">?android:textColorPrimaryInverse</item>
         <item name="android:textColorHighlight">?android:textColorHighlightInverse</item>
         <item name="android:textColorHint">?android:textColorHintInverse</item>
         <item name="android:textColorLink">?android:textColorLinkInverse</item>
     </style>
+
     <style name="DialogTextListItemStyle" parent="@style/DialogTextStyle">
         <item name="android:textSize">@dimen/sesl_select_dialog_list_item_text_size</item>
         <item name="android:textColor">@color/sesl_select_dialog_list_item_text</item>
     </style>
+
     <style name="DialogTextListItemSecondaryStyle" parent="@style/DialogTextListItemStyle">
         <item name="android:textSize">@dimen/sesl_select_dialog_list_item_text_size_secondary</item>
         <item name="android:textColor">@color/sesl_dialog_sub_text_color_material</item>
     </style>
+
     <style name="ButtonBarStyle" parent="@android:style/Widget">
         <item name="android:background">@null</item>
     </style>
+
     <style name="ButtonBarButtonStyle" parent="@android:style/Widget.Material.Button.Borderless.Colored">
         <item name="android:minWidth">64.0dip</item>
         <item name="android:minHeight">@dimen/sesl_alert_dialog_button_bar_height</item>
     </style>
+
     <style name="DialogButtonStyle" parent="@android:style/Widget.Material.Light.Button.Borderless.Small">
         <item name="android:textSize">@dimen/sesl_dialog_button_text_size</item>
         <item name="android:textStyle">bold</item>
@@ -688,63 +738,79 @@
         <item name="switchPreferenceCompatStyle">@style/SwitchPreferenceStyle</item>
         <item name="switchPreferenceStyle">@style/SwitchPreferenceStyle</item>
     </style>
+
     <style name="PreferenceStyle">
         <item name="android:layout">@layout/sesl_preference</item>
     </style>
+
     <style name="PreferenceCategoryStyle" parent="@style/PreferenceStyle">
         <item name="android:layout">@layout/sesl_preference_category</item>
         <item name="android:selectable">false</item>
         <item name="android:shouldDisableView">false</item>
     </style>
+
     <style name="CheckBoxPreferenceStyle" parent="@style/PreferenceStyle">
         <item name="android:widgetLayout">@layout/sesl_preference_widget_checkbox</item>
     </style>
+
     <style name="DialogPreferenceStyle" parent="@style/PreferenceStyle">
         <item name="android:positiveButtonText">@android:string/ok</item>
         <item name="android:negativeButtonText">@android:string/cancel</item>
     </style>
+
     <style name="EditTextPreferenceStyle" parent="@style/DialogPreferenceStyle">
         <item name="android:dialogLayout">@layout/sesl_preference_dialog_edittext</item>
     </style>
+
     <style name="DialogSeekBarPreferenceStyle" parent="@style/DialogPreferenceStyle">
         <item name="android:dialogLayout">@layout/sesl_preference_dialog_seekbar</item>
     </style>
+
     <style name="DropDownPreferenceStyle" parent="@style/PreferenceStyle">
         <item name="android:layout">@layout/sesl_preference_dropdown</item>
     </style>
+
     <style name="InfoPreferenceStyle" parent="@style/PreferenceStyle">
         <item name="android:enabled">false</item>
         <item name="android:layout">@layout/sesl_preference_information</item>
         <item name="android:shouldDisableView">false</item>
     </style>
+
     <style name="PreferenceScreenStyle" parent="@style/PreferenceStyle" />
+
     <style name="RingtonePreferenceStyle" parent="@style/PreferenceStyle">
         <item name="android:ringtoneType">ringtone</item>
         <item name="android:showDefault">true</item>
         <item name="android:showSilent">true</item>
     </style>
+
     <style name="SeekBarPreferenceStyle" parent="@style/PreferenceStyle">
         <item name="android:layout">@layout/sesl_preference_widget_seekbar</item>
         <item name="adjustable">true</item>
         <item name="showSeekBarValue">false</item>
     </style>
+
     <style name="SeekBarPreferenceCompatStyle" parent="@style/PreferenceStyle">
         <item name="android:layout">@layout/sesl_preference_widget_seekbar</item>
     </style>
+
     <style name="SwitchPreferenceStyle" parent="@style/PreferenceStyle">
         <item name="android:widgetLayout">@layout/sesl_preference_widget_switch</item>
         <item name="android:switchTextOn">@string/sesl_preference_on</item>
         <item name="android:switchTextOff">@string/sesl_preference_off</item>
     </style>
+
     <style name="PreferenceFragmentStyle">
         <item name="android:divider">?android:listDivider</item>
         <item name="android:paddingStart">0.0dip</item>
         <item name="android:paddingEnd">0.0dip</item>
     </style>
+
     <style name="PreferenceFragmentListStyle">
         <item name="android:paddingStart">16.0dip</item>
         <item name="android:paddingEnd">16.0dip</item>
     </style>
+
     <style name="ListSeparatorStyle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/sesl_list_subheader_text_size</item>
         <item name="android:textStyle">bold</item>
