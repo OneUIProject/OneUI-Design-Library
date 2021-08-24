@@ -12,21 +12,30 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
 group = "io.github.yanndroid"
+
+def sonatype_user, sonatype_pwd
+File propertiesFile = project.rootProject.file('local.properties')
+if (propertiesFile.exists()) {
+    Properties properties = new Properties()
+    properties.load(propertiesFile.newDataInputStream())
+    sonatype_user = properties.getProperty('sonatype.user')
+    sonatype_pwd = properties.getProperty('sonatype.pwd')
+} else {
+    sonatype_user = "$System.env.SONATYPE_USER"
+    sonatype_pwd = "$System.env.SONATYPE_PWD"
+}
 
 nexusPublishing {
     repositories {
         sonatype {
             nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
             snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-            username = properties.getProperty('sonatype.user')
-            password = properties.getProperty('sonatype.pwd')
+            username = sonatype_user
+            password = sonatype_pwd
         }
     }
 }
-
 
 
 allprojects {

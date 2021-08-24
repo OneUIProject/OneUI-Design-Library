@@ -40,11 +40,20 @@ publishing {
     }
 }
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-ext["signing.keyId"] = properties.getProperty('signing.keyId')
-ext["signing.password"] = properties.getProperty('signing.password')
-ext["signing.secretKeyRingFile"] = properties.getProperty('signing.secretKeyRingFile')
+
+File propertiesFile = project.rootProject.file('local.properties')
+if (propertiesFile.exists()) {
+    Properties properties = new Properties()
+    properties.load(propertiesFile.newDataInputStream())
+    ext["signing.keyId"] = properties.getProperty('signing.keyId')
+    ext["signing.password"] = properties.getProperty('signing.password')
+    ext["signing.secretKeyRingFile"] = properties.getProperty('signing.secretKeyRingFile')
+} else {
+    ext["signing.keyId"] = "$System.env.SIGNING_KEYID"
+    ext["signing.password"] = "$System.env.SIGNING_PASSWORD"
+    ext["signing.secretKeyRingFile"] = "$System.env.SIGNING_KEYFILE"
+}
+
 signing {
     sign publishing.publications
 }
