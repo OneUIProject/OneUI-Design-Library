@@ -123,6 +123,7 @@ public class ToolbarLayout extends LinearLayout {
             mSubtitle = attr.getString(R.styleable.ToolBarLayout_subtitle);
             mExpandable = attr.getBoolean(R.styleable.ToolBarLayout_expandable, true);
             mExpanded = attr.getBoolean(R.styleable.ToolBarLayout_expanded, true);
+            mNavigationIcon = attr.getDrawable(R.styleable.ToolBarLayout_navigationIcon);
         } finally {
             attr.recycle();
         }

@@ -104,7 +104,6 @@ public class DrawerLayout extends LinearLayout {
 
         toolbarLayout.setTitle(mToolbarTitle);
         toolbarLayout.setSubtitle(mToolbarSubtitle);
-        toolbarLayout.setNavigationButtonIcon(getResources().getDrawable(R.drawable.ic_samsung_drawer, context.getTheme()));
         toolbarLayout.setNavigationIconTooltip(getResources().getText(R.string.sesl_navigation_drawer));
         toolbarLayout.setExpanded(mToolbarExpanded, false);
         drawerButtonContainer = findViewById(R.id.drawer_layout_drawerButton_container);

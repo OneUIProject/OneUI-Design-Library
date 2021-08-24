@@ -23,7 +23,6 @@
 
         <de.dlyt.yanndroid.oneui.BottomNavigationView
             android:id="@+id/main_samsung_tabs"
-            style="?bottomNaviViewStyle"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />
     </RelativeLayout>

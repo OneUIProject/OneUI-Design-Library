@@ -82,7 +82,7 @@
         <attr name="toolbar_subtitle" format="string" />
         <attr name="toolbar_expandable" format="boolean" />
         <attr name="toolbar_expanded" format="boolean" />
-        <attr name="drawer_icon" format="reference|color" />
+        <attr name="drawer_icon" format="reference" />
         <attr name="drawer_viewId" format="reference|enum" />
     </declare-styleable>
 
@@ -91,6 +91,7 @@
         <attr name="subtitle" format="string" />
         <attr name="expandable" format="boolean" />
         <attr name="expanded" format="boolean" />
+        <attr name="navigationIcon" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="AboutPage">
