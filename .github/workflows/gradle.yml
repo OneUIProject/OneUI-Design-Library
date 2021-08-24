@@ -45,8 +45,8 @@ jobs:
 
       - name: decode Key
         run: |
-          echo "${{secrets.SIGNING_KEYFILE_BASE64}}" > ~/.gradle/key.gpg.b64
-          base64 -d ~/.gradle/key.gpg.b64 > ~/.gradle/key.gpg
+          echo "${{secrets.SIGNING_KEYFILE_BASE64}}" > ~/key.gpg.b64
+          base64 -d ~/key.gpg.b64 > ~/key.gpg
       #- name: build
       #  run: ./gradlew -p ./yanndroid/oneui clean build
       - name: assemble Release
@@ -59,7 +59,7 @@ jobs:
         env:
           SIGNING_KEYID: ${{ secrets.SIGNING_KEYID }}
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-          SIGNING_KEYFILE: $(echo ~/.gradle/key.gpg)
+          SIGNING_KEYFILE: $(echo ~/key.gpg)
           SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
           SONATYPE_PWD: ${{ secrets.SONATYPE_PWD }}
 
