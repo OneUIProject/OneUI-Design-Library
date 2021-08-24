@@ -44,7 +44,9 @@ jobs:
         run: chmod +x gradlew
 
       - name: decode Key
-          run: echo "${{secrets.SIGNING_KEYFILE_BASE64}}" > ~/.gradle/key.gpg.b64 && base64 -d ~/.gradle/key.gpg.b64 > ~/.gradle/key.gpg
+        run: |
+          echo "${{secrets.SIGNING_KEYFILE_BASE64}}" > ~/.gradle/key.gpg.b64
+          base64 -d ~/.gradle/key.gpg.b64 > ~/.gradle/key.gpg
       #- name: build
       #  run: ./gradlew -p ./yanndroid/oneui clean build
       - name: assemble Release
