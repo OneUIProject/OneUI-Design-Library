@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.PointerIcon;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
@@ -93,6 +94,11 @@ public class ToolbarImageButton extends AppCompatImageButton {
     public void setTooltipText(CharSequence text) {
         Tooltip.setTooltipText(this, text);
         mToolTipText = text;
+    }
+
+    @Override
+    public PointerIcon onResolvePointerIcon(MotionEvent event, int pointerIndex) {
+        return PointerIcon.getSystemIcon(getContext(), PointerIcon.TYPE_ARROW);
     }
 
 }
