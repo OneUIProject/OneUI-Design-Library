@@ -220,9 +220,9 @@ public class SeslColorPicker extends LinearLayout {
         });
         FrameLayout var1 = this.mOpacitySeekBarContainer;
         StringBuilder var2 = new StringBuilder();
-        var2.append(this.mResources.getString(R.string.sesl_color_picker_opacity));
+        var2.append(this.mResources.getString(R.string.pen_string_opacity));
         var2.append(", ");
-        var2.append(this.mResources.getString(R.string.sesl_color_picker_slider));
+        var2.append(this.mResources.getString(R.string.pen_string_slider));
         var2.append(", ");
         var2.append(this.mResources.getString(R.string.sesl_color_picker_double_tap_to_select));
         var1.setContentDescription(var2.toString());
@@ -299,11 +299,11 @@ public class SeslColorPicker extends LinearLayout {
 
         if (var2 != 0) {
             if (var2 == 1) {
-                var3.insert(0, this.mResources.getString(R.string.sesl_color_picker_new));
+                var3.insert(0, this.mResources.getString(R.string.pen_string_color_new));
                 this.mPickedColorContainer.setContentDescription(var3);
             }
         } else {
-            var3.insert(0, this.mResources.getString(R.string.sesl_color_picker_current));
+            var3.insert(0, this.mResources.getString(R.string.pen_string_color_current));
             this.mCurrentColorContainer.setContentDescription(var3);
         }
 

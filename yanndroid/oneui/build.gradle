@@ -59,6 +59,7 @@ signing {
 }
 
 //gradlew publishToSonatype closeSonatypeStagingRepository
+//gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
 
 
 android {

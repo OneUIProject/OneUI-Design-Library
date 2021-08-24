@@ -29,48 +29,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24.5dp"
-                android:layout_marginVertical="24dp"
                 android:gravity="end|center_vertical"
                 android:orientation="horizontal">
 
                 <FrameLayout
-                    android:id="@+id/drawerIcon_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
+                    android:id="@+id/drawer_layout_drawerButton_container"
+                    android:layout_width="48dp"
+                    android:layout_height="56dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_marginEnd="18dp">
 
-                    <ImageView
-                        android:id="@+id/drawerIcon"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:background="?selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:padding="5.5dp"
-                        android:src="@drawable/ic_samsung_plus"
-                        app:tint="@color/drawer_icon_color" />
-
-                    <TextView
-                        android:id="@+id/drawerIcon_badge"
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"
-                        android:layout_alignTop="@+id/drawerIcon_container"
-                        android:layout_alignEnd="@+id/drawerIcon_container"
-                        android:layout_marginTop="1dp"
-                        android:layout_marginEnd="1dp"
-                        android:background="@drawable/new_badge_bg"
-                        android:fontFamily="sec-roboto-light"
-                        android:gravity="center"
-                        android:text="N"
-                        android:textColor="@color/white"
-                        android:textSize="11dp"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
+                    <de.dlyt.yanndroid.oneui.widget.ToolbarImageButton
+                        android:id="@+id/drawer_layout_drawerButton"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/sesl_action_bar_item_background"
+                        android:scaleType="center" />
                 </FrameLayout>
 
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/drawer_container"

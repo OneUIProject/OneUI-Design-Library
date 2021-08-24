@@ -526,8 +526,8 @@ public class Switch extends CompoundButton {
         super.onPopulateAccessibilityEvent(event);
 
         final CharSequence text;
-        final CharSequence textOn = getResources().getString(R.string.sesl_switch_on);
-        final CharSequence textOff = getResources().getString(R.string.sesl_switch_off);
+        final CharSequence textOn = getResources().getString(R.string.sesl_on_text);
+        final CharSequence textOff = getResources().getString(R.string.sesl_off_text);
         text = isChecked() ? textOn : textOff;
         if (text != null) {
             event.getText().add(text);
@@ -1046,8 +1046,8 @@ public class Switch extends CompoundButton {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(ACCESSIBILITY_EVENT_CLASS_NAME);
         CharSequence switchText;
-        CharSequence textOn = getResources().getString(R.string.sesl_switch_on);
-        CharSequence textOff = getResources().getString(R.string.sesl_switch_off);
+        CharSequence textOn = getResources().getString(R.string.sesl_on_text);
+        CharSequence textOff = getResources().getString(R.string.sesl_off_text);
         switchText = isChecked() ? textOn : textOff;
         if (!TextUtils.isEmpty(switchText)) {
             CharSequence oldText = info.getText();

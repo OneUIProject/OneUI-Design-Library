@@ -21,7 +21,7 @@ public class ClassicColorPickerDialog extends SamsungAlertDialog implements Dial
         Context var3 = this.getContext();
         View var4 = LayoutInflater.from(var3).inflate(R.layout.sesl_color_picker_dialog, (ViewGroup)null);
         this.setView(var4);
-        this.setButton(-1, var3.getString(R.string.sesl_picker_done), this);
+        this.setButton(-1, var3.getString(R.string.sesl_done), this);
         this.setButton(-2, var3.getString(android.R.string.cancel), this);
         this.requestWindowFeature(1);
         this.getWindow().setSoftInputMode(16);

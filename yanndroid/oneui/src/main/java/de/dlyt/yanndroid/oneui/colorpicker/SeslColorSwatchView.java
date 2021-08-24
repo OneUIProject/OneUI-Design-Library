@@ -14,13 +14,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Button;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.customview.widget.ExploreByTouchHelper;
+
+import java.util.List;
 
 import de.dlyt.yanndroid.oneui.R;
 
@@ -47,7 +48,7 @@ class SeslColorSwatchView extends View {
     private SeslColorSwatchView.SeslColorSwatchViewTouchHelper mTouchHelper;
 
     public SeslColorSwatchView(Context var1) {
-        this(var1, (AttributeSet)null);
+        this(var1, (AttributeSet) null);
     }
 
     public SeslColorSwatchView(Context var1, AttributeSet var2) {
@@ -94,7 +95,7 @@ class SeslColorSwatchView extends View {
     }
 
     private void initCursorDrawable() {
-        this.mCursorDrawable = (GradientDrawable)this.mResources.getDrawable(R.drawable.sesl_color_swatch_view_cursor,null);
+        this.mCursorDrawable = (GradientDrawable) this.mResources.getDrawable(R.drawable.sesl_color_swatch_view_cursor, null);
         this.mCursorRect = new Rect();
     }
 
@@ -128,12 +129,12 @@ class SeslColorSwatchView extends View {
         }
 
         Point var5 = new Point(this.mCursorIndex.x, this.mCursorIndex.y);
-        this.mCursorIndex.set((int)(var3 / this.mSwatchItemWidth), (int)(var1 / this.mSwatchItemHeight));
+        this.mCursorIndex.set((int) (var3 / this.mSwatchItemWidth), (int) (var1 / this.mSwatchItemHeight));
         return var5.equals(this.mCursorIndex) ^ true;
     }
 
     private void setCursorRect(Rect var1) {
-        var1.set((int)((float)this.mCursorIndex.x * this.mSwatchItemWidth + 0.5F), (int)((float)this.mCursorIndex.y * this.mSwatchItemHeight + 0.5F), (int)((float)(this.mCursorIndex.x + 1) * this.mSwatchItemWidth + 0.5F), (int)((float)(this.mCursorIndex.y + 1) * this.mSwatchItemHeight + 0.5F));
+        var1.set((int) ((float) this.mCursorIndex.x * this.mSwatchItemWidth + 0.5F), (int) ((float) this.mCursorIndex.y * this.mSwatchItemHeight + 0.5F), (int) ((float) (this.mCursorIndex.x + 1) * this.mSwatchItemWidth + 0.5F), (int) ((float) (this.mCursorIndex.y + 1) * this.mSwatchItemHeight + 0.5F));
     }
 
     private void setSelectedVirtualViewId() {
@@ -165,8 +166,8 @@ class SeslColorSwatchView extends View {
         Point var3 = new Point(-1, -1);
         this.mFromUser = false;
 
-        for(var1 = 0; var1 < 11; ++var1) {
-            for(int var4 = 0; var4 < 10; ++var4) {
+        for (var1 = 0; var1 < 11; ++var1) {
+            for (int var4 = 0; var4 < 10; ++var4) {
                 if (this.mColorSwatch[var1][var4] == var2) {
                     var3.set(var1, var4);
                     this.mFromUser = true;
@@ -186,18 +187,18 @@ class SeslColorSwatchView extends View {
     protected void onDraw(Canvas var1) {
         Paint var2 = new Paint();
 
-        for(int var3 = 0; var3 < 11; ++var3) {
+        for (int var3 = 0; var3 < 11; ++var3) {
             int var4 = 0;
 
-            while(var4 < 10) {
+            while (var4 < 10) {
                 var2.setColor(this.mColorSwatch[var3][var4]);
                 float var5 = this.mSwatchItemWidth;
-                float var6 = (float)((int)((float)var3 * var5 + 0.5F));
+                float var6 = (float) ((int) ((float) var3 * var5 + 0.5F));
                 float var7 = this.mSwatchItemHeight;
-                float var8 = (float)((int)((float)var4 * var7 + 0.5F));
-                var5 = (float)((int)(var5 * (float)(var3 + 1) + 0.5F));
+                float var8 = (float) ((int) ((float) var4 * var7 + 0.5F));
+                var5 = (float) ((int) (var5 * (float) (var3 + 1) + 0.5F));
                 ++var4;
-                var1.drawRect(var6, var8, var5, (float)((int)(var7 * (float)var4 + 0.5F)), var2);
+                var1.drawRect(var6, var8, var5, (float) ((int) (var7 * (float) var4 + 0.5F)), var2);
             }
         }
 
@@ -255,39 +256,39 @@ class SeslColorSwatchView extends View {
 
         public SeslColorSwatchViewTouchHelper(@NonNull View var2) {
             super(var2);
-            String var3 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_white);
-            String var4 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_light_gray);
-            String var5 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_gray);
-            String var6 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_dark_gray);
-            String var7 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_black);
-            String var8 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_light_red);
-            String var9 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_red);
-            String var10 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_dark_red);
-            String var11 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_light_orange);
-            String var12 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_orange);
-            String var13 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_dark_orange);
-            String var14 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_light_yellow);
-            String var15 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_yellow);
-            String var16 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_dark_yellow);
-            String[] var17 = new String[]{SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_light_green), SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_green), SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_dark_green)};
-            String var18 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_light_spring_green);
-            String var19 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_spring_green);
-            String var20 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_dark_spring_green);
-            String var35 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_light_cyan);
-            String var21 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_cyan);
-            String var22 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_dark_cyan);
-            String var23 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_light_azure);
-            String var24 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_azure);
-            String var25 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_dark_azure);
-            String var26 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_light_blue);
-            String var27 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_blue);
-            String var28 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_dark_blue);
-            String var29 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_light_violet);
-            String var30 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_violet);
-            String var31 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_dark_violet);
-            String var34 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_light_magenta);
-            String var32 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_magenta);
-            String var33 = SeslColorSwatchView.this.mResources.getString(R.string.sesl_color_picker_dark_magenta);
+            String var3 = SeslColorSwatchView.this.mResources.getString(R.string.pen_palette_color_white);
+            String var4 = SeslColorSwatchView.this.mResources.getString(R.string.pen_palette_color_light_gray);
+            String var5 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_gray);
+            String var6 = SeslColorSwatchView.this.mResources.getString(R.string.pen_palette_color_dark_gray);
+            String var7 = SeslColorSwatchView.this.mResources.getString(R.string.pen_palette_color_black);
+            String var8 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_light_red);
+            String var9 = SeslColorSwatchView.this.mResources.getString(R.string.pen_palette_color_red);
+            String var10 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_dark_red);
+            String var11 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_light_orange);
+            String var12 = SeslColorSwatchView.this.mResources.getString(R.string.pen_palette_color_orange);
+            String var13 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_dark_orange);
+            String var14 = SeslColorSwatchView.this.mResources.getString(R.string.pen_palette_color_light_yellow);
+            String var15 = SeslColorSwatchView.this.mResources.getString(R.string.pen_palette_color_yellow);
+            String var16 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_dark_yellow);
+            String[] var17 = new String[]{SeslColorSwatchView.this.mResources.getString(R.string.pen_palette_color_light_green), SeslColorSwatchView.this.mResources.getString(R.string.pen_palette_color_green), SeslColorSwatchView.this.mResources.getString(R.string.pen_palette_color_dark_green)};
+            String var18 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_light_spring_green);
+            String var19 = SeslColorSwatchView.this.mResources.getString(R.string.pen_palette_color_spring_green);
+            String var20 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_dark_spring_green);
+            String var35 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_light_cyan);
+            String var21 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_cyan);
+            String var22 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_dark_cyan);
+            String var23 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_light_azure);
+            String var24 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_azure);
+            String var25 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_dark_azure);
+            String var26 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_light_blue);
+            String var27 = SeslColorSwatchView.this.mResources.getString(R.string.pen_palette_color_blue);
+            String var28 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_dark_blue);
+            String var29 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_light_violet);
+            String var30 = SeslColorSwatchView.this.mResources.getString(R.string.pen_palette_color_violet);
+            String var31 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_dark_violet);
+            String var34 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_light_magenta);
+            String var32 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_magenta);
+            String var33 = SeslColorSwatchView.this.mResources.getString(R.string.pen_swatch_color_dark_magenta);
             this.mColorDescription = new String[][]{{var3, var4, var5, var6, var7}, {var8, var9, var10}, {var11, var12, var13}, {var14, var15, var16}, var17, {var18, var19, var20}, {var35, var21, var22}, {var23, var24, var25}, {var26, var27, var28}, {var29, var30, var31}, {var34, var32, var33}};
             this.mVirtualViewRect = new Rect();
         }
@@ -363,8 +364,8 @@ class SeslColorSwatchView extends View {
                 }
             }
 
-            this.mVirtualCursorIndexX = (int)(var3 / SeslColorSwatchView.this.mSwatchItemWidth);
-            this.mVirtualCursorIndexY = (int)(var1 / SeslColorSwatchView.this.mSwatchItemHeight);
+            this.mVirtualCursorIndexX = (int) (var3 / SeslColorSwatchView.this.mSwatchItemWidth);
+            this.mVirtualCursorIndexY = (int) (var1 / SeslColorSwatchView.this.mSwatchItemHeight);
         }
 
         private void setVirtualCursorIndexAt(int var1) {
@@ -373,7 +374,7 @@ class SeslColorSwatchView extends View {
         }
 
         private void setVirtualCursorRect(Rect var1) {
-            var1.set((int)((float)this.mVirtualCursorIndexX * SeslColorSwatchView.this.mSwatchItemWidth + 0.5F), (int)((float)this.mVirtualCursorIndexY * SeslColorSwatchView.this.mSwatchItemHeight + 0.5F), (int)((float)(this.mVirtualCursorIndexX + 1) * SeslColorSwatchView.this.mSwatchItemWidth + 0.5F), (int)((float)(this.mVirtualCursorIndexY + 1) * SeslColorSwatchView.this.mSwatchItemHeight + 0.5F));
+            var1.set((int) ((float) this.mVirtualCursorIndexX * SeslColorSwatchView.this.mSwatchItemWidth + 0.5F), (int) ((float) this.mVirtualCursorIndexY * SeslColorSwatchView.this.mSwatchItemHeight + 0.5F), (int) ((float) (this.mVirtualCursorIndexX + 1) * SeslColorSwatchView.this.mSwatchItemWidth + 0.5F), (int) ((float) (this.mVirtualCursorIndexY + 1) * SeslColorSwatchView.this.mSwatchItemHeight + 0.5F));
         }
 
         protected int getVirtualViewAt(float var1, float var2) {
@@ -382,7 +383,7 @@ class SeslColorSwatchView extends View {
         }
 
         protected void getVisibleVirtualViews(List<Integer> var1) {
-            for(int var2 = 0; var2 < 110; ++var2) {
+            for (int var2 = 0; var2 < 110; ++var2) {
                 var1.add(var2);
             }
 

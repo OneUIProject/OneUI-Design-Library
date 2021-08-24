@@ -1,6 +1,7 @@
 package de.dlyt.yanndroid.oneui.widget;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -81,6 +82,11 @@ public class ToolbarImageButton extends AppCompatImageButton {
     public void setImageDrawable(@Nullable Drawable drawable) {
         super.setImageDrawable(drawable);
         mIcon = true;
+    }
+
+    @Override
+    public void setImageTintList(@Nullable ColorStateList tint) {
+        super.setImageTintList(tint);
     }
 
     @Override

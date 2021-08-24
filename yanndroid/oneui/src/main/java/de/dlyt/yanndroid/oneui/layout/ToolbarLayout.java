@@ -443,7 +443,7 @@ public class ToolbarLayout extends LinearLayout {
                     showMoreMenuPopupWindow();
                 }
             });
-            moreOverflowButton.setTooltipText(getResources().getString(R.string.sesl_action_menu_overflow_description));
+            moreOverflowButton.setTooltipText(getResources().getString(R.string.sesl_more_options));
 
             moreOverflowButtonContainer.addView(moreOverflowButton, lp2);
         }

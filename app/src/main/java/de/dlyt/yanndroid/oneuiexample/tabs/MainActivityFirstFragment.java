@@ -60,6 +60,9 @@ public class MainActivityFirstFragment extends BaseTabFragment {
         mActivity.setSupportActionBar(drawerLayout.getToolbar());
         drawerLayout.setDrawerIconOnClickListener(v -> startActivity(new Intent().setClass(getContext(), AboutActivity.class)));
 
+        drawerLayout.setButtonBadges(ToolbarLayout.N_BADGE, DrawerLayout.N_BADGE);
+        drawerLayout.setDrawerButtonTooltip(getText(R.string.app_info));
+
         ToolbarLayout toolbarLayout = (ToolbarLayout) drawerLayout.getView(DrawerLayout.TOOLBAR);
         toolbarLayout.addOverflowButton(false,
                 R.drawable.ic_samsung_info,
@@ -70,7 +73,6 @@ public class MainActivityFirstFragment extends BaseTabFragment {
                         startActivity(new Intent().setClass(getContext(), AboutActivity.class));
                     }
                 });
-        toolbarLayout.setNavigationButtonBadge(ToolbarLayout.N_BADGE);
         toolbarLayout.setMoreMenuButton(getMoreMenuButtonList(),
                 (adapterView, view2, i, j) -> {
                     toolbarLayout.dismissMoreMenuPopupWindow();

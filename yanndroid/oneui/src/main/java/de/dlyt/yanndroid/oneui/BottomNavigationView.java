@@ -45,9 +45,6 @@ public class BottomNavigationView extends SamsungBaseTabLayout implements View.O
             if (!(tab == null || tabView == null)) {
                 TextView textView = tab.seslGetTextView();
                 mTextViews.add(textView);
-                if (textView != null) {
-                    tabView.setContentDescription(textView.getText() + " " + getResources().getString(R.string.bnv_tts, new Object[]{tabPosition + 1, getTabCount()}));
-                }
                 tabView.setPointerIcon(PointerIcon.getSystemIcon(getContext(), 1000));
             }
         }
