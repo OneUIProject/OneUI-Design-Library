@@ -51,8 +51,8 @@ jobs:
       #  run: ./gradlew -p ./yanndroid/oneui clean build
       - name: assemble Release
         run: ./gradlew -p ./yanndroid/oneui assembleRelease
-      - name: SourceJar and JavaDoc
-        run: ./gradlew androidSourcesJar javadocJar
+      - name: JavaDoc
+        run: ./gradlew javadocJar
 
       - name: publish to maven central
         run: ./gradlew publishToSonatype closeSonatypeStagingRepository
