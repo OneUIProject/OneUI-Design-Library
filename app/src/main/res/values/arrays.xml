@@ -9,8 +9,8 @@
         <item>Toolbar</item>
     </string-array>
     <string-array name="mainactivity_tab_class">
-        <item>de.dlyt.yanndroid.oneuiexample.tabs.MainActivityFirstFragment</item>
-        <item>de.dlyt.yanndroid.oneuiexample.tabs.MainActivitySecondFragment</item>
+        <item>de.dlyt.yanndroid.oneuiexample.fragments.MainActivityFirstFragment</item>
+        <item>de.dlyt.yanndroid.oneuiexample.fragments.MainActivitySecondFragment</item>
     </string-array>
 
     <string-array name="inner_preferences_test_entries">
