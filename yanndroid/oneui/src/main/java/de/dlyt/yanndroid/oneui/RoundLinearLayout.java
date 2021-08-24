@@ -9,8 +9,8 @@ import android.widget.LinearLayout;
 import androidx.appcompat.util.SeslRoundedCorner;
 
 public class RoundLinearLayout extends LinearLayout {
-    private Context mContext;
     SeslRoundedCorner mSeslRoundedCorner;
+    private Context mContext;
 
     public RoundLinearLayout(Context context) {
         super(context);

@@ -22,7 +22,7 @@ public class ViewUtilsLollipop {
         int var4 = R.attr.state_liftable;
         int var5 = -R.attr.state_lifted;
         ObjectAnimator var6 = ObjectAnimator.ofFloat(var0, "elevation", new float[]{0.0F});
-        long var7 = (long)var2;
+        long var7 = (long) var2;
         var6 = var6.setDuration(var7);
         var3.addState(new int[]{16842766, var4, var5}, var6);
         var6 = ObjectAnimator.ofFloat(var0, "elevation", new float[]{var1}).setDuration(var7);

@@ -9,11 +9,11 @@ import de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerView;
 
 public class PreferenceViewHolder extends SeslRecyclerView.ViewHolder {
     private final SparseArray<View> mCachedViews = new SparseArray<>(4);
-    private boolean mDividerAllowedAbove;
-    private boolean mDividerAllowedBelow;
     boolean mDrawBackground = false;
     int mDrawCorners;
     boolean mSubheaderRound = false;
+    private boolean mDividerAllowedAbove;
+    private boolean mDividerAllowedBelow;
 
     @SuppressLint("ResourceType")
     PreferenceViewHolder(View itemView) {

@@ -1,10 +1,8 @@
 package de.dlyt.yanndroid.oneui.widget;
 
-import static android.view.View.SYSTEM_UI_FLAG_LOW_PROFILE;
-
 import android.content.Context;
-import android.text.TextUtils;
 import android.provider.Settings.System;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.PointerIcon;
@@ -17,39 +15,16 @@ import androidx.core.view.ViewConfigurationCompat;
 import androidx.reflect.hardware.input.SeslInputManagerReflector;
 import androidx.reflect.view.SeslViewReflector;
 
+import static android.view.View.SYSTEM_UI_FLAG_LOW_PROFILE;
+
 public class Tooltip implements View.OnLongClickListener, View.OnHoverListener, View.OnAttachStateChangeListener {
     private static final String TAG = "Tooltip";
 
     private static final long LONG_CLICK_HIDE_TIMEOUT_MS = 2500;
     private static final long HOVER_HIDE_TIMEOUT_MS = 15000;
     private static final long HOVER_HIDE_TIMEOUT_SHORT_MS = 3000;
-
-    private final View mAnchor;
-    private final CharSequence mTooltipText;
-    private final int mHoverSlop;
-
-    private final Runnable mShowRunnable = new Runnable() {
-        @Override
-        public void run() {
-            show(false /* not from touch*/);
-        }
-    };
-    private final Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
-
-    private int mAnchorX;
-    private int mAnchorY;
-
-    private TooltipPopup mPopup;
-    private boolean mFromTouch;
-
     private static Tooltip sPendingHandler;
     private static Tooltip sActiveHandler;
-
     // SeslTooltip
     private static boolean mIsForceActionBarX;
     private static boolean mIsForceBelow;
@@ -58,16 +33,46 @@ public class Tooltip implements View.OnLongClickListener, View.OnHoverListener, 
     private static int sLayoutDirection;
     private static int sPosX;
     private static int sPosY;
+    private final View mAnchor;
+    private final CharSequence mTooltipText;
+    private final int mHoverSlop;
+    private int mAnchorX;
+    private int mAnchorY;
+    private TooltipPopup mPopup;
+    private boolean mFromTouch;
     private boolean mIsSPenPointChanged = false;
     private boolean mIsShowRunnablePostDelayed = false;
+    private final Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            hide();
+        }
+    };
+    private final Runnable mShowRunnable = new Runnable() {
+        @Override
+        public void run() {
+            show(false /* not from touch*/);
+        }
+    };
     // SeslTooltip
+
+    private Tooltip(View anchor, CharSequence tooltipText) {
+        mAnchor = anchor;
+        mTooltipText = tooltipText;
+        mHoverSlop = ViewConfigurationCompat.getScaledHoverSlop(
+                ViewConfiguration.get(mAnchor.getContext()));
+        clearAnchorPos();
+
+        mAnchor.setOnLongClickListener(this);
+        mAnchor.setOnHoverListener(this);
+    }
 
     public static void setTooltipText(View view, CharSequence tooltipText) {
         // SeslTooltip
         if (view == null) {
             Log.d(TAG, "view is null");
         } else {
-        // SeslTooltip
+            // SeslTooltip
             if (sPendingHandler != null && sPendingHandler.mAnchor == view) {
                 setPendingHandler(null);
             }
@@ -91,15 +96,34 @@ public class Tooltip implements View.OnLongClickListener, View.OnHoverListener, 
         }
     }
 
-    private Tooltip(View anchor, CharSequence tooltipText) {
-        mAnchor = anchor;
-        mTooltipText = tooltipText;
-        mHoverSlop = ViewConfigurationCompat.getScaledHoverSlop(
-                ViewConfiguration.get(mAnchor.getContext()));
-        clearAnchorPos();
+    private static void setPendingHandler(Tooltip handler) {
+        if (sPendingHandler != null) {
+            sPendingHandler.cancelPendingShow();
+        }
+        sPendingHandler = handler;
+        if (sPendingHandler != null) {
+            sPendingHandler.scheduleShow();
+        }
+    }
 
-        mAnchor.setOnLongClickListener(this);
-        mAnchor.setOnHoverListener(this);
+    // SeslTooltip
+    public static void seslSetTooltipForceActionBarPosX(boolean z) {
+        mIsForceActionBarX = z;
+    }
+
+    public static void seslSetTooltipForceBelow(boolean z) {
+        mIsForceBelow = z;
+    }
+
+    public static void seslSetTooltipNull(boolean z) {
+        sIsTooltipNull = z;
+    }
+
+    public static void seslSetTooltipPosition(int x, int y, int direction) {
+        sLayoutDirection = direction;
+        sPosX = x;
+        sPosY = y;
+        sIsCustomTooltipPosition = true;
     }
 
     @Override
@@ -128,7 +152,7 @@ public class Tooltip implements View.OnLongClickListener, View.OnHoverListener, 
 
                 return false;
             } else {
-        // SeslTooltip
+                // SeslTooltip
                 AccessibilityManager manager = (AccessibilityManager)
                         mAnchor.getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
                 if (manager.isEnabled() && manager.isTouchExplorationEnabled()) {
@@ -171,6 +195,7 @@ public class Tooltip implements View.OnLongClickListener, View.OnHoverListener, 
     public void onViewAttachedToWindow(View v) {
         // no-op.
     }
+
     @Override
     public void onViewDetachedFromWindow(View v) {
         hide();
@@ -255,16 +280,6 @@ public class Tooltip implements View.OnLongClickListener, View.OnHoverListener, 
         // SeslTooltip
     }
 
-    private static void setPendingHandler(Tooltip handler) {
-        if (sPendingHandler != null) {
-            sPendingHandler.cancelPendingShow();
-        }
-        sPendingHandler = handler;
-        if (sPendingHandler != null) {
-            sPendingHandler.scheduleShow();
-        }
-    }
-
     private void scheduleShow() {
         mAnchor.postDelayed(mShowRunnable, ViewConfiguration.getLongPressTimeout());
     }
@@ -288,26 +303,6 @@ public class Tooltip implements View.OnLongClickListener, View.OnHoverListener, 
     private void clearAnchorPos() {
         mAnchorX = Integer.MAX_VALUE;
         mAnchorY = Integer.MAX_VALUE;
-    }
-
-    // SeslTooltip
-    public static void seslSetTooltipForceActionBarPosX(boolean z) {
-        mIsForceActionBarX = z;
-    }
-
-    public static void seslSetTooltipForceBelow(boolean z) {
-        mIsForceBelow = z;
-    }
-
-    public static void seslSetTooltipNull(boolean z) {
-        sIsTooltipNull = z;
-    }
-
-    public static void seslSetTooltipPosition(int x, int y, int direction) {
-        sLayoutDirection = direction;
-        sPosX = x;
-        sPosY = y;
-        sIsCustomTooltipPosition = true;
     }
 
     public void showPenPointEffect(MotionEvent event, boolean more) {

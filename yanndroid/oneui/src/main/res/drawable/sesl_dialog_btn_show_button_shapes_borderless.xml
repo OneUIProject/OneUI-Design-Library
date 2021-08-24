@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<inset android:insetLeft="@dimen/sesl_dialog_button_show_background_inset_horizontal" android:insetRight="@dimen/sesl_dialog_button_show_background_inset_horizontal" android:insetTop="@dimen/sesl_dialog_button_show_background_inset_vertical" android:insetBottom="@dimen/sesl_dialog_button_show_background_inset_vertical"
-  xmlns:android="http://schemas.android.com/apk/res/android">
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetLeft="@dimen/sesl_dialog_button_show_background_inset_horizontal"
+    android:insetTop="@dimen/sesl_dialog_button_show_background_inset_vertical"
+    android:insetRight="@dimen/sesl_dialog_button_show_background_inset_horizontal"
+    android:insetBottom="@dimen/sesl_dialog_button_show_background_inset_vertical">
     <ripple android:color="?colorControlHighlight">
-        <item android:id="@android:id/mask" android:drawable="@drawable/sesl_dialog_btn_show_button_shapes_ripple_shape_mask" />
+        <item
+            android:id="@android:id/mask"
+            android:drawable="@drawable/sesl_dialog_btn_show_button_shapes_ripple_shape_mask" />
     </ripple>
 </inset>

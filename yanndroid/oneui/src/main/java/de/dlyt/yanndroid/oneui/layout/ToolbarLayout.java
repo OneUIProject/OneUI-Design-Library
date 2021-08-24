@@ -46,70 +46,39 @@ import de.dlyt.yanndroid.oneui.coordinatorlayout.SamsungCoordinatorLayout;
 import de.dlyt.yanndroid.oneui.widget.ToolbarImageButton;
 
 public class ToolbarLayout extends LinearLayout {
-    private static String TAG = "ToolbarLayout";
-    public static int N_BADGE = -1;
-
-    private Context mContext;
-
-    private NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-    private PopupWindow moreMenuPopupWindow = null;
-    private MoreMenuPopupAdapter moreMenuPopupAdapter;
-    private View moreMenuPopupAnchor = null;
-    private int moreMenuPopupOffX;
-
-    private Drawable mNavigationIcon;
-    private CharSequence mTitle;
-    private CharSequence mSubtitle;
-
-    private Boolean mExpandable;
-    private Boolean mExpanded;
-
-    private SamsungAppBarLayout appBarLayout;
-    private SamsungCollapsingToolbarLayout collapsingToolbarLayout;
-    private MaterialToolbar toolbar;
-    private FrameLayout navigationButtonContainer;
-    private ToolbarImageButton navigationButton;
-    public ViewGroup navigationBadgeBackground;
-    public TextView navigationBadgeText;
-    private MaterialTextView collapsedTitle;
-    private LinearLayout overflowContainer;
-    private FrameLayout moreOverflowButtonContainer;
-    private ToolbarImageButton moreOverflowButton;
-    public ViewGroup moreOverflowBadgeBackground;
-    public TextView moreOverflowBadgeText;
-    private RoundLinearLayout mainContainer;
-
     public static final int APPBAR_LAYOUT = 0;
     public static final int COLLAPSING_TOOLBAR = 1;
     public static final int TOOLBAR = 2;
     public static final int NAVIGATION_ICON = 3;
     public static final int COLLAPSED_TITLE = 4;
     public static final int CONTENT_LAYOUT = 5;
-
-    @IntDef({APPBAR_LAYOUT, COLLAPSING_TOOLBAR, TOOLBAR, NAVIGATION_ICON, COLLAPSED_TITLE, CONTENT_LAYOUT})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface ToolbarLayoutView {
-    }
-
-    public View getView(@ToolbarLayoutView int view) {
-        switch (view) {
-            case APPBAR_LAYOUT:
-                return appBarLayout;
-            case COLLAPSING_TOOLBAR:
-                return collapsingToolbarLayout;
-            case TOOLBAR:
-                return toolbar;
-            case NAVIGATION_ICON:
-                return navigationButton;
-            case COLLAPSED_TITLE:
-                return collapsedTitle;
-            case CONTENT_LAYOUT:
-                return mainContainer;
-            default:
-                return null;
-        }
-    }
-
+    public static int N_BADGE = -1;
+    private static String TAG = "ToolbarLayout";
+    public ViewGroup navigationBadgeBackground;
+    public TextView navigationBadgeText;
+    public ViewGroup moreOverflowBadgeBackground;
+    public TextView moreOverflowBadgeText;
+    private Context mContext;
+    private NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
+    private PopupWindow moreMenuPopupWindow = null;
+    private MoreMenuPopupAdapter moreMenuPopupAdapter;
+    private View moreMenuPopupAnchor = null;
+    private int moreMenuPopupOffX;
+    private Drawable mNavigationIcon;
+    private CharSequence mTitle;
+    private CharSequence mSubtitle;
+    private Boolean mExpandable;
+    private Boolean mExpanded;
+    private SamsungAppBarLayout appBarLayout;
+    private SamsungCollapsingToolbarLayout collapsingToolbarLayout;
+    private MaterialToolbar toolbar;
+    private FrameLayout navigationButtonContainer;
+    private ToolbarImageButton navigationButton;
+    private MaterialTextView collapsedTitle;
+    private LinearLayout overflowContainer;
+    private FrameLayout moreOverflowButtonContainer;
+    private ToolbarImageButton moreOverflowButton;
+    private RoundLinearLayout mainContainer;
 
     public ToolbarLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -151,6 +120,25 @@ public class ToolbarLayout extends LinearLayout {
 
         init();
 
+    }
+
+    public View getView(@ToolbarLayoutView int view) {
+        switch (view) {
+            case APPBAR_LAYOUT:
+                return appBarLayout;
+            case COLLAPSING_TOOLBAR:
+                return collapsingToolbarLayout;
+            case TOOLBAR:
+                return toolbar;
+            case NAVIGATION_ICON:
+                return navigationButton;
+            case COLLAPSED_TITLE:
+                return collapsedTitle;
+            case CONTENT_LAYOUT:
+                return mainContainer;
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -574,114 +562,118 @@ public class ToolbarLayout extends LinearLayout {
         return measuredWidth;
     }
 
+    @IntDef({APPBAR_LAYOUT, COLLAPSING_TOOLBAR, TOOLBAR, NAVIGATION_ICON, COLLAPSED_TITLE, CONTENT_LAYOUT})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ToolbarLayoutView {
+    }
 
-private class AppBarOffsetListener implements SamsungAppBarLayout.OnOffsetChangedListener {
-    @SuppressLint("Range")
-    @Override
-    public void onOffsetChanged(SamsungAppBarLayout layout, int verticalOffset) {
-        int layoutPosition = Math.abs(appBarLayout.getTop());
-        float alphaRange = ((float) collapsingToolbarLayout.getHeight()) * 0.17999999f;
-        float toolbarTitleAlphaStart = ((float) collapsingToolbarLayout.getHeight()) * 0.35f;
+    private class AppBarOffsetListener implements SamsungAppBarLayout.OnOffsetChangedListener {
+        @SuppressLint("Range")
+        @Override
+        public void onOffsetChanged(SamsungAppBarLayout layout, int verticalOffset) {
+            int layoutPosition = Math.abs(appBarLayout.getTop());
+            float alphaRange = ((float) collapsingToolbarLayout.getHeight()) * 0.17999999f;
+            float toolbarTitleAlphaStart = ((float) collapsingToolbarLayout.getHeight()) * 0.35f;
 
-        if (appBarLayout.getHeight() <= ((int) getResources().getDimension(R.dimen.sesl_action_bar_height_with_padding))) {
-            collapsedTitle.setAlpha(1.0f);
-        } else {
-            float collapsedTitleAlpha = ((150.0f / alphaRange) * (((float) layoutPosition) - toolbarTitleAlphaStart));
-
-            if (collapsedTitleAlpha >= 0.0f && collapsedTitleAlpha <= 255.0f) {
-                collapsedTitleAlpha /= 255.0f;
-                collapsedTitle.setAlpha(collapsedTitleAlpha);
-            } else if (collapsedTitleAlpha < 0.0f)
-                collapsedTitle.setAlpha(0.0f);
-            else
+            if (appBarLayout.getHeight() <= ((int) getResources().getDimension(R.dimen.sesl_action_bar_height_with_padding))) {
                 collapsedTitle.setAlpha(1.0f);
-        }
-    }
-}
+            } else {
+                float collapsedTitleAlpha = ((150.0f / alphaRange) * (((float) layoutPosition) - toolbarTitleAlphaStart));
 
-private class MoreMenuPopupAdapter extends ArrayAdapter {
-    ArrayList<String> itemTitle;
-    ArrayList<Integer> badgeCount;
-    Activity activity;
-
-    public MoreMenuPopupAdapter(Activity instance, LinkedHashMap<String, Integer> linkedHashMap) {
-        super(instance, 0);
-        activity = instance;
-        itemTitle = new ArrayList(linkedHashMap.keySet());
-        badgeCount = new ArrayList(linkedHashMap.values());
-    }
-
-    public void setArrays(LinkedHashMap<String, Integer> linkedHashMap) {
-        itemTitle = new ArrayList(linkedHashMap.keySet());
-        badgeCount = new ArrayList(linkedHashMap.values());
-    }
-
-    @Override
-    public int getCount() {
-        return itemTitle.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return itemTitle.get(position);
-    }
-
-    @Override
-    public View getView(int index, View view, ViewGroup parent) {
-        PopupMenuItem itemVar;
-
-        if (view == null) {
-            view = ((LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.menu_popup_item_layout, parent, false);
-            itemVar = new PopupMenuItem(this);
-            itemVar.titleText = view.findViewById(R.id.more_menu_popup_title_text);
-            itemVar.badgeIcon = view.findViewById(R.id.more_menu_popup_badge);
-            view.setTag(itemVar);
-        } else {
-            itemVar = (PopupMenuItem) view.getTag();
-        }
-
-        itemVar.titleText.setText(itemTitle.get(index));
-        if (badgeCount.get(index) > 0) {
-            int count = badgeCount.get(index);
-            if (count > 99) {
-                count = 99;
+                if (collapsedTitleAlpha >= 0.0f && collapsedTitleAlpha <= 255.0f) {
+                    collapsedTitleAlpha /= 255.0f;
+                    collapsedTitle.setAlpha(collapsedTitleAlpha);
+                } else if (collapsedTitleAlpha < 0.0f)
+                    collapsedTitle.setAlpha(0.0f);
+                else
+                    collapsedTitle.setAlpha(1.0f);
             }
-            String countString = numberFormat.format((long) count);
-            itemVar.badgeIcon.setText(countString);
-            int width = (int) (getResources().getDimension(R.dimen.sesl_badge_default_width) + (float) countString.length() * getResources().getDimension(R.dimen.sesl_badge_additional_width));
-            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) itemVar.badgeIcon.getLayoutParams();
-            lp.width = width;
-            itemVar.badgeIcon.setLayoutParams(lp);
-            itemVar.badgeIcon.setVisibility(View.VISIBLE);
-        } else if (badgeCount.get(index) == N_BADGE) {
-            itemVar.badgeIcon.setText("N");
-            itemVar.badgeIcon.setVisibility(View.VISIBLE);
-        } else {
-            itemVar.badgeIcon.setVisibility(View.GONE);
+        }
+    }
+
+    private class MoreMenuPopupAdapter extends ArrayAdapter {
+        ArrayList<String> itemTitle;
+        ArrayList<Integer> badgeCount;
+        Activity activity;
+
+        public MoreMenuPopupAdapter(Activity instance, LinkedHashMap<String, Integer> linkedHashMap) {
+            super(instance, 0);
+            activity = instance;
+            itemTitle = new ArrayList(linkedHashMap.keySet());
+            badgeCount = new ArrayList(linkedHashMap.values());
         }
 
-        if (getCount() <= 1) {
-            view.setBackgroundResource(R.drawable.menu_popup_item_bg_all_round);
-        } else if (index == 0) {
-            view.setBackgroundResource(R.drawable.menu_popup_item_bg_top_round);
-        } else if (index == getCount() - 1) {
-            view.setBackgroundResource(R.drawable.menu_popup_item_bg_bottom_round);
-        } else {
-            view.setBackgroundResource(R.drawable.menu_popup_item_bg_no_round);
+        public void setArrays(LinkedHashMap<String, Integer> linkedHashMap) {
+            itemTitle = new ArrayList(linkedHashMap.keySet());
+            badgeCount = new ArrayList(linkedHashMap.values());
         }
 
-        return view;
-    }
-}
+        @Override
+        public int getCount() {
+            return itemTitle.size();
+        }
 
-private class PopupMenuItem {
-    MoreMenuPopupAdapter adapter;
-    TextView titleText;
-    TextView badgeIcon;
+        @Override
+        public Object getItem(int position) {
+            return itemTitle.get(position);
+        }
 
-    PopupMenuItem(MoreMenuPopupAdapter instance) {
-        adapter = instance;
+        @Override
+        public View getView(int index, View view, ViewGroup parent) {
+            PopupMenuItem itemVar;
+
+            if (view == null) {
+                view = ((LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.menu_popup_item_layout, parent, false);
+                itemVar = new PopupMenuItem(this);
+                itemVar.titleText = view.findViewById(R.id.more_menu_popup_title_text);
+                itemVar.badgeIcon = view.findViewById(R.id.more_menu_popup_badge);
+                view.setTag(itemVar);
+            } else {
+                itemVar = (PopupMenuItem) view.getTag();
+            }
+
+            itemVar.titleText.setText(itemTitle.get(index));
+            if (badgeCount.get(index) > 0) {
+                int count = badgeCount.get(index);
+                if (count > 99) {
+                    count = 99;
+                }
+                String countString = numberFormat.format((long) count);
+                itemVar.badgeIcon.setText(countString);
+                int width = (int) (getResources().getDimension(R.dimen.sesl_badge_default_width) + (float) countString.length() * getResources().getDimension(R.dimen.sesl_badge_additional_width));
+                LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) itemVar.badgeIcon.getLayoutParams();
+                lp.width = width;
+                itemVar.badgeIcon.setLayoutParams(lp);
+                itemVar.badgeIcon.setVisibility(View.VISIBLE);
+            } else if (badgeCount.get(index) == N_BADGE) {
+                itemVar.badgeIcon.setText("N");
+                itemVar.badgeIcon.setVisibility(View.VISIBLE);
+            } else {
+                itemVar.badgeIcon.setVisibility(View.GONE);
+            }
+
+            if (getCount() <= 1) {
+                view.setBackgroundResource(R.drawable.menu_popup_item_bg_all_round);
+            } else if (index == 0) {
+                view.setBackgroundResource(R.drawable.menu_popup_item_bg_top_round);
+            } else if (index == getCount() - 1) {
+                view.setBackgroundResource(R.drawable.menu_popup_item_bg_bottom_round);
+            } else {
+                view.setBackgroundResource(R.drawable.menu_popup_item_bg_no_round);
+            }
+
+            return view;
+        }
     }
-}
+
+    private class PopupMenuItem {
+        MoreMenuPopupAdapter adapter;
+        TextView titleText;
+        TextView badgeIcon;
+
+        PopupMenuItem(MoreMenuPopupAdapter instance) {
+            adapter = instance;
+        }
+    }
 
 }

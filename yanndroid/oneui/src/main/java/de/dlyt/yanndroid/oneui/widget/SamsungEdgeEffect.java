@@ -43,30 +43,30 @@ public class SamsungEdgeEffect extends EdgeEffect {
     private static final int STATE_PULL_DECAY = 4;
     private static final int STATE_RECEDE = 3;
     private static final float TAB_HEIGHT_BUFFER_IN_DIP = 5.0f;
+    private final Rect mBounds = new Rect();
+    private final DisplayMetrics mDisplayMetrics;
+    private final Interpolator mInterpolator;
+    private final Paint mPaint = new Paint();
+    private final Path mPath = new Path();
+    private final float mTabHeight;
+    private final float mTabHeightBuffer;
     private float SESL_MAX_ALPHA = 0.15f;
     private float SESL_MAX_SCALE = 1.0f;
-    private final Rect mBounds = new Rect();
     private float mDisplacement = 0.5f;
-    private final DisplayMetrics mDisplayMetrics;
     private float mDuration;
     private float mEdgeControlPointHeight;
     private float mEdgePadding;
-
-    private Runnable mForceCallOnRelease = new Runnable() {
-        public void run() {
-            SamsungEdgeEffect.this.mOnReleaseCalled = true;
-            SamsungEdgeEffect.this.onPull(SamsungEdgeEffect.this.mTempDeltaDistance, SamsungEdgeEffect.this.mTempDisplacement);
-            SamsungEdgeEffect.this.mHandler.sendEmptyMessageDelayed(MSG_CALL_ONRELEASE, 700);
-        }
-    };
-
     private float mGlowAlpha;
     private float mGlowAlphaFinish;
     private float mGlowAlphaStart;
     private float mGlowScaleY;
     private float mGlowScaleYFinish;
     private float mGlowScaleYStart;
-
+    private boolean mOnReleaseCalled = false;
+    private float mPullDistance;
+    private View mSeslHostView;
+    private long mStartTime;
+    private int mState = STATE_IDLE;
     private Handler mHandler = new Handler(Looper.getMainLooper()) {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -78,20 +78,16 @@ public class SamsungEdgeEffect extends EdgeEffect {
             }
         }
     };
-
-    private final Interpolator mInterpolator;
-    private boolean mOnReleaseCalled = false;
-    private final Paint mPaint = new Paint();
-    private final Path mPath = new Path();
-    private float mPullDistance;
-    private View mSeslHostView;
-    private long mStartTime;
-    private int mState = STATE_IDLE;
-    private final float mTabHeight;
-    private final float mTabHeightBuffer;
     private float mTargetDisplacement = 0.5f;
     private float mTempDeltaDistance;
     private float mTempDisplacement;
+    private Runnable mForceCallOnRelease = new Runnable() {
+        public void run() {
+            SamsungEdgeEffect.this.mOnReleaseCalled = true;
+            SamsungEdgeEffect.this.onPull(SamsungEdgeEffect.this.mTempDeltaDistance, SamsungEdgeEffect.this.mTempDisplacement);
+            SamsungEdgeEffect.this.mHandler.sendEmptyMessageDelayed(MSG_CALL_ONRELEASE, 700);
+        }
+    };
 
     public SamsungEdgeEffect(Context context) {
         super(context);
@@ -116,6 +112,11 @@ public class SamsungEdgeEffect extends EdgeEffect {
     @Override
     public int getColor() {
         return mPaint.getColor();
+    }
+
+    @Override
+    public void setColor(int color) {
+        mPaint.setColor(color);
     }
 
     @Override
@@ -200,11 +201,6 @@ public class SamsungEdgeEffect extends EdgeEffect {
             mStartTime = AnimationUtils.currentAnimationTimeMillis();
             mDuration = 450.0f;
         }
-    }
-
-    @Override
-    public void setColor(int color) {
-        mPaint.setColor(color);
     }
 
     @Override

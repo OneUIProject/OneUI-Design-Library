@@ -21,6 +21,7 @@ public abstract class BaseTabFragment extends Fragment {
         mContext = getActivity();
     }
 
-    public void onMultiWindowModeChanged(boolean isMultiWindowMode) { }
+    public void onMultiWindowModeChanged(boolean isMultiWindowMode) {
+    }
 
 }

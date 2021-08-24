@@ -17,25 +17,25 @@ public class SeekBarPreference extends Preference {
     private static final String TAG = "SeekBarPreference";
     @SuppressWarnings("WeakerAccess")
     int mSeekBarValue;
-    private int mSeekBarMode;
-    private boolean mSeekBarSeamless;
     @SuppressWarnings("WeakerAccess")
     String mUnits;
     @SuppressWarnings("WeakerAccess")
     int mMin;
-    private int mMax;
-    private int mOverlapPoint;
-    private int mSeekBarIncrement;
     @SuppressWarnings("WeakerAccess")
     boolean mTrackingTouch;
     @SuppressWarnings("WeakerAccess")
     SeekBar mSeekBar;
-    private TextView mSeekBarValueTextView;
     @SuppressWarnings("WeakerAccess")
     boolean mAdjustable;
-    private boolean mShowSeekBarValue;
     @SuppressWarnings("WeakerAccess")
     boolean mUpdatesContinuously;
+    private int mSeekBarMode;
+    private boolean mSeekBarSeamless;
+    private int mMax;
+    private int mOverlapPoint;
+    private int mSeekBarIncrement;
+    private TextView mSeekBarValueTextView;
+    private boolean mShowSeekBarValue;
     private SeekBar.OnSeekBarChangeListener mSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -305,6 +305,7 @@ public class SeekBarPreference extends Preference {
                     public SavedState createFromParcel(Parcel in) {
                         return new SavedState(in);
                     }
+
                     @Override
                     public SavedState[] newArray(int size) {
                         return new SavedState[size];
@@ -313,6 +314,7 @@ public class SeekBarPreference extends Preference {
         int mSeekBarValue;
         int mMin;
         int mMax;
+
         SavedState(Parcel source) {
             super(source);
             mSeekBarValue = source.readInt();

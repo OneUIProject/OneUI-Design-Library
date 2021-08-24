@@ -29,24 +29,24 @@ import de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerView;
 
 public abstract class SeslPreferenceFragmentCompat extends Fragment implements PreferenceManager.OnPreferenceTreeClickListener, PreferenceManager.OnDisplayPreferenceDialogListener, PreferenceManager.OnNavigateToScreenListener, DialogPreference.TargetFragment {
     private final SeslPreferenceFragmentCompat.DividerDecoration mDividerDecoration = new SeslPreferenceFragmentCompat.DividerDecoration();
+    private boolean mHavePrefs;
+    private boolean mInitDone;
+    private int mIsLargeLayout;
+    private int mLayoutResId = R.layout.sesl_preference_list_fragment;
+    private SeslRecyclerView mList;
+    private final Runnable mRequestFocus = new Runnable() {
+        public void run() {
+            SeslRecyclerView var1 = SeslPreferenceFragmentCompat.this.mList;
+            var1.focusableViewAvailable(var1);
+        }
+    };
+    private PreferenceManager mPreferenceManager;
     private Handler mHandler = new Handler() {
         public void handleMessage(Message var1) {
             if (var1.what == 1) {
                 SeslPreferenceFragmentCompat.this.bindPreferences();
             }
 
-        }
-    };
-    private boolean mHavePrefs;
-    private boolean mInitDone;
-    private int mIsLargeLayout;
-    private int mLayoutResId = R.layout.sesl_preference_list_fragment;
-    private SeslRecyclerView mList;
-    private PreferenceManager mPreferenceManager;
-    private final Runnable mRequestFocus = new Runnable() {
-        public void run() {
-            SeslRecyclerView var1 = SeslPreferenceFragmentCompat.this.mList;
-            var1.focusableViewAvailable(var1);
         }
     };
     private Runnable mSelectPreferenceRunnable;
@@ -56,7 +56,8 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
     private SeslSubheaderRoundedCorner mSeslSubheaderRoundedCorner;
     private int mSubheaderColor;
 
-    public SeslPreferenceFragmentCompat() { }
+    public SeslPreferenceFragmentCompat() {
+    }
 
     public void bindPreferences() {
         PreferenceScreen var1 = this.getPreferenceScreen();
@@ -85,6 +86,17 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
         return this.mPreferenceManager.getPreferenceScreen();
     }
 
+    public void setPreferenceScreen(PreferenceScreen var1) {
+        if (this.mPreferenceManager.setPreferences(var1) && var1 != null) {
+            this.onUnbindPreferences();
+            this.mHavePrefs = true;
+            if (this.mInitDone) {
+                this.postBindPreferences();
+            }
+        }
+
+    }
+
     public void onBindPreferences() {
     }
 
@@ -103,8 +115,8 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
                 int var6 = 0;
                 boolean var4 = false;
 
-                while(true) {
-                    PreferenceGroupAdapter var5 = (PreferenceGroupAdapter)var2;
+                while (true) {
+                    PreferenceGroupAdapter var5 = (PreferenceGroupAdapter) var2;
                     if (var6 >= var5.getItemCount()) {
                         if (var4) {
                             var2.notifyDataSetChanged();
@@ -179,30 +191,30 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
 
     public SeslRecyclerView onCreateRecyclerView(LayoutInflater var1, ViewGroup var2, Bundle var3) {
         if (this.getContext().getPackageManager().hasSystemFeature("android.hardware.type.automotive")) {
-            SeslRecyclerView var5 = (SeslRecyclerView)var2.findViewById(R.id.recycler_view);
+            SeslRecyclerView var5 = (SeslRecyclerView) var2.findViewById(R.id.recycler_view);
             if (var5 != null) {
                 return var5;
             }
         }
 
-        SeslRecyclerView var4 = (SeslRecyclerView)var1.inflate(R.layout.sesl_preference_recyclerview, var2, false);
+        SeslRecyclerView var4 = (SeslRecyclerView) var1.inflate(R.layout.sesl_preference_recyclerview, var2, false);
         var4.setLayoutManager(this.onCreateLayoutManager());
         var4.setAccessibilityDelegateCompat(new PreferenceRecyclerViewAccessibilityDelegate(var4));
         return var4;
     }
 
     public View onCreateView(LayoutInflater var1, ViewGroup var2, Bundle var3) {
-        TypedArray var4 = this.getContext().obtainStyledAttributes((AttributeSet)null, R.styleable.SeslPreferenceFragmentCompat, R.attr.preferenceFragmentCompatStyle, 0);
+        TypedArray var4 = this.getContext().obtainStyledAttributes((AttributeSet) null, R.styleable.SeslPreferenceFragmentCompat, R.attr.preferenceFragmentCompatStyle, 0);
         this.mLayoutResId = var4.getResourceId(R.styleable.SeslPreferenceFragmentCompat_android_layout, this.mLayoutResId);
         Drawable var5 = var4.getDrawable(R.styleable.SeslPreferenceFragmentCompat_android_divider);
         int var6 = var4.getDimensionPixelSize(R.styleable.SeslPreferenceFragmentCompat_android_dividerHeight, -1);
         boolean var7 = var4.getBoolean(R.styleable.SeslPreferenceFragmentCompat_allowDividerAfterLastItem, true);
         var4.recycle();
         Resources var13 = this.getActivity().getResources();
-        TypedArray var8 = this.getContext().obtainStyledAttributes((AttributeSet)null, R.styleable.View, android.R.attr.listSeparatorTextViewStyle, 0);
+        TypedArray var8 = this.getContext().obtainStyledAttributes((AttributeSet) null, R.styleable.View, android.R.attr.listSeparatorTextViewStyle, 0);
         Drawable var9 = var8.getDrawable(R.styleable.View_android_background);
         if (var9 instanceof ColorDrawable) {
-            this.mSubheaderColor = ((ColorDrawable)var9).getColor();
+            this.mSubheaderColor = ((ColorDrawable) var9).getColor();
         }
 
         StringBuilder var15 = new StringBuilder();
@@ -214,7 +226,7 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
         View var10 = var14.inflate(this.mLayoutResId, var2, false);
         View var11 = var10.findViewById(android.R.id.list_container);
         if (var11 instanceof ViewGroup) {
-            var2 = (ViewGroup)var11;
+            var2 = (ViewGroup) var11;
             SeslRecyclerView var12 = this.onCreateRecyclerView(var14, var2, var3);
             if (var12 != null) {
                 this.mList = var12;
@@ -265,7 +277,7 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
     public void onDisplayPreferenceDialog(Preference var1) {
         boolean var2;
         if (this.getCallbackFragment() instanceof SeslPreferenceFragmentCompat.OnPreferenceDisplayDialogCallback) {
-            var2 = ((SeslPreferenceFragmentCompat.OnPreferenceDisplayDialogCallback)this.getCallbackFragment()).onPreferenceDisplayDialog(this, var1);
+            var2 = ((SeslPreferenceFragmentCompat.OnPreferenceDisplayDialogCallback) this.getCallbackFragment()).onPreferenceDisplayDialog(this, var1);
         } else {
             var2 = false;
         }
@@ -274,7 +286,7 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
         if (!var2) {
             var3 = var2;
             if (this.getActivity() instanceof SeslPreferenceFragmentCompat.OnPreferenceDisplayDialogCallback) {
-                var3 = ((SeslPreferenceFragmentCompat.OnPreferenceDisplayDialogCallback)this.getActivity()).onPreferenceDisplayDialog(this, var1);
+                var3 = ((SeslPreferenceFragmentCompat.OnPreferenceDisplayDialogCallback) this.getActivity()).onPreferenceDisplayDialog(this, var1);
             }
         }
 
@@ -293,8 +305,8 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
                     var4 = MultiSelectListPreferenceDialogFragmentCompat.newInstance(var1.getKey());
                 }
 
-                ((Fragment)var4).setTargetFragment(this, 0);
-                ((DialogFragment)var4).show(this.getFragmentManager(), "de.dlyt.yanndroid.oneui.preference.PreferenceFragment.DIALOG");
+                ((Fragment) var4).setTargetFragment(this, 0);
+                ((DialogFragment) var4).show(this.getFragmentManager(), "de.dlyt.yanndroid.oneui.preference.PreferenceFragment.DIALOG");
             }
         }
     }
@@ -302,13 +314,13 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
     public void onNavigateToScreen(PreferenceScreen var1) {
         boolean var2;
         if (this.getCallbackFragment() instanceof SeslPreferenceFragmentCompat.OnPreferenceStartScreenCallback) {
-            var2 = ((SeslPreferenceFragmentCompat.OnPreferenceStartScreenCallback)this.getCallbackFragment()).onPreferenceStartScreen(this, var1);
+            var2 = ((SeslPreferenceFragmentCompat.OnPreferenceStartScreenCallback) this.getCallbackFragment()).onPreferenceStartScreen(this, var1);
         } else {
             var2 = false;
         }
 
         if (!var2 && this.getActivity() instanceof SeslPreferenceFragmentCompat.OnPreferenceStartScreenCallback) {
-            ((SeslPreferenceFragmentCompat.OnPreferenceStartScreenCallback)this.getActivity()).onPreferenceStartScreen(this, var1);
+            ((SeslPreferenceFragmentCompat.OnPreferenceStartScreenCallback) this.getActivity()).onPreferenceStartScreen(this, var1);
         }
 
     }
@@ -317,7 +329,7 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
         if (var1.getFragment() != null) {
             boolean var2;
             if (this.getCallbackFragment() instanceof SeslPreferenceFragmentCompat.OnPreferenceStartFragmentCallback) {
-                var2 = ((SeslPreferenceFragmentCompat.OnPreferenceStartFragmentCallback)this.getCallbackFragment()).onPreferenceStartFragment(this, var1);
+                var2 = ((SeslPreferenceFragmentCompat.OnPreferenceStartFragmentCallback) this.getCallbackFragment()).onPreferenceStartFragment(this, var1);
             } else {
                 var2 = false;
             }
@@ -326,7 +338,7 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
             if (!var2) {
                 var3 = var2;
                 if (this.getActivity() instanceof SeslPreferenceFragmentCompat.OnPreferenceStartFragmentCallback) {
-                    var3 = ((SeslPreferenceFragmentCompat.OnPreferenceStartFragmentCallback)this.getActivity()).onPreferenceStartFragment(this, var1);
+                    var3 = ((SeslPreferenceFragmentCompat.OnPreferenceStartFragmentCallback) this.getActivity()).onPreferenceStartFragment(this, var1);
                 }
             }
 
@@ -338,7 +350,7 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
                 var6.setArguments(var5);
                 var6.setTargetFragment(this, 0);
                 FragmentTransaction var7 = var4.beginTransaction();
-                var7.replace(((View)this.getView().getParent()).getId(), var6);
+                var7.replace(((View) this.getView().getParent()).getId(), var6);
                 var7.addToBackStack(null);
                 var7.commit();
             }
@@ -372,7 +384,8 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
         this.mPreferenceManager.setOnDisplayPreferenceDialogListener(null);
     }
 
-    public void onUnbindPreferences() { }
+    public void onUnbindPreferences() {
+    }
 
     public void onViewCreated(View var1, Bundle var2) {
         super.onViewCreated(var1, var2);
@@ -418,17 +431,6 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
         this.mDividerDecoration.setDividerHeight(var1);
     }
 
-    public void setPreferenceScreen(PreferenceScreen var1) {
-        if (this.mPreferenceManager.setPreferences(var1) && var1 != null) {
-            this.onUnbindPreferences();
-            this.mHavePrefs = true;
-            if (this.mInitDone) {
-                this.postBindPreferences();
-            }
-        }
-
-    }
-
     public void addPreferencesFromResource(int preferencesResId) {
         requirePreferenceManager();
         setPreferenceScreen(mPreferenceManager.inflateFromResource(getContext(), preferencesResId, getPreferenceScreen()));
@@ -436,7 +438,7 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
 
     public void setPreferencesFromResource(int var1, String var2) {
         this.requirePreferenceManager();
-        PreferenceScreen var3 = this.mPreferenceManager.inflateFromResource(this.getContext(), var1, (PreferenceScreen)null);
+        PreferenceScreen var3 = this.mPreferenceManager.inflateFromResource(this.getContext(), var1, (PreferenceScreen) null);
         Object var4 = var3;
         if (var2 != null) {
             var4 = var3.findPreference(var2);
@@ -449,7 +451,7 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
             }
         }
 
-        this.setPreferenceScreen((PreferenceScreen)var4);
+        this.setPreferenceScreen((PreferenceScreen) var4);
     }
 
     public final void unbindPreferences() {
@@ -463,6 +465,18 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
 
     public void seslSetRoundedCorner(boolean z) {
         this.mIsRoundedCorner = z;
+    }
+
+    public interface OnPreferenceDisplayDialogCallback {
+        boolean onPreferenceDisplayDialog(SeslPreferenceFragmentCompat var1, Preference var2);
+    }
+
+    public interface OnPreferenceStartFragmentCallback {
+        boolean onPreferenceStartFragment(SeslPreferenceFragmentCompat var1, Preference var2);
+    }
+
+    public interface OnPreferenceStartScreenCallback {
+        boolean onPreferenceStartScreen(SeslPreferenceFragmentCompat var1, PreferenceScreen var2);
     }
 
     private class DividerDecoration extends SeslRecyclerView.ItemDecoration {
@@ -479,7 +493,7 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
             boolean var4 = false;
             boolean var5 = var4;
             if (var3) {
-                if (((SeslLinearLayoutManager)var2).findFirstVisibleItemPosition() > 0) {
+                if (((SeslLinearLayoutManager) var2).findFirstVisibleItemPosition() > 0) {
                     var5 = true;
                 } else {
                     var5 = false;
@@ -509,12 +523,12 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
 
             PreferenceViewHolder var8;
             PreferenceViewHolder var10;
-            for(var8 = var7; var6 < var4; var7 = var10) {
+            for (var8 = var7; var6 < var4; var7 = var10) {
                 View var9 = var2.getChildAt(var6);
                 SeslRecyclerView.ViewHolder var12 = var2.getChildViewHolder(var9);
                 PreferenceViewHolder var13;
                 if (var12 instanceof PreferenceViewHolder) {
-                    var13 = (PreferenceViewHolder)var12;
+                    var13 = (PreferenceViewHolder) var12;
                 } else {
                     var13 = null;
                 }
@@ -529,7 +543,7 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
                     }
                 }
 
-                int var11 = (int)var9.getY() + var9.getHeight();
+                int var11 = (int) var9.getY() + var9.getHeight();
                 if (this.mDivider != null && this.shouldDrawDividerBelow(var9, var2)) {
                     this.mDivider.setBounds(0, var11, var5, this.mDividerHeight + var11);
                     this.mDivider.draw(var1);
@@ -577,7 +591,7 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
         public final boolean shouldDrawDividerBelow(View var1, SeslRecyclerView var2) {
             SeslRecyclerView.ViewHolder var3 = var2.getChildViewHolder(var1);
             boolean var4;
-            if (var3 instanceof PreferenceViewHolder && ((PreferenceViewHolder)var3).isDividerAllowedBelow()) {
+            if (var3 instanceof PreferenceViewHolder && ((PreferenceViewHolder) var3).isDividerAllowedBelow()) {
                 var4 = true;
             } else {
                 var4 = false;
@@ -590,7 +604,7 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
                 int var7 = var2.indexOfChild(var1);
                 if (var7 < var2.getChildCount() - 1) {
                     SeslRecyclerView.ViewHolder var6 = var2.getChildViewHolder(var2.getChildAt(var7 + 1));
-                    if (var6 instanceof PreferenceViewHolder && ((PreferenceViewHolder)var6).isDividerAllowedAbove()) {
+                    if (var6 instanceof PreferenceViewHolder && ((PreferenceViewHolder) var6).isDividerAllowedAbove()) {
                         var5 = true;
                     } else {
                         var5 = false;
@@ -600,17 +614,5 @@ public abstract class SeslPreferenceFragmentCompat extends Fragment implements P
                 return var5;
             }
         }
-    }
-
-    public interface OnPreferenceDisplayDialogCallback {
-        boolean onPreferenceDisplayDialog(SeslPreferenceFragmentCompat var1, Preference var2);
-    }
-
-    public interface OnPreferenceStartFragmentCallback {
-        boolean onPreferenceStartFragment(SeslPreferenceFragmentCompat var1, Preference var2);
-    }
-
-    public interface OnPreferenceStartScreenCallback {
-        boolean onPreferenceStartScreen(SeslPreferenceFragmentCompat var1, PreferenceScreen var2);
     }
 }

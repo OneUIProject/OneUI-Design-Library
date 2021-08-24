@@ -1,3 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerView android:id="@+id/recycler_view" android:scrollbars="vertical" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android" />
+<de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recycler_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clipToPadding="false"
+    android:scrollbars="vertical" />

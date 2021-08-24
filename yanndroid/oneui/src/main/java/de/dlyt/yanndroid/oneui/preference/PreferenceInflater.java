@@ -6,17 +6,19 @@ import android.content.res.XmlResourceParser;
 import android.util.AttributeSet;
 import android.util.Xml;
 import android.view.InflateException;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
 class PreferenceInflater {
     private static final String TAG = "PreferenceInflater";
     private static final String INTENT_TAG_NAME = "intent";
     private static final String EXTRA_TAG_NAME = "extra";
-    private static final Class<?>[] CONSTRUCTOR_SIGNATURE = new Class[] {Context.class, AttributeSet.class};
+    private static final Class<?>[] CONSTRUCTOR_SIGNATURE = new Class[]{Context.class, AttributeSet.class};
     private static final HashMap<String, Constructor> CONSTRUCTOR_MAP = new HashMap<>();
     private final Context mContext;
     private final Object[] mConstructorArgs = new Object[2];
@@ -26,6 +28,14 @@ class PreferenceInflater {
     public PreferenceInflater(Context context, PreferenceManager preferenceManager) {
         mContext = context;
         init(preferenceManager);
+    }
+
+    private static void skipCurrentTag(XmlPullParser parser) throws XmlPullParserException, IOException {
+        int outerDepth = parser.getDepth();
+        int type;
+        do {
+            type = parser.next();
+        } while (type != XmlPullParser.END_DOCUMENT && (type != XmlPullParser.END_TAG || parser.getDepth() > outerDepth));
     }
 
     private void init(PreferenceManager preferenceManager) {
@@ -208,13 +218,5 @@ class PreferenceInflater {
             }
         }
 
-    }
-
-    private static void skipCurrentTag(XmlPullParser parser) throws XmlPullParserException, IOException {
-        int outerDepth = parser.getDepth();
-        int type;
-        do {
-            type = parser.next();
-        } while (type != XmlPullParser.END_DOCUMENT && (type != XmlPullParser.END_TAG || parser.getDepth() > outerDepth));
     }
 }

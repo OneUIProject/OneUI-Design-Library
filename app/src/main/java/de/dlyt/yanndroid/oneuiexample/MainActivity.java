@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
         mFragmentManager = getSupportFragmentManager();
 
-        for (String s: mTabsTitleName) {
+        for (String s : mTabsTitleName) {
             bnvLayout.addTab(bnvLayout.newTab().setText(s));
         }
 
@@ -127,7 +127,8 @@ public class MainActivity extends AppCompatActivity {
                 if (fragment != null) fragment.onTabUnselected();
             }
 
-            public void onTabReselected(BottomNavigationView.Tab tab) { }
+            public void onTabReselected(BottomNavigationView.Tab tab) {
+            }
         });
         bnvLayout.updateWidget(this);
         setCurrentItem();

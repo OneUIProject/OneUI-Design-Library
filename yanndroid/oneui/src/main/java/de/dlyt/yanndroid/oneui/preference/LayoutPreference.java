@@ -15,12 +15,12 @@ import androidx.core.content.res.TypedArrayUtils;
 import de.dlyt.yanndroid.oneui.R;
 
 public class LayoutPreference extends Preference {
+    private final View.OnClickListener mClickListener;
+    View mRootView;
     private boolean mAllowDividerAbove;
     private boolean mAllowDividerBelow;
-    private final View.OnClickListener mClickListener;
     private int mDescendantFocusability;
     private boolean mIsRelativeLinkView;
-    View mRootView;
 
     public LayoutPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -12,21 +12,21 @@ import de.dlyt.yanndroid.oneui.dialog.SamsungAlertDialog;
 public class ClassicColorPickerDialog extends SamsungAlertDialog implements DialogInterface.OnClickListener {
     private static final String TAG = "SeslColorPickerDialog";
     private final SeslColorPicker mColorPicker;
-    private Integer mCurrentColor;
     private final ClassicColorPickerDialog.ColorPickerChangedListener mColorPickerChangedListener;
+    private Integer mCurrentColor;
 
     public ClassicColorPickerDialog(Context context, ClassicColorPickerDialog.ColorPickerChangedListener listener) {
         super(context);
         this.mCurrentColor = null;
         Context var3 = this.getContext();
-        View var4 = LayoutInflater.from(var3).inflate(R.layout.sesl_color_picker_dialog, (ViewGroup)null);
+        View var4 = LayoutInflater.from(var3).inflate(R.layout.sesl_color_picker_dialog, (ViewGroup) null);
         this.setView(var4);
         this.setButton(-1, var3.getString(R.string.sesl_done), this);
         this.setButton(-2, var3.getString(android.R.string.cancel), this);
         this.requestWindowFeature(1);
         this.getWindow().setSoftInputMode(16);
         this.mColorPickerChangedListener = listener;
-        this.mColorPicker = (SeslColorPicker)var4.findViewById(R.id.sesl_color_picker_content_view);
+        this.mColorPicker = (SeslColorPicker) var4.findViewById(R.id.sesl_color_picker_content_view);
     }
 
     public ClassicColorPickerDialog(Context context, ClassicColorPickerDialog.ColorPickerChangedListener listener, int currentColor) {

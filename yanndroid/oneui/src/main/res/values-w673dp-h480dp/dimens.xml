@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item type="dimen" name="sesl_dialog_min_width_major">55.000008%</item>
-    <item type="dimen" name="sesl_dialog_min_width_minor">63.0%</item>
+    <item name="sesl_dialog_min_width_major" type="dimen">55.000008%</item>
+    <item name="sesl_dialog_min_width_minor" type="dimen">63.0%</item>
 </resources>

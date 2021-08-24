@@ -46,7 +46,7 @@ public class InnerPreferenceFragment extends SeslPreferenceFragmentCompat {
                 return groupToSearchIn;
 
             if (child instanceof PreferenceGroup) {
-                PreferenceGroup childGroup = (PreferenceGroup)child;
+                PreferenceGroup childGroup = (PreferenceGroup) child;
                 PreferenceGroup result = getParent(childGroup, preference);
                 if (result != null)
                     return result;

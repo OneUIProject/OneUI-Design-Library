@@ -12,17 +12,6 @@ import de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerViewAccessibilityDelegat
 public class PreferenceRecyclerViewAccessibilityDelegate extends SeslRecyclerViewAccessibilityDelegate {
     final AccessibilityDelegateCompat mDefaultItemDelegate = super.getItemDelegate();
     final SeslRecyclerView mRecyclerView;
-
-    public PreferenceRecyclerViewAccessibilityDelegate(SeslRecyclerView recyclerView) {
-        super(recyclerView);
-        mRecyclerView = recyclerView;
-    }
-
-    @Override
-    public AccessibilityDelegateCompat getItemDelegate() {
-        return mItemDelegate;
-    }
-
     final AccessibilityDelegateCompat mItemDelegate = new AccessibilityDelegateCompat() {
         @Override
         public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
@@ -34,4 +23,14 @@ public class PreferenceRecyclerViewAccessibilityDelegate extends SeslRecyclerVie
             return mDefaultItemDelegate.performAccessibilityAction(host, action, args);
         }
     };
+
+    public PreferenceRecyclerViewAccessibilityDelegate(SeslRecyclerView recyclerView) {
+        super(recyclerView);
+        mRecyclerView = recyclerView;
+    }
+
+    @Override
+    public AccessibilityDelegateCompat getItemDelegate() {
+        return mItemDelegate;
+    }
 }

@@ -21,30 +21,12 @@ import de.dlyt.yanndroid.oneui.R;
 
 public class SplashViewSimple extends LinearLayout {
 
-    private Drawable mImage;
-    private String mText;
-
-    private MaterialTextView textView;
-    private ImageView imageview;
-
     public static final int TEXTVIEW = 0;
     public static final int IMAGEVIEW = 1;
-
-    @IntDef({TEXTVIEW, IMAGEVIEW})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface SplashViewSimpleView {
-    }
-
-    public View getView(@SplashViewSimpleView int view) {
-        switch (view) {
-            case TEXTVIEW:
-                return textView;
-            case IMAGEVIEW:
-                return imageview;
-            default:
-                return null;
-        }
-    }
+    private Drawable mImage;
+    private String mText;
+    private MaterialTextView textView;
+    private ImageView imageview;
 
     public SplashViewSimple(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -70,6 +52,17 @@ public class SplashViewSimple extends LinearLayout {
 
     }
 
+    public View getView(@SplashViewSimpleView int view) {
+        switch (view) {
+            case TEXTVIEW:
+                return textView;
+            case IMAGEVIEW:
+                return imageview;
+            default:
+                return null;
+        }
+    }
+
     public String getText() {
         return mText;
     }
@@ -82,5 +75,10 @@ public class SplashViewSimple extends LinearLayout {
     public void setImage(Drawable mImage) {
         this.mImage = mImage;
         imageview.setImageDrawable(mImage);
+    }
+
+    @IntDef({TEXTVIEW, IMAGEVIEW})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface SplashViewSimpleView {
     }
 }

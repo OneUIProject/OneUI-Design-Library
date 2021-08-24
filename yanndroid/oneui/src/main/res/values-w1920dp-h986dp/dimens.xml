@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item type="dimen" name="sesl_dialog_min_width_minor">35.000004%</item>
+    <item name="sesl_dialog_min_width_minor" type="dimen">35.000004%</item>
 </resources>

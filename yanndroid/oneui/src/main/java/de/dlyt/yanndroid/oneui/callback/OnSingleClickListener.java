@@ -6,7 +6,8 @@ import android.view.View;
 public abstract class OnSingleClickListener implements View.OnClickListener {
     public long mLastClickTime;
 
-    public OnSingleClickListener() { }
+    public OnSingleClickListener() {
+    }
 
     public void onClick(View view) {
         long uptimeMillis = SystemClock.uptimeMillis();

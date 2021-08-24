@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<animated-vector android:drawable="@drawable/sesl_btn_check_to_on_026"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <target android:name="circle_outline" android:animation="@anim/sesl_checkbox_to_unchecked_circle_outline_anim" />
-    <target android:name="circle_fill" android:animation="@anim/sesl_checkbox_to_unchecked_circle_fill_anim" />
-    <target android:name="check_mark" android:animation="@anim/sesl_checkbox_to_unchecked_check_mark_anim" />
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/sesl_btn_check_to_on_026">
+    <target
+        android:name="circle_outline"
+        android:animation="@anim/sesl_checkbox_to_unchecked_circle_outline_anim" />
+    <target
+        android:name="circle_fill"
+        android:animation="@anim/sesl_checkbox_to_unchecked_circle_fill_anim" />
+    <target
+        android:name="check_mark"
+        android:animation="@anim/sesl_checkbox_to_unchecked_check_mark_anim" />
 </animated-vector>

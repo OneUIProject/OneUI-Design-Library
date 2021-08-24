@@ -2,45 +2,93 @@
 <de.dlyt.yanndroid.oneui.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TipsCardViewPreference android:key="tip_card" android:title="TipsCardView" android:summary="Creating OneUI apps has never been so easy!" />
+    <TipsCardViewPreference
+        android:key="tip_card"
+        android:summary="Creating OneUI apps has never been so easy!"
+        android:title="TipsCardView" />
 
-    <PreferenceCategory
-        android:title="Switch">
+    <PreferenceCategory android:title="Switch">
         <SwitchPreference
-            android:title="SwitchPreference" android:summary="Summary" />
+            android:summary="Summary"
+            android:title="SwitchPreference" />
         <SwitchPreferenceScreen
-            android:title="SwitchPreferenceScreen" android:summary="Summary" />
+            android:summary="Summary"
+            android:title="SwitchPreferenceScreen" />
         <CheckBoxPreference
-            android:title="CheckBoxPreference" android:summary="Summary" />
+            android:summary="Summary"
+            android:title="CheckBoxPreference" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="SeekBar">
+    <PreferenceCategory android:title="SeekBar">
         <SeekBarPreference
-            android:title="Standard SeekBar" android:summary="min 1; max 10" android:defaultValue="5" app:min="1" app:max="10" />
+            android:defaultValue="5"
+            android:summary="min 1; max 10"
+            android:title="Standard SeekBar"
+            app:max="10"
+            app:min="1" />
         <SeekBarPreference
-            android:title="Expand SeekBar" android:summary="min 1; max 100" android:defaultValue="30" app:min="1" app:max="100" app:seekBarMode="expand" />
+            android:defaultValue="30"
+            android:summary="min 1; max 100"
+            android:title="Expand SeekBar"
+            app:max="100"
+            app:min="1"
+            app:seekBarMode="expand" />
         <SeekBarPreference
-            android:title="Standard SeekBar+Overlap" android:summary="min 1; max 255; overlap 200; showSeekBarValue" android:defaultValue="50" app:min="1" app:max="255" app:overlap="200" app:showSeekBarValue="true" />
+            android:defaultValue="50"
+            android:summary="min 1; max 255; overlap 200; showSeekBarValue"
+            android:title="Standard SeekBar+Overlap"
+            app:max="255"
+            app:min="1"
+            app:overlap="200"
+            app:showSeekBarValue="true" />
         <SeekBarPreference
-            android:title="Expand SeekBar" android:summary="min 1; max 5; seekBarSeamless" android:defaultValue="2" app:min="1" app:max="5" app:seekBarMode="expand" app:seekBarSeamless="true" />
+            android:defaultValue="2"
+            android:summary="min 1; max 5; seekBarSeamless"
+            android:title="Expand SeekBar"
+            app:max="5"
+            app:min="1"
+            app:seekBarMode="expand"
+            app:seekBarSeamless="true" />
     </PreferenceCategory>
 
     <PreferenceCategory>
         <EditTextPreference
-            android:key="key0" android:title="EditTextPreference" android:summary="Summary" />
+            android:key="key0"
+            android:summary="Summary"
+            android:title="EditTextPreference" />
         <ListPreference
-            android:key="key1" android:title="ListPreference" android:summary="Summary" android:entries="@array/inner_preferences_test_entries" android:entryValues="@array/inner_preferences_test_values" />
+            android:entries="@array/inner_preferences_test_entries"
+            android:entryValues="@array/inner_preferences_test_values"
+            android:key="key1"
+            android:summary="Summary"
+            android:title="ListPreference" />
         <DropDownPreference
-            android:key="key2" android:title="DropDownPreference" android:summary="Summary" android:entries="@array/inner_preferences_test_entries" android:entryValues="@array/inner_preferences_test_values" />
+            android:entries="@array/inner_preferences_test_entries"
+            android:entryValues="@array/inner_preferences_test_values"
+            android:key="key2"
+            android:summary="Summary"
+            android:title="DropDownPreference" />
         <MultiSelectListPreference
-            android:key="key3" android:title="MultiSelectListPreference" android:summary="Summary" android:entries="@array/inner_preferences_test_entries" android:entryValues="@array/inner_preferences_test_values"/>
+            android:entries="@array/inner_preferences_test_entries"
+            android:entryValues="@array/inner_preferences_test_values"
+            android:key="key3"
+            android:summary="Summary"
+            android:title="MultiSelectListPreference" />
         <ColorPickerPreference
-            android:key="key4" android:title="ColorPickerPreference" android:summary="pickerType classic; showAlphaSlider" android:defaultValue="#085265" app:pickerType="classic" app:showAlphaSlider="true"/>
+            android:defaultValue="#085265"
+            android:key="key4"
+            android:summary="pickerType classic; showAlphaSlider"
+            android:title="ColorPickerPreference"
+            app:pickerType="classic"
+            app:showAlphaSlider="true" />
         <ColorPickerPreference
-            android:key="key5" android:title="ColorPickerPreference" android:summary="pickerType detailed" android:defaultValue="#FF2563" app:pickerType="detailed"/>
+            android:defaultValue="#FF2563"
+            android:key="key5"
+            android:summary="pickerType detailed"
+            android:title="ColorPickerPreference"
+            app:pickerType="detailed" />
     </PreferenceCategory>
 
-    <InsetPreferenceCategory app:height="80.0dip"/>
+    <InsetPreferenceCategory app:height="80.0dip" />
 
 </de.dlyt.yanndroid.oneui.preference.PreferenceScreen>

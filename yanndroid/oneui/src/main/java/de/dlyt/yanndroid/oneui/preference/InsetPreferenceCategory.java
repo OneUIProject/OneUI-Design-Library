@@ -28,6 +28,7 @@ public class InsetPreferenceCategory extends PreferenceCategory {
             categoryAttrs.recycle();
         }
     }
+
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);

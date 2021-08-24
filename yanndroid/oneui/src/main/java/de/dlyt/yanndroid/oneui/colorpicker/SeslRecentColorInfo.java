@@ -8,14 +8,23 @@ public class SeslRecentColorInfo {
     private ArrayList<Integer> mRecentColorInfo = new ArrayList();
     private Integer mSelectedColor = null;
 
-    public SeslRecentColorInfo() { }
+    public SeslRecentColorInfo() {
+    }
 
     public Integer getCurrentColor() {
         return this.mCurrentColor;
     }
 
+    public void setCurrentColor(Integer var1) {
+        this.mCurrentColor = var1;
+    }
+
     public Integer getNewColor() {
         return this.mNewColor;
+    }
+
+    public void setNewColor(Integer var1) {
+        this.mNewColor = var1;
     }
 
     public ArrayList<Integer> getRecentColorInfo() {
@@ -34,12 +43,12 @@ public class SeslRecentColorInfo {
             if (var2 <= 6) {
                 var2 = var1.length;
 
-                for(var3 = var4; var3 < var2; ++var3) {
+                for (var3 = var4; var3 < var2; ++var3) {
                     int var5 = var1[var3];
                     this.mRecentColorInfo.add(var5);
                 }
             } else {
-                while(var3 < 6) {
+                while (var3 < 6) {
                     this.mRecentColorInfo.add(var1[var3]);
                     ++var3;
                 }
@@ -50,13 +59,5 @@ public class SeslRecentColorInfo {
 
     public void saveSelectedColor(int var1) {
         this.mSelectedColor = var1;
-    }
-
-    public void setCurrentColor(Integer var1) {
-        this.mCurrentColor = var1;
-    }
-
-    public void setNewColor(Integer var1) {
-        this.mNewColor = var1;
     }
 }

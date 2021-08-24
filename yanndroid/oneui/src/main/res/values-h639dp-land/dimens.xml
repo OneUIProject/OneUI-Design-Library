@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--AppBarLayout-->
-    <item type="dimen" name="sesl_appbar_height_proportion">0.3</item>
+    <item name="sesl_appbar_height_proportion" type="dimen">0.3</item>
 </resources>

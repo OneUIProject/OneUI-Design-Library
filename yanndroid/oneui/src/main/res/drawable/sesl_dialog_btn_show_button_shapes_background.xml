@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list
-  xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/sesl_dialog_btn_show_button_shapes_borderless" />
     <item android:drawable="@drawable/sesl_dialog_btn_show_button_shapes_shape_mask" />
 </layer-list>

@@ -17,28 +17,33 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import java.util.ArrayList;
 
 import androidx.annotation.RestrictTo;
 import androidx.core.content.ContextCompat;
+
+import java.util.ArrayList;
 
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.SeekBar;
 
 public class SeslColorPicker extends LinearLayout {
+    static final int RECENT_COLOR_SLOT_COUNT = 6;
     private static final int CURRENT_COLOR_VIEW = 0;
     private static final int NEW_COLOR_VIEW = 1;
-    static final int RECENT_COLOR_SLOT_COUNT = 6;
     private static final int RIPPLE_EFFECT_OPACITY = 61;
     private static final float SCALE_LARGE = 1.2F;
+    private final Context mContext;
+    private final OnClickListener mImageButtonClickListener;
+    private final SeslRecentColorInfo mRecentColorInfo;
+    private final ArrayList<Integer> mRecentColorValues;
+    private final Resources mResources;
+    private final int[] mSmallestWidthDp = new int[]{320, 360, 411};
     private String[] mColorDescription;
     private SeslColorSwatchView mColorSwatchView;
-    private final Context mContext;
     private GradientDrawable mCurrentColorBackground;
     private View mCurrentColorContainer;
     private ImageView mCurrentColorView;
     private float mCurrentFontScale;
-    private final OnClickListener mImageButtonClickListener;
     private boolean mIsInputFromUser;
     private boolean mIsLightTheme;
     private boolean mIsOpacityBarEnabled;
@@ -48,14 +53,10 @@ public class SeslColorPicker extends LinearLayout {
     private SeslColorPicker.PickedColor mPickedColor;
     private View mPickedColorContainer;
     private ImageView mPickedColorView;
-    private final SeslRecentColorInfo mRecentColorInfo;
     private LinearLayout mRecentColorListLayout;
-    private final ArrayList<Integer> mRecentColorValues;
     private View mRecentlyDivider;
     private TextView mRecentlyText;
-    private final Resources mResources;
     private GradientDrawable mSelectedColorBackground;
-    private final int[] mSmallestWidthDp = new int[]{320, 360, 411};
 
     public SeslColorPicker(Context var1, AttributeSet var2) {
         super(var1, var2);
@@ -67,10 +68,10 @@ public class SeslColorPicker extends LinearLayout {
             public void onClick(View var1) {
                 int var2 = SeslColorPicker.this.mRecentColorValues.size();
 
-                for(int var3 = 0; var3 < var2 && var3 < 6; ++var3) {
+                for (int var3 = 0; var3 < var2 && var3 < 6; ++var3) {
                     if (SeslColorPicker.this.mRecentColorListLayout.getChildAt(var3).equals(var1)) {
                         SeslColorPicker.this.mIsInputFromUser = true;
-                        int var4 = (Integer)SeslColorPicker.this.mRecentColorValues.get(var3);
+                        int var4 = (Integer) SeslColorPicker.this.mRecentColorValues.get(var3);
                         SeslColorPicker.this.mPickedColor.setColor(var4);
                         try {
                             SeslColorPicker.this.mapColorOnColorWheel(var4);
@@ -109,7 +110,7 @@ public class SeslColorPicker extends LinearLayout {
     }
 
     private void initColorSwatchView() {
-        this.mColorSwatchView = (SeslColorSwatchView)this.findViewById(R.id.sesl_color_picker_color_swatch_view);
+        this.mColorSwatchView = (SeslColorSwatchView) this.findViewById(R.id.sesl_color_picker_color_swatch_view);
         this.mColorSwatchView.setOnColorSwatchChangedListener(new SeslColorSwatchView.OnColorSwatchChangedListener() {
             public void onColorSwatchChanged(int var1) {
                 SeslColorPicker.this.mIsInputFromUser = true;
@@ -124,30 +125,30 @@ public class SeslColorPicker extends LinearLayout {
     }
 
     private void initCurrentColorView() {
-        this.mCurrentColorView = (ImageView)this.findViewById(R.id.sesl_color_picker_current_color_view);
-        this.mPickedColorView = (ImageView)this.findViewById(R.id.sesl_color_picker_picked_color_view);
+        this.mCurrentColorView = (ImageView) this.findViewById(R.id.sesl_color_picker_current_color_view);
+        this.mPickedColorView = (ImageView) this.findViewById(R.id.sesl_color_picker_picked_color_view);
         Resources var1 = this.mResources;
         int var2;
         var2 = var1.getColor(R.color.sesl_color_picker_selected_color_item_text_color, null);
-        TextView var5 = (TextView)this.findViewById(R.id.sesl_color_picker_current_color_text);
+        TextView var5 = (TextView) this.findViewById(R.id.sesl_color_picker_current_color_text);
         var5.setTextColor(var2);
-        TextView var3 = (TextView)this.findViewById(R.id.sesl_color_picker_picked_color_text);
+        TextView var3 = (TextView) this.findViewById(R.id.sesl_color_picker_picked_color_text);
         var3.setTextColor(var2);
         if (this.mCurrentFontScale > 1.2F) {
-            float var4 = (float)this.mResources.getDimensionPixelOffset(R.dimen.sesl_color_picker_selected_color_text_size);
-            var5.setTextSize(0, (float)Math.floor(Math.ceil((double)(var4 / this.mCurrentFontScale)) * 1.2000000476837158D));
-            var3.setTextSize(0, (float)Math.floor(Math.ceil((double)(var4 / this.mCurrentFontScale)) * 1.2000000476837158D));
+            float var4 = (float) this.mResources.getDimensionPixelOffset(R.dimen.sesl_color_picker_selected_color_text_size);
+            var5.setTextSize(0, (float) Math.floor(Math.ceil((double) (var4 / this.mCurrentFontScale)) * 1.2000000476837158D));
+            var3.setTextSize(0, (float) Math.floor(Math.ceil((double) (var4 / this.mCurrentFontScale)) * 1.2000000476837158D));
         }
 
         this.mCurrentColorContainer = this.findViewById(R.id.sesl_color_picker_current_color_focus);
         this.mPickedColorContainer = this.findViewById(R.id.sesl_color_picker_picked_color_focus);
-        this.mSelectedColorBackground = (GradientDrawable)this.mPickedColorView.getBackground();
+        this.mSelectedColorBackground = (GradientDrawable) this.mPickedColorView.getBackground();
         Integer var6 = this.mPickedColor.getColor();
         if (var6 != null) {
             this.mSelectedColorBackground.setColor(var6);
         }
 
-        this.mCurrentColorBackground = (GradientDrawable)this.mCurrentColorView.getBackground();
+        this.mCurrentColorBackground = (GradientDrawable) this.mCurrentColorView.getBackground();
     }
 
     private void initDialogPadding() {
@@ -155,14 +156,14 @@ public class SeslColorPicker extends LinearLayout {
             DisplayMetrics var1 = this.mResources.getDisplayMetrics();
             float var2 = var1.density;
             if (var2 % 1.0F != 0.0F) {
-                float var3 = (float)var1.widthPixels;
-                if (this.isContains((int)(var3 / var2))) {
+                float var3 = (float) var1.widthPixels;
+                if (this.isContains((int) (var3 / var2))) {
                     int var4 = this.mResources.getDimensionPixelSize(R.dimen.sesl_color_picker_seekbar_width);
-                    if (var3 < (float)(this.mResources.getDimensionPixelSize(R.dimen.sesl_color_picker_dialog_padding_left) * 2 + var4)) {
-                        int var5 = (int)((var3 - (float)var4) / 2.0F);
+                    if (var3 < (float) (this.mResources.getDimensionPixelSize(R.dimen.sesl_color_picker_dialog_padding_left) * 2 + var4)) {
+                        int var5 = (int) ((var3 - (float) var4) / 2.0F);
                         int var6 = this.mResources.getDimensionPixelSize(R.dimen.sesl_color_picker_dialog_padding_top);
                         var4 = this.mResources.getDimensionPixelSize(R.dimen.sesl_color_picker_dialog_padding_bottom);
-                        ((LinearLayout)this.findViewById(R.id.sesl_color_picker_main_content_container)).setPadding(var5, var6, var5, var4);
+                        ((LinearLayout) this.findViewById(R.id.sesl_color_picker_main_content_container)).setPadding(var5, var6, var5, var4);
                     }
                 }
             }
@@ -171,8 +172,8 @@ public class SeslColorPicker extends LinearLayout {
     }
 
     private void initOpacitySeekBar() {
-        this.mOpacitySeekBar = (SeslOpacitySeekBar)this.findViewById(R.id.sesl_color_picker_opacity_seekbar);
-        this.mOpacitySeekBarContainer = (FrameLayout)this.findViewById(R.id.sesl_color_picker_opacity_seekbar_container);
+        this.mOpacitySeekBar = (SeslOpacitySeekBar) this.findViewById(R.id.sesl_color_picker_opacity_seekbar);
+        this.mOpacitySeekBarContainer = (FrameLayout) this.findViewById(R.id.sesl_color_picker_opacity_seekbar_container);
         if (!this.mIsOpacityBarEnabled) {
             this.mOpacitySeekBar.setVisibility(View.GONE);
             this.mOpacitySeekBarContainer.setVisibility(View.GONE);
@@ -229,15 +230,15 @@ public class SeslColorPicker extends LinearLayout {
     }
 
     private void initRecentColorLayout() {
-        this.mRecentColorListLayout = (LinearLayout)this.findViewById(R.id.sesl_color_picker_used_color_item_list_layout);
-        this.mRecentlyText = (TextView)this.findViewById(R.id.sesl_color_picker_used_color_divider_text);
+        this.mRecentColorListLayout = (LinearLayout) this.findViewById(R.id.sesl_color_picker_used_color_item_list_layout);
+        this.mRecentlyText = (TextView) this.findViewById(R.id.sesl_color_picker_used_color_divider_text);
         this.mRecentlyDivider = this.findViewById(R.id.sesl_color_picker_recently_divider);
         this.mColorDescription = new String[]{this.mResources.getString(R.string.sesl_color_picker_color_one), this.mResources.getString(R.string.sesl_color_picker_color_two), this.mResources.getString(R.string.sesl_color_picker_color_three), this.mResources.getString(R.string.sesl_color_picker_color_four), this.mResources.getString(R.string.sesl_color_picker_color_five), this.mResources.getString(R.string.sesl_color_picker_color_six)};
         Context var1 = this.mContext;
         int var2;
         int var3 = ContextCompat.getColor(var1, R.color.sesl_color_picker_used_color_item_empty_slot_color);
 
-        for(var2 = 0; var2 < 6; ++var2) {
+        for (var2 = 0; var2 < 6; ++var2) {
             View var4 = this.mRecentColorListLayout.getChildAt(var2);
             this.setImageColor(var4, var3);
             var4.setFocusable(false);
@@ -246,7 +247,7 @@ public class SeslColorPicker extends LinearLayout {
 
         if (this.mCurrentFontScale > 1.2F) {
             var2 = this.mResources.getDimensionPixelOffset(R.dimen.sesl_color_picker_selected_color_text_size);
-            this.mRecentlyText.setTextSize(0, (float)Math.floor(Math.ceil((double)((float)var2 / this.mCurrentFontScale)) * 1.2000000476837158D));
+            this.mRecentlyText.setTextSize(0, (float) Math.floor(Math.ceil((double) ((float) var2 / this.mCurrentFontScale)) * 1.2000000476837158D));
         }
 
         var1 = this.mContext;
@@ -260,7 +261,7 @@ public class SeslColorPicker extends LinearLayout {
         int[] var2 = this.mSmallestWidthDp;
         int var3 = var2.length;
 
-        for(int var4 = 0; var4 < var3; ++var4) {
+        for (int var4 = 0; var4 < var3; ++var4) {
             if (var2[var4] == var1) {
                 return true;
             }
@@ -312,13 +313,13 @@ public class SeslColorPicker extends LinearLayout {
     private void setImageColor(View var1, Integer var2) {
         Context var3 = this.mContext;
         int var4;
-        GradientDrawable var5 = (GradientDrawable)var3.getDrawable(R.drawable.sesl_color_picker_used_color_item_slot);
+        GradientDrawable var5 = (GradientDrawable) var3.getDrawable(R.drawable.sesl_color_picker_used_color_item_slot);
         if (var2 != null) {
             var5.setColor(var2);
         }
 
         var4 = Color.argb(61, 0, 0, 0);
-        var1.setBackground(new RippleDrawable(new ColorStateList(new int[][]{new int[0]}, new int[]{var4}), var5, (Drawable)null));
+        var1.setBackground(new RippleDrawable(new ColorStateList(new int[][]{new int[0]}, new int[]{var4}), var5, (Drawable) null));
         var1.setOnClickListener(this.mImageButtonClickListener);
     }
 
@@ -400,10 +401,10 @@ public class SeslColorPicker extends LinearLayout {
         var8.append(this.mResources.getString(R.string.sesl_color_picker_option));
         String var3 = var8.toString();
 
-        for(int var4 = 0; var4 < 6; ++var4) {
+        for (int var4 = 0; var4 < 6; ++var4) {
             View var5 = this.mRecentColorListLayout.getChildAt(var4);
             if (var4 < var2) {
-                int var6 = (Integer)this.mRecentColorValues.get(var4);
+                int var6 = (Integer) this.mRecentColorValues.get(var4);
                 this.setImageColor(var5, var6);
                 StringBuilder var7 = new StringBuilder();
                 var7.append(this.mColorSwatchView.getColorSwatchDescriptionAt(var6));
@@ -425,7 +426,7 @@ public class SeslColorPicker extends LinearLayout {
             this.mSelectedColorBackground.setColor(var2);
             this.mapColorOnColorWheel(var2);
         } else if (var2 != 0) {
-            var2 = (Integer)this.mRecentColorValues.get(0);
+            var2 = (Integer) this.mRecentColorValues.get(0);
             this.mCurrentColorBackground.setColor(var2);
             this.setCurrentColorViewDescription(var2, 0);
             this.mSelectedColorBackground.setColor(var2);
@@ -456,17 +457,13 @@ public class SeslColorPicker extends LinearLayout {
             return this.mAlpha;
         }
 
-        public Integer getColor() {
-            return this.mColor;
-        }
-
-        public float getV() {
-            return this.mHsv[2];
-        }
-
         public void setAlpha(int var1) {
             this.mAlpha = var1;
             this.mColor = Color.HSVToColor(this.mAlpha, this.mHsv);
+        }
+
+        public Integer getColor() {
+            return this.mColor;
         }
 
         public void setColor(int var1) {
@@ -475,18 +472,22 @@ public class SeslColorPicker extends LinearLayout {
             Color.colorToHSV(this.mColor, this.mHsv);
         }
 
-        public void setHS(float var1, float var2) {
-            float[] var3 = this.mHsv;
-            var3[0] = var1;
-            var3[1] = var2;
-            var3[2] = 1.0F;
-            this.mColor = Color.HSVToColor(this.mAlpha, var3);
+        public float getV() {
+            return this.mHsv[2];
         }
 
         public void setV(float var1) {
             float[] var2 = this.mHsv;
             var2[2] = var1;
             this.mColor = Color.HSVToColor(this.mAlpha, var2);
+        }
+
+        public void setHS(float var1, float var2) {
+            float[] var3 = this.mHsv;
+            var3[0] = var1;
+            var3[1] = var2;
+            var3[2] = 1.0F;
+            this.mColor = Color.HSVToColor(this.mAlpha, var3);
         }
     }
 }

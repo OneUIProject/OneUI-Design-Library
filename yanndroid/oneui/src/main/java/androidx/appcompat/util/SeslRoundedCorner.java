@@ -10,13 +10,13 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.View;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.RestrictTo;
 
 import de.dlyt.yanndroid.oneui.R;
 
 public class SeslRoundedCorner {
-    private static final int RADIUS = 26;
     public static final int ROUNDED_CORNER_ALL = 15;
     public static final int ROUNDED_CORNER_BOTTOM_LEFT = 4;
     public static final int ROUNDED_CORNER_BOTTOM_RIGHT = 8;
@@ -24,26 +24,27 @@ public class SeslRoundedCorner {
     public static final int ROUNDED_CORNER_TOP_LEFT = 1;
     public static final int ROUNDED_CORNER_TOP_RIGHT = 2;
     static final String TAG = "SeslRoundedCorner";
+    private static final int RADIUS = 26;
     Drawable mBottomLeftRound;
+    Drawable mBottomRightRound;
+    int mRoundRadius = -1;
+    Rect mRoundedCornerBounds = new Rect();
+    int mRoundedCornerMode;
+    Drawable mTopLeftRound;
+    Drawable mTopRightRound;
+    int mX;
+    int mY;
     @ColorInt
     private int mBottomLeftRoundColor;
-    Drawable mBottomRightRound;
     @ColorInt
     private int mBottomRightRoundColor;
     private Context mContext;
     private boolean mIsMutate = false;
     private Resources mRes;
-    int mRoundRadius = -1;
-    Rect mRoundedCornerBounds = new Rect();
-    int mRoundedCornerMode;
-    Drawable mTopLeftRound;
     @ColorInt
     private int mTopLeftRoundColor;
-    Drawable mTopRightRound;
     @ColorInt
     private int mTopRightRoundColor;
-    int mX;
-    int mY;
 
     public SeslRoundedCorner(Context context) {
         this.mContext = context;
@@ -172,6 +173,18 @@ public class SeslRoundedCorner {
         return this.mRoundedCornerMode;
     }
 
+    public void setRoundedCorners(int i) {
+        if ((i & -16) == 0) {
+            this.mRoundedCornerMode = i;
+            if (this.mTopLeftRound == null || this.mTopRightRound == null || this.mBottomLeftRound == null || this.mBottomRightRound == null) {
+                initRoundedCorner();
+                return;
+            }
+            return;
+        }
+        throw new IllegalArgumentException("Use wrong rounded corners to the param, corners = " + i);
+    }
+
     public void setRoundedCornerColor(int i, @ColorInt int i2) {
         if (i == 0) {
             throw new IllegalArgumentException("There is no rounded corner on = " + this);
@@ -199,18 +212,6 @@ public class SeslRoundedCorner {
         } else {
             throw new IllegalArgumentException("Use wrong rounded corners to the param, corners = " + i);
         }
-    }
-
-    public void setRoundedCorners(int i) {
-        if ((i & -16) == 0) {
-            this.mRoundedCornerMode = i;
-            if (this.mTopLeftRound == null || this.mTopRightRound == null || this.mBottomLeftRound == null || this.mBottomRightRound == null) {
-                initRoundedCorner();
-                return;
-            }
-            return;
-        }
-        throw new IllegalArgumentException("Use wrong rounded corners to the param, corners = " + i);
     }
 
     private int getColor(Context context, int colorResId) {

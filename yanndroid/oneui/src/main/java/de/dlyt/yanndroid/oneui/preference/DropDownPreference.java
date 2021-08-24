@@ -14,6 +14,21 @@ import de.dlyt.yanndroid.oneui.R;
 public class DropDownPreference extends ListPreference {
     private final ArrayAdapter mAdapter;
     private final Context mContext;
+    private final OnItemSelectedListener mItemSelectedListener = new OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+            if (position >= 0) {
+                String value = getEntryValues()[position].toString();
+                if (!value.equals(getValue()) && callChangeListener(value)) {
+                    setValue(value);
+                }
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+        }
+    };
     private AppCompatSpinner mSpinner;
 
     public DropDownPreference(Context context) {
@@ -81,20 +96,4 @@ public class DropDownPreference extends ListPreference {
         mSpinner.setSelection(findSpinnerIndexOfValue(getValue()));
         super.onBindViewHolder(view);
     }
-
-
-    private final OnItemSelectedListener mItemSelectedListener = new OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-            if (position >= 0) {
-                String value = getEntryValues()[position].toString();
-                if (!value.equals(getValue()) && callChangeListener(value)) {
-                    setValue(value);
-                }
-            }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) { }
-    };
 }

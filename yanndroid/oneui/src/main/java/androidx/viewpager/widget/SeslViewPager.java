@@ -26,6 +26,14 @@ import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.customview.view.AbsSavedState;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
@@ -35,13 +43,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.view.AccessibilityDelegateCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
-import androidx.customview.view.AbsSavedState;
 
 import de.dlyt.yanndroid.oneui.widget.SamsungEdgeEffect;
 
@@ -59,6 +60,9 @@ public class SeslViewPager extends ViewGroup {
         }
     };
     public static final ViewPositionComparator sPositionComparator = new ViewPositionComparator();
+    public final ArrayList<ItemInfo> mItems = new ArrayList();
+    public final ItemInfo mTempItem = new ItemInfo();
+    public final Rect mTempRect = new Rect();
     public int mActivePointerId = -1;
     public PagerAdapter mAdapter;
     public List<OnAdapterChangeListener> mAdapterChangeListeners;
@@ -71,13 +75,6 @@ public class SeslViewPager extends ViewGroup {
     public boolean mDragInGutterEnabled = true;
     public int mDrawingOrder;
     public ArrayList<View> mDrawingOrderedChildren;
-    public final Runnable mEndScrollRunnable = new Runnable() {
-        @Override
-        public void run() {
-            setScrollState(0);
-            populate();
-        }
-    };
     public int mExpectedAdapterCount;
     public boolean mFakeDragging;
     public boolean mFirstLayout = true;
@@ -93,7 +90,6 @@ public class SeslViewPager extends ViewGroup {
     public boolean mIsMouseWheelEventSupport = false;
     public boolean mIsScrollStarted;
     public boolean mIsUnableToDrag;
-    public final ArrayList<ItemInfo> mItems = new ArrayList();
     public float mLastMotionX;
     public float mLastMotionY;
     public float mLastOffset = 3.4028235E38F;
@@ -117,10 +113,15 @@ public class SeslViewPager extends ViewGroup {
     public SamsungEdgeEffect mRightEdge;
     public int mScaledTouchSlop = 0;
     public int mScrollState;
+    public final Runnable mEndScrollRunnable = new Runnable() {
+        @Override
+        public void run() {
+            setScrollState(0);
+            populate();
+        }
+    };
     public Scroller mScroller;
     public boolean mScrollingCacheEnabled;
-    public final ItemInfo mTempItem = new ItemInfo();
-    public final Rect mTempRect = new Rect();
     public int mTopPageBounds;
     public int mTouchSlop;
     public float mTouchSlopRatio = 0.5F;
@@ -139,10 +140,6 @@ public class SeslViewPager extends ViewGroup {
         this.initViewPager();
     }
 
-    private int getClientWidth() {
-        return this.getMeasuredWidth() - this.getPaddingLeft() - this.getPaddingRight();
-    }
-
     public static boolean isDecorView(View var0) {
         boolean var1;
         if (var0.getClass().getAnnotation(DecorView.class) != null) {
@@ -152,6 +149,25 @@ public class SeslViewPager extends ViewGroup {
         }
 
         return var1;
+    }
+
+    /*kang from MathUtils.smali*/
+    public static int constrain(int amount, int low, int high) {
+        if (amount < low) {
+            return low;
+        }
+        return amount > high ? high : amount;
+    }
+
+    public static float constrain(float amount, float low, float high) {
+        if (amount < low) {
+            return low;
+        }
+        return amount > high ? high : amount;
+    }
+
+    private int getClientWidth() {
+        return this.getMeasuredWidth() - this.getPaddingLeft() - this.getPaddingRight();
     }
 
     private void setScrollingCacheEnabled(boolean var1) {
@@ -167,7 +183,7 @@ public class SeslViewPager extends ViewGroup {
             int var4 = var1.size();
             int var5 = this.getDescendantFocusability();
             if (var5 != 393216) {
-                for(int var6 = 0; var6 < this.getChildCount(); ++var6) {
+                for (int var6 = 0; var6 < this.getChildCount(); ++var6) {
                     View var7 = this.getChildAt(var6);
                     if (var7.getVisibility() == 0) {
                         ItemInfo var8 = this.infoForChild(var7);
@@ -227,7 +243,7 @@ public class SeslViewPager extends ViewGroup {
 
     @SuppressLint("WrongConstant")
     public void addTouchables(ArrayList<View> var1) {
-        for(int var2 = 0; var2 < this.getChildCount(); ++var2) {
+        for (int var2 = 0; var2 < this.getChildCount(); ++var2) {
             View var3 = this.getChildAt(var2);
             if (var3.getVisibility() == 0) {
                 ItemInfo var4 = this.infoForChild(var3);
@@ -245,7 +261,7 @@ public class SeslViewPager extends ViewGroup {
             var4 = this.generateLayoutParams(var3);
         }
 
-        LayoutParams var5 = (LayoutParams)var4;
+        LayoutParams var5 = (LayoutParams) var4;
         var5.isDecor |= isDecorView(var1);
         if (this.mInLayout) {
             if (var5 != null && var5.isDecor) {
@@ -268,12 +284,13 @@ public class SeslViewPager extends ViewGroup {
         if (var2 == this) {
             var5 = var4;
         } else {
-            label84: {
+            label84:
+            {
                 if (var2 != null) {
                     ViewParent var9 = var2.getParent();
 
                     boolean var6;
-                    while(true) {
+                    while (true) {
                         if (!(var9 instanceof ViewGroup)) {
                             var6 = false;
                             break;
@@ -291,7 +308,7 @@ public class SeslViewPager extends ViewGroup {
                         StringBuilder var7 = new StringBuilder();
                         var7.append(var2.getClass().getSimpleName());
 
-                        for(var9 = var2.getParent(); var9 instanceof ViewGroup; var9 = var9.getParent()) {
+                        for (var9 = var2.getParent(); var9 instanceof ViewGroup; var9 = var9.getParent()) {
                             var7.append(" => ");
                             var7.append(var9.getClass().getSimpleName());
                         }
@@ -350,7 +367,7 @@ public class SeslViewPager extends ViewGroup {
         int var5 = this.getClientWidth();
         float var6;
         if (var5 > 0) {
-            var6 = (float)this.mPageMargin / (float)var5;
+            var6 = (float) this.mPageMargin / (float) var5;
         } else {
             var6 = 0.0F;
         }
@@ -366,15 +383,15 @@ public class SeslViewPager extends ViewGroup {
                 var7 = 0;
                 var8 = var3.offset + var3.widthFactor + var6;
 
-                while(true) {
+                while (true) {
                     var9 = var5 + 1;
                     if (var9 > var1.position || var7 >= this.mItems.size()) {
                         break;
                     }
 
-                    var3 = (ItemInfo)this.mItems.get(var7);
+                    var3 = (ItemInfo) this.mItems.get(var7);
 
-                    while(true) {
+                    while (true) {
                         var5 = var9;
                         var10 = var8;
                         if (var9 <= var3.position) {
@@ -388,10 +405,10 @@ public class SeslViewPager extends ViewGroup {
                         }
 
                         ++var7;
-                        var3 = (ItemInfo)this.mItems.get(var7);
+                        var3 = (ItemInfo) this.mItems.get(var7);
                     }
 
-                    while(var5 < var3.position) {
+                    while (var5 < var3.position) {
                         var10 += this.mAdapter.getPageWidth(var5) + var6;
                         ++var5;
                     }
@@ -404,10 +421,10 @@ public class SeslViewPager extends ViewGroup {
                 var8 = var3.offset;
                 --var5;
 
-                while(var5 >= var1.position && var7 >= 0) {
-                    var3 = (ItemInfo)this.mItems.get(var7);
+                while (var5 >= var1.position && var7 >= 0) {
+                    var3 = (ItemInfo) this.mItems.get(var7);
 
-                    while(true) {
+                    while (true) {
                         var9 = var5;
                         var10 = var8;
                         if (var5 >= var3.position) {
@@ -421,10 +438,10 @@ public class SeslViewPager extends ViewGroup {
                         }
 
                         --var7;
-                        var3 = (ItemInfo)this.mItems.get(var7);
+                        var3 = (ItemInfo) this.mItems.get(var7);
                     }
 
-                    while(var9 > var3.position) {
+                    while (var9 > var3.position) {
                         var10 -= this.mAdapter.getPageWidth(var9) + var6;
                         --var9;
                     }
@@ -457,10 +474,10 @@ public class SeslViewPager extends ViewGroup {
 
         this.mLastOffset = var10;
 
-        for(var7 = var2 - 1; var7 >= 0; --var5) {
-            var3 = (ItemInfo)this.mItems.get(var7);
+        for (var7 = var2 - 1; var7 >= 0; --var5) {
+            var3 = (ItemInfo) this.mItems.get(var7);
 
-            while(true) {
+            while (true) {
                 int var11 = var3.position;
                 if (var5 <= var11) {
                     var8 -= var3.widthFactor + var6;
@@ -482,10 +499,10 @@ public class SeslViewPager extends ViewGroup {
         var7 = var1.position + 1;
         var5 = var2 + 1;
 
-        for(var2 = var7; var5 < var9; ++var2) {
-            var1 = (ItemInfo)this.mItems.get(var5);
+        for (var2 = var7; var5 < var9; ++var2) {
+            var1 = (ItemInfo) this.mItems.get(var5);
 
-            while(true) {
+            while (true) {
                 var7 = var1.position;
                 if (var2 >= var7) {
                     if (var7 == var4) {
@@ -509,11 +526,11 @@ public class SeslViewPager extends ViewGroup {
         boolean var6 = var1 instanceof ViewGroup;
         boolean var7 = true;
         if (var6) {
-            ViewGroup var8 = (ViewGroup)var1;
+            ViewGroup var8 = (ViewGroup) var1;
             int var9 = var1.getScrollX();
             int var10 = var1.getScrollY();
 
-            for(int var11 = var8.getChildCount() - 1; var11 >= 0; --var11) {
+            for (int var11 = var8.getChildCount() - 1; var11 >= 0; --var11) {
                 View var12 = var8.getChildAt(var11);
                 int var13 = var4 + var9;
                 if (var13 >= var12.getLeft() && var13 < var12.getRight()) {
@@ -544,7 +561,7 @@ public class SeslViewPager extends ViewGroup {
             int var5 = this.getClientWidth();
             int var6 = this.getScrollX();
             if (var1 < 0) {
-                if (var6 > (int)((float)var5 * this.mFirstOffset)) {
+                if (var6 > (int) ((float) var5 * this.mFirstOffset)) {
                     var4 = true;
                 }
 
@@ -553,7 +570,7 @@ public class SeslViewPager extends ViewGroup {
                 var4 = var3;
                 if (var1 > 0) {
                     var4 = var3;
-                    if (var6 < (int)((float)var5 * this.mLastOffset)) {
+                    if (var6 < (int) ((float) var5 * this.mLastOffset)) {
                         var4 = true;
                     }
                 }
@@ -603,8 +620,8 @@ public class SeslViewPager extends ViewGroup {
         byte var10 = 0;
         boolean var9 = var2;
 
-        for(int var8 = var10; var8 < this.mItems.size(); ++var8) {
-            ItemInfo var7 = (ItemInfo)this.mItems.get(var8);
+        for (int var8 = var10; var8 < this.mItems.size(); ++var8) {
+            ItemInfo var7 = (ItemInfo) this.mItems.get(var8);
             if (var7.scrolling) {
                 var7.scrolling = false;
                 var9 = true;
@@ -658,8 +675,8 @@ public class SeslViewPager extends ViewGroup {
         int var5 = 0;
 
         int var10;
-        for(var3 = var5; var5 < this.mItems.size(); var12 = var10) {
-            ItemInfo var6 = (ItemInfo)this.mItems.get(var5);
+        for (var3 = var5; var5 < this.mItems.size(); var12 = var10) {
+            ItemInfo var6 = (ItemInfo) this.mItems.get(var5);
             int var7 = this.mAdapter.getItemPosition(var6.object);
             int var8;
             int var9;
@@ -668,7 +685,8 @@ public class SeslViewPager extends ViewGroup {
                 var9 = var3;
                 var10 = var12;
             } else {
-                label74: {
+                label74:
+                {
                     if (var7 == -2) {
                         this.mItems.remove(var5);
                         var9 = var5 - 1;
@@ -722,8 +740,8 @@ public class SeslViewPager extends ViewGroup {
         if (var4) {
             var5 = this.getChildCount();
 
-            for(var3 = 0; var3 < var5; ++var3) {
-                LayoutParams var13 = (LayoutParams)this.getChildAt(var3).getLayoutParams();
+            for (var3 = 0; var3 < var5; ++var3) {
+                LayoutParams var13 = (LayoutParams) this.getChildAt(var3).getLayoutParams();
                 if (!var13.isDecor) {
                     var13.widthFactor = 0.0F;
                 }
@@ -752,14 +770,14 @@ public class SeslViewPager extends ViewGroup {
                 var5 = 0.6F;
             }
 
-            var1 -= this.mLeftIncr * (int)(var2 + var5);
+            var1 -= this.mLeftIncr * (int) (var2 + var5);
         }
 
         var3 = var1;
         if (this.mItems.size() > 0) {
-            ItemInfo var6 = (ItemInfo)this.mItems.get(0);
+            ItemInfo var6 = (ItemInfo) this.mItems.get(0);
             ArrayList var7 = this.mItems;
-            ItemInfo var8 = (ItemInfo)var7.get(var7.size() - 1);
+            ItemInfo var8 = (ItemInfo) var7.get(var7.size() - 1);
             var3 = constrain(var1, var6.position, var8.position);
         }
 
@@ -787,8 +805,8 @@ public class SeslViewPager extends ViewGroup {
         if (var7 != null) {
             int var5 = 0;
 
-            for(int var6 = var7.size(); var5 < var6; ++var5) {
-                var4 = (OnPageChangeListener)this.mOnPageChangeListeners.get(var5);
+            for (int var6 = var7.size(); var5 < var6; ++var5) {
+                var4 = (OnPageChangeListener) this.mOnPageChangeListeners.get(var5);
                 if (var4 != null) {
                     var4.onPageScrolled(var1, var2, var3);
                 }
@@ -812,8 +830,8 @@ public class SeslViewPager extends ViewGroup {
         if (var5 != null) {
             int var3 = 0;
 
-            for(int var4 = var5.size(); var3 < var4; ++var3) {
-                var2 = (OnPageChangeListener)this.mOnPageChangeListeners.get(var3);
+            for (int var4 = var5.size(); var3 < var4; ++var3) {
+                var2 = (OnPageChangeListener) this.mOnPageChangeListeners.get(var3);
                 if (var2 != null) {
                     var2.onPageSelected(var1);
                 }
@@ -837,8 +855,8 @@ public class SeslViewPager extends ViewGroup {
         if (var5 != null) {
             int var3 = 0;
 
-            for(int var4 = var5.size(); var3 < var4; ++var3) {
-                var2 = (OnPageChangeListener)this.mOnPageChangeListeners.get(var3);
+            for (int var4 = var5.size(); var3 < var4; ++var3) {
+                var2 = (OnPageChangeListener) this.mOnPageChangeListeners.get(var3);
                 if (var2 != null) {
                     var2.onPageScrollStateChanged(var1);
                 }
@@ -859,7 +877,7 @@ public class SeslViewPager extends ViewGroup {
         } else {
             int var2 = this.getChildCount();
 
-            for(int var3 = 0; var3 < var2; ++var3) {
+            for (int var3 = 0; var3 < var2; ++var3) {
                 View var4 = this.getChildAt(var3);
                 if (var4.getVisibility() == 0) {
                     ItemInfo var5 = this.infoForChild(var4);
@@ -874,13 +892,15 @@ public class SeslViewPager extends ViewGroup {
     }
 
     public float distanceInfluenceForSnapDuration(float var1) {
-        return (float)Math.sin((double)((var1 - 0.5F) * 0.47123894F));
+        return (float) Math.sin((double) ((var1 - 0.5F) * 0.47123894F));
     }
 
     public void draw(Canvas var1) {
         boolean var3;
-        label41: {
-            label44: {
+        label41:
+        {
+            label44:
+            {
                 super.draw(var1);
                 int var2 = this.getOverScrollMode();
                 var3 = false;
@@ -903,9 +923,9 @@ public class SeslViewPager extends ViewGroup {
                     var2 = this.getWidth();
                     var1.rotate(270.0F);
                     if (this.seslIsLayoutRtl()) {
-                        var1.translate((float)(-var10 + this.getPaddingTop()), -(this.mLastOffset + 1.0F) * (float)var2 + 1.6777216E7F);
+                        var1.translate((float) (-var10 + this.getPaddingTop()), -(this.mLastOffset + 1.0F) * (float) var2 + 1.6777216E7F);
                     } else {
-                        var1.translate((float)(-var10 + this.getPaddingTop()), this.mFirstOffset * (float)var2);
+                        var1.translate((float) (-var10 + this.getPaddingTop()), this.mFirstOffset * (float) var2);
                     }
 
                     this.mLeftEdge.setSize(var10, var2);
@@ -922,9 +942,9 @@ public class SeslViewPager extends ViewGroup {
                     int var8 = this.getPaddingBottom();
                     var1.rotate(90.0F);
                     if (this.seslIsLayoutRtl()) {
-                        var1.translate((float)(-this.getPaddingTop()), this.mFirstOffset * (float)var6 - 1.6777216E7F);
+                        var1.translate((float) (-this.getPaddingTop()), this.mFirstOffset * (float) var6 - 1.6777216E7F);
                     } else {
-                        var1.translate((float)(-this.getPaddingTop()), -(this.mLastOffset + 1.0F) * (float)var6);
+                        var1.translate((float) (-this.getPaddingTop()), -(this.mLastOffset + 1.0F) * (float) var6);
                     }
 
                     this.mRightEdge.setSize(var9 - var7 - var8, var6);
@@ -956,7 +976,7 @@ public class SeslViewPager extends ViewGroup {
     public final void enableLayers(boolean var1) {
         int var2 = this.getChildCount();
 
-        for(int var3 = 0; var3 < var2; ++var3) {
+        for (int var3 = 0; var3 < var2; ++var3) {
             int var4;
             if (var1) {
                 var4 = this.mPageTransformerLayerType;
@@ -964,7 +984,7 @@ public class SeslViewPager extends ViewGroup {
                 var4 = 0;
             }
 
-            this.getChildAt(var3).setLayerType(var4, (Paint)null);
+            this.getChildAt(var3).setLayerType(var4, (Paint) null);
         }
 
     }
@@ -1037,13 +1057,70 @@ public class SeslViewPager extends ViewGroup {
         return this.mAdapter;
     }
 
+    public void setAdapter(PagerAdapter var1) {
+        PagerAdapter var2 = this.mAdapter;
+        byte var3 = 0;
+        int var4;
+        if (var2 != null) {
+            var2.setViewPagerObserver((DataSetObserver) null);
+            this.mAdapter.startUpdate(this);
+
+            for (var4 = 0; var4 < this.mItems.size(); ++var4) {
+                ItemInfo var8 = (ItemInfo) this.mItems.get(var4);
+                this.mAdapter.destroyItem(this, var8.position, var8.object);
+            }
+
+            this.mAdapter.finishUpdate(this);
+            this.mItems.clear();
+            this.removeNonDecorViews();
+            this.mCurItem = 0;
+            this.scrollTo(0, 0);
+        }
+
+        var2 = this.mAdapter;
+        this.mAdapter = var1;
+        this.mExpectedAdapterCount = 0;
+        if (this.mAdapter != null) {
+            if (this.mObserver == null) {
+                this.mObserver = new PagerObserver();
+            }
+
+            this.mAdapter.setViewPagerObserver(this.mObserver);
+            this.mPopulatePending = false;
+            boolean var5 = this.mFirstLayout;
+            this.mFirstLayout = true;
+            this.mExpectedAdapterCount = this.mAdapter.getCount();
+            if (this.mRestoredCurItem >= 0) {
+                this.mAdapter.restoreState(this.mRestoredAdapterState, this.mRestoredClassLoader);
+                this.setCurrentItemInternal(this.mRestoredCurItem, false, true);
+                this.mRestoredCurItem = -1;
+                this.mRestoredAdapterState = null;
+                this.mRestoredClassLoader = null;
+            } else if (!var5) {
+                this.populate();
+            } else {
+                this.requestLayout();
+            }
+        }
+
+        List var6 = this.mAdapterChangeListeners;
+        if (var6 != null && !var6.isEmpty()) {
+            int var7 = this.mAdapterChangeListeners.size();
+
+            for (var4 = var3; var4 < var7; ++var4) {
+                ((OnAdapterChangeListener) this.mAdapterChangeListeners.get(var4)).onAdapterChanged(this, var2, var1);
+            }
+        }
+
+    }
+
     public int getChildDrawingOrder(int var1, int var2) {
         int var3 = var2;
         if (this.mDrawingOrder == 2) {
             var3 = var1 - 1 - var2;
         }
 
-        return ((LayoutParams)((View)this.mDrawingOrderedChildren.get(var3)).getLayoutParams()).childIndex;
+        return ((LayoutParams) ((View) this.mDrawingOrderedChildren.get(var3)).getLayoutParams()).childIndex;
     }
 
     public final Rect getChildRectInPagerCoordinates(Rect var1, View var2) {
@@ -1062,8 +1139,8 @@ public class SeslViewPager extends ViewGroup {
             var3.bottom = var2.getBottom();
 
             ViewGroup var5;
-            for(ViewParent var4 = var2.getParent(); var4 instanceof ViewGroup && var4 != this; var4 = var5.getParent()) {
-                var5 = (ViewGroup)var4;
+            for (ViewParent var4 = var2.getParent(); var4 instanceof ViewGroup && var4 != this; var4 = var5.getParent()) {
+                var5 = (ViewGroup) var4;
                 var3.left += var5.getLeft();
                 var3.right += var5.getRight();
                 var3.top += var5.getTop();
@@ -1078,16 +1155,48 @@ public class SeslViewPager extends ViewGroup {
         return this.mCurItem;
     }
 
+    public void setCurrentItem(int var1) {
+        this.mPopulatePending = false;
+        this.setCurrentItemInternal(var1, this.mFirstLayout ^ true, false);
+    }
+
     public int getOffscreenPageLimit() {
         return this.mOffscreenPageLimit;
+    }
+
+    public void setOffscreenPageLimit(int var1) {
+        int var2 = var1;
+        if (var1 < 1) {
+            StringBuilder var3 = new StringBuilder();
+            var3.append("Requested offscreen page limit ");
+            var3.append(var1);
+            var3.append(" too small; defaulting to ");
+            var3.append(1);
+            Log.w("ViewPager", var3.toString());
+            var2 = 1;
+        }
+
+        if (var2 != this.mOffscreenPageLimit) {
+            this.mOffscreenPageLimit = var2;
+            this.populate();
+        }
+
     }
 
     public int getPageMargin() {
         return this.mPageMargin;
     }
 
+    public void setPageMargin(int var1) {
+        int var2 = this.mPageMargin;
+        this.mPageMargin = var1;
+        int var3 = this.getWidth();
+        this.recomputeScrollPosition(var3, var3, var1, var2);
+        this.requestLayout();
+    }
+
     public ItemInfo infoForAnyChild(View var1) {
-        while(true) {
+        while (true) {
             ViewParent var2 = var1.getParent();
             if (var2 == this) {
                 return this.infoForChild(var1);
@@ -1097,13 +1206,13 @@ public class SeslViewPager extends ViewGroup {
                 return null;
             }
 
-            var1 = (View)var2;
+            var1 = (View) var2;
         }
     }
 
     public ItemInfo infoForChild(View var1) {
-        for(int var2 = 0; var2 < this.mItems.size(); ++var2) {
-            ItemInfo var3 = (ItemInfo)this.mItems.get(var2);
+        for (int var2 = 0; var2 < this.mItems.size(); ++var2) {
+            ItemInfo var3 = (ItemInfo) this.mItems.get(var2);
             if (this.mAdapter.isViewFromObject(var1, var3.object)) {
                 return var3;
             }
@@ -1117,14 +1226,14 @@ public class SeslViewPager extends ViewGroup {
         int var2 = this.getClientWidth();
         float var3;
         if (var2 > 0) {
-            var3 = (float)var1 / (float)var2;
+            var3 = (float) var1 / (float) var2;
         } else {
             var3 = 0.0F;
         }
 
         float var4;
         if (var2 > 0) {
-            var4 = (float)this.mPageMargin / (float)var2;
+            var4 = (float) this.mPageMargin / (float) var2;
         } else {
             var4 = 0.0F;
         }
@@ -1136,8 +1245,8 @@ public class SeslViewPager extends ViewGroup {
         int var8 = -1;
 
         ItemInfo var11;
-        for(boolean var13 = true; var1 < this.mItems.size(); var5 = var11) {
-            ItemInfo var9 = (ItemInfo)this.mItems.get(var1);
+        for (boolean var13 = true; var1 < this.mItems.size(); var5 = var11) {
+            ItemInfo var9 = (ItemInfo) this.mItems.get(var1);
             int var10 = var1;
             var11 = var9;
             if (!var13) {
@@ -1174,8 +1283,8 @@ public class SeslViewPager extends ViewGroup {
     }
 
     public ItemInfo infoForPosition(int var1) {
-        for(int var2 = 0; var2 < this.mItems.size(); ++var2) {
-            ItemInfo var3 = (ItemInfo)this.mItems.get(var2);
+        for (int var2 = 0; var2 < this.mItems.size(); ++var2) {
+            ItemInfo var3 = (ItemInfo) this.mItems.get(var2);
             if (var3.position == var1) {
                 return var3;
             }
@@ -1196,15 +1305,15 @@ public class SeslViewPager extends ViewGroup {
         this.mTouchSlop = var2.getScaledPagingTouchSlop();
         this.mScaledTouchSlop = var2.getScaledTouchSlop();
         this.mPagingTouchSlop = var2.getScaledPagingTouchSlop();
-        this.mMinimumVelocity = (int)(400.0F * var3);
+        this.mMinimumVelocity = (int) (400.0F * var3);
         this.mMaximumVelocity = var2.getScaledMaximumFlingVelocity();
         this.mLeftEdge = new SamsungEdgeEffect(var1);
         this.mRightEdge = new SamsungEdgeEffect(var1);
         this.mLeftEdge.setSeslHostView(this);
         this.mRightEdge.setSeslHostView(this);
-        this.mFlingDistance = (int)(25.0F * var3);
-        this.mCloseEnough = (int)(2.0F * var3);
-        this.mDefaultGutterSize = (int)(var3 * 16.0F);
+        this.mFlingDistance = (int) (25.0F * var3);
+        this.mCloseEnough = (int) (2.0F * var3);
+        this.mDefaultGutterSize = (int) (var3 * 16.0F);
         ViewCompat.setAccessibilityDelegate(this, new MyAccessibilityDelegate());
         if (ViewCompat.getImportantForAccessibility(this) == 0) {
             ViewCompat.setImportantForAccessibility(this, 1);
@@ -1225,7 +1334,7 @@ public class SeslViewPager extends ViewGroup {
                     var3.bottom = var6.getSystemWindowInsetBottom();
                     int var4 = 0;
 
-                    for(int var5 = SeslViewPager.this.getChildCount(); var4 < var5; ++var4) {
+                    for (int var5 = SeslViewPager.this.getChildCount(); var4 < var5; ++var4) {
                         var2 = ViewCompat.dispatchApplyWindowInsets(SeslViewPager.this.getChildAt(var4), var6);
                         var3.left = Math.min(var2.getSystemWindowInsetLeft(), var3.left);
                         var3.top = Math.min(var2.getSystemWindowInsetTop(), var3.top);
@@ -1245,9 +1354,9 @@ public class SeslViewPager extends ViewGroup {
         if (var3) {
             return false;
         } else {
-            if (var1 >= (float)this.mGutterSize || var2 <= 0.0F) {
+            if (var1 >= (float) this.mGutterSize || var2 <= 0.0F) {
                 var3 = var4;
-                if (var1 <= (float)(this.getWidth() - this.mGutterSize)) {
+                if (var1 <= (float) (this.getWidth() - this.mGutterSize)) {
                     return var3;
                 }
 
@@ -1282,21 +1391,21 @@ public class SeslViewPager extends ViewGroup {
         if (this.mPageMargin > 0 && this.mMarginDrawable != null && this.mItems.size() > 0 && this.mAdapter != null) {
             int var2 = this.getScrollX();
             int var3 = this.getWidth();
-            float var4 = (float)this.mPageMargin;
-            float var5 = (float)var3;
+            float var4 = (float) this.mPageMargin;
+            float var5 = (float) var3;
             float var6 = var4 / var5;
             ArrayList var7 = this.mItems;
             int var8 = 0;
-            ItemInfo var14 = (ItemInfo)var7.get(0);
+            ItemInfo var14 = (ItemInfo) var7.get(0);
             float var9 = var14.offset;
             int var10 = this.mItems.size();
             int var11 = var14.position;
 
-            for(int var12 = ((ItemInfo)this.mItems.get(var10 - 1)).position; var11 < var12; var9 = var4) {
-                while(var11 > var14.position && var8 < var10) {
+            for (int var12 = ((ItemInfo) this.mItems.get(var10 - 1)).position; var11 < var12; var9 = var4) {
+                while (var11 > var14.position && var8 < var10) {
                     var7 = this.mItems;
                     ++var8;
-                    var14 = (ItemInfo)var7.get(var8);
+                    var14 = (ItemInfo) var7.get(var8);
                 }
 
                 if (var11 == var14.position) {
@@ -1320,12 +1429,12 @@ public class SeslViewPager extends ViewGroup {
                     var4 = var13;
                 }
 
-                if ((float)this.mPageMargin + var9 > (float)var2) {
-                    this.mMarginDrawable.setBounds(Math.round(var9), this.mTopPageBounds, Math.round((float)this.mPageMargin + var9), this.mBottomPageBounds);
+                if ((float) this.mPageMargin + var9 > (float) var2) {
+                    this.mMarginDrawable.setBounds(Math.round(var9), this.mTopPageBounds, Math.round((float) this.mPageMargin + var9), this.mBottomPageBounds);
                     this.mMarginDrawable.draw(var1);
                 }
 
-                if (var9 > (float)(var2 + var3)) {
+                if (var9 > (float) (var2 + var3)) {
                     break;
                 }
 
@@ -1382,27 +1491,27 @@ public class SeslViewPager extends ViewGroup {
                         var7 = Math.abs(var6 - this.mInitialMotionY);
                         float var8;
                         var2 = (var8 = var4 - 0.0F) == 0.0F ? 0 : (var8 < 0.0F ? -1 : 1);
-                        if (var2 != 0 && !this.isGutterDrag(this.mLastMotionX, var4) && this.canScroll(this, false, (int)var4, (int)var3, (int)var6)) {
+                        if (var2 != 0 && !this.isGutterDrag(this.mLastMotionX, var4) && this.canScroll(this, false, (int) var4, (int) var3, (int) var6)) {
                             this.mLastMotionX = var3;
                             this.mLastMotionY = var6;
                             this.mIsUnableToDrag = true;
                             return false;
                         }
 
-                        if (var5 > (float)this.mTouchSlop && var5 * this.mTouchSlopRatio > var7) {
+                        if (var5 > (float) this.mTouchSlop && var5 * this.mTouchSlopRatio > var7) {
                             this.mIsBeingDragged = true;
                             this.requestParentDisallowInterceptTouchEvent(true);
                             this.setScrollState(1);
                             if (var2 > 0) {
-                                var7 = this.mInitialMotionX + (float)this.mTouchSlop;
+                                var7 = this.mInitialMotionX + (float) this.mTouchSlop;
                             } else {
-                                var7 = this.mInitialMotionX - (float)this.mTouchSlop;
+                                var7 = this.mInitialMotionX - (float) this.mTouchSlop;
                             }
 
                             this.mLastMotionX = var7;
                             this.mLastMotionY = var6;
                             this.setScrollingCacheEnabled(true);
-                        } else if (var7 > (float)this.mTouchSlop) {
+                        } else if (var7 > (float) this.mTouchSlop) {
                             this.mIsUnableToDrag = true;
                         }
 
@@ -1470,7 +1579,7 @@ public class SeslViewPager extends ViewGroup {
         View var13;
         int var14;
         LayoutParams var18;
-        for(int var12 = 0; var12 < var6; var11 = var4) {
+        for (int var12 = 0; var12 < var6; var11 = var4) {
             var13 = this.getChildAt(var12);
             var14 = var3;
             int var15 = var9;
@@ -1478,7 +1587,7 @@ public class SeslViewPager extends ViewGroup {
             int var17 = var5;
             var4 = var11;
             if (var13.getVisibility() != 8) {
-                var18 = (LayoutParams)var13.getLayoutParams();
+                var18 = (LayoutParams) var13.getLayoutParams();
                 var14 = var3;
                 var15 = var9;
                 var16 = var2;
@@ -1541,15 +1650,15 @@ public class SeslViewPager extends ViewGroup {
             var5 = var17;
         }
 
-        for(var4 = 0; var4 < var6; ++var4) {
+        for (var4 = 0; var4 < var6; ++var4) {
             var13 = this.getChildAt(var4);
             if (var13.getVisibility() != 8) {
-                var18 = (LayoutParams)var13.getLayoutParams();
+                var18 = (LayoutParams) var13.getLayoutParams();
                 if (!var18.isDecor) {
                     ItemInfo var19 = this.infoForChild(var13);
                     if (var19 != null) {
-                        float var20 = (float)(var7 - var3 - var9);
-                        var14 = (int)(var19.offset * var20);
+                        float var20 = (float) (var7 - var3 - var9);
+                        var14 = (int) (var19.offset * var20);
                         if (this.seslIsLayoutRtl()) {
                             var14 = 16777216 - var9 - var14 - var13.getMeasuredWidth();
                         } else {
@@ -1558,7 +1667,7 @@ public class SeslViewPager extends ViewGroup {
 
                         if (var18.needsMeasure) {
                             var18.needsMeasure = false;
-                            var13.measure(MeasureSpec.makeMeasureSpec((int)(var20 * var18.widthFactor), 1073741824), MeasureSpec.makeMeasureSpec(var8 - var2 - var5, 1073741824));
+                            var13.measure(MeasureSpec.makeMeasureSpec((int) (var20 * var18.widthFactor), 1073741824), MeasureSpec.makeMeasureSpec(var8 - var2 - var5, 1073741824));
                         }
 
                         var13.layout(var14, var2, var13.getMeasuredWidth() + var14, var13.getMeasuredHeight() + var2);
@@ -1594,7 +1703,7 @@ public class SeslViewPager extends ViewGroup {
         var1 = var1 - var4 - var5;
         var6 = 0;
 
-        while(true) {
+        while (true) {
             boolean var9 = true;
             int var10 = 1073741824;
             View var11;
@@ -1607,12 +1716,12 @@ public class SeslViewPager extends ViewGroup {
                 this.mInLayout = false;
                 var5 = this.getChildCount();
 
-                for(var2 = var3; var2 < var5; ++var2) {
+                for (var2 = var3; var2 < var5; ++var2) {
                     var11 = this.getChildAt(var2);
                     if (var11.getVisibility() != 8) {
-                        var12 = (LayoutParams)var11.getLayoutParams();
+                        var12 = (LayoutParams) var11.getLayoutParams();
                         if (var12 == null || !var12.isDecor) {
-                            var11.measure(MeasureSpec.makeMeasureSpec((int)((float)var1 * var12.widthFactor), 1073741824), var4);
+                            var11.measure(MeasureSpec.makeMeasureSpec((int) ((float) var1 * var12.widthFactor), 1073741824), var4);
                         }
                     }
                 }
@@ -1624,7 +1733,7 @@ public class SeslViewPager extends ViewGroup {
             var5 = var2;
             var4 = var1;
             if (var11.getVisibility() != 8) {
-                var12 = (LayoutParams)var11.getLayoutParams();
+                var12 = (LayoutParams) var11.getLayoutParams();
                 var5 = var2;
                 var4 = var1;
                 if (var12 != null) {
@@ -1721,9 +1830,9 @@ public class SeslViewPager extends ViewGroup {
             int var8 = this.getWidth();
             int var9 = this.getChildCount();
 
-            for(int var10 = 0; var10 < var9; ++var10) {
+            for (int var10 = 0; var10 < var9; ++var10) {
                 var11 = this.getChildAt(var10);
-                LayoutParams var12 = (LayoutParams)var11.getLayoutParams();
+                LayoutParams var12 = (LayoutParams) var11.getLayoutParams();
                 if (var12.isDecor) {
                     int var13 = var12.gravity & 7;
                     if (var13 != 1) {
@@ -1757,10 +1866,10 @@ public class SeslViewPager extends ViewGroup {
             var4 = this.getScrollX();
             var3 = this.getChildCount();
 
-            for(var1 = var5; var1 < var3; ++var1) {
+            for (var1 = var5; var1 < var3; ++var1) {
                 var11 = this.getChildAt(var1);
-                if (!((LayoutParams)var11.getLayoutParams()).isDecor) {
-                    var2 = (float)(var11.getLeft() - var4) / (float)this.getClientWidth();
+                if (!((LayoutParams) var11.getLayoutParams()).isDecor) {
+                    var2 = (float) (var11.getLeft() - var4) / (float) this.getClientWidth();
                     this.mPageTransformer.transformPage(var11, var2);
                 }
             }
@@ -1783,7 +1892,7 @@ public class SeslViewPager extends ViewGroup {
             var5 = -1;
         }
 
-        for(; var3 != var4; var3 += var5) {
+        for (; var3 != var4; var3 += var5) {
             View var6 = this.getChildAt(var3);
             if (var6.getVisibility() == 0) {
                 ItemInfo var7 = this.infoForChild(var6);
@@ -1800,7 +1909,7 @@ public class SeslViewPager extends ViewGroup {
         if (!(var1 instanceof SavedState)) {
             super.onRestoreInstanceState(var1);
         } else {
-            SavedState var3 = (SavedState)var1;
+            SavedState var3 = (SavedState) var1;
             super.onRestoreInstanceState(var3.getSuperState());
             PagerAdapter var2 = this.mAdapter;
             if (var2 != null) {
@@ -1903,7 +2012,8 @@ public class SeslViewPager extends ViewGroup {
                                     var3 = this.resetTouch();
                                 }
                             } else {
-                                label69: {
+                                label69:
+                                {
                                     if (!this.mIsBeingDragged) {
                                         var2 = var1.findPointerIndex(this.mActivePointerId);
                                         if (var2 == -1) {
@@ -1915,14 +2025,14 @@ public class SeslViewPager extends ViewGroup {
                                         float var6 = Math.abs(var5 - this.mLastMotionX);
                                         var7 = var1.getY(var2);
                                         float var8 = Math.abs(var7 - this.mLastMotionY);
-                                        if (var6 > (float)this.mTouchSlop && var6 > var8) {
+                                        if (var6 > (float) this.mTouchSlop && var6 > var8) {
                                             this.mIsBeingDragged = true;
                                             this.requestParentDisallowInterceptTouchEvent(true);
                                             var6 = this.mInitialMotionX;
                                             if (var5 - var6 > 0.0F) {
-                                                var5 = var6 + (float)this.mTouchSlop;
+                                                var5 = var6 + (float) this.mTouchSlop;
                                             } else {
-                                                var5 = var6 - (float)this.mTouchSlop;
+                                                var5 = var6 - (float) this.mTouchSlop;
                                             }
 
                                             this.mLastMotionX = var5;
@@ -1943,15 +2053,15 @@ public class SeslViewPager extends ViewGroup {
                             }
                         } else if (this.mIsBeingDragged) {
                             VelocityTracker var11 = this.mVelocityTracker;
-                            var11.computeCurrentVelocity(1000, (float)this.mMaximumVelocity);
-                            var2 = (int)var11.getXVelocity(this.mActivePointerId);
+                            var11.computeCurrentVelocity(1000, (float) this.mMaximumVelocity);
+                            var2 = (int) var11.getXVelocity(this.mActivePointerId);
                             this.mPopulatePending = true;
                             int var9 = this.getClientWidth();
-                            var5 = (float)this.seslGetScrollStart();
-                            var7 = (float)var9;
+                            var5 = (float) this.seslGetScrollStart();
+                            var7 = (float) var9;
                             var5 /= var7;
                             ItemInfo var12 = this.infoForCurrentScrollPosition();
-                            var7 = (float)this.mPageMargin / var7;
+                            var7 = (float) this.mPageMargin / var7;
                             var9 = var12.position;
                             if (this.seslIsLayoutRtl()) {
                                 var5 = (var12.offset - var5) / (var12.widthFactor + var7);
@@ -1959,7 +2069,7 @@ public class SeslViewPager extends ViewGroup {
                                 var5 = (var5 - var12.offset) / (var12.widthFactor + var7);
                             }
 
-                            this.setCurrentItemInternal(this.determineTargetPage(var9, var5, var2, (int)(var1.getX(var1.findPointerIndex(this.mActivePointerId)) - this.mInitialMotionX)), true, true, var2);
+                            this.setCurrentItemInternal(this.determineTargetPage(var9, var5, var2, (int) (var1.getX(var1.findPointerIndex(this.mActivePointerId)) - this.mInitialMotionX)), true, true, var2);
                             var3 = this.resetTouch();
                         }
                     } else {
@@ -2029,12 +2139,12 @@ public class SeslViewPager extends ViewGroup {
             ItemInfo var3 = this.infoForCurrentScrollPosition();
             int var4 = this.getClientWidth();
             int var5 = this.mPageMargin;
-            float var6 = (float)var5;
-            float var7 = (float)var4;
+            float var6 = (float) var5;
+            float var7 = (float) var4;
             var6 /= var7;
             var1 = var3.position;
-            var7 = ((float)var2 / var7 - var3.offset) / (var3.widthFactor + var6);
-            var2 = (int)((float)(var4 + var5) * var7);
+            var7 = ((float) var2 / var7 - var3.offset) / (var3.widthFactor + var6);
+            var2 = (int) ((float) (var4 + var5) * var7);
             this.mCalledSuper = false;
             this.onPageScrolled(var1, var7, var2);
             if (this.mCalledSuper) {
@@ -2066,14 +2176,14 @@ public class SeslViewPager extends ViewGroup {
 
         float var8 = this.mLastMotionX;
         this.mLastMotionX = var1;
-        var1 = (float)this.getScrollX() + (var8 - var1);
+        var1 = (float) this.getScrollX() + (var8 - var1);
         var8 = var1;
         if (this.seslIsLayoutRtl()) {
             var8 = 1.6777216E7F - var1;
         }
 
         int var9 = this.getClientWidth();
-        ItemInfo var10 = (ItemInfo)this.mItems.get(0);
+        ItemInfo var10 = (ItemInfo) this.mItems.get(0);
         boolean var11;
         if (var10.position == 0) {
             var11 = true;
@@ -2082,26 +2192,27 @@ public class SeslViewPager extends ViewGroup {
         }
 
         float var12;
-        label62: {
+        label62:
+        {
             if (var11) {
                 if (this.seslIsLayoutRtl()) {
-                    var1 = (float)var9;
+                    var1 = (float) var9;
                     var1 += this.mFirstOffset * var1;
                     break label62;
                 }
 
-                var1 = (float)var9;
+                var1 = (float) var9;
                 var12 = this.mFirstOffset;
             } else {
                 var1 = var10.offset;
-                var12 = (float)var9;
+                var12 = (float) var9;
             }
 
             var1 *= var12;
         }
 
         ArrayList var15 = this.mItems;
-        var10 = (ItemInfo)var15.get(var15.size() - 1);
+        var10 = (ItemInfo) var15.get(var15.size() - 1);
         boolean var13;
         if (var10.position == this.mAdapter.getCount() - 1) {
             var13 = true;
@@ -2109,20 +2220,21 @@ public class SeslViewPager extends ViewGroup {
             var13 = false;
         }
 
-        label55: {
+        label55:
+        {
             float var14;
             if (var13) {
                 if (this.seslIsLayoutRtl()) {
-                    var12 = (float)var9;
+                    var12 = (float) var9;
                     var12 += this.mLastOffset * var12;
                     break label55;
                 }
 
-                var14 = (float)var9;
+                var14 = (float) var9;
                 var12 = this.mLastOffset;
             } else {
                 var14 = var10.offset;
-                var12 = (float)var9;
+                var12 = (float) var9;
             }
 
             var12 = var14 * var12;
@@ -2130,7 +2242,7 @@ public class SeslViewPager extends ViewGroup {
 
         if (var8 < var1) {
             if (var11) {
-                var6.onPull(Math.abs(var1 - var8) / (float)var9);
+                var6.onPull(Math.abs(var1 - var8) / (float) var9);
                 var5 = true;
             }
         } else {
@@ -2139,7 +2251,7 @@ public class SeslViewPager extends ViewGroup {
             if (var8 > var12) {
                 var5 = var3;
                 if (var13) {
-                    var7.onPull(Math.abs(var8 - var12) / (float)var9);
+                    var7.onPull(Math.abs(var8 - var12) / (float) var9);
                     var5 = true;
                 }
 
@@ -2153,8 +2265,8 @@ public class SeslViewPager extends ViewGroup {
         }
 
         var1 = this.mLastMotionX;
-        int var16 = (int)var8;
-        this.mLastMotionX = var1 + (var8 - (float)var16);
+        int var16 = (int) var8;
+        this.mLastMotionX = var1 + (var8 - (float) var16);
         this.scrollTo(var16, this.getScrollY());
         this.pageScrolled(var16);
         return var5;
@@ -2219,9 +2331,9 @@ public class SeslViewPager extends ViewGroup {
 
                 ItemInfo var8;
                 int var9;
-                while(true) {
+                while (true) {
                     if (var1 < this.mItems.size()) {
-                        var8 = (ItemInfo)this.mItems.get(var1);
+                        var8 = (ItemInfo) this.mItems.get(var1);
                         var9 = var8.position;
                         var2 = this.mCurItem;
                         if (var9 < var2) {
@@ -2249,7 +2361,7 @@ public class SeslViewPager extends ViewGroup {
                 if (var10 != null) {
                     var2 = var1 - 1;
                     if (var2 >= 0) {
-                        var8 = (ItemInfo)this.mItems.get(var2);
+                        var8 = (ItemInfo) this.mItems.get(var2);
                     } else {
                         var8 = null;
                     }
@@ -2261,7 +2373,7 @@ public class SeslViewPager extends ViewGroup {
                         var12 = 0.0F;
                     } else {
                         var13 = var10.widthFactor;
-                        var12 = (float)this.getPaddingLeft() / (float)var11 + (2.0F - var13);
+                        var12 = (float) this.getPaddingLeft() / (float) var11 + (2.0F - var13);
                     }
 
                     int var14 = this.mCurItem - 1;
@@ -2269,9 +2381,11 @@ public class SeslViewPager extends ViewGroup {
                     float var15;
                     int var16;
                     ItemInfo var17;
-                    for(var15 = 0.0F; var14 >= 0; var2 = var9) {
-                        label207: {
-                            label246: {
+                    for (var15 = 0.0F; var14 >= 0; var2 = var9) {
+                        label207:
+                        {
+                            label246:
+                            {
                                 if (var15 >= var12 && var14 < var5) {
                                     if (var8 == null) {
                                         break;
@@ -2301,7 +2415,7 @@ public class SeslViewPager extends ViewGroup {
                                     var9 = var1;
                                     var16 = var2;
                                     if (var2 >= 0) {
-                                        var8 = (ItemInfo)this.mItems.get(var2);
+                                        var8 = (ItemInfo) this.mItems.get(var2);
                                         var13 = var15;
                                         break label246;
                                     }
@@ -2312,7 +2426,7 @@ public class SeslViewPager extends ViewGroup {
                                     var9 = var1;
                                     var16 = var2;
                                     if (var2 >= 0) {
-                                        var8 = (ItemInfo)this.mItems.get(var2);
+                                        var8 = (ItemInfo) this.mItems.get(var2);
                                         var13 = var15;
                                         break label246;
                                     }
@@ -2323,7 +2437,7 @@ public class SeslViewPager extends ViewGroup {
                                     var9 = var1;
                                     var16 = var2;
                                     if (var2 >= 0) {
-                                        var8 = (ItemInfo)this.mItems.get(var2);
+                                        var8 = (ItemInfo) this.mItems.get(var2);
                                         var13 = var15;
                                         break label246;
                                     }
@@ -2349,7 +2463,7 @@ public class SeslViewPager extends ViewGroup {
                     var9 = var1 + 1;
                     if (var15 < 2.0F) {
                         if (var9 < this.mItems.size()) {
-                            var8 = (ItemInfo)this.mItems.get(var9);
+                            var8 = (ItemInfo) this.mItems.get(var9);
                         } else {
                             var8 = null;
                         }
@@ -2357,19 +2471,20 @@ public class SeslViewPager extends ViewGroup {
                         if (var11 <= 0) {
                             var12 = 0.0F;
                         } else {
-                            var12 = (float)this.getPaddingRight() / (float)var11 + 2.0F;
+                            var12 = (float) this.getPaddingRight() / (float) var11 + 2.0F;
                         }
 
                         var2 = this.mCurItem;
                         var17 = var8;
 
-                        while(true) {
+                        while (true) {
                             var16 = var2 + 1;
                             if (var16 >= var6) {
                                 break;
                             }
 
-                            label247: {
+                            label247:
+                            {
                                 if (var15 >= var12 && var16 > var7) {
                                     if (var17 == null) {
                                         break;
@@ -2394,7 +2509,7 @@ public class SeslViewPager extends ViewGroup {
                                     var13 = var15;
                                     var2 = var9;
                                     if (var9 < this.mItems.size()) {
-                                        var8 = (ItemInfo)this.mItems.get(var9);
+                                        var8 = (ItemInfo) this.mItems.get(var9);
                                         var13 = var15;
                                         var2 = var9;
                                         break label247;
@@ -2405,7 +2520,7 @@ public class SeslViewPager extends ViewGroup {
                                     var13 = var15;
                                     var2 = var9;
                                     if (var9 < this.mItems.size()) {
-                                        var8 = (ItemInfo)this.mItems.get(var9);
+                                        var8 = (ItemInfo) this.mItems.get(var9);
                                         var13 = var15;
                                         var2 = var9;
                                         break label247;
@@ -2417,7 +2532,7 @@ public class SeslViewPager extends ViewGroup {
                                     var13 = var15;
                                     var2 = var9;
                                     if (var9 < this.mItems.size()) {
-                                        var8 = (ItemInfo)this.mItems.get(var9);
+                                        var8 = (ItemInfo) this.mItems.get(var9);
                                         var2 = var9;
                                         var13 = var15;
                                         break label247;
@@ -2441,9 +2556,9 @@ public class SeslViewPager extends ViewGroup {
                 this.mAdapter.finishUpdate(this);
                 var2 = this.getChildCount();
 
-                for(var1 = 0; var1 < var2; ++var1) {
+                for (var1 = 0; var1 < var2; ++var1) {
                     View var20 = this.getChildAt(var1);
-                    LayoutParams var22 = (LayoutParams)var20.getLayoutParams();
+                    LayoutParams var22 = (LayoutParams) var20.getLayoutParams();
                     var22.childIndex = var1;
                     if (!var22.isDecor && var22.widthFactor == 0.0F) {
                         var3 = this.infoForChild(var20);
@@ -2464,7 +2579,7 @@ public class SeslViewPager extends ViewGroup {
                     }
 
                     if (var8 == null || var8.position != this.mCurItem) {
-                        for(var1 = 0; var1 < this.getChildCount(); ++var1) {
+                        for (var1 = 0; var1 < this.getChildCount(); ++var1) {
                             var23 = this.getChildAt(var1);
                             var3 = this.infoForChild(var23);
                             if (var3 != null && var3.position == this.mCurItem && var23.requestFocus(var4)) {
@@ -2487,7 +2602,7 @@ public class SeslViewPager extends ViewGroup {
                 int var6 = this.getPaddingRight();
                 int var7 = this.getPaddingLeft();
                 int var8 = this.getPaddingRight();
-                this.scrollTo((int)((float)this.getScrollX() / (float)(var2 - var7 - var8 + var4) * (float)(var1 - var5 - var6 + var3)), this.getScrollY());
+                this.scrollTo((int) ((float) this.getScrollX() / (float) (var2 - var7 - var8 + var4) * (float) (var1 - var5 - var6 + var3)), this.getScrollY());
             }
         } else {
             ItemInfo var9 = this.infoForPosition(this.mCurItem);
@@ -2498,7 +2613,7 @@ public class SeslViewPager extends ViewGroup {
                 var10 = 0.0F;
             }
 
-            var1 = (int)(var10 * (float)(var1 - this.getPaddingLeft() - this.getPaddingRight()));
+            var1 = (int) (var10 * (float) (var1 - this.getPaddingLeft() - this.getPaddingRight()));
             if (var1 != this.getScrollX()) {
                 this.completeScroll(false);
                 this.scrollTo(var1, this.getScrollY());
@@ -2509,9 +2624,9 @@ public class SeslViewPager extends ViewGroup {
 
     public final void removeNonDecorViews() {
         int var2;
-        for(int var1 = 0; var1 < this.getChildCount(); var1 = var2 + 1) {
+        for (int var1 = 0; var1 < this.getChildCount(); var1 = var2 + 1) {
             var2 = var1;
-            if (!((LayoutParams)this.getChildAt(var1).getLayoutParams()).isDecor) {
+            if (!((LayoutParams) this.getChildAt(var1).getLayoutParams()).isDecor) {
                 this.removeViewAt(var1);
                 var2 = var1 - 1;
             }
@@ -2571,10 +2686,10 @@ public class SeslViewPager extends ViewGroup {
         ItemInfo var5 = this.infoForPosition(var1);
         int var7;
         if (var5 != null) {
-            float var6 = (float)this.getClientWidth();
-            var7 = (int)(constrain(var5.offset, this.mFirstOffset, this.mLastOffset) * var6);
+            float var6 = (float) this.getClientWidth();
+            var7 = (int) (constrain(var5.offset, this.mFirstOffset, this.mLastOffset) * var6);
             if (this.seslIsLayoutRtl()) {
-                var7 = 16777216 - (int)(var6 * var5.widthFactor + 0.5F) - var7;
+                var7 = 16777216 - (int) (var6 * var5.widthFactor + 0.5F) - var7;
             }
         } else {
             var7 = 0;
@@ -2619,68 +2734,6 @@ public class SeslViewPager extends ViewGroup {
         this.mIsMouseWheelEventSupport = var1;
     }
 
-    public void setAdapter(PagerAdapter var1) {
-        PagerAdapter var2 = this.mAdapter;
-        byte var3 = 0;
-        int var4;
-        if (var2 != null) {
-            var2.setViewPagerObserver((DataSetObserver)null);
-            this.mAdapter.startUpdate(this);
-
-            for(var4 = 0; var4 < this.mItems.size(); ++var4) {
-                ItemInfo var8 = (ItemInfo)this.mItems.get(var4);
-                this.mAdapter.destroyItem(this, var8.position, var8.object);
-            }
-
-            this.mAdapter.finishUpdate(this);
-            this.mItems.clear();
-            this.removeNonDecorViews();
-            this.mCurItem = 0;
-            this.scrollTo(0, 0);
-        }
-
-        var2 = this.mAdapter;
-        this.mAdapter = var1;
-        this.mExpectedAdapterCount = 0;
-        if (this.mAdapter != null) {
-            if (this.mObserver == null) {
-                this.mObserver = new PagerObserver();
-            }
-
-            this.mAdapter.setViewPagerObserver(this.mObserver);
-            this.mPopulatePending = false;
-            boolean var5 = this.mFirstLayout;
-            this.mFirstLayout = true;
-            this.mExpectedAdapterCount = this.mAdapter.getCount();
-            if (this.mRestoredCurItem >= 0) {
-                this.mAdapter.restoreState(this.mRestoredAdapterState, this.mRestoredClassLoader);
-                this.setCurrentItemInternal(this.mRestoredCurItem, false, true);
-                this.mRestoredCurItem = -1;
-                this.mRestoredAdapterState = null;
-                this.mRestoredClassLoader = null;
-            } else if (!var5) {
-                this.populate();
-            } else {
-                this.requestLayout();
-            }
-        }
-
-        List var6 = this.mAdapterChangeListeners;
-        if (var6 != null && !var6.isEmpty()) {
-            int var7 = this.mAdapterChangeListeners.size();
-
-            for(var4 = var3; var4 < var7; ++var4) {
-                ((OnAdapterChangeListener)this.mAdapterChangeListeners.get(var4)).onAdapterChanged(this, var2, var1);
-            }
-        }
-
-    }
-
-    public void setCurrentItem(int var1) {
-        this.mPopulatePending = false;
-        this.setCurrentItemInternal(var1, this.mFirstLayout ^ true, false);
-    }
-
     public void setCurrentItem(int var1, boolean var2) {
         this.mPopulatePending = false;
         this.setCurrentItemInternal(var1, var2, false);
@@ -2710,8 +2763,8 @@ public class SeslViewPager extends ViewGroup {
                 int var7 = this.mOffscreenPageLimit;
                 var1 = this.mCurItem;
                 if (var6 > var1 + var7 || var6 < var1 - var7) {
-                    for(var1 = 0; var1 < this.mItems.size(); ++var1) {
-                        ((ItemInfo)this.mItems.get(var1)).scrolling = true;
+                    for (var1 = 0; var1 < this.mItems.size(); ++var1) {
+                        ((ItemInfo) this.mItems.get(var1)).scrolling = true;
                     }
                 }
 
@@ -2741,36 +2794,9 @@ public class SeslViewPager extends ViewGroup {
         this.mDragInGutterEnabled = var1;
     }
 
-    public void setOffscreenPageLimit(int var1) {
-        int var2 = var1;
-        if (var1 < 1) {
-            StringBuilder var3 = new StringBuilder();
-            var3.append("Requested offscreen page limit ");
-            var3.append(var1);
-            var3.append(" too small; defaulting to ");
-            var3.append(1);
-            Log.w("ViewPager", var3.toString());
-            var2 = 1;
-        }
-
-        if (var2 != this.mOffscreenPageLimit) {
-            this.mOffscreenPageLimit = var2;
-            this.populate();
-        }
-
-    }
-
     @Deprecated
     public void setOnPageChangeListener(OnPageChangeListener var1) {
         this.mOnPageChangeListener = var1;
-    }
-
-    public void setPageMargin(int var1) {
-        int var2 = this.mPageMargin;
-        this.mPageMargin = var1;
-        int var3 = this.getWidth();
-        this.recomputeScrollPosition(var3, var3, var1, var2);
-        this.requestLayout();
     }
 
     public void setPageMarginDrawable(int var1) {
@@ -2850,17 +2876,17 @@ public class SeslViewPager extends ViewGroup {
                 this.setScrollState(2);
                 int var8 = this.getClientWidth();
                 var1 = var8 / 2;
-                float var9 = (float)Math.abs(var7);
-                float var10 = (float)var8;
+                float var9 = (float) Math.abs(var7);
+                float var10 = (float) var8;
                 float var11 = Math.min(1.0F, var9 * 1.0F / var10);
-                var9 = (float)var1;
+                var9 = (float) var1;
                 var11 = this.distanceInfluenceForSnapDuration(var11);
                 var1 = Math.abs(var3);
                 if (var1 > 0) {
-                    var1 = Math.round(Math.abs((var9 + var11 * var9) / (float)var1) * 1000.0F) * 4;
+                    var1 = Math.round(Math.abs((var9 + var11 * var9) / (float) var1) * 1000.0F) * 4;
                 } else {
                     var9 = this.mAdapter.getPageWidth(this.mCurItem);
-                    var1 = (int)(((float)Math.abs(var7) / (var10 * var9 + (float)this.mPageMargin) + 1.0F) * 100.0F);
+                    var1 = (int) (((float) Math.abs(var7) / (var10 * var9 + (float) this.mPageMargin) + 1.0F) * 100.0F);
                 }
 
                 var1 = Math.min(var1, 600);
@@ -2882,7 +2908,7 @@ public class SeslViewPager extends ViewGroup {
 
             int var2 = this.getChildCount();
 
-            for(int var3 = 0; var3 < var2; ++var3) {
+            for (int var3 = 0; var3 < var2; ++var3) {
                 View var4 = this.getChildAt(var3);
                 this.mDrawingOrderedChildren.add(var4);
             }
@@ -2907,6 +2933,22 @@ public class SeslViewPager extends ViewGroup {
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE})
     public @interface DecorView {
+    }
+
+    public interface OnAdapterChangeListener {
+        void onAdapterChanged(SeslViewPager var1, PagerAdapter var2, PagerAdapter var3);
+    }
+
+    public interface OnPageChangeListener {
+        void onPageScrollStateChanged(int var1);
+
+        void onPageScrolled(int var1, float var2, int var3);
+
+        void onPageSelected(int var1);
+    }
+
+    public interface PageTransformer {
+        void transformPage(View var1, float var2);
     }
 
     public static class ItemInfo {
@@ -2937,6 +2979,80 @@ public class SeslViewPager extends ViewGroup {
             TypedArray var3 = var1.obtainStyledAttributes(var2, SeslViewPager.LAYOUT_ATTRS);
             this.gravity = var3.getInteger(0, 48);
             var3.recycle();
+        }
+    }
+
+    public static class SavedState extends AbsSavedState {
+        public static final Creator<SavedState> CREATOR = new ClassLoaderCreator<SavedState>() {
+            public SavedState createFromParcel(Parcel var1) {
+                return new SavedState(var1, (ClassLoader) null);
+            }
+
+            public SavedState createFromParcel(Parcel var1, ClassLoader var2) {
+                return new SavedState(var1, var2);
+            }
+
+            public SavedState[] newArray(int var1) {
+                return new SavedState[var1];
+            }
+        };
+        public Parcelable adapterState;
+        public ClassLoader loader;
+        public int position;
+
+        public SavedState(Parcel var1, ClassLoader var2) {
+            super(var1, var2);
+            ClassLoader var3 = var2;
+            if (var2 == null) {
+                var3 = SavedState.class.getClassLoader();
+            }
+
+            this.position = var1.readInt();
+            this.adapterState = var1.readParcelable(var3);
+            this.loader = var3;
+        }
+
+        public SavedState(Parcelable var1) {
+            super(var1);
+        }
+
+        public String toString() {
+            StringBuilder var1 = new StringBuilder();
+            var1.append("FragmentPager.SavedState{");
+            var1.append(Integer.toHexString(System.identityHashCode(this)));
+            var1.append(" position=");
+            var1.append(this.position);
+            var1.append("}");
+            return var1.toString();
+        }
+
+        public void writeToParcel(Parcel var1, int var2) {
+            super.writeToParcel(var1, var2);
+            var1.writeInt(this.position);
+            var1.writeParcelable(this.adapterState, var2);
+        }
+    }
+
+    public static class ViewPositionComparator implements Comparator<View> {
+        public ViewPositionComparator() {
+        }
+
+        public int compare(View var1, View var2) {
+            LayoutParams var5 = (LayoutParams) var1.getLayoutParams();
+            LayoutParams var6 = (LayoutParams) var2.getLayoutParams();
+            boolean var3 = var5.isDecor;
+            if (var3 != var6.isDecor) {
+                byte var4;
+                if (var3) {
+                    var4 = 1;
+                } else {
+                    var4 = -1;
+                }
+
+                return var4;
+            } else {
+                return var5.position - var6.position;
+            }
         }
     }
 
@@ -3010,22 +3126,6 @@ public class SeslViewPager extends ViewGroup {
         }
     }
 
-    public interface OnAdapterChangeListener {
-        void onAdapterChanged(SeslViewPager var1, PagerAdapter var2, PagerAdapter var3);
-    }
-
-    public interface OnPageChangeListener {
-        void onPageScrollStateChanged(int var1);
-
-        void onPageScrolled(int var1, float var2, int var3);
-
-        void onPageSelected(int var1);
-    }
-
-    public interface PageTransformer {
-        void transformPage(View var1, float var2);
-    }
-
     private class PagerObserver extends DataSetObserver {
         public PagerObserver() {
         }
@@ -3037,94 +3137,5 @@ public class SeslViewPager extends ViewGroup {
         public void onInvalidated() {
             SeslViewPager.this.dataSetChanged();
         }
-    }
-
-    public static class SavedState extends AbsSavedState {
-        public static final Creator<SavedState> CREATOR = new ClassLoaderCreator<SavedState>() {
-            public SavedState createFromParcel(Parcel var1) {
-                return new SavedState(var1, (ClassLoader)null);
-            }
-
-            public SavedState createFromParcel(Parcel var1, ClassLoader var2) {
-                return new SavedState(var1, var2);
-            }
-
-            public SavedState[] newArray(int var1) {
-                return new SavedState[var1];
-            }
-        };
-        public Parcelable adapterState;
-        public ClassLoader loader;
-        public int position;
-
-        public SavedState(Parcel var1, ClassLoader var2) {
-            super(var1, var2);
-            ClassLoader var3 = var2;
-            if (var2 == null) {
-                var3 = SavedState.class.getClassLoader();
-            }
-
-            this.position = var1.readInt();
-            this.adapterState = var1.readParcelable(var3);
-            this.loader = var3;
-        }
-
-        public SavedState(Parcelable var1) {
-            super(var1);
-        }
-
-        public String toString() {
-            StringBuilder var1 = new StringBuilder();
-            var1.append("FragmentPager.SavedState{");
-            var1.append(Integer.toHexString(System.identityHashCode(this)));
-            var1.append(" position=");
-            var1.append(this.position);
-            var1.append("}");
-            return var1.toString();
-        }
-
-        public void writeToParcel(Parcel var1, int var2) {
-            super.writeToParcel(var1, var2);
-            var1.writeInt(this.position);
-            var1.writeParcelable(this.adapterState, var2);
-        }
-    }
-
-    public static class ViewPositionComparator implements Comparator<View> {
-        public ViewPositionComparator() {
-        }
-
-        public int compare(View var1, View var2) {
-            LayoutParams var5 = (LayoutParams)var1.getLayoutParams();
-            LayoutParams var6 = (LayoutParams)var2.getLayoutParams();
-            boolean var3 = var5.isDecor;
-            if (var3 != var6.isDecor) {
-                byte var4;
-                if (var3) {
-                    var4 = 1;
-                } else {
-                    var4 = -1;
-                }
-
-                return var4;
-            } else {
-                return var5.position - var6.position;
-            }
-        }
-    }
-
-    /*kang from MathUtils.smali*/
-    public static int constrain(int amount, int low, int high) {
-        if (amount < low) {
-            return low;
-        }
-        return amount > high ? high : amount;
-    }
-
-    public static float constrain(float amount, float low, float high) {
-        if (amount < low) {
-            return low;
-        }
-        return amount > high ? high : amount;
     }
 }

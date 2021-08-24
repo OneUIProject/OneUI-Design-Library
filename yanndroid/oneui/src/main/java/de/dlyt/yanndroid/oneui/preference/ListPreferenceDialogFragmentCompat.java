@@ -23,6 +23,22 @@ public class ListPreferenceDialogFragmentCompat extends PreferenceDialogFragment
         return fragment;
     }
 
+    private static void putCharSequenceArray(Bundle out, String key, CharSequence[] entries) {
+        final ArrayList<String> stored = new ArrayList<>(entries.length);
+
+        for (final CharSequence cs : entries) {
+            stored.add(cs.toString());
+        }
+
+        out.putStringArrayList(key, stored);
+    }
+
+    private static CharSequence[] getCharSequenceArray(Bundle in, String key) {
+        final ArrayList<String> stored = in.getStringArrayList(key);
+
+        return stored == null ? null : stored.toArray(new CharSequence[stored.size()]);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,22 +65,6 @@ public class ListPreferenceDialogFragmentCompat extends PreferenceDialogFragment
         outState.putInt(SAVE_STATE_INDEX, mClickedDialogEntryIndex);
         putCharSequenceArray(outState, SAVE_STATE_ENTRIES, mEntries);
         putCharSequenceArray(outState, SAVE_STATE_ENTRY_VALUES, mEntryValues);
-    }
-
-    private static void putCharSequenceArray(Bundle out, String key, CharSequence[] entries) {
-        final ArrayList<String> stored = new ArrayList<>(entries.length);
-
-        for (final CharSequence cs : entries) {
-            stored.add(cs.toString());
-        }
-
-        out.putStringArrayList(key, stored);
-    }
-
-    private static CharSequence[] getCharSequenceArray(Bundle in, String key) {
-        final ArrayList<String> stored = in.getStringArrayList(key);
-
-        return stored == null ? null : stored.toArray(new CharSequence[stored.size()]);
     }
 
     private ListPreference getListPreference() {

@@ -20,6 +20,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Checkable;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -200,14 +201,36 @@ public class SeslCheckedTextView extends TextView implements Checkable {
         return this.mCheckMarkDrawable;
     }
 
+    public void setCheckMarkDrawable(@DrawableRes int i) {
+        if (i == 0 || i != this.mCheckMarkResource) {
+            setCheckMarkDrawableInternal(i != 0 ? ContextCompat.getDrawable(getContext(), i) : null, i);
+        }
+    }
+
+    public void setCheckMarkDrawable(@Nullable Drawable drawable) {
+        setCheckMarkDrawableInternal(drawable, 0);
+    }
+
     @Nullable
     public ColorStateList getCheckMarkTintList() {
         return this.mCheckMarkTintList;
     }
 
+    public void setCheckMarkTintList(@Nullable ColorStateList colorStateList) {
+        this.mCheckMarkTintList = colorStateList;
+        this.mHasCheckMarkTint = true;
+        applyCheckMarkTint();
+    }
+
     @Nullable
     public PorterDuff.Mode getCheckMarkTintMode() {
         return this.mCheckMarkTintMode;
+    }
+
+    public void setCheckMarkTintMode(@Nullable PorterDuff.Mode mode) {
+        this.mCheckMarkTintMode = mode;
+        this.mHasCheckMarkTintMode = true;
+        applyCheckMarkTint();
     }
 
     @SuppressLint("RestrictedApi")
@@ -224,6 +247,14 @@ public class SeslCheckedTextView extends TextView implements Checkable {
     @ViewDebug.ExportedProperty
     public boolean isChecked() {
         return this.mChecked;
+    }
+
+    public void setChecked(boolean z) {
+        if (this.mChecked != z) {
+            this.mChecked = z;
+            refreshDrawableState();
+            SeslViewReflector.notifyViewAccessibilityStateChangedIfNeeded(this, 0);
+        }
     }
 
     public void jumpDrawablesToCurrentState() {
@@ -308,36 +339,6 @@ public class SeslCheckedTextView extends TextView implements Checkable {
         SavedState savedState = new SavedState(super.onSaveInstanceState());
         savedState.checked = isChecked();
         return savedState;
-    }
-
-    public void setCheckMarkDrawable(@DrawableRes int i) {
-        if (i == 0 || i != this.mCheckMarkResource) {
-            setCheckMarkDrawableInternal(i != 0 ? ContextCompat.getDrawable(getContext(), i) : null, i);
-        }
-    }
-
-    public void setCheckMarkDrawable(@Nullable Drawable drawable) {
-        setCheckMarkDrawableInternal(drawable, 0);
-    }
-
-    public void setCheckMarkTintList(@Nullable ColorStateList colorStateList) {
-        this.mCheckMarkTintList = colorStateList;
-        this.mHasCheckMarkTint = true;
-        applyCheckMarkTint();
-    }
-
-    public void setCheckMarkTintMode(@Nullable PorterDuff.Mode mode) {
-        this.mCheckMarkTintMode = mode;
-        this.mHasCheckMarkTintMode = true;
-        applyCheckMarkTint();
-    }
-
-    public void setChecked(boolean z) {
-        if (this.mChecked != z) {
-            this.mChecked = z;
-            refreshDrawableState();
-            SeslViewReflector.notifyViewAccessibilityStateChangedIfNeeded(this, 0);
-        }
     }
 
     public void setVisibility(int i) {

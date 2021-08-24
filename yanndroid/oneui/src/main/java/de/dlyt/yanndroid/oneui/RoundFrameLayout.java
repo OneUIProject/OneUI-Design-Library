@@ -9,8 +9,8 @@ import android.widget.FrameLayout;
 import androidx.appcompat.util.SeslRoundedCorner;
 
 public class RoundFrameLayout extends FrameLayout {
-    private Context mContext;
     SeslRoundedCorner mSeslRoundedCorner;
+    private Context mContext;
 
     public RoundFrameLayout(Context context) {
         super(context);

@@ -128,7 +128,8 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
         return mPreference;
     }
 
-    protected void onPrepareDialogBuilder(SamsungAlertDialog.Builder builder) {}
+    protected void onPrepareDialogBuilder(SamsungAlertDialog.Builder builder) {
+    }
 
     protected boolean needInputMethod() {
         return false;

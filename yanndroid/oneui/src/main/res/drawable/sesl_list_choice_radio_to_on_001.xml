@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector android:height="20.699982dip" android:width="32.0dip" android:viewportWidth="96.0" android:viewportHeight="62.0"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:name="circle_outline_group" android:pivotX="48.0" android:pivotY="31.0">
-        <path android:name="circle_outline_normal" android:pathData="M48,31m-29.5,0a29.5,29.5 0 1,0 59,0a29.5,29.5 0 1,0-59,0" android:strokeColor="?colorControlNormal" android:strokeWidth="3.0" android:strokeAlpha="@dimen/sesl_disabled_color_alpha" />
-        <path android:name="circle_outline" android:pathData="M48,31m-29.5,0a29.5,29.5 0 1,0 59,0a29.5,29.5 0 1,0-59,0" android:strokeColor="?colorControlActivated" android:strokeWidth="3.0" android:strokeAlpha="0.0" />
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32.0dip"
+    android:height="20.699982dip"
+    android:viewportWidth="96.0"
+    android:viewportHeight="62.0">
+    <group
+        android:name="circle_outline_group"
+        android:pivotX="48.0"
+        android:pivotY="31.0">
+        <path
+            android:name="circle_outline_normal"
+            android:pathData="M48,31m-29.5,0a29.5,29.5 0 1,0 59,0a29.5,29.5 0 1,0-59,0"
+            android:strokeWidth="3.0"
+            android:strokeAlpha="@dimen/sesl_disabled_color_alpha"
+            android:strokeColor="?colorControlNormal" />
+        <path
+            android:name="circle_outline"
+            android:pathData="M48,31m-29.5,0a29.5,29.5 0 1,0 59,0a29.5,29.5 0 1,0-59,0"
+            android:strokeWidth="3.0"
+            android:strokeAlpha="0.0"
+            android:strokeColor="?colorControlActivated" />
     </group>
 </vector>

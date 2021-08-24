@@ -75,6 +75,10 @@ public class SeslAppCompatBackgroundHelper {
         applySupportBackgroundTint();
     }
 
+    public ColorStateList getSupportBackgroundTintList() {
+        return mBackgroundTint != null ? mBackgroundTint.mTintList : null;
+    }
+
     @SuppressLint("RestrictedApi")
     public void setSupportBackgroundTintList(ColorStateList tint) {
         if (mBackgroundTint == null) {
@@ -85,8 +89,8 @@ public class SeslAppCompatBackgroundHelper {
         applySupportBackgroundTint();
     }
 
-    public ColorStateList getSupportBackgroundTintList() {
-        return mBackgroundTint != null ? mBackgroundTint.mTintList : null;
+    public PorterDuff.Mode getSupportBackgroundTintMode() {
+        return mBackgroundTint != null ? mBackgroundTint.mTintMode : null;
     }
 
     @SuppressLint("RestrictedApi")
@@ -98,10 +102,6 @@ public class SeslAppCompatBackgroundHelper {
         mBackgroundTint.mHasTintMode = true;
 
         applySupportBackgroundTint();
-    }
-
-    public PorterDuff.Mode getSupportBackgroundTintMode() {
-        return mBackgroundTint != null ? mBackgroundTint.mTintMode : null;
     }
 
     @SuppressLint("RestrictedApi")

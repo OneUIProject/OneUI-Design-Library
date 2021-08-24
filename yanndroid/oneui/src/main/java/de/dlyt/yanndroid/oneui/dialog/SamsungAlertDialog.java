@@ -27,9 +27,9 @@ import androidx.appcompat.app.AppCompatDialog;
 import de.dlyt.yanndroid.oneui.R;
 
 public class SamsungAlertDialog extends AppCompatDialog implements DialogInterface {
-    final SamsungAlertController mAlert;
     static final int LAYOUT_HINT_NONE = 0;
     static final int LAYOUT_HINT_SIDE = 1;
+    final SamsungAlertController mAlert;
 
     protected SamsungAlertDialog(@NonNull Context context) {
         this(context, 0);
@@ -100,7 +100,7 @@ public class SamsungAlertDialog extends AppCompatDialog implements DialogInterfa
     }
 
     public void setButton(int whichButton, CharSequence text, Drawable icon, OnClickListener listener) {
-        mAlert.setButton(whichButton, text, listener, null,  icon);
+        mAlert.setButton(whichButton, text, listener, null, icon);
     }
 
     public void setIcon(int resId) {

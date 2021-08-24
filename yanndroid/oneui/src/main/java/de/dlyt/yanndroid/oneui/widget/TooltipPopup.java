@@ -28,14 +28,12 @@ class TooltipPopup {
     private final View mContentView;
     private final WindowManager.LayoutParams mLayoutParams = new WindowManager.LayoutParams();
     private final TextView mMessageView;
-
-    private boolean mIsForceActionBarX = false;
-    private boolean mIsForceBelow = false;
-
-    private int mNavigationBarHeight = 0;
     private final int[] mTmpAnchorPos = new int[2];
     private final int[] mTmpAppPos = new int[2];
     private final Rect mTmpDisplayFrame = new Rect();
+    private boolean mIsForceActionBarX = false;
+    private boolean mIsForceBelow = false;
+    private int mNavigationBarHeight = 0;
 
     public TooltipPopup(Context context) {
         TypedValue obtainStyledAttributes = new TypedValue();
@@ -74,8 +72,24 @@ class TooltipPopup {
         mLayoutParams.flags = 0x40008;
     }
 
+    public static View getAppRootView(View var0) {
+        View var1 = var0.getRootView();
+        android.view.ViewGroup.LayoutParams var2 = var1.getLayoutParams();
+        if (var2 instanceof WindowManager.LayoutParams && ((WindowManager.LayoutParams) var2).type == 2) {
+            return var1;
+        } else {
+            for (Context var3 = var0.getContext(); var3 instanceof ContextWrapper; var3 = ((ContextWrapper) var3).getBaseContext()) {
+                if (var3 instanceof Activity) {
+                    return ((Activity) var3).getWindow().getDecorView();
+                }
+            }
+
+            return var1;
+        }
+    }
+
     private int AdjustTooltipPosition(View var1, int var2, int var3, int var4) {
-        int var5 = ((WindowManager)this.mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
+        int var5 = ((WindowManager) this.mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
         int var6;
         if (this.checkNaviBarForLandscape()) {
             if (var5 == 1) {
@@ -146,10 +160,10 @@ class TooltipPopup {
         Resources var2 = var1.getResources();
         Rect var3 = this.mTmpDisplayFrame;
         Point var4 = new Point();
-        Display var9 = ((WindowManager)var1.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Display var9 = ((WindowManager) var1.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         var9.getRealSize(var4);
         int var5 = var9.getRotation();
-        int var6 = (int)var2.getDimension(R.dimen.sesl_navigation_bar_height);
+        int var6 = (int) var2.getDimension(R.dimen.sesl_navigation_bar_height);
         if (var5 == 1) {
             int var7 = var3.right;
             int var8 = var4.x;
@@ -290,22 +304,6 @@ class TooltipPopup {
         }
     }
 
-    public static View getAppRootView(View var0) {
-        View var1 = var0.getRootView();
-        android.view.ViewGroup.LayoutParams var2 = var1.getLayoutParams();
-        if (var2 instanceof WindowManager.LayoutParams && ((WindowManager.LayoutParams)var2).type == 2) {
-            return var1;
-        } else {
-            for(Context var3 = var0.getContext(); var3 instanceof ContextWrapper; var3 = ((ContextWrapper)var3).getBaseContext()) {
-                if (var3 instanceof Activity) {
-                    return ((Activity)var3).getWindow().getDecorView();
-                }
-            }
-
-            return var1;
-        }
-    }
-
     private int getNavigationBarHeight() {
         return this.mNavigationBarHeight;
     }
@@ -318,7 +316,7 @@ class TooltipPopup {
         this.mIsForceBelow = false;
         this.mIsForceActionBarX = false;
         if (this.isShowing()) {
-            ((WindowManager)this.mContext.getSystemService(Context.WINDOW_SERVICE)).removeView(this.mContentView);
+            ((WindowManager) this.mContext.getSystemService(Context.WINDOW_SERVICE)).removeView(this.mContentView);
         }
     }
 
@@ -340,7 +338,7 @@ class TooltipPopup {
 
         this.mMessageView.setText(var5);
         this.computePosition(var1, var2, var3, var4, this.mLayoutParams, false, false);
-        ((WindowManager)this.mContext.getSystemService(Context.WINDOW_SERVICE)).addView(this.mContentView, this.mLayoutParams);
+        ((WindowManager) this.mContext.getSystemService(Context.WINDOW_SERVICE)).addView(this.mContentView, this.mLayoutParams);
     }
 
     public void show(View var1, int var2, int var3, boolean var4, CharSequence var5, boolean var6, boolean var7) {
@@ -352,7 +350,7 @@ class TooltipPopup {
 
         this.mMessageView.setText(var5);
         this.computePosition(var1, var2, var3, var4, this.mLayoutParams, this.mIsForceBelow, this.mIsForceActionBarX);
-        ((WindowManager)this.mContext.getSystemService(Context.WINDOW_SERVICE)).addView(this.mContentView, this.mLayoutParams);
+        ((WindowManager) this.mContext.getSystemService(Context.WINDOW_SERVICE)).addView(this.mContentView, this.mLayoutParams);
     }
 
     public void showActionItemTooltip(int var1, int var2, int var3, CharSequence var4) {
@@ -370,7 +368,7 @@ class TooltipPopup {
             var5.gravity = 8388659;
         }
 
-        ((WindowManager)this.mContext.getSystemService(Context.WINDOW_SERVICE)).addView(this.mContentView, this.mLayoutParams);
+        ((WindowManager) this.mContext.getSystemService(Context.WINDOW_SERVICE)).addView(this.mContentView, this.mLayoutParams);
     }
 
     public void updateContent(CharSequence var1) {

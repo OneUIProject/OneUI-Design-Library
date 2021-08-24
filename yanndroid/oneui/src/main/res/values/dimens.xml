@@ -44,9 +44,8 @@
 
     <dimen name="sesl_list_primary_text_size">18.0sp</dimen>
     <dimen name="sesl_list_secondary_text_size">13.0sp</dimen>
-    <item type="dimen" name="sesl_text_size_subhead">@dimen/sesl_list_primary_text_size</item>
-    <item type="dimen" name="sesl_text_size_small">@dimen/sesl_list_secondary_text_size</item>
-
+    <item name="sesl_text_size_subhead" type="dimen">@dimen/sesl_list_primary_text_size</item>
+    <item name="sesl_text_size_small" type="dimen">@dimen/sesl_list_secondary_text_size</item>
 
 
     <!--Spinner-->
@@ -177,7 +176,7 @@
     <dimen name="sesl_switch_width">43.0dip</dimen>
 
     <!--AppBarLayout-->
-    <item type="dimen" name="sesl_appbar_height_proportion">0.0</item>
+    <item name="sesl_appbar_height_proportion" type="dimen">0.0</item>
     <dimen name="sesl_extended_appbar_bottom_padding">0.0dip</dimen>
     <dimen name="sesl_appbar_extended_title_padding">24.0dip</dimen>
     <dimen name="sesl_toolbar_subtitle_text_size">15.0dip</dimen>
@@ -240,25 +239,25 @@
     <dimen name="sesl_dialog_button_show_background_inset_vertical">2.0dip</dimen>
     <dimen name="sesl_dialog_button_text_size">16.0sp</dimen>
     <dimen name="sesl_dialog_button_text_size_with_three_button">16.0sp</dimen>
-    <item type="dimen" name="sesl_dialog_fixed_height_major">79.99999%</item>
-    <item type="dimen" name="sesl_dialog_fixed_height_minor">100.0%</item>
+    <item name="sesl_dialog_fixed_height_major" type="dimen">79.99999%</item>
+    <item name="sesl_dialog_fixed_height_minor" type="dimen">100.0%</item>
     <dimen name="sesl_dialog_fixed_width_major">320.0dip</dimen>
     <dimen name="sesl_dialog_fixed_width_minor">320.0dip</dimen>
     <dimen name="sesl_dialog_list_padding_bottom_no_buttons">24.0dip</dimen>
     <dimen name="sesl_dialog_list_padding_top_no_title">24.0dip</dimen>
-    <item type="dimen" name="sesl_dialog_min_width_major">100.0%</item>
-    <item type="dimen" name="sesl_dialog_min_width_minor">100.0%</item>
+    <item name="sesl_dialog_min_width_major" type="dimen">100.0%</item>
+    <item name="sesl_dialog_min_width_minor" type="dimen">100.0%</item>
     <dimen name="sesl_dialog_padding">24.0dip</dimen>
-    <item type="dimen" name="sesl_dialog_padding_horizontal">@dimen/sesl_dialog_padding</item>
-    <item type="dimen" name="sesl_dialog_padding_top">@dimen/sesl_dialog_padding</item>
-    <item type="dimen" name="sesl_dialog_padding_vertical">@dimen/sesl_dialog_padding</item>
+    <item name="sesl_dialog_padding_horizontal" type="dimen">@dimen/sesl_dialog_padding</item>
+    <item name="sesl_dialog_padding_top" type="dimen">@dimen/sesl_dialog_padding</item>
+    <item name="sesl_dialog_padding_vertical" type="dimen">@dimen/sesl_dialog_padding</item>
     <dimen name="sesl_dialog_title_padding_bottom">18.0dip</dimen>
     <dimen name="sesl_dialog_title_padding_top">24.0dip</dimen>
     <dimen name="sesl_dialog_title_text_size">20.0sp</dimen>
     <dimen name="sesl_dialog_window_elevation">1.0dip</dimen>
     <dimen name="sesl_select_dialog_item_padding_horizontal">6.0dip</dimen>
     <dimen name="sesl_select_dialog_item_padding_vertical">14.0dip</dimen>
-    <item type="dimen" name="sesl_select_dialog_list_item_text_disabled_alpha">0.4</item>
+    <item name="sesl_select_dialog_list_item_text_disabled_alpha" type="dimen">0.4</item>
     <dimen name="sesl_select_dialog_list_item_text_size">18.0sp</dimen>
     <dimen name="sesl_select_dialog_list_item_text_size_secondary">13.0sp</dimen>
     <dimen name="sesl_select_dialog_padding_bottom">24.0dip</dimen>
@@ -300,7 +299,6 @@
     <dimen name="sesl_preference_switch_padding_vertical">12.0dip</dimen>
     <dimen name="layout_preference_padding_bottom">0.0dip</dimen>
     <dimen name="inset_preference_category_height">16.0dip</dimen>
-
 
 
 </resources>

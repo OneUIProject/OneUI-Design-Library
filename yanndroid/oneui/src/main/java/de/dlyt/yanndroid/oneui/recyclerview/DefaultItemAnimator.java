@@ -8,10 +8,11 @@ import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.Interpolator;
 import android.view.animation.PathInterpolator;
-import java.util.ArrayList;
-import java.util.List;
 
 import androidx.core.view.ViewCompat;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerView.ViewHolder;
 
@@ -19,64 +20,21 @@ public class DefaultItemAnimator extends SimpleItemAnimator {
     private static final boolean DEBUG = false;
     private static TimeInterpolator sDefaultInterpolator;
     ArrayList<ViewHolder> mAddAnimations = new ArrayList<>();
-    private long mAddDuration = 120;
     ArrayList<ArrayList<ViewHolder>> mAdditionsList = new ArrayList<>();
     ArrayList<ViewHolder> mChangeAnimations = new ArrayList<>();
-    private long mChangeDuration = 330;
     ArrayList<ArrayList<ChangeInfo>> mChangesList = new ArrayList<>();
     ArrayList<ViewHolder> mMoveAnimations = new ArrayList<>();
+    ArrayList<ArrayList<MoveInfo>> mMovesList = new ArrayList<>();
+    ArrayList<ViewHolder> mRemoveAnimations = new ArrayList<>();
+    private long mAddDuration = 120;
+    private long mChangeDuration = 330;
     private long mMoveDuration = 330;
     private Interpolator mMoveInterpolator = new PathInterpolator(0.33f, 0.0f, 0.2f, 1.0f);
-    ArrayList<ArrayList<MoveInfo>> mMovesList = new ArrayList<>();
     private ArrayList<ViewHolder> mPendingAdditions = new ArrayList<>();
     private ArrayList<ChangeInfo> mPendingChanges = new ArrayList<>();
     private ArrayList<MoveInfo> mPendingMoves = new ArrayList<>();
     private ArrayList<ViewHolder> mPendingRemovals = new ArrayList<>();
-    ArrayList<ViewHolder> mRemoveAnimations = new ArrayList<>();
     private long mRemoveDuration = 120;
-
-    private static class MoveInfo {
-        public ViewHolder holder;
-        public int fromX, fromY, toX, toY;
-
-        MoveInfo(ViewHolder holder, int fromX, int fromY, int toX, int toY) {
-            this.holder = holder;
-            this.fromX = fromX;
-            this.fromY = fromY;
-            this.toX = toX;
-            this.toY = toY;
-        }
-    }
-
-    private static class ChangeInfo {
-        public ViewHolder oldHolder, newHolder;
-        public int fromX, fromY, toX, toY;
-
-        private ChangeInfo(ViewHolder oldHolder, ViewHolder newHolder) {
-            this.oldHolder = oldHolder;
-            this.newHolder = newHolder;
-        }
-
-        ChangeInfo(ViewHolder oldHolder, ViewHolder newHolder, int fromX, int fromY, int toX, int toY) {
-            this(oldHolder, newHolder);
-            this.fromX = fromX;
-            this.fromY = fromY;
-            this.toX = toX;
-            this.toY = toY;
-        }
-
-        @Override
-        public String toString() {
-            return "ChangeInfo{"
-                    + "oldHolder=" + oldHolder
-                    + ", newHolder=" + newHolder
-                    + ", fromX=" + fromX
-                    + ", fromY=" + fromY
-                    + ", toX=" + toX
-                    + ", toY=" + toY
-                    + '}';
-        }
-    }
 
     @Override
     public void runPendingAnimations() {
@@ -353,21 +311,22 @@ public class DefaultItemAnimator extends SimpleItemAnimator {
             final ViewPropertyAnimator newViewAnimation = newView.animate();
             mChangeAnimations.add(changeInfo.newHolder);
             newViewAnimation.translationX(0).translationY(0).setDuration(getChangeDuration()).alpha(1).setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationStart(Animator animator) {
-                            dispatchChangeStarting(changeInfo.newHolder, false);
-                        }
-                        @Override
-                        public void onAnimationEnd(Animator animator) {
-                            newViewAnimation.setListener(null);
-                            newView.setAlpha(1);
-                            newView.setTranslationX(0);
-                            newView.setTranslationY(0);
-                            dispatchChangeFinished(changeInfo.newHolder, false);
-                            mChangeAnimations.remove(changeInfo.newHolder);
-                            dispatchFinishedWhenDone();
-                        }
-                    }).start();
+                @Override
+                public void onAnimationStart(Animator animator) {
+                    dispatchChangeStarting(changeInfo.newHolder, false);
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    newViewAnimation.setListener(null);
+                    newView.setAlpha(1);
+                    newView.setTranslationX(0);
+                    newView.setTranslationY(0);
+                    dispatchChangeFinished(changeInfo.newHolder, false);
+                    mChangeAnimations.remove(changeInfo.newHolder);
+                    dispatchFinishedWhenDone();
+                }
+            }).start();
         }
     }
 
@@ -390,6 +349,7 @@ public class DefaultItemAnimator extends SimpleItemAnimator {
             endChangeAnimationIfNecessary(changeInfo, changeInfo.newHolder);
         }
     }
+
     private boolean endChangeAnimationIfNecessary(ChangeInfo changeInfo, ViewHolder item) {
         boolean oldItem = false;
         if (changeInfo.newHolder == item) {
@@ -625,5 +585,48 @@ public class DefaultItemAnimator extends SimpleItemAnimator {
 
     public long getChangeDuration() {
         return mChangeDuration;
+    }
+
+    private static class MoveInfo {
+        public ViewHolder holder;
+        public int fromX, fromY, toX, toY;
+
+        MoveInfo(ViewHolder holder, int fromX, int fromY, int toX, int toY) {
+            this.holder = holder;
+            this.fromX = fromX;
+            this.fromY = fromY;
+            this.toX = toX;
+            this.toY = toY;
+        }
+    }
+
+    private static class ChangeInfo {
+        public ViewHolder oldHolder, newHolder;
+        public int fromX, fromY, toX, toY;
+
+        private ChangeInfo(ViewHolder oldHolder, ViewHolder newHolder) {
+            this.oldHolder = oldHolder;
+            this.newHolder = newHolder;
+        }
+
+        ChangeInfo(ViewHolder oldHolder, ViewHolder newHolder, int fromX, int fromY, int toX, int toY) {
+            this(oldHolder, newHolder);
+            this.fromX = fromX;
+            this.fromY = fromY;
+            this.toX = toX;
+            this.toY = toY;
+        }
+
+        @Override
+        public String toString() {
+            return "ChangeInfo{"
+                    + "oldHolder=" + oldHolder
+                    + ", newHolder=" + newHolder
+                    + ", fromX=" + fromX
+                    + ", fromY=" + fromY
+                    + ", toX=" + toX
+                    + ", toY=" + toY
+                    + '}';
+        }
     }
 }

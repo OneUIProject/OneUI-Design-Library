@@ -45,15 +45,19 @@ import de.dlyt.yanndroid.oneui.view.NestedScrollingChildHelper;
 import de.dlyt.yanndroid.oneui.widget.SamsungEdgeEffect;
 
 public class NestedScrollView extends FrameLayout implements NestedScrollingParent3, NestedScrollingChild3, ScrollingView {
-    private static final AccessibilityDelegate ACCESSIBILITY_DELEGATE = new AccessibilityDelegate();
     static final int ANIMATED_SCROLL_GAP = 250;
+    static final float MAX_SCROLL_FACTOR = 0.5f;
+    private static final AccessibilityDelegate ACCESSIBILITY_DELEGATE = new AccessibilityDelegate();
     private static final int DEFAULT_SMOOTH_SCROLL_DURATION = 250;
     private static final int INVALID_POINTER = -1;
-    static final float MAX_SCROLL_FACTOR = 0.5f;
     private static final int[] SCROLLVIEW_STYLEABLE = {16843130};
     private static final String TAG = "NestedScrollView";
-    private int mActivePointerId;
     private final NestedScrollingChildHelper mChildHelper;
+    private final NestedScrollingParentHelper mParentHelper;
+    private final int[] mScrollConsumed;
+    private final int[] mScrollOffset;
+    private final Rect mTempRect;
+    private int mActivePointerId;
     private View mChildToScrollTo;
     private SamsungEdgeEffect mEdgeGlowBottom;
     private SamsungEdgeEffect mEdgeGlowTop;
@@ -68,13 +72,9 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
     private int mMinimumVelocity;
     private int mNestedYOffset;
     private OnScrollChangeListener mOnScrollChangeListener;
-    private final NestedScrollingParentHelper mParentHelper;
     private SavedState mSavedState;
-    private final int[] mScrollConsumed;
-    private final int[] mScrollOffset;
     private OverScroller mScroller;
     private boolean mSmoothScrollingEnabled;
-    private final Rect mTempRect;
     private int mTouchSlop;
     private VelocityTracker mVelocityTracker;
     private float mVerticalScrollFactor;
@@ -108,6 +108,21 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
         ViewCompat.setAccessibilityDelegate(this, ACCESSIBILITY_DELEGATE);
     }
 
+    private static int clamp(int i, int i2, int i3) {
+        if (i2 >= i3 || i < 0) {
+            return 0;
+        }
+        return i2 + i > i3 ? i3 - i2 : i;
+    }
+
+    private static boolean isViewDescendantOf(View view, View view2) {
+        if (view == view2) {
+            return true;
+        }
+        ViewParent parent = view.getParent();
+        return (parent instanceof ViewGroup) && isViewDescendantOf((View) parent, view2);
+    }
+
     @SuppressLint("WrongConstant")
     private void abortAnimatedScroll() {
         this.mScroller.abortAnimation();
@@ -121,13 +136,6 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
         View childAt = getChildAt(0);
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) childAt.getLayoutParams();
         return (childAt.getHeight() + layoutParams.topMargin) + layoutParams.bottomMargin > (getHeight() - getPaddingTop()) - getPaddingBottom();
-    }
-
-    private static int clamp(int i, int i2, int i3) {
-        if (i2 >= i3 || i < 0) {
-            return 0;
-        }
-        return i2 + i > i3 ? i3 - i2 : i;
     }
 
     private void doScrollY(int i) {
@@ -250,14 +258,6 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
 
     private boolean isOffScreen(View view) {
         return !isWithinDeltaOfScreen(view, 0, getHeight());
-    }
-
-    private static boolean isViewDescendantOf(View view, View view2) {
-        if (view == view2) {
-            return true;
-        }
-        ViewParent parent = view.getParent();
-        return (parent instanceof ViewGroup) && isViewDescendantOf((View) parent, view2);
     }
 
     private boolean isWithinDeltaOfScreen(View view, int i, int i2) {
@@ -776,13 +776,29 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
         return this.mFillViewport;
     }
 
+    public void setFillViewport(boolean z) {
+        if (z != this.mFillViewport) {
+            this.mFillViewport = z;
+            requestLayout();
+        }
+    }
+
     @Override // androidx.core.view.NestedScrollingChild
     public boolean isNestedScrollingEnabled() {
         return this.mChildHelper.isNestedScrollingEnabled();
     }
 
+    @Override // androidx.core.view.NestedScrollingChild
+    public void setNestedScrollingEnabled(boolean z) {
+        this.mChildHelper.setNestedScrollingEnabled(z);
+    }
+
     public boolean isSmoothScrollingEnabled() {
         return this.mSmoothScrollingEnabled;
+    }
+
+    public void setSmoothScrollingEnabled(boolean z) {
+        this.mSmoothScrollingEnabled = z;
     }
 
     @SuppressLint("WrongConstant")
@@ -1292,24 +1308,8 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
         }
     }
 
-    public void setFillViewport(boolean z) {
-        if (z != this.mFillViewport) {
-            this.mFillViewport = z;
-            requestLayout();
-        }
-    }
-
-    @Override // androidx.core.view.NestedScrollingChild
-    public void setNestedScrollingEnabled(boolean z) {
-        this.mChildHelper.setNestedScrollingEnabled(z);
-    }
-
     public void setOnScrollChangeListener(@Nullable OnScrollChangeListener onScrollChangeListener) {
         this.mOnScrollChangeListener = onScrollChangeListener;
-    }
-
-    public void setSmoothScrollingEnabled(boolean z) {
-        this.mSmoothScrollingEnabled = z;
     }
 
     public boolean shouldDelayChildPressedState() {
@@ -1362,6 +1362,10 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
         this.mChildHelper.stopNestedScroll(i);
     }
 
+
+    public interface OnScrollChangeListener {
+        void onScrollChange(NestedScrollView nestedScrollView, int i, int i2, int i3, int i4);
+    }
 
     static class AccessibilityDelegate extends AccessibilityDelegateCompat {
         AccessibilityDelegate() {
@@ -1426,10 +1430,6 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
             nestedScrollView.scrollTo(0, min);
             return true;
         }
-    }
-
-    public interface OnScrollChangeListener {
-        void onScrollChange(NestedScrollView nestedScrollView, int i, int i2, int i3, int i4);
     }
 
     /* access modifiers changed from: package-private */

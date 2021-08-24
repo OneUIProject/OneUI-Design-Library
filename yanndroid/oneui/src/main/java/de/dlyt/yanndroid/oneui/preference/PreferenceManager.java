@@ -44,6 +44,14 @@ public class PreferenceManager {
         }
     }
 
+    private static String getDefaultSharedPreferencesName(Context context) {
+        return context.getPackageName() + "_preferences";
+    }
+
+    private static int getDefaultSharedPreferencesMode() {
+        return Context.MODE_PRIVATE;
+    }
+
     public PreferenceScreen inflateFromResource(Context context, int resId, PreferenceScreen rootPreferences) {
         setNoCommit(true);
 
@@ -96,14 +104,6 @@ public class PreferenceManager {
         }
 
         return mSharedPreferences;
-    }
-
-    private static String getDefaultSharedPreferencesName(Context context) {
-        return context.getPackageName() + "_preferences";
-    }
-
-    private static int getDefaultSharedPreferencesMode() {
-        return Context.MODE_PRIVATE;
     }
 
     public PreferenceScreen getPreferenceScreen() {
@@ -171,20 +171,20 @@ public class PreferenceManager {
         }
     }
 
-    public void setOnPreferenceTreeClickListener(OnPreferenceTreeClickListener listener) {
-        mOnPreferenceTreeClickListener = listener;
-    }
-
     public OnPreferenceTreeClickListener getOnPreferenceTreeClickListener() {
         return mOnPreferenceTreeClickListener;
     }
 
-    public void setOnNavigateToScreenListener(OnNavigateToScreenListener listener) {
-        mOnNavigateToScreenListener = listener;
+    public void setOnPreferenceTreeClickListener(OnPreferenceTreeClickListener listener) {
+        mOnPreferenceTreeClickListener = listener;
     }
 
     public OnNavigateToScreenListener getOnNavigateToScreenListener() {
         return mOnNavigateToScreenListener;
+    }
+
+    public void setOnNavigateToScreenListener(OnNavigateToScreenListener listener) {
+        mOnNavigateToScreenListener = listener;
     }
 
 

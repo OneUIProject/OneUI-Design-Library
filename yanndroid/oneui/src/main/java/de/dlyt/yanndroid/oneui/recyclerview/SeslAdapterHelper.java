@@ -2,24 +2,24 @@ package de.dlyt.yanndroid.oneui.recyclerview;
 
 import android.util.Log;
 
+import androidx.core.util.Pools;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import androidx.core.util.Pools;
 
 class SeslAdapterHelper implements SeslOpReorderer.Callback {
     static final int POSITION_TYPE_INVISIBLE = 0;
     static final int POSITION_TYPE_NEW_OR_LAID_OUT = 1;
     private static final boolean DEBUG = false;
     private static final String TAG = "AHT";
-    private Pools.Pool<UpdateOp> mUpdateOpPool = new Pools.SimplePool<UpdateOp>(UpdateOp.POOL_SIZE);
     final ArrayList<UpdateOp> mPendingUpdates = new ArrayList<UpdateOp>();
     final ArrayList<UpdateOp> mPostponedList = new ArrayList<UpdateOp>();
     final Callback mCallback;
-    Runnable mOnItemProcessedCallback;
     final boolean mDisableRecycler;
     final SeslOpReorderer mOpReorderer;
+    Runnable mOnItemProcessedCallback;
+    private Pools.Pool<UpdateOp> mUpdateOpPool = new Pools.SimplePool<UpdateOp>(UpdateOp.POOL_SIZE);
     private int mExistingUpdateTypes = 0;
 
     SeslAdapterHelper(Callback callback) {
@@ -536,6 +536,54 @@ class SeslAdapterHelper implements SeslOpReorderer.Callback {
         return !mPostponedList.isEmpty() && !mPendingUpdates.isEmpty();
     }
 
+    @Override
+    public UpdateOp obtainUpdateOp(int cmd, int positionStart, int itemCount, Object payload) {
+        UpdateOp op = mUpdateOpPool.acquire();
+        if (op == null) {
+            op = new UpdateOp(cmd, positionStart, itemCount, payload);
+        } else {
+            op.cmd = cmd;
+            op.positionStart = positionStart;
+            op.itemCount = itemCount;
+            op.payload = payload;
+        }
+        return op;
+    }
+
+    @Override
+    public void recycleUpdateOp(UpdateOp op) {
+        if (!mDisableRecycler) {
+            op.payload = null;
+            mUpdateOpPool.release(op);
+        }
+    }
+
+    void recycleUpdateOpsAndClearList(List<UpdateOp> ops) {
+        final int count = ops.size();
+        for (int i = 0; i < count; i++) {
+            recycleUpdateOp(ops.get(i));
+        }
+        ops.clear();
+    }
+
+    interface Callback {
+        SeslRecyclerView.ViewHolder findViewHolder(int position);
+
+        void offsetPositionsForRemovingInvisible(int positionStart, int itemCount);
+
+        void offsetPositionsForRemovingLaidOutOrNewView(int positionStart, int itemCount);
+
+        void markViewHoldersUpdated(int positionStart, int itemCount, Object payloads);
+
+        void onDispatchFirstPass(UpdateOp updateOp);
+
+        void onDispatchSecondPass(UpdateOp updateOp);
+
+        void offsetPositionsForAdd(int positionStart, int itemCount);
+
+        void offsetPositionsForMove(int from, int to);
+    }
+
     static class UpdateOp {
         static final int ADD = 1;
         static final int REMOVE = 1 << 1;
@@ -618,46 +666,5 @@ class SeslAdapterHelper implements SeslOpReorderer.Callback {
             result = 31 * result + itemCount;
             return result;
         }
-    }
-
-    @Override
-    public UpdateOp obtainUpdateOp(int cmd, int positionStart, int itemCount, Object payload) {
-        UpdateOp op = mUpdateOpPool.acquire();
-        if (op == null) {
-            op = new UpdateOp(cmd, positionStart, itemCount, payload);
-        } else {
-            op.cmd = cmd;
-            op.positionStart = positionStart;
-            op.itemCount = itemCount;
-            op.payload = payload;
-        }
-        return op;
-    }
-
-    @Override
-    public void recycleUpdateOp(UpdateOp op) {
-        if (!mDisableRecycler) {
-            op.payload = null;
-            mUpdateOpPool.release(op);
-        }
-    }
-
-    void recycleUpdateOpsAndClearList(List<UpdateOp> ops) {
-        final int count = ops.size();
-        for (int i = 0; i < count; i++) {
-            recycleUpdateOp(ops.get(i));
-        }
-        ops.clear();
-    }
-
-    interface Callback {
-        SeslRecyclerView.ViewHolder findViewHolder(int position);
-        void offsetPositionsForRemovingInvisible(int positionStart, int itemCount);
-        void offsetPositionsForRemovingLaidOutOrNewView(int positionStart, int itemCount);
-        void markViewHoldersUpdated(int positionStart, int itemCount, Object payloads);
-        void onDispatchFirstPass(UpdateOp updateOp);
-        void onDispatchSecondPass(UpdateOp updateOp);
-        void offsetPositionsForAdd(int positionStart, int itemCount);
-        void offsetPositionsForMove(int from, int to);
     }
 }

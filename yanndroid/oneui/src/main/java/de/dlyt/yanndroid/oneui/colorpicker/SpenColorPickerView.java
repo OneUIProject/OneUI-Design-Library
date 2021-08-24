@@ -16,15 +16,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtil;
-import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtilDrawable;
-import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtilSIP;
-import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtilText;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import de.dlyt.yanndroid.oneui.R;
+import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtil;
+import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtilDrawable;
+import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtilSIP;
+import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtilText;
 
 public class SpenColorPickerView extends LinearLayout implements SpenPickerColorEventListener, View.OnFocusChangeListener {
     public static final int VIEW_MODE_GRADIENT = 1;

@@ -28,7 +28,7 @@
 
     <attr name="goToTopStyle" format="reference" />
 
-    <attr name="roundedCorners"  format="integer">
+    <attr name="roundedCorners" format="integer">
         <flag name="all" value="0x0000000f" />
         <flag name="bottom_left" value="0x00000004" />
         <flag name="bottom_right" value="0x00000008" />
@@ -146,7 +146,7 @@
         <attr name="thumbTintMode" />
         <attr name="track" format="reference" />
         <attr name="trackTint" format="color" />
-        <attr name="trackTintMode"/>
+        <attr name="trackTintMode" />
         <attr name="android:textOn" />
         <attr name="android:textOff" />
         <attr name="thumbTextPadding" format="dimension" />
@@ -158,89 +158,89 @@
     </declare-styleable>
 
     <declare-styleable name="SamsungCoordinatorLayout">
-        <attr name="keylines" format="reference"/>
-        <attr name="statusBarBackground" format="color|reference"/>
+        <attr name="keylines" format="reference" />
+        <attr name="statusBarBackground" format="color|reference" />
     </declare-styleable>
     <declare-styleable name="SamsungCoordinatorLayout_Layout">
-        <attr name="android:layout_gravity"/>
-        <attr name="layout_behavior" format="string"/>
-        <attr name="layout_anchor" format="reference"/>
-        <attr name="layout_keyline" format="integer"/>
-        <attr name="layout_anchorGravity"/>
+        <attr name="android:layout_gravity" />
+        <attr name="layout_behavior" format="string" />
+        <attr name="layout_anchor" format="reference" />
+        <attr name="layout_keyline" format="integer" />
+        <attr name="layout_anchorGravity" />
         <attr name="layout_insetEdge" />
         <attr name="layout_dodgeInsetEdges" />
     </declare-styleable>
     <declare-styleable name="SamsungAppBarLayout">
-        <attr name="elevation"/>
-        <attr name="android:background"/>
-        <attr name="expanded"/>
-        <attr name="android:keyboardNavigationCluster"/>
-        <attr name="android:touchscreenBlocksFocus"/>
-        <attr name="liftOnScroll" format="boolean"/>
-        <attr name="liftOnScrollTargetViewId" format="reference"/>
-        <attr name="statusBarForeground" format="color"/>
+        <attr name="elevation" />
+        <attr name="android:background" />
+        <attr name="expanded" />
+        <attr name="android:keyboardNavigationCluster" />
+        <attr name="android:touchscreenBlocksFocus" />
+        <attr name="liftOnScroll" format="boolean" />
+        <attr name="liftOnScrollTargetViewId" format="reference" />
+        <attr name="statusBarForeground" format="color" />
         <attr name="sesl_layout_heightPercent" format="float" />
-        <attr name="android:paddingBottom"/>
+        <attr name="android:paddingBottom" />
     </declare-styleable>
     <declare-styleable name="SamsungAppBarLayout_Layout">
         <attr name="layout_scrollFlags" />
-        <attr name="layout_scrollInterpolator" format="reference"/>
+        <attr name="layout_scrollInterpolator" format="reference" />
     </declare-styleable>
     <declare-styleable name="SamsungCollapsingToolbarLayout">
-        <attr name="expandedTitleMargin" format="dimension"/>
-        <attr name="expandedTitleMarginStart" format="dimension"/>
-        <attr name="expandedTitleMarginTop" format="dimension"/>
-        <attr name="expandedTitleMarginEnd" format="dimension"/>
-        <attr name="expandedTitleMarginBottom" format="dimension"/>
-        <attr name="expandedTitleTextAppearance" format="reference"/>
+        <attr name="expandedTitleMargin" format="dimension" />
+        <attr name="expandedTitleMarginStart" format="dimension" />
+        <attr name="expandedTitleMarginTop" format="dimension" />
+        <attr name="expandedTitleMarginEnd" format="dimension" />
+        <attr name="expandedTitleMarginBottom" format="dimension" />
+        <attr name="expandedTitleTextAppearance" format="reference" />
         <attr name="extendTitleEnabled" format="boolean" />
         <attr name="extendTitleTextAppearance" format="reference" />
         <attr name="extendSubTitleTextAppearance" format="reference" />
         <attr name="collapseTitleTextAppearance" format="reference" />
-        <attr name="collapsedTitleTextAppearance" format="reference"/>
-        <attr name="contentScrim" format="color"/>
+        <attr name="collapsedTitleTextAppearance" format="reference" />
+        <attr name="contentScrim" format="color" />
         <attr name="statusBarScrim" format="color" />
-        <attr name="toolbarId" format="reference"/>
-        <attr name="scrimVisibleHeightTrigger" format="dimension"/>
-        <attr name="scrimAnimationDuration" format="integer"/>
+        <attr name="toolbarId" format="reference" />
+        <attr name="scrimVisibleHeightTrigger" format="dimension" />
+        <attr name="scrimAnimationDuration" format="integer" />
         <attr name="collapsedTitleGravity" />
         <attr name="expandedTitleGravity" />
-        <attr name="titleEnabled" format="boolean"/>
-        <attr name="title"/>
+        <attr name="titleEnabled" format="boolean" />
+        <attr name="title" />
         <attr name="subtitle" />
     </declare-styleable>
     <declare-styleable name="SamsungCollapsingToolbarLayout_Layout">
         <attr name="layout_collapseMode" />
-        <attr name="layout_collapseParallaxMultiplier" format="float"/>
+        <attr name="layout_collapseParallaxMultiplier" format="float" />
         <attr name="layout_isTitleCustom" />
     </declare-styleable>
 
     <declare-styleable name="SamsungTabLayout">
         <attr name="tabIndicator" format="reference" />
-        <attr name="tabIndicatorColor" format="color"/>
-        <attr name="tabIndicatorHeight" format="dimension"/>
+        <attr name="tabIndicatorColor" format="color" />
+        <attr name="tabIndicatorHeight" format="dimension" />
         <attr name="tabIndicatorFullWidth" format="boolean" />
         <attr name="tabIndicatorGravity" />
         <attr name="tabIconTint" format="color" />
         <attr name="tabIconTintMode" />
-        <attr name="tabContentStart" format="dimension"/>
-        <attr name="tabBackground" format="reference"/>
+        <attr name="tabContentStart" format="dimension" />
+        <attr name="tabBackground" format="reference" />
         <attr name="tabRippleColor" format="color" />
         <attr name="tabIndicatorAnimationDuration" format="integer" />
         <attr name="tabMode" />
         <attr name="tabGravity" />
         <attr name="tabInlineLabel" format="boolean" />
         <attr name="tabUnboundedRipple" format="boolean" />
-        <attr name="tabMinWidth" format="dimension"/>
-        <attr name="tabMaxWidth" format="dimension"/>
-        <attr name="tabTextAppearance" format="reference"/>
-        <attr name="tabTextColor" format="color"/>
-        <attr name="tabSelectedTextColor" format="color"/>
-        <attr name="tabPaddingStart" format="dimension"/>
-        <attr name="tabPaddingTop" format="dimension"/>
-        <attr name="tabPaddingEnd" format="dimension"/>
-        <attr name="tabPaddingBottom" format="dimension"/>
-        <attr name="tabPadding" format="dimension"/>
+        <attr name="tabMinWidth" format="dimension" />
+        <attr name="tabMaxWidth" format="dimension" />
+        <attr name="tabTextAppearance" format="reference" />
+        <attr name="tabTextColor" format="color" />
+        <attr name="tabSelectedTextColor" format="color" />
+        <attr name="tabPaddingStart" format="dimension" />
+        <attr name="tabPaddingTop" format="dimension" />
+        <attr name="tabPaddingEnd" format="dimension" />
+        <attr name="tabPaddingBottom" format="dimension" />
+        <attr name="tabPadding" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="RoundFrameLayout">
@@ -288,7 +288,7 @@
         <attr name="layoutManager" format="string" />
         <attr name="android:orientation" />
         <attr name="android:descendantFocusability" />
-        <attr name="spanCount" format="integer"/>
+        <attr name="spanCount" format="integer" />
         <attr name="reverseLayout" format="boolean" />
         <attr name="stackFromEnd" format="boolean" />
     </declare-styleable>
@@ -436,7 +436,7 @@
     </declare-styleable>
     <declare-styleable name="SeekBarPreference">
         <attr name="min" format="integer" />
-        <attr name="android:max"/>
+        <attr name="android:max" />
         <attr name="max" format="integer" />
         <attr name="overlap" format="integer" />
         <attr name="units" format="string" />

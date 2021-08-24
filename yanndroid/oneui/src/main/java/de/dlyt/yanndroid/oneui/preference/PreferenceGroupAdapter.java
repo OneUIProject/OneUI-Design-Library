@@ -14,16 +14,16 @@ import de.dlyt.yanndroid.oneui.recyclerview.DiffUtil;
 import de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerView;
 
 public class PreferenceGroupAdapter extends SeslRecyclerView.Adapter<PreferenceViewHolder> implements Preference.OnPreferenceChangeInternalListener, PreferenceGroup.PreferencePositionCallback {
-    private int mCategoryLayoutId = R.layout.sesl_preference_category;
-    private Handler mHandler = new Handler();
     boolean mIsCategoryAfter = false;
     Preference mNextGroupPreference = null;
     Preference mNextPreference = null;
+    Preference mPrevPreference = null;
+    private int mCategoryLayoutId = R.layout.sesl_preference_category;
+    private Handler mHandler = new Handler();
     private PreferenceGroup mPreferenceGroup;
     private List<PreferenceLayout> mPreferenceLayouts;
     private List<Preference> mPreferenceList;
     private List<Preference> mPreferenceListInternal;
-    Preference mPrevPreference = null;
     private PreferenceLayout mTempPreferenceLayout = new PreferenceLayout();
     private Runnable mSyncRunnable = new Runnable() {
         @Override
@@ -148,7 +148,7 @@ public class PreferenceGroupAdapter extends SeslRecyclerView.Adapter<PreferenceV
     }
 
     private PreferenceLayout createPreferenceLayout(Preference preference, PreferenceLayout in) {
-        PreferenceLayout pl = in != null? in : new PreferenceLayout();
+        PreferenceLayout pl = in != null ? in : new PreferenceLayout();
         pl.name = preference.getClass().getName();
         pl.resId = preference.getLayoutResource();
         pl.widgetResId = preference.getWidgetLayoutResource();
@@ -264,7 +264,8 @@ public class PreferenceGroupAdapter extends SeslRecyclerView.Adapter<PreferenceV
         private int resId;
         private int widgetResId;
 
-        public PreferenceLayout() { }
+        public PreferenceLayout() {
+        }
 
         public PreferenceLayout(PreferenceLayout other) {
             resId = other.resId;

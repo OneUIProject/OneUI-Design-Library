@@ -42,18 +42,40 @@ import androidx.core.view.ViewCompat;
 
 import java.lang.ref.WeakReference;
 
+import de.dlyt.yanndroid.oneui.NestedScrollView;
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneui.widget.SamsungEdgeEffect;
-import de.dlyt.yanndroid.oneui.NestedScrollView;
 
 public class SamsungAlertController {
+    public final int mButtonIconDimen;
+    public final Context mContext;
+    public final AppCompatDialog mDialog;
+    public final Window mWindow;
     public ListAdapter mAdapter;
     public int mAlertDialogLayout;
+    public Button mButtonNegative;
+    public Drawable mButtonNegativeIcon;
+    public Message mButtonNegativeMessage;
+    public CharSequence mButtonNegativeText;
+    public Button mButtonNeutral;
+    public Drawable mButtonNeutralIcon;
+    public Message mButtonNeutralMessage;
+    public CharSequence mButtonNeutralText;
+    public int mButtonPanelLayoutHint = 0;
+    public int mButtonPanelSideLayout;
+    public Button mButtonPositive;
+    public Drawable mButtonPositiveIcon;
+    public Message mButtonPositiveMessage;
+    public CharSequence mButtonPositiveText;
+    public int mCheckedItem = -1;
+    public View mCustomTitleView;
+    public Handler mHandler;
     public final View.OnClickListener mButtonHandler = new View.OnClickListener() {
         public void onClick(View var1) {
             Message var3;
-            label33: {
+            label33:
+            {
                 SamsungAlertController var2 = SamsungAlertController.this;
                 Message var4;
                 if (var1 == var2.mButtonPositive) {
@@ -93,26 +115,6 @@ public class SamsungAlertController {
             var5.mHandler.obtainMessage(1, var5.mDialog).sendToTarget();
         }
     };
-    public final int mButtonIconDimen;
-    public Button mButtonNegative;
-    public Drawable mButtonNegativeIcon;
-    public Message mButtonNegativeMessage;
-    public CharSequence mButtonNegativeText;
-    public Button mButtonNeutral;
-    public Drawable mButtonNeutralIcon;
-    public Message mButtonNeutralMessage;
-    public CharSequence mButtonNeutralText;
-    public int mButtonPanelLayoutHint = 0;
-    public int mButtonPanelSideLayout;
-    public Button mButtonPositive;
-    public Drawable mButtonPositiveIcon;
-    public Message mButtonPositiveMessage;
-    public CharSequence mButtonPositiveText;
-    public int mCheckedItem = -1;
-    public final Context mContext;
-    public View mCustomTitleView;
-    public final AppCompatDialog mDialog;
-    public Handler mHandler;
     public Drawable mIcon;
     public int mIconId = 0;
     public ImageView mIconView;
@@ -135,14 +137,13 @@ public class SamsungAlertController {
     public int mViewSpacingRight;
     public boolean mViewSpacingSpecified = false;
     public int mViewSpacingTop;
-    public final Window mWindow;
 
     public SamsungAlertController(Context var1, AppCompatDialog var2, Window var3) {
         this.mContext = var1;
         this.mDialog = var2;
         this.mWindow = var3;
         this.mHandler = new ButtonHandler(var2);
-        TypedArray var4 = var1.obtainStyledAttributes((AttributeSet)null, R.styleable.SamsungAlertDialog, R.attr.alertDialogStyle, 0);
+        TypedArray var4 = var1.obtainStyledAttributes((AttributeSet) null, R.styleable.SamsungAlertDialog, R.attr.alertDialogStyle, 0);
         this.mAlertDialogLayout = var4.getResourceId(R.styleable.SamsungAlertDialog_android_layout, 0);
         this.mButtonPanelSideLayout = var4.getResourceId(R.styleable.SamsungAlertDialog_buttonPanelSideLayout, 0);
         this.mListLayout = var4.getResourceId(R.styleable.SamsungAlertDialog_listLayout, 0);
@@ -155,43 +156,13 @@ public class SamsungAlertController {
         var2.supportRequestWindowFeature(1);
     }
 
-    @SuppressLint("WrongConstant")
-    private void adjustButtonsPadding() {
-        int var1 = this.mContext.getResources().getDimensionPixelSize(R.dimen.sesl_dialog_button_text_size);
-        if (this.mButtonPositive.getVisibility() != 8) {
-            this.mButtonPositive.setTextSize(0, (float)var1);
-            this.checkMaxFontScale(this.mButtonPositive, var1);
-        }
-
-        if (this.mButtonNegative.getVisibility() != 8) {
-            this.mButtonNegative.setTextSize(0, (float)var1);
-            this.checkMaxFontScale(this.mButtonNegative, var1);
-        }
-
-        if (this.mButtonNeutral.getVisibility() != 8) {
-            this.mButtonNeutral.setTextSize(0, (float)var1);
-            this.checkMaxFontScale(this.mButtonNeutral, var1);
-        }
-
-    }
-
-    private void adjustParentPanelPadding(View var1) {
-        var1.setPadding(0, 0, 0, 0);
-    }
-
-    private void adjustTopPanelPadding(View var1) {
-        View var2 = var1.findViewById(R.id.title_template);
-        Resources var3 = this.mContext.getResources();
-        var2.setPadding(var3.getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal), 0, var3.getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal), 0);
-    }
-
     public static boolean canTextInput(View var0) {
         if (var0.onCheckIsTextEditor()) {
             return true;
         } else if (!(var0 instanceof ViewGroup)) {
             return false;
         } else {
-            ViewGroup var3 = (ViewGroup)var0;
+            ViewGroup var3 = (ViewGroup) var0;
             int var1 = var3.getChildCount();
 
             int var2;
@@ -202,25 +173,10 @@ public class SamsungAlertController {
 
                 var2 = var1 - 1;
                 var1 = var2;
-            } while(!canTextInput(var3.getChildAt(var2)));
+            } while (!canTextInput(var3.getChildAt(var2)));
 
             return true;
         }
-    }
-
-    private void centerButton(Button var1) {
-        LinearLayout.LayoutParams var2 = (LinearLayout.LayoutParams)var1.getLayoutParams();
-        var2.gravity = 1;
-        var2.weight = 0.5F;
-        var1.setLayoutParams(var2);
-    }
-
-    private void checkMaxFontScale(TextView var1, int var2) {
-        float var3 = this.mContext.getResources().getConfiguration().fontScale;
-        if (var3 > 1.3F) {
-            var1.setTextSize(0, (float)var2 / var3 * 1.3F);
-        }
-
     }
 
     public static void manageScrollIndicators(View var0, View var1, View var2) {
@@ -248,28 +204,86 @@ public class SamsungAlertController {
 
     }
 
+    public static boolean shouldCenterSingleButton(Context var0) {
+        TypedValue var1 = new TypedValue();
+        Resources.Theme var4 = var0.getTheme();
+        int var2 = R.attr.alertDialogCenterButtons;
+        boolean var3 = true;
+        var4.resolveAttribute(var2, var1, true);
+        if (var1.data == 0) {
+            var3 = false;
+        }
+
+        return var3;
+    }
+
+    @SuppressLint("WrongConstant")
+    private void adjustButtonsPadding() {
+        int var1 = this.mContext.getResources().getDimensionPixelSize(R.dimen.sesl_dialog_button_text_size);
+        if (this.mButtonPositive.getVisibility() != 8) {
+            this.mButtonPositive.setTextSize(0, (float) var1);
+            this.checkMaxFontScale(this.mButtonPositive, var1);
+        }
+
+        if (this.mButtonNegative.getVisibility() != 8) {
+            this.mButtonNegative.setTextSize(0, (float) var1);
+            this.checkMaxFontScale(this.mButtonNegative, var1);
+        }
+
+        if (this.mButtonNeutral.getVisibility() != 8) {
+            this.mButtonNeutral.setTextSize(0, (float) var1);
+            this.checkMaxFontScale(this.mButtonNeutral, var1);
+        }
+
+    }
+
+    private void adjustParentPanelPadding(View var1) {
+        var1.setPadding(0, 0, 0, 0);
+    }
+
+    private void adjustTopPanelPadding(View var1) {
+        View var2 = var1.findViewById(R.id.title_template);
+        Resources var3 = this.mContext.getResources();
+        var2.setPadding(var3.getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal), 0, var3.getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal), 0);
+    }
+
+    private void centerButton(Button var1) {
+        LinearLayout.LayoutParams var2 = (LinearLayout.LayoutParams) var1.getLayoutParams();
+        var2.gravity = 1;
+        var2.weight = 0.5F;
+        var1.setLayoutParams(var2);
+    }
+
+    private void checkMaxFontScale(TextView var1, int var2) {
+        float var3 = this.mContext.getResources().getConfiguration().fontScale;
+        if (var3 > 1.3F) {
+            var1.setTextSize(0, (float) var2 / var3 * 1.3F);
+        }
+
+    }
+
     private ViewGroup resolvePanel(View var1, View var2) {
         if (var1 == null) {
             var1 = var2;
             if (var2 instanceof ViewStub) {
-                var1 = ((ViewStub)var2).inflate();
+                var1 = ((ViewStub) var2).inflate();
             }
 
-            return (ViewGroup)var1;
+            return (ViewGroup) var1;
         } else {
             if (var2 != null) {
                 ViewParent var3 = var2.getParent();
                 if (var3 instanceof ViewGroup) {
-                    ((ViewGroup)var3).removeView(var2);
+                    ((ViewGroup) var3).removeView(var2);
                 }
             }
 
             var2 = var1;
             if (var1 instanceof ViewStub) {
-                var2 = ((ViewStub)var1).inflate();
+                var2 = ((ViewStub) var1).inflate();
             }
 
-            return (ViewGroup)var2;
+            return (ViewGroup) var2;
         }
     }
 
@@ -379,7 +393,7 @@ public class SamsungAlertController {
             var5 = this.mContext.getResources().getColor(var10.resourceId, null);
         }
 
-        this.mButtonPositive = (Button)var1.findViewById(R.id.button1);
+        this.mButtonPositive = (Button) var1.findViewById(R.id.button1);
         this.mButtonPositive.setOnClickListener(this.mButtonHandler);
         if (Build.VERSION.SDK_INT > 26) {
             if (var10.resourceId > 0) {
@@ -402,14 +416,14 @@ public class SamsungAlertController {
             if (var7 != null) {
                 var6 = this.mButtonIconDimen;
                 var7.setBounds(0, 0, var6, var6);
-                this.mButtonPositive.setCompoundDrawables(this.mButtonPositiveIcon, (Drawable)null, (Drawable)null, (Drawable)null);
+                this.mButtonPositive.setCompoundDrawables(this.mButtonPositiveIcon, (Drawable) null, (Drawable) null, (Drawable) null);
             }
 
             this.mButtonPositive.setVisibility(0);
             var6 = 1;
         }
 
-        this.mButtonNegative = (Button)var1.findViewById(R.id.button2);
+        this.mButtonNegative = (Button) var1.findViewById(R.id.button2);
         this.mButtonNegative.setOnClickListener(this.mButtonHandler);
         if (Build.VERSION.SDK_INT > 26) {
             if (var10.resourceId > 0) {
@@ -429,14 +443,14 @@ public class SamsungAlertController {
             if (var7 != null) {
                 int var8 = this.mButtonIconDimen;
                 var7.setBounds(0, 0, var8, var8);
-                this.mButtonNegative.setCompoundDrawables(this.mButtonNegativeIcon, (Drawable)null, (Drawable)null, (Drawable)null);
+                this.mButtonNegative.setCompoundDrawables(this.mButtonNegativeIcon, (Drawable) null, (Drawable) null, (Drawable) null);
             }
 
             this.mButtonNegative.setVisibility(0);
             var6 |= 2;
         }
 
-        this.mButtonNeutral = (Button)var1.findViewById(R.id.button3);
+        this.mButtonNeutral = (Button) var1.findViewById(R.id.button3);
         this.mButtonNeutral.setOnClickListener(this.mButtonHandler);
         if (Build.VERSION.SDK_INT > 26) {
             if (var10.resourceId > 0) {
@@ -456,7 +470,7 @@ public class SamsungAlertController {
             if (var11 != null) {
                 var5 = this.mButtonIconDimen;
                 var11.setBounds(0, 0, var5, var5);
-                this.mButtonPositive.setCompoundDrawables(this.mButtonPositiveIcon, (Drawable)null, (Drawable)null, (Drawable)null);
+                this.mButtonPositive.setCompoundDrawables(this.mButtonPositiveIcon, (Drawable) null, (Drawable) null, (Drawable) null);
             }
 
             this.mButtonNeutral.setVisibility(0);
@@ -515,10 +529,10 @@ public class SamsungAlertController {
 
     @SuppressLint({"WrongConstant", "ResourceType"})
     private void setupContent(ViewGroup var1) {
-        this.mScrollView = (NestedScrollView)this.mWindow.findViewById(R.id.scrollView);
+        this.mScrollView = (NestedScrollView) this.mWindow.findViewById(R.id.scrollView);
         this.mScrollView.setFocusable(false);
         this.mScrollView.setNestedScrollingEnabled(false);
-        this.mMessageView = (TextView)var1.findViewById(16908299);
+        this.mMessageView = (TextView) var1.findViewById(16908299);
         TextView var2 = this.mMessageView;
         if (var2 != null) {
             CharSequence var3 = this.mMessage;
@@ -528,7 +542,7 @@ public class SamsungAlertController {
                 var2.setVisibility(8);
                 this.mScrollView.removeView(this.mMessageView);
                 if (this.mListView != null) {
-                    var1 = (ViewGroup)this.mScrollView.getParent();
+                    var1 = (ViewGroup) this.mScrollView.getParent();
                     int var4 = var1.indexOfChild(this.mScrollView);
                     var1.removeViewAt(var4);
                     var1.addView(this.mListView, var4, new ViewGroup.LayoutParams(-1, -1));
@@ -561,7 +575,7 @@ public class SamsungAlertController {
         }
 
         if (var3) {
-            FrameLayout var4 = (FrameLayout)this.mWindow.findViewById(R.id.custom);
+            FrameLayout var4 = (FrameLayout) this.mWindow.findViewById(R.id.custom);
             var4.addView(var2, new ViewGroup.LayoutParams(-1, -1));
             if (this.mViewSpacingSpecified) {
                 var4.setPadding(this.mViewSpacingLeft, this.mViewSpacingTop, this.mViewSpacingRight, this.mViewSpacingBottom);
@@ -569,9 +583,9 @@ public class SamsungAlertController {
 
             if (this.mListView != null) {
                 if (var1.getLayoutParams() instanceof LinearLayout.LayoutParams) {
-                    ((LinearLayout.LayoutParams)var1.getLayoutParams()).weight = 0.0F;
+                    ((LinearLayout.LayoutParams) var1.getLayoutParams()).weight = 0.0F;
                 } else {
-                    ((androidx.appcompat.widget.LinearLayoutCompat.LayoutParams)var1.getLayoutParams()).weight = 0.0F;
+                    ((androidx.appcompat.widget.LinearLayoutCompat.LayoutParams) var1.getLayoutParams()).weight = 0.0F;
                 }
             }
         } else {
@@ -587,7 +601,7 @@ public class SamsungAlertController {
         View var3 = var1.findViewById(R.id.scrollView);
         View var4 = var1.findViewById(R.id.buttonPanel);
         Resources var5 = this.mContext.getResources();
-        ViewGroup var6 = (ViewGroup)var1.findViewById(R.id.customPanel);
+        ViewGroup var6 = (ViewGroup) var1.findViewById(R.id.customPanel);
         View var7 = var1.findViewById(R.id.topPanel);
         View var8 = var1.findViewById(R.id.contentPanel);
         boolean var9 = true;
@@ -648,9 +662,9 @@ public class SamsungAlertController {
             var1.addView(this.mCustomTitleView, 0, var2);
             this.mWindow.findViewById(R.id.title_template).setVisibility(8);
         } else {
-            this.mIconView = (ImageView)this.mWindow.findViewById(16908294);
+            this.mIconView = (ImageView) this.mWindow.findViewById(16908294);
             if (TextUtils.isEmpty(this.mTitle) ^ true && this.mShowTitle) {
-                this.mTitleView = (TextView)this.mWindow.findViewById(R.id.alertTitle);
+                this.mTitleView = (TextView) this.mWindow.findViewById(R.id.alertTitle);
                 this.mTitleView.setText(this.mTitle);
                 this.checkMaxFontScale(this.mTitleView, this.mContext.getResources().getDimensionPixelSize(R.dimen.sesl_dialog_title_text_size));
                 int var3 = this.mIconId;
@@ -697,7 +711,7 @@ public class SamsungAlertController {
         View var2 = var1.findViewById(R.id.topPanel);
         View var3 = var1.findViewById(R.id.contentPanel);
         View var4 = var1.findViewById(R.id.buttonPanel);
-        ViewGroup var5 = (ViewGroup)var1.findViewById(R.id.customPanel);
+        ViewGroup var5 = (ViewGroup) var1.findViewById(R.id.customPanel);
         this.setupCustomContent(var5);
         View var6 = var5.findViewById(R.id.topPanel);
         View var7 = var5.findViewById(R.id.contentPanel);
@@ -769,7 +783,7 @@ public class SamsungAlertController {
 
         ListView var16 = this.mListView;
         if (var16 instanceof RecycleListView) {
-            ((RecycleListView)var16).setHasDecor(var10 == 1, var11);
+            ((RecycleListView) var16).setHasDecor(var10 == 1, var11);
         }
 
         if (!var9) {
@@ -786,7 +800,7 @@ public class SamsungAlertController {
                     var22 = 0;
                 }
 
-                this.setScrollIndicators(var20, (View)var17, var22 | var10, 3);
+                this.setScrollIndicators(var20, (View) var17, var22 | var10, 3);
             }
         }
 
@@ -807,19 +821,6 @@ public class SamsungAlertController {
             }
         }
 
-    }
-
-    public static boolean shouldCenterSingleButton(Context var0) {
-        TypedValue var1 = new TypedValue();
-        Resources.Theme var4 = var0.getTheme();
-        int var2 = R.attr.alertDialogCenterButtons;
-        boolean var3 = true;
-        var4.resolveAttribute(var2, var1, true);
-        if (var1.data == 0) {
-            var3 = false;
-        }
-
-        return var3;
     }
 
     public Button getButton(int var1) {
@@ -986,18 +987,18 @@ public class SamsungAlertController {
     }
 
     public static class AlertParams {
+        public final Context mContext;
+        public final LayoutInflater mInflater;
         public ListAdapter mAdapter;
         public boolean mCancelable;
         public int mCheckedItem = -1;
         public boolean[] mCheckedItems;
-        public final Context mContext;
         public Cursor mCursor;
         public View mCustomTitleView;
         public boolean mForceInverseBackground;
         public Drawable mIcon;
         public int mIconAttrId = 0;
         public int mIconId = 0;
-        public final LayoutInflater mInflater;
         public String mIsCheckedColumn;
         public boolean mIsMultiChoice;
         public boolean mIsSingleChoice;
@@ -1034,11 +1035,11 @@ public class SamsungAlertController {
         public AlertParams(Context var1) {
             this.mContext = var1;
             this.mCancelable = true;
-            this.mInflater = (LayoutInflater)var1.getSystemService("layout_inflater");
+            this.mInflater = (LayoutInflater) var1.getSystemService("layout_inflater");
         }
 
         private void createListView(final SamsungAlertController var1) {
-            final RecycleListView var2 = (RecycleListView)this.mInflater.inflate(var1.mListLayout, (ViewGroup)null);
+            final RecycleListView var2 = (RecycleListView) this.mInflater.inflate(var1.mListLayout, (ViewGroup) null);
             Cursor var3;
             Object var6;
             if (this.mIsMultiChoice) {
@@ -1068,7 +1069,7 @@ public class SamsungAlertController {
 
                         @SuppressLint("ResourceType")
                         public void bindView(View var1x, Context var2x, Cursor var3) {
-                            ((CheckedTextView)var1x.findViewById(16908308)).setText(var3.getString(this.mLabelIndex));
+                            ((CheckedTextView) var1x.findViewById(16908308)).setText(var3.getString(this.mLabelIndex));
                             RecycleListView var7 = var2;
                             int var4 = var3.getPosition();
                             int var5 = var3.getInt(this.mIsCheckedIndex);
@@ -1109,7 +1110,7 @@ public class SamsungAlertController {
                 var5.onPrepareListView(var2);
             }
 
-            var1.mAdapter = (ListAdapter)var6;
+            var1.mAdapter = (ListAdapter) var6;
             var1.mCheckedItem = this.mCheckedItem;
             if (this.mOnClickListener != null) {
                 var2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -1182,15 +1183,15 @@ public class SamsungAlertController {
             }
 
             if (this.mPositiveButtonText != null || this.mPositiveButtonIcon != null) {
-                var1.setButton(-1, this.mPositiveButtonText, this.mPositiveButtonListener, (Message)null, this.mPositiveButtonIcon);
+                var1.setButton(-1, this.mPositiveButtonText, this.mPositiveButtonListener, (Message) null, this.mPositiveButtonIcon);
             }
 
             if (this.mNegativeButtonText != null || this.mNegativeButtonIcon != null) {
-                var1.setButton(-2, this.mNegativeButtonText, this.mNegativeButtonListener, (Message)null, this.mNegativeButtonIcon);
+                var1.setButton(-2, this.mNegativeButtonText, this.mNegativeButtonListener, (Message) null, this.mNegativeButtonIcon);
             }
 
             if (this.mNeutralButtonText != null || this.mNeutralButtonIcon != null) {
-                var1.setButton(-3, this.mNeutralButtonText, this.mNeutralButtonListener, (Message)null, this.mNeutralButtonIcon);
+                var1.setButton(-3, this.mNeutralButtonText, this.mNeutralButtonListener, (Message) null, this.mNeutralButtonIcon);
             }
 
             if (this.mItems != null || this.mCursor != null || this.mAdapter != null) {
@@ -1251,7 +1252,7 @@ public class SamsungAlertController {
             int var12;
             View var13;
             int var16;
-            for(var12 = var9; var9 < var3; var12 = var16) {
+            for (var12 = var9; var9 < var3; var12 = var16) {
                 var13 = this.getChildAt(var9);
                 int var14 = var10;
                 int var15 = var11;
@@ -1276,7 +1277,7 @@ public class SamsungAlertController {
             boolean var18 = true;
             --var10;
             if (var10 > 0) {
-                var10 = (int)((float)var10 * this.getContext().getResources().getDisplayMetrics().density);
+                var10 = (int) ((float) var10 * this.getContext().getResources().getDisplayMetrics().density);
             } else {
                 var10 = 0;
             }
@@ -1318,7 +1319,7 @@ public class SamsungAlertController {
             } else if (this.getOrientation() != 1) {
                 this.setOrientation(1);
 
-                for(var10 = var8; var10 < var3; ++var10) {
+                for (var10 = var8; var10 < var3; ++var10) {
                     var13 = this.getChildAt(var10);
                     if (var13.getVisibility() != 8 && !(var13 instanceof Button)) {
                         var13.setVisibility(8);
@@ -1344,10 +1345,10 @@ public class SamsungAlertController {
             int var2 = var1.what;
             if (var2 != -3 && var2 != -2 && var2 != -1) {
                 if (var2 == 1) {
-                    ((DialogInterface)var1.obj).dismiss();
+                    ((DialogInterface) var1.obj).dismiss();
                 }
             } else {
-                ((DialogInterface.OnClickListener)var1.obj).onClick((DialogInterface)this.mDialog.get(), var1.what);
+                ((DialogInterface.OnClickListener) var1.obj).onClick((DialogInterface) this.mDialog.get(), var1.what);
             }
 
         }
@@ -1359,7 +1360,7 @@ public class SamsungAlertController {
         }
 
         public long getItemId(int var1) {
-            return (long)var1;
+            return (long) var1;
         }
 
         public boolean hasStableIds() {
@@ -1372,7 +1373,7 @@ public class SamsungAlertController {
         public final int mPaddingTopNoTitle;
 
         public RecycleListView(Context var1) {
-            this(var1, (AttributeSet)null);
+            this(var1, (AttributeSet) null);
         }
 
         public RecycleListView(Context var1, AttributeSet var2) {
@@ -1418,8 +1419,8 @@ public class SamsungAlertController {
                     ReflectUtils.genericSetField(this, Build.VERSION.SDK_INT >= 29 ? "hidden_mEdgeGlowBottom" : "mEdgeGlowBottom", var4);
                 }
             } else {
-                ReflectUtils.genericSetField(this, Build.VERSION.SDK_INT >= 29 ? "hidden_mEdgeGlowTop" : "mEdgeGlowTop", (EdgeEffect)null);
-                ReflectUtils.genericSetField(this, Build.VERSION.SDK_INT >= 29 ? "hidden_mEdgeGlowBottom" : "mEdgeGlowBottom", (EdgeEffect)null);
+                ReflectUtils.genericSetField(this, Build.VERSION.SDK_INT >= 29 ? "hidden_mEdgeGlowTop" : "mEdgeGlowTop", (EdgeEffect) null);
+                ReflectUtils.genericSetField(this, Build.VERSION.SDK_INT >= 29 ? "hidden_mEdgeGlowBottom" : "mEdgeGlowBottom", (EdgeEffect) null);
             }
 
             super.setOverScrollMode(var1);

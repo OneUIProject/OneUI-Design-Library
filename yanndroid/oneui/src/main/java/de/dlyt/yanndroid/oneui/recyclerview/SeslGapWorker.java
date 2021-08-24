@@ -1,118 +1,52 @@
 package de.dlyt.yanndroid.oneui.recyclerview;
 
 import android.view.View;
+
+import androidx.core.os.TraceCompat;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.TimeUnit;
 
-import androidx.core.os.TraceCompat;
-
 final class SeslGapWorker implements Runnable {
     static final ThreadLocal<SeslGapWorker> sGapWorker = new ThreadLocal<>();
+    static Comparator<Task> sTaskComparator = new Comparator<Task>() {
+        @Override
+        public int compare(Task lhs, Task rhs) {
+            if ((lhs.view == null) != (rhs.view == null)) {
+                return lhs.view == null ? 1 : -1;
+            }
+
+            if (lhs.immediate != rhs.immediate) {
+                return lhs.immediate ? -1 : 1;
+            }
+
+            int deltaViewVelocity = rhs.viewVelocity - lhs.viewVelocity;
+            if (deltaViewVelocity != 0) return deltaViewVelocity;
+
+            int deltaDistanceToItem = lhs.distanceToItem - rhs.distanceToItem;
+            if (deltaDistanceToItem != 0) return deltaDistanceToItem;
+
+            return 0;
+        }
+    };
     ArrayList<SeslRecyclerView> mRecyclerViews = new ArrayList<>();
     long mPostTimeNs;
     long mFrameIntervalNs;
-
-    static class Task {
-        public boolean immediate;
-        public int viewVelocity;
-        public int distanceToItem;
-        public SeslRecyclerView view;
-        public int position;
-
-        public void clear() {
-            immediate = false;
-            viewVelocity = 0;
-            distanceToItem = 0;
-            view = null;
-            position = 0;
-        }
-    }
-
     private ArrayList<Task> mTasks = new ArrayList<>();
 
-    static class LayoutPrefetchRegistryImpl implements SeslRecyclerView.LayoutManager.LayoutPrefetchRegistry {
-        int mPrefetchDx;
-        int mPrefetchDy;
-        int[] mPrefetchArray;
-
-        int mCount;
-
-        void setPrefetchVector(int dx, int dy) {
-            mPrefetchDx = dx;
-            mPrefetchDy = dy;
-        }
-
-        void collectPrefetchPositionsFromView(SeslRecyclerView view, boolean nested) {
-            mCount = 0;
-            if (mPrefetchArray != null) {
-                Arrays.fill(mPrefetchArray, -1);
-            }
-
-            final SeslRecyclerView.LayoutManager layout = view.mLayout;
-            if (view.mAdapter != null && layout != null && layout.isItemPrefetchEnabled()) {
-                if (nested) {
-                    if (!view.mAdapterHelper.hasPendingUpdates()) {
-                        layout.collectInitialPrefetchPositions(view.mAdapter.getItemCount(), this);
-                    }
-                } else {
-                    if (!view.hasPendingAdapterUpdates()) {
-                        layout.collectAdjacentPrefetchPositions(mPrefetchDx, mPrefetchDy, view.mState, this);
-                    }
-                }
-
-                if (mCount > layout.mPrefetchMaxCountObserved) {
-                    layout.mPrefetchMaxCountObserved = mCount;
-                    layout.mPrefetchMaxObservedInInitialPrefetch = nested;
-                    view.mRecycler.updateViewCacheSize();
-                }
+    static boolean isPrefetchPositionAttached(SeslRecyclerView view, int position) {
+        final int childCount = view.mChildHelper.getUnfilteredChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View attachedView = view.mChildHelper.getUnfilteredChildAt(i);
+            SeslRecyclerView.ViewHolder holder = SeslRecyclerView.getChildViewHolderInt(attachedView);
+            if (holder.mPosition == position && !holder.isInvalid()) {
+                return true;
             }
         }
-
-        @Override
-        public void addPosition(int layoutPosition, int pixelDistance) {
-            if (layoutPosition < 0) {
-                throw new IllegalArgumentException("Layout positions must be non-negative");
-            }
-
-            if (pixelDistance < 0) {
-                throw new IllegalArgumentException("Pixel distance must be non-negative");
-            }
-
-            final int storagePosition = mCount * 2;
-            if (mPrefetchArray == null) {
-                mPrefetchArray = new int[4];
-                Arrays.fill(mPrefetchArray, -1);
-            } else if (storagePosition >= mPrefetchArray.length) {
-                final int[] oldArray = mPrefetchArray;
-                mPrefetchArray = new int[storagePosition * 2];
-                System.arraycopy(oldArray, 0, mPrefetchArray, 0, oldArray.length);
-            }
-
-            mPrefetchArray[storagePosition] = layoutPosition;
-            mPrefetchArray[storagePosition + 1] = pixelDistance;
-
-            mCount++;
-        }
-
-        boolean lastPrefetchIncludedPosition(int position) {
-            if (mPrefetchArray != null) {
-                final int count = mCount * 2;
-                for (int i = 0; i < count; i += 2) {
-                    if (mPrefetchArray[i] == position) return true;
-                }
-            }
-            return false;
-        }
-
-        void clearPrefetchPositions() {
-            if (mPrefetchArray != null) {
-                Arrays.fill(mPrefetchArray, -1);
-            }
-            mCount = 0;
-        }
+        return false;
     }
 
     public void add(SeslRecyclerView recyclerView) {
@@ -142,27 +76,6 @@ final class SeslGapWorker implements Runnable {
 
         recyclerView.mPrefetchRegistry.setPrefetchVector(prefetchDx, prefetchDy);
     }
-
-    static Comparator<Task> sTaskComparator = new Comparator<Task>() {
-        @Override
-        public int compare(Task lhs, Task rhs) {
-            if ((lhs.view == null) != (rhs.view == null)) {
-                return lhs.view == null ? 1 : -1;
-            }
-
-            if (lhs.immediate != rhs.immediate) {
-                return lhs.immediate ? -1 : 1;
-            }
-
-            int deltaViewVelocity = rhs.viewVelocity - lhs.viewVelocity;
-            if (deltaViewVelocity != 0) return deltaViewVelocity;
-
-            int deltaDistanceToItem = lhs.distanceToItem - rhs.distanceToItem;
-            if (deltaDistanceToItem != 0) return deltaDistanceToItem;
-
-            return 0;
-        }
-    };
 
     private void buildTaskList() {
         final int viewCount = mRecyclerViews.size();
@@ -206,18 +119,6 @@ final class SeslGapWorker implements Runnable {
         }
 
         Collections.sort(mTasks, sTaskComparator);
-    }
-
-    static boolean isPrefetchPositionAttached(SeslRecyclerView view, int position) {
-        final int childCount = view.mChildHelper.getUnfilteredChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View attachedView = view.mChildHelper.getUnfilteredChildAt(i);
-            SeslRecyclerView.ViewHolder holder = SeslRecyclerView.getChildViewHolderInt(attachedView);
-            if (holder.mPosition == position && !holder.isInvalid()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private SeslRecyclerView.ViewHolder prefetchPositionWithDeadline(SeslRecyclerView view, int position, long deadlineNs) {
@@ -322,6 +223,104 @@ final class SeslGapWorker implements Runnable {
         } finally {
             mPostTimeNs = 0;
             TraceCompat.endSection();
+        }
+    }
+
+    static class Task {
+        public boolean immediate;
+        public int viewVelocity;
+        public int distanceToItem;
+        public SeslRecyclerView view;
+        public int position;
+
+        public void clear() {
+            immediate = false;
+            viewVelocity = 0;
+            distanceToItem = 0;
+            view = null;
+            position = 0;
+        }
+    }
+
+    static class LayoutPrefetchRegistryImpl implements SeslRecyclerView.LayoutManager.LayoutPrefetchRegistry {
+        int mPrefetchDx;
+        int mPrefetchDy;
+        int[] mPrefetchArray;
+
+        int mCount;
+
+        void setPrefetchVector(int dx, int dy) {
+            mPrefetchDx = dx;
+            mPrefetchDy = dy;
+        }
+
+        void collectPrefetchPositionsFromView(SeslRecyclerView view, boolean nested) {
+            mCount = 0;
+            if (mPrefetchArray != null) {
+                Arrays.fill(mPrefetchArray, -1);
+            }
+
+            final SeslRecyclerView.LayoutManager layout = view.mLayout;
+            if (view.mAdapter != null && layout != null && layout.isItemPrefetchEnabled()) {
+                if (nested) {
+                    if (!view.mAdapterHelper.hasPendingUpdates()) {
+                        layout.collectInitialPrefetchPositions(view.mAdapter.getItemCount(), this);
+                    }
+                } else {
+                    if (!view.hasPendingAdapterUpdates()) {
+                        layout.collectAdjacentPrefetchPositions(mPrefetchDx, mPrefetchDy, view.mState, this);
+                    }
+                }
+
+                if (mCount > layout.mPrefetchMaxCountObserved) {
+                    layout.mPrefetchMaxCountObserved = mCount;
+                    layout.mPrefetchMaxObservedInInitialPrefetch = nested;
+                    view.mRecycler.updateViewCacheSize();
+                }
+            }
+        }
+
+        @Override
+        public void addPosition(int layoutPosition, int pixelDistance) {
+            if (layoutPosition < 0) {
+                throw new IllegalArgumentException("Layout positions must be non-negative");
+            }
+
+            if (pixelDistance < 0) {
+                throw new IllegalArgumentException("Pixel distance must be non-negative");
+            }
+
+            final int storagePosition = mCount * 2;
+            if (mPrefetchArray == null) {
+                mPrefetchArray = new int[4];
+                Arrays.fill(mPrefetchArray, -1);
+            } else if (storagePosition >= mPrefetchArray.length) {
+                final int[] oldArray = mPrefetchArray;
+                mPrefetchArray = new int[storagePosition * 2];
+                System.arraycopy(oldArray, 0, mPrefetchArray, 0, oldArray.length);
+            }
+
+            mPrefetchArray[storagePosition] = layoutPosition;
+            mPrefetchArray[storagePosition + 1] = pixelDistance;
+
+            mCount++;
+        }
+
+        boolean lastPrefetchIncludedPosition(int position) {
+            if (mPrefetchArray != null) {
+                final int count = mCount * 2;
+                for (int i = 0; i < count; i += 2) {
+                    if (mPrefetchArray[i] == position) return true;
+                }
+            }
+            return false;
+        }
+
+        void clearPrefetchPositions() {
+            if (mPrefetchArray != null) {
+                Arrays.fill(mPrefetchArray, -1);
+            }
+            mCount = 0;
         }
     }
 }

@@ -30,25 +30,25 @@ public class SeslPreferenceImageView extends ImageView {
     }
 
     @Override
+    public int getMaxWidth() {
+        return mMaxWidth;
+    }
+
+    @Override
     public void setMaxWidth(int maxWidth) {
         mMaxWidth = maxWidth;
         super.setMaxWidth(maxWidth);
     }
 
     @Override
-    public int getMaxWidth() {
-        return mMaxWidth;
+    public int getMaxHeight() {
+        return mMaxHeight;
     }
 
     @Override
     public void setMaxHeight(int maxHeight) {
         mMaxHeight = maxHeight;
         super.setMaxHeight(maxHeight);
-    }
-
-    @Override
-    public int getMaxHeight() {
-        return mMaxHeight;
     }
 
     @Override

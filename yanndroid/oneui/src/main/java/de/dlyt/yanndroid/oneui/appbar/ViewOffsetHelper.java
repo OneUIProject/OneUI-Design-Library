@@ -5,13 +5,13 @@ import android.view.View;
 import androidx.core.view.ViewCompat;
 
 public class ViewOffsetHelper {
+    public final View view;
     public boolean horizontalOffsetEnabled = true;
     public int layoutLeft;
     public int layoutTop;
     public int offsetLeft;
     public int offsetTop;
     public boolean verticalOffsetEnabled = true;
-    public final View view;
 
     public ViewOffsetHelper(View var1) {
         this.view = var1;

@@ -6,11 +6,12 @@ import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+
+import androidx.core.content.res.TypedArrayUtils;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
-import androidx.core.content.res.TypedArrayUtils;
 
 import de.dlyt.yanndroid.oneui.R;
 
@@ -50,12 +51,18 @@ public class MultiSelectListPreference extends DialogPreference {
         return this.mValues;
     }
 
+    public void setValues(Set<String> var1) {
+        this.mValues.clear();
+        this.mValues.addAll(var1);
+        this.persistStringSet(var1);
+    }
+
     public Object onGetDefaultValue(TypedArray var1, int var2) {
         CharSequence[] var5 = var1.getTextArray(var2);
         HashSet var3 = new HashSet();
         int var4 = var5.length;
 
-        for(var2 = 0; var2 < var4; ++var2) {
+        for (var2 = 0; var2 < var4; ++var2) {
             var3.add(var5[var2].toString());
         }
 
@@ -64,7 +71,7 @@ public class MultiSelectListPreference extends DialogPreference {
 
     public void onRestoreInstanceState(Parcelable var1) {
         if (var1 != null && var1.getClass().equals(de.dlyt.yanndroid.oneui.preference.MultiSelectListPreference.SavedState.class)) {
-            de.dlyt.yanndroid.oneui.preference.MultiSelectListPreference.SavedState var2 = (de.dlyt.yanndroid.oneui.preference.MultiSelectListPreference.SavedState)var1;
+            de.dlyt.yanndroid.oneui.preference.MultiSelectListPreference.SavedState var2 = (de.dlyt.yanndroid.oneui.preference.MultiSelectListPreference.SavedState) var1;
             super.onRestoreInstanceState(var2.getSuperState());
             this.setValues(var2.mValues);
         } else {
@@ -84,13 +91,7 @@ public class MultiSelectListPreference extends DialogPreference {
     }
 
     public void onSetInitialValue(Object var1) {
-        this.setValues(this.getPersistedStringSet((Set<String>)var1));
-    }
-
-    public void setValues(Set<String> var1) {
-        this.mValues.clear();
-        this.mValues.addAll(var1);
-        this.persistStringSet(var1);
+        this.setValues(this.getPersistedStringSet((Set<String>) var1));
     }
 
     private static class SavedState extends Preference.BaseSavedState {
@@ -122,7 +123,7 @@ public class MultiSelectListPreference extends DialogPreference {
             super.writeToParcel(var1, var2);
             var1.writeInt(this.mValues.size());
             Set var3 = this.mValues;
-            var1.writeStringArray((String[])var3.toArray(new String[var3.size()]));
+            var1.writeStringArray((String[]) var3.toArray(new String[var3.size()]));
         }
     }
 }

@@ -71,6 +71,9 @@ public class Switch extends CompoundButton {
     private static final int TOUCH_MODE_IDLE = 0;
     private static final int TOUCH_MODE_DOWN = 1;
     private static final int TOUCH_MODE_DRAGGING = 2;
+    private final Rect mTempRect = new Rect();
+    private final TextPaint mTextPaint;
+    ThumbAnimation mPositionAnimator;
     private boolean mHasThumbTint = false;
     private boolean mHasThumbTintMode = false;
     private boolean mHasTrackTint = false;
@@ -78,7 +81,6 @@ public class Switch extends CompoundButton {
     private int mMinFlingVelocity;
     private Layout mOffLayout;
     private Layout mOnLayout;
-    ThumbAnimation mPositionAnimator;
     private boolean mShowText;
     private boolean mSplitTrack;
     private int mSwitchBottom;
@@ -90,11 +92,9 @@ public class Switch extends CompoundButton {
     private int mSwitchTop;
     private TransformationMethod mSwitchTransformationMethod;
     private int mSwitchWidth;
-    private final Rect mTempRect = new Rect();
     private ColorStateList mTextColors;
     private CharSequence mTextOff;
     private CharSequence mTextOn;
-    private final TextPaint mTextPaint;
     private Drawable mThumbDrawable;
     private float mThumbPosition;
     private int mThumbTextPadding;
@@ -192,6 +192,10 @@ public class Switch extends CompoundButton {
         setChecked(isChecked());
     }
 
+    private static float constrain(float amount, float low, float high) {
+        return amount < low ? low : (amount > high ? high : amount);
+    }
+
     public void setSwitchTextAppearance(Context context, int resid) {
         final TintTypedArray appearance = TintTypedArray.obtainStyledAttributes(context, resid, R.styleable.TextAppearance);
 
@@ -279,17 +283,12 @@ public class Switch extends CompoundButton {
         }
     }
 
-    public void setSwitchPadding(int pixels) {
-        mSwitchPadding = pixels;
-        requestLayout();
-    }
-
     public int getSwitchPadding() {
         return mSwitchPadding;
     }
 
-    public void setSwitchMinWidth(int pixels) {
-        mSwitchMinWidth = pixels;
+    public void setSwitchPadding(int pixels) {
+        mSwitchPadding = pixels;
         requestLayout();
     }
 
@@ -297,13 +296,26 @@ public class Switch extends CompoundButton {
         return mSwitchMinWidth;
     }
 
-    public void setThumbTextPadding(int pixels) {
-        mThumbTextPadding = pixels;
+    public void setSwitchMinWidth(int pixels) {
+        mSwitchMinWidth = pixels;
         requestLayout();
     }
 
     public int getThumbTextPadding() {
         return mThumbTextPadding;
+    }
+
+    public void setThumbTextPadding(int pixels) {
+        mThumbTextPadding = pixels;
+        requestLayout();
+    }
+
+    public void setTrackResource(int resId) {
+        setTrackDrawable(AppCompatResources.getDrawable(getContext(), resId));
+    }
+
+    public Drawable getTrackDrawable() {
+        return mTrackDrawable;
     }
 
     public void setTrackDrawable(Drawable track) {
@@ -317,12 +329,8 @@ public class Switch extends CompoundButton {
         requestLayout();
     }
 
-    public void setTrackResource(int resId) {
-        setTrackDrawable(AppCompatResources.getDrawable(getContext(), resId));
-    }
-
-    public Drawable getTrackDrawable() {
-        return mTrackDrawable;
+    public ColorStateList getTrackTintList() {
+        return mTrackTintList;
     }
 
     public void setTrackTintList(ColorStateList tint) {
@@ -332,8 +340,8 @@ public class Switch extends CompoundButton {
         applyTrackTint();
     }
 
-    public ColorStateList getTrackTintList() {
-        return mTrackTintList;
+    public PorterDuff.Mode getTrackTintMode() {
+        return mTrackTintMode;
     }
 
     public void setTrackTintMode(PorterDuff.Mode tintMode) {
@@ -341,10 +349,6 @@ public class Switch extends CompoundButton {
         mHasTrackTintMode = true;
 
         applyTrackTint();
-    }
-
-    public PorterDuff.Mode getTrackTintMode() {
-        return mTrackTintMode;
     }
 
     private void applyTrackTint() {
@@ -365,6 +369,14 @@ public class Switch extends CompoundButton {
         }
     }
 
+    public void setThumbResource(int resId) {
+        setThumbDrawable(AppCompatResources.getDrawable(getContext(), resId));
+    }
+
+    public Drawable getThumbDrawable() {
+        return mThumbDrawable;
+    }
+
     public void setThumbDrawable(Drawable thumb) {
         if (mThumbDrawable != null) {
             mThumbDrawable.setCallback(null);
@@ -376,12 +388,8 @@ public class Switch extends CompoundButton {
         requestLayout();
     }
 
-    public void setThumbResource(int resId) {
-        setThumbDrawable(AppCompatResources.getDrawable(getContext(), resId));
-    }
-
-    public Drawable getThumbDrawable() {
-        return mThumbDrawable;
+    public ColorStateList getThumbTintList() {
+        return mThumbTintList;
     }
 
     public void setThumbTintList(ColorStateList tint) {
@@ -389,10 +397,6 @@ public class Switch extends CompoundButton {
         mHasThumbTint = true;
 
         applyThumbTint();
-    }
-
-    public ColorStateList getThumbTintList() {
-        return mThumbTintList;
     }
 
     public void setThumbTintMode(PorterDuff.Mode tintMode) {
@@ -420,13 +424,13 @@ public class Switch extends CompoundButton {
         }
     }
 
+    public boolean getSplitTrack() {
+        return mSplitTrack;
+    }
+
     public void setSplitTrack(boolean splitTrack) {
         mSplitTrack = splitTrack;
         invalidate();
-    }
-
-    public boolean getSplitTrack() {
-        return mSplitTrack;
     }
 
     public CharSequence getTextOn() {
@@ -447,15 +451,15 @@ public class Switch extends CompoundButton {
         requestLayout();
     }
 
+    public boolean getShowText() {
+        return mShowText;
+    }
+
     public void setShowText(boolean showText) {
         if (mShowText != showText) {
             mShowText = showText;
             requestLayout();
         }
-    }
-
-    public boolean getShowText() {
-        return mShowText;
     }
 
     @Override
@@ -672,7 +676,8 @@ public class Switch extends CompoundButton {
         mPositionAnimator.setInterpolator(SeslAnimationUtils.ELASTIC_50);
         mPositionAnimator.setDuration(THUMB_ANIMATION_DURATION_ABOVE_M);
         mPositionAnimator.setAnimationListener(new Animation.AnimationListener() {
-            public void onAnimationStart(Animation animation) { }
+            public void onAnimationStart(Animation animation) {
+            }
 
             public void onAnimationEnd(Animation animation) {
                 if (mPositionAnimator == animation) {
@@ -681,7 +686,8 @@ public class Switch extends CompoundButton {
                 }
             }
 
-            public void onAnimationRepeat(Animation animation) { }
+            public void onAnimationRepeat(Animation animation) {
+            }
         });
 
         startAnimation(mPositionAnimator);
@@ -1059,10 +1065,6 @@ public class Switch extends CompoundButton {
                 info.setText(newText);
             }
         }
-    }
-
-    private static float constrain(float amount, float low, float high) {
-        return amount < low ? low : (amount > high ? high : amount);
     }
 
     public void seslSetTrackStrokeColor(int color) {

@@ -71,10 +71,12 @@ public class SwitchPreferenceScreen extends SwitchPreference {
     }
 
     @Override
-    protected void onClick() { }
+    protected void onClick() {
+    }
 
     @Override
-    protected void callClickListener() { }
+    protected void callClickListener() {
+    }
 
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {

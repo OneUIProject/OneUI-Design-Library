@@ -23,39 +23,16 @@ import de.dlyt.yanndroid.oneui.R;
 
 public class SplashViewAnimated extends LinearLayout {
 
-    private Drawable mImage_foreground;
-    private Drawable mImage_background;
-    private String mText;
-
-    private Animation splash_anim;
-
-    private MaterialTextView textView;
-    private ImageView imageview_foreground;
-    private ImageView imageview_background;
-
-
     public static final int TEXTVIEW = 0;
     public static final int IMAGE_FOREGROUND = 1;
     public static final int IMAGE_BACKGROUND = 2;
-
-    @IntDef({TEXTVIEW, IMAGE_FOREGROUND, IMAGE_BACKGROUND})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface SplashViewAnimatedView {
-    }
-
-    public View getView(@SplashViewAnimatedView int view) {
-        switch (view) {
-            case TEXTVIEW:
-                return textView;
-            case IMAGE_FOREGROUND:
-                return imageview_foreground;
-            case IMAGE_BACKGROUND:
-                return imageview_background;
-            default:
-                return null;
-        }
-    }
-
+    private Drawable mImage_foreground;
+    private Drawable mImage_background;
+    private String mText;
+    private Animation splash_anim;
+    private MaterialTextView textView;
+    private ImageView imageview_foreground;
+    private ImageView imageview_background;
 
     public SplashViewAnimated(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -86,6 +63,18 @@ public class SplashViewAnimated extends LinearLayout {
 
     }
 
+    public View getView(@SplashViewAnimatedView int view) {
+        switch (view) {
+            case TEXTVIEW:
+                return textView;
+            case IMAGE_FOREGROUND:
+                return imageview_foreground;
+            case IMAGE_BACKGROUND:
+                return imageview_background;
+            default:
+                return null;
+        }
+    }
 
     public void setSplashAnimationListener(Animation.AnimationListener listener) {
         splash_anim.setAnimationListener(listener);
@@ -114,5 +103,10 @@ public class SplashViewAnimated extends LinearLayout {
         this.mImage_background = background;
         imageview_foreground.setImageDrawable(foreground);
         imageview_background.setImageDrawable(background);
+    }
+
+    @IntDef({TEXTVIEW, IMAGE_FOREGROUND, IMAGE_BACKGROUND})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface SplashViewAnimatedView {
     }
 }

@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<animated-selector
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="false" android:state_checked="true" android:drawable="@drawable/sesl_list_choice_check_to_on_025" />
-    <item android:state_enabled="false" android:drawable="@drawable/sesl_list_choice_check_to_on_001" />
-    <item android:state_checked="true" android:id="@id/checked" android:drawable="@drawable/sesl_list_choice_check_to_on_026" />
-    <item android:state_checked="false" android:id="@id/unchecked" android:drawable="@drawable/sesl_list_choice_check_to_on_000" />
-    <transition android:drawable="@drawable/sesl_list_choice_check_to_on_024" android:toId="@id/checked" android:fromId="@id/unchecked" />
-    <transition android:drawable="@drawable/sesl_list_choice_check_to_on_002" android:toId="@id/unchecked" android:fromId="@id/checked" />
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/sesl_list_choice_check_to_on_025"
+        android:state_checked="true"
+        android:state_enabled="false" />
+    <item
+        android:drawable="@drawable/sesl_list_choice_check_to_on_001"
+        android:state_enabled="false" />
+    <item
+        android:id="@id/checked"
+        android:drawable="@drawable/sesl_list_choice_check_to_on_026"
+        android:state_checked="true" />
+    <item
+        android:id="@id/unchecked"
+        android:drawable="@drawable/sesl_list_choice_check_to_on_000"
+        android:state_checked="false" />
+    <transition
+        android:drawable="@drawable/sesl_list_choice_check_to_on_024"
+        android:fromId="@id/unchecked"
+        android:toId="@id/checked" />
+    <transition
+        android:drawable="@drawable/sesl_list_choice_check_to_on_002"
+        android:fromId="@id/checked"
+        android:toId="@id/unchecked" />
 </animated-selector>

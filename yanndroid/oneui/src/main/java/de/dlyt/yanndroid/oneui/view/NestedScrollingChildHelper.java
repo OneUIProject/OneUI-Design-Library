@@ -1,8 +1,5 @@
 package de.dlyt.yanndroid.oneui.view;
 
-import static androidx.core.view.ViewCompat.TYPE_NON_TOUCH;
-import static androidx.core.view.ViewCompat.TYPE_TOUCH;
-
 import android.view.View;
 import android.view.ViewParent;
 
@@ -13,10 +10,13 @@ import androidx.core.view.ViewCompat.NestedScrollType;
 import androidx.core.view.ViewCompat.ScrollAxis;
 import androidx.core.view.ViewParentCompat;
 
+import static androidx.core.view.ViewCompat.TYPE_NON_TOUCH;
+import static androidx.core.view.ViewCompat.TYPE_TOUCH;
+
 public class NestedScrollingChildHelper {
+    private final View mView;
     private ViewParent mNestedScrollingParentTouch;
     private ViewParent mNestedScrollingParentNonTouch;
-    private final View mView;
     private boolean mIsNestedScrollingEnabled;
     private int[] mTempNestedScrollConsumed;
 
@@ -24,15 +24,15 @@ public class NestedScrollingChildHelper {
         mView = view;
     }
 
+    public boolean isNestedScrollingEnabled() {
+        return mIsNestedScrollingEnabled;
+    }
+
     public void setNestedScrollingEnabled(boolean enabled) {
         if (mIsNestedScrollingEnabled) {
             ViewCompat.stopNestedScroll(mView);
         }
         mIsNestedScrollingEnabled = enabled;
-    }
-
-    public boolean isNestedScrollingEnabled() {
-        return mIsNestedScrollingEnabled;
     }
 
     public boolean hasNestedScrollingParent() {
@@ -102,8 +102,8 @@ public class NestedScrollingChildHelper {
     }
 
     public boolean seslDispatchNestedScroll(int dxConsumed, int dyConsumed, int dxUnconsumed,
-                                     int dyUnconsumed, @Nullable int[] offsetInWindow, @NestedScrollType int type,
-                                     @Nullable int[] consumed) {
+                                            int dyUnconsumed, @Nullable int[] offsetInWindow, @NestedScrollType int type,
+                                            @Nullable int[] consumed) {
         return dispatchNestedScrollInternal(dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed,
                 offsetInWindow, type, consumed);
     }
@@ -215,6 +215,7 @@ public class NestedScrollingChildHelper {
     public void onStopNestedScroll(@NonNull View child) {
         ViewCompat.stopNestedScroll(mView);
     }
+
     private ViewParent getNestedScrollingParentForType(@NestedScrollType int type) {
         switch (type) {
             case TYPE_TOUCH:
@@ -224,6 +225,7 @@ public class NestedScrollingChildHelper {
         }
         return null;
     }
+
     private void setNestedScrollingParentForType(@NestedScrollType int type, ViewParent p) {
         switch (type) {
             case TYPE_TOUCH:
@@ -234,6 +236,7 @@ public class NestedScrollingChildHelper {
                 break;
         }
     }
+
     private int[] getTempNestedScrollConsumed() {
         if (mTempNestedScrollConsumed == null) {
             mTempNestedScrollConsumed = new int[2];

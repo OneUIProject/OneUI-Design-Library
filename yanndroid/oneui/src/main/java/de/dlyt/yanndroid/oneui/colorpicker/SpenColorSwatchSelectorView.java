@@ -7,9 +7,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
 
-import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtil;
-
 import de.dlyt.yanndroid.oneui.R;
+import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtil;
 
 public class SpenColorSwatchSelectorView extends View {
     private final int mOutlineColor;

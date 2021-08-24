@@ -18,7 +18,8 @@
         <item name="android:textColorSecondary">@color/sesl_secondary_text</item>
         <item name="android:textColorSecondaryInverse">@color/sesl_secondary_text</item>
         <item name="android:textColorHighlight">@color/sesl_highlighted_text_color</item>
-        <item name="android:textColorAlertDialogListItem">@color/sesl_select_dialog_list_item_text</item>
+        <item name="android:textColorAlertDialogListItem">@color/sesl_select_dialog_list_item_text
+        </item>
 
         <item name="android:listDivider">@drawable/sesl_list_divider</item>
 

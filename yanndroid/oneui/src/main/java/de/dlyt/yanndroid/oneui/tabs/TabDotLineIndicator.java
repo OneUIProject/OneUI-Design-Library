@@ -8,11 +8,11 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 
 public class TabDotLineIndicator extends AbsIndicatorView {
+    private final float mScaleFromDiff;
     private int mDiameter;
     private int mInterval;
     private Paint mPaint;
     private float mScaleFrom;
-    private final float mScaleFromDiff;
     private int mWidth;
 
     public TabDotLineIndicator(Context context) {

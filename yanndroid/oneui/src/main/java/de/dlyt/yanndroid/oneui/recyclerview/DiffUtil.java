@@ -1,19 +1,17 @@
 package de.dlyt.yanndroid.oneui.recyclerview;
 
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
-
 public class DiffUtil {
-    private DiffUtil() { }
-
     private static final Comparator<Snake> SNAKE_COMPARATOR = new Comparator<Snake>() {
         @Override
         public int compare(Snake o1, Snake o2) {
@@ -21,6 +19,9 @@ public class DiffUtil {
             return cmpX == 0 ? o1.y - o2.y : cmpX;
         }
     };
+
+    private DiffUtil() {
+    }
 
     @NonNull
     public static DiffResult calculateDiff(@NonNull Callback cb) {
@@ -210,7 +211,8 @@ public class DiffUtil {
         int oldListStart, oldListEnd;
         int newListStart, newListEnd;
 
-        public Range() { }
+        public Range() {
+        }
 
         public Range(int oldListStart, int oldListEnd, int newListStart, int newListEnd) {
             this.oldListStart = oldListStart;
@@ -249,6 +251,20 @@ public class DiffUtil {
             mDetectMoves = detectMoves;
             addRootSnake();
             findMatchingItems();
+        }
+
+        private static PostponedUpdate removePostponedUpdate(List<PostponedUpdate> updates, int pos, boolean removal) {
+            for (int i = updates.size() - 1; i >= 0; i--) {
+                final PostponedUpdate update = updates.get(i);
+                if (update.posInOwnerList == pos && update.removal == removal) {
+                    updates.remove(i);
+                    for (int j = i; j < updates.size(); j++) {
+                        updates.get(j).currentPos += removal ? 1 : -1;
+                    }
+                    return update;
+                }
+            }
+            return null;
         }
 
         private void addRootSnake() {
@@ -376,7 +392,6 @@ public class DiffUtil {
             return false;
         }
 
-
         public void dispatchUpdatesTo(@NonNull final SeslRecyclerView.Adapter adapter) {
             dispatchUpdatesTo(new AdapterListUpdateCallback(adapter));
         }
@@ -413,20 +428,6 @@ public class DiffUtil {
                 posNew = snake.y;
             }
             batchingCallback.dispatchLastEvent();
-        }
-
-        private static PostponedUpdate removePostponedUpdate(List<PostponedUpdate> updates, int pos, boolean removal) {
-            for (int i = updates.size() - 1; i >= 0; i--) {
-                final PostponedUpdate update = updates.get(i);
-                if (update.posInOwnerList == pos && update.removal == removal) {
-                    updates.remove(i);
-                    for (int j = i; j < updates.size(); j++) {
-                        updates.get(j).currentPos += removal ? 1 : -1;
-                    }
-                    return update;
-                }
-            }
-            return null;
         }
 
         private void dispatchAdditions(List<PostponedUpdate> postponedUpdates, ListUpdateCallback updateCallback, int start, int count, int globalIndex) {

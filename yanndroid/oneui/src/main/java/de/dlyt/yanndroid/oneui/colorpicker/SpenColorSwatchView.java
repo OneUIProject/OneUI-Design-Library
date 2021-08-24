@@ -11,12 +11,11 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 
-import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import de.dlyt.yanndroid.oneui.R;
+import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtil;
 
 public class SpenColorSwatchView extends RelativeLayout implements SpenColorViewInterface, SpenPickerColorEventListener {
     private static final int DARK_COLOR_NAME_IDX = 2;

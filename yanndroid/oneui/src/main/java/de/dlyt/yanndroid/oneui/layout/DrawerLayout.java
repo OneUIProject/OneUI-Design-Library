@@ -32,55 +32,26 @@ import de.dlyt.yanndroid.oneui.widget.ToolbarImageButton;
 
 public class DrawerLayout extends LinearLayout {
 
+    public static final int DRAWER_BUTTON = 0;
+    public static final int TOOLBAR = 1;
+    public static final int CONTENT_LAYOUT = 2;
+    public static final int DRAWER_LAYOUT = 3;
+    public static final int DRAWER = 4;
+    public static int N_BADGE = -1;
     private String mToolbarTitle;
     private String mToolbarSubtitle;
     private Boolean mToolbarExpanded;
-
     private Drawable mDrawerIcon;
     private FrameLayout drawerButtonContainer;
     private ToolbarImageButton drawerButton;
     private ViewGroup drawerIconBadgeBackground;
     private TextView drawerIconBadgeText;
     private NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-    public static int N_BADGE = -1;
-
     private ToolbarLayout toolbarLayout;
     private LinearLayout drawer_container;
-
     private int viewIdForDrawer;
-
     private androidx.drawerlayout.widget.DrawerLayout drawerLayout;
     private View drawer;
-
-
-    public static final int DRAWER_BUTTON = 0;
-    public static final int TOOLBAR = 1;
-    public static final int CONTENT_LAYOUT = 2;
-    public static final int DRAWER_LAYOUT = 3;
-    public static final int DRAWER = 4;
-
-    @IntDef({DRAWER_BUTTON, TOOLBAR, CONTENT_LAYOUT, DRAWER_LAYOUT, DRAWER})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface DrawerLayoutView {
-    }
-
-    public View getView(@DrawerLayoutView int view) {
-        switch (view) {
-            case DRAWER_BUTTON:
-                return drawerButton;
-            case TOOLBAR:
-                return toolbarLayout;
-            case CONTENT_LAYOUT:
-                return drawer_container;
-            case DRAWER_LAYOUT:
-                return drawerLayout;
-            case DRAWER:
-                return drawer;
-            default:
-                return null;
-        }
-    }
-
 
     public DrawerLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -146,16 +117,31 @@ public class DrawerLayout extends LinearLayout {
         toolbarLayout.setNavigationOnClickListener(v -> drawerLayout.openDrawer(drawer, true));
     }
 
+    public View getView(@DrawerLayoutView int view) {
+        switch (view) {
+            case DRAWER_BUTTON:
+                return drawerButton;
+            case TOOLBAR:
+                return toolbarLayout;
+            case CONTENT_LAYOUT:
+                return drawer_container;
+            case DRAWER_LAYOUT:
+                return drawerLayout;
+            case DRAWER:
+                return drawer;
+            default:
+                return null;
+        }
+    }
+
     private void init() {
         ViewGroup.LayoutParams layoutParams = drawer.getLayoutParams();
         layoutParams.width = Math.min((int) ((double) this.getResources().getDisplayMetrics().widthPixels * ((double) getResources().getInteger(R.integer.drawerMaxWidth) / 1000)), this.getResources().getDimensionPixelSize(R.dimen.drawer_width));
     }
 
-
     public androidx.appcompat.widget.Toolbar getToolbar() {
         return toolbarLayout.getToolbar();
     }
-
 
     public void setDrawerIconOnClickListener(OnClickListener listener) {
         drawerButton.setOnClickListener(listener);
@@ -164,7 +150,6 @@ public class DrawerLayout extends LinearLayout {
     public void setDrawerButtonTooltip(CharSequence tooltipText) {
         drawerButton.setTooltipText(tooltipText);
     }
-
 
     public void setToolbarTitle(String title) {
         toolbarLayout.setTitle(title);
@@ -177,7 +162,6 @@ public class DrawerLayout extends LinearLayout {
     public void setToolbarExpanded(boolean expanded, boolean animate) {
         toolbarLayout.setExpanded(expanded, animate);
     }
-
 
     public void setButtonBadges(int navigationIcon, int drawerIcon) {
         toolbarLayout.setNavigationButtonBadge(navigationIcon);
@@ -219,7 +203,6 @@ public class DrawerLayout extends LinearLayout {
         }
     }
 
-
     public void setDrawerOpen(Boolean open, Boolean animate) {
         if (open) {
             drawerLayout.openDrawer(drawer, animate);
@@ -228,7 +211,6 @@ public class DrawerLayout extends LinearLayout {
         }
 
     }
-
 
     private Activity getActivity() {
         Context context = getContext();
@@ -240,7 +222,6 @@ public class DrawerLayout extends LinearLayout {
         }
         return null;
     }
-
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
@@ -259,6 +240,11 @@ public class DrawerLayout extends LinearLayout {
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         init();
+    }
+
+    @IntDef({DRAWER_BUTTON, TOOLBAR, CONTENT_LAYOUT, DRAWER_LAYOUT, DRAWER})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface DrawerLayoutView {
     }
 
 }

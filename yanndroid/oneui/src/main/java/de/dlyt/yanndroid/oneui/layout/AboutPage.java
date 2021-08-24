@@ -26,13 +26,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.widget.ToolbarImageButton;
 
 public class AboutPage extends LinearLayout {
 
     public static final int LOADING = 0;
     public static final int UPDATE_AVAILABLE = 1;
     public static final int NO_UPDATE = 2;
+    public static final int TOOLBAR = 0;
+    public static final int CONTENT_VIEW = 1;
+    public static final int VERSION_TEXT = 2;
+    public static final int OPTIONAL_TEXT = 3;
+    public static final int UPDATE_BUTTON = 4;
+    public static final int LOADING_BAR = 5;
     private ToolbarLayout toolbarLayout;
     private LinearLayout about_content;
     private TextView version;
@@ -41,39 +46,6 @@ public class AboutPage extends LinearLayout {
     private MaterialButton update_button;
     private ProgressBar loading_bar;
     private String optional_text;
-
-
-    public static final int TOOLBAR = 0;
-    public static final int CONTENT_VIEW = 1;
-    public static final int VERSION_TEXT = 2;
-    public static final int OPTIONAL_TEXT = 3;
-    public static final int UPDATE_BUTTON = 4;
-    public static final int LOADING_BAR = 5;
-
-
-    @IntDef({CONTENT_VIEW, VERSION_TEXT, OPTIONAL_TEXT, UPDATE_BUTTON, LOADING_BAR})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface AboutPageView {
-    }
-
-    public View getView(@AboutPageView int view) {
-        switch (view) {
-            case TOOLBAR:
-                return toolbarLayout;
-            case CONTENT_VIEW:
-                return about_content;
-            case VERSION_TEXT:
-                return version;
-            case OPTIONAL_TEXT:
-                return about_optional_text;
-            case UPDATE_BUTTON:
-                return update_button;
-            case LOADING_BAR:
-                return loading_bar;
-            default:
-                return null;
-        }
-    }
 
 
     public AboutPage(Context context, @Nullable AttributeSet attrs) {
@@ -134,6 +106,25 @@ public class AboutPage extends LinearLayout {
         }
     }
 
+    public View getView(@AboutPageView int view) {
+        switch (view) {
+            case TOOLBAR:
+                return toolbarLayout;
+            case CONTENT_VIEW:
+                return about_content;
+            case VERSION_TEXT:
+                return version;
+            case OPTIONAL_TEXT:
+                return about_optional_text;
+            case UPDATE_BUTTON:
+                return update_button;
+            case LOADING_BAR:
+                return loading_bar;
+            default:
+                return null;
+        }
+    }
+
     private Activity getActivity() {
         Context context = getContext();
         while (context instanceof ContextWrapper) {
@@ -184,6 +175,11 @@ public class AboutPage extends LinearLayout {
         } else {
             about_content.addView(child, index, params);
         }
+    }
+
+    @IntDef({CONTENT_VIEW, VERSION_TEXT, OPTIONAL_TEXT, UPDATE_BUTTON, LOADING_BAR})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface AboutPageView {
     }
 
     @IntDef({LOADING, UPDATE_AVAILABLE, NO_UPDATE})

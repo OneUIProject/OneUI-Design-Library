@@ -2,11 +2,12 @@ package de.dlyt.yanndroid.oneui.recyclerview;
 
 import java.util.List;
 
+import de.dlyt.yanndroid.oneui.recyclerview.SeslAdapterHelper.UpdateOp;
+
 import static de.dlyt.yanndroid.oneui.recyclerview.SeslAdapterHelper.UpdateOp.ADD;
 import static de.dlyt.yanndroid.oneui.recyclerview.SeslAdapterHelper.UpdateOp.MOVE;
 import static de.dlyt.yanndroid.oneui.recyclerview.SeslAdapterHelper.UpdateOp.REMOVE;
 import static de.dlyt.yanndroid.oneui.recyclerview.SeslAdapterHelper.UpdateOp.UPDATE;
-import de.dlyt.yanndroid.oneui.recyclerview.SeslAdapterHelper.UpdateOp;
 
 class SeslOpReorderer {
 

@@ -176,8 +176,11 @@ class SeslViewInfoStore {
 
     interface ProcessCallback {
         void processDisappeared(ViewHolder viewHolder, ItemHolderInfo preInfo, ItemHolderInfo postInfo);
+
         void processAppeared(ViewHolder viewHolder, ItemHolderInfo preInfo, ItemHolderInfo postInfo);
+
         void processPersistent(ViewHolder viewHolder, ItemHolderInfo preInfo, ItemHolderInfo postInfo);
+
         void unused(ViewHolder holder);
     }
 
@@ -189,12 +192,13 @@ class SeslViewInfoStore {
         static final int FLAG_APPEAR_AND_DISAPPEAR = FLAG_APPEAR | FLAG_DISAPPEARED;
         static final int FLAG_PRE_AND_POST = FLAG_PRE | FLAG_POST;
         static final int FLAG_APPEAR_PRE_AND_POST = FLAG_APPEAR | FLAG_PRE | FLAG_POST;
+        static Pools.Pool<InfoRecord> sPool = new Pools.SimplePool<>(20);
         int flags;
         ItemHolderInfo preInfo;
         ItemHolderInfo postInfo;
-        static Pools.Pool<InfoRecord> sPool = new Pools.SimplePool<>(20);
 
-        private InfoRecord() { }
+        private InfoRecord() {
+        }
 
         static InfoRecord obtain() {
             InfoRecord record = sPool.acquire();
@@ -209,7 +213,7 @@ class SeslViewInfoStore {
         }
 
         static void drainCache() {
-            while (sPool.acquire() != null);
+            while (sPool.acquire() != null) ;
         }
     }
 }

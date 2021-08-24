@@ -51,18 +51,6 @@ public class ListPreference extends DialogPreference {
         return mEntryValues;
     }
 
-    public void setValue(String value) {
-        final boolean changed = !TextUtils.equals(mValue, value);
-        if (changed || !mValueSet) {
-            mValue = value;
-            mValueSet = true;
-            persistString(value);
-            if (changed) {
-                notifyChanged();
-            }
-        }
-    }
-
     @Override
     public CharSequence getSummary() {
         final CharSequence entry = getEntry();
@@ -75,6 +63,18 @@ public class ListPreference extends DialogPreference {
 
     public String getValue() {
         return mValue;
+    }
+
+    public void setValue(String value) {
+        final boolean changed = !TextUtils.equals(mValue, value);
+        if (changed || !mValueSet) {
+            mValue = value;
+            mValueSet = true;
+            persistString(value);
+            if (changed) {
+                notifyChanged();
+            }
+        }
     }
 
     public CharSequence getEntry() {
@@ -133,23 +133,6 @@ public class ListPreference extends DialogPreference {
 
 
     private static class SavedState extends BaseSavedState {
-        String value;
-
-        public SavedState(Parcel source) {
-            super(source);
-            value = source.readString();
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            super.writeToParcel(dest, flags);
-            dest.writeString(value);
-        }
-
-        public SavedState(Parcelable superState) {
-            super(superState);
-        }
-
         public static final Parcelable.Creator<SavedState> CREATOR =
                 new Parcelable.Creator<SavedState>() {
                     @Override
@@ -162,5 +145,21 @@ public class ListPreference extends DialogPreference {
                         return new SavedState[size];
                     }
                 };
+        String value;
+
+        public SavedState(Parcel source) {
+            super(source);
+            value = source.readString();
+        }
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeString(value);
+        }
     }
 }

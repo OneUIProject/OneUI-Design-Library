@@ -13,7 +13,6 @@ import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.TextView;
 
 import de.dlyt.yanndroid.oneui.ProgressBar;
@@ -59,11 +58,6 @@ public class ProgressDialog extends SamsungAlertDialog {
         mContext = context;
         initFormats();
     }
-    private void initFormats() {
-        mProgressNumberFormat = "%1d/%2d";
-        mProgressPercentFormat = NumberFormat.getPercentInstance();
-        mProgressPercentFormat.setMaximumFractionDigits(0);
-    }
 
     public static ProgressDialog show(Context context, CharSequence title, CharSequence message) {
         return show(context, title, message, false);
@@ -89,6 +83,12 @@ public class ProgressDialog extends SamsungAlertDialog {
         dialog.setOnCancelListener(cancelListener);
         dialog.show();
         return dialog;
+    }
+
+    private void initFormats() {
+        mProgressNumberFormat = "%1d/%2d";
+        mProgressPercentFormat = NumberFormat.getPercentInstance();
+        mProgressPercentFormat.setMaximumFractionDigits(0);
     }
 
     @Override
@@ -161,8 +161,8 @@ public class ProgressDialog extends SamsungAlertDialog {
         super.onCreate(savedInstanceState);
 
         if (mProgressStyle == STYLE_CIRCLE_ONLY) {
-            int width = (int)((60 * mContext.getResources().getDisplayMetrics().density) + 0.5);
-            int height = (int)((76 * mContext.getResources().getDisplayMetrics().density) + 0.5);
+            int width = (int) ((60 * mContext.getResources().getDisplayMetrics().density) + 0.5);
+            int height = (int) ((76 * mContext.getResources().getDisplayMetrics().density) + 0.5);
             getWindow().setBackgroundDrawableResource(R.drawable.progress_circle_dialog_bg);
             getWindow().setLayout(width, height);
             getWindow().setGravity(Gravity.CENTER);
@@ -182,6 +182,13 @@ public class ProgressDialog extends SamsungAlertDialog {
         mHasStarted = false;
     }
 
+    public int getProgress() {
+        if (mProgress != null) {
+            return mProgress.getProgress();
+        }
+        return mProgressVal;
+    }
+
     public void setProgress(int value) {
         if (mHasStarted) {
             try {
@@ -195,6 +202,13 @@ public class ProgressDialog extends SamsungAlertDialog {
         }
     }
 
+    public int getSecondaryProgress() {
+        if (mProgress != null) {
+            return mProgress.getSecondaryProgress();
+        }
+        return mSecondaryProgressVal;
+    }
+
     public void setSecondaryProgress(int secondaryProgress) {
         if (mProgress != null) {
             try {
@@ -206,20 +220,6 @@ public class ProgressDialog extends SamsungAlertDialog {
         } else {
             mSecondaryProgressVal = secondaryProgress;
         }
-    }
-
-    public int getProgress() {
-        if (mProgress != null) {
-            return mProgress.getProgress();
-        }
-        return mProgressVal;
-    }
-
-    public int getSecondaryProgress() {
-        if (mProgress != null) {
-            return mProgress.getSecondaryProgress();
-        }
-        return mSecondaryProgressVal;
     }
 
     public int getMax() {
@@ -288,6 +288,13 @@ public class ProgressDialog extends SamsungAlertDialog {
         }
     }
 
+    public boolean isIndeterminate() {
+        if (mProgress != null) {
+            return mProgress.isIndeterminate();
+        }
+        return mIndeterminate;
+    }
+
     public void setIndeterminate(boolean indeterminate) {
         if (mProgress != null) {
             try {
@@ -298,13 +305,6 @@ public class ProgressDialog extends SamsungAlertDialog {
         } else {
             mIndeterminate = indeterminate;
         }
-    }
-
-    public boolean isIndeterminate() {
-        if (mProgress != null) {
-            return mProgress.isIndeterminate();
-        }
-        return mIndeterminate;
     }
 
     @Override

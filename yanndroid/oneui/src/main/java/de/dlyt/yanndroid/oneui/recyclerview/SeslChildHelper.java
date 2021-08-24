@@ -3,6 +3,7 @@ package de.dlyt.yanndroid.oneui.recyclerview;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,7 +135,7 @@ class SeslChildHelper {
     }
 
     void attachViewToParent(View child, int index, ViewGroup.LayoutParams layoutParams,
-            boolean hidden) {
+                            boolean hidden) {
         final int offset;
         if (index < 0) {
             offset = mCallback.getChildCount();
@@ -242,6 +243,30 @@ class SeslChildHelper {
         return false;
     }
 
+
+    interface Callback {
+        int getChildCount();
+
+        void addView(View child, int index);
+
+        int indexOfChild(View view);
+
+        void removeViewAt(int index);
+
+        View getChildAt(int offset);
+
+        void removeAllViews();
+
+        SeslRecyclerView.ViewHolder getChildViewHolder(View view);
+
+        void attachViewToParent(View child, int index, ViewGroup.LayoutParams layoutParams);
+
+        void detachViewFromParent(int offset);
+
+        void onEnteredHiddenState(View child);
+
+        void onLeftHiddenState(View child);
+    }
 
     static class Bucket {
         static final int BITS_PER_WORD = Long.SIZE;
@@ -353,29 +378,5 @@ class SeslChildHelper {
         public String toString() {
             return mNext == null ? Long.toBinaryString(mData) : mNext.toString() + "xx" + Long.toBinaryString(mData);
         }
-    }
-
-    interface Callback {
-        int getChildCount();
-
-        void addView(View child, int index);
-
-        int indexOfChild(View view);
-
-        void removeViewAt(int index);
-
-        View getChildAt(int offset);
-
-        void removeAllViews();
-
-        SeslRecyclerView.ViewHolder getChildViewHolder(View view);
-
-        void attachViewToParent(View child, int index, ViewGroup.LayoutParams layoutParams);
-
-        void detachViewFromParent(int offset);
-
-        void onEnteredHiddenState(View child);
-
-        void onLeftHiddenState(View child);
     }
 }

@@ -15,18 +15,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 class FastScroller extends SeslRecyclerView.ItemDecoration implements SeslRecyclerView.OnItemTouchListener {
-    @Retention(RetentionPolicy.SOURCE)
-    private @interface State { }
     private static final int STATE_HIDDEN = 0;
     private static final int STATE_VISIBLE = 1;
     private static final int STATE_DRAGGING = 2;
-    @Retention(RetentionPolicy.SOURCE)
-    private @interface DragState{ }
     private static final int DRAG_NONE = 0;
     private static final int DRAG_X = 1;
     private static final int DRAG_Y = 2;
-    @Retention(RetentionPolicy.SOURCE)
-    private @interface AnimationState { }
     private static final int ANIMATION_STATE_OUT = 0;
     private static final int ANIMATION_STATE_FADING_IN = 1;
     private static final int ANIMATION_STATE_IN = 2;
@@ -48,6 +42,9 @@ class FastScroller extends SeslRecyclerView.ItemDecoration implements SeslRecycl
     private final Drawable mHorizontalTrackDrawable;
     private final int mHorizontalThumbHeight;
     private final int mHorizontalTrackHeight;
+    private final int[] mVerticalRange = new int[2];
+    private final int[] mHorizontalRange = new int[2];
+    private final ValueAnimator mShowHideAnimator = ValueAnimator.ofFloat(0, 1);
     int mVerticalThumbHeight;
     int mVerticalThumbCenterY;
     float mVerticalDragY;
@@ -61,9 +58,6 @@ class FastScroller extends SeslRecyclerView.ItemDecoration implements SeslRecycl
     private boolean mNeedHorizontalScrollbar = false;
     private int mState = STATE_HIDDEN;
     private int mDragState = DRAG_NONE;
-    private final int[] mVerticalRange = new int[2];
-    private final int[] mHorizontalRange = new int[2];
-    private final ValueAnimator mShowHideAnimator = ValueAnimator.ofFloat(0, 1);
     private int mAnimationState = ANIMATION_STATE_OUT;
     private final Runnable mHideRunnable = new Runnable() {
         @Override
@@ -77,7 +71,6 @@ class FastScroller extends SeslRecyclerView.ItemDecoration implements SeslRecycl
             updateScrollPosition(recyclerView.computeHorizontalScrollOffset(), recyclerView.computeVerticalScrollOffset());
         }
     };
-
     FastScroller(SeslRecyclerView recyclerView, StateListDrawable verticalThumbDrawable, Drawable verticalTrackDrawable, StateListDrawable horizontalThumbDrawable, Drawable horizontalTrackDrawable, int defaultWidth, int scrollbarMinimumRange, int margin) {
         mVerticalThumbDrawable = verticalThumbDrawable;
         mVerticalTrackDrawable = verticalTrackDrawable;
@@ -164,7 +157,6 @@ class FastScroller extends SeslRecyclerView.ItemDecoration implements SeslRecycl
     boolean isHidden() {
         return mState == STATE_HIDDEN;
     }
-
 
     public void show() {
         switch (mAnimationState) {
@@ -362,7 +354,8 @@ class FastScroller extends SeslRecyclerView.ItemDecoration implements SeslRecycl
     }
 
     @Override
-    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) { }
+    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+    }
 
     private void verticalScrollTo(float y) {
         final int[] scrollbarRange = getVerticalRange();
@@ -444,6 +437,17 @@ class FastScroller extends SeslRecyclerView.ItemDecoration implements SeslRecycl
         return mHorizontalRange;
     }
 
+    @Retention(RetentionPolicy.SOURCE)
+    private @interface State {
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    private @interface DragState {
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    private @interface AnimationState {
+    }
 
     private class AnimatorListener extends AnimatorListenerAdapter {
         private boolean mCanceled = false;

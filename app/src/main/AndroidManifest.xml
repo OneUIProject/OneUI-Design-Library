@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/SamsungTheme">
 
-        <meta-data android:name="SamsungBasicInteraction" android:value="SEP10"/>
+        <meta-data
+            android:name="SamsungBasicInteraction"
+            android:value="SEP10" />
 
         <activity
             android:name="de.dlyt.yanndroid.oneuiexample.AboutActivity"

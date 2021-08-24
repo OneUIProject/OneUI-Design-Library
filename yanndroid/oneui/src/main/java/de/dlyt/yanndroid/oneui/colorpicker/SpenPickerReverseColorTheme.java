@@ -3,11 +3,11 @@ package de.dlyt.yanndroid.oneui.colorpicker;
 import android.content.Context;
 import android.graphics.Color;
 
-import de.dlyt.yanndroid.oneui.colorpicker.util.color.SpenReverseColorTheme;
-
 import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Set;
+
+import de.dlyt.yanndroid.oneui.colorpicker.util.color.SpenReverseColorTheme;
 
 public class SpenPickerReverseColorTheme extends SpenReverseColorTheme implements SpenIPickerColorTheme {
     private final int MAX_CURRENT_VALUE = 1200;

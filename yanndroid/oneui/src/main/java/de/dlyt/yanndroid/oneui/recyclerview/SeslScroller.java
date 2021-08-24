@@ -6,7 +6,6 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 
 public class SeslScroller {
-    public static float DECELERATION_RATE = ((float) (Math.log(0.78d) / Math.log(0.9d)));
     public static final int DEFAULT_DURATION = 250;
     public static final float END_TENSION = 1.0f;
     public static final int FLING_MODE = 1;
@@ -18,35 +17,10 @@ public class SeslScroller {
     public static final float[] SPLINE_POSITION = new float[101];
     public static final float[] SPLINE_TIME = new float[101];
     public static final float START_TENSION = 0.5f;
-    public float mCurrVelocity;
-    public int mCurrX;
-    public int mCurrY;
-    public float mDeceleration;
-    public float mDeltaX;
-    public float mDeltaY;
-    public int mDistance;
-    public int mDuration;
-    public float mDurationReciprocal;
-    public int mFinalX;
-    public int mFinalY;
-    public boolean mFinished;
-    public float mFlingFriction;
-    public boolean mFlywheel;
-    public final Interpolator mInterpolator;
-    public int mMaxX;
-    public int mMaxY;
-    public int mMinX;
-    public int mMinY;
-    public int mMode;
-    public float mPhysicalCoeff;
-    public final float mPpi;
-    public long mStartTime;
-    public int mStartX;
-    public int mStartY;
-    public float mVelocity;
+    public static float DECELERATION_RATE = ((float) (Math.log(0.78d) / Math.log(0.9d)));
 
     static {
-        float x, y ,coef;
+        float x, y, coef;
         float x_min = 0.0f, y_min = 0.0f;
         for (int i = 0; i < 100; i++) {
             float alpha = ((float) i) / 100.0f;
@@ -83,6 +57,33 @@ public class SeslScroller {
         SPLINE_TIME[100] = 1.0f;
         fArr[100] = 1.0f;
     }
+
+    public final Interpolator mInterpolator;
+    public final float mPpi;
+    public float mCurrVelocity;
+    public int mCurrX;
+    public int mCurrY;
+    public float mDeceleration;
+    public float mDeltaX;
+    public float mDeltaY;
+    public int mDistance;
+    public int mDuration;
+    public float mDurationReciprocal;
+    public int mFinalX;
+    public int mFinalY;
+    public boolean mFinished;
+    public float mFlingFriction;
+    public boolean mFlywheel;
+    public int mMaxX;
+    public int mMaxY;
+    public int mMinX;
+    public int mMinY;
+    public int mMode;
+    public float mPhysicalCoeff;
+    public long mStartTime;
+    public int mStartX;
+    public int mStartY;
+    public float mVelocity;
 
     public SeslScroller(Context context) {
         this(context, null);
@@ -154,8 +155,20 @@ public class SeslScroller {
         return mFinalX;
     }
 
+    public void setFinalX(int newX) {
+        mFinalX = newX;
+        mDeltaX = (float) (mFinalX - mStartX);
+        mFinished = false;
+    }
+
     public final int getFinalY() {
         return mFinalY;
+    }
+
+    public void setFinalY(int newY) {
+        mFinalY = newY;
+        mDeltaY = (float) (mFinalY - mStartY);
+        mFinished = false;
     }
 
     public boolean computeScrollOffset() {
@@ -285,18 +298,6 @@ public class SeslScroller {
         return (int) (AnimationUtils.currentAnimationTimeMillis() - mStartTime);
     }
 
-    public void setFinalX(int newX) {
-        mFinalX = newX;
-        mDeltaX = (float) (mFinalX - mStartX);
-        mFinished = false;
-    }
-
-    public void setFinalY(int newY) {
-        mFinalY = newY;
-        mDeltaY = (float) (mFinalY - mStartY);
-        mFinished = false;
-    }
-
     public boolean isScrollingInDirection(float xvel, float yvel) {
         return !mFinished && Math.signum(xvel) == Math.signum((float) (mFinalX - mStartX)) && Math.signum(yvel) == Math.signum((float) (mFinalY - mStartY));
     }
@@ -310,10 +311,10 @@ public class SeslScroller {
         public static float viscousFluid(float x) {
             x *= VISCOUS_FLUID_SCALE;
             if (x < 1.0f) {
-                x -= (1.0f - (float)Math.exp(-x));
+                x -= (1.0f - (float) Math.exp(-x));
             } else {
                 float start = 0.36787945f;
-                x = 1.0f - (float)Math.exp(1.0f - x);
+                x = 1.0f - (float) Math.exp(1.0f - x);
                 x = start + x * (1.0f - start);
             }
             return x;

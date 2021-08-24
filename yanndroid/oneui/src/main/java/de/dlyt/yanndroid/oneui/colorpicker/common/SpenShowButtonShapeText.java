@@ -16,9 +16,8 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 
-import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtil;
-
 import de.dlyt.yanndroid.oneui.R;
+import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtil;
 
 @SuppressLint("AppCompatCustomView")
 public class SpenShowButtonShapeText extends TextView {

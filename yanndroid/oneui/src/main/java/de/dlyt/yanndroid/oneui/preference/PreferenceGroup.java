@@ -7,22 +7,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import androidx.collection.SimpleArrayMap;
 import androidx.core.content.res.TypedArrayUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import de.dlyt.yanndroid.oneui.R;
 
 public abstract class PreferenceGroup extends Preference {
-    private boolean mAttachedToHierarchy = false;
-    private int mCurrentPreferenceOrder = 0;
     private final Handler mHandler = new Handler();
     private final SimpleArrayMap<String, Long> mIdRecycleCache = new SimpleArrayMap<>();
-    private boolean mOrderingAsAdded = true;
-    private List<Preference> mPreferenceList = new ArrayList();
     private final Runnable mClearRecycleCacheRunnable = new Runnable() {
         @Override
         public void run() {
@@ -31,6 +28,10 @@ public abstract class PreferenceGroup extends Preference {
             }
         }
     };
+    private boolean mAttachedToHierarchy = false;
+    private int mCurrentPreferenceOrder = 0;
+    private boolean mOrderingAsAdded = true;
+    private List<Preference> mPreferenceList = new ArrayList();
 
     @SuppressLint("RestrictedApi")
     public PreferenceGroup(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -75,7 +76,7 @@ public abstract class PreferenceGroup extends Preference {
             }
 
             if (preference instanceof de.dlyt.yanndroid.oneui.preference.PreferenceGroup) {
-                ((de.dlyt.yanndroid.oneui.preference.PreferenceGroup)preference).setOrderingAsAdded(mOrderingAsAdded);
+                ((de.dlyt.yanndroid.oneui.preference.PreferenceGroup) preference).setOrderingAsAdded(mOrderingAsAdded);
             }
         }
 
@@ -88,7 +89,7 @@ public abstract class PreferenceGroup extends Preference {
             return false;
         }
 
-        synchronized(this) {
+        synchronized (this) {
             mPreferenceList.add(insertionIndex, preference);
         }
 
@@ -120,7 +121,7 @@ public abstract class PreferenceGroup extends Preference {
     }
 
     private boolean removePreferenceInt(Preference preference) {
-        synchronized(this) {
+        synchronized (this) {
             preference.onPrepareForRemoval();
             if (preference.getParent() == this) {
                 preference.assignParent(null);
@@ -161,7 +162,7 @@ public abstract class PreferenceGroup extends Preference {
             }
 
             if (preference instanceof de.dlyt.yanndroid.oneui.preference.PreferenceGroup) {
-                final Preference returnedPreference = ((de.dlyt.yanndroid.oneui.preference.PreferenceGroup)preference).findPreference(key);
+                final Preference returnedPreference = ((de.dlyt.yanndroid.oneui.preference.PreferenceGroup) preference).findPreference(key);
                 if (returnedPreference != null) {
                     return returnedPreference;
                 }

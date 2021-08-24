@@ -32,12 +32,12 @@ import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.utils.ReflectUtils;
 
 class SeslRecyclerViewFastScroller {
+    public static final int EFFECT_STATE_CLOSE = 0;
+    public static final int EFFECT_STATE_OPEN = 1;
     private static final int DURATION_CROSS_FADE = 0;
     private static final int DURATION_FADE_IN = 167;
     private static final int DURATION_FADE_OUT = 167;
     private static final int DURATION_RESIZE = 100;
-    public static final int EFFECT_STATE_CLOSE = 0;
-    public static final int EFFECT_STATE_OPEN = 1;
     private static final long FADE_TIMEOUT = 2500;
     private static final int MIN_PAGES = 1;
     private static final int OVERLAY_ABOVE_THUMB = 2;
@@ -52,11 +52,57 @@ class SeslRecyclerViewFastScroller {
     private static final long TAP_TIMEOUT = ((long) ViewConfiguration.getTapTimeout());
     private static final int THUMB_POSITION_INSIDE = 1;
     private static final int THUMB_POSITION_MIDPOINT = 0;
+    private static Property<View, Integer> BOTTOM = new IntProperty<View>("bottom") {
+        public void setValue(View object, int value) {
+            object.setBottom(value);
+        }
+
+        public Integer get(View object) {
+            return object.getBottom();
+        }
+    };
+    private static Property<View, Integer> LEFT = new IntProperty<View>("left") {
+        public void setValue(View object, int value) {
+            object.setLeft(value);
+        }
+
+        public Integer get(View object) {
+            return object.getLeft();
+        }
+    };
+    private static Property<View, Integer> RIGHT = new IntProperty<View>("right") {
+        public void setValue(View object, int value) {
+            object.setRight(value);
+        }
+
+        public Integer get(View object) {
+            return object.getRight();
+        }
+    };
+    private static Property<View, Integer> TOP = new IntProperty<View>("top") {
+        public void setValue(View object, int value) {
+            object.setTop(value);
+        }
+
+        public Integer get(View object) {
+            return object.getTop();
+        }
+    };
+    private final Rect mContainerRect = new Rect();
+    private final ViewGroupOverlay mOverlay;
+    private final View mPreviewImage;
+    private final int[] mPreviewResId = new int[2];
+    private final TextView mPrimaryText;
+    private final SeslRecyclerView mRecyclerView;
+    private final TextView mSecondaryText;
+    private final Rect mTempBounds = new Rect();
+    private final Rect mTempMargins = new Rect();
+    private final ImageView mThumbImage;
+    private final ImageView mTrackImage;
     private int mAdditionalBottomPadding;
     private float mAdditionalTouchArea = 0.0f;
     private boolean mAlwaysShow;
     private int mColorPrimary = -1;
-    private final Rect mContainerRect = new Rect();
     private Context mContext;
     private int mCurrentSection = -1;
     private AnimatorSet mDecorAnimation;
@@ -74,36 +120,37 @@ class SeslRecyclerViewFastScroller {
     private int mOldItemCount;
     private float mOldThumbPosition = -1.0f;
     private int mOrientation;
-    private final ViewGroupOverlay mOverlay;
     private int mOverlayPosition;
     private long mPendingDrag = -1;
     private AnimatorSet mPreviewAnimation;
-    private final View mPreviewImage;
     private int mPreviewMarginEnd;
     private int mPreviewMinHeight;
     private int mPreviewMinWidth;
     private int mPreviewPadding;
-    private final int[] mPreviewResId = new int[2];
-    private final TextView mPrimaryText;
-    private final SeslRecyclerView mRecyclerView;
     private int mScaledTouchSlop;
     private int mScrollBarStyle;
     private boolean mScrollCompleted;
     private float mScrollY = 0.0f;
     private int mScrollbarPosition = -1;
-    private final TextView mSecondaryText;
     private SectionIndexer mSectionIndexer;
     private Object[] mSections;
     private boolean mShowingPreview;
     private boolean mShowingPrimary;
+    private final Animator.AnimatorListener mSwitchPrimaryListener = new AnimatorListenerAdapter() {
+        public void onAnimationEnd(Animator animation) {
+            mShowingPrimary = !mShowingPrimary;
+        }
+    };
     private int mState;
-    private final Rect mTempBounds = new Rect();
-    private final Rect mTempMargins = new Rect();
+    private final Runnable mDeferHide = new Runnable() {
+        public void run() {
+            setState(EFFECT_STATE_CLOSE);
+        }
+    };
     private int mTextAppearance;
     private ColorStateList mTextColor;
     private float mTextSize;
     private Drawable mThumbDrawable;
-    private final ImageView mThumbImage;
     private int mThumbMarginEnd;
     private int mThumbMinHeight;
     private int mThumbMinWidth;
@@ -111,62 +158,9 @@ class SeslRecyclerViewFastScroller {
     private int mThumbPosition;
     private float mThumbRange;
     private Drawable mTrackDrawable;
-    private final ImageView mTrackImage;
     private int mTrackPadding;
     private boolean mUpdatingLayout;
     private int mWidth;
-
-    private static Property<View, Integer> BOTTOM = new IntProperty<View>("bottom") {
-        public void setValue(View object, int value) {
-            object.setBottom(value);
-        }
-
-        public Integer get(View object) {
-            return object.getBottom();
-        }
-    };
-
-    private static Property<View, Integer> LEFT = new IntProperty<View>("left") {
-        public void setValue(View object, int value) {
-            object.setLeft(value);
-        }
-
-        public Integer get(View object) {
-            return object.getLeft();
-        }
-    };
-
-    private static Property<View, Integer> RIGHT = new IntProperty<View>("right") {
-        public void setValue(View object, int value) {
-            object.setRight(value);
-        }
-
-        public Integer get(View object) {
-            return object.getRight();
-        }
-    };
-
-    private static Property<View, Integer> TOP = new IntProperty<View>("top") {
-        public void setValue(View object, int value) {
-            object.setTop(value);
-        }
-
-        public Integer get(View object) {
-            return object.getTop();
-        }
-    };
-
-    private final Runnable mDeferHide = new Runnable() {
-        public void run() {
-            setState(EFFECT_STATE_CLOSE);
-        }
-    };
-
-    private final Animator.AnimatorListener mSwitchPrimaryListener = new AnimatorListenerAdapter() {
-        public void onAnimationEnd(Animator animation) {
-            mShowingPrimary = !mShowingPrimary;
-        }
-    };
 
 
     public SeslRecyclerViewFastScroller(SeslRecyclerView recyclerView, int styleResId) {
@@ -207,6 +201,56 @@ class SeslRecyclerViewFastScroller {
         updateLongList(mOldChildCount, mOldItemCount);
         setScrollbarPosition(recyclerView.getVerticalScrollbarPosition());
         postAutoHide();
+    }
+
+    private static Animator groupAnimatorOfFloat(Property<View, Float> property, float value, View... views) {
+        AnimatorSet animSet = new AnimatorSet();
+        AnimatorSet.Builder builder = null;
+        for (int i = views.length - 1; i >= 0; i--) {
+            Animator anim = ObjectAnimator.ofFloat(views[i], property, new float[]{value});
+            if (builder == null) {
+                builder = animSet.play(anim);
+            } else {
+                builder.with(anim);
+            }
+        }
+        return animSet;
+    }
+
+    private static Animator animateScaleX(View v, float target) {
+        return ObjectAnimator.ofFloat(v, View.SCALE_X, new float[]{target});
+    }
+
+    private static Animator animateAlpha(View v, float alpha) {
+        return ObjectAnimator.ofFloat(v, View.ALPHA, new float[]{alpha});
+    }
+
+    private static Animator animateBounds(View v, Rect bounds) {
+        return ObjectAnimator.ofPropertyValuesHolder(v, new PropertyValuesHolder[]{PropertyValuesHolder.ofInt(LEFT, new int[]{bounds.left}), PropertyValuesHolder.ofInt(TOP, new int[]{bounds.top}), PropertyValuesHolder.ofInt(RIGHT, new int[]{bounds.right}), PropertyValuesHolder.ofInt(BOTTOM, new int[]{bounds.bottom})});
+    }
+
+    /*kang from MathUtils.smali*/
+    public static int constrain(int amount, int low, int high) {
+        if (amount < low) {
+            return low;
+        }
+        return amount > high ? high : amount;
+    }
+
+    public static float constrain(float amount, float low, float high) {
+        if (amount < low) {
+            return low;
+        }
+        return amount > high ? high : amount;
+    }
+
+    /*kang from SeslViewReflector$SeslMeasureSpecReflector.smali*/
+    public static int makeSafeMeasureSpec(int size, int mode) {
+        boolean useZeroUnspecifiedMeasureSpec = Build.VERSION.SDK_INT < 23;
+        if (!useZeroUnspecifiedMeasureSpec || mode != 0) {
+            return View.MeasureSpec.makeMeasureSpec(size, mode);
+        }
+        return 0;
     }
 
     private void updateAppearance() {
@@ -307,16 +351,16 @@ class SeslRecyclerViewFastScroller {
         mOverlay.remove(mSecondaryText);
     }
 
+    public boolean isEnabled() {
+        return mEnabled && (mLongList || mAlwaysShow);
+    }
+
     public void setEnabled(boolean enabled) {
         Log.d(TAG, "setEnabled() enabled = " + enabled);
         if (mEnabled != enabled) {
             mEnabled = enabled;
             onStateDependencyChanged(true);
         }
-    }
-
-    public boolean isEnabled() {
-        return mEnabled && (mLongList || mAlwaysShow);
     }
 
     public void setAlwaysShow(boolean alwaysShow) {
@@ -461,8 +505,6 @@ class SeslRecyclerViewFastScroller {
             measureViewToSide(v, mThumbImage, margins, out);
         }
     }
-
-
 
     private void measureViewToSide(View view, View adjacent, Rect margins, Rect out) {
         int marginLeft, marginRight;
@@ -1187,59 +1229,7 @@ class SeslRecyclerViewFastScroller {
         return y >= ((float) mThumbImage.getTop()) + offset && y <= ((float) mThumbImage.getBottom()) + offset;
     }
 
-    private static Animator groupAnimatorOfFloat(Property<View, Float> property, float value, View... views) {
-        AnimatorSet animSet = new AnimatorSet();
-        AnimatorSet.Builder builder = null;
-        for (int i = views.length - 1; i >= 0; i--) {
-            Animator anim = ObjectAnimator.ofFloat(views[i], property, new float[]{value});
-            if (builder == null) {
-                builder = animSet.play(anim);
-            } else {
-                builder.with(anim);
-            }
-        }
-        return animSet;
-    }
-
-    private static Animator animateScaleX(View v, float target) {
-        return ObjectAnimator.ofFloat(v, View.SCALE_X, new float[]{target});
-    }
-
-    private static Animator animateAlpha(View v, float alpha) {
-        return ObjectAnimator.ofFloat(v, View.ALPHA, new float[]{alpha});
-    }
-
-    private static Animator animateBounds(View v, Rect bounds) {
-        return ObjectAnimator.ofPropertyValuesHolder(v, new PropertyValuesHolder[]{PropertyValuesHolder.ofInt(LEFT, new int[]{bounds.left}), PropertyValuesHolder.ofInt(TOP, new int[]{bounds.top}), PropertyValuesHolder.ofInt(RIGHT, new int[]{bounds.right}), PropertyValuesHolder.ofInt(BOTTOM, new int[]{bounds.bottom})});
-    }
-
-
     private void resolvePadding(ViewGroup viewGroup) {
         ReflectUtils.genericInvokeMethod(viewGroup, "resolvePadding");
-    }
-
-    /*kang from MathUtils.smali*/
-    public static int constrain(int amount, int low, int high) {
-        if (amount < low) {
-            return low;
-        }
-        return amount > high ? high : amount;
-    }
-
-
-    public static float constrain(float amount, float low, float high) {
-        if (amount < low) {
-            return low;
-        }
-        return amount > high ? high : amount;
-    }
-
-    /*kang from SeslViewReflector$SeslMeasureSpecReflector.smali*/
-    public static int makeSafeMeasureSpec(int size, int mode) {
-        boolean useZeroUnspecifiedMeasureSpec = Build.VERSION.SDK_INT < 23;
-        if (!useZeroUnspecifiedMeasureSpec || mode != 0) {
-            return View.MeasureSpec.makeMeasureSpec(size, mode);
-        }
-        return 0;
     }
 }

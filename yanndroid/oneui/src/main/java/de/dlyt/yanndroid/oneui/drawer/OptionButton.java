@@ -25,45 +25,20 @@ import de.dlyt.yanndroid.oneui.R;
 
 public class OptionButton extends LinearLayout {
 
+    public static final int TEXTVIEW = 0;
+    public static final int IMAGEVIEW = 1;
+    public static final int COUNTER = 2;
     private Drawable mIcon;
     private String mText;
     private Boolean mSelected;
     private Boolean mCounterEnabled;
     private Integer mCounter;
-
-
     private int mOnTextColor;
     private int mOffTextColor;
-
-
     private LinearLayout optionbutton;
     private MaterialTextView textView;
     private ImageView imageview;
     private MaterialTextView counter;
-
-
-    public static final int TEXTVIEW = 0;
-    public static final int IMAGEVIEW = 1;
-    public static final int COUNTER = 2;
-
-    @IntDef({TEXTVIEW, IMAGEVIEW, COUNTER})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface OptionButtonView {
-    }
-
-    public View getView(@OptionButtonView int view) {
-        switch (view) {
-            case TEXTVIEW:
-                return textView;
-            case IMAGEVIEW:
-                return imageview;
-            case COUNTER:
-                return counter;
-            default:
-                return null;
-        }
-    }
-
 
     public OptionButton(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -100,6 +75,19 @@ public class OptionButton extends LinearLayout {
         counter.setText(String.valueOf(mCounter));
         setButtonSelected(mSelected);
 
+    }
+
+    public View getView(@OptionButtonView int view) {
+        switch (view) {
+            case TEXTVIEW:
+                return textView;
+            case IMAGEVIEW:
+                return imageview;
+            case COUNTER:
+                return counter;
+            default:
+                return null;
+        }
     }
 
     public String getText() {
@@ -171,6 +159,11 @@ public class OptionButton extends LinearLayout {
 
     public Boolean isCounterEnabled() {
         return mCounterEnabled;
+    }
+
+    @IntDef({TEXTVIEW, IMAGEVIEW, COUNTER})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface OptionButtonView {
     }
 
 }

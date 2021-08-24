@@ -4,19 +4,20 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
-import java.util.List;
 
 import androidx.core.math.MathUtils;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.List;
+
 import de.dlyt.yanndroid.oneui.coordinatorlayout.SamsungCoordinatorLayout;
 
 public abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<View> {
-    public int overlayTop;
     public final Rect tempRect1 = new Rect();
     public final Rect tempRect2 = new Rect();
+    public int overlayTop;
     public int verticalLayoutGap = 0;
 
     public HeaderScrollingViewBehavior() {
@@ -43,7 +44,7 @@ public abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<Vie
         if (var2 != 0) {
             float var4 = this.getOverlapRatioForOffset(var1);
             var3 = this.overlayTop;
-            var3 = MathUtils.clamp((int)(var4 * (float)var3), 0, var3);
+            var3 = MathUtils.clamp((int) (var4 * (float) var3), 0, var3);
         }
 
         return var3;
@@ -53,6 +54,10 @@ public abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<Vie
 
     public final int getOverlayTop() {
         return this.overlayTop;
+    }
+
+    public final void setOverlayTop(int var1) {
+        this.overlayTop = var1;
     }
 
     public int getScrollRange(View var1) {
@@ -66,7 +71,7 @@ public abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<Vie
     public void layoutChild(SamsungCoordinatorLayout var1, View var2, int var3) {
         View var4 = this.findFirstDependency(var1.getDependencies(var2));
         if (var4 != null) {
-            SamsungCoordinatorLayout.LayoutParams var5 = (SamsungCoordinatorLayout.LayoutParams)var2.getLayoutParams();
+            SamsungCoordinatorLayout.LayoutParams var5 = (SamsungCoordinatorLayout.LayoutParams) var2.getLayoutParams();
             Rect var6 = this.tempRect1;
             var6.set(var1.getPaddingLeft() + var5.leftMargin, var4.getBottom() + var5.topMargin, var1.getWidth() - var1.getPaddingRight() - var5.rightMargin, var1.getHeight() + var4.getBottom() - var1.getPaddingBottom() - var5.bottomMargin);
             WindowInsetsCompat var7 = var1.getLastWindowInsets();
@@ -110,7 +115,7 @@ public abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<Vie
                 var5 += this.getScrollRange(var9);
                 var10 = var9.getMeasuredHeight();
                 if (this.shouldHeaderOverlapScrollingChild()) {
-                    var2.setTranslationY((float)(-var10));
+                    var2.setTranslationY((float) (-var10));
                 } else {
                     var5 -= var10;
                 }
@@ -132,10 +137,6 @@ public abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<Vie
         }
 
         return false;
-    }
-
-    public final void setOverlayTop(int var1) {
-        this.overlayTop = var1;
     }
 
     public boolean shouldHeaderOverlapScrollingChild() {

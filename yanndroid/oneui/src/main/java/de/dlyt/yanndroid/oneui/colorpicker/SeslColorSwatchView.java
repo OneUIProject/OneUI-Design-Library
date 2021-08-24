@@ -249,10 +249,10 @@ class SeslColorSwatchView extends View {
     }
 
     private class SeslColorSwatchViewTouchHelper extends ExploreByTouchHelper {
+        private final Rect mVirtualViewRect;
         private String[][] mColorDescription;
         private int mVirtualCursorIndexX;
         private int mVirtualCursorIndexY;
-        private final Rect mVirtualViewRect;
 
         public SeslColorSwatchViewTouchHelper(@NonNull View var2) {
             super(var2);

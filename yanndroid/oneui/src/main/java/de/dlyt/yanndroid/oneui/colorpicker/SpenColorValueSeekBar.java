@@ -10,10 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtil;
 import de.dlyt.yanndroid.oneui.colorpicker.util.SpenSettingUtilText;
-
-import de.dlyt.yanndroid.oneui.R;
 
 public class SpenColorValueSeekBar extends RelativeLayout implements SpenColorViewInterface, SpenPickerColorEventListener {
     private static final String TAG = "SpenColorValueSeekBar";

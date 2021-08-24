@@ -3,6 +3,7 @@ package de.dlyt.yanndroid.oneui.dialog.widget;
 import android.content.Context;
 import android.text.Layout;
 import android.util.AttributeSet;
+
 import androidx.appcompat.widget.AppCompatTextView;
 
 import de.dlyt.yanndroid.oneui.R;

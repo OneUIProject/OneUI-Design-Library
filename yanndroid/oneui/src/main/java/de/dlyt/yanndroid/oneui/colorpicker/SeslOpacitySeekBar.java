@@ -45,7 +45,7 @@ class SeslOpacitySeekBar extends SeekBar {
             this.initColor(var1);
         }
 
-        this.mProgressDrawable = (GradientDrawable)this.getContext().getDrawable(R.drawable.sesl_color_picker_opacity_seekbar);
+        this.mProgressDrawable = (GradientDrawable) this.getContext().getDrawable(R.drawable.sesl_color_picker_opacity_seekbar);
         this.setProgressDrawable(this.mProgressDrawable);
         this.setThumb(this.getContext().getResources().getDrawable(R.drawable.sesl_color_picker_seekbar_cursor, getContext().getTheme()));
         this.setThumbOffset(0);

@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.oneuiexample.tabs;
+package de.dlyt.yanndroid.oneuiexample.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -101,10 +101,12 @@ public class MainActivityFirstFragment extends BaseTabFragment {
     }
 
     @Override
-    public void onTabSelected() { }
+    public void onTabSelected() {
+    }
 
     @Override
-    public void onTabUnselected() { }
+    public void onTabUnselected() {
+    }
 
 
     private void init() {
@@ -120,7 +122,7 @@ public class MainActivityFirstFragment extends BaseTabFragment {
         // TabLayout
         TabLayout tabLayout = mRootView.findViewById(R.id.tabLayout);
         String[] tabsName = {"Views", "Icons", "Nothing"};
-        for (String s: tabsName) {
+        for (String s : tabsName) {
             tabLayout.addTab(tabLayout.newTab().setText(s));
         }
         tabLayout.updateWidget();

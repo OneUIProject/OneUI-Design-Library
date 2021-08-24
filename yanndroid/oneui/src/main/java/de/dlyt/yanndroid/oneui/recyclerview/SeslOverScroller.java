@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.ViewConfiguration;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
+
 import java.lang.reflect.Array;
 
 import de.dlyt.yanndroid.oneui.utils.ReflectUtils;
@@ -15,10 +16,10 @@ public class SeslOverScroller {
     private static final int FLING_MODE = 1;
     private static final int SCROLL_MODE = 0;
     private final boolean mFlywheel;
-    private Interpolator mInterpolator;
-    private int mMode;
     private final SplineOverScroller mScrollerX;
     private final SplineOverScroller mScrollerY;
+    private Interpolator mInterpolator;
+    private int mMode;
 
     public SeslOverScroller(Context context) {
         this(context, null);
@@ -104,8 +105,18 @@ public class SeslOverScroller {
         return mScrollerX.mFinal;
     }
 
+    @Deprecated
+    public void setFinalX(int newX) {
+        mScrollerX.setFinalPosition(newX);
+    }
+
     public final int getFinalY() {
         return mScrollerY.mFinal;
+    }
+
+    @Deprecated
+    public void setFinalY(int newY) {
+        mScrollerY.setFinalPosition(newY);
     }
 
     @Deprecated
@@ -117,16 +128,6 @@ public class SeslOverScroller {
     public void extendDuration(int extend) {
         mScrollerX.extendDuration(extend);
         mScrollerY.extendDuration(extend);
-    }
-
-    @Deprecated
-    public void setFinalX(int newX) {
-        mScrollerX.setFinalPosition(newX);
-    }
-
-    @Deprecated
-    public void setFinalY(int newY) {
-        mScrollerY.setFinalPosition(newY);
     }
 
     public boolean computeScrollOffset() {
@@ -252,40 +253,20 @@ public class SeslOverScroller {
 
 
     static class SplineOverScroller {
-        private static float DECELERATION_RATE = ((float) (Math.log(0.78d) / Math.log(0.9d)));
         private static final float DISTANCE_M2 = 1.5f;
         private static final float DURATION_M2 = 1.8f;
         private static final float END_TENSION = 1.0f;
         private static final float GRAVITY = 2000.0f;
         private static final float[] INFLEXIONS = {0.35f, 0.22f};
-        private static float INFLEXION = INFLEXIONS[1];
         private static final float[][] SPLINE_POSITIONS = ((float[][]) Array.newInstance(Float.TYPE, new int[]{2, 101}));
-        private static float[] SPLINE_POSITION = SPLINE_POSITIONS[1];
         private static final float[][] SPLINE_TIMES = ((float[][]) Array.newInstance(Float.TYPE, new int[]{2, 101}));
-        private static float[] SPLINE_TIME = SPLINE_TIMES[1];
         private static final float START_TENSION = 0.5f;
+        private static float DECELERATION_RATE = ((float) (Math.log(0.78d) / Math.log(0.9d)));
+        private static float INFLEXION = INFLEXIONS[1];
+        private static float[] SPLINE_POSITION = SPLINE_POSITIONS[1];
+        private static float[] SPLINE_TIME = SPLINE_TIMES[1];
         private static boolean sEnableSmoothFling = true;
         private static boolean sRegulateCurrentTimeInterval = true;
-        private float mCurrVelocity;
-        private int mCurrentPosition;
-        private float mDeceleration;
-        private int mDuration;
-        private int mFinal;
-        private boolean mFinished = true;
-        private float mFlingFriction = ViewConfiguration.getScrollFriction();
-        private boolean mIsDVFSBoosting = false;
-        private int mMaximumVelocity;
-        private int mOver;
-        private float mPhysicalCoeff;
-        private long mPrevTime = 0;
-        private long mPrevTimeGap = 0;
-        private int mSplineDistance;
-        private int mSplineDuration;
-        private int mStart;
-        private long mStartTime;
-        private int mState = 0;
-        private int mUpdateCount = 0;
-        private int mVelocity;
 
         static {
             float x, y, coef;
@@ -330,6 +311,41 @@ public class SeslOverScroller {
             }
         }
 
+        private float mCurrVelocity;
+        private int mCurrentPosition;
+        private float mDeceleration;
+        private int mDuration;
+        private int mFinal;
+        private boolean mFinished = true;
+        private float mFlingFriction = ViewConfiguration.getScrollFriction();
+        private boolean mIsDVFSBoosting = false;
+        private int mMaximumVelocity;
+        private int mOver;
+        private float mPhysicalCoeff;
+        private long mPrevTime = 0;
+        private long mPrevTimeGap = 0;
+        private int mSplineDistance;
+        private int mSplineDuration;
+        private int mStart;
+        private long mStartTime;
+        private int mState = 0;
+        private int mUpdateCount = 0;
+        private int mVelocity;
+
+        SplineOverScroller(Context context) {
+            mPhysicalCoeff = 386.0878f * context.getResources().getDisplayMetrics().density * 160.0f * 0.84f;
+            if (sEnableSmoothFling) {
+                mMaximumVelocity = ViewConfiguration.get(context).getScaledMaximumFlingVelocity();
+            }
+        }
+
+        private static float getDeceleration(int velocity) {
+            if (velocity > 0) {
+                return -2000.0f;
+            }
+            return GRAVITY;
+        }
+
         public void setMode(int mode) {
             if (mode >= 0 && mode <= 1) {
                 if (mode == 0) {
@@ -353,22 +369,8 @@ public class SeslOverScroller {
             mFlingFriction = friction;
         }
 
-        SplineOverScroller(Context context) {
-            mPhysicalCoeff = 386.0878f * context.getResources().getDisplayMetrics().density * 160.0f * 0.84f;
-            if (sEnableSmoothFling) {
-                mMaximumVelocity = ViewConfiguration.get(context).getScaledMaximumFlingVelocity();
-            }
-        }
-
         void updateScroll(float q) {
             mCurrentPosition = mStart + Math.round(((float) (mFinal - mStart)) * q);
-        }
-
-        private static float getDeceleration(int velocity) {
-            if (velocity > 0) {
-                return -2000.0f;
-            }
-            return GRAVITY;
         }
 
         private void adjustDuration(int start, int oldFinal, int newFinal) {

@@ -26,14 +26,71 @@ class SeslViewBoundsCheck {
     static final int GT = 1;
     static final int LT = 4;
     static final int MASK = 7;
-    BoundFlags mBoundFlags = new BoundFlags();
     final Callback mCallback;
-
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface ViewBounds {}
+    BoundFlags mBoundFlags = new BoundFlags();
 
     SeslViewBoundsCheck(Callback callback) {
         mCallback = callback;
+    }
+
+    View findOneViewWithinBoundFlags(int fromIndex, int toIndex, @ViewBounds int preferredBoundFlags, @ViewBounds int acceptableBoundFlags) {
+        final int start = mCallback.getParentStart();
+        final int end = mCallback.getParentEnd();
+        final int next = toIndex > fromIndex ? 1 : -1;
+        View acceptableMatch = null;
+        for (int i = fromIndex; i != toIndex; i += next) {
+            final View child = mCallback.getChildAt(i);
+            final int childStart = mCallback.getChildStart(child);
+            final int childEnd = mCallback.getChildEnd(child);
+            mBoundFlags.setBounds(start, end, childStart, childEnd);
+            if (preferredBoundFlags != 0) {
+                mBoundFlags.resetFlags();
+                mBoundFlags.addFlags(preferredBoundFlags);
+                if (mBoundFlags.boundsMatch()) {
+                    return child;
+                }
+            }
+            if (acceptableBoundFlags != 0) {
+                mBoundFlags.resetFlags();
+                mBoundFlags.addFlags(acceptableBoundFlags);
+                if (mBoundFlags.boundsMatch()) {
+                    acceptableMatch = child;
+                }
+            }
+        }
+        return acceptableMatch;
+    }
+
+    boolean isViewWithinBoundFlags(View child, @ViewBounds int boundsFlags) {
+        mBoundFlags.setBounds(mCallback.getParentStart(), mCallback.getParentEnd(), mCallback.getChildStart(child), mCallback.getChildEnd(child));
+        if (boundsFlags != 0) {
+            mBoundFlags.resetFlags();
+            mBoundFlags.addFlags(boundsFlags);
+            return mBoundFlags.boundsMatch();
+        }
+        return false;
+    }
+
+    ;
+
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ViewBounds {
+    }
+
+    interface Callback {
+        int getChildCount();
+
+        View getParent();
+
+        View getChildAt(int index);
+
+        int getParentStart();
+
+        int getParentEnd();
+
+        int getChildStart(View view);
+
+        int getChildEnd(View view);
     }
 
     static class BoundFlags {
@@ -95,53 +152,5 @@ class SeslViewBoundsCheck {
             }
             return true;
         }
-    };
-
-    View findOneViewWithinBoundFlags(int fromIndex, int toIndex, @ViewBounds int preferredBoundFlags, @ViewBounds int acceptableBoundFlags) {
-        final int start = mCallback.getParentStart();
-        final int end = mCallback.getParentEnd();
-        final int next = toIndex > fromIndex ? 1 : -1;
-        View acceptableMatch = null;
-        for (int i = fromIndex; i != toIndex; i += next) {
-            final View child = mCallback.getChildAt(i);
-            final int childStart = mCallback.getChildStart(child);
-            final int childEnd = mCallback.getChildEnd(child);
-            mBoundFlags.setBounds(start, end, childStart, childEnd);
-            if (preferredBoundFlags != 0) {
-                mBoundFlags.resetFlags();
-                mBoundFlags.addFlags(preferredBoundFlags);
-                if (mBoundFlags.boundsMatch()) {
-                    return child;
-                }
-            }
-            if (acceptableBoundFlags != 0) {
-                mBoundFlags.resetFlags();
-                mBoundFlags.addFlags(acceptableBoundFlags);
-                if (mBoundFlags.boundsMatch()) {
-                    acceptableMatch = child;
-                }
-            }
-        }
-        return acceptableMatch;
-    }
-
-    boolean isViewWithinBoundFlags(View child, @ViewBounds int boundsFlags) {
-        mBoundFlags.setBounds(mCallback.getParentStart(), mCallback.getParentEnd(), mCallback.getChildStart(child), mCallback.getChildEnd(child));
-        if (boundsFlags != 0) {
-            mBoundFlags.resetFlags();
-            mBoundFlags.addFlags(boundsFlags);
-            return mBoundFlags.boundsMatch();
-        }
-        return false;
-    }
-
-    interface Callback {
-        int getChildCount();
-        View getParent();
-        View getChildAt(int index);
-        int getParentStart();
-        int getParentEnd();
-        int getChildStart(View view);
-        int getChildEnd(View view);
     }
 }

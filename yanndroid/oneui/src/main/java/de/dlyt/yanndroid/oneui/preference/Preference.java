@@ -18,28 +18,35 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.AbsSavedState;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.TypedArrayUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.preference.internal.SeslPreferenceImageView;
 
 public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference.Preference> {
     public static final int DEFAULT_ORDER = Integer.MAX_VALUE;
+    private final OnClickListener mClickListener;
+    public boolean mIsSolidRoundedCorner;
+    boolean mIsPreferenceRoundedBg;
+    boolean mIsRoundChanged;
+    int mSubheaderColor;
+    boolean mSubheaderRound;
+    int mWhere;
     private boolean mAllowDividerAbove;
     private boolean mAllowDividerBelow;
     private boolean mBaseMethodCalled;
     private boolean mChangedSummaryColor;
     private boolean mChangedSummaryColorStateList;
-    private final OnClickListener mClickListener;
     private Context mContext;
     private Object mDefaultValue;
     private String mDependencyKey;
@@ -55,9 +62,6 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
     private boolean mIconSpaceReserved;
     private long mId;
     private Intent mIntent;
-    boolean mIsPreferenceRoundedBg;
-    boolean mIsRoundChanged;
-    public boolean mIsSolidRoundedCorner;
     private String mKey;
     private int mLayoutResId;
     private de.dlyt.yanndroid.oneui.preference.Preference.OnPreferenceChangeInternalListener mListener;
@@ -72,8 +76,6 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
     private boolean mSelectable;
     private boolean mShouldDisableView;
     private boolean mSingleLineTitle;
-    int mSubheaderColor;
-    boolean mSubheaderRound;
     private CharSequence mSummary;
     private int mSummaryColor;
     private ColorStateList mSummaryColorStateList;
@@ -82,7 +84,6 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
     private int mViewId;
     private boolean mVisible;
     private boolean mWasDetached;
-    int mWhere;
     private int mWidgetLayoutResId;
 
     @SuppressLint("RestrictedApi")
@@ -163,7 +164,7 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         if (this.getPreferenceDataStore() != null) {
             this.onSetInitialValue(true, this.mDefaultValue);
         } else if (this.shouldPersist() && this.getSharedPreferences().contains(this.mKey)) {
-            this.onSetInitialValue(true, (Object)null);
+            this.onSetInitialValue(true, (Object) null);
         } else if (this.mDefaultValue != null) {
             this.onSetInitialValue(false, this.mDefaultValue);
         }
@@ -173,7 +174,7 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
     public boolean persistStringSet(Set<String> var1) {
         if (!this.shouldPersist()) {
             return false;
-        } else if (var1.equals(this.getPersistedStringSet((Set<String>)null))) {
+        } else if (var1.equals(this.getPersistedStringSet((Set<String>) null))) {
             return true;
         } else {
             PreferenceDataStore var2 = this.getPreferenceDataStore();
@@ -213,9 +214,9 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
     private void setEnabledStateOnViews(View var1, boolean var2) {
         var1.setEnabled(var2);
         if (var1 instanceof ViewGroup) {
-            ViewGroup var4 = (ViewGroup)var1;
+            ViewGroup var4 = (ViewGroup) var1;
 
-            for(int var3 = var4.getChildCount() - 1; var3 >= 0; --var3) {
+            for (int var3 = var4.getChildCount() - 1; var3 >= 0; --var3) {
                 this.setEnabledStateOnViews(var4.getChildAt(var3), var2);
             }
         }
@@ -371,6 +372,10 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         return this.mIntent;
     }
 
+    public void setIntent(Intent var1) {
+        this.mIntent = var1;
+    }
+
     public String getKey() {
         return this.mKey;
     }
@@ -379,8 +384,20 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         return this.mLayoutResId;
     }
 
+    public void setLayoutResource(int var1) {
+        this.mLayoutResId = var1;
+    }
+
     public int getOrder() {
         return this.mOrder;
+    }
+
+    public void setOrder(int var1) {
+        if (var1 != this.mOrder) {
+            this.mOrder = var1;
+            this.notifyHierarchyChanged();
+        }
+
     }
 
     public PreferenceGroup getParent() {
@@ -474,7 +491,6 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         }
     }
 
-
     public void setSummary(int summaryResId) {
         setSummary(mContext.getString(summaryResId));
     }
@@ -485,6 +501,10 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
 
     public final int getWidgetLayoutResource() {
         return this.mWidgetLayoutResId;
+    }
+
+    public void setWidgetLayoutResource(int var1) {
+        this.mWidgetLayoutResId = var1;
     }
 
     public boolean hasKey() {
@@ -517,16 +537,6 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         mIsRoundChanged = true;
     }
 
-    public void setEnabled(boolean enabled) {
-        if (mEnabled != enabled) {
-            mEnabled = enabled;
-
-            notifyDependencyChange(shouldDisableDependents());
-
-            notifyChanged();
-        }
-    }
-
     public boolean isEnabled() {
         boolean var1;
         if (this.mEnabled && this.mDependencyMet && this.mParentDependencyMet) {
@@ -538,8 +548,22 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         return var1;
     }
 
+    public void setEnabled(boolean enabled) {
+        if (mEnabled != enabled) {
+            mEnabled = enabled;
+
+            notifyDependencyChange(shouldDisableDependents());
+
+            notifyChanged();
+        }
+    }
+
     public boolean isPersistent() {
         return this.mPersistent;
+    }
+
+    public boolean isSelectable() {
+        return this.mSelectable;
     }
 
     public void setSelectable(boolean selectable) {
@@ -549,17 +573,13 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         }
     }
 
-    public boolean isSelectable() {
-        return this.mSelectable;
-    }
-
     public void setShouldDisableView(boolean shouldDisableView) {
         this.mShouldDisableView = shouldDisableView;
         notifyChanged();
     }
 
     protected boolean isTalkBackIsRunning() {
-        AccessibilityManager var1 = (AccessibilityManager)this.getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
+        AccessibilityManager var1 = (AccessibilityManager) this.getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
         boolean var2;
         if (var1 != null && var1.isEnabled()) {
             String var3 = Secure.getString(this.getContext().getContentResolver(), "enabled_accessibility_services");
@@ -589,8 +609,8 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         if (var2 != null) {
             int var3 = var2.size();
 
-            for(int var4 = 0; var4 < var3; ++var4) {
-                ((de.dlyt.yanndroid.oneui.preference.Preference)var2.get(var4)).onDependencyChanged(this, var1);
+            for (int var4 = 0; var4 < var3; ++var4) {
+                ((de.dlyt.yanndroid.oneui.preference.Preference) var2.get(var4)).onDependencyChanged(this, var1);
             }
         }
 
@@ -634,7 +654,7 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         var1.itemView.setOnClickListener(this.mClickListener);
         var1.itemView.setId(this.mViewId);
         var1.seslSetPreferenceBackgroundType(this.mIsPreferenceRoundedBg, this.mWhere, this.mSubheaderRound);
-        TextView var3 = (TextView)var1.findViewById(16908310);
+        TextView var3 = (TextView) var1.findViewById(16908310);
         if (var3 != null) {
             CharSequence var4 = this.getTitle();
             if (!TextUtils.isEmpty(var4)) {
@@ -653,7 +673,7 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
             }
         }
 
-        TextView var9 = (TextView)var1.findViewById(16908304);
+        TextView var9 = (TextView) var1.findViewById(16908304);
         if (var9 != null) {
             CharSequence var7 = this.getSummary();
             if (!TextUtils.isEmpty(var7)) {
@@ -877,7 +897,7 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
             var3 = false;
         } else {
             var3 = var2;
-            if (!TextUtils.equals(var1, this.getPersistedString((String)null))) {
+            if (!TextUtils.equals(var1, this.getPersistedString((String) null))) {
                 PreferenceDataStore var4 = this.getPreferenceDataStore();
                 if (var4 != null) {
                     var4.putString(this.mKey, var1);
@@ -913,44 +933,24 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         this.mIsRoundChanged = true;
     }
 
-    public void setIntent(Intent var1) {
-        this.mIntent = var1;
-    }
-
-    public void setLayoutResource(int var1) {
-        this.mLayoutResId = var1;
-    }
-
     final void setOnPreferenceChangeInternalListener(de.dlyt.yanndroid.oneui.preference.Preference.OnPreferenceChangeInternalListener var1) {
         this.mListener = var1;
-    }
-
-    public void setOnPreferenceChangeListener(OnPreferenceChangeListener var1) {
-        this.mOnChangeListener = var1;
     }
 
     public OnPreferenceChangeListener getOnPreferenceChangeListener() {
         return this.mOnChangeListener;
     }
 
-    public void setOnPreferenceClickListener(de.dlyt.yanndroid.oneui.preference.Preference.OnPreferenceClickListener var1) {
-        this.mOnClickListener = var1;
+    public void setOnPreferenceChangeListener(OnPreferenceChangeListener var1) {
+        this.mOnChangeListener = var1;
     }
 
     public OnPreferenceClickListener getOnPreferenceClickListener() {
         return this.mOnClickListener;
     }
 
-    public void setOrder(int var1) {
-        if (var1 != this.mOrder) {
-            this.mOrder = var1;
-            this.notifyHierarchyChanged();
-        }
-
-    }
-
-    public void setWidgetLayoutResource(int var1) {
-        this.mWidgetLayoutResId = var1;
+    public void setOnPreferenceClickListener(de.dlyt.yanndroid.oneui.preference.Preference.OnPreferenceClickListener var1) {
+        this.mOnClickListener = var1;
     }
 
     public boolean shouldDisableDependents() {
@@ -979,6 +979,20 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         return this.getFilterableStringBuilder().toString();
     }
 
+    interface OnPreferenceChangeInternalListener {
+        void onPreferenceChange(de.dlyt.yanndroid.oneui.preference.Preference var1);
+
+        void onPreferenceHierarchyChange(de.dlyt.yanndroid.oneui.preference.Preference var1);
+    }
+
+    public interface OnPreferenceChangeListener {
+        boolean onPreferenceChange(de.dlyt.yanndroid.oneui.preference.Preference var1, Object var2);
+    }
+
+    public interface OnPreferenceClickListener {
+        boolean onPreferenceClick(de.dlyt.yanndroid.oneui.preference.Preference var1);
+    }
+
     public static class BaseSavedState extends AbsSavedState {
         public static final Creator<de.dlyt.yanndroid.oneui.preference.Preference.BaseSavedState> CREATOR = new Creator<de.dlyt.yanndroid.oneui.preference.Preference.BaseSavedState>() {
             public de.dlyt.yanndroid.oneui.preference.Preference.BaseSavedState createFromParcel(Parcel var1) {
@@ -997,20 +1011,6 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         public BaseSavedState(Parcelable var1) {
             super(var1);
         }
-    }
-
-    interface OnPreferenceChangeInternalListener {
-        void onPreferenceChange(de.dlyt.yanndroid.oneui.preference.Preference var1);
-
-        void onPreferenceHierarchyChange(de.dlyt.yanndroid.oneui.preference.Preference var1);
-    }
-
-    public interface OnPreferenceChangeListener {
-        boolean onPreferenceChange(de.dlyt.yanndroid.oneui.preference.Preference var1, Object var2);
-    }
-
-    public interface OnPreferenceClickListener {
-        boolean onPreferenceClick(de.dlyt.yanndroid.oneui.preference.Preference var1);
     }
 }
 

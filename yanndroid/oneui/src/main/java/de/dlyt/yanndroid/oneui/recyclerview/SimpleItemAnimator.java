@@ -136,24 +136,31 @@ public abstract class SimpleItemAnimator extends SeslRecyclerView.ItemAnimator {
     }
 
     @SuppressWarnings("UnusedParameters")
-    public void onRemoveStarting(ViewHolder item) { }
+    public void onRemoveStarting(ViewHolder item) {
+    }
 
-    public void onRemoveFinished(ViewHolder item) { }
+    public void onRemoveFinished(ViewHolder item) {
+    }
 
     @SuppressWarnings("UnusedParameters")
     public void onAddStarting(ViewHolder item) {
     }
 
-    public void onAddFinished(ViewHolder item) { }
+    public void onAddFinished(ViewHolder item) {
+    }
 
     @SuppressWarnings("UnusedParameters")
-    public void onMoveStarting(ViewHolder item) { }
+    public void onMoveStarting(ViewHolder item) {
+    }
 
-    public void onMoveFinished(ViewHolder item) { }
+    public void onMoveFinished(ViewHolder item) {
+    }
 
     @SuppressWarnings("UnusedParameters")
-    public void onChangeStarting(ViewHolder item, boolean oldItem) { }
+    public void onChangeStarting(ViewHolder item, boolean oldItem) {
+    }
 
-    public void onChangeFinished(ViewHolder item, boolean oldItem) { }
+    public void onChangeFinished(ViewHolder item, boolean oldItem) {
+    }
 }
 

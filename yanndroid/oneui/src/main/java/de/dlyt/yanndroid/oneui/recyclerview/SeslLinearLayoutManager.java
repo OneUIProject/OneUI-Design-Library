@@ -13,9 +13,9 @@ import android.view.accessibility.AccessibilityEvent;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 
-import de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerView.LayoutParams;
-
 import java.util.List;
+
+import de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerView.LayoutParams;
 
 public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager implements ItemTouchHelper.ViewDropHandler, SeslRecyclerView.SmoothScroller.ScrollVectorProvider {
     public static final boolean DEBUG = false;
@@ -26,9 +26,9 @@ public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager impl
     public static final String TAG = "SeslLinearLayoutManager";
     public static final int VERTICAL = OrientationHelper.VERTICAL;
     public final AnchorInfo mAnchorInfo = new AnchorInfo();
+    public final LayoutChunkResult mLayoutChunkResult = new LayoutChunkResult();
     public int mInitialPrefetchItemCount = 2;
     public boolean mLastStackFromEnd;
-    public final LayoutChunkResult mLayoutChunkResult = new LayoutChunkResult();
     public LayoutState mLayoutState;
     public int mOrientation = VERTICAL;
     public OrientationHelper mOrientationHelper;
@@ -141,6 +141,10 @@ public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager impl
         return mOrientation == VERTICAL;
     }
 
+    public boolean getStackFromEnd() {
+        return mStackFromEnd;
+    }
+
     public void setStackFromEnd(boolean stackFromEnd) {
         assertNotInLayoutOrScroll(null);
         if (mStackFromEnd == stackFromEnd) {
@@ -148,10 +152,6 @@ public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager impl
         }
         mStackFromEnd = stackFromEnd;
         requestLayout();
-    }
-
-    public boolean getStackFromEnd() {
-        return mStackFromEnd;
     }
 
     public int getOrientation() {
@@ -266,7 +266,7 @@ public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager impl
             mAnchorInfo.mLayoutFromEnd = mShouldReverseLayout ^ mStackFromEnd;
             updateAnchorInfoForLayout(recycler, state, mAnchorInfo);
             mAnchorInfo.mValid = true;
-        } else if (focused != null && (mOrientationHelper.getDecoratedStart(focused) >= mOrientationHelper.getEndAfterPadding()|| mOrientationHelper.getDecoratedEnd(focused) <= mOrientationHelper.getStartAfterPadding())) {
+        } else if (focused != null && (mOrientationHelper.getDecoratedStart(focused) >= mOrientationHelper.getEndAfterPadding() || mOrientationHelper.getDecoratedEnd(focused) <= mOrientationHelper.getStartAfterPadding())) {
             mAnchorInfo.assignFromViewAndKeepVisibleRect(focused, getPosition(focused));
         }
         if (DEBUG) {
@@ -401,10 +401,11 @@ public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager impl
         mAnchorInfo.reset();
     }
 
-    void onAnchorReady(SeslRecyclerView.Recycler recycler, SeslRecyclerView.State state, AnchorInfo anchorInfo, int i) { }
+    void onAnchorReady(SeslRecyclerView.Recycler recycler, SeslRecyclerView.State state, AnchorInfo anchorInfo, int i) {
+    }
 
     private void layoutForPredictiveAnimations(SeslRecyclerView.Recycler recycler, SeslRecyclerView.State state, int startOffset, int endOffset) {
-        if (!state.willRunPredictiveAnimations() ||  getChildCount() == 0 || state.isPreLayout() || !supportsPredictiveItemAnimations()) {
+        if (!state.willRunPredictiveAnimations() || getChildCount() == 0 || state.isPreLayout() || !supportsPredictiveItemAnimations()) {
             return;
         }
         int scrapExtraStart = 0, scrapExtraEnd = 0;
@@ -486,7 +487,7 @@ public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager impl
         if (referenceChild != null) {
             anchorInfo.assignFromView(referenceChild, getPosition(referenceChild));
             if (!state.isPreLayout() && supportsPredictiveItemAnimations()) {
-                final boolean notVisible = mOrientationHelper.getDecoratedStart(referenceChild) >= mOrientationHelper .getEndAfterPadding() || mOrientationHelper.getDecoratedEnd(referenceChild) < mOrientationHelper.getStartAfterPadding();
+                final boolean notVisible = mOrientationHelper.getDecoratedStart(referenceChild) >= mOrientationHelper.getEndAfterPadding() || mOrientationHelper.getDecoratedEnd(referenceChild) < mOrientationHelper.getStartAfterPadding();
                 if (notVisible) {
                     anchorInfo.mCoordinate = anchorInfo.mLayoutFromEnd ? mOrientationHelper.getEndAfterPadding() : mOrientationHelper.getStartAfterPadding();
                 }
@@ -540,7 +541,7 @@ public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager impl
                     anchorInfo.mLayoutFromEnd = true;
                     return true;
                 }
-                anchorInfo.mCoordinate = anchorInfo.mLayoutFromEnd ? (mOrientationHelper.getDecoratedEnd(child) + mOrientationHelper .getTotalSpaceChange()) : mOrientationHelper.getDecoratedStart(child);
+                anchorInfo.mCoordinate = anchorInfo.mLayoutFromEnd ? (mOrientationHelper.getDecoratedEnd(child) + mOrientationHelper.getTotalSpaceChange()) : mOrientationHelper.getDecoratedStart(child);
             } else {
                 if (getChildCount() > 0) {
                     int pos = getPosition(getChildAt(0));
@@ -731,7 +732,7 @@ public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager impl
         return ScrollbarHelper.computeScrollExtent(state, mOrientationHelper,
                 findFirstVisibleChildClosestToStart(!mSmoothScrollbarEnabled, true),
                 findFirstVisibleChildClosestToEnd(!mSmoothScrollbarEnabled, true),
-                this,  mSmoothScrollbarEnabled);
+                this, mSmoothScrollbarEnabled);
     }
 
     private int computeScrollRange(SeslRecyclerView.State state) {
@@ -745,12 +746,12 @@ public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager impl
                 this, mSmoothScrollbarEnabled);
     }
 
-    public void setSmoothScrollbarEnabled(boolean enabled) {
-        mSmoothScrollbarEnabled = enabled;
-    }
-
     public boolean isSmoothScrollbarEnabled() {
         return mSmoothScrollbarEnabled;
+    }
+
+    public void setSmoothScrollbarEnabled(boolean enabled) {
+        mSmoothScrollbarEnabled = enabled;
     }
 
     private void updateLayoutState(int layoutDirection, int requiredSpace, boolean canUseExistingSpace, SeslRecyclerView.State state) {
@@ -820,13 +821,12 @@ public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager impl
         }
     }
 
-    public void setInitialPrefetchItemCount(int itemCount) {
-        mInitialPrefetchItemCount = itemCount;
-    }
-
-
     public int getInitialPrefetchItemCount() {
         return mInitialPrefetchItemCount;
+    }
+
+    public void setInitialPrefetchItemCount(int itemCount) {
+        mInitialPrefetchItemCount = itemCount;
     }
 
     @Override
@@ -1553,11 +1553,24 @@ public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager impl
     }
 
     public static class SavedState implements Parcelable {
+        public static final Parcelable.Creator<SavedState> CREATOR =
+                new Parcelable.Creator<SavedState>() {
+                    @Override
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in);
+                    }
+
+                    @Override
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
         boolean mAnchorLayoutFromEnd;
         int mAnchorOffset;
         int mAnchorPosition;
 
-        SavedState() { }
+        SavedState() {
+        }
 
         SavedState(Parcel in) {
             mAnchorPosition = in.readInt();
@@ -1590,18 +1603,5 @@ public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager impl
             dest.writeInt(mAnchorOffset);
             dest.writeInt(mAnchorLayoutFromEnd ? 1 : 0);
         }
-
-        public static final Parcelable.Creator<SavedState> CREATOR =
-                new Parcelable.Creator<SavedState>() {
-                    @Override
-                    public SavedState createFromParcel(Parcel in) {
-                        return new SavedState(in);
-                    }
-
-                    @Override
-                    public SavedState[] newArray(int size) {
-                        return new SavedState[size];
-                    }
-                };
     }
 }

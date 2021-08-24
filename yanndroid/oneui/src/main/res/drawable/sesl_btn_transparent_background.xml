@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape android:tint="?colorButtonNormal" android:shape="rectangle"
-  xmlns:android="http://schemas.android.com/apk/res/android">
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"
+    android:tint="?colorButtonNormal">
     <solid android:color="@color/transparent" />
     <corners android:radius="@dimen/sesl_button_corner_radius" />
-    <padding android:left="16.0dip" android:top="8.0dip" android:right="16.0dip" android:bottom="8.0dip" />
+    <padding
+        android:bottom="8.0dip"
+        android:left="16.0dip"
+        android:right="16.0dip"
+        android:top="8.0dip" />
 </shape>

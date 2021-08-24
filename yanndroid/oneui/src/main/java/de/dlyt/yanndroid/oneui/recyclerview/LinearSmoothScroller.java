@@ -9,18 +9,18 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 public class LinearSmoothScroller extends SeslRecyclerView.SmoothScroller {
+    public static final int SNAP_TO_START = -1;
+    public static final int SNAP_TO_END = 1;
+    public static final int SNAP_TO_ANY = 0;
     private static final String TAG = "LinearSmoothScroller";
     private static final boolean DEBUG = false;
     private static final float MILLISECONDS_PER_INCH = 25f;
     private static final int TARGET_SEEK_SCROLL_DISTANCE_PX = 10000;
-    public static final int SNAP_TO_START = -1;
-    public static final int SNAP_TO_END = 1;
-    public static final int SNAP_TO_ANY = 0;
     private static final float TARGET_SEEK_EXTRA_SCROLL_RATIO = 1.2f;
     protected final LinearInterpolator mLinearInterpolator = new LinearInterpolator();
     protected final DecelerateInterpolator mDecelerateInterpolator = new DecelerateInterpolator();
-    protected PointF mTargetVector;
     private final float MILLISECONDS_PER_PX;
+    protected PointF mTargetVector;
     protected int mInterimTargetDx = 0, mInterimTargetDy = 0;
 
     public LinearSmoothScroller(Context context) {
@@ -28,7 +28,8 @@ public class LinearSmoothScroller extends SeslRecyclerView.SmoothScroller {
     }
 
     @Override
-    protected void onStart() { }
+    protected void onStart() {
+    }
 
     @Override
     protected void onTargetFound(View targetView, SeslRecyclerView.State state, Action action) {
@@ -70,7 +71,7 @@ public class LinearSmoothScroller extends SeslRecyclerView.SmoothScroller {
     }
 
     protected int calculateTimeForDeceleration(int dx) {
-        return  (int) Math.ceil(calculateTimeForScrolling(dx) / .3356);
+        return (int) Math.ceil(calculateTimeForScrolling(dx) / .3356);
     }
 
     protected int calculateTimeForScrolling(int dx) {

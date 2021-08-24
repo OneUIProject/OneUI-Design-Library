@@ -42,15 +42,20 @@ import androidx.core.util.ObjectsCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
 import com.google.android.material.animation.AnimationUtils;
 import com.google.android.material.internal.CollapsingTextHelper;
 
 import de.dlyt.yanndroid.oneui.R;
 
 public class SamsungCollapsingToolbarLayout extends FrameLayout {
-    private static final int DEFAULT_SCRIM_ANIMATION_DURATION = 600;
     static final Interpolator SINE_OUT_80_INTERPOLATOR = new PathInterpolator(0.17f, 0.17f, 0.2f, 1.0f);
+    private static final int DEFAULT_SCRIM_ANIMATION_DURATION = 600;
+    private final Rect mTmpRect = new Rect();
     /*final*/ CollapsingTextHelper mCollapsingTextHelper;
+    int mCurrentOffset;
+    WindowInsetsCompat mLastInsets;
+    Drawable mStatusBarScrim;
     private boolean mCollapsingTitleEnabled;
     private LinearLayout mCollapsingTitleLayout;
     private LinearLayout mCollapsingTitleLayoutParent;
@@ -59,7 +64,6 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
     private boolean mCollapsingToolbarLayoutSubTitleEnabled;
     private boolean mCollapsingToolbarLayoutTitleEnabled;
     private Drawable mContentScrim;
-    int mCurrentOffset;
     private float mDefaultHeightDp;
     private boolean mDrawCollapsingTitle;
     private View mDummyView;
@@ -71,7 +75,6 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
     private int mExtendTitleAppearance;
     private float mHeightPercent = 0.0f;
     private boolean mIsCollapsingToolbarTitleCustom;
-    WindowInsetsCompat mLastInsets;
     private SamsungAppBarLayout.OnOffsetChangedListener mOnOffsetChangedListener;
     private boolean mRefreshToolbar = true;
     private int mScrimAlpha;
@@ -80,8 +83,6 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
     private int mScrimVisibleHeightTrigger = -1;
     private boolean mScrimsAreShown;
     private int mStatsusBarHeight = 0;
-    Drawable mStatusBarScrim;
-    private final Rect mTmpRect = new Rect();
     private Toolbar mToolbar;
     private View mToolbarDirectChild;
     private int mToolbarId;
@@ -208,6 +209,24 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
                 return onWindowInsetChanged(insets);
             }
         });
+    }
+
+    private static int getHeightWithMargins(@NonNull final View view) {
+        final ViewGroup.LayoutParams lp = view.getLayoutParams();
+        if (lp instanceof MarginLayoutParams) {
+            final MarginLayoutParams mlp = (MarginLayoutParams) lp;
+            return view.getHeight() + mlp.topMargin + mlp.bottomMargin;
+        }
+        return view.getHeight();
+    }
+
+    static ViewOffsetHelper getViewOffsetHelper(View view) {
+        ViewOffsetHelper offsetHelper = (ViewOffsetHelper) view.getTag(R.id.view_offset_helper);
+        if (offsetHelper == null) {
+            offsetHelper = new ViewOffsetHelper(view);
+            view.setTag(R.id.view_offset_helper, offsetHelper);
+        }
+        return offsetHelper;
     }
 
     @Override
@@ -500,15 +519,6 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
         updateScrimVisibility();
     }
 
-    private static int getHeightWithMargins(@NonNull final View view) {
-        final ViewGroup.LayoutParams lp = view.getLayoutParams();
-        if (lp instanceof MarginLayoutParams) {
-            final MarginLayoutParams mlp = (MarginLayoutParams) lp;
-            return view.getHeight() + mlp.topMargin + mlp.bottomMargin;
-        }
-        return view.getHeight();
-    }
-
     private int getStatusbarHeight() {
         int identifier = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (identifier > 0) {
@@ -517,13 +527,10 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
         return 0;
     }
 
-    static ViewOffsetHelper getViewOffsetHelper(View view) {
-        ViewOffsetHelper offsetHelper = (ViewOffsetHelper) view.getTag(R.id.view_offset_helper);
-        if (offsetHelper == null) {
-            offsetHelper = new ViewOffsetHelper(view);
-            view.setTag(R.id.view_offset_helper, offsetHelper);
-        }
-        return offsetHelper;
+    @Nullable
+    @SuppressLint("RestrictedApi")
+    public CharSequence getTitle() {
+        return mCollapsingTitleEnabled ? mCollapsingTextHelper.getText() : mCollapsingToolbarExtendedTitle.getText();
     }
 
     @SuppressLint("RestrictedApi")
@@ -536,10 +543,8 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
         updateTitleLayout();
     }
 
-    @Nullable
-    @SuppressLint("RestrictedApi")
-    public CharSequence getTitle() {
-        return mCollapsingTitleEnabled ? mCollapsingTextHelper.getText() : mCollapsingToolbarExtendedTitle.getText();
+    public boolean isTitleEnabled() {
+        return mCollapsingToolbarLayoutTitleEnabled;
     }
 
     public void setTitleEnabled(boolean enabled) {
@@ -563,10 +568,6 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
             updateDummyView();
             requestLayout();
         }
-    }
-
-    public boolean isTitleEnabled() {
-        return mCollapsingToolbarLayoutTitleEnabled;
     }
 
     public void setSubtitle(int resId) {
@@ -647,6 +648,10 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
         mScrimAnimator.start();
     }
 
+    int getScrimAlpha() {
+        return mScrimAlpha;
+    }
+
     void setScrimAlpha(int alpha) {
         if (alpha != mScrimAlpha) {
             final Drawable contentScrim = mContentScrim;
@@ -655,25 +660,6 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
             }
             mScrimAlpha = alpha;
             ViewCompat.postInvalidateOnAnimation(SamsungCollapsingToolbarLayout.this);
-        }
-    }
-
-    int getScrimAlpha() {
-        return mScrimAlpha;
-    }
-
-    public void setContentScrim(@Nullable Drawable drawable) {
-        if (mContentScrim != drawable) {
-            if (mContentScrim != null) {
-                mContentScrim.setCallback(null);
-            }
-            mContentScrim = drawable != null ? drawable.mutate() : null;
-            if (mContentScrim != null) {
-                mContentScrim.setBounds(0, 0, getWidth(), getHeight());
-                mContentScrim.setCallback(this);
-                mContentScrim.setAlpha(mScrimAlpha);
-            }
-            ViewCompat.postInvalidateOnAnimation(this);
         }
     }
 
@@ -691,20 +677,16 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
         return mContentScrim;
     }
 
-    public void setStatusBarScrim(@Nullable Drawable drawable) {
-        if (mStatusBarScrim != drawable) {
-            if (mStatusBarScrim != null) {
-                mStatusBarScrim.setCallback(null);
+    public void setContentScrim(@Nullable Drawable drawable) {
+        if (mContentScrim != drawable) {
+            if (mContentScrim != null) {
+                mContentScrim.setCallback(null);
             }
-            mStatusBarScrim = drawable != null ? drawable.mutate() : null;
-            if (mStatusBarScrim != null) {
-                if (mStatusBarScrim.isStateful()) {
-                    mStatusBarScrim.setState(getDrawableState());
-                }
-                DrawableCompat.setLayoutDirection(mStatusBarScrim, ViewCompat.getLayoutDirection(this));
-                mStatusBarScrim.setVisible(getVisibility() == VISIBLE, false);
-                mStatusBarScrim.setCallback(this);
-                mStatusBarScrim.setAlpha(mScrimAlpha);
+            mContentScrim = drawable != null ? drawable.mutate() : null;
+            if (mContentScrim != null) {
+                mContentScrim.setBounds(0, 0, getWidth(), getHeight());
+                mContentScrim.setCallback(this);
+                mContentScrim.setAlpha(mScrimAlpha);
             }
             ViewCompat.postInvalidateOnAnimation(this);
         }
@@ -766,6 +748,25 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
         return mStatusBarScrim;
     }
 
+    public void setStatusBarScrim(@Nullable Drawable drawable) {
+        if (mStatusBarScrim != drawable) {
+            if (mStatusBarScrim != null) {
+                mStatusBarScrim.setCallback(null);
+            }
+            mStatusBarScrim = drawable != null ? drawable.mutate() : null;
+            if (mStatusBarScrim != null) {
+                if (mStatusBarScrim.isStateful()) {
+                    mStatusBarScrim.setState(getDrawableState());
+                }
+                DrawableCompat.setLayoutDirection(mStatusBarScrim, ViewCompat.getLayoutDirection(this));
+                mStatusBarScrim.setVisible(getVisibility() == VISIBLE, false);
+                mStatusBarScrim.setCallback(this);
+                mStatusBarScrim.setAlpha(mScrimAlpha);
+            }
+            ViewCompat.postInvalidateOnAnimation(this);
+        }
+    }
+
     @SuppressLint("RestrictedApi")
     public void setCollapsedTitleTextAppearance(@StyleRes int resId) {
         if (mCollapsingTitleEnabled) {
@@ -785,18 +786,18 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
     }
 
     @SuppressLint("RestrictedApi")
-    public void setCollapsedTitleGravity(int gravity) {
-        if (mCollapsingTitleEnabled) {
-            mCollapsingTextHelper.setCollapsedTextGravity(gravity);
-        }
-    }
-
-    @SuppressLint("RestrictedApi")
     public int getCollapsedTitleGravity() {
         if (mCollapsingTitleEnabled) {
             return mCollapsingTextHelper.getCollapsedTextGravity();
         } else {
             return -1;
+        }
+    }
+
+    @SuppressLint("RestrictedApi")
+    public void setCollapsedTitleGravity(int gravity) {
+        if (mCollapsingTitleEnabled) {
+            mCollapsingTextHelper.setCollapsedTextGravity(gravity);
         }
     }
 
@@ -823,15 +824,6 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
     }
 
     @SuppressLint("RestrictedApi")
-    public void setExpandedTitleGravity(int gravity) {
-        if (mCollapsingToolbarLayoutTitleEnabled) {
-            mCollapsingToolbarExtendedTitle.setGravity(gravity);
-        } else if (mCollapsingTitleEnabled) {
-            mCollapsingTextHelper.setExpandedTextGravity(gravity);
-        }
-    }
-
-    @SuppressLint("RestrictedApi")
     public int getExpandedTitleGravity() {
         if (mCollapsingToolbarLayoutTitleEnabled) {
             return mCollapsingToolbarExtendedTitle.getGravity();
@@ -843,9 +835,11 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
     }
 
     @SuppressLint("RestrictedApi")
-    public void setCollapsedTitleTypeface(@Nullable Typeface typeface) {
-        if (mCollapsingTitleEnabled) {
-            mCollapsingTextHelper.setCollapsedTypeface(typeface);
+    public void setExpandedTitleGravity(int gravity) {
+        if (mCollapsingToolbarLayoutTitleEnabled) {
+            mCollapsingToolbarExtendedTitle.setGravity(gravity);
+        } else if (mCollapsingTitleEnabled) {
+            mCollapsingTextHelper.setExpandedTextGravity(gravity);
         }
     }
 
@@ -859,11 +853,9 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
     }
 
     @SuppressLint("RestrictedApi")
-    public void setExpandedTitleTypeface(@Nullable Typeface typeface) {
-        if (mCollapsingToolbarLayoutTitleEnabled) {
-            mCollapsingToolbarExtendedTitle.setTypeface(typeface);
-        } else if (mCollapsingTitleEnabled) {
-            mCollapsingTextHelper.setExpandedTypeface(typeface);
+    public void setCollapsedTitleTypeface(@Nullable Typeface typeface) {
+        if (mCollapsingTitleEnabled) {
+            mCollapsingTextHelper.setCollapsedTypeface(typeface);
         }
     }
 
@@ -876,6 +868,15 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
             return mCollapsingTextHelper.getExpandedTypeface();
         }
         return null;
+    }
+
+    @SuppressLint("RestrictedApi")
+    public void setExpandedTitleTypeface(@Nullable Typeface typeface) {
+        if (mCollapsingToolbarLayoutTitleEnabled) {
+            mCollapsingToolbarExtendedTitle.setTypeface(typeface);
+        } else if (mCollapsingTitleEnabled) {
+            mCollapsingTextHelper.setExpandedTypeface(typeface);
+        }
     }
 
     public int getExpandedTitleMarginStart() {
@@ -914,13 +915,6 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
         requestLayout();
     }
 
-    public void setScrimVisibleHeightTrigger(@IntRange(from = 0) final int height) {
-        if (mScrimVisibleHeightTrigger != height) {
-            mScrimVisibleHeightTrigger = height;
-            updateScrimVisibility();
-        }
-    }
-
     public int getScrimVisibleHeightTrigger() {
         if (mScrimVisibleHeightTrigger >= 0) {
             return mScrimVisibleHeightTrigger;
@@ -936,12 +930,19 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
         return getHeight() / 3;
     }
 
-    public void setScrimAnimationDuration(@IntRange(from = 0) final long duration) {
-        mScrimAnimationDuration = duration;
+    public void setScrimVisibleHeightTrigger(@IntRange(from = 0) final int height) {
+        if (mScrimVisibleHeightTrigger != height) {
+            mScrimVisibleHeightTrigger = height;
+            updateScrimVisibility();
+        }
     }
 
     public long getScrimAnimationDuration() {
         return mScrimAnimationDuration;
+    }
+
+    public void setScrimAnimationDuration(@IntRange(from = 0) final long duration) {
+        mScrimAnimationDuration = duration;
     }
 
     @Override
@@ -974,15 +975,26 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
         updateTitleLayout();
     }
 
+    final void updateScrimVisibility() {
+        if (mContentScrim != null || mStatusBarScrim != null) {
+            setScrimsShown(getHeight() + mCurrentOffset < getScrimVisibleHeightTrigger());
+        }
+    }
+
+    final int getMaxOffsetForPinChild(View child) {
+        final ViewOffsetHelper offsetHelper = getViewOffsetHelper(child);
+        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        return getHeight() - offsetHelper.getLayoutTop() - child.getHeight() - lp.bottomMargin;
+    }
+
     public static class LayoutParams extends FrameLayout.LayoutParams {
-        private static final float DEFAULT_PARALLAX_MULTIPLIER = 0.5f;
         public static final int COLLAPSE_MODE_OFF = 0;
         public static final int COLLAPSE_MODE_PIN = 1;
         public static final int COLLAPSE_MODE_PARALLAX = 2;
-
-        private boolean isTitleCustom;
+        private static final float DEFAULT_PARALLAX_MULTIPLIER = 0.5f;
         int mCollapseMode = COLLAPSE_MODE_OFF;
         float mParallaxMult = DEFAULT_PARALLAX_MULTIPLIER;
+        private boolean isTitleCustom;
 
         public LayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
@@ -1009,18 +1021,6 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
         public void setParallaxMultiplier(float multiplier) {
             mParallaxMult = multiplier;
         }
-    }
-
-    final void updateScrimVisibility() {
-        if (mContentScrim != null || mStatusBarScrim != null) {
-            setScrimsShown(getHeight() + mCurrentOffset < getScrimVisibleHeightTrigger());
-        }
-    }
-
-    final int getMaxOffsetForPinChild(View child) {
-        final ViewOffsetHelper offsetHelper = getViewOffsetHelper(child);
-        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
-        return getHeight() - offsetHelper.getLayoutTop() - child.getHeight() - lp.bottomMargin;
     }
 
     private class OffsetUpdateListener implements SamsungAppBarLayout.OnOffsetChangedListener {

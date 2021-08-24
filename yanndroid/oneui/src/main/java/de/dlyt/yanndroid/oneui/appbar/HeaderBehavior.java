@@ -59,14 +59,15 @@ public abstract class HeaderBehavior<V extends View> extends ViewOffsetBehavior<
             var4 = var3.getActionMasked();
             VelocityTracker var6;
             if (var4 != 0) {
-                label43: {
+                label43:
+                {
                     if (var4 != 1) {
                         if (var4 == 2) {
                             var4 = this.activePointerId;
                             if (var4 != -1) {
                                 var4 = var3.findPointerIndex(var4);
                                 if (var4 != -1) {
-                                    var4 = (int)var3.getY(var4);
+                                    var4 = (int) var3.getY(var4);
                                     if (Math.abs(var4 - this.lastMotionY) > this.touchSlop) {
                                         this.isBeingDragged = true;
                                         this.lastMotionY = var4;
@@ -91,8 +92,8 @@ public abstract class HeaderBehavior<V extends View> extends ViewOffsetBehavior<
                 }
             } else {
                 this.isBeingDragged = false;
-                int var5 = (int)var3.getX();
-                var4 = (int)var3.getY();
+                int var5 = (int) var3.getX();
+                var4 = (int) var3.getY();
                 if (this.canDragView(var2) && var1.isPointInChildBounds(var2, var5, var4)) {
                     this.lastMotionY = var4;
                     this.activePointerId = var3.getPointerId(0);
@@ -119,7 +120,8 @@ public abstract class HeaderBehavior<V extends View> extends ViewOffsetBehavior<
         int var6;
         VelocityTracker var9;
         if (var4 != 0) {
-            label45: {
+            label45:
+            {
                 if (var4 != 1) {
                     if (var4 == 2) {
                         var4 = var3.findPointerIndex(this.activePointerId);
@@ -127,7 +129,7 @@ public abstract class HeaderBehavior<V extends View> extends ViewOffsetBehavior<
                             return false;
                         }
 
-                        int var5 = (int)var3.getY(var4);
+                        int var5 = (int) var3.getY(var4);
                         var6 = this.lastMotionY - var5;
                         var4 = var6;
                         if (!this.isBeingDragged) {
@@ -165,8 +167,8 @@ public abstract class HeaderBehavior<V extends View> extends ViewOffsetBehavior<
                 }
             }
         } else {
-            var6 = (int)var3.getX();
-            var4 = (int)var3.getY();
+            var6 = (int) var3.getX();
+            var4 = (int) var3.getY();
             if (!var1.isPointInChildBounds(var2, var6, var4) || !this.canDragView(var2)) {
                 return false;
             }

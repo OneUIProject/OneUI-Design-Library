@@ -40,9 +40,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import androidx.appcompat.animation.SeslAnimationUtils;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -66,11 +63,24 @@ import com.google.android.material.resources.MaterialResources;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.shape.MaterialShapeUtils;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import de.dlyt.yanndroid.oneui.R;
 
 @SeslViewPager.DecorView
 public class SamsungBaseTabLayout extends HorizontalScrollView {
     public static final Pools.Pool<Tab> tabPool = new Pools.SynchronizedPool(16);
+    public final int requestedTabMaxWidth;
+    public final int requestedTabMinWidth;
+    public final int scrollableTabMinWidth;
+    public final ArrayList<BaseOnTabSelectedListener> selectedListeners;
+    public final SlidingTabIndicator slidingTabIndicator;
+    public final int tabBackgroundResId;
+    public final RectF tabViewContentBounds;
+    public final Pools.Pool<TabView> tabViewPool;
+    public final ArrayList<Tab> tabs;
     public AdapterChangeListener adapterChangeListener;
     public int contentInsetStart;
     public BaseOnTabSelectedListener currentVpSelectedListener;
@@ -90,16 +100,10 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     public TabLayoutOnPageChangeListener pageChangeListener;
     public PagerAdapter pagerAdapter;
     public DataSetObserver pagerAdapterObserver;
-    public final int requestedTabMaxWidth;
-    public final int requestedTabMinWidth;
     public ValueAnimator scrollAnimator;
-    public final int scrollableTabMinWidth;
     public BaseOnTabSelectedListener selectedListener;
-    public final ArrayList<BaseOnTabSelectedListener> selectedListeners;
     public Tab selectedTab;
     public boolean setupViewPagerImplicitly;
-    public final SlidingTabIndicator slidingTabIndicator;
-    public final int tabBackgroundResId;
     public int tabGravity;
     public ColorStateList tabIconTint;
     public PorterDuff.Mode tabIconTintMode;
@@ -117,14 +121,11 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     public ColorStateList tabTextColors;
     public float tabTextMultiLineSize;
     public float tabTextSize;
-    public final RectF tabViewContentBounds;
-    public final Pools.Pool<TabView> tabViewPool;
-    public final ArrayList<Tab> tabs;
     public boolean unboundedRipple;
     public SeslViewPager viewPager;
 
     public SamsungBaseTabLayout(Context var1) {
-        this(var1, (AttributeSet)null);
+        this(var1, (AttributeSet) null);
     }
 
     public SamsungBaseTabLayout(Context var1, AttributeSet var2) {
@@ -155,7 +156,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
 
         TypedArray var9 = var1.obtainStyledAttributes(var2, var4, var3, var5);
         if (this.getBackground() instanceof ColorDrawable) {
-            ColorDrawable var6 = (ColorDrawable)this.getBackground();
+            ColorDrawable var6 = (ColorDrawable) this.getBackground();
             MaterialShapeDrawable var10 = new MaterialShapeDrawable();
             var10.setFillColor(ColorStateList.valueOf(var6.getColor()));
             var10.initializeElevationOverlay(var1);
@@ -183,7 +184,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         TypedArray var11 = var1.obtainStyledAttributes(this.tabTextAppearance, androidx.appcompat.R.styleable.TextAppearance);
 
         try {
-            this.tabTextSize = (float)var11.getDimensionPixelSize(androidx.appcompat.R.styleable.TextAppearance_android_textSize, 0);
+            this.tabTextSize = (float) var11.getDimensionPixelSize(androidx.appcompat.R.styleable.TextAppearance_android_textSize, 0);
             this.mIsScaledTextSizeType = var11.getText(androidx.appcompat.R.styleable.TextAppearance_android_textSize).toString().contains("sp");
             this.tabTextColors = MaterialResources.getColorStateList(var1, var11, androidx.appcompat.R.styleable.TextAppearance_android_textColor);
         } finally {
@@ -205,7 +206,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         }
 
         this.tabIconTint = MaterialResources.getColorStateList(var1, var9, R.styleable.SamsungTabLayout_tabIconTint);
-        this.tabIconTintMode = ViewUtils.parseTintMode(var9.getInt(R.styleable.SamsungTabLayout_tabIconTintMode, -1), (PorterDuff.Mode)null);
+        this.tabIconTintMode = ViewUtils.parseTintMode(var9.getInt(R.styleable.SamsungTabLayout_tabIconTintMode, -1), (PorterDuff.Mode) null);
         this.tabRippleColorStateList = MaterialResources.getColorStateList(var1, var9, R.styleable.SamsungTabLayout_tabRippleColor);
         this.tabIndicatorAnimationDuration = var9.getInt(R.styleable.SamsungTabLayout_tabIndicatorAnimationDuration, 300);
         this.requestedTabMinWidth = var9.getDimensionPixelSize(R.styleable.SamsungTabLayout_tabMinWidth, -1);
@@ -217,7 +218,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         this.inlineLabel = var9.getBoolean(R.styleable.SamsungTabLayout_tabInlineLabel, false);
         this.unboundedRipple = var9.getBoolean(R.styleable.SamsungTabLayout_tabUnboundedRipple, false);
         var9.recycle();
-        this.tabTextMultiLineSize = (float)var12.getDimensionPixelSize(R.dimen.sesl_tab_text_size_2line);
+        this.tabTextMultiLineSize = (float) var12.getDimensionPixelSize(R.dimen.sesl_tab_text_size_2line);
         this.scrollableTabMinWidth = var12.getDimensionPixelSize(R.dimen.sesl_tab_scrollable_min_width);
         this.applyModeAndGravity();
     }
@@ -232,13 +233,13 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         int var3 = 0;
 
         boolean var4;
-        while(true) {
+        while (true) {
             var4 = var2;
             if (var3 >= var1) {
                 break;
             }
 
-            Tab var5 = (Tab)this.tabs.get(var3);
+            Tab var5 = (Tab) this.tabs.get(var3);
             if (var5 != null && var5.getIcon() != null && !TextUtils.isEmpty(var5.getText())) {
                 var4 = true;
                 break;
@@ -357,7 +358,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
 
     public final void addViewInternal(View var1) {
         if (var1 instanceof TabItem) {
-            this.addTabFromItemView((TabItem)var1);
+            this.addTabFromItemView((TabItem) var1);
         } else {
             throw new IllegalArgumentException("Only TabItem instances can be added to TabLayout");
         }
@@ -422,7 +423,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
             }
 
             var3 = var5.getLeft() + var1 / 2 - this.getWidth() / 2;
-            var1 = (int)((float)(var1 + var4) * 0.5F * var2);
+            var1 = (int) ((float) (var1 + var4) * 0.5F * var2);
             if (ViewCompat.getLayoutDirection(this) == 0) {
                 var1 += var3;
             } else {
@@ -436,7 +437,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     public final void checkMaxFontScale(TextView var1, int var2) {
         float var3 = this.getResources().getConfiguration().fontScale;
         if (var1 != null && this.mIsScaledTextSizeType && var3 > 1.3F) {
-            var1.setTextSize(0, (float)var2 / var3 * 1.3F);
+            var1.setTextSize(0, (float) var2 / var3 * 1.3F);
         }
 
     }
@@ -446,13 +447,13 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         this.tabs.add(var2, var1);
         int var3 = this.tabs.size();
 
-        while(true) {
+        while (true) {
             ++var2;
             if (var2 >= var3) {
                 return;
             }
 
-            ((Tab)this.tabs.get(var2)).setPosition(var2);
+            ((Tab) this.tabs.get(var2)).setPosition(var2);
         }
     }
 
@@ -463,7 +464,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     }
 
     public Tab createTabFromPool() {
-        Tab var1 = (Tab)tabPool.acquire();
+        Tab var1 = (Tab) tabPool.acquire();
         Tab var2 = var1;
         if (var1 == null) {
             var2 = new Tab();
@@ -476,7 +477,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         Pools.Pool var2 = this.tabViewPool;
         TabView var4;
         if (var2 != null) {
-            var4 = (TabView)var2.acquire();
+            var4 = (TabView) var2.acquire();
         } else {
             var4 = null;
         }
@@ -503,22 +504,22 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     }
 
     public final void dispatchTabReselected(Tab var1) {
-        for(int var2 = this.selectedListeners.size() - 1; var2 >= 0; --var2) {
-            ((BaseOnTabSelectedListener)this.selectedListeners.get(var2)).onTabReselected(var1);
+        for (int var2 = this.selectedListeners.size() - 1; var2 >= 0; --var2) {
+            ((BaseOnTabSelectedListener) this.selectedListeners.get(var2)).onTabReselected(var1);
         }
 
     }
 
     public final void dispatchTabSelected(Tab var1) {
-        for(int var2 = this.selectedListeners.size() - 1; var2 >= 0; --var2) {
-            ((BaseOnTabSelectedListener)this.selectedListeners.get(var2)).onTabSelected(var1);
+        for (int var2 = this.selectedListeners.size() - 1; var2 >= 0; --var2) {
+            ((BaseOnTabSelectedListener) this.selectedListeners.get(var2)).onTabSelected(var1);
         }
 
     }
 
     public final void dispatchTabUnselected(Tab var1) {
-        for(int var2 = this.selectedListeners.size() - 1; var2 >= 0; --var2) {
-            ((BaseOnTabSelectedListener)this.selectedListeners.get(var2)).onTabUnselected(var1);
+        for (int var2 = this.selectedListeners.size() - 1; var2 >= 0; --var2) {
+            ((BaseOnTabSelectedListener) this.selectedListeners.get(var2)).onTabUnselected(var1);
         }
 
     }
@@ -527,10 +528,10 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         if (this.scrollAnimator == null) {
             this.scrollAnimator = new ValueAnimator();
             this.scrollAnimator.setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
-            this.scrollAnimator.setDuration((long)this.tabIndicatorAnimationDuration);
+            this.scrollAnimator.setDuration((long) this.tabIndicatorAnimationDuration);
             this.scrollAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 public void onAnimationUpdate(ValueAnimator var1) {
-                    SamsungBaseTabLayout.this.scrollTo((Integer)var1.getAnimatedValue(), 0);
+                    SamsungBaseTabLayout.this.scrollTo((Integer) var1.getAnimatedValue(), 0);
                 }
             });
         }
@@ -556,7 +557,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     public Tab getTabAt(int var1) {
         Tab var2;
         if (var1 >= 0 && var1 < this.getTabCount()) {
-            var2 = (Tab)this.tabs.get(var1);
+            var2 = (Tab) this.tabs.get(var1);
         } else {
             var2 = null;
         }
@@ -572,8 +573,24 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         return this.tabGravity;
     }
 
+    public void setTabGravity(int var1) {
+        if (this.tabGravity != var1) {
+            this.tabGravity = var1;
+            this.applyModeAndGravity();
+        }
+
+    }
+
     public ColorStateList getTabIconTint() {
         return this.tabIconTint;
+    }
+
+    public void setTabIconTint(ColorStateList var1) {
+        if (this.tabIconTint != var1) {
+            this.tabIconTint = var1;
+            this.updateAllTabs();
+        }
+
     }
 
     public int getTabIndicatorGravity() {
@@ -588,8 +605,30 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         return this.mode;
     }
 
+    public void setTabMode(int var1) {
+        if (var1 != this.mode) {
+            this.mode = var1;
+            this.applyModeAndGravity();
+        }
+
+    }
+
     public ColorStateList getTabRippleColor() {
         return this.tabRippleColorStateList;
+    }
+
+    public void setTabRippleColor(ColorStateList var1) {
+        if (this.tabRippleColorStateList != var1) {
+            this.tabRippleColorStateList = var1;
+
+            for (int var2 = 0; var2 < this.slidingTabIndicator.getChildCount(); ++var2) {
+                View var3 = this.slidingTabIndicator.getChildAt(var2);
+                if (var3 instanceof TabView) {
+                    ((TabView) var3).updateBackgroundDrawable(this.getContext());
+                }
+            }
+        }
+
     }
 
     public Drawable getTabSelectedIndicator() {
@@ -598,6 +637,14 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
 
     public ColorStateList getTabTextColors() {
         return this.tabTextColors;
+    }
+
+    public void setTabTextColors(ColorStateList var1) {
+        if (this.tabTextColors != var1) {
+            this.tabTextColors = var1;
+            this.updateAllTabs();
+        }
+
     }
 
     public Tab newTab() {
@@ -637,7 +684,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     public void onConfigurationChanged(Configuration var1) {
         super.onConfigurationChanged(var1);
 
-        for(int var2 = 0; var2 < this.getTabCount(); ++var2) {
+        for (int var2 = 0; var2 < this.getTabCount(); ++var2) {
             Tab var3 = this.getTabAt(var2);
             if (var3 != null) {
                 TabView var4 = var3.view;
@@ -659,10 +706,10 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     }
 
     public void onDraw(Canvas var1) {
-        for(int var2 = 0; var2 < this.slidingTabIndicator.getChildCount(); ++var2) {
+        for (int var2 = 0; var2 < this.slidingTabIndicator.getChildCount(); ++var2) {
             View var3 = this.slidingTabIndicator.getChildAt(var2);
             if (var3 instanceof TabView) {
-                ((TabView)var3).drawBackground(var1);
+                ((TabView) var3).drawBackground(var1);
             }
         }
 
@@ -679,7 +726,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
 
     @SuppressLint({"RestrictedApi", "WrongConstant"})
     public void onMeasure(int var1, int var2) {
-        int var3 = (int)ViewUtils.dpToPx(this.getContext(), this.getDefaultHeight());
+        int var3 = (int) ViewUtils.dpToPx(this.getContext(), this.getDefaultHeight());
         int var4 = MeasureSpec.getMode(var2);
         boolean var5 = false;
         if (var4 != -2147483648) {
@@ -703,7 +750,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         if (MeasureSpec.getMode(var1) != 0) {
             var2 = this.requestedTabMaxWidth;
             if (var2 <= 0) {
-                var2 = (int)((float)var3 - ViewUtils.dpToPx(this.getContext(), 56));
+                var2 = (int) ((float) var3 - ViewUtils.dpToPx(this.getContext(), 56));
             }
 
             this.tabMaxWidth = var2;
@@ -713,8 +760,10 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         if (this.getChildCount() == 1) {
             View var6;
             boolean var7;
-            label46: {
-                label45: {
+            label46:
+            {
+                label45:
+                {
                     var6 = this.getChildAt(0);
                     var1 = this.mode;
                     if (var1 != 0) {
@@ -752,7 +801,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     public void onVisibilityChanged(View var1, int var2) {
         super.onVisibilityChanged(var1, var2);
 
-        for(var2 = 0; var2 < this.getTabCount(); ++var2) {
+        for (var2 = 0; var2 < this.getTabCount(); ++var2) {
             Tab var4 = this.getTabAt(var2);
             if (var4 != null) {
                 TabView var3 = var4.view;
@@ -787,14 +836,14 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     }
 
     public void removeAllTabs() {
-        for(int var1 = this.slidingTabIndicator.getChildCount() - 1; var1 >= 0; --var1) {
+        for (int var1 = this.slidingTabIndicator.getChildCount() - 1; var1 >= 0; --var1) {
             this.removeTabViewAt(var1);
         }
 
         Iterator var2 = this.tabs.iterator();
 
-        while(var2.hasNext()) {
-            Tab var3 = (Tab)var2.next();
+        while (var2.hasNext()) {
+            Tab var3 = (Tab) var2.next();
             var2.remove();
             var3.reset();
             this.releaseFromTabPool(var3);
@@ -802,7 +851,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
 
         this.selectedTab = null;
     }
-    
+
     public void removeOnTabSelectedListener(OnTabSelectedListener var1) {
         removeOnTabSelectedListener((BaseOnTabSelectedListener) var1);
     }
@@ -813,7 +862,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     }
 
     public final void removeTabViewAt(int var1) {
-        TabView var2 = (TabView)this.slidingTabIndicator.getChildAt(var1);
+        TabView var2 = (TabView) this.slidingTabIndicator.getChildAt(var1);
         this.slidingTabIndicator.removeViewAt(var1);
         if (var2 != null) {
             var2.reset();
@@ -872,10 +921,10 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         if (this.inlineLabel != var1) {
             this.inlineLabel = var1;
 
-            for(int var2 = 0; var2 < this.slidingTabIndicator.getChildCount(); ++var2) {
+            for (int var2 = 0; var2 < this.slidingTabIndicator.getChildCount(); ++var2) {
                 View var3 = this.slidingTabIndicator.getChildAt(var2);
                 if (var3 instanceof TabView) {
-                    ((TabView)var3).updateOrientation();
+                    ((TabView) var3).updateOrientation();
                 }
             }
 
@@ -904,7 +953,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
 
     @Deprecated
     public void setOnTabSelectedListener(OnTabSelectedListener var1) {
-        this.setOnTabSelectedListener((BaseOnTabSelectedListener)var1);
+        this.setOnTabSelectedListener((BaseOnTabSelectedListener) var1);
     }
 
     public void setPagerAdapter(PagerAdapter var1, boolean var2) {
@@ -938,7 +987,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     }
 
     public void setScrollPosition(int var1, float var2, boolean var3, boolean var4) {
-        int var5 = Math.round((float)var1 + var2);
+        int var5 = Math.round((float) var1 + var2);
         if (var5 >= 0 && var5 < this.slidingTabIndicator.getChildCount()) {
             if (var4) {
                 this.slidingTabIndicator.setIndicatorPositionFromTabPosition(var1, var2);
@@ -961,7 +1010,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         if (var1 != 0) {
             this.setSelectedTabIndicator(AppCompatResources.getDrawable(this.getContext(), var1));
         } else {
-            this.setSelectedTabIndicator((Drawable)null);
+            this.setSelectedTabIndicator((Drawable) null);
         }
 
     }
@@ -978,17 +1027,18 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         this.mTabSelectedIndicatorColor = var1;
         Iterator var2 = this.tabs.iterator();
 
-        while(true) {
+        while (true) {
             AbsIndicatorView var3;
             do {
                 if (!var2.hasNext()) {
                     return;
                 }
 
-                var3 = ((Tab)var2.next()).view.mIndicatorView;
-            } while(var3 == null);
+                var3 = ((Tab) var2.next()).view.mIndicatorView;
+            } while (var3 == null);
 
-            label21: {
+            label21:
+            {
                 if (this.mDepthStyle == 2) {
                     int var4 = this.mSubTabSelectedIndicatorColor;
                     if (var4 != -1) {
@@ -1022,13 +1072,13 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         if (var1 < var3) {
             int var4 = 0;
 
-            while(true) {
+            while (true) {
                 boolean var5 = true;
                 if (var4 >= var3) {
-                    ((Tab)this.tabs.get(var1)).view.setSelected(true);
+                    ((Tab) this.tabs.get(var1)).view.setSelected(true);
 
-                    for(var4 = 0; var4 < this.getTabCount(); ++var4) {
-                        TabView var8 = ((Tab)this.tabs.get(var4)).view;
+                    for (var4 = 0; var4 < this.getTabCount(); ++var4) {
+                        TabView var8 = ((Tab) this.tabs.get(var4)).view;
                         if (var4 == var1) {
                             if (var8.textView != null) {
                                 this.startTextColorChangeAnimation(var8.textView, this.getSelectedTabTextColor());
@@ -1042,7 +1092,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                                         var8.mIndicatorView.setShow();
                                     }
                                 } else {
-                                    ((Tab)this.tabs.get(var4)).view.mIndicatorView.setReleased();
+                                    ((Tab) this.tabs.get(var4)).view.mIndicatorView.setReleased();
                                 }
                             }
                         } else {
@@ -1082,22 +1132,6 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
 
     }
 
-    public void setTabGravity(int var1) {
-        if (this.tabGravity != var1) {
-            this.tabGravity = var1;
-            this.applyModeAndGravity();
-        }
-
-    }
-
-    public void setTabIconTint(ColorStateList var1) {
-        if (this.tabIconTint != var1) {
-            this.tabIconTint = var1;
-            this.updateAllTabs();
-        }
-
-    }
-
     public void setTabIconTintResource(int var1) {
         this.setTabIconTint(AppCompatResources.getColorStateList(this.getContext(), var1));
     }
@@ -1107,38 +1141,8 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         ViewCompat.postInvalidateOnAnimation(this.slidingTabIndicator);
     }
 
-    public void setTabMode(int var1) {
-        if (var1 != this.mode) {
-            this.mode = var1;
-            this.applyModeAndGravity();
-        }
-
-    }
-
-    public void setTabRippleColor(ColorStateList var1) {
-        if (this.tabRippleColorStateList != var1) {
-            this.tabRippleColorStateList = var1;
-
-            for(int var2 = 0; var2 < this.slidingTabIndicator.getChildCount(); ++var2) {
-                View var3 = this.slidingTabIndicator.getChildAt(var2);
-                if (var3 instanceof TabView) {
-                    ((TabView)var3).updateBackgroundDrawable(this.getContext());
-                }
-            }
-        }
-
-    }
-
     public void setTabRippleColorResource(int var1) {
         this.setTabRippleColor(AppCompatResources.getColorStateList(this.getContext(), var1));
-    }
-
-    public void setTabTextColors(ColorStateList var1) {
-        if (this.tabTextColors != var1) {
-            this.tabTextColors = var1;
-            this.updateAllTabs();
-        }
-
     }
 
     @Deprecated
@@ -1150,10 +1154,10 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         if (this.unboundedRipple != var1) {
             this.unboundedRipple = var1;
 
-            for(int var2 = 0; var2 < this.slidingTabIndicator.getChildCount(); ++var2) {
+            for (int var2 = 0; var2 < this.slidingTabIndicator.getChildCount(); ++var2) {
                 View var3 = this.slidingTabIndicator.getChildAt(var2);
                 if (var3 instanceof TabView) {
-                    ((TabView)var3).updateBackgroundDrawable(this.getContext());
+                    ((TabView) var3).updateBackgroundDrawable(this.getContext());
                 }
             }
         }
@@ -1216,7 +1220,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
             this.setScrollPosition(var1.getCurrentItem(), 0.0F, true);
         } else {
             this.viewPager = null;
-            this.setPagerAdapter((PagerAdapter)null, false);
+            this.setPagerAdapter((PagerAdapter) null, false);
         }
 
         this.setupViewPagerImplicitly = var3;
@@ -1243,8 +1247,8 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     public final void updateAllTabs() {
         int var1 = this.tabs.size();
 
-        for(int var2 = 0; var2 < var1; ++var2) {
-            ((Tab)this.tabs.get(var2)).updateView();
+        for (int var2 = 0; var2 < var1; ++var2) {
+            ((Tab) this.tabs.get(var2)).updateView();
         }
 
     }
@@ -1253,9 +1257,9 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     public final void updateBadgePosition() {
         ArrayList var1 = this.tabs;
         if (var1 != null && var1.size() != 0) {
-            for(int var2 = 0; var2 < this.tabs.size(); ++var2) {
-                Tab var10 = (Tab)this.tabs.get(var2);
-                TabView var3 = ((Tab)this.tabs.get(var2)).view;
+            for (int var2 = 0; var2 < this.tabs.size(); ++var2) {
+                Tab var10 = (Tab) this.tabs.get(var2);
+                TabView var3 = ((Tab) this.tabs.get(var2)).view;
                 if (var10 != null && var3 != null) {
                     TextView var4 = var3.textView;
                     if (var3.getWidth() > 0 && var4 != null && var4.getWidth() > 0) {
@@ -1264,11 +1268,11 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                         int var6;
                         if (var3.mNBadgeView != null && var3.mNBadgeView.getVisibility() == 0) {
                             var11 = var3.mNBadgeView;
-                            var5 = ((RelativeLayout.LayoutParams)var11.getLayoutParams()).getMarginStart();
+                            var5 = ((RelativeLayout.LayoutParams) var11.getLayoutParams()).getMarginStart();
                             var6 = this.getContext().getResources().getDimensionPixelSize(R.dimen.sesl_tablayout_subtab_n_badge_xoffset);
                         } else if (var3.mDotBadgeView != null && var3.mDotBadgeView.getVisibility() == 0) {
                             var11 = var3.mDotBadgeView;
-                            var5 = ((RelativeLayout.LayoutParams)var11.getLayoutParams()).getMarginStart();
+                            var5 = ((RelativeLayout.LayoutParams) var11.getLayoutParams()).getMarginStart();
                             var6 = this.getContext().getResources().getDimensionPixelSize(R.dimen.sesl_tablayout_subtab_dot_badge_offset_x);
                         } else {
                             var6 = this.getContext().getResources().getDimensionPixelSize(R.dimen.sesl_tablayout_subtab_n_badge_xoffset);
@@ -1279,7 +1283,8 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                             int var7;
                             int var8;
                             int var9;
-                            label56: {
+                            label56:
+                            {
                                 var11.measure(0, 0);
                                 var7 = var11.getMeasuredWidth();
                                 var8 = var3.getWidth();
@@ -1304,7 +1309,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                             }
 
                             var5 = Math.max(0, var5);
-                            RelativeLayout.LayoutParams var12 = (RelativeLayout.LayoutParams)var11.getLayoutParams();
+                            RelativeLayout.LayoutParams var12 = (RelativeLayout.LayoutParams) var11.getLayoutParams();
                             var12.setMarginStart(var5);
                             var12.width = var7;
                             var11.setLayoutParams(var12);
@@ -1328,35 +1333,16 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     }
 
     public void updateTabViews(boolean var1) {
-        for(int var2 = 0; var2 < this.slidingTabIndicator.getChildCount(); ++var2) {
+        for (int var2 = 0; var2 < this.slidingTabIndicator.getChildCount(); ++var2) {
             View var3 = this.slidingTabIndicator.getChildAt(var2);
             var3.setMinimumWidth(this.getTabMinWidth());
-            this.updateTabViewLayoutParams((LinearLayout.LayoutParams)var3.getLayoutParams());
+            this.updateTabViewLayoutParams((LinearLayout.LayoutParams) var3.getLayoutParams());
             if (var1) {
                 var3.requestLayout();
             }
         }
 
         this.updateBadgePosition();
-    }
-
-    private class AdapterChangeListener implements SeslViewPager.OnAdapterChangeListener {
-        public boolean autoRefresh;
-
-        public AdapterChangeListener() {
-        }
-
-        public void onAdapterChanged(SeslViewPager var1, PagerAdapter var2, PagerAdapter var3) {
-            SamsungBaseTabLayout var4 = SamsungBaseTabLayout.this;
-            if (var4.viewPager == var1) {
-                var4.setPagerAdapter(var3, this.autoRefresh);
-            }
-
-        }
-
-        public void setAutoRefresh(boolean var1) {
-            this.autoRefresh = var1;
-        }
     }
 
     @Deprecated
@@ -1369,171 +1355,6 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     }
 
     public interface OnTabSelectedListener extends BaseOnTabSelectedListener<Tab> {
-    }
-
-    private class PagerAdapterObserver extends DataSetObserver {
-        public PagerAdapterObserver() {
-        }
-
-        public void onChanged() {
-            SamsungBaseTabLayout.this.populateFromPagerAdapter();
-        }
-
-        public void onInvalidated() {
-            SamsungBaseTabLayout.this.populateFromPagerAdapter();
-        }
-    }
-
-    private class SlidingTabIndicator extends LinearLayout {
-        public final GradientDrawable defaultSelectionIndicator;
-        public ValueAnimator indicatorAnimator;
-        public int indicatorLeft = -1;
-        public int indicatorRight = -1;
-        public int layoutDirection = -1;
-        public int selectedIndicatorHeight;
-        public final Paint selectedIndicatorPaint;
-        public int selectedPosition = -1;
-        public float selectionOffset;
-
-        public SlidingTabIndicator(Context var2) {
-            super(var2);
-            this.setWillNotDraw(false);
-            this.selectedIndicatorPaint = new Paint();
-            this.defaultSelectionIndicator = new GradientDrawable();
-        }
-
-        public void animateIndicatorToPosition(int var1, int var2) {
-        }
-
-        public boolean childrenNeedLayout() {
-            int var1 = this.getChildCount();
-
-            for(int var2 = 0; var2 < var1; ++var2) {
-                if (this.getChildAt(var2).getWidth() <= 0) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public void draw(Canvas var1) {
-            super.draw(var1);
-        }
-
-        public void onLayout(boolean var1, int var2, int var3, int var4, int var5) {
-            super.onLayout(var1, var2, var3, var4, var5);
-            ValueAnimator var6 = this.indicatorAnimator;
-            if (var6 != null && var6.isRunning()) {
-                this.indicatorAnimator.cancel();
-                long var7 = this.indicatorAnimator.getDuration();
-                this.animateIndicatorToPosition(this.selectedPosition, Math.round((1.0F - this.indicatorAnimator.getAnimatedFraction()) * (float)var7));
-            } else {
-                this.updateIndicatorPosition();
-            }
-
-        }
-
-        @SuppressLint({"RestrictedApi", "WrongConstant"})
-        public void onMeasure(int var1, int var2) {
-            super.onMeasure(var1, var2);
-            if (MeasureSpec.getMode(var1) == 1073741824) {
-                SamsungBaseTabLayout var3 = SamsungBaseTabLayout.this;
-                if (var3.tabGravity == 1 || var3.mode == 2) {
-                    int var4 = this.getChildCount();
-                    byte var5 = 0;
-                    int var6 = 0;
-
-                    int var7;
-                    int var8;
-                    for(var7 = var6; var6 < var4; var7 = var8) {
-                        View var9 = this.getChildAt(var6);
-                        var8 = var7;
-                        if (var9.getVisibility() == 0) {
-                            var8 = Math.max(var7, var9.getMeasuredWidth());
-                        }
-
-                        ++var6;
-                    }
-
-                    if (var7 <= 0) {
-                        return;
-                    }
-
-                    var6 = (int)ViewUtils.dpToPx(this.getContext(), 16);
-                    boolean var11;
-                    if (var7 * var4 > this.getMeasuredWidth() - var6 * 2) {
-                        var3 = SamsungBaseTabLayout.this;
-                        var3.tabGravity = 0;
-                        var3.updateTabViews(false);
-                        var11 = true;
-                    } else {
-                        boolean var12 = false;
-                        var8 = var5;
-
-                        while(true) {
-                            var11 = var12;
-                            if (var8 >= var4) {
-                                break;
-                            }
-
-                            LayoutParams var10 = (LayoutParams)this.getChildAt(var8).getLayoutParams();
-                            if (var10.width != var7 || var10.weight != 0.0F) {
-                                var10.width = var7;
-                                var10.weight = 0.0F;
-                                var12 = true;
-                            }
-
-                            ++var8;
-                        }
-                    }
-
-                    if (var11) {
-                        super.onMeasure(var1, var2);
-                    }
-                }
-
-            }
-        }
-
-        public void onRtlPropertiesChanged(int var1) {
-            super.onRtlPropertiesChanged(var1);
-            if (Build.VERSION.SDK_INT < 23 && this.layoutDirection != var1) {
-                this.requestLayout();
-                this.layoutDirection = var1;
-            }
-
-        }
-
-        public void setIndicatorPositionFromTabPosition(int var1, float var2) {
-            ValueAnimator var3 = this.indicatorAnimator;
-            if (var3 != null && var3.isRunning()) {
-                this.indicatorAnimator.cancel();
-            }
-
-            this.selectedPosition = var1;
-            this.selectionOffset = var2;
-            this.updateIndicatorPosition();
-        }
-
-        public void setSelectedIndicatorColor(int var1) {
-            if (this.selectedIndicatorPaint.getColor() != var1) {
-                this.selectedIndicatorPaint.setColor(var1);
-                ViewCompat.postInvalidateOnAnimation(this);
-            }
-
-        }
-
-        public void setSelectedIndicatorHeight(int var1) {
-            if (this.selectedIndicatorHeight != var1) {
-                this.selectedIndicatorHeight = var1;
-                ViewCompat.postInvalidateOnAnimation(this);
-            }
-
-        }
-
-        public final void updateIndicatorPosition() {
-        }
     }
 
     public static class Tab {
@@ -1554,12 +1375,46 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
             return this.customView;
         }
 
+        public Tab setCustomView(int var1) {
+            this.setCustomView(LayoutInflater.from(this.view.getContext()).inflate(var1, this.view, false));
+            return this;
+        }
+
+        public Tab setCustomView(View var1) {
+            if (this.view.textView != null) {
+                this.view.removeAllViews();
+            }
+
+            this.customView = var1;
+            this.updateView();
+            return this;
+        }
+
         public Drawable getIcon() {
             return this.icon;
         }
 
+        public Tab setIcon(Drawable var1) {
+            this.icon = var1;
+            SamsungBaseTabLayout var2 = this.parent;
+            if (var2.tabGravity == 1 || var2.mode == 2) {
+                this.parent.updateTabViews(true);
+            }
+
+            this.updateView();
+            if (BadgeUtils.USE_COMPAT_PARENT && this.view.hasBadgeDrawable() && this.view.badgeDrawable.isVisible()) {
+                this.view.invalidate();
+            }
+
+            return this;
+        }
+
         public int getPosition() {
             return this.position;
+        }
+
+        public void setPosition(int var1) {
+            this.position = var1;
         }
 
         public int getTabLabelVisibility() {
@@ -1568,6 +1423,16 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
 
         public CharSequence getText() {
             return this.text;
+        }
+
+        public Tab setText(CharSequence var1) {
+            if (TextUtils.isEmpty(this.contentDesc) && !TextUtils.isEmpty(var1)) {
+                this.view.setContentDescription(var1);
+            }
+
+            this.text = var1;
+            this.updateView();
+            return this;
         }
 
         public boolean isSelected() {
@@ -1626,50 +1491,6 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
             return this;
         }
 
-        public Tab setCustomView(int var1) {
-            this.setCustomView(LayoutInflater.from(this.view.getContext()).inflate(var1, this.view, false));
-            return this;
-        }
-
-        public Tab setCustomView(View var1) {
-            if (this.view.textView != null) {
-                this.view.removeAllViews();
-            }
-
-            this.customView = var1;
-            this.updateView();
-            return this;
-        }
-
-        public Tab setIcon(Drawable var1) {
-            this.icon = var1;
-            SamsungBaseTabLayout var2 = this.parent;
-            if (var2.tabGravity == 1 || var2.mode == 2) {
-                this.parent.updateTabViews(true);
-            }
-
-            this.updateView();
-            if (BadgeUtils.USE_COMPAT_PARENT && this.view.hasBadgeDrawable() && this.view.badgeDrawable.isVisible()) {
-                this.view.invalidate();
-            }
-
-            return this;
-        }
-
-        public void setPosition(int var1) {
-            this.position = var1;
-        }
-
-        public Tab setText(CharSequence var1) {
-            if (TextUtils.isEmpty(this.contentDesc) && !TextUtils.isEmpty(var1)) {
-                this.view.setContentDescription(var1);
-            }
-
-            this.text = var1;
-            this.updateView();
-            return this;
-        }
-
         public void updateView() {
             TabView var1 = this.view;
             if (var1 != null) {
@@ -1680,9 +1501,9 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     }
 
     public static class TabLayoutOnPageChangeListener implements SeslViewPager.OnPageChangeListener {
+        public final WeakReference<SamsungBaseTabLayout> tabLayoutRef;
         public int previousScrollState;
         public int scrollState;
-        public final WeakReference<SamsungBaseTabLayout> tabLayoutRef;
 
         public TabLayoutOnPageChangeListener(SamsungBaseTabLayout var1) {
             this.tabLayoutRef = new WeakReference(var1);
@@ -1694,7 +1515,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         }
 
         public void onPageScrolled(int var1, float var2, int var3) {
-            SamsungBaseTabLayout var4 = (SamsungBaseTabLayout)this.tabLayoutRef.get();
+            SamsungBaseTabLayout var4 = (SamsungBaseTabLayout) this.tabLayoutRef.get();
             if (var4 != null) {
                 var3 = this.scrollState;
                 boolean var5 = false;
@@ -1715,7 +1536,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         }
 
         public void onPageSelected(int var1) {
-            SamsungBaseTabLayout var2 = (SamsungBaseTabLayout)this.tabLayoutRef.get();
+            SamsungBaseTabLayout var2 = (SamsungBaseTabLayout) this.tabLayoutRef.get();
             if (var2 != null && var2.getSelectedTabPosition() != var1 && var1 < var2.getTabCount()) {
                 int var3 = this.scrollState;
                 boolean var4;
@@ -1733,6 +1554,208 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         public void reset() {
             this.scrollState = 0;
             this.previousScrollState = 0;
+        }
+    }
+
+    public static class ViewPagerOnTabSelectedListener implements OnTabSelectedListener {
+        public final SeslViewPager viewPager;
+
+        public ViewPagerOnTabSelectedListener(SeslViewPager var1) {
+            this.viewPager = var1;
+        }
+
+        public void onTabReselected(Tab var1) {
+        }
+
+        public void onTabSelected(Tab var1) {
+            this.viewPager.setCurrentItem(var1.getPosition());
+        }
+
+        public void onTabUnselected(Tab var1) {
+        }
+    }
+
+    private class AdapterChangeListener implements SeslViewPager.OnAdapterChangeListener {
+        public boolean autoRefresh;
+
+        public AdapterChangeListener() {
+        }
+
+        public void onAdapterChanged(SeslViewPager var1, PagerAdapter var2, PagerAdapter var3) {
+            SamsungBaseTabLayout var4 = SamsungBaseTabLayout.this;
+            if (var4.viewPager == var1) {
+                var4.setPagerAdapter(var3, this.autoRefresh);
+            }
+
+        }
+
+        public void setAutoRefresh(boolean var1) {
+            this.autoRefresh = var1;
+        }
+    }
+
+    private class PagerAdapterObserver extends DataSetObserver {
+        public PagerAdapterObserver() {
+        }
+
+        public void onChanged() {
+            SamsungBaseTabLayout.this.populateFromPagerAdapter();
+        }
+
+        public void onInvalidated() {
+            SamsungBaseTabLayout.this.populateFromPagerAdapter();
+        }
+    }
+
+    private class SlidingTabIndicator extends LinearLayout {
+        public final GradientDrawable defaultSelectionIndicator;
+        public final Paint selectedIndicatorPaint;
+        public ValueAnimator indicatorAnimator;
+        public int indicatorLeft = -1;
+        public int indicatorRight = -1;
+        public int layoutDirection = -1;
+        public int selectedIndicatorHeight;
+        public int selectedPosition = -1;
+        public float selectionOffset;
+
+        public SlidingTabIndicator(Context var2) {
+            super(var2);
+            this.setWillNotDraw(false);
+            this.selectedIndicatorPaint = new Paint();
+            this.defaultSelectionIndicator = new GradientDrawable();
+        }
+
+        public void animateIndicatorToPosition(int var1, int var2) {
+        }
+
+        public boolean childrenNeedLayout() {
+            int var1 = this.getChildCount();
+
+            for (int var2 = 0; var2 < var1; ++var2) {
+                if (this.getChildAt(var2).getWidth() <= 0) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public void draw(Canvas var1) {
+            super.draw(var1);
+        }
+
+        public void onLayout(boolean var1, int var2, int var3, int var4, int var5) {
+            super.onLayout(var1, var2, var3, var4, var5);
+            ValueAnimator var6 = this.indicatorAnimator;
+            if (var6 != null && var6.isRunning()) {
+                this.indicatorAnimator.cancel();
+                long var7 = this.indicatorAnimator.getDuration();
+                this.animateIndicatorToPosition(this.selectedPosition, Math.round((1.0F - this.indicatorAnimator.getAnimatedFraction()) * (float) var7));
+            } else {
+                this.updateIndicatorPosition();
+            }
+
+        }
+
+        @SuppressLint({"RestrictedApi", "WrongConstant"})
+        public void onMeasure(int var1, int var2) {
+            super.onMeasure(var1, var2);
+            if (MeasureSpec.getMode(var1) == 1073741824) {
+                SamsungBaseTabLayout var3 = SamsungBaseTabLayout.this;
+                if (var3.tabGravity == 1 || var3.mode == 2) {
+                    int var4 = this.getChildCount();
+                    byte var5 = 0;
+                    int var6 = 0;
+
+                    int var7;
+                    int var8;
+                    for (var7 = var6; var6 < var4; var7 = var8) {
+                        View var9 = this.getChildAt(var6);
+                        var8 = var7;
+                        if (var9.getVisibility() == 0) {
+                            var8 = Math.max(var7, var9.getMeasuredWidth());
+                        }
+
+                        ++var6;
+                    }
+
+                    if (var7 <= 0) {
+                        return;
+                    }
+
+                    var6 = (int) ViewUtils.dpToPx(this.getContext(), 16);
+                    boolean var11;
+                    if (var7 * var4 > this.getMeasuredWidth() - var6 * 2) {
+                        var3 = SamsungBaseTabLayout.this;
+                        var3.tabGravity = 0;
+                        var3.updateTabViews(false);
+                        var11 = true;
+                    } else {
+                        boolean var12 = false;
+                        var8 = var5;
+
+                        while (true) {
+                            var11 = var12;
+                            if (var8 >= var4) {
+                                break;
+                            }
+
+                            LayoutParams var10 = (LayoutParams) this.getChildAt(var8).getLayoutParams();
+                            if (var10.width != var7 || var10.weight != 0.0F) {
+                                var10.width = var7;
+                                var10.weight = 0.0F;
+                                var12 = true;
+                            }
+
+                            ++var8;
+                        }
+                    }
+
+                    if (var11) {
+                        super.onMeasure(var1, var2);
+                    }
+                }
+
+            }
+        }
+
+        public void onRtlPropertiesChanged(int var1) {
+            super.onRtlPropertiesChanged(var1);
+            if (Build.VERSION.SDK_INT < 23 && this.layoutDirection != var1) {
+                this.requestLayout();
+                this.layoutDirection = var1;
+            }
+
+        }
+
+        public void setIndicatorPositionFromTabPosition(int var1, float var2) {
+            ValueAnimator var3 = this.indicatorAnimator;
+            if (var3 != null && var3.isRunning()) {
+                this.indicatorAnimator.cancel();
+            }
+
+            this.selectedPosition = var1;
+            this.selectionOffset = var2;
+            this.updateIndicatorPosition();
+        }
+
+        public void setSelectedIndicatorColor(int var1) {
+            if (this.selectedIndicatorPaint.getColor() != var1) {
+                this.selectedIndicatorPaint.setColor(var1);
+                ViewCompat.postInvalidateOnAnimation(this);
+            }
+
+        }
+
+        public void setSelectedIndicatorHeight(int var1) {
+            if (this.selectedIndicatorHeight != var1) {
+                this.selectedIndicatorHeight = var1;
+                ViewCompat.postInvalidateOnAnimation(this);
+            }
+
+        }
+
+        public final void updateIndicatorPosition() {
         }
     }
 
@@ -1767,7 +1790,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
             this.setOrientation(SamsungBaseTabLayout.this.inlineLabel ? HORIZONTAL : VERTICAL);
             this.setClickable(true);
             ViewCompat.setPointerIcon(this, PointerIconCompat.getSystemIcon(this.getContext(), 1002));
-            ViewCompat.setAccessibilityDelegate(this, (AccessibilityDelegateCompat)null);
+            ViewCompat.setAccessibilityDelegate(this, (AccessibilityDelegateCompat) null);
             this.setOnKeyListener(this.mTabViewKeyListener);
             if (SamsungBaseTabLayout.this.mDepthStyle == 1) {
                 ViewCompat.setPaddingRelative(this, 0, SamsungBaseTabLayout.this.tabPaddingTop, 0, SamsungBaseTabLayout.this.tabPaddingBottom);
@@ -1793,7 +1816,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
             int var6 = var5;
 
             int var10;
-            for(int var7 = var5; var3 < var4; var7 = var10) {
+            for (int var7 = var5; var3 < var4; var7 = var10) {
                 View var11 = var1[var3];
                 int var8 = var5;
                 int var9 = var6;
@@ -1887,7 +1910,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                 return null;
             } else {
                 if (BadgeUtils.USE_COMPAT_PARENT) {
-                    var3 = (FrameLayout)var1.getParent();
+                    var3 = (FrameLayout) var1.getParent();
                 }
 
                 return var3;
@@ -1896,6 +1919,14 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
 
         public Tab getTab() {
             return this.tab;
+        }
+
+        public void setTab(Tab var1) {
+            if (var1 != this.tab) {
+                this.tab = var1;
+                this.update();
+            }
+
         }
 
         public final boolean hasBadgeDrawable() {
@@ -2004,7 +2035,8 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
             } else {
                 var6 = var1;
                 if (var5 > 0) {
-                    label80: {
+                    label80:
+                    {
                         if (var4 != 0) {
                             var6 = var1;
                             if (var3 <= var5) {
@@ -2022,7 +2054,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
             if (var7 != null && this.customView == null) {
                 SamsungBaseTabLayout var8 = SamsungBaseTabLayout.this;
                 float var9 = var8.tabTextSize;
-                var8.checkMaxFontScale(var7, (int)var9);
+                var8.checkMaxFontScale(var7, (int) var9);
                 var4 = this.defaultMaxLines;
                 ImageView var15 = this.iconView;
                 boolean var13 = true;
@@ -2056,11 +2088,12 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                         if (var12 > 0) {
                             var14 = var13;
                             if (var11 == 1) {
-                                label89: {
+                                label89:
+                                {
                                     Layout var16 = this.textView.getLayout();
                                     if (var16 != null) {
                                         var14 = var13;
-                                        if (this.approximateLineWidth(var16, 0, var10) <= (float)(this.getMeasuredWidth() - this.getPaddingLeft() - this.getPaddingRight())) {
+                                        if (this.approximateLineWidth(var16, 0, var10) <= (float) (this.getMeasuredWidth() - this.getPaddingLeft() - this.getPaddingRight())) {
                                             break label89;
                                         }
                                     }
@@ -2073,7 +2106,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
 
                     if (var14) {
                         this.textView.setTextSize(0, var10);
-                        SamsungBaseTabLayout.this.checkMaxFontScale(this.textView, (int)var10);
+                        SamsungBaseTabLayout.this.checkMaxFontScale(this.textView, (int) var10);
                         this.textView.setMaxLines(var1);
                         super.onMeasure(var6, var2);
                     }
@@ -2101,7 +2134,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
 
         public boolean onTouchEvent(MotionEvent var1) {
             if (this.isEnabled()) {
-                return this.tab.getCustomView() != null ? super.onTouchEvent(var1) : this.startTabTouchAnimation(var1, (KeyEvent)null);
+                return this.tab.getCustomView() != null ? super.onTouchEvent(var1) : this.startTabTouchAnimation(var1, (KeyEvent) null);
             } else {
                 return super.onTouchEvent(var1);
             }
@@ -2127,7 +2160,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         }
 
         public void reset() {
-            this.setTab((Tab)null);
+            this.setTab((Tab) null);
             this.setSelected(false);
         }
 
@@ -2179,14 +2212,6 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                 }
 
             }
-        }
-
-        public void setTab(Tab var1) {
-            if (var1 != this.tab) {
-                this.tab = var1;
-                this.update();
-            }
-
         }
 
         public final void showMainTabTouchBackground(int var1) {
@@ -2295,7 +2320,8 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                         this.mIsCallPerformClick = true;
                     }
                 } else {
-                    label73: {
+                    label73:
+                    {
                         this.mIsCallPerformClick = false;
                         if (this.tab.position != SamsungBaseTabLayout.this.getSelectedTabPosition()) {
                             TextView var9 = this.textView;
@@ -2592,7 +2618,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                     this.setVisibility(0);
                 } else {
                     var2.setVisibility(8);
-                    var2.setImageDrawable((Drawable)null);
+                    var2.setImageDrawable((Drawable) null);
                 }
             }
 
@@ -2609,18 +2635,18 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                     this.setVisibility(0);
                 } else {
                     var1.setVisibility(8);
-                    var1.setText((CharSequence)null);
+                    var1.setText((CharSequence) null);
                 }
             }
 
             if (var2 != null) {
-                MarginLayoutParams var12 = (MarginLayoutParams)var2.getLayoutParams();
+                MarginLayoutParams var12 = (MarginLayoutParams) var2.getLayoutParams();
                 int var6;
                 if (var5 && var2.getVisibility() == 0) {
                     if (SamsungBaseTabLayout.this.mIconTextGap != -1) {
                         var6 = SamsungBaseTabLayout.this.mIconTextGap;
                     } else {
-                        var6 = (int)ViewUtils.dpToPx(this.getContext(), 8);
+                        var6 = (int) ViewUtils.dpToPx(this.getContext(), 8);
                     }
                 } else {
                     var6 = 0;
@@ -2632,7 +2658,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                     var2.setLayoutParams(var12);
                     var2.requestLayout();
                     if (var1 != null) {
-                        RelativeLayout.LayoutParams var9 = (RelativeLayout.LayoutParams)var1.getLayoutParams();
+                        RelativeLayout.LayoutParams var9 = (RelativeLayout.LayoutParams) var1.getLayoutParams();
                         var9.addRule(13, 0);
                         var9.addRule(15, 1);
                         var9.addRule(17, R.id.icon);
@@ -2654,24 +2680,6 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
             }
 
             TooltipCompat.setTooltipText(this, var8);
-        }
-    }
-
-    public static class ViewPagerOnTabSelectedListener implements OnTabSelectedListener {
-        public final SeslViewPager viewPager;
-
-        public ViewPagerOnTabSelectedListener(SeslViewPager var1) {
-            this.viewPager = var1;
-        }
-
-        public void onTabReselected(Tab var1) {
-        }
-
-        public void onTabSelected(Tab var1) {
-            this.viewPager.setCurrentItem(var1.getPosition());
-        }
-
-        public void onTabUnselected(Tab var1) {
         }
     }
 }

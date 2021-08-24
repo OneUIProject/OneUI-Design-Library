@@ -11,7 +11,6 @@ import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 
 import androidx.appcompat.animation.SeslAnimationUtils;
-import androidx.appcompat.util.SeslMisc;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 

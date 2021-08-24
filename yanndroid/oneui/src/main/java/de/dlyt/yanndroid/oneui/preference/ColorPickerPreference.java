@@ -49,6 +49,14 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
         init(context, attrs);
     }
 
+    public static int convertToColorInt(String argb) throws IllegalArgumentException {
+        if (!argb.startsWith("#")) {
+            argb = "#" + argb;
+        }
+
+        return Color.parseColor(argb);
+    }
+
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {
         int colorInt;
@@ -133,7 +141,8 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
     }
 
     @Override
-    public void onViewModeChanged(int i) { }
+    public void onViewModeChanged(int i) {
+    }
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
@@ -171,14 +180,6 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
 
         if (mPickerType == DETAILED)
             Log.e("ColorPickerPreference", "mAlphaSliderEnabled not supported with detailed mode");
-    }
-
-    public static int convertToColorInt(String argb) throws IllegalArgumentException {
-        if (!argb.startsWith("#")) {
-            argb = "#" + argb;
-        }
-
-        return Color.parseColor(argb);
     }
 
     private void addRecentColor(int color) {
@@ -235,10 +236,10 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
         if (n == 0)
             return "0";
 
-        String str = "" ;
-        for (int i = arrList.size()-1; i > 0; i--){
-            int nums= arrList.get(i);
-            str+= nums ;
+        String str = "";
+        for (int i = arrList.size() - 1; i > 0; i--) {
+            int nums = arrList.get(i);
+            str += nums;
         }
 
         return str;
@@ -246,23 +247,6 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
 
 
     private static class SavedState extends BaseSavedState {
-        Bundle dialogBundle;
-
-        public SavedState(Parcel source) {
-            super(source);
-            dialogBundle = source.readBundle();
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            super.writeToParcel(dest, flags);
-            dest.writeBundle(dialogBundle);
-        }
-
-        public SavedState(Parcelable superState) {
-            super(superState);
-        }
-
         public static final Parcelable.Creator<SavedState> CREATOR =
                 new Parcelable.Creator<SavedState>() {
                     public SavedState createFromParcel(Parcel in) {
@@ -273,5 +257,21 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
                         return new SavedState[size];
                     }
                 };
+        Bundle dialogBundle;
+
+        public SavedState(Parcel source) {
+            super(source);
+            dialogBundle = source.readBundle();
+        }
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeBundle(dialogBundle);
+        }
     }
 }

@@ -36,13 +36,13 @@ public class RelatedCard extends LinearLayout {
 
     }
 
+    public String getTitle() {
+        return mTitle;
+    }
+
     public void setTitle(String title) {
         this.mTitle = title;
         related_title.setText(mTitle);
-    }
-
-    public String getTitle() {
-        return mTitle;
     }
 
     @Override

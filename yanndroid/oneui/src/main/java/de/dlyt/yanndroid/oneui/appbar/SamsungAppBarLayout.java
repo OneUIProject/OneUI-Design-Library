@@ -72,7 +72,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
     public int mTotalScrollRange;
 
     public SamsungAppBarLayout(Context var1) {
-        this(var1, (AttributeSet)null);
+        this(var1, (AttributeSet) null);
     }
 
     public SamsungAppBarLayout(Context var1, AttributeSet var2) {
@@ -110,7 +110,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         }
 
         if (Build.VERSION.SDK_INT >= 21 && var4.hasValue(R.styleable.SamsungAppBarLayout_elevation)) {
-            ViewUtilsLollipop.setDefaultAppBarLayoutStateListAnimator(this, (float)var4.getDimensionPixelSize(R.styleable.SamsungAppBarLayout_elevation, 0));
+            ViewUtilsLollipop.setDefaultAppBarLayoutStateListAnimator(this, (float) var4.getDimensionPixelSize(R.styleable.SamsungAppBarLayout_elevation, 0));
         }
 
         if (var4.hasValue(R.styleable.SamsungAppBarLayout_sesl_layout_heightPercent)) {
@@ -143,9 +143,9 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         this.liftOnScrollTargetViewId = var4.getResourceId(R.styleable.SamsungAppBarLayout_liftOnScrollTargetViewId, -1);
         var4.recycle();
         if (this.mBottomPadding > 0) {
-            mAppBarHeight = (float)this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
+            mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
         } else {
-            mAppBarHeight = (float)this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height);
+            mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height);
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(this, new androidx.core.view.OnApplyWindowInsetsListener() {
@@ -172,7 +172,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
     }
 
     public void addOnOffsetChangedListener(SamsungAppBarLayout.OnOffsetChangedListener var1) {
-        this.addOnOffsetChangedListener((SamsungAppBarLayout.BaseOnOffsetChangedListener)var1);
+        this.addOnOffsetChangedListener((SamsungAppBarLayout.BaseOnOffsetChangedListener) var1);
     }
 
     public boolean checkLayoutParams(android.view.ViewGroup.LayoutParams var1) {
@@ -211,8 +211,8 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         if (var2 != null) {
             int var3 = 0;
 
-            for(int var4 = var2.size(); var3 < var4; ++var3) {
-                SamsungAppBarLayout.BaseOnOffsetChangedListener var5 = (SamsungAppBarLayout.BaseOnOffsetChangedListener)this.mListeners.get(var3);
+            for (int var4 = var2.size(); var3 < var4; ++var3) {
+                SamsungAppBarLayout.BaseOnOffsetChangedListener var5 = (SamsungAppBarLayout.BaseOnOffsetChangedListener) this.mListeners.get(var3);
                 if (var5 != null) {
                     var5.onOffsetChanged(this, var1);
                 }
@@ -224,11 +224,11 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
     public final Activity findActivityOfContext(Context var1) {
         Activity var2 = null;
 
-        while(var2 == null && var1 != null) {
+        while (var2 == null && var1 != null) {
             if (var1 instanceof Activity) {
-                var2 = (Activity)var1;
+                var2 = (Activity) var1;
             } else if (var1 instanceof ContextWrapper) {
-                var1 = ((ContextWrapper)var1).getBaseContext();
+                var1 = ((ContextWrapper) var1).getBaseContext();
             } else {
                 var1 = null;
             }
@@ -246,7 +246,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             if (var4 != null) {
                 var5 = var4.findViewById(this.liftOnScrollTargetViewId);
             } else if (this.getParent() instanceof ViewGroup) {
-                var5 = ((ViewGroup)this.getParent()).findViewById(this.liftOnScrollTargetViewId);
+                var5 = ((ViewGroup) this.getParent()).findViewById(this.liftOnScrollTargetViewId);
             } else {
                 var5 = null;
             }
@@ -257,9 +257,9 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         }
 
         WeakReference var3 = this.liftOnScrollTargetView;
-        var5 = (View)var2;
+        var5 = (View) var2;
         if (var3 != null) {
-            var5 = (View)var3.get();
+            var5 = (View) var3.get();
         }
 
         return var5;
@@ -275,14 +275,23 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
 
     public SamsungAppBarLayout.LayoutParams generateLayoutParams(android.view.ViewGroup.LayoutParams var1) {
         if (Build.VERSION.SDK_INT >= 19 && var1 instanceof android.widget.LinearLayout.LayoutParams) {
-            return new SamsungAppBarLayout.LayoutParams((android.widget.LinearLayout.LayoutParams)var1);
+            return new SamsungAppBarLayout.LayoutParams((android.widget.LinearLayout.LayoutParams) var1);
         } else {
-            return var1 instanceof MarginLayoutParams ? new SamsungAppBarLayout.LayoutParams((MarginLayoutParams)var1) : new SamsungAppBarLayout.LayoutParams(var1);
+            return var1 instanceof MarginLayoutParams ? new SamsungAppBarLayout.LayoutParams((MarginLayoutParams) var1) : new SamsungAppBarLayout.LayoutParams(var1);
         }
     }
 
     public float getCollapsedHeight() {
         return mAppBarHeight;
+    }
+
+    public void setCollapsedHeight(float var1) {
+        StringBuilder var2 = new StringBuilder();
+        var2.append("setCollapsedHeight: height :");
+        var2.append(var1);
+        Log.d("Sesl_AppBarLayout", var2.toString());
+        this.mIsSetCollapsedHeight = true;
+        mAppBarHeight = var1;
     }
 
     public int getDownNestedPreScrollRange() {
@@ -293,9 +302,9 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             int var2 = this.getChildCount() - 1;
 
             int var3;
-            for(var3 = 0; var2 >= 0; var3 = var1) {
+            for (var3 = 0; var2 >= 0; var3 = var1) {
                 View var4 = this.getChildAt(var2);
-                SamsungAppBarLayout.LayoutParams var5 = (SamsungAppBarLayout.LayoutParams)var4.getLayoutParams();
+                SamsungAppBarLayout.LayoutParams var5 = (SamsungAppBarLayout.LayoutParams) var4.getLayoutParams();
                 int var6 = var4.getMeasuredHeight();
                 var1 = var5.scrollFlags;
                 if ((var1 & 5) == 5) {
@@ -337,14 +346,14 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             var1 = var3;
 
             int var4;
-            while(true) {
+            while (true) {
                 var4 = var1;
                 if (var3 >= var2) {
                     break;
                 }
 
                 View var5 = this.getChildAt(var3);
-                SamsungAppBarLayout.LayoutParams var6 = (SamsungAppBarLayout.LayoutParams)var5.getLayoutParams();
+                SamsungAppBarLayout.LayoutParams var6 = (SamsungAppBarLayout.LayoutParams) var5.getLayoutParams();
                 int var7 = var5.getMeasuredHeight();
                 int var8 = var6.topMargin;
                 int var9 = var6.bottomMargin;
@@ -371,6 +380,11 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
 
     public int getLiftOnScrollTargetViewId() {
         return this.liftOnScrollTargetViewId;
+    }
+
+    public void setLiftOnScrollTargetViewId(int var1) {
+        this.liftOnScrollTargetViewId = var1;
+        this.clearLiftOnScrollTargetView();
     }
 
     public final int getMinimumHeightForVisibleOverlappingContent() {
@@ -401,6 +415,14 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         return 0.0F;
     }
 
+    @Deprecated
+    public void setTargetElevation(float var1) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            ViewUtilsLollipop.setDefaultAppBarLayoutStateListAnimator(this, var1);
+        }
+
+    }
+
     public final int getTopInset() {
         WindowInsetsCompat var1 = this.mLastInsets;
         int var2;
@@ -423,14 +445,14 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             var1 = var3;
 
             int var4;
-            while(true) {
+            while (true) {
                 var4 = var1;
                 if (var3 >= var2) {
                     break;
                 }
 
                 View var5 = this.getChildAt(var3);
-                SamsungAppBarLayout.LayoutParams var6 = (SamsungAppBarLayout.LayoutParams)var5.getLayoutParams();
+                SamsungAppBarLayout.LayoutParams var6 = (SamsungAppBarLayout.LayoutParams) var5.getLayoutParams();
                 int var7 = var5.getMeasuredHeight();
                 int var8 = var6.scrollFlags;
                 var4 = var1;
@@ -464,8 +486,8 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
     public final boolean hasCollapsibleChild() {
         int var1 = this.getChildCount();
 
-        for(int var2 = 0; var2 < var1; ++var2) {
-            if (((SamsungAppBarLayout.LayoutParams)this.getChildAt(var2).getLayoutParams()).isCollapsible()) {
+        for (int var2 = 0; var2 < var1; ++var2) {
+            if (((SamsungAppBarLayout.LayoutParams) this.getChildAt(var2).getLayoutParams()).isCollapsible()) {
                 return true;
             }
         }
@@ -496,6 +518,10 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
 
     public boolean isLiftOnScroll() {
         return this.liftOnScroll;
+    }
+
+    public void setLiftOnScroll(boolean var1) {
+        this.liftOnScroll = var1;
     }
 
     public final boolean isLightTheme() {
@@ -531,9 +557,9 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         this.mBottomPadding = this.getContext().getResources().getDimensionPixelSize(R.dimen.sesl_extended_appbar_bottom_padding);
         this.setPadding(0, 0, 0, this.mBottomPadding);
         if (this.mBottomPadding > 0) {
-            mAppBarHeight = (float)this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
+            mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
         } else {
-            mAppBarHeight = (float)this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height);
+            mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height);
         }
 
         TypedValue var3 = new TypedValue();
@@ -603,8 +629,8 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         this.mHaveChildWithInterpolator = false;
         var3 = this.getChildCount();
 
-        for(var2 = 0; var2 < var3; ++var2) {
-            if (((SamsungAppBarLayout.LayoutParams)this.getChildAt(var2).getLayoutParams()).getScrollInterpolator() != null) {
+        for (var2 = 0; var2 < var3; ++var2) {
+            if (((SamsungAppBarLayout.LayoutParams) this.getChildAt(var2).getLayoutParams()).getScrollInterpolator() != null) {
                 this.mHaveChildWithInterpolator = true;
                 break;
             }
@@ -623,9 +649,9 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
     public void onMeasure(int var1, int var2) {
         if (!this.mIsSetCollapsedHeight) {
             if (this.mBottomPadding > 0) {
-                mAppBarHeight = (float)this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
+                mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
             } else {
-                mAppBarHeight = (float)this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height);
+                mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height);
             }
         }
 
@@ -662,7 +688,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
     }
 
     public void removeOnOffsetChangedListener(SamsungAppBarLayout.OnOffsetChangedListener var1) {
-        this.removeOnOffsetChangedListener((SamsungAppBarLayout.BaseOnOffsetChangedListener)var1);
+        this.removeOnOffsetChangedListener((SamsungAppBarLayout.BaseOnOffsetChangedListener) var1);
     }
 
     public void resetPendingAction() {
@@ -675,15 +701,6 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
 
     public void seslSetExpanded(boolean var1) {
         this.setExpanded(var1);
-    }
-
-    public void setCollapsedHeight(float var1) {
-        StringBuilder var2 = new StringBuilder();
-        var2.append("setCollapsedHeight: height :");
-        var2.append(var1);
-        Log.d("Sesl_AppBarLayout", var2.toString());
-        this.mIsSetCollapsedHeight = true;
-        mAppBarHeight = var1;
     }
 
     public void setExpanded(boolean var1) {
@@ -719,15 +736,6 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         this.requestLayout();
     }
 
-    public void setLiftOnScroll(boolean var1) {
-        this.liftOnScroll = var1;
-    }
-
-    public void setLiftOnScrollTargetViewId(int var1) {
-        this.liftOnScrollTargetViewId = var1;
-        this.clearLiftOnScrollTargetView();
-    }
-
     public final boolean setLiftableState(boolean var1) {
         if (this.mLiftable != var1) {
             this.mLiftable = var1;
@@ -761,14 +769,6 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         }
     }
 
-    @Deprecated
-    public void setTargetElevation(float var1) {
-        if (Build.VERSION.SDK_INT >= 21) {
-            ViewUtilsLollipop.setDefaultAppBarLayoutStateListAnimator(this, var1);
-        }
-
-    }
-
     public boolean shouldLift(View var1) {
         View var2 = this.findLiftOnScrollTargetView();
         if (var2 != null) {
@@ -787,7 +787,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
 
     public final void updateInternalHeight() {
         int var1 = this.getWindowHeight();
-        float var2 = (float)var1 * this.mHeightPercent;
+        float var2 = (float) var1 * this.mHeightPercent;
         float var3 = var2;
         if (var2 == 0.0F) {
             var3 = mAppBarHeight;
@@ -811,14 +811,14 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
 
         SamsungCoordinatorLayout.LayoutParams var7;
         try {
-            var7 = (SamsungCoordinatorLayout.LayoutParams)this.getLayoutParams();
+            var7 = (SamsungCoordinatorLayout.LayoutParams) this.getLayoutParams();
         } catch (ClassCastException var6) {
             Log.e("Sesl_AppBarLayout", Log.getStackTraceString(var6));
             var7 = null;
         }
 
         if (var7 != null) {
-            var7.height = (int)var3;
+            var7.height = (int) var3;
             var5 = new StringBuilder();
             var5.append("updateInternalHeight: LayoutParams :");
             var5.append(var7);
@@ -828,6 +828,13 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             this.setLayoutParams(var7);
         }
 
+    }
+
+    public interface BaseOnOffsetChangedListener<T extends SamsungAppBarLayout> {
+        void onOffsetChanged(T var1, int var2);
+    }
+
+    public interface OnOffsetChangedListener extends SamsungAppBarLayout.BaseOnOffsetChangedListener<SamsungAppBarLayout> {
     }
 
     protected static class BaseBehavior<T extends SamsungAppBarLayout> extends HeaderBehavior<T> {
@@ -874,7 +881,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             int var2 = Math.abs(var1);
             int var3 = var0.getChildCount();
 
-            for(var1 = 0; var1 < var3; ++var1) {
+            for (var1 = 0; var1 < var3; ++var1) {
                 View var4 = var0.getChildAt(var1);
                 if (var2 >= var4.getTop() && var2 <= var4.getBottom()) {
                     return var4;
@@ -887,7 +894,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         public final void animateOffsetTo(SamsungCoordinatorLayout var1, T var2, int var3, float var4) {
             int var5;
             if (Math.abs(this.mVelocity) > 0.0F && Math.abs(this.mVelocity) <= 3000.0F) {
-                var5 = (int)((double)(3000.0F - Math.abs(this.mVelocity)) * 0.4D);
+                var5 = (int) ((double) (3000.0F - Math.abs(this.mVelocity)) * 0.4D);
             } else {
                 var5 = 250;
             }
@@ -924,14 +931,14 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                     this.offsetAnimator.setInterpolator(SamsungAppBarLayout.SINE_OUT_80_INTERPOLATOR);
                     this.offsetAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         public void onAnimationUpdate(ValueAnimator var1x) {
-                            SamsungAppBarLayout.BaseBehavior.this.setHeaderTopBottomOffset(var1, var2, (Integer)var1x.getAnimatedValue());
+                            SamsungAppBarLayout.BaseBehavior.this.setHeaderTopBottomOffset(var1, var2, (Integer) var1x.getAnimatedValue());
                         }
                     });
                 } else {
                     var6.cancel();
                 }
 
-                this.offsetAnimator.setDuration((long)Math.min(var4, 600));
+                this.offsetAnimator.setDuration((long) Math.min(var4, 600));
                 this.offsetAnimator.setIntValues(new int[]{var5, var3});
                 this.offsetAnimator.start();
             }
@@ -946,7 +953,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                 boolean var3 = true;
                 boolean var4 = var3;
                 if (var5 != null) {
-                    View var6 = (View)var5.get();
+                    View var6 = (View) var5.get();
                     if (var6 != null && var6.isShown() && !var6.canScrollVertically(-1)) {
                         var4 = var3;
                     } else {
@@ -972,7 +979,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         public final View findFirstScrollingChild(SamsungCoordinatorLayout var1) {
             int var2 = var1.getChildCount();
 
-            for(int var3 = 0; var3 < var2; ++var3) {
+            for (int var3 = 0; var3 < var2; ++var3) {
                 View var4 = var1.getChildAt(var3);
                 if (var4 instanceof NestedScrollingChild || var4 instanceof ListView || var4 instanceof ScrollView) {
                     return var4;
@@ -985,11 +992,11 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         public final int getChildIndexOnOffset(T var1, int var2) {
             int var3 = var1.getChildCount();
 
-            for(int var4 = 0; var4 < var3; ++var4) {
+            for (int var4 = 0; var4 < var3; ++var4) {
                 View var5 = var1.getChildAt(var4);
                 int var6 = var5.getTop();
                 int var7 = var5.getBottom();
-                SamsungAppBarLayout.LayoutParams var10 = (SamsungAppBarLayout.LayoutParams)var5.getLayoutParams();
+                SamsungAppBarLayout.LayoutParams var10 = (SamsungAppBarLayout.LayoutParams) var5.getLayoutParams();
                 int var8 = var6;
                 int var9 = var7;
                 if (checkFlag(var10.getScrollFlags(), 32)) {
@@ -1019,9 +1026,9 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             int var4 = var1.getChildCount();
             byte var5 = 0;
 
-            for(int var6 = 0; var6 < var4; ++var6) {
+            for (int var6 = 0; var6 < var4; ++var6) {
                 View var7 = var1.getChildAt(var6);
-                SamsungAppBarLayout.LayoutParams var8 = (SamsungAppBarLayout.LayoutParams)var7.getLayoutParams();
+                SamsungAppBarLayout.LayoutParams var8 = (SamsungAppBarLayout.LayoutParams) var7.getLayoutParams();
                 Interpolator var9 = var8.getScrollInterpolator();
                 if (var3 >= var7.getTop() && var3 <= var7.getBottom()) {
                     if (var9 != null) {
@@ -1043,8 +1050,8 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
 
                         if (var11 > 0) {
                             var6 = var7.getTop();
-                            float var10 = (float)var11;
-                            var6 = Math.round(var10 * var9.getInterpolation((float)(var3 - var6) / var10));
+                            float var10 = (float) var11;
+                            var6 = Math.round(var10 * var9.getInterpolation((float) (var3 - var6) / var10));
                             return Integer.signum(var2) * (var7.getTop() + var6);
                         }
                     }
@@ -1064,7 +1071,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                 boolean var4 = var2;
                 if (var3 >= 0) {
                     var4 = var2;
-                    if ((((SamsungAppBarLayout.LayoutParams)var1.getChildAt(var3).getLayoutParams()).getScrollFlags() & 65536) == 65536) {
+                    if ((((SamsungAppBarLayout.LayoutParams) var1.getChildAt(var3).getLayoutParams()).getScrollFlags() & 65536) == 65536) {
                         var4 = false;
                     }
                 }
@@ -1083,7 +1090,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                 if (this.offsetToChildIndexOnLayoutIsMinHeight) {
                     var3 = ViewCompat.getMinimumHeight(var6) + var2.getTopInset();
                 } else {
-                    var3 = Math.round((float)var6.getHeight() * this.offsetToChildIndexOnLayoutPerc);
+                    var3 = Math.round((float) var6.getHeight() * this.offsetToChildIndexOnLayoutPerc);
                 }
 
                 this.setHeaderTopBottomOffset(var1, var2, var5 + var3);
@@ -1121,7 +1128,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
 
         @SuppressLint("WrongConstant")
         public boolean onMeasureChild(SamsungCoordinatorLayout var1, T var2, int var3, int var4, int var5, int var6) {
-            if (((SamsungCoordinatorLayout.LayoutParams)var2.getLayoutParams()).height == -2) {
+            if (((SamsungCoordinatorLayout.LayoutParams) var2.getLayoutParams()).height == -2) {
                 var1.onMeasureChild(var2, var3, var4, MeasureSpec.makeMeasureSpec(0, 0), var6);
                 return true;
             } else {
@@ -1157,7 +1164,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                     int var9 = var2.getDownNestedPreScrollRange();
                     this.mIsFlingScrollDown = true;
                     this.mIsFlingScrollUp = false;
-                    if ((double)var2.getBottom() >= (double)var2.getHeight() * 0.52D) {
+                    if ((double) var2.getBottom() >= (double) var2.getHeight() * 0.52D) {
                         this.mIsSetStaticDuration = true;
                     }
 
@@ -1174,7 +1181,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                     var4 = -var2.getUpNestedPreScrollRange();
                     this.mIsFlingScrollDown = false;
                     this.mIsFlingScrollUp = true;
-                    if ((double)var2.getBottom() <= (double)var2.getHeight() * 0.43D) {
+                    if ((double) var2.getBottom() <= (double) var2.getHeight() * 0.43D) {
                         this.mIsSetStaticDuration = true;
                     }
 
@@ -1222,7 +1229,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
 
         public void onRestoreInstanceState(SamsungCoordinatorLayout var1, T var2, Parcelable var3) {
             if (var3 instanceof SamsungAppBarLayout.BaseBehavior.SavedState) {
-                SamsungAppBarLayout.BaseBehavior.SavedState var4 = (SamsungAppBarLayout.BaseBehavior.SavedState)var3;
+                SamsungAppBarLayout.BaseBehavior.SavedState var4 = (SamsungAppBarLayout.BaseBehavior.SavedState) var3;
                 super.onRestoreInstanceState(var1, var2, var4.getSuperState());
                 this.offsetToChildIndexOnLayout = var4.firstVisibleChildIndex;
                 this.offsetToChildIndexOnLayoutPerc = var4.firstVisibleChildPercentageShown;
@@ -1240,7 +1247,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             int var5 = var2.getChildCount();
             boolean var6 = false;
 
-            for(int var7 = 0; var7 < var5; ++var7) {
+            for (int var7 = 0; var7 < var5; ++var7) {
                 View var9 = var2.getChildAt(var7);
                 int var8 = var9.getBottom() + var4;
                 if (var9.getTop() + var4 <= 0 && var8 >= 0) {
@@ -1251,7 +1258,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                     }
 
                     var10.firstVisibleChildAtMinimumHeight = var6;
-                    var10.firstVisibleChildPercentageShown = (float)var8 / (float)var9.getHeight();
+                    var10.firstVisibleChildPercentageShown = (float) var8 / (float) var9.getHeight();
                     return var10;
                 }
             }
@@ -1275,7 +1282,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             }
 
             if (var2.mLifted) {
-                float var8 = (float)(var2.getHeight() - var2.getTotalScrollRange());
+                float var8 = (float) (var2.getHeight() - var2.getTotalScrollRange());
                 if (var8 > SamsungAppBarLayout.mAppBarHeight) {
                     StringBuilder var10 = new StringBuilder();
                     var10.append("CollapsedHeight is bigger than AppBarHeight :");
@@ -1285,7 +1292,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                 }
             }
 
-            if ((float)var2.getBottom() <= SamsungAppBarLayout.mAppBarHeight) {
+            if ((float) var2.getBottom() <= SamsungAppBarLayout.mAppBarHeight) {
                 this.mLifted = true;
                 var2.mLifted = this.mLifted;
                 this.mDiffY_Touch = 0.0F;
@@ -1339,7 +1346,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                             this.mDiffY_Touch = var6 - var7;
                         }
 
-                        if (Math.abs(this.mDiffY_Touch) > (float)this.mTouchSlop) {
+                        if (Math.abs(this.mDiffY_Touch) > (float) this.mTouchSlop) {
                             this.mLastMotionY_Touch = var6;
                         }
 
@@ -1423,10 +1430,10 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             int var3 = var6.size();
             boolean var4 = false;
 
-            for(int var5 = 0; var5 < var3; ++var5) {
-                SamsungCoordinatorLayout.Behavior var7 = ((SamsungCoordinatorLayout.LayoutParams)((View)var6.get(var5)).getLayoutParams()).getBehavior();
+            for (int var5 = 0; var5 < var3; ++var5) {
+                SamsungCoordinatorLayout.Behavior var7 = ((SamsungCoordinatorLayout.LayoutParams) ((View) var6.get(var5)).getLayoutParams()).getBehavior();
                 if (var7 instanceof SamsungAppBarLayout.ScrollingViewBehavior) {
-                    if (((SamsungAppBarLayout.ScrollingViewBehavior)var7).getOverlayTop() != 0) {
+                    if (((SamsungAppBarLayout.ScrollingViewBehavior) var7).getOverlayTop() != 0) {
                         var4 = true;
                     }
 
@@ -1443,7 +1450,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             View var5 = var1.getChildAt(1);
             if (var4 >= 0) {
                 View var6 = var2.getChildAt(var4);
-                SamsungAppBarLayout.LayoutParams var7 = (SamsungAppBarLayout.LayoutParams)var6.getLayoutParams();
+                SamsungAppBarLayout.LayoutParams var7 = (SamsungAppBarLayout.LayoutParams) var6.getLayoutParams();
                 int var8 = var7.getScrollFlags();
                 if ((var8 & 4096) == 4096) {
                     return;
@@ -1482,10 +1489,12 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                     var11 = var4 - var7.bottomMargin;
                 }
 
-                label71: {
-                    label70: {
-                        double var13 = (double)var3;
-                        double var15 = (double)(var11 + var10);
+                label71:
+                {
+                    label70:
+                    {
+                        double var13 = (double) var3;
+                        double var15 = (double) (var11 + var10);
                         if (this.mLifted) {
                             if (var13 >= var15 * 0.52D) {
                                 break label70;
@@ -1501,7 +1510,8 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                     var4 = var10;
                 }
 
-                label63: {
+                label63:
+                {
                     if (this.isScrollHoldMode(var2)) {
                         if (this.mIsFlingScrollUp) {
                             this.mIsFlingScrollUp = false;
@@ -1520,7 +1530,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                         }
 
                         var11 = var4;
-                        if ((float)var5.getTop() <= SamsungAppBarLayout.mAppBarHeight) {
+                        if ((float) var5.getTop() <= SamsungAppBarLayout.mAppBarHeight) {
                             break label63;
                         }
 
@@ -1543,7 +1553,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                         }
 
                         var11 = var4;
-                        if ((float)var5.getTop() <= SamsungAppBarLayout.mAppBarHeight) {
+                        if ((float) var5.getTop() <= SamsungAppBarLayout.mAppBarHeight) {
                             break label63;
                         }
 
@@ -1572,11 +1582,12 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         public final void updateAppBarLayoutDrawableState(SamsungCoordinatorLayout var1, T var2, int var3, int var4, boolean var5) {
             View var6 = getAppBarChildOnOffset(var2, var3);
             if (var6 != null) {
-                int var7 = ((SamsungAppBarLayout.LayoutParams)var6.getLayoutParams()).getScrollFlags();
+                int var7 = ((SamsungAppBarLayout.LayoutParams) var6.getLayoutParams()).getScrollFlags();
                 boolean var8 = false;
                 boolean var9 = var8;
                 if ((var7 & 1) != 0) {
-                    label51: {
+                    label51:
+                    {
                         int var10 = ViewCompat.getMinimumHeight(var6);
                         if (var4 > 0 && (var7 & 12) != 0) {
                             var9 = var8;
@@ -1618,7 +1629,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         protected static class SavedState extends AbsSavedState {
             public static final Creator<SamsungAppBarLayout.BaseBehavior.SavedState> CREATOR = new ClassLoaderCreator<SamsungAppBarLayout.BaseBehavior.SavedState>() {
                 public SamsungAppBarLayout.BaseBehavior.SavedState createFromParcel(Parcel var1) {
-                    return new SamsungAppBarLayout.BaseBehavior.SavedState(var1, (ClassLoader)null);
+                    return new SamsungAppBarLayout.BaseBehavior.SavedState(var1, (ClassLoader) null);
                 }
 
                 public SamsungAppBarLayout.BaseBehavior.SavedState createFromParcel(Parcel var1, ClassLoader var2) {
@@ -1658,10 +1669,6 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                 var1.writeByte((byte) (firstVisibleChildAtMinimumHeight ? 1 : 0));
             }
         }
-    }
-
-    public interface BaseOnOffsetChangedListener<T extends SamsungAppBarLayout> {
-        void onOffsetChanged(T var1, int var2);
     }
 
     public static class Behavior extends SamsungAppBarLayout.BaseBehavior<SamsungAppBarLayout> {
@@ -1723,9 +1730,6 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         }
     }
 
-    public interface OnOffsetChangedListener extends SamsungAppBarLayout.BaseOnOffsetChangedListener<SamsungAppBarLayout> {
-    }
-
     public static class ScrollingViewBehavior extends HeaderScrollingViewBehavior {
         public ScrollingViewBehavior() {
         }
@@ -1738,17 +1742,17 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         }
 
         public static int getAppBarLayoutOffset(SamsungAppBarLayout var0) {
-            SamsungCoordinatorLayout.Behavior var1 = ((SamsungCoordinatorLayout.LayoutParams)var0.getLayoutParams()).getBehavior();
-            return var1 instanceof SamsungAppBarLayout.BaseBehavior ? ((SamsungAppBarLayout.BaseBehavior)var1).getTopBottomOffsetForScrollingSibling() : 0;
+            SamsungCoordinatorLayout.Behavior var1 = ((SamsungCoordinatorLayout.LayoutParams) var0.getLayoutParams()).getBehavior();
+            return var1 instanceof SamsungAppBarLayout.BaseBehavior ? ((SamsungAppBarLayout.BaseBehavior) var1).getTopBottomOffsetForScrollingSibling() : 0;
         }
 
         public SamsungAppBarLayout findFirstDependency(List<View> var1) {
             int var2 = var1.size();
 
-            for(int var3 = 0; var3 < var2; ++var3) {
-                View var4 = (View)var1.get(var3);
+            for (int var3 = 0; var3 < var2; ++var3) {
+                View var4 = (View) var1.get(var3);
                 if (var4 instanceof SamsungAppBarLayout) {
-                    return (SamsungAppBarLayout)var4;
+                    return (SamsungAppBarLayout) var4;
                 }
             }
 
@@ -1757,7 +1761,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
 
         public float getOverlapRatioForOffset(View var1) {
             if (var1 instanceof SamsungAppBarLayout) {
-                SamsungAppBarLayout var5 = (SamsungAppBarLayout)var1;
+                SamsungAppBarLayout var5 = (SamsungAppBarLayout) var1;
                 int var2 = var5.getTotalScrollRange();
                 int var3 = var5.getDownNestedPreScrollRange();
                 int var4 = getAppBarLayoutOffset(var5);
@@ -1767,7 +1771,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
 
                 var2 -= var3;
                 if (var2 != 0) {
-                    return (float)var4 / (float)var2 + 1.0F;
+                    return (float) var4 / (float) var2 + 1.0F;
                 }
             }
 
@@ -1775,7 +1779,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         }
 
         public int getScrollRange(View var1) {
-            return var1 instanceof SamsungAppBarLayout ? ((SamsungAppBarLayout)var1).getTotalScrollRange() : super.getScrollRange(var1);
+            return var1 instanceof SamsungAppBarLayout ? ((SamsungAppBarLayout) var1).getTotalScrollRange() : super.getScrollRange(var1);
         }
 
         public boolean layoutDependsOn(SamsungCoordinatorLayout var1, View var2, View var3) {
@@ -1783,9 +1787,9 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         }
 
         public final void offsetChildAsNeeded(View var1, View var2) {
-            SamsungCoordinatorLayout.Behavior var3 = ((SamsungCoordinatorLayout.LayoutParams)var2.getLayoutParams()).getBehavior();
+            SamsungCoordinatorLayout.Behavior var3 = ((SamsungCoordinatorLayout.LayoutParams) var2.getLayoutParams()).getBehavior();
             if (var3 instanceof SamsungAppBarLayout.BaseBehavior) {
-                SamsungAppBarLayout.BaseBehavior var4 = (SamsungAppBarLayout.BaseBehavior)var3;
+                SamsungAppBarLayout.BaseBehavior var4 = (SamsungAppBarLayout.BaseBehavior) var3;
                 ViewCompat.offsetTopAndBottom(var1, var2.getBottom() - var1.getTop() + var4.offsetDelta + this.getVerticalLayoutGap() - this.getOverlapPixelsForOffset(var2));
             }
 
@@ -1814,7 +1818,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
 
         public final void updateLiftedStateIfNeeded(View var1, View var2) {
             if (var2 instanceof SamsungAppBarLayout) {
-                SamsungAppBarLayout var3 = (SamsungAppBarLayout)var2;
+                SamsungAppBarLayout var3 = (SamsungAppBarLayout) var2;
                 if (var3.isLiftOnScroll()) {
                     var3.setLiftedState(var3.shouldLift(var1));
                 }
