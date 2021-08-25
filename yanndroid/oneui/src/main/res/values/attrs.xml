@@ -78,6 +78,7 @@
     </declare-styleable>
 
     <declare-styleable name="DrawerLayout">
+        <attr name="android:layout" />
         <attr name="toolbar_title" format="string" />
         <attr name="toolbar_subtitle" format="string" />
         <attr name="toolbar_expandable" format="boolean" />
@@ -87,6 +88,7 @@
     </declare-styleable>
 
     <declare-styleable name="ToolBarLayout">
+        <attr name="android:layout" />
         <attr name="title" format="string" />
         <attr name="subtitle" format="string" />
         <attr name="expandable" format="boolean" />

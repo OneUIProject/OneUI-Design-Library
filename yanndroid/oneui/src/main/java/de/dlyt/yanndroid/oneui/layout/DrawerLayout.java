@@ -38,6 +38,7 @@ public class DrawerLayout extends LinearLayout {
     public static final int DRAWER_LAYOUT = 3;
     public static final int DRAWER = 4;
     public static int N_BADGE = -1;
+    private int mLayout;
     private String mToolbarTitle;
     private String mToolbarSubtitle;
     private Boolean mToolbarExpanded;
@@ -58,6 +59,7 @@ public class DrawerLayout extends LinearLayout {
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DrawerLayout, 0, 0);
 
         try {
+            mLayout = attr.getResourceId(R.styleable.DrawerLayout_android_layout, R.layout.samsung_drawerlayout);
             mToolbarTitle = attr.getString(R.styleable.DrawerLayout_toolbar_title);
             mToolbarSubtitle = attr.getString(R.styleable.DrawerLayout_toolbar_subtitle);
             mDrawerIcon = attr.getDrawable(R.styleable.DrawerLayout_drawer_icon);
@@ -68,7 +70,7 @@ public class DrawerLayout extends LinearLayout {
         }
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.samsung_drawerlayout, this, true);
+        inflater.inflate(mLayout, this, true);
 
         drawer_container = findViewById(R.id.drawer_container);
         toolbarLayout = findViewById(R.id.drawer_toolbarlayout);
