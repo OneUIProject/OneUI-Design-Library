@@ -88,12 +88,9 @@ public class DrawerLayout extends LinearLayout {
 
 
         /*drawer logic*/
-        View translationView;
-        try {
-            translationView = findViewById(R.id.drawer_custom_translation);
-        } catch (Resources.NotFoundException e) {
+        View translationView = findViewById(R.id.drawer_custom_translation);
+        if (translationView == null)
             translationView = toolbarLayout;
-        }
 
         View content = translationView;
 
