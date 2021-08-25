@@ -7,14 +7,14 @@
 
     <!-- MainActivity -->
     <LinearLayout
+        android:id="@+id/drawer_custom_translation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <de.dlyt.yanndroid.oneui.RoundFrameLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0.0dip"
-            android:layout_weight="1.0"
-            app:roundedCorners="bottom_left|bottom_right">
+            android:layout_weight="1.0">
             <de.dlyt.yanndroid.oneui.layout.ToolbarLayout
                 android:id="@+id/drawer_toolbarlayout"
                 android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                 </LinearLayout>
 
             </de.dlyt.yanndroid.oneui.layout.ToolbarLayout>
-        </de.dlyt.yanndroid.oneui.RoundFrameLayout>
+        </FrameLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60.0dip"
@@ -94,12 +94,7 @@
                 android:id="@+id/drawer_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <!--drawer content-->
-
-            </LinearLayout>
-
+                android:orientation="vertical"/>
 
         </LinearLayout>
     </LinearLayout>

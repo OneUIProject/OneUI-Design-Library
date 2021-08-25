@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -87,7 +88,15 @@ public class DrawerLayout extends LinearLayout {
 
 
         /*drawer logic*/
-        View content = findViewById(R.id.toolbar_layout_coordinator_layout);
+        View translationView;
+        try {
+            translationView = findViewById(R.id.drawer_custom_translation);
+        } catch (Resources.NotFoundException e) {
+            translationView = toolbarLayout;
+        }
+
+        View content = translationView;
+
         drawerLayout = findViewById(R.id.drawerLayout);
         drawer = findViewById(R.id.drawer);
 
