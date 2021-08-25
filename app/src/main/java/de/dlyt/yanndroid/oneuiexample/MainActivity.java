@@ -10,6 +10,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +29,7 @@ import de.dlyt.yanndroid.oneui.dialog.ProgressDialog;
 import de.dlyt.yanndroid.oneui.dialog.SamsungAlertDialog;
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
+import de.dlyt.yanndroid.oneui.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneuiexample.utils.BaseTabFragment;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
 
@@ -105,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
+        ReflectUtils.genericInvokeMethod(getWindow().getDecorView(), "semSetRoundedCorners", 0);
+
         drawerLayout = findViewById(R.id.drawer_view);
         toolbarLayout = (ToolbarLayout) drawerLayout.getView(DrawerLayout.TOOLBAR);
         bnvLayout = findViewById(R.id.main_samsung_tabs);
@@ -128,6 +133,20 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.setDrawerButtonTooltip(getText(R.string.app_info));
 
         ToolbarLayout toolbarLayout = (ToolbarLayout) drawerLayout.getView(DrawerLayout.TOOLBAR);
+
+        toolbarLayout.getAppBarLayout().addOnOffsetChangedListener((layout, verticalOffset) -> {
+            int totalScrollRange = layout.getTotalScrollRange();
+            int inputMethodWindowVisibleHeight = (int) ReflectUtils.genericInvokeMethod(InputMethodManager.class, mContext.getSystemService(INPUT_METHOD_SERVICE), "getInputMethodWindowVisibleHeight");
+            LinearLayout nothingLayout = findViewById(R.id.nothing_layout);
+            if (nothingLayout != null) {
+                if (totalScrollRange != 0) {
+                    nothingLayout.setTranslationY(((float) (Math.abs(verticalOffset) - totalScrollRange)) / 2.0f);
+                } else {
+                    nothingLayout.setTranslationY(((float) (Math.abs(verticalOffset) - inputMethodWindowVisibleHeight)) / 2.0f);
+                }
+            }
+        });
+
         toolbarLayout.addOverflowButton(false,
                 R.drawable.ic_samsung_info,
                 R.string.app_info,
