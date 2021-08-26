@@ -52,7 +52,7 @@ public class ToolbarLayout extends LinearLayout {
     public static final int NAVIGATION_ICON = 3;
     public static final int COLLAPSED_TITLE = 4;
     public static final int CONTENT_LAYOUT = 5;
-    public static int N_BADGE = -1;
+    public static final int N_BADGE = -1;
     private static String TAG = "ToolbarLayout";
     public ViewGroup navigationBadgeBackground;
     public TextView navigationBadgeText;

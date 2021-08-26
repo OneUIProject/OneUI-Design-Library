@@ -8,12 +8,14 @@ import android.view.animation.Animation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import de.dlyt.yanndroid.oneui.ThemeColor;
 import de.dlyt.yanndroid.oneui.layout.SplashViewAnimated;
 
 public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        new ThemeColor(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
@@ -37,6 +39,5 @@ public class SplashActivity extends AppCompatActivity {
             public void onAnimationRepeat(Animation animation) {
             }
         });
-
     }
 }

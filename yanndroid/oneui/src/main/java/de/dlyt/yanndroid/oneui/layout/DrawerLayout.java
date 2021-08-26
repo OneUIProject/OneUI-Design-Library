@@ -38,7 +38,7 @@ public class DrawerLayout extends LinearLayout {
     public static final int CONTENT_LAYOUT = 2;
     public static final int DRAWER_LAYOUT = 3;
     public static final int DRAWER = 4;
-    public static int N_BADGE = -1;
+    public static final int N_BADGE = -1;
     private int mLayout;
     private String mToolbarTitle;
     private String mToolbarSubtitle;

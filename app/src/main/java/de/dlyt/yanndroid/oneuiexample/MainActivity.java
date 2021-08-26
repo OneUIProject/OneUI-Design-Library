@@ -2,12 +2,17 @@ package de.dlyt.yanndroid.oneuiexample;
 
 import static de.dlyt.yanndroid.oneui.layout.DrawerLayout.DRAWER_LAYOUT;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.util.SeslMisc;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -38,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private String[] mTabsTitleName;
     private String[] mTabsClassName;
 
+    private boolean mIsLightTheme;
     private String sharedPrefName;
 
     private Context mContext;
@@ -49,13 +57,33 @@ public class MainActivity extends AppCompatActivity {
     private ToolbarLayout toolbarLayout;
     private BottomNavigationView bnvLayout;
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         new ThemeColor(this);
+        super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(R.layout.activity_main);
         init();
+    }
+
+    @Override
+    public void attachBaseContext(Context context) {
+        // pre-OneUI
+        if (Build.VERSION.SDK_INT <= 28) {
+            super.attachBaseContext(ThemeColor.createDarkModeContextWrapper(context));
+        } else
+            super.attachBaseContext(context);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // pre-OneUI
+        if (Build.VERSION.SDK_INT <= 28) {
+            Resources res = getResources();
+            res.getConfiguration().setTo(ThemeColor.createDarkModeConfig(mContext, newConfig));
+        }
     }
 
     @Override
@@ -110,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         ReflectUtils.genericInvokeMethod(getWindow().getDecorView(), "semSetRoundedCorners", 0);
 
+        mIsLightTheme = SeslMisc.isLightTheme(mContext);
+
         drawerLayout = findViewById(R.id.drawer_view);
         toolbarLayout = (ToolbarLayout) drawerLayout.getView(DrawerLayout.TOOLBAR);
         bnvLayout = findViewById(R.id.main_samsung_tabs);
@@ -159,6 +189,14 @@ public class MainActivity extends AppCompatActivity {
         toolbarLayout.setMoreMenuButton(getMoreMenuButtonList(),
                 (adapterView, view2, i, j) -> {
                     toolbarLayout.dismissMoreMenuPopupWindow();
+
+                    String obj = adapterView.getAdapter().getItem(i).toString();
+                    if (obj.equals("Set dark theme")) {
+                        ThemeColor.setDarkMode(this, ThemeColor.DARK_MODE_ENABLED);
+                    }
+                    if (obj.equals("Set light theme")) {
+                        ThemeColor.setDarkMode(this, ThemeColor.DARK_MODE_DISABLED);
+                    }
                 });
 
         //BottomNavigationLayout
@@ -348,9 +386,14 @@ public class MainActivity extends AppCompatActivity {
 
     private LinkedHashMap<String, Integer> getMoreMenuButtonList() {
         LinkedHashMap linkedHashMap = new LinkedHashMap();
-        linkedHashMap.put("Menu Item 1", 0);
-        linkedHashMap.put("Menu Item 2", 87);
-        linkedHashMap.put("Menu Item 3", ToolbarLayout.N_BADGE);
+        // pre-OneUI
+        if (Build.VERSION.SDK_INT <= 28) {
+            linkedHashMap.put(mIsLightTheme ? "Set dark theme" : "Set light theme", 0);
+        } else {
+            linkedHashMap.put("Menu Item 1", 0);
+            linkedHashMap.put("Menu Item 2", 87);
+            linkedHashMap.put("Menu Item 3", ToolbarLayout.N_BADGE);
+        }
         return linkedHashMap;
     }
 }
