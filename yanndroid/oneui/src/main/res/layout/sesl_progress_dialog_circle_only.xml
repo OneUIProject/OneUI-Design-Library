@@ -7,10 +7,11 @@
     <de.dlyt.yanndroid.oneui.ProgressBar
         android:id="@id/progress"
         style="?android:progressBarStyleLarge"
-        android:layout_width="60.0dip"
-        android:layout_height="60.0dip"
+        android:layout_width="70.0dip"
+        android:layout_height="70.0dip"
         android:layout_gravity="center"
-        android:indeterminate="true" />
+        android:indeterminate="true"
+        android:padding="5dp" />
 
     <TextView
         android:id="@id/message"

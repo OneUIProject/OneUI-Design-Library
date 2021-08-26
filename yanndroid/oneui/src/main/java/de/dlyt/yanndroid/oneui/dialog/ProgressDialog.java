@@ -161,10 +161,9 @@ public class ProgressDialog extends SamsungAlertDialog {
         super.onCreate(savedInstanceState);
 
         if (mProgressStyle == STYLE_CIRCLE_ONLY) {
-            int width = (int) ((60 * mContext.getResources().getDisplayMetrics().density) + 0.5);
-            int height = (int) ((76 * mContext.getResources().getDisplayMetrics().density) + 0.5);
+            int size = (int) ((70 * mContext.getResources().getDisplayMetrics().density));
             getWindow().setBackgroundDrawableResource(R.drawable.progress_circle_dialog_bg);
-            getWindow().setLayout(width, height);
+            getWindow().setLayout(size, size);
             getWindow().setGravity(Gravity.CENTER);
             setContentView(inflater.inflate(R.layout.sesl_progress_dialog_circle_only, null));
         }
