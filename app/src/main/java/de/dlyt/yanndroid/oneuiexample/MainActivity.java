@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
     private ToolbarLayout toolbarLayout;
     private BottomNavigationView bnvLayout;
 
-    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         new ThemeColor(this);
