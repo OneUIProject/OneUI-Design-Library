@@ -524,6 +524,9 @@ public class ToolbarLayout extends LinearLayout {
                 ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) moreOverflowBadgeBackground.getLayoutParams();
                 lp.width = width;
                 lp.height = (int) getResources().getDimension(R.dimen.sesl_menu_item_badge_size);
+                lp.setMargins(0, getResources().getDimensionPixelSize(R.dimen.sesl_menu_item_badge_top_margin), 0, 0);
+                lp.setMarginStart((int) getDIPForPX(23));
+                lp.setMarginEnd((int) getDIPForPX(7));
                 moreOverflowBadgeBackground.setLayoutParams(lp);
                 moreOverflowBadgeBackground.setVisibility(View.VISIBLE);
             } else if (count == N_BADGE) {

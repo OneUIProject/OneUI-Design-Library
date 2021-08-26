@@ -8,7 +8,6 @@ import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Display;
-import android.view.PointerIcon;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -19,6 +18,8 @@ import androidx.reflect.content.res.SeslConfigurationReflector;
 
 import java.util.ArrayList;
 
+import de.dlyt.yanndroid.oneui.support.ViewSupport;
+import de.dlyt.yanndroid.oneui.support.WindowManagerSupport;
 import de.dlyt.yanndroid.oneui.tabs.SamsungBaseTabLayout;
 
 public class BottomNavigationView extends SamsungBaseTabLayout implements View.OnSystemUiVisibilityChangeListener {
@@ -45,7 +46,7 @@ public class BottomNavigationView extends SamsungBaseTabLayout implements View.O
             if (!(tab == null || tabView == null)) {
                 TextView textView = tab.seslGetTextView();
                 mTextViews.add(textView);
-                tabView.setPointerIcon(PointerIcon.getSystemIcon(getContext(), 1000));
+                ViewSupport.setPointerIcon(tabView, 1000);
             }
         }
         invalidateTabLayout();
@@ -73,7 +74,7 @@ public class BottomNavigationView extends SamsungBaseTabLayout implements View.O
 
         Window window = mActivity.getWindow();
         Point size = new Point();
-        if (isVisibleNaviBar(getContext()) || mActivity.isInMultiWindowMode() || isInSamsungDeXMode(getContext())) {
+        if (isVisibleNaviBar(getContext()) || WindowManagerSupport.isMultiWindowMode(mActivity) || isInSamsungDeXMode(getContext())) {
             window.getWindowManager().getDefaultDisplay().getSize(size);
         } else {
             window.getWindowManager().getDefaultDisplay().getRealSize(size);

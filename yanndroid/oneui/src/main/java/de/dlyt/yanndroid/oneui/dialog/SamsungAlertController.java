@@ -15,6 +15,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -153,6 +154,7 @@ public class SamsungAlertController {
         this.mShowTitle = var4.getBoolean(R.styleable.SamsungAlertDialog_showTitle, true);
         this.mButtonIconDimen = var4.getDimensionPixelSize(R.styleable.SamsungAlertDialog_buttonIconDimen, 0);
         var4.recycle();
+        var3.setGravity(Gravity.BOTTOM);
         var2.supportRequestWindowFeature(1);
     }
 

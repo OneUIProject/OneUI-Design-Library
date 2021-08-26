@@ -6447,11 +6447,10 @@ public class SeslRecyclerView extends ViewGroup implements NestedScrollingChild2
             } else {
                 if (this.mGoToTopView == null) {
                     this.mGoToTopView = new ImageView(this.mContext);
-                    boolean var4 = SeslMisc.isLightTheme(this.mContext);
+
                     if (VERSION.SDK_INT >= 26) {
-                        ImageView var5 = this.mGoToTopView;
                         var3 = this.mContext.getResources().getDrawable(R.drawable.sesl_go_to_top_background, (Resources.Theme) null);
-                        var5.setBackground(var3);
+                        this.mGoToTopView.setBackground(var3);
                         this.mGoToTopView.setElevation((float) this.mGoToTopElevation);
                     }
 
