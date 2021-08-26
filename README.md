@@ -886,5 +886,7 @@ This is for further customization. I added the methode ```getView(int view)``` t
 
 
 ## Special thanks to:
+- [BlackMesa123](https://github.com/BlackMesa123) for a lot of OneUI stuff, more compatibility and his experience.
 - [leonbcode](https://github.com/leonbcode) for github actions, so this library is always up-to-date.
+- [AlirezaIvaz](https://github.com/AlirezaIvaz) for translation correction (Persian) and issue reporting.
 - [nfauv2001](https://github.com/nfauv2001) for helping me out with my english.
