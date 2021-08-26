@@ -3,8 +3,8 @@
     <style name="SamsungTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowBackground">@color/background_color</item>
         <item name="android:statusBarColor">@color/background_color</item>
-        <item name="android:navigationBarColor" tools:targetApi="27">@color/background_color</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/background_color</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
 
         <item name="android:listSeparatorTextViewStyle">@style/ListSeparatorStyle</item>
@@ -24,6 +24,7 @@
         <item name="android:listDivider">@drawable/sesl_list_divider</item>
 
         <item name="android:theme">@style/SamsungStyleMain</item>
+        <item name="theme">@style/SamsungStyleMain</item>
 
         <item name="alertDialogTheme">@style/DialogTheme</item>
         <item name="alertDialogStyle">@style/AlertDialogStyle</item>

@@ -8,6 +8,7 @@
     app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior">
 
     <LinearLayout
+        android:id="@+id/nothing_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -15,12 +16,12 @@
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
-            style="?textAppearanceBody1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nothing"
             android:textAlignment="viewStart"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            style="?textAppearanceListItem"/>
 
     </LinearLayout>
 

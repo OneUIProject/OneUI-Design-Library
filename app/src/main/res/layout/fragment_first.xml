@@ -1,42 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.dlyt.yanndroid.oneui.layout.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawer_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:drawer_icon="@drawable/ic_samsung_info"
-    app:drawer_viewId="@id/viewInDrawer"
-    app:toolbar_subtitle="Design"
-    app:toolbar_title="@string/app_name">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <de.dlyt.yanndroid.oneui.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+
+    <de.dlyt.yanndroid.oneui.RoundLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:roundedCorners="top_left|top_right">
 
-        <de.dlyt.yanndroid.oneui.TabLayout
-            android:id="@+id/tabLayout"
+        <androidx.viewpager.widget.SeslViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="60dp" />
+            android:layout_height="match_parent" />
 
-        <de.dlyt.yanndroid.oneui.RoundLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:roundedCorners="top_left|top_right">
+    </de.dlyt.yanndroid.oneui.RoundLinearLayout>
 
-            <androidx.viewpager.widget.SeslViewPager
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </de.dlyt.yanndroid.oneui.RoundLinearLayout>
-
-
-    </LinearLayout>
-
-    <include
-        android:id="@+id/viewInDrawer"
-        layout="@layout/content_drawer" />
-
-</de.dlyt.yanndroid.oneui.layout.DrawerLayout>
+</LinearLayout>

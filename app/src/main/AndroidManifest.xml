@@ -4,22 +4,27 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/SamsungTheme">
 
         <meta-data
             android:name="SamsungBasicInteraction"
             android:value="SEP10" />
+        <meta-data
+            android:name="com.samsung.android.icon_container.has_icon_container"
+            android:value="true"/>
+        <meta-data
+            android:name="com.samsung.android.icon_container.feature_appicon"
+            android:value="ADAPTIVEICON_SHADOW"/>
 
         <activity
             android:name="de.dlyt.yanndroid.oneuiexample.AboutActivity"
             android:theme="@style/SamsungAboutTheme" />
         <activity
             android:name="de.dlyt.yanndroid.oneuiexample.MainActivity"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode" />
         <activity
             android:name="de.dlyt.yanndroid.oneuiexample.SplashActivity"
             android:theme="@style/SamsungSplashTheme">

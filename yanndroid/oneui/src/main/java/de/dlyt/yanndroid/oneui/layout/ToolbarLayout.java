@@ -52,7 +52,7 @@ public class ToolbarLayout extends LinearLayout {
     public static final int NAVIGATION_ICON = 3;
     public static final int COLLAPSED_TITLE = 4;
     public static final int CONTENT_LAYOUT = 5;
-    public static int N_BADGE = -1;
+    public static final int N_BADGE = -1;
     private static String TAG = "ToolbarLayout";
     public ViewGroup navigationBadgeBackground;
     public TextView navigationBadgeText;
@@ -65,6 +65,7 @@ public class ToolbarLayout extends LinearLayout {
     private View moreMenuPopupAnchor = null;
     private int moreMenuPopupOffX;
     private Drawable mNavigationIcon;
+    private int mLayout;
     private CharSequence mTitle;
     private CharSequence mSubtitle;
     private Boolean mExpandable;
@@ -74,7 +75,7 @@ public class ToolbarLayout extends LinearLayout {
     private MaterialToolbar toolbar;
     private FrameLayout navigationButtonContainer;
     private ToolbarImageButton navigationButton;
-    private MaterialTextView collapsedTitle;
+    private MaterialTextView collapsedTitleView;
     private LinearLayout overflowContainer;
     private FrameLayout moreOverflowButtonContainer;
     private ToolbarImageButton moreOverflowButton;
@@ -88,17 +89,18 @@ public class ToolbarLayout extends LinearLayout {
         TypedArray attr = mContext.getTheme().obtainStyledAttributes(attrs, R.styleable.ToolBarLayout, 0, 0);
 
         try {
-            mTitle = attr.getString(R.styleable.ToolBarLayout_title);
-            mSubtitle = attr.getString(R.styleable.ToolBarLayout_subtitle);
             mExpandable = attr.getBoolean(R.styleable.ToolBarLayout_expandable, true);
             mExpanded = attr.getBoolean(R.styleable.ToolBarLayout_expanded, true);
+            mLayout = attr.getResourceId(R.styleable.ToolBarLayout_android_layout, mExpandable ? R.layout.samsung_appbar_toolbarlayout : R.layout.samsung_toolbar_toolbarlayout);
+            mTitle = attr.getString(R.styleable.ToolBarLayout_title);
+            mSubtitle = attr.getString(R.styleable.ToolBarLayout_subtitle);
             mNavigationIcon = attr.getDrawable(R.styleable.ToolBarLayout_navigationIcon);
         } finally {
             attr.recycle();
         }
 
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(mExpandable ? R.layout.samsung_appbar_toolbarlayout : R.layout.samsung_toolbar_toolbarlayout, this, true);
+        inflater.inflate(mLayout, this, true);
 
         if (mExpandable) {
             appBarLayout = findViewById(R.id.toolbar_layout_app_bar);
@@ -108,7 +110,7 @@ public class ToolbarLayout extends LinearLayout {
 
         navigationButtonContainer = findViewById(R.id.toolbar_layout_navigationButton_container);
         navigationButton = findViewById(R.id.toolbar_layout_navigationButton);
-        collapsedTitle = findViewById(R.id.toolbar_layout_collapsed_title);
+        collapsedTitleView = findViewById(R.id.toolbar_layout_collapsed_title);
         overflowContainer = findViewById(R.id.toolbar_layout_overflow_container);
         moreMenuPopupAnchor = findViewById(R.id.toolbar_layout_popup_window_anchor);
 
@@ -133,7 +135,7 @@ public class ToolbarLayout extends LinearLayout {
             case NAVIGATION_ICON:
                 return navigationButton;
             case COLLAPSED_TITLE:
-                return collapsedTitle;
+                return collapsedTitleView;
             case CONTENT_LAYOUT:
                 return mainContainer;
             default:
@@ -291,11 +293,15 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     public void setTitle(CharSequence title) {
-        mTitle = title;
+        setTitle(title, title);
+    }
+
+    public void setTitle(CharSequence expandedTitle, CharSequence collapsedTitle) {
+        mTitle = collapsedTitle;
         if (mExpandable) {
-            collapsingToolbarLayout.setTitle(mTitle);
+            collapsingToolbarLayout.setTitle(expandedTitle);
         }
-        collapsedTitle.setText(mTitle);
+        collapsedTitleView.setText(mTitle);
     }
 
     public void setSubtitle(CharSequence subtitle) {
@@ -518,6 +524,9 @@ public class ToolbarLayout extends LinearLayout {
                 ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) moreOverflowBadgeBackground.getLayoutParams();
                 lp.width = width;
                 lp.height = (int) getResources().getDimension(R.dimen.sesl_menu_item_badge_size);
+                lp.setMargins(0, getResources().getDimensionPixelSize(R.dimen.sesl_menu_item_badge_top_margin), 0, 0);
+                lp.setMarginStart((int) getDIPForPX(23));
+                lp.setMarginEnd((int) getDIPForPX(7));
                 moreOverflowBadgeBackground.setLayoutParams(lp);
                 moreOverflowBadgeBackground.setVisibility(View.VISIBLE);
             } else if (count == N_BADGE) {
@@ -576,17 +585,17 @@ public class ToolbarLayout extends LinearLayout {
             float toolbarTitleAlphaStart = ((float) collapsingToolbarLayout.getHeight()) * 0.35f;
 
             if (appBarLayout.getHeight() <= ((int) getResources().getDimension(R.dimen.sesl_action_bar_height_with_padding))) {
-                collapsedTitle.setAlpha(1.0f);
+                collapsedTitleView.setAlpha(1.0f);
             } else {
                 float collapsedTitleAlpha = ((150.0f / alphaRange) * (((float) layoutPosition) - toolbarTitleAlphaStart));
 
                 if (collapsedTitleAlpha >= 0.0f && collapsedTitleAlpha <= 255.0f) {
                     collapsedTitleAlpha /= 255.0f;
-                    collapsedTitle.setAlpha(collapsedTitleAlpha);
+                    collapsedTitleView.setAlpha(collapsedTitleAlpha);
                 } else if (collapsedTitleAlpha < 0.0f)
-                    collapsedTitle.setAlpha(0.0f);
+                    collapsedTitleView.setAlpha(0.0f);
                 else
-                    collapsedTitle.setAlpha(1.0f);
+                    collapsedTitleView.setAlpha(1.0f);
             }
         }
     }

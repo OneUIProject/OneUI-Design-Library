@@ -8,6 +8,20 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class ReflectUtils {
+    public static Object genericGetField(Class<?> cl, String fieldName) {
+        Field field;
+        Object requiredObj = null;
+        try {
+            field = cl.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            requiredObj = field.get(null);
+        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
+            Log.e("ReflectUtils.genericGetField", e.toString());
+        }
+
+        return requiredObj;
+    }
+
     public static Object genericGetField(Object obj, String fieldName) {
         Field field;
         Object requiredObj = null;

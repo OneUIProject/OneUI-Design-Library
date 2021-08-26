@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.dlyt.yanndroid.oneui.layout.ToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/preference_fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:expandable="false"
-    app:subtitle="Preferences"
-    app:title="@string/app_name">
-
-    <FrameLayout
-        android:id="@+id/preference_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/item_background_color"
-        android:nestedScrollingEnabled="true" />
-
-</de.dlyt.yanndroid.oneui.layout.ToolbarLayout>
+    android:background="@color/item_background_color" />
