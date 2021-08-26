@@ -98,6 +98,7 @@
 
     <declare-styleable name="AboutPage">
         <attr name="optional_text" format="string" />
+        <attr name="updateable" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="RelatedCard">

@@ -32,6 +32,7 @@ public class AboutPage extends LinearLayout {
     public static final int LOADING = 0;
     public static final int UPDATE_AVAILABLE = 1;
     public static final int NO_UPDATE = 2;
+    public static final int NOT_UPDATEABLE = 3;
     public static final int TOOLBAR = 0;
     public static final int CONTENT_VIEW = 1;
     public static final int VERSION_TEXT = 2;
@@ -46,6 +47,7 @@ public class AboutPage extends LinearLayout {
     private MaterialButton update_button;
     private ProgressBar loading_bar;
     private String optional_text;
+    private boolean updateable;
 
 
     public AboutPage(Context context, @Nullable AttributeSet attrs) {
@@ -54,6 +56,7 @@ public class AboutPage extends LinearLayout {
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.AboutPage, 0, 0);
         try {
             optional_text = attr.getString(R.styleable.AboutPage_optional_text);
+            updateable = attr.getBoolean(R.styleable.AboutPage_updateable, true);
         } finally {
             attr.recycle();
         }
@@ -70,6 +73,7 @@ public class AboutPage extends LinearLayout {
         loading_bar = findViewById(R.id.loading_bar);
 
         setOptionalText(optional_text);
+        if (!updateable) setUpdateState(NOT_UPDATEABLE);
 
         toolbarLayout.setNavigationButtonIcon(getResources().getDrawable(R.drawable.ic_samsung_back, context.getTheme()));
         toolbarLayout.setNavigationIconTooltip(getResources().getText(R.string.sesl_navigate_up));
@@ -159,6 +163,11 @@ public class AboutPage extends LinearLayout {
                 status_text.setVisibility(VISIBLE);
                 status_text.setText(R.string.new_version_is_available);
                 break;
+            case NOT_UPDATEABLE:
+                loading_bar.setVisibility(GONE);
+                update_button.setVisibility(GONE);
+                status_text.setVisibility(GONE);
+                break;
         }
     }
 
@@ -182,7 +191,7 @@ public class AboutPage extends LinearLayout {
     public @interface AboutPageView {
     }
 
-    @IntDef({LOADING, UPDATE_AVAILABLE, NO_UPDATE})
+    @IntDef({LOADING, UPDATE_AVAILABLE, NO_UPDATE, NOT_UPDATEABLE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface UpdateState {
     }
