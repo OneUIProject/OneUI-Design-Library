@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -159,8 +158,12 @@ public class DrawerLayout extends LinearLayout {
         drawerButton.setTooltipText(tooltipText);
     }
 
-    public void setToolbarTitle(String title) {
+    public void setToolbarTitle(CharSequence title) {
         toolbarLayout.setTitle(title);
+    }
+
+    public void setToolbarTitle(CharSequence expandedTitle, CharSequence collapsedTitle) {
+        toolbarLayout.setTitle(expandedTitle, collapsedTitle);
     }
 
     public void setToolbarSubtitle(String subtitle) {
