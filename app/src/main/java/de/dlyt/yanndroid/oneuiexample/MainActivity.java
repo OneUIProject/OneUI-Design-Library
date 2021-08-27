@@ -1,10 +1,6 @@
 package de.dlyt.yanndroid.oneuiexample;
 
-import static de.dlyt.yanndroid.oneui.layout.DrawerLayout.DRAWER_LAYOUT;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -12,15 +8,12 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.util.SeslMisc;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -36,9 +29,12 @@ import de.dlyt.yanndroid.oneui.dialog.ProgressDialog;
 import de.dlyt.yanndroid.oneui.dialog.SamsungAlertDialog;
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
+import de.dlyt.yanndroid.oneui.snackbar.Snackbar;
 import de.dlyt.yanndroid.oneui.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneuiexample.utils.BaseTabFragment;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
+
+import static de.dlyt.yanndroid.oneui.layout.DrawerLayout.DRAWER_LAYOUT;
 
 public class MainActivity extends AppCompatActivity {
     private String[] mTabsTagName;
@@ -358,26 +354,22 @@ public class MainActivity extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(true);
         dialog.setTitle("Title");
         dialog.setMessage("ProgressDialog");
-        dialog.setButton(ProgressDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                progressDialogCircleOnly();
-            }
-        });
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                progressDialogCircleOnly();
-            }
-        });
+        dialog.setButton(ProgressDialog.BUTTON_NEGATIVE, "Cancel", (dialog1, which) -> progressDialogCircleOnly(view));
+        dialog.setOnCancelListener(dialog12 -> progressDialogCircleOnly(view));
         dialog.show();
     }
 
-    private void progressDialogCircleOnly() {
+    private void progressDialogCircleOnly(View view) {
         ProgressDialog dialog = new ProgressDialog(mContext);
         dialog.setProgressStyle(ProgressDialog.STYLE_CIRCLE_ONLY);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
+        dialog.setOnCancelListener(dialog1 -> Snackbar.make(view, "Text label", Snackbar.LENGTH_SHORT).setAction("Action", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        }).show());
         dialog.show();
     }
 

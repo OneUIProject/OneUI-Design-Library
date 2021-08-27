@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/snackbar_layout"
+    class="de.dlyt.yanndroid.oneui.snackbar.SnackbarContentLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|center"
+    android:layout_marginBottom="@dimen/sesl_design_snackbar_layout_padding_bottom"
+    android:background="@drawable/sem_snackbar_frame_mtrl"
+    android:minHeight="44.0dip"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@id/snackbar_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center"
+        android:layout_weight="1.0"
+        android:fontFamily="sec-roboto-light"
+        android:gravity="center_vertical"
+        android:minHeight="17.0dip"
+        android:paddingStart="@dimen/sesl_design_snackbar_text_padding_left"
+        android:paddingEnd="@dimen/sesl_design_snackbar_text_padding_right"
+        android:textAppearance="@android:style/TextAppearance.Small"
+        android:textColor="@color/sesl_design_snackbar_text_color"
+        android:textSize="@dimen/design_snackbar_text_size" />
+
+    <Button
+        android:id="@id/snackbar_action"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="end|center"
+        android:background="@drawable/sem_snackbar_action_button_background"
+        android:fontFamily="sec-roboto-light"
+        android:gravity="center"
+        android:minHeight="44.0dip"
+        android:paddingLeft="@dimen/sesl_design_snackbar_action_padding_left"
+        android:paddingRight="@dimen/sesl_design_snackbar_action_padding_right"
+        android:textAppearance="@android:style/TextAppearance.Small"
+        android:textColor="?colorControlActivated"
+        android:textSize="@dimen/sesl_design_snackbar_action_text_size"
+        android:textStyle="bold"
+        android:visibility="gone" />
+</view>

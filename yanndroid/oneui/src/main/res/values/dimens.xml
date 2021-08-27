@@ -301,4 +301,15 @@
     <dimen name="inset_preference_category_height">16.0dip</dimen>
 
 
+    <!--Snackbar-->
+    <dimen name="sesl_design_snackbar_action_padding_left">20.0dip</dimen>
+    <dimen name="sesl_design_snackbar_action_padding_right">20.0dip</dimen>
+    <dimen name="sesl_design_snackbar_action_padding_top">2.0dip</dimen>
+    <item type="dimen" name="sesl_config_prefSnackWidth">84.0%</item>
+    <dimen name="sesl_design_snackbar_action_text_size">18.0sp</dimen>
+    <dimen name="sesl_design_snackbar_layout_padding_bottom">55.0dip</dimen>
+    <dimen name="sesl_design_snackbar_text_padding_left">20.0dip</dimen>
+    <dimen name="sesl_design_snackbar_text_padding_right">20.0dip</dimen>
+
+
 </resources>

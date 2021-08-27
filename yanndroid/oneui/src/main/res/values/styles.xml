@@ -28,7 +28,6 @@
         <item name="radioButtonStyle">@style/RadioButtonStyle</item>
         <item name="seslSwitchBarStyle">@style/Base.Widget.AppCompat.SeslSwitchBar</item>
         <item name="seekBarStyle">@style/SeekBarStyle</item>
-        <item name="snackbarStyle">@style/SnackBarStyle</item>
         <item name="actionOverflowButtonStyle">@style/ActionButtonOverflow</item>
 
         <item name="android:listPreferredItemPaddingStart">

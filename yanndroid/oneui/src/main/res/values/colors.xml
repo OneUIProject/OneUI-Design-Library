@@ -194,5 +194,10 @@
     <color name="sesl_list_divider_color">#ffe6e6e6</color>
     <color name="tips_card_view_item_color">@color/sesl_white</color>
 
+    <!--Snackbar-->
+    <color name="sesl_design_snackbar_text_color">#fffafafa</color>
+    <color name="sesl_snackbar_action_ripple_color">#40000000</color>
+
+
 
 </resources>
