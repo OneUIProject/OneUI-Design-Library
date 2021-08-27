@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--Dialog--> <!--temporary as it only works on samsung devices-->
-    <style name="DialogStyle" parent="android:Theme.DeviceDefault.Dialog.Alert" />
 
     <!--Related Card-->
     <style name="RelatedButtonStyle">

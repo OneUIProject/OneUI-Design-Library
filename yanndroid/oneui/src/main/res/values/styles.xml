@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--Main-->
-    <style name="SamsungStyleMain">
+    <style name="OneUIStyleMain">
         <item name="colorAccent">?colorSecondary</item>
         <item name="colorBackgroundFloating">@color/sesl_background_floating</item>
         <item name="colorControlActivated">?colorSecondary</item>
@@ -487,9 +487,6 @@
         <item name="android:radius">26dp</item>
         <item name="android:singleLine">true</item>
     </style>
-
-    <!--Dialog--> <!--temporary as it only works on samsung devices-->
-    <style name="DialogStyle" parent="android:Theme.DeviceDefault.Light.Dialog.Alert" />
 
     <!--Tooltip-->
     <style name="TooltipAnimStyle" parent="@android:style/Animation">

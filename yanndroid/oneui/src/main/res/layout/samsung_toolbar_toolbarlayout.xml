@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="?actionBarSize"
         android:paddingStart="@dimen/sesl_action_bar_content_inset"
-        app:popupTheme="@style/SamsungStyleMain">
+        app:popupTheme="@style/OneUIStyleMain">
 
         <LinearLayout
             android:layout_width="fill_parent"
