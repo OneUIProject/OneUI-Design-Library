@@ -256,10 +256,6 @@
 
     <!--Radio-->
     <style name="RadioButtonStyle" parent="@style/Widget.AppCompat.CompoundButton.RadioButton">
-        <item name="android:minWidth">?minTouchTargetSize</item>
-        <item name="android:minHeight">?minTouchTargetSize</item>
-        <item name="enforceMaterialTheme">true</item>
-        <item name="useMaterialThemeColors">true</item>
         <item name="android:background">@drawable/sesl_control_background</item>
         <item name="android:button">@drawable/sesl_btn_radio</item>
     </style>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:background="?android:selectableItemBackground" android:paddingTop="@dimen/widget_multi_btn_preference_padding_top" android:paddingBottom="@dimen/widget_multi_btn_preference_padding_bottom" android:focusable="true" android:clickable="true" android:layout_width="fill_parent" android:layout_height="fill_parent" android:paddingStart="@dimen/widget_multi_btn_preference_padding_start_end" android:paddingEnd="@dimen/widget_multi_btn_preference_padding_start_end"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@+id/image_frame" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <ImageView android:id="@id/icon" android:focusable="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minWidth="@dimen/widget_horizontal_radio_preference_icon_min_width" android:minHeight="@dimen/widget_horizontal_radio_preference_icon_min_height" />
+        <TextView android:textSize="@dimen/widget_two_btn_preference_text_size" android:textColor="@color/radio_preference_text_color" android:gravity="center" android:id="@+id/icon_title" android:focusable="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:fontFamily="sec-roboto-light" />
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:id="@+id/text_frame" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="@dimen/widget_multi_btn_preference_icon_text_size" android:textColor="@color/radio_preference_text_color" android:gravity="center" android:id="@id/title" android:focusable="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/widget_multi_btn_preference_icon_margin_bottom" android:fontFamily="sec-roboto-light" />
+        <TextView android:textSize="@dimen/widget_multi_btn_preference_text_size" android:textColor="@color/radio_preference_text_color" android:gravity="center" android:id="@+id/sub_title" android:focusable="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:fontFamily="sec-roboto-light" />
+    </LinearLayout>
+    <RadioButton android:gravity="center" android:id="@+id/radio_button" android:background="@android:color/transparent" android:focusable="false" android:clickable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/widget_multi_btn_preference_padding_bottom" />
+</LinearLayout>

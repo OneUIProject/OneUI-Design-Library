@@ -193,6 +193,13 @@
     <color name="sesl_switch_divider_color">#ffc4c4c4</color>
     <color name="sesl_list_divider_color">#ffe6e6e6</color>
     <color name="tips_card_view_item_color">@color/sesl_white</color>
+    <color name="widget_multi_button_selected_color">@color/primary_color</color>
+    <color name="widget_multi_button_unselected_color">#ff858585</color>
+    <color name="widget_multi_button_unselected_icon_color">#ff686868</color>
+    <color name="widget_multi_button_divider_color">#ffe6e6e6</color>
+
+
+
 
     <!--Snackbar-->
     <color name="sesl_design_snackbar_text_color">#fffafafa</color>

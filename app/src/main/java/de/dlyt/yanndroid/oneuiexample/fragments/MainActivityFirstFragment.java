@@ -3,22 +3,20 @@ package de.dlyt.yanndroid.oneuiexample.fragments;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.SeslViewPager;
 
 import de.dlyt.yanndroid.oneui.TabLayout;
-import de.dlyt.yanndroid.oneui.drawer.OptionButton;
 import de.dlyt.yanndroid.oneuiexample.R;
 import de.dlyt.yanndroid.oneuiexample.tabs.ViewPagerAdapter;
-import de.dlyt.yanndroid.oneuiexample.utils.BaseTabFragment;
 
-public class MainActivityFirstFragment extends BaseTabFragment {
+public class MainActivityFirstFragment extends Fragment {
 
     private AppCompatActivity mActivity;
     private Context mContext;
@@ -57,20 +55,6 @@ public class MainActivityFirstFragment extends BaseTabFragment {
         super.onConfigurationChanged(newConfig);
         init();
     }
-
-    @Override
-    public boolean onDispatchKeyEvent(KeyEvent keyEvent, View view) {
-        return false;
-    }
-
-    @Override
-    public void onTabSelected() {
-    }
-
-    @Override
-    public void onTabUnselected() {
-    }
-
 
     private void init() {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {

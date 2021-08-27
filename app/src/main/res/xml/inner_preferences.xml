@@ -7,6 +7,21 @@
         android:summary="Creating OneUI apps has never been so easy!"
         android:title="TipsCardView" />
 
+    <PreferenceCategory
+        android:title="HorizontalRadioPreference"
+        android:key="spacing"/>
+
+    <HorizontalRadioPreference
+        android:key="dark_mode"
+        android:title="Dark mode settings"
+        app:entriesImage="@array/inner_preferences_darkmode_entries_image"
+        app:entries="@array/inner_preferences_darkmode_entries"
+        app:entryValues="@array/inner_preferences_darkmode_values"
+        app:viewType="image" />
+    <SwitchPreference
+        android:key="dark_mode_auto"
+        android:title="System default" />
+
     <PreferenceCategory android:title="Switch">
         <SwitchPreference
             android:summary="Summary"

@@ -23,4 +23,17 @@
         <item>#F0FFFF</item>
         <item>#F5F5DC</item>
     </string-array>
+
+    <array name="inner_preferences_darkmode_entries_image">
+        <item>@drawable/display_help_light</item>
+        <item>@drawable/display_help_dark</item>
+    </array>
+    <string-array name="inner_preferences_darkmode_entries">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+    <string-array name="inner_preferences_darkmode_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
 </resources>
