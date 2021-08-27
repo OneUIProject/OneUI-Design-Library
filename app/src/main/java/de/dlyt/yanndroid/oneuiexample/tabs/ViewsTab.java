@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.dlyt.yanndroid.oneui.SeekBar;
 import de.dlyt.yanndroid.oneui.SwitchBar;
 import de.dlyt.yanndroid.oneuiexample.R;
 
@@ -43,6 +44,25 @@ public class ViewsTab extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //SeekBar
+        SeekBar seekBar1 = mRootView.findViewById(R.id.seekbar1);
+        android.widget.SeekBar seekBar2 = mRootView.findViewById(R.id.seekbar2);
+        seekBar1.setOverlapPointForDualColor(70);
+        seekBar2.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(android.widget.SeekBar seekBar, int progress, boolean fromUser) {
+                seekBar1.setSecondaryProgress(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(android.widget.SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(android.widget.SeekBar seekBar) {
+            }
+        });
 
         //SwitchBar
         SwitchBar switchbar = mRootView.findViewById(R.id.switchBar);

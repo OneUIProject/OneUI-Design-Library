@@ -75,6 +75,38 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/ListSeparatorStyle"
+            android:text="SeekBar" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginVertical="10dp"
+                android:orientation="vertical">
+
+                <de.dlyt.yanndroid.oneui.SeekBar
+                    android:id="@+id/seekbar1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    app:seslSeekBarMode="expand" />
+
+                <SeekBar
+                    android:id="@+id/seekbar2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/ListSeparatorStyle"
