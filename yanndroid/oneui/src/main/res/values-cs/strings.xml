@@ -26,6 +26,7 @@
     <string name="sesl_done">Hotovo</string>
     <string name="action_search">Hledat</string>
     <string name="pen_palette_color_green">Zelená</string>
+    <string name="network_connect_is_not_stable">Připojení se nezdařilo. Zkontrolujte připojení k síti a opakujte akci.</string>
     <string name="pen_swatch_color_dark_cyan">Tmavě modrozelená</string>
     <string name="pen_swatch_color_light_red">Světle červená</string>
     <string name="pen_palette_color_custom">Vlastní barva</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Vybráno</string>
     <string name="pen_swatch_color_light_blue">Světle modrá</string>
     <string name="pen_swatch_color_dark_red">Tmavě červená</string>
+    <string name="retry">Opakovat</string>
     <string name="pen_swatch_color_light_cyan">Světle modrozelená</string>
     <string name="pen_swatch_color_dark_yellow">Tmavě žlutá</string>
     <string name="pen_string_red">Červená</string>

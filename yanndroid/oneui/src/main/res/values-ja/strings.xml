@@ -26,6 +26,7 @@
     <string name="sesl_done">完了</string>
     <string name="action_search">検索</string>
     <string name="pen_palette_color_green">緑</string>
+    <string name="network_connect_is_not_stable">接続できませんでした。ネットワーク接続を確認し、再度実行してください。</string>
     <string name="pen_swatch_color_dark_cyan">ダークシアン</string>
     <string name="pen_swatch_color_light_red">ライトレッド</string>
     <string name="pen_palette_color_custom">色を個別に設定</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">選択中</string>
     <string name="pen_swatch_color_light_blue">ライトブルー</string>
     <string name="pen_swatch_color_dark_red">ダークレッド</string>
+    <string name="retry">再試行</string>
     <string name="pen_swatch_color_light_cyan">ライトシアン</string>
     <string name="pen_swatch_color_dark_yellow">ダークイエロー</string>
     <string name="pen_string_red">赤</string>

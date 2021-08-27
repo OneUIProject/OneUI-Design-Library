@@ -26,6 +26,7 @@
     <string name="sesl_done">Tamam</string>
     <string name="action_search">Gözle</string>
     <string name="pen_palette_color_green">Ýaşyl</string>
+    <string name="network_connect_is_not_stable">Birigip bolmady. Tor birikmäňizi barlap, täzeden synanyşyň.</string>
     <string name="pen_swatch_color_dark_cyan">Goýy gök-ýaşyl</string>
     <string name="pen_swatch_color_light_red">Açyk gyzyl</string>
     <string name="pen_palette_color_custom">Laýyk reňk</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Saýlanyldy</string>
     <string name="pen_swatch_color_light_blue">Açyk gök</string>
     <string name="pen_swatch_color_dark_red">Goýy gyzyl</string>
+    <string name="retry">Ýene synan</string>
     <string name="pen_swatch_color_light_cyan">Açyk gök-ýaşyl</string>
     <string name="pen_swatch_color_dark_yellow">Goýy sary</string>
     <string name="pen_string_red">Gyzyl</string>

@@ -26,6 +26,7 @@
     <string name="sesl_done">H.tất</string>
     <string name="action_search">Tìm kiếm</string>
     <string name="pen_palette_color_green">Lục</string>
+    <string name="network_connect_is_not_stable">Không thể kết nối. Hãy kiểm tra kết nối mạng và thử lại.</string>
     <string name="pen_swatch_color_dark_cyan">Xanh thẫm</string>
     <string name="pen_swatch_color_light_red">Đỏ nhạt</string>
     <string name="pen_palette_color_custom">Màu tùy chỉnh</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Đã chọn</string>
     <string name="pen_swatch_color_light_blue">Xanh dương nhạt</string>
     <string name="pen_swatch_color_dark_red">Đỏ đậm</string>
+    <string name="retry">Thử lại</string>
     <string name="pen_swatch_color_light_cyan">Xanh nhạt</string>
     <string name="pen_swatch_color_dark_yellow">Vàng đậm</string>
     <string name="pen_string_red">Đỏ</string>

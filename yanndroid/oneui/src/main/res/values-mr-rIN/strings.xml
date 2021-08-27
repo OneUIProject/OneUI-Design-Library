@@ -26,6 +26,7 @@
     <string name="sesl_done">झाले</string>
     <string name="action_search">शोधा</string>
     <string name="pen_palette_color_green">हिरवा</string>
+    <string name="network_connect_is_not_stable">कनेक्ट करू शकलो नाही. आपले नेटवर्क कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.</string>
     <string name="pen_swatch_color_dark_cyan">गडद हिरवा-निळा रंग</string>
     <string name="pen_swatch_color_light_red">फिकट लाल रंग</string>
     <string name="pen_palette_color_custom">सानुकूल रंग</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">निवडले</string>
     <string name="pen_swatch_color_light_blue">फिकट निळा</string>
     <string name="pen_swatch_color_dark_red">गडद लाल रंग</string>
+    <string name="retry">पुन:प्रयत्न करा</string>
     <string name="pen_swatch_color_light_cyan">फिकट हिरवा-निळा रंग</string>
     <string name="pen_swatch_color_dark_yellow">गडद पिवळा</string>
     <string name="pen_string_red">लाल</string>

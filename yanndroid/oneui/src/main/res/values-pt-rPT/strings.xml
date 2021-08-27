@@ -26,6 +26,7 @@
     <string name="sesl_done">Concluído</string>
     <string name="action_search">Procurar</string>
     <string name="pen_palette_color_green">Verde</string>
+    <string name="network_connect_is_not_stable">Impossível ligar. Verifique a sua ligação de rede e tente novamente.</string>
     <string name="pen_swatch_color_dark_cyan">Ciano escuro</string>
     <string name="pen_swatch_color_light_red">Vermelho claro</string>
     <string name="pen_palette_color_custom">Cor personalizada</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Seleccionado</string>
     <string name="pen_swatch_color_light_blue">Azul claro</string>
     <string name="pen_swatch_color_dark_red">Vermelho escuro</string>
+    <string name="retry">Repetir</string>
     <string name="pen_swatch_color_light_cyan">Ciano claro</string>
     <string name="pen_swatch_color_dark_yellow">Amarelo escuro</string>
     <string name="pen_string_red">Vermelho</string>

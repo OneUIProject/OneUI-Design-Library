@@ -26,6 +26,7 @@
     <string name="sesl_done">Feito</string>
     <string name="action_search">Buscar</string>
     <string name="pen_palette_color_green">Verde</string>
+    <string name="network_connect_is_not_stable">Non se puido conectar. Comproba a conexión de rede e téntao outra vez.</string>
     <string name="pen_swatch_color_dark_cyan">Turquesa escuro</string>
     <string name="pen_swatch_color_light_red">Vermello claro</string>
     <string name="pen_palette_color_custom">Cor personalizada</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Seleccionado</string>
     <string name="pen_swatch_color_light_blue">Azul claro</string>
     <string name="pen_swatch_color_dark_red">Vermello escuro</string>
+    <string name="retry">Reintentar</string>
     <string name="pen_swatch_color_light_cyan">Turquesa claro</string>
     <string name="pen_swatch_color_dark_yellow">Amarelo escuro</string>
     <string name="pen_string_red">Vermello</string>

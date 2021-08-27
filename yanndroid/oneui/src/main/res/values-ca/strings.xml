@@ -26,6 +26,7 @@
     <string name="sesl_done">Realitz</string>
     <string name="action_search">Cercar</string>
     <string name="pen_palette_color_green">Verd</string>
+    <string name="network_connect_is_not_stable">"No s'ha pogut connectar. Si us plau, comprova la connexió de xarxa i torna-ho a intentar."</string>
     <string name="pen_swatch_color_dark_cyan">Cian fosc</string>
     <string name="pen_swatch_color_light_red">Vermell clar</string>
     <string name="pen_palette_color_custom">Color personalitzat</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Seleccionat</string>
     <string name="pen_swatch_color_light_blue">Blau clar</string>
     <string name="pen_swatch_color_dark_red">Vermell fosc</string>
+    <string name="retry">Reintentar</string>
     <string name="pen_swatch_color_light_cyan">Cian clar</string>
     <string name="pen_swatch_color_dark_yellow">Groc fosc</string>
     <string name="pen_string_red">Vermell</string>

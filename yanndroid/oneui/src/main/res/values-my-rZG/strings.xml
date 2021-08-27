@@ -26,6 +26,7 @@
     <string name="sesl_done">ၿပီးပါၿပီ</string>
     <string name="action_search">ရွာေဖြပါ</string>
     <string name="pen_palette_color_green">အစိမ္းေရာင္</string>
+    <string name="network_connect_is_not_stable">ခ်ိတ္ဆက္၍ မရႏုိင္ပါ။ သင္၏ ကြန္ရက္ခ်ိတ္ဆက္မႈကို စစ္ေဆးၿပီးေနာက္ ထပ္ႀကိဳးစားပါ။</string>
     <string name="pen_swatch_color_dark_cyan">စိမ္းျပာေရာင္</string>
     <string name="pen_swatch_color_light_red">အနီႏု</string>
     <string name="pen_palette_color_custom">စိတ္ႀကိဳက္အေရာင္</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">ေ႐ြးထားသည္</string>
     <string name="pen_swatch_color_light_blue">အျပာႏု</string>
     <string name="pen_swatch_color_dark_red">အနီရင့္</string>
+    <string name="retry">ျပန္ႀကိဳးစားပါ</string>
     <string name="pen_swatch_color_light_cyan">အျပာႏုေရာင္</string>
     <string name="pen_swatch_color_dark_yellow">အဝါရင့္ေရာင္</string>
     <string name="pen_string_red">အနီ</string>

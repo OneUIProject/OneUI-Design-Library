@@ -26,6 +26,7 @@
     <string name="sesl_done">Tayyor</string>
     <string name="action_search">Qidirish</string>
     <string name="pen_palette_color_green">Yashil</string>
+    <string name="network_connect_is_not_stable">Ulanib bo‘lmadi. Tarmoq ulanishini tekshiring va qayta urinib ko‘ring.</string>
     <string name="pen_swatch_color_dark_cyan">To‘q moviy</string>
     <string name="pen_swatch_color_light_red">Och qizil</string>
     <string name="pen_palette_color_custom">Maxsus rang</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Tanlangan</string>
     <string name="pen_swatch_color_light_blue">Och ko‘k</string>
     <string name="pen_swatch_color_dark_red">To‘q qizil</string>
+    <string name="retry">Qayta urin</string>
     <string name="pen_swatch_color_light_cyan">Och moviy</string>
     <string name="pen_swatch_color_dark_yellow">To‘q sariq</string>
     <string name="pen_string_red">Qizil</string>

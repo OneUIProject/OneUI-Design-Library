@@ -26,6 +26,7 @@
     <string name="sesl_done">ਪੂਰਨ</string>
     <string name="action_search">ਖੋਜੋ</string>
     <string name="pen_palette_color_green">ਹਰਾ</string>
+    <string name="network_connect_is_not_stable">ਕਨੈਕਟ ਨਹੀਂ ਕਰ ਸਕੇ। ਆਪਣੇ ਨੈੱਟਵਰਕ ਕਨੈਕਸ਼ਨ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
     <string name="pen_swatch_color_dark_cyan">ਡਾਰਕ ਸਿਆਨ</string>
     <string name="pen_swatch_color_light_red">ਹਲਕਾ ਲਾਲ</string>
     <string name="pen_palette_color_custom">ਕਸਟਮ ਰੰਗ</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">ਚੁਣਿਆ</string>
     <string name="pen_swatch_color_light_blue">ਹਲਕਾ ਨੀਲਾ</string>
     <string name="pen_swatch_color_dark_red">ਗੂੜਾ ਲਾਲ</string>
+    <string name="retry">ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
     <string name="pen_swatch_color_light_cyan">ਹਲਕਾ ਸਿਆਨ</string>
     <string name="pen_swatch_color_dark_yellow">ਗੂੜ੍ਹਾ ਪੀਲਾ</string>
     <string name="pen_string_red">ਲਾਲ</string>

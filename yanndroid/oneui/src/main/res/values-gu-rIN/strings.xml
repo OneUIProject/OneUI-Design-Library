@@ -26,6 +26,7 @@
     <string name="sesl_done">પૂર્ણ થયું</string>
     <string name="action_search">શોધો</string>
     <string name="pen_palette_color_green">લીલો</string>
+    <string name="network_connect_is_not_stable">જોડી શકાયું નથી. તમારું નેટવર્ક જોડાણ તપાસો અને ફરી પ્રયાસ કરો.</string>
     <string name="pen_swatch_color_dark_cyan">ઘેરો સ્યાન</string>
     <string name="pen_swatch_color_light_red">આછો લાલ</string>
     <string name="pen_palette_color_custom">કસ્ટમ રંગ</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">પસંદ કરેલ</string>
     <string name="pen_swatch_color_light_blue">આછો ભૂરો</string>
     <string name="pen_swatch_color_dark_red">ઘેરો લાલ</string>
+    <string name="retry">પુનઃપ્રયાસ કરો</string>
     <string name="pen_swatch_color_light_cyan">આછો સ્યાન</string>
     <string name="pen_swatch_color_dark_yellow">ઘેરો પીળો</string>
     <string name="pen_string_red">લાલ</string>

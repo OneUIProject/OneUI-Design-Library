@@ -29,10 +29,11 @@ import de.dlyt.yanndroid.oneui.R;
 
 public class AboutPage extends LinearLayout {
 
+    public static final int NOT_UPDATEABLE = -1;
     public static final int LOADING = 0;
     public static final int UPDATE_AVAILABLE = 1;
     public static final int NO_UPDATE = 2;
-    public static final int NOT_UPDATEABLE = 3;
+    public static final int NO_CONNECTION = 3;
     public static final int TOOLBAR = 0;
     public static final int CONTENT_VIEW = 1;
     public static final int VERSION_TEXT = 2;
@@ -45,9 +46,10 @@ public class AboutPage extends LinearLayout {
     private TextView status_text;
     private TextView about_optional_text;
     private MaterialButton update_button;
+    private MaterialButton retry_button;
     private ProgressBar loading_bar;
     private String optional_text;
-    private boolean updateable;
+    private int update_state;
 
 
     public AboutPage(Context context, @Nullable AttributeSet attrs) {
@@ -56,7 +58,7 @@ public class AboutPage extends LinearLayout {
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.AboutPage, 0, 0);
         try {
             optional_text = attr.getString(R.styleable.AboutPage_optional_text);
-            updateable = attr.getBoolean(R.styleable.AboutPage_updateable, true);
+            update_state = attr.getInt(R.styleable.AboutPage_update_state, 0);
         } finally {
             attr.recycle();
         }
@@ -70,10 +72,11 @@ public class AboutPage extends LinearLayout {
         status_text = findViewById(R.id.status_text);
         about_optional_text = findViewById(R.id.about_optional_text);
         update_button = findViewById(R.id.update_button);
+        retry_button = findViewById(R.id.retry_button);
         loading_bar = findViewById(R.id.loading_bar);
 
         setOptionalText(optional_text);
-        if (!updateable) setUpdateState(NOT_UPDATEABLE);
+        setUpdateState(update_state);
 
         toolbarLayout.setNavigationButtonIcon(getResources().getDrawable(R.drawable.ic_samsung_back, context.getTheme()));
         toolbarLayout.setNavigationIconTooltip(getResources().getText(R.string.sesl_navigate_up));
@@ -144,30 +147,45 @@ public class AboutPage extends LinearLayout {
         update_button.setOnClickListener(listener);
     }
 
+    public void setRetryButtonOnClickListener(OnClickListener listener) {
+        retry_button.setOnClickListener(listener);
+    }
+
     public void setUpdateState(@UpdateState int state) {
         switch (state) {
             case LOADING:
                 loading_bar.setVisibility(VISIBLE);
                 update_button.setVisibility(GONE);
+                retry_button.setVisibility(GONE);
                 status_text.setVisibility(GONE);
                 break;
             case NO_UPDATE:
                 loading_bar.setVisibility(GONE);
                 update_button.setVisibility(GONE);
+                retry_button.setVisibility(GONE);
                 status_text.setVisibility(VISIBLE);
                 status_text.setText(R.string.latest_version_installed);
                 break;
             case UPDATE_AVAILABLE:
                 loading_bar.setVisibility(GONE);
                 update_button.setVisibility(VISIBLE);
+                retry_button.setVisibility(GONE);
                 status_text.setVisibility(VISIBLE);
                 status_text.setText(R.string.new_version_is_available);
                 break;
             case NOT_UPDATEABLE:
                 loading_bar.setVisibility(GONE);
                 update_button.setVisibility(GONE);
+                retry_button.setVisibility(GONE);
                 status_text.setVisibility(GONE);
                 break;
+            case NO_CONNECTION:
+                loading_bar.setVisibility(GONE);
+                update_button.setVisibility(GONE);
+                retry_button.setVisibility(VISIBLE);
+                status_text.setVisibility(VISIBLE);
+                status_text.setText(R.string.network_connect_is_not_stable);
+
         }
     }
 
@@ -191,7 +209,7 @@ public class AboutPage extends LinearLayout {
     public @interface AboutPageView {
     }
 
-    @IntDef({LOADING, UPDATE_AVAILABLE, NO_UPDATE, NOT_UPDATEABLE})
+    @IntDef({LOADING, UPDATE_AVAILABLE, NO_UPDATE, NOT_UPDATEABLE, NO_CONNECTION})
     @Retention(RetentionPolicy.SOURCE)
     public @interface UpdateState {
     }

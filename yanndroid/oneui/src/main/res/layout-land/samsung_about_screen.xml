@@ -61,23 +61,23 @@
                 android:text="@string/latest_version_installed"
                 android:textColor="@color/sesl_radiobutton_text_color"
                 android:textSize="16.0sp"
-                android:textStyle="normal"
-                android:visibility="gone" />
+                android:textStyle="normal" />
 
             <ProgressBar
                 android:id="@+id/loading_bar"
                 style="@style/ProgressBarStyle.Circle"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:visibility="visible" />
+                android:layout_height="50dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/update_button"
-                style="@style/ButtonStyle.Invert"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:text="@string/sesl_update"
-                android:visibility="gone" />
+                style="@style/AboutPageButtonStyle.Update"
+                android:text="@string/sesl_update" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/retry_button"
+                style="@style/AboutPageButtonStyle.Update"
+                android:text="@string/retry" />
 
 
         </LinearLayout>

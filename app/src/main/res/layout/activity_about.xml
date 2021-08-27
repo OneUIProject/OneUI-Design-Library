@@ -5,6 +5,7 @@
     android:id="@+id/about_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:optional_text="Optional"
     tools:context=".AboutActivity">
 
@@ -22,5 +23,15 @@
         android:id="@+id/about_btn3"
         style="@style/AboutPageButtonStyle"
         android:text="Update available" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/about_btn4"
+        style="@style/AboutPageButtonStyle"
+        android:text="Not Updateable" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/about_btn5"
+        style="@style/AboutPageButtonStyle"
+        android:text="No Connection" />
 
 </de.dlyt.yanndroid.oneui.layout.AboutPage>

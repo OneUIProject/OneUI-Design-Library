@@ -12,8 +12,6 @@
     <string name="sesl_cancel">Cancel</string>
     <string name="sesl_done">Done</string>
     <string name="sesl_button">Button</string>
-    <string name="sesl_version">Version</string>
-    <string name="sesl_update">Update</string>
     <string name="sesl_navigate_up">Navigate up</string>
     <string name="sesl_navigation_drawer">Navigation drawer</string>
 
@@ -37,6 +35,10 @@
 
     <string name="latest_version_installed">The latest version is already installed.</string>
     <string name="new_version_is_available">A new version is available.</string>
+    <string name="network_connect_is_not_stable">"Couldn't connect. Check your network connection and try again."</string>
+    <string name="sesl_version">Version</string>
+    <string name="sesl_update">Update</string>
+    <string name="retry">Retry</string>
     <string name="app_info">App info</string>
 
     <string name="sesl_toolbar_collapse_description">Collapse</string>

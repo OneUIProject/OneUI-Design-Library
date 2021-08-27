@@ -26,6 +26,7 @@
     <string name="sesl_done">Gotowe</string>
     <string name="action_search">Szukaj</string>
     <string name="pen_palette_color_green">Zielony</string>
+    <string name="network_connect_is_not_stable">Błąd nawiązywania połączenia. Sprawdź połączenie sieciowe i spróbuj ponownie.</string>
     <string name="pen_swatch_color_dark_cyan">Ciemny cyjan</string>
     <string name="pen_swatch_color_light_red">Jasnoczerwony</string>
     <string name="pen_palette_color_custom">Niestandardowy kolor</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Wybrane</string>
     <string name="pen_swatch_color_light_blue">Jasnoniebieski</string>
     <string name="pen_swatch_color_dark_red">Ciemnoczerwony</string>
+    <string name="retry">Ponów</string>
     <string name="pen_swatch_color_light_cyan">Jasny cyjan</string>
     <string name="pen_swatch_color_dark_yellow">Ciemnożółty</string>
     <string name="pen_string_red">Czerwony</string>

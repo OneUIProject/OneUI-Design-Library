@@ -26,6 +26,7 @@
     <string name="sesl_done">Gereed</string>
     <string name="action_search">Zoeken</string>
     <string name="pen_palette_color_green">Groen</string>
+    <string name="network_connect_is_not_stable">Kan niet verbinden. Controleer uw netwerkverbinding en probeer het opnieuw.</string>
     <string name="pen_swatch_color_dark_cyan">Donkercyaan</string>
     <string name="pen_swatch_color_light_red">Lichtrood</string>
     <string name="pen_palette_color_custom">Aangepaste kleur</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Geselecteerd</string>
     <string name="pen_swatch_color_light_blue">Lichtblauw</string>
     <string name="pen_swatch_color_dark_red">Donkerrood</string>
+    <string name="retry">Opnieuw</string>
     <string name="pen_swatch_color_light_cyan">Lichtcyaan</string>
     <string name="pen_swatch_color_dark_yellow">Donkergeel</string>
     <string name="pen_string_red">Rood</string>

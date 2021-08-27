@@ -26,6 +26,7 @@
     <string name="sesl_done">Selesai</string>
     <string name="action_search">Cari</string>
     <string name="pen_palette_color_green">Hijau</string>
+    <string name="network_connect_is_not_stable">Tidak dapat menyambung. Semak sambungan rangkaian anda dan cuba lagi.</string>
     <string name="pen_swatch_color_dark_cyan">Biru kehijauan gelap</string>
     <string name="pen_swatch_color_light_red">Merah lembut</string>
     <string name="pen_palette_color_custom">Warna tersuai</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Dipilih</string>
     <string name="pen_swatch_color_light_blue">Biru muda</string>
     <string name="pen_swatch_color_dark_red">Merah gelap</string>
+    <string name="retry">Cuba lagi</string>
     <string name="pen_swatch_color_light_cyan">Biru kehijauan lembut</string>
     <string name="pen_swatch_color_dark_yellow">Kuning gelap</string>
     <string name="pen_string_red">Merah</string>

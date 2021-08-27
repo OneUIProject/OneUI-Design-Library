@@ -374,7 +374,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void progressDialogCircleOnly() {
-        Toast.makeText(mContext, "Click anywhere to dismiss", Toast.LENGTH_SHORT).show();
         ProgressDialog dialog = new ProgressDialog(mContext);
         dialog.setProgressStyle(ProgressDialog.STYLE_CIRCLE_ONLY);
         dialog.setCancelable(true);

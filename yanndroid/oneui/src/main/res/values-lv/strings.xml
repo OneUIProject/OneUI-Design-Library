@@ -26,6 +26,7 @@
     <string name="sesl_done">Gatavs</string>
     <string name="action_search">Meklēt</string>
     <string name="pen_palette_color_green">Zaļa</string>
+    <string name="network_connect_is_not_stable">Nevarēja izveidot savienojumu. Pārbaudiet tīkla savienojumu un mēģiniet vēlreiz.</string>
     <string name="pen_swatch_color_dark_cyan">Tumši ciāna</string>
     <string name="pen_swatch_color_light_red">Gaiši sarkana</string>
     <string name="pen_palette_color_custom">Pielāgota krāsa</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Izvēlēts</string>
     <string name="pen_swatch_color_light_blue">Gaiši zila</string>
     <string name="pen_swatch_color_dark_red">Tumši sarkana</string>
+    <string name="retry">Mēģ. vēlr.</string>
     <string name="pen_swatch_color_light_cyan">Gaiši ciāna</string>
     <string name="pen_swatch_color_dark_yellow">Tumši dzeltena</string>
     <string name="pen_string_red">Sarkana</string>

@@ -40,6 +40,7 @@
             android:id="@+id/about_optional_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="26dp"
             android:layout_marginBottom="8.0dip"
             android:gravity="center"
             android:textColor="@color/sesl_radiobutton_text_color"
@@ -51,13 +52,13 @@
             android:id="@+id/status_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="26dp"
             android:layout_marginBottom="8.0dip"
             android:gravity="center"
             android:text="@string/latest_version_installed"
             android:textColor="@color/sesl_radiobutton_text_color"
             android:textSize="16.0sp"
-            android:textStyle="normal"
-            android:visibility="gone" />
+            android:textStyle="normal" />
 
         <ProgressBar
             android:id="@+id/loading_bar"
@@ -67,11 +68,13 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/update_button"
-            style="@style/ButtonStyle.Invert"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="@string/sesl_update"
-            android:visibility="gone" />
+            style="@style/AboutPageButtonStyle.Update"
+            android:text="@string/sesl_update" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/retry_button"
+            style="@style/AboutPageButtonStyle.Update"
+            android:text="@string/retry" />
 
 
         <LinearLayout

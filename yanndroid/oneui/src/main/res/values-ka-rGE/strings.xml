@@ -26,6 +26,7 @@
     <string name="sesl_done">მზადაა</string>
     <string name="action_search">ძიება</string>
     <string name="pen_palette_color_green">მწვანე</string>
+    <string name="network_connect_is_not_stable">ვერ დაკავშირდა. შეამოწმეთ კავშირი ქსელთან და ისევ სცადეთ.</string>
     <string name="pen_swatch_color_dark_cyan">მუქი ფირუზისფერი</string>
     <string name="pen_swatch_color_light_red">ღია წითელი</string>
     <string name="pen_palette_color_custom">შერჩეული ფერი</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">არჩეულია</string>
     <string name="pen_swatch_color_light_blue">ღია ცისფერი</string>
     <string name="pen_swatch_color_dark_red">მუქი წითელი</string>
+    <string name="retry">ისევ ცდა</string>
     <string name="pen_swatch_color_light_cyan">ღია ფირუზისფერი</string>
     <string name="pen_swatch_color_dark_yellow">მუქი ყვითელი</string>
     <string name="pen_string_red">წითელი</string>

@@ -98,7 +98,12 @@
 
     <declare-styleable name="AboutPage">
         <attr name="optional_text" format="string" />
-        <attr name="updateable" format="boolean" />
+        <attr name="update_state" >
+            <enum name="not_updateable" value="-1" />
+            <enum name="loading" value="0" />
+            <enum name="update_available" value="1" />
+            <enum name="no_update" value="2" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="RelatedCard">

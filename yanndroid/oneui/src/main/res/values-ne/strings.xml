@@ -26,6 +26,7 @@
     <string name="sesl_done">भयो</string>
     <string name="action_search">खोज्‍नुहोस्</string>
     <string name="pen_palette_color_green">हरियो</string>
+    <string name="network_connect_is_not_stable">जडान गर्न सकिएन। आफ्नो नेटवर्क जडानको जाँच गरी फेरि प्रयास गर्नुहोस्।</string>
     <string name="pen_swatch_color_dark_cyan">गाढा स्यान</string>
     <string name="pen_swatch_color_light_red">हल्का रातो</string>
     <string name="pen_palette_color_custom">अनुकूल रङ</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">चयन गरियो</string>
     <string name="pen_swatch_color_light_blue">हल्का नीलो</string>
     <string name="pen_swatch_color_dark_red">गाढा रातो</string>
+    <string name="retry">पुनः प्रयास</string>
     <string name="pen_swatch_color_light_cyan">हल्का स्यान</string>
     <string name="pen_swatch_color_dark_yellow">गाढा पहेंलो</string>
     <string name="pen_string_red">रातो</string>

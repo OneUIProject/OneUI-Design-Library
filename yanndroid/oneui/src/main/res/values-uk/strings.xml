@@ -26,6 +26,7 @@
     <string name="sesl_done">Готово</string>
     <string name="action_search">Пошук</string>
     <string name="pen_palette_color_green">Зелений</string>
+    <string name="network_connect_is_not_stable">Не вдалося підключитися. Перевірте підключення до мережі та спробуйте ще раз.</string>
     <string name="pen_swatch_color_dark_cyan">Темно-блакитний</string>
     <string name="pen_swatch_color_light_red">Світло-червоний</string>
     <string name="pen_palette_color_custom">Інший колір</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Вибрано</string>
     <string name="pen_swatch_color_light_blue">Світло-синій</string>
     <string name="pen_swatch_color_dark_red">Темно-червоний</string>
+    <string name="retry">Повтор.</string>
     <string name="pen_swatch_color_light_cyan">Світло-блакитний</string>
     <string name="pen_swatch_color_dark_yellow">Темно-жовтий</string>
     <string name="pen_string_red">Червоний</string>

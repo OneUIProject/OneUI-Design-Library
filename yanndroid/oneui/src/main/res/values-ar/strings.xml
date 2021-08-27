@@ -26,6 +26,7 @@
     <string name="sesl_done">تم</string>
     <string name="action_search">بحث</string>
     <string name="pen_palette_color_green">أخضر</string>
+    <string name="network_connect_is_not_stable">تعذر الاتصال. تحقق من اتصال الشبكة وحاول مرة أخرى.</string>
     <string name="pen_swatch_color_dark_cyan">أزرق سماوي داكن</string>
     <string name="pen_swatch_color_light_red">أحمر فاتح</string>
     <string name="pen_palette_color_custom">لون مخصص</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">تم التحديد</string>
     <string name="pen_swatch_color_light_blue">أزرق فاتح</string>
     <string name="pen_swatch_color_dark_red">أحمر داكن</string>
+    <string name="retry">إعادة المحاولة</string>
     <string name="pen_swatch_color_light_cyan">أزرق سماوي فاتح</string>
     <string name="pen_swatch_color_dark_yellow">أصفر داكن</string>
     <string name="pen_string_red">أحمر</string>

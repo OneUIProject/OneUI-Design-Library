@@ -26,6 +26,7 @@
     <string name="sesl_done">Дууслаа</string>
     <string name="action_search">Хайх</string>
     <string name="pen_palette_color_green">Ногоон</string>
+    <string name="network_connect_is_not_stable">Холбогдож чадсангүй. Сүлжээний холболтоо шалгаад дахин оролдоно уу.</string>
     <string name="pen_swatch_color_dark_cyan">Хөх ногоон</string>
     <string name="pen_swatch_color_light_red">Цайвар улаан</string>
     <string name="pen_palette_color_custom">Хэрэглэгчийн өнгө</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Сонгогдсон</string>
     <string name="pen_swatch_color_light_blue">Цэнхэр</string>
     <string name="pen_swatch_color_dark_red">Хар улаан</string>
+    <string name="retry">Ахин оролд</string>
     <string name="pen_swatch_color_light_cyan">Цайвар шар хөх</string>
     <string name="pen_swatch_color_dark_yellow">Бараан шар</string>
     <string name="pen_string_red">Улаан</string>

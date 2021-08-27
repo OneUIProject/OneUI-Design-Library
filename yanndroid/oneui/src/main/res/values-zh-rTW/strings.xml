@@ -26,6 +26,7 @@
     <string name="sesl_done">完成</string>
     <string name="action_search">搜尋</string>
     <string name="pen_palette_color_green">綠色</string>
+    <string name="network_connect_is_not_stable">無法連接。請檢查您的網路連線並重試。</string>
     <string name="pen_swatch_color_dark_cyan">深青綠</string>
     <string name="pen_swatch_color_light_red">淡紅色</string>
     <string name="pen_palette_color_custom">自訂色彩</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">已選擇</string>
     <string name="pen_swatch_color_light_blue">淡藍色</string>
     <string name="pen_swatch_color_dark_red">深紅色</string>
+    <string name="retry">重試</string>
     <string name="pen_swatch_color_light_cyan">淡青綠</string>
     <string name="pen_swatch_color_dark_yellow">深黃色</string>
     <string name="pen_string_red">紅色</string>

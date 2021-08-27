@@ -26,6 +26,7 @@
     <string name="sesl_done">Тайёр</string>
     <string name="action_search">Ҷустуҷӯ кардан</string>
     <string name="pen_palette_color_green">Сабз</string>
+    <string name="network_connect_is_not_stable">Пайвастшавӣ барор наёфт. Пайвасти шабакавии худро тафтиш карда, кӯшишро такрор кунед.</string>
     <string name="pen_swatch_color_dark_cyan">Обиранги тира</string>
     <string name="pen_swatch_color_light_red">Сурхи кушод</string>
     <string name="pen_palette_color_custom">Ранги фармоишӣ</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Интихоб шуд</string>
     <string name="pen_swatch_color_light_blue">Кабуди кушод</string>
     <string name="pen_swatch_color_dark_red">Сурхи тира</string>
+    <string name="retry">Такрор к-н</string>
     <string name="pen_swatch_color_light_cyan">Обиранги кушод</string>
     <string name="pen_swatch_color_dark_yellow">Зарди тира</string>
     <string name="pen_string_red">Сурх</string>

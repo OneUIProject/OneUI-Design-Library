@@ -26,6 +26,7 @@
     <string name="sesl_done">تامام</string>
     <string name="action_search">ئىزدەش</string>
     <string name="pen_palette_color_green">يېشىل</string>
+    <string name="network_connect_is_not_stable">ئۇلانمىدى. تور ئۇلىنىشىنى تەكشۈرۈپ، قايتا سىناڭ.</string>
     <string name="pen_swatch_color_dark_cyan">توق كۆكۈچ</string>
     <string name="pen_swatch_color_light_red">ئاچ قىزىل</string>
     <string name="pen_palette_color_custom">ئۆزلەشتۈرمە رەڭ</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">تاللاندى</string>
     <string name="pen_swatch_color_light_blue">ئاچ كۆك</string>
     <string name="pen_swatch_color_dark_red">توق قىزىل</string>
+    <string name="retry">قايتا سىناش</string>
     <string name="pen_swatch_color_light_cyan">ئاچ كۆكۈچ</string>
     <string name="pen_swatch_color_dark_yellow">توق سېرىق</string>
     <string name="pen_string_red">红色</string>

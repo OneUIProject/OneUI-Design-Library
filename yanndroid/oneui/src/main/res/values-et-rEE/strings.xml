@@ -26,6 +26,7 @@
     <string name="sesl_done">Valmis</string>
     <string name="action_search">Otsi</string>
     <string name="pen_palette_color_green">Roheline</string>
+    <string name="network_connect_is_not_stable">Ühenduse loomine nurjus. Kontrollige oma võrguühendust ja proovige uuesti.</string>
     <string name="pen_swatch_color_dark_cyan">Tume tsüaan</string>
     <string name="pen_swatch_color_light_red">Helepunane</string>
     <string name="pen_palette_color_custom">Kohandatud värv</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Valitud</string>
     <string name="pen_swatch_color_light_blue">Helesinine</string>
     <string name="pen_swatch_color_dark_red">Tumepunane</string>
+    <string name="retry">Uuesti</string>
     <string name="pen_swatch_color_light_cyan">Hele tsüaan</string>
     <string name="pen_swatch_color_dark_yellow">Tumekollane</string>
     <string name="pen_string_red">Punane</string>

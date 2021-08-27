@@ -26,6 +26,7 @@
     <string name="sesl_done">Τέλος</string>
     <string name="action_search">Αναζήτηση</string>
     <string name="pen_palette_color_green">Πράσινο</string>
+    <string name="network_connect_is_not_stable">Δεν ήταν δυνατή η σύνδεση. Ελέγξτε τη σύνδεση του δικτύου και δοκιμάστε ξανά.</string>
     <string name="pen_swatch_color_dark_cyan">Πετρόλ</string>
     <string name="pen_swatch_color_light_red">Φωτεινό κόκκινο</string>
     <string name="pen_palette_color_custom">Προσαρμοσμένο χρώμα</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Επιλέχθηκε</string>
     <string name="pen_swatch_color_light_blue">Ανοιχτό μπλε</string>
     <string name="pen_swatch_color_dark_red">Σκούρο κόκκινο</string>
+    <string name="retry">Επανάληψη</string>
     <string name="pen_swatch_color_light_cyan">Γαλαζοπράσινο</string>
     <string name="pen_swatch_color_dark_yellow">Σκούρο κίτρινο</string>
     <string name="pen_string_red">Κόκκινο</string>

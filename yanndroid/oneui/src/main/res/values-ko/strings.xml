@@ -26,6 +26,7 @@
     <string name="sesl_done">완료</string>
     <string name="action_search">검색</string>
     <string name="pen_palette_color_green">녹색</string>
+    <string name="network_connect_is_not_stable">연결하지 못했습니다. 네트워크 연결을 확인하고 다시 해보세요.</string>
     <string name="pen_swatch_color_dark_cyan">진한 청록색</string>
     <string name="pen_swatch_color_light_red">연한 빨간색</string>
     <string name="pen_palette_color_custom">마이 컬러</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">선택됨</string>
     <string name="pen_swatch_color_light_blue">하늘색</string>
     <string name="pen_swatch_color_dark_red">진한 빨간색</string>
+    <string name="retry">다시 시도</string>
     <string name="pen_swatch_color_light_cyan">연한 청록색</string>
     <string name="pen_swatch_color_dark_yellow">진한 노란색</string>
     <string name="pen_string_red">빨간색</string>

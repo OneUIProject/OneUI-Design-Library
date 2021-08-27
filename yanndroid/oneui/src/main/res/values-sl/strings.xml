@@ -26,6 +26,7 @@
     <string name="sesl_done">Končano</string>
     <string name="action_search">Iskanje</string>
     <string name="pen_palette_color_green">Zelena</string>
+    <string name="network_connect_is_not_stable">Povezave ni bilo mogoče vzpostaviti. Preverite omrežno povezavo in poskusite znova.</string>
     <string name="pen_swatch_color_dark_cyan">Temna cijan</string>
     <string name="pen_swatch_color_light_red">Svetlo rdeča</string>
     <string name="pen_palette_color_custom">Barva po meri</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">Izbrano</string>
     <string name="pen_swatch_color_light_blue">Svetlo modra</string>
     <string name="pen_swatch_color_dark_red">Temno rdeča</string>
+    <string name="retry">Pos. znova</string>
     <string name="pen_swatch_color_light_cyan">Svetla cijan</string>
     <string name="pen_swatch_color_dark_yellow">Temno rumena</string>
     <string name="pen_string_red">Rdeča</string>

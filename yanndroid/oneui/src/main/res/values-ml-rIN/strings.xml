@@ -26,6 +26,7 @@
     <string name="sesl_done">ചെയ്‌തു</string>
     <string name="action_search">തിരച്ചില്‍</string>
     <string name="pen_palette_color_green">പച്ച</string>
+    <string name="network_connect_is_not_stable">ബന്ധിപ്പിക്കാനായില്ല. നിങ്ങളുടെ നെറ്റ്‌വര്‍ക്ക് കണക്ഷന്‍ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.</string>
     <string name="pen_swatch_color_dark_cyan">ഡാർക്ക് സയൻ</string>
     <string name="pen_swatch_color_light_red">ഇളം ചുവപ്പ്</string>
     <string name="pen_palette_color_custom">ഇച്ഛാനുസൃത നിറം</string>
@@ -54,6 +55,7 @@
     <string name="pen_string_selected">തിരഞ്ഞെടുത്തു</string>
     <string name="pen_swatch_color_light_blue">ഇളം നീല</string>
     <string name="pen_swatch_color_dark_red">കടുംചുവപ്പ്</string>
+    <string name="retry">വീണ്ടും ശ്രമിക്കുക</string>
     <string name="pen_swatch_color_light_cyan">ലൈറ്റ് സയൻ</string>
     <string name="pen_swatch_color_dark_yellow">ഇരുണ്ട മഞ്ഞ</string>
     <string name="pen_string_red">ചുവപ്പ്</string>
