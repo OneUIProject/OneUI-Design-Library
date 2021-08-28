@@ -157,6 +157,10 @@ public class PreferenceManager {
         mNoCommit = noCommit;
     }
 
+    public Context getContext() {
+        return this.mContext;
+    }
+
     public PreferenceComparisonCallback getPreferenceComparisonCallback() {
         return mPreferenceComparisonCallback;
     }

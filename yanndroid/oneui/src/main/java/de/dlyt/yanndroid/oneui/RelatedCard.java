@@ -7,15 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.google.android.material.textview.MaterialTextView;
-
 public class RelatedCard extends LinearLayout {
 
-    private MaterialTextView related_title;
-    private LinearLayout related_content;
+    private TextView mRelatedCardTitle;
+    private LinearLayout mRelatedCardContainer;
     private String mTitle;
 
     public RelatedCard(Context context, @Nullable AttributeSet attrs) {
@@ -30,9 +29,9 @@ public class RelatedCard extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.samsung_related_card, this, true);
 
-        related_title = findViewById(R.id.related_title);
-        related_content = findViewById(R.id.related_content);
-        related_title.setText(mTitle);
+        mRelatedCardTitle = findViewById(R.id.related_card_title);
+        mRelatedCardContainer = findViewById(R.id.related_card_container);
+        mRelatedCardTitle.setText(mTitle);
 
     }
 
@@ -42,15 +41,15 @@ public class RelatedCard extends LinearLayout {
 
     public void setTitle(String title) {
         this.mTitle = title;
-        related_title.setText(mTitle);
+        mRelatedCardTitle.setText(mTitle);
     }
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
-        if (related_content == null) {
+        if (mRelatedCardContainer == null) {
             super.addView(child, index, params);
         } else {
-            related_content.addView(child, index, params);
+            mRelatedCardContainer.addView(child, index, params);
         }
     }
 

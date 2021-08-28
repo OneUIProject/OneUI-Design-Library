@@ -298,7 +298,6 @@
     <dimen name="sesl_list_subheader_text_size">14.0sp</dimen>
     <dimen name="sesl_preference_switch_padding_vertical">12.0dip</dimen>
     <dimen name="layout_preference_padding_bottom">0.0dip</dimen>
-    <dimen name="inset_preference_category_height">16.0dip</dimen>
     <dimen name="widget_multi_btn_preference_divider_margin_top">27.0dip</dimen>
     <dimen name="widget_multi_btn_preference_divider_margin_bottom">39.0dip</dimen>
     <dimen name="widget_multi_btn_preference_padding_top">18.0dip</dimen>
@@ -310,7 +309,18 @@
     <dimen name="widget_horizontal_radio_preference_icon_min_width">24.0dip</dimen>
     <dimen name="widget_two_btn_preference_text_size">15.0sp</dimen>
     <dimen name="widget_multi_btn_preference_text_size">15.0dip</dimen>
-
+    <dimen name="widget_related_card_gap_height">20.0dip</dimen>
+    <dimen name="widget_related_card_padding">12.0dip</dimen>
+    <dimen name="widget_related_card_chunking_category_height">0.0dip</dimen>
+    <dimen name="widget_related_card_title_text_size">18.0sp</dimen>
+    <dimen name="widget_related_card_title_text_margin_bottom">10.0dip</dimen>
+    <dimen name="widget_related_card_text_size">16.0sp</dimen>
+    <dimen name="widget_related_card_text_padding_top">6.0dip</dimen>
+    <dimen name="widget_related_card_text_margin_start">8.0dip</dimen>
+    <dimen name="widget_related_card_text_padding_side">16.0dip</dimen>
+    <dimen name="widget_related_card_view_margin_top_bottom">20.0dip</dimen>
+    <dimen name="widget_related_card_view_margin_start_end">24.0dip</dimen>
+    <dimen name="widget_related_card_view_margin_start_tip">18.0dip</dimen>
 
     <!--Snackbar-->
     <dimen name="sesl_design_snackbar_action_padding_left">20.0dip</dimen>

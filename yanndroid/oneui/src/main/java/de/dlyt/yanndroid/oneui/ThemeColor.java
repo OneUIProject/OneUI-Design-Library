@@ -19,10 +19,14 @@ public class ThemeColor {
 
     private static final String NAME = "ThemeColor", KEY_COLOR = "color", KEY_DARK_MODE = "dark_mode";
 
+
     public ThemeColor(AppCompatActivity activity) {
+        this(activity, "0381fe");
+    }
+    public ThemeColor(AppCompatActivity activity, String appColor) {
         SharedPreferences sharedPreferences = activity.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         int darkMode = sharedPreferences.getInt(KEY_DARK_MODE, DARK_MODE_AUTO);
-        String stringColor = sharedPreferences.getString(KEY_COLOR, "0381fe");
+        String stringColor = sharedPreferences.getString(KEY_COLOR, appColor);
 
         if (darkMode != DARK_MODE_AUTO)
             AppCompatDelegate.setDefaultNightMode(darkMode == DARK_MODE_ENABLED ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
@@ -76,7 +80,7 @@ public class ThemeColor {
 
         editor.putInt(KEY_DARK_MODE, mode).apply();
 
-        if (oldMode != DARK_MODE_AUTO)
+        if (oldMode != DARK_MODE_AUTO || oldMode != mode)
             activity.recreate();
     }
 

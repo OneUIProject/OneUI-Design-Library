@@ -27,6 +27,7 @@
             android:summary="Summary"
             android:title="SwitchPreference" />
         <SwitchPreferenceScreen
+            android:key="switch_preference_screen"
             android:summary="Summary"
             android:title="SwitchPreferenceScreen" />
         <CheckBoxPreference
@@ -103,7 +104,5 @@
             android:title="ColorPickerPreference"
             app:pickerType="detailed" />
     </PreferenceCategory>
-
-    <InsetPreferenceCategory app:height="80.0dip" />
 
 </de.dlyt.yanndroid.oneui.preference.PreferenceScreen>

@@ -100,5 +100,7 @@
     <string name="sesl_color_picker_hue_and_saturation">Hue and saturation</string>
     <string name="sesl_color_picker_option">Option</string>
 
+    <string name="sesl_relative_description">Looking for something else?</string>
+
 
 </resources>

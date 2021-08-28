@@ -1,11 +1,14 @@
 package de.dlyt.yanndroid.oneuiexample.fragments;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
+import android.widget.Toast;
 
-import de.dlyt.yanndroid.oneui.preference.SeslPreferenceFragmentCompat;
+import de.dlyt.yanndroid.oneui.SamsungPreferenceFragment;
+import de.dlyt.yanndroid.oneui.preference.SwitchPreferenceScreen;
+import de.dlyt.yanndroid.oneui.preference.internal.PreferencesRelatedCard;
 import de.dlyt.yanndroid.oneuiexample.MainActivity;
 import de.dlyt.yanndroid.oneuiexample.R;
 
@@ -18,10 +21,13 @@ import de.dlyt.yanndroid.oneui.preference.PreferenceGroup;
 import de.dlyt.yanndroid.oneui.preference.SwitchPreference;
 import de.dlyt.yanndroid.oneui.preference.TipsCardViewPreference;
 
-public class MainActivitySecondFragment extends SeslPreferenceFragmentCompat
-        implements Preference.OnPreferenceChangeListener {
+public class MainActivitySecondFragment extends SamsungPreferenceFragment
+        implements Preference.OnPreferenceChangeListener,
+        Preference.OnPreferenceClickListener {
+    private long mLastClickTime = 0L;
     private MainActivity mActivity;
     private Context mContext;
+    private PreferencesRelatedCard mRelatedCard;
 
     @Override
     public void onAttach(Context context) {
@@ -29,12 +35,6 @@ public class MainActivitySecondFragment extends SeslPreferenceFragmentCompat
         if (getActivity() instanceof MainActivity)
             mActivity = ((MainActivity) getActivity());
         mContext = getContext();
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        getListView().seslSetGoToTopEnabled(true);
     }
 
     @Override
@@ -70,6 +70,25 @@ public class MainActivitySecondFragment extends SeslPreferenceFragmentCompat
         SwitchPreference autoDarkModePref = (SwitchPreference) findPreference("dark_mode_auto");
         autoDarkModePref.setOnPreferenceChangeListener(this);
         autoDarkModePref.setChecked(darkMode == ThemeColor.DARK_MODE_AUTO);
+
+        SwitchPreferenceScreen switchPreferenceScreen = (SwitchPreferenceScreen) findPreference("switch_preference_screen");
+        switchPreferenceScreen.setOnPreferenceClickListener(this);
+    }
+
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 600L) {
+            return false;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
+
+        switch (preference.getKey()) {
+            case "switch_preference_screen":
+                Toast.makeText(mContext, "onPreferenceClick", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -96,22 +115,20 @@ public class MainActivitySecondFragment extends SeslPreferenceFragmentCompat
         return false;
     }
 
-    protected PreferenceGroup getParent(PreferenceGroup groupToSearchIn, Preference preference) {
-        for (int i = 0; i < groupToSearchIn.getPreferenceCount(); i++) {
-            Preference child = groupToSearchIn.getPreference(i);
+    @Override
+    public void onResume() {
+        setRelatedCardView();
+        super.onResume();
+    }
 
-            if (child == preference)
-                return groupToSearchIn;
-
-            if (child instanceof PreferenceGroup) {
-                PreferenceGroup childGroup = (PreferenceGroup) child;
-                PreferenceGroup result = getParent(childGroup, preference);
-                if (result != null)
-                    return result;
-            }
+    private void setRelatedCardView() {
+        if (mRelatedCard == null) {
+            createRelatedCard(mContext)
+                    .addButton("This", null)
+                    .addButton("That", null)
+                    .addButton("There", null)
+                    .show(this);
         }
-
-        return null;
     }
 }
 

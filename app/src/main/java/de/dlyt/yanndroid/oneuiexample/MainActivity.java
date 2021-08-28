@@ -333,14 +333,9 @@ public class MainActivity extends AppCompatActivity {
 
     private LinkedHashMap<String, Integer> getMoreMenuButtonList() {
         LinkedHashMap linkedHashMap = new LinkedHashMap();
-        // pre-OneUI
-        if (Build.VERSION.SDK_INT <= 28) {
-            linkedHashMap.put(mIsLightTheme ? "Set dark theme" : "Set light theme", 0);
-        } else {
-            linkedHashMap.put("Menu Item 1", 0);
-            linkedHashMap.put("Menu Item 2", 87);
-            linkedHashMap.put("Menu Item 3", ToolbarLayout.N_BADGE);
-        }
+        linkedHashMap.put("Menu Item 1", 0);
+        linkedHashMap.put("Menu Item 2", 87);
+        linkedHashMap.put("Menu Item 3", ToolbarLayout.N_BADGE);
         return linkedHashMap;
     }
 }

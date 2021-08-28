@@ -20,7 +20,7 @@ public class LayoutPreference extends Preference {
     private boolean mAllowDividerAbove;
     private boolean mAllowDividerBelow;
     private int mDescendantFocusability;
-    private boolean mIsRelativeLinkView;
+    private boolean mIsRelatedCardView;
 
     public LayoutPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -30,7 +30,7 @@ public class LayoutPreference extends Preference {
                 performClick(view);
             }
         };
-        mIsRelativeLinkView = false;
+        mIsRelatedCardView = false;
         mDescendantFocusability = -1;
 
         init(context, attrs, 0);
@@ -44,7 +44,7 @@ public class LayoutPreference extends Preference {
                 performClick(view);
             }
         };
-        mIsRelativeLinkView = false;
+        mIsRelatedCardView = false;
         mDescendantFocusability = -1;
 
         init(context, attrs, defStyleAttr);
@@ -54,7 +54,7 @@ public class LayoutPreference extends Preference {
         this(context, LayoutInflater.from(context).inflate(resource, null, false));
     }
 
-    public LayoutPreference(Context context, View view, boolean isRelativeLinkView) {
+    public LayoutPreference(Context context, View view, boolean isRelatedCardView) {
         super(context, null);
 
         mClickListener = new View.OnClickListener() {
@@ -62,7 +62,7 @@ public class LayoutPreference extends Preference {
                 performClick(view);
             }
         };
-        mIsRelativeLinkView = isRelativeLinkView;
+        mIsRelatedCardView = isRelatedCardView;
         mDescendantFocusability = -1;
 
         setView(view);
@@ -76,7 +76,7 @@ public class LayoutPreference extends Preference {
                 performClick(view);
             }
         };
-        mIsRelativeLinkView = false;
+        mIsRelatedCardView = false;
         mDescendantFocusability = -1;
 
         setView(view);
@@ -92,7 +92,7 @@ public class LayoutPreference extends Preference {
             }
         };
 
-        mIsRelativeLinkView = false;
+        mIsRelatedCardView = false;
         mDescendantFocusability = -1;
         setView(view);
     }
@@ -135,7 +135,7 @@ public class LayoutPreference extends Preference {
 
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
-        if (mIsRelativeLinkView) {
+        if (mIsRelatedCardView) {
             holder.itemView.setOnClickListener(null);
             holder.itemView.setFocusable(false);
             holder.itemView.setClickable(false);
@@ -170,7 +170,7 @@ public class LayoutPreference extends Preference {
         mDescendantFocusability = descendantFocusability;
     }
 
-    public boolean isRelativeLinkView() {
-        return mIsRelativeLinkView;
+    public boolean isRelatedCardView() {
+        return mIsRelatedCardView;
     }
 }
