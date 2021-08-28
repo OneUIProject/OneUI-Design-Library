@@ -1,6 +1,7 @@
 package de.dlyt.yanndroid.oneuiexample.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 import de.dlyt.yanndroid.oneui.SamsungPreferenceFragment;
 import de.dlyt.yanndroid.oneui.preference.SwitchPreferenceScreen;
 import de.dlyt.yanndroid.oneui.preference.internal.PreferencesRelatedCard;
+import de.dlyt.yanndroid.oneuiexample.AboutActivity;
 import de.dlyt.yanndroid.oneuiexample.MainActivity;
 import de.dlyt.yanndroid.oneuiexample.R;
 
@@ -73,6 +75,9 @@ public class MainActivitySecondFragment extends SamsungPreferenceFragment
 
         SwitchPreferenceScreen switchPreferenceScreen = (SwitchPreferenceScreen) findPreference("switch_preference_screen");
         switchPreferenceScreen.setOnPreferenceClickListener(this);
+
+        Preference aboutApp = findPreference("about_app");
+        aboutApp.setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -85,6 +90,9 @@ public class MainActivitySecondFragment extends SamsungPreferenceFragment
         switch (preference.getKey()) {
             case "switch_preference_screen":
                 Toast.makeText(mContext, "onPreferenceClick", Toast.LENGTH_SHORT).show();
+                return true;
+            case "about_app":
+                startActivity(new Intent(getContext(), AboutActivity.class));
                 return true;
         }
 
@@ -123,8 +131,8 @@ public class MainActivitySecondFragment extends SamsungPreferenceFragment
 
     private void setRelatedCardView() {
         if (mRelatedCard == null) {
-            createRelatedCard(mContext)
-                    .addButton("This", null)
+            mRelatedCard = createRelatedCard(mContext);
+            mRelatedCard.addButton("This", null)
                     .addButton("That", null)
                     .addButton("There", null)
                     .show(this);

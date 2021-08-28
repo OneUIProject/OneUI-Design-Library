@@ -105,4 +105,11 @@
             app:pickerType="detailed" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="spacing2"/>
+
+    <Preference
+        android:title="About OneUI Sample"
+        android:key="about_app"/>
+
 </de.dlyt.yanndroid.oneui.preference.PreferenceScreen>
