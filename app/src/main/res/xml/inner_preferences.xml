@@ -7,11 +7,27 @@
         android:summary="Creating OneUI apps has never been so easy!"
         android:title="TipsCardView" />
 
+    <PreferenceCategory
+        android:title="HorizontalRadioPreference"
+        android:key="spacing"/>
+
+    <HorizontalRadioPreference
+        android:key="dark_mode"
+        android:title="Dark mode settings"
+        app:entriesImage="@array/inner_preferences_darkmode_entries_image"
+        app:entries="@array/inner_preferences_darkmode_entries"
+        app:entryValues="@array/inner_preferences_darkmode_values"
+        app:viewType="image" />
+    <SwitchPreference
+        android:key="dark_mode_auto"
+        android:title="System default" />
+
     <PreferenceCategory android:title="Switch">
         <SwitchPreference
             android:summary="Summary"
             android:title="SwitchPreference" />
         <SwitchPreferenceScreen
+            android:key="switch_preference_screen"
             android:summary="Summary"
             android:title="SwitchPreferenceScreen" />
         <CheckBoxPreference
@@ -89,6 +105,11 @@
             app:pickerType="detailed" />
     </PreferenceCategory>
 
-    <InsetPreferenceCategory app:height="80.0dip" />
+    <PreferenceCategory
+        android:key="spacing2"/>
+
+    <Preference
+        android:title="About OneUI Sample"
+        android:key="about_app"/>
 
 </de.dlyt.yanndroid.oneui.preference.PreferenceScreen>

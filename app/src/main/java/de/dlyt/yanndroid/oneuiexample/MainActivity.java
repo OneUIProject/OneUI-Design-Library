@@ -1,5 +1,7 @@
 package de.dlyt.yanndroid.oneuiexample;
 
+import static de.dlyt.yanndroid.oneui.layout.DrawerLayout.DRAWER_LAYOUT;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,13 +10,13 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.util.SeslMisc;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -31,10 +33,7 @@ import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneui.snackbar.Snackbar;
 import de.dlyt.yanndroid.oneui.utils.ReflectUtils;
-import de.dlyt.yanndroid.oneuiexample.utils.BaseTabFragment;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
-
-import static de.dlyt.yanndroid.oneui.layout.DrawerLayout.DRAWER_LAYOUT;
 
 public class MainActivity extends AppCompatActivity {
     private String[] mTabsTagName;
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Context mContext;
     private FragmentManager mFragmentManager;
-    private BaseTabFragment mFragment;
+    private Fragment mFragment;
     private TabsManager mTabsManager;
 
     private DrawerLayout drawerLayout;
@@ -96,37 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (bnvLayout != null) {
             bnvLayout.setResumeStatus(true);
-        }
-    }
-
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        View focusedTab = bnvLayout.getFocusedChild();
-        int keyCode = event.getKeyCode();
-
-        if (mFragment == null || !mFragment.isResumed()) {
-            return super.dispatchKeyEvent(event);
-        } else if (focusedTab == null) {
-            if (mFragment.onDispatchKeyEvent(event, null) || super.dispatchKeyEvent(event)) {
-                return true;
-            }
-            return false;
-        } else if (keyCode != KeyEvent.KEYCODE_N && keyCode != KeyEvent.KEYCODE_A && keyCode != KeyEvent.KEYCODE_D && keyCode != KeyEvent.KEYCODE_FORWARD_DEL) {
-            return super.dispatchKeyEvent(event);
-        } else {
-            if (mFragment.onDispatchKeyEvent(event, focusedTab) || super.dispatchKeyEvent(event)) {
-                return true;
-            }
-            return false;
-        }
-    }
-
-    @Override
-    public void onMultiWindowModeChanged(boolean isMultiWindowMode) {
-        super.onMultiWindowModeChanged(isMultiWindowMode);
-        for (String tabName : mTabsTagName) {
-            BaseTabFragment fragment = (BaseTabFragment) mFragmentManager.findFragmentByTag(tabName);
-            if (fragment != null) fragment.onMultiWindowModeChanged(isMultiWindowMode);
         }
     }
 
@@ -184,14 +152,6 @@ public class MainActivity extends AppCompatActivity {
         toolbarLayout.setMoreMenuButton(getMoreMenuButtonList(),
                 (adapterView, view2, i, j) -> {
                     toolbarLayout.dismissMoreMenuPopupWindow();
-
-                    String obj = adapterView.getAdapter().getItem(i).toString();
-                    if (obj.equals("Set dark theme")) {
-                        ThemeColor.setDarkMode(this, ThemeColor.DARK_MODE_ENABLED);
-                    }
-                    if (obj.equals("Set light theme")) {
-                        ThemeColor.setDarkMode(this, ThemeColor.DARK_MODE_DISABLED);
-                    }
                 });
 
         //BottomNavigationLayout
@@ -204,14 +164,9 @@ public class MainActivity extends AppCompatActivity {
                 int tabPosition = tab.getPosition();
                 mTabsManager.setTabPosition(tabPosition);
                 setCurrentItem();
-                BaseTabFragment fragment = (BaseTabFragment) mFragmentManager.findFragmentByTag(mTabsTagName[tabPosition]);
-                if (fragment != null) fragment.onTabSelected();
             }
 
             public void onTabUnselected(BottomNavigationView.Tab tab) {
-                int tabPosition = tab.getPosition();
-                BaseTabFragment fragment = (BaseTabFragment) mFragmentManager.findFragmentByTag(mTabsTagName[tabPosition]);
-                if (fragment != null) fragment.onTabUnselected();
             }
 
             public void onTabReselected(BottomNavigationView.Tab tab) {
@@ -234,11 +189,13 @@ public class MainActivity extends AppCompatActivity {
                     toolbarLayout.setSubtitle("Design");
                     toolbarLayout.setNavigationButtonVisible(true);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.getView(DRAWER_LAYOUT)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
+                    findViewById(R.id.fragment_container).setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color));
                 } else {
                     // MainActivitySecondFragment
                     toolbarLayout.setSubtitle("Preferences");
                     toolbarLayout.setNavigationButtonVisible(false);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.getView(DRAWER_LAYOUT)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    findViewById(R.id.fragment_container).setBackgroundColor(ContextCompat.getColor(mContext, R.color.item_background_color));
                 }
 
             }
@@ -253,11 +210,11 @@ public class MainActivity extends AppCompatActivity {
             transaction.hide(mFragment);
         }
         if (fragment != null) {
-            mFragment = (BaseTabFragment) fragment;
+            mFragment = (Fragment) fragment;
             transaction.show(fragment);
         } else {
             try {
-                mFragment = (BaseTabFragment) Class.forName(mTabsClassName[tabPosition]).newInstance();
+                mFragment = (Fragment) Class.forName(mTabsClassName[tabPosition]).newInstance();
             } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -376,14 +333,9 @@ public class MainActivity extends AppCompatActivity {
 
     private LinkedHashMap<String, Integer> getMoreMenuButtonList() {
         LinkedHashMap linkedHashMap = new LinkedHashMap();
-        // pre-OneUI
-        if (Build.VERSION.SDK_INT <= 28) {
-            linkedHashMap.put(mIsLightTheme ? "Set dark theme" : "Set light theme", 0);
-        } else {
-            linkedHashMap.put("Menu Item 1", 0);
-            linkedHashMap.put("Menu Item 2", 87);
-            linkedHashMap.put("Menu Item 3", ToolbarLayout.N_BADGE);
-        }
+        linkedHashMap.put("Menu Item 1", 0);
+        linkedHashMap.put("Menu Item 2", 87);
+        linkedHashMap.put("Menu Item 3", ToolbarLayout.N_BADGE);
         return linkedHashMap;
     }
 }

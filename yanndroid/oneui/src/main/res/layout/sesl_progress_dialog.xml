@@ -12,7 +12,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@string/sesl_font_family_regular"
-        android:textColor="@color/sesl_progress_dialog_horizontal_text_color"
+        android:textColor="@color/sesl_dialog_body_text_color"
         android:textSize="@dimen/sesl_progress_dialog_text_size"
         android:visibility="gone" />
 

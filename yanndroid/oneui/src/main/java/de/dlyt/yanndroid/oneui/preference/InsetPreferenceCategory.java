@@ -17,7 +17,7 @@ public class InsetPreferenceCategory extends PreferenceCategory {
     public InsetPreferenceCategory(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        mHeight = (int) context.getResources().getDimension(R.dimen.inset_preference_category_height);
+        mHeight = (int) context.getResources().getDimension(R.dimen.sesl_list_subheader_min_height);
         if (attrs != null) {
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.InsetPreferenceCategory);
             mHeight = styledAttrs.getDimensionPixelSize(R.styleable.InsetPreferenceCategory_height, mHeight);

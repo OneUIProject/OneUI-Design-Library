@@ -24,7 +24,7 @@
             android:theme="@style/SamsungAboutTheme" />
         <activity
             android:name="de.dlyt.yanndroid.oneuiexample.MainActivity"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode" />
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
         <activity
             android:name="de.dlyt.yanndroid.oneuiexample.SplashActivity"
             android:theme="@style/SamsungSplashTheme">

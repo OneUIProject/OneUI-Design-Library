@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.PointerIcon;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 import de.dlyt.yanndroid.oneui.R;
@@ -97,6 +99,7 @@ public class ToolbarImageButton extends AppCompatImageButton {
     }
 
     @Override
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public PointerIcon onResolvePointerIcon(MotionEvent event, int pointerIndex) {
         return PointerIcon.getSystemIcon(getContext(), PointerIcon.TYPE_ARROW);
     }

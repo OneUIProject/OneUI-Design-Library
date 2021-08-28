@@ -362,25 +362,10 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <de.dlyt.yanndroid.oneui.RelatedCard
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="15dp"
-            app:title="Looking for something else?">
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/RelatedButtonStyle"
-                android:text="This" />
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/RelatedButtonStyle"
-                android:text="That" />
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/RelatedButtonStyle"
-                android:text="There" />
-
-        </de.dlyt.yanndroid.oneui.RelatedCard>
+            android:layout_height="@dimen/sesl_list_subheader_min_height"
+            android:background="@color/background_color"/>
 
     </LinearLayout>
 </de.dlyt.yanndroid.oneui.NestedScrollView>

@@ -6,9 +6,11 @@ import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.util.SeslMisc;
 
 public class ThemeColor {
     public static final int DARK_MODE_AUTO = 2;
@@ -17,15 +19,22 @@ public class ThemeColor {
 
     private static final String NAME = "ThemeColor", KEY_COLOR = "color", KEY_DARK_MODE = "dark_mode";
 
+
     public ThemeColor(AppCompatActivity activity) {
+        this(activity, "0381fe");
+    }
+    public ThemeColor(AppCompatActivity activity, String appColor) {
         SharedPreferences sharedPreferences = activity.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         int darkMode = sharedPreferences.getInt(KEY_DARK_MODE, DARK_MODE_AUTO);
-        String stringColor = sharedPreferences.getString(KEY_COLOR, "0381fe");
+        String stringColor = sharedPreferences.getString(KEY_COLOR, appColor);
 
-        if (darkMode != DARK_MODE_AUTO) {
+        if (darkMode != DARK_MODE_AUTO)
             AppCompatDelegate.setDefaultNightMode(darkMode == DARK_MODE_ENABLED ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
-            activity.getDelegate().applyDayNight();
-        }
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+
+        activity.getDelegate().applyDayNight();
 
         activity.setTheme(activity.getResources().getIdentifier("Color_" + stringColor, "style", activity.getPackageName()));
     }
@@ -58,11 +67,26 @@ public class ThemeColor {
             return new ContextWrapper(context);
     }
 
+    public static int getDarkMode(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(KEY_DARK_MODE, DARK_MODE_AUTO);
+    }
+
     public static void setDarkMode(AppCompatActivity activity, int mode) {
-        SharedPreferences.Editor editor = activity.getSharedPreferences(NAME, Context.MODE_PRIVATE).edit();
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        int oldMode = sharedPreferences.getInt(KEY_DARK_MODE, DARK_MODE_AUTO);
+
         editor.putInt(KEY_DARK_MODE, mode).apply();
 
-        activity.recreate();
+        if (oldMode != DARK_MODE_AUTO || oldMode != mode)
+            activity.recreate();
+    }
+
+    public static int getThemeColor(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        return Color.parseColor(sharedPreferences.getString(KEY_COLOR, "0381fe"));
     }
 
     public static void setColor(AppCompatActivity activity, int red, int green, int blue) {

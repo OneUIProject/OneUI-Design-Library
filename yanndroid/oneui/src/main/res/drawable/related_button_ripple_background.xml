@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="?colorControlHighlight">
+<ripple android:color="?colorControlHighlight"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
             <corners android:radius="26.0dip" />
             <solid android:color="@android:color/white" />
-            <padding
-                android:bottom="6.0dip"
-                android:left="16.0dip"
-                android:right="16.0dip"
-                android:top="6.0dip" />
+            <padding android:left="@dimen/widget_related_card_text_padding_side" android:top="@dimen/widget_related_card_text_padding_top" android:right="@dimen/widget_related_card_text_padding_side" android:bottom="@dimen/widget_related_card_text_padding_top" />
         </shape>
     </item>
 </ripple>

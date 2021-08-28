@@ -29,7 +29,7 @@
             android:layout_gravity="center_vertical"
             android:fontFamily="@string/sesl_font_family_regular"
             android:lineSpacingExtra="@dimen/sesl_dialog_body_text_line_spacing_extra"
-            android:textColor="@color/sesl_dialog_text_body_color"
+            android:textColor="@color/sesl_dialog_body_text_color"
             android:textSize="@dimen/sesl_dialog_body_text_size" />
     </LinearLayout>
 </FrameLayout>
