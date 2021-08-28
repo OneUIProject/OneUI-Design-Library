@@ -362,5 +362,10 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sesl_list_subheader_min_height"
+            android:background="@color/background_color"/>
+
     </LinearLayout>
 </de.dlyt.yanndroid.oneui.NestedScrollView>

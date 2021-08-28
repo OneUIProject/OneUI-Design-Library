@@ -14,7 +14,6 @@ public abstract class SamsungPreferenceFragment extends PreferenceFragment {
     private int mRelatedCardViewCount = 0;
 
     private LayoutPreference mFooter;
-    private InsetPreferenceCategory mFooterPreference;
 
     public PreferencesRelatedCard createRelatedCard(Context context) {
         return new PreferencesRelatedCard(context);
