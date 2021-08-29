@@ -45,12 +45,7 @@
 
             </de.dlyt.yanndroid.oneui.drawer.OptionGroup>
 
-
-            <de.dlyt.yanndroid.oneui.drawer.Divider
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginVertical="2dp" />
+            <View style="@style/DrawerDividerStyle" />
 
             <de.dlyt.yanndroid.oneui.drawer.OptionButton
                 android:layout_width="match_parent"
