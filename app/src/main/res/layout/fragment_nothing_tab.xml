@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/item_background_color"
     android:scrollbars="vertical"
+    android:fillViewport="true"
     app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior">
 
     <LinearLayout
