@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<de.dlyt.yanndroid.oneui.layout.SwitchBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/switchbarlayout_switchbaractivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:toolbar_title="SwitchBarLayout">
+
+    <de.dlyt.yanndroid.oneui.RoundNestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color"
+        android:fillViewport="true"
+        app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior"
+        app:roundedCorners="top_left|top_right">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:descendantFocusability="afterDescendants">
+
+            <de.dlyt.yanndroid.oneui.RoundFrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4.0"
+                android:background="@color/switchbar_help_image_bg_color">
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="20.0dip"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_launcher" />
+            </de.dlyt.yanndroid.oneui.RoundFrameLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6.0"
+                android:layout_marginStart="@dimen/sesl_list_item_padding_horizontal"
+                android:layout_marginEnd="@dimen/sesl_list_item_padding_horizontal"
+                android:layout_marginTop="@dimen/sesl_list_divider_inset"
+                android:layout_marginBottom="@dimen/sesl_list_divider_inset"
+                android:textAppearance="?android:textAppearanceListItem"
+                android:textSize="15.0sp"
+                android:textColor="@color/sesl_dialog_body_text_color"
+                android:lineSpacingExtra="4.0sp"
+                android:text="Create custom preferences with inner PreferenceScreen."/>
+
+        </LinearLayout>
+
+    </de.dlyt.yanndroid.oneui.RoundNestedScrollView>
+
+</de.dlyt.yanndroid.oneui.layout.SwitchBarLayout>

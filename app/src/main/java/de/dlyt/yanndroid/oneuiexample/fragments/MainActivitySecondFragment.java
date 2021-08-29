@@ -1,31 +1,27 @@
 package de.dlyt.yanndroid.oneuiexample.fragments;
 
 import android.content.Context;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.View;
-import android.widget.Toast;
-
-import de.dlyt.yanndroid.oneui.SamsungPreferenceFragment;
-import de.dlyt.yanndroid.oneui.preference.SwitchPreferenceScreen;
-import de.dlyt.yanndroid.oneui.preference.internal.PreferencesRelatedCard;
-import de.dlyt.yanndroid.oneuiexample.AboutActivity;
-import de.dlyt.yanndroid.oneuiexample.MainActivity;
-import de.dlyt.yanndroid.oneuiexample.R;
 
 import androidx.appcompat.util.SeslMisc;
 
 import de.dlyt.yanndroid.oneui.ThemeColor;
+import de.dlyt.yanndroid.oneui.SamsungPreferenceFragment;
+import de.dlyt.yanndroid.oneui.preference.SwitchPreferenceScreen;
+import de.dlyt.yanndroid.oneui.preference.internal.PreferencesRelatedCard;
 import de.dlyt.yanndroid.oneui.preference.HorizontalRadioPreference;
 import de.dlyt.yanndroid.oneui.preference.Preference;
 import de.dlyt.yanndroid.oneui.preference.PreferenceGroup;
 import de.dlyt.yanndroid.oneui.preference.SwitchPreference;
 import de.dlyt.yanndroid.oneui.preference.TipsCardViewPreference;
+import de.dlyt.yanndroid.oneuiexample.MainActivity;
+import de.dlyt.yanndroid.oneuiexample.R;
 
 public class MainActivitySecondFragment extends SamsungPreferenceFragment
         implements Preference.OnPreferenceChangeListener,
-        Preference.OnPreferenceClickListener {
+        View.OnClickListener {
     private long mLastClickTime = 0L;
     private MainActivity mActivity;
     private Context mContext;
@@ -41,7 +37,7 @@ public class MainActivitySecondFragment extends SamsungPreferenceFragment
 
     @Override
     public void onCreatePreferences(Bundle bundle, String str) {
-        addPreferencesFromResource(R.xml.inner_preferences);
+        addPreferencesFromResource(R.xml.preferences);
     }
 
     @Override
@@ -72,31 +68,18 @@ public class MainActivitySecondFragment extends SamsungPreferenceFragment
         SwitchPreference autoDarkModePref = (SwitchPreference) findPreference("dark_mode_auto");
         autoDarkModePref.setOnPreferenceChangeListener(this);
         autoDarkModePref.setChecked(darkMode == ThemeColor.DARK_MODE_AUTO);
-
-        SwitchPreferenceScreen switchPreferenceScreen = (SwitchPreferenceScreen) findPreference("switch_preference_screen");
-        switchPreferenceScreen.setOnPreferenceClickListener(this);
-
-        Preference aboutApp = findPreference("about_app");
-        aboutApp.setOnPreferenceClickListener(this);
     }
 
     @Override
-    public boolean onPreferenceClick(Preference preference) {
-        if (SystemClock.elapsedRealtime() - mLastClickTime < 600L) {
-            return false;
-        }
-        mLastClickTime = SystemClock.elapsedRealtime();
+    public void onStart(){
+        super.onStart();
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("de.dlyt.yanndroid.oneuiexample_preferences", Context.MODE_PRIVATE);
+        SwitchPreferenceScreen switchPreferenceScreen = (SwitchPreferenceScreen) findPreference("switch_preference_screen");
+        switchPreferenceScreen.setChecked(sharedPreferences.getBoolean("switch_preference_screen", false));
+    }
 
-        switch (preference.getKey()) {
-            case "switch_preference_screen":
-                Toast.makeText(mContext, "onPreferenceClick", Toast.LENGTH_SHORT).show();
-                return true;
-            case "about_app":
-                startActivity(new Intent(getContext(), AboutActivity.class));
-                return true;
-        }
-
-        return false;
+    @Override
+    public void onClick(View view) {
     }
 
     @Override
@@ -132,9 +115,9 @@ public class MainActivitySecondFragment extends SamsungPreferenceFragment
     private void setRelatedCardView() {
         if (mRelatedCard == null) {
             mRelatedCard = createRelatedCard(mContext);
-            mRelatedCard.addButton("This", null)
-                    .addButton("That", null)
-                    .addButton("There", null)
+            mRelatedCard.addButton("This", this)
+                    .addButton("That", this)
+                    .addButton("There", this)
                     .show(this);
         }
     }
