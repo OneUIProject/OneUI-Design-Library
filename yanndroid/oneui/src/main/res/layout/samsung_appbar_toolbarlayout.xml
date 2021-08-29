@@ -1,112 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.dlyt.yanndroid.oneui.coordinatorlayout.SamsungCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar_layout_coordinator_layout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="?android:windowBackground">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:windowBackground"
+    android:orientation="vertical">
 
-    <de.dlyt.yanndroid.oneui.appbar.SamsungAppBarLayout
-        android:id="@+id/toolbar_layout_app_bar"
-        style="@style/AppBarLayoutStyle"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="?android:windowBackground">
+    <de.dlyt.yanndroid.oneui.coordinatorlayout.SamsungCoordinatorLayout
+        android:id="@+id/toolbar_layout_coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <de.dlyt.yanndroid.oneui.appbar.SamsungCollapsingToolbarLayout
-            android:id="@+id/toolbar_layout_collapsing_toolbar_layout"
-            style="?collapsingToolbarLayoutStyle"
+        <de.dlyt.yanndroid.oneui.appbar.SamsungAppBarLayout
+            android:id="@+id/toolbar_layout_app_bar"
+            style="@style/AppBarLayoutStyle"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="?android:windowBackground"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@id/toolbar_layout_toolbar">
+            android:layout_height="fill_parent">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar_layout_toolbar"
+            <de.dlyt.yanndroid.oneui.appbar.SamsungCollapsingToolbarLayout
+                android:id="@+id/toolbar_layout_collapsing_toolbar_layout"
+                style="?collapsingToolbarLayoutStyle"
                 android:layout_width="fill_parent"
-                android:layout_height="?actionBarSize"
-                android:layout_gravity="bottom"
-                android:paddingStart="@dimen/sesl_action_bar_content_inset"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/OneUIStyleMain">
+                android:layout_height="fill_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:toolbarId="@id/toolbar_layout_toolbar">
 
-                <LinearLayout
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar_layout_toolbar"
                     android:layout_width="fill_parent"
                     android:layout_height="?actionBarSize"
-                    android:gravity="center_vertical">
+                    android:layout_gravity="bottom"
+                    android:paddingStart="@dimen/sesl_action_bar_content_inset"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/OneUIStyleMain">
 
-                    <!-- custom navigation button -->
-                    <FrameLayout
-                        android:id="@+id/toolbar_layout_navigationButton_container"
-                        android:layout_width="56.0dip"
-                        android:layout_height="?actionBarSize"
-                        android:layout_gravity="center"
-                        android:visibility="gone">
-
-                        <de.dlyt.yanndroid.oneui.widget.ToolbarImageButton
-                            android:id="@+id/toolbar_layout_navigationButton"
-                            android:layout_width="48.0dip"
-                            android:layout_height="?actionBarSize"
-                            android:layout_marginStart="8dp"
-                            android:background="@drawable/sesl_action_bar_item_background"
-                            android:scaleType="center" />
-                    </FrameLayout>
-
-                    <!-- custom toolbar title -->
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/toolbar_layout_collapsed_title"
-                        style="@style/CollapsedActionBarTitleTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:alpha="0.0"
-                        android:background="@android:color/transparent"
-                        android:singleLine="true"
-                        android:textColor="?actionMenuTextColor"
-                        android:textDirection="locale" />
-
-                    <!-- custom overflow buttons -->
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="?actionBarSize"
-                        android:gravity="end|center_vertical">
+                        android:gravity="center_vertical">
 
-                        <LinearLayout
-                            android:id="@+id/toolbar_layout_overflow_container"
-                            android:layout_width="wrap_content"
+                        <!-- custom navigation button -->
+                        <FrameLayout
+                            android:id="@+id/toolbar_layout_navigationButton_container"
+                            android:layout_width="56.0dip"
                             android:layout_height="?actionBarSize"
-                            android:layout_alignParentEnd="true"
-                            android:orientation="horizontal"
-                            android:paddingEnd="6.0dip" />
+                            android:layout_gravity="center"
+                            android:visibility="gone">
 
-                        <View
-                            android:id="@+id/toolbar_layout_popup_window_anchor"
-                            android:layout_width="1.0px"
-                            android:layout_height="1.0px"
-                            android:layout_alignParentEnd="true"
-                            android:layout_gravity="center|top"
-                            android:layout_marginEnd="12.0dip" />
-                    </RelativeLayout>
+                            <de.dlyt.yanndroid.oneui.widget.ToolbarImageButton
+                                android:id="@+id/toolbar_layout_navigationButton"
+                                android:layout_width="48.0dip"
+                                android:layout_height="?actionBarSize"
+                                android:layout_marginStart="8dp"
+                                android:background="@drawable/sesl_action_bar_item_background"
+                                android:scaleType="center" />
+                        </FrameLayout>
 
-                </LinearLayout>
-            </com.google.android.material.appbar.MaterialToolbar>
-        </de.dlyt.yanndroid.oneui.appbar.SamsungCollapsingToolbarLayout>
-    </de.dlyt.yanndroid.oneui.appbar.SamsungAppBarLayout>
+                        <!-- custom toolbar title -->
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/toolbar_layout_collapsed_title"
+                            style="@style/CollapsedActionBarTitleTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.0"
+                            android:background="@android:color/transparent"
+                            android:singleLine="true"
+                            android:textColor="?actionMenuTextColor"
+                            android:textDirection="locale" />
 
+                        <!-- custom overflow buttons -->
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="?actionBarSize"
+                            android:gravity="end|center_vertical">
 
-    <de.dlyt.yanndroid.oneui.RoundLinearLayout
-        android:id="@+id/toolbar_layout_main_container"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior"
-        app:roundedCorners="top_left|top_right" />
+                            <LinearLayout
+                                android:id="@+id/toolbar_layout_overflow_container"
+                                android:layout_width="wrap_content"
+                                android:layout_height="?actionBarSize"
+                                android:layout_alignParentEnd="true"
+                                android:orientation="horizontal"
+                                android:paddingEnd="6.0dip" />
 
-    <de.dlyt.yanndroid.oneui.RoundLinearLayout
-        android:id="@+id/toolbar_layout_bottom_corners"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/rounded_corner_size"
-        android:layout_gravity="bottom"
-        app:roundedCorners="bottom_left|bottom_right" />
+                            <View
+                                android:id="@+id/toolbar_layout_popup_window_anchor"
+                                android:layout_width="1.0px"
+                                android:layout_height="1.0px"
+                                android:layout_alignParentEnd="true"
+                                android:layout_gravity="center|top"
+                                android:layout_marginEnd="12.0dip" />
+                        </RelativeLayout>
 
-</de.dlyt.yanndroid.oneui.coordinatorlayout.SamsungCoordinatorLayout>
+                    </LinearLayout>
+                </com.google.android.material.appbar.MaterialToolbar>
+            </de.dlyt.yanndroid.oneui.appbar.SamsungCollapsingToolbarLayout>
+        </de.dlyt.yanndroid.oneui.appbar.SamsungAppBarLayout>
+
+        <de.dlyt.yanndroid.oneui.RoundLinearLayout
+            android:id="@+id/toolbar_layout_main_container"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior"
+            app:roundedCorners="top_left|top_right" />
+
+        <de.dlyt.yanndroid.oneui.RoundLinearLayout
+            android:id="@+id/toolbar_layout_bottom_corners"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/rounded_corner_size"
+            android:layout_gravity="bottom"
+            app:roundedCorners="bottom_left|bottom_right" />
+
+    </de.dlyt.yanndroid.oneui.coordinatorlayout.SamsungCoordinatorLayout>
+
+    <LinearLayout
+        android:id="@+id/toolbar_layout_bottom_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+</LinearLayout>

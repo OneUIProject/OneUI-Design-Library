@@ -80,6 +80,9 @@ public class ToolbarLayout extends LinearLayout {
     private FrameLayout moreOverflowButtonContainer;
     private ToolbarImageButton moreOverflowButton;
     private RoundLinearLayout mainContainer;
+    private LinearLayout bottomContainer;
+    private int viewIdForBottom;
+
 
     public ToolbarLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -95,6 +98,7 @@ public class ToolbarLayout extends LinearLayout {
             mTitle = attr.getString(R.styleable.ToolBarLayout_title);
             mSubtitle = attr.getString(R.styleable.ToolBarLayout_subtitle);
             mNavigationIcon = attr.getDrawable(R.styleable.ToolBarLayout_navigationIcon);
+            viewIdForBottom = attr.getResourceId(R.styleable.ToolBarLayout_bottom_viewId, -2);
         } finally {
             attr.recycle();
         }
@@ -115,6 +119,7 @@ public class ToolbarLayout extends LinearLayout {
         moreMenuPopupAnchor = findViewById(R.id.toolbar_layout_popup_window_anchor);
 
         mainContainer = findViewById(R.id.toolbar_layout_main_container);
+        bottomContainer = findViewById(R.id.toolbar_layout_bottom_container);
 
         setNavigationButtonIcon(mNavigationIcon);
         setTitle(mTitle);
@@ -145,11 +150,19 @@ public class ToolbarLayout extends LinearLayout {
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
-        if (mainContainer == null) {
+        if (mainContainer == null || bottomContainer == null) {
             super.addView(child, index, params);
         } else {
-            mainContainer.addView(child, index, params);
+            if (viewIdForBottom == child.getId()) {
+                bottomContainer.addView(child, index, params);
+            } else {
+                mainContainer.addView(child, index, params);
+            }
         }
+    }
+
+    public void setViewIdForBottom(int viewIdForBottom) {
+        this.viewIdForBottom = viewIdForBottom;
     }
 
     @Override
@@ -157,6 +170,7 @@ public class ToolbarLayout extends LinearLayout {
         super.onConfigurationChanged(newConfig);
         updateListBothSideMargin(mainContainer);
         updateListBothSideMargin(findViewById(R.id.toolbar_layout_bottom_corners));
+        updateListBothSideMargin(findViewById(R.id.toolbar_layout_bottom_container));
 
         if (mExpandable) {
             resetAppBarHeight();
@@ -198,6 +212,7 @@ public class ToolbarLayout extends LinearLayout {
     private void init() {
         updateListBothSideMargin(mainContainer);
         updateListBothSideMargin(findViewById(R.id.toolbar_layout_bottom_corners));
+        updateListBothSideMargin(findViewById(R.id.toolbar_layout_bottom_container));
 
         if (mExpandable) {
             appBarLayout.addOnOffsetChangedListener(new AppBarOffsetListener());
@@ -239,7 +254,6 @@ public class ToolbarLayout extends LinearLayout {
                     int width = getActivity().findViewById(android.R.id.content).getWidth();
                     Configuration configuration = getActivity().getResources().getConfiguration();
                     if (configuration.screenHeightDp <= 411 || configuration.screenWidthDp < 512) {
-                        //viewGroup.setPadding(0, 0, 0, 0);
                         setHorizontalMargin(viewGroup, 0);
                         return;
                     }
@@ -248,19 +262,15 @@ public class ToolbarLayout extends LinearLayout {
                     if (screenWidthDp < 685 || screenWidthDp > 959) {
                         if (screenWidthDp >= 960 && screenWidthDp <= 1919) {
                             int i = (int) (((float) width) * 0.125f);
-                            //viewGroup.setPadding(i, 0, i, 0);
                             setHorizontalMargin(viewGroup, i);
                         } else if (configuration.screenWidthDp >= 1920) {
                             int i = (int) (((float) width) * 0.25f);
-                            //viewGroup.setPadding(i, 0, i, 0);
                             setHorizontalMargin(viewGroup, i);
                         } else {
-                            //viewGroup.setPadding(0, 0, 0, 0);
                             setHorizontalMargin(viewGroup, 0);
                         }
                     } else {
                         int i = (int) (((float) width) * 0.05f);
-                        //viewGroup.setPadding(i, 0, i, 0);
                         setHorizontalMargin(viewGroup, i);
                     }
                 }

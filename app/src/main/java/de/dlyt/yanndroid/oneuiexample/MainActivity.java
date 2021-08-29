@@ -1,7 +1,5 @@
 package de.dlyt.yanndroid.oneuiexample;
 
-import static de.dlyt.yanndroid.oneui.layout.DrawerLayout.DRAWER_LAYOUT;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,6 +32,8 @@ import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneui.snackbar.Snackbar;
 import de.dlyt.yanndroid.oneui.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
+
+import static de.dlyt.yanndroid.oneui.layout.DrawerLayout.DRAWER_LAYOUT;
 
 public class MainActivity extends AppCompatActivity {
     private String[] mTabsTagName;
@@ -118,14 +118,9 @@ public class MainActivity extends AppCompatActivity {
         mFragmentManager = getSupportFragmentManager();
 
         //DrawerLayout
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_view);
-        setSupportActionBar(drawerLayout.getToolbar());
-        drawerLayout.setDrawerIconOnClickListener(v -> startActivity(new Intent().setClass(mContext, AboutActivity.class)));
-
-        drawerLayout.setButtonBadges(ToolbarLayout.N_BADGE, DrawerLayout.N_BADGE);
+        drawerLayout.setDrawerButtonOnClickListener(v -> startActivity(new Intent().setClass(mContext, AboutActivity.class)));
         drawerLayout.setDrawerButtonTooltip(getText(R.string.app_info));
-
-        ToolbarLayout toolbarLayout = (ToolbarLayout) drawerLayout.getView(DrawerLayout.TOOLBAR);
+        drawerLayout.setButtonBadges(ToolbarLayout.N_BADGE, DrawerLayout.N_BADGE);
 
         toolbarLayout.getAppBarLayout().addOnOffsetChangedListener((layout, verticalOffset) -> {
             int totalScrollRange = layout.getTotalScrollRange();

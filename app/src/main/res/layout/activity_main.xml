@@ -4,10 +4,20 @@
     android:id="@+id/drawer_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout="@layout/activity_main_drawer_layout"
+    app:bottom_viewId="@id/main_samsung_tabs"
     app:drawer_icon="@drawable/ic_samsung_info"
     app:drawer_viewId="@id/viewInDrawer"
     app:toolbar_title="@string/app_name">
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <de.dlyt.yanndroid.oneui.BottomNavigationView
+        android:id="@+id/main_samsung_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <include
         android:id="@+id/viewInDrawer"

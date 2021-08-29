@@ -55,6 +55,7 @@ public class DrawerLayout extends LinearLayout {
     private ToolbarLayout toolbarLayout;
     private LinearLayout drawer_container;
     private int viewIdForDrawer;
+    private int viewIdForBottom;
     private androidx.drawerlayout.widget.DrawerLayout drawerLayout;
     private View drawer;
 
@@ -71,6 +72,7 @@ public class DrawerLayout extends LinearLayout {
             mToolbarSubtitle = attr.getString(R.styleable.DrawerLayout_toolbar_subtitle);
             mDrawerIcon = attr.getDrawable(R.styleable.DrawerLayout_drawer_icon);
             viewIdForDrawer = attr.getResourceId(R.styleable.DrawerLayout_drawer_viewId, -2);
+            viewIdForBottom = attr.getResourceId(R.styleable.DrawerLayout_bottom_viewId, -2);
             mToolbarExpanded = attr.getBoolean(R.styleable.DrawerLayout_toolbar_expanded, true);
         } finally {
             attr.recycle();
@@ -86,6 +88,7 @@ public class DrawerLayout extends LinearLayout {
         toolbarLayout.setSubtitle(mToolbarSubtitle);
         toolbarLayout.setNavigationIconTooltip(getResources().getText(R.string.sesl_navigation_drawer));
         toolbarLayout.setExpanded(mToolbarExpanded, false);
+        toolbarLayout.setViewIdForBottom(viewIdForBottom);
         drawerButtonContainer = findViewById(R.id.drawer_layout_drawerButton_container);
         drawerButton = findViewById(R.id.drawer_layout_drawerButton);
 
@@ -177,7 +180,7 @@ public class DrawerLayout extends LinearLayout {
         return toolbarLayout.getToolbar();
     }
 
-    public void setDrawerIconOnClickListener(OnClickListener listener) {
+    public void setDrawerButtonOnClickListener(OnClickListener listener) {
         drawerButton.setOnClickListener(listener);
     }
 
@@ -263,7 +266,7 @@ public class DrawerLayout extends LinearLayout {
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
-        if (toolbarLayout == null) {
+        if (toolbarLayout == null || drawer_container == null) {
             super.addView(child, index, params);
         } else {
             if (viewIdForDrawer == child.getId()) {

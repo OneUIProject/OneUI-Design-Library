@@ -77,6 +77,8 @@
         <attr name="selectedOptionButton" format="reference" />
     </declare-styleable>
 
+    <attr name="bottom_viewId" format="reference|enum" />
+
     <declare-styleable name="DrawerLayout">
         <attr name="android:layout" />
         <attr name="toolbar_title" format="string" />
@@ -84,13 +86,7 @@
         <attr name="toolbar_expanded" format="boolean" />
         <attr name="drawer_icon" format="reference" />
         <attr name="drawer_viewId" format="reference|enum" />
-    </declare-styleable>
-
-    <declare-styleable name="SwitchBarLayout">
-        <attr name="android:layout" />
-        <attr name="toolbar_title" />
-        <attr name="toolbar_subtitle" />
-        <attr name="toolbar_expanded" />
+        <attr name="bottom_viewId" />
     </declare-styleable>
 
     <declare-styleable name="ToolBarLayout">
@@ -100,11 +96,19 @@
         <attr name="expandable" format="boolean" />
         <attr name="expanded" format="boolean" />
         <attr name="navigationIcon" format="reference" />
+        <attr name="bottom_viewId" />
+    </declare-styleable>
+
+    <declare-styleable name="SwitchBarLayout">
+        <attr name="android:layout" />
+        <attr name="toolbar_title" />
+        <attr name="toolbar_subtitle" />
+        <attr name="toolbar_expanded" />
     </declare-styleable>
 
     <declare-styleable name="AboutPage">
         <attr name="optional_text" format="string" />
-        <attr name="update_state" >
+        <attr name="update_state">
             <enum name="not_updateable" value="-1" />
             <enum name="loading" value="0" />
             <enum name="update_available" value="1" />
@@ -493,7 +497,7 @@
         <attr name="entriesImage" format="reference" />
         <attr name="entries" />
         <attr name="entriesSubtitle" format="reference" />
-        <attr name="entryValues"/>
+        <attr name="entryValues" />
         <attr name="viewType" format="integer">
             <enum name="image" value="0" />
             <enum name="noImage" value="1" />
