@@ -836,4 +836,23 @@
         <item name="fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
+    <style name="RecyclerViewFastScrollStyle" parent="@android:style/Widget.Material.FastScroll">
+        <item name="android:textAppearance">@style/RecyclerViewFastScrollTextStyle</item>
+        <item name="android:textSize">15.0sp</item>
+        <item name="android:padding">16.0dip</item>
+        <item name="android:minWidth">56.0dip</item>
+        <item name="android:minHeight">30.0dip</item>
+        <item name="backgroundLeft">@drawable/sesl_fastscroll_label_left</item>
+        <item name="backgroundRight">@drawable/sesl_fastscroll_label_right</item>
+        <item name="position">aboveThumb</item>
+        <item name="thumbDrawable">@drawable/sesl_fastscroll_thumb</item>
+        <item name="thumbMinHeight">0.0dip</item>
+        <item name="thumbMinWidth">0.0dip</item>
+        <item name="trackDrawable">@drawable/sesl_fastscroll_track</item>
+    </style>
+    <style name="RecyclerViewFastScrollTextStyle" parent="@android:style/TextAppearance.Widget">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
+    </style>
+
 </resources>

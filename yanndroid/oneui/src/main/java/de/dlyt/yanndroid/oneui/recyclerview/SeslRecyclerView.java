@@ -6386,7 +6386,7 @@ public class SeslRecyclerView extends ViewGroup implements NestedScrollingChild2
         if (this.mFastScroller != null) {
             this.mFastScroller.setEnabled(var1);
         } else if (var1) {
-            this.mFastScroller = new SeslRecyclerViewFastScroller(this, 1);
+            this.mFastScroller = new SeslRecyclerViewFastScroller(this, R.style.RecyclerViewFastScrollStyle);
             this.mFastScroller.setEnabled(true);
             this.mFastScroller.setScrollbarPosition(this.getVerticalScrollbarPosition());
         }

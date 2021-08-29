@@ -305,7 +305,7 @@ class SeslRecyclerViewFastScroller {
     }
 
     public void setStyle(int resId) {
-        TypedArray ta = mContext.obtainStyledAttributes(null, R.styleable.SeslRecyclerViewFastScroller, android.R.attr.fastScrollStyle, resId);
+        TypedArray ta = mContext.obtainStyledAttributes(null, R.styleable.SeslRecyclerViewFastScroller, 0, resId);
         int N = ta.getIndexCount();
         for (int i = 0; i < N; i++) {
             int index = ta.getIndex(i);
