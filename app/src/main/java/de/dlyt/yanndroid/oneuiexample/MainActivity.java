@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         mIsLightTheme = SeslMisc.isLightTheme(mContext);
 
         drawerLayout = findViewById(R.id.drawer_view);
-        toolbarLayout = (ToolbarLayout) drawerLayout.getView(DrawerLayout.TOOLBAR);
+        toolbarLayout = drawerLayout.getToolbarLayout();
         bnvLayout = findViewById(R.id.main_samsung_tabs);
 
         sharedPrefName = "mainactivity_tabs";

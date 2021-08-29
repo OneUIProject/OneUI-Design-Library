@@ -86,7 +86,7 @@ public class DrawerLayout extends LinearLayout {
 
         toolbarLayout.setTitle(mToolbarTitle);
         toolbarLayout.setSubtitle(mToolbarSubtitle);
-        toolbarLayout.setNavigationIconTooltip(getResources().getText(R.string.sesl_navigation_drawer));
+        toolbarLayout.setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigation_drawer));
         toolbarLayout.setExpanded(mToolbarExpanded, false);
         toolbarLayout.setViewIdForBottom(viewIdForBottom);
         drawerButtonContainer = findViewById(R.id.drawer_layout_drawerButton_container);
@@ -176,8 +176,8 @@ public class DrawerLayout extends LinearLayout {
         layoutParams.width = (int) ((double) displayWidth * widthRate);
     }
 
-    public androidx.appcompat.widget.Toolbar getToolbar() {
-        return toolbarLayout.getToolbar();
+    public ToolbarLayout getToolbarLayout() {
+        return toolbarLayout;
     }
 
     public void setDrawerButtonOnClickListener(OnClickListener listener) {
@@ -209,10 +209,10 @@ public class DrawerLayout extends LinearLayout {
         setDrawerButtonBadge(drawerIcon);
     }
 
-    public void setDrawerButtonIcon(Drawable navigationIcon) {
-        mDrawerIcon = navigationIcon;
+    public void setDrawerButtonIcon(Drawable drawerIcon) {
+        mDrawerIcon = drawerIcon;
         drawerButton.setImageDrawable(mDrawerIcon);
-        drawerButtonContainer.setVisibility(navigationIcon != null ? View.VISIBLE : View.GONE);
+        drawerButtonContainer.setVisibility(drawerIcon != null ? View.VISIBLE : View.GONE);
     }
 
     public void setDrawerButtonBadge(int count) {

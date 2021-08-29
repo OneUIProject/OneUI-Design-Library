@@ -54,7 +54,7 @@ public class SwitchBarLayout extends LinearLayout {
         toolbarLayout.setTitle(mToolbarTitle);
         toolbarLayout.setSubtitle(mToolbarSubtitle);
         toolbarLayout.setExpanded(mToolbarExpanded, false);
-        toolbarLayout.setNavigationIconTooltip(getResources().getText(R.string.sesl_navigate_up));
+        toolbarLayout.setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigate_up));
         toolbarLayout.setNavigationOnClickListener(v -> getActivity().onBackPressed());
 
         switchBar = findViewById(R.id.switchbar_switchbarlayout);

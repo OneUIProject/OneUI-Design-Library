@@ -8,8 +8,8 @@ import android.view.animation.Animation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import de.dlyt.yanndroid.oneui.layout.SplashView;
 import de.dlyt.yanndroid.oneui.utils.ThemeColor;
-import de.dlyt.yanndroid.oneui.layout.SplashViewAnimated;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -19,12 +19,12 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        SplashViewAnimated splashViewAnimated = findViewById(R.id.splash);
+        SplashView splashView = findViewById(R.id.splash);
 
         Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(splashViewAnimated::startSplashAnimation, 500);
+        handler.postDelayed(splashView::startSplashAnimation, 500);
 
-        splashViewAnimated.setSplashAnimationListener(new Animation.AnimationListener() {
+        splashView.setSplashAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
             }

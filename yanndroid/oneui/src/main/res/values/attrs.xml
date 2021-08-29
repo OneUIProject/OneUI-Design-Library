@@ -50,16 +50,12 @@
 
     <!--custom views-->
     <attr name="text" format="string" />
-    <attr name="image" format="reference|color" />
     <attr name="selected" format="boolean" />
 
-    <declare-styleable name="SplashViewSimple">
+    <declare-styleable name="SplashView">
+        <attr name="animated" format="boolean" />
         <attr name="text" />
-        <attr name="image" />
-    </declare-styleable>
-
-    <declare-styleable name="SplashViewAnimated">
-        <attr name="text" />
+        <attr name="image" format="reference|color" />
         <attr name="foreground_image" format="reference|color" />
         <attr name="background_image" format="reference|color" />
         <attr name="animation" format="reference" />

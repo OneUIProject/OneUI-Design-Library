@@ -79,7 +79,7 @@ public class AboutPage extends LinearLayout {
         setUpdateState(update_state);
 
         toolbarLayout.setNavigationButtonIcon(getResources().getDrawable(R.drawable.ic_samsung_back, context.getTheme()));
-        toolbarLayout.setNavigationIconTooltip(getResources().getText(R.string.sesl_navigate_up));
+        toolbarLayout.setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigate_up));
         toolbarLayout.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

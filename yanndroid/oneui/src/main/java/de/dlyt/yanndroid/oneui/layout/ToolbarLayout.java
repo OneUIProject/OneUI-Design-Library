@@ -371,7 +371,7 @@ public class ToolbarLayout extends LinearLayout {
         }
     }
 
-    public void setNavigationIconTooltip(CharSequence tooltipText) {
+    public void setNavigationButtonTooltip(CharSequence tooltipText) {
         navigationButton.setTooltipText(tooltipText);
     }
 
