@@ -12,12 +12,12 @@ import android.widget.TextView;
 import androidx.appcompat.view.ContextThemeWrapper;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.SamsungPreferenceFragment;
+import de.dlyt.yanndroid.oneui.layout.PreferenceFragment;
 
 public class PreferencesRelatedCard extends LinearLayout {
     private static final String TAG = "PreferencesRelatedCard";
     private Context mContext;
-    private SamsungPreferenceFragment mTargetFragment;
+    private PreferenceFragment mTargetFragment;
 
     private View mParentView;
     private TextView mCardTitleText;
@@ -83,8 +83,8 @@ public class PreferencesRelatedCard extends LinearLayout {
         if (mCardContainer != null && mCardContainer.getChildCount() <= 0) {
             Log.d(TAG, "The current screen doesn't have any content.");
         } else {
-            if (obj instanceof SamsungPreferenceFragment) {
-                SamsungPreferenceFragment fragment = (SamsungPreferenceFragment) obj;
+            if (obj instanceof PreferenceFragment) {
+                PreferenceFragment fragment = (PreferenceFragment) obj;
                 fragment.setFooterView(mParentView, true);
                 mTargetFragment = fragment;
                 return;
@@ -94,8 +94,8 @@ public class PreferencesRelatedCard extends LinearLayout {
     }
 
     public void setTargetFragment(Object obj) {
-        if (obj instanceof SamsungPreferenceFragment) {
-            mTargetFragment = (SamsungPreferenceFragment) obj;
+        if (obj instanceof PreferenceFragment) {
+            mTargetFragment = (PreferenceFragment) obj;
         }
     }
 }

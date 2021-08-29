@@ -8,9 +8,9 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import de.dlyt.yanndroid.oneui.Switch;
-import de.dlyt.yanndroid.oneui.SwitchBar;
-import de.dlyt.yanndroid.oneui.ThemeColor;
+import de.dlyt.yanndroid.oneui.view.Switch;
+import de.dlyt.yanndroid.oneui.view.SwitchBar;
+import de.dlyt.yanndroid.oneui.utils.ThemeColor;
 import de.dlyt.yanndroid.oneui.layout.SwitchBarLayout;
 
 public class SwitchBarActivity extends AppCompatActivity implements SwitchBar.OnSwitchChangeListener {

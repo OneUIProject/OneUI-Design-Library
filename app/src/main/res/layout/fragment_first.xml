@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <de.dlyt.yanndroid.oneui.TabLayout
+    <de.dlyt.yanndroid.oneui.view.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp" />
 
-    <de.dlyt.yanndroid.oneui.RoundLinearLayout
+    <de.dlyt.yanndroid.oneui.layout.RoundLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -21,6 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </de.dlyt.yanndroid.oneui.RoundLinearLayout>
+    </de.dlyt.yanndroid.oneui.layout.RoundLinearLayout>
 
 </LinearLayout>

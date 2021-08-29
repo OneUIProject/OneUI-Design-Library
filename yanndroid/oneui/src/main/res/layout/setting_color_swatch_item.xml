@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <de.dlyt.yanndroid.oneui.colorpicker.SpenColorSwatchItemView
+    <de.dlyt.yanndroid.oneui.sesl.colorpicker.SpenColorSwatchItemView
         android:id="@+id/swatch_item"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/setting_color_picker_color_swatch_item_height" />

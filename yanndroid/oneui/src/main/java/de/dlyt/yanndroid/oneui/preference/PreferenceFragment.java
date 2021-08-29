@@ -24,8 +24,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.recyclerview.SeslLinearLayoutManager;
-import de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerView;
+import de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslLinearLayoutManager;
+import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
 public abstract class PreferenceFragment extends Fragment implements PreferenceManager.OnPreferenceTreeClickListener, PreferenceManager.OnDisplayPreferenceDialogListener, PreferenceManager.OnNavigateToScreenListener, DialogPreference.TargetFragment {
     private final PreferenceFragment.DividerDecoration mDividerDecoration = new PreferenceFragment.DividerDecoration();
@@ -33,10 +33,10 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
     private boolean mInitDone;
     private int mIsLargeLayout;
     private int mLayoutResId = R.layout.sesl_preference_list_fragment;
-    private SeslRecyclerView mList;
+    private RecyclerView mList;
     private final Runnable mRequestFocus = new Runnable() {
         public void run() {
-            SeslRecyclerView var1 = PreferenceFragment.this.mList;
+            RecyclerView var1 = PreferenceFragment.this.mList;
             var1.focusableViewAvailable(var1);
         }
     };
@@ -78,7 +78,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
         return null;
     }
 
-    public final SeslRecyclerView getListView() {
+    public final RecyclerView getListView() {
         return this.mList;
     }
 
@@ -106,7 +106,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
 
     public void onConfigurationChanged(Configuration var1) {
         if (this.getListView() != null) {
-            SeslRecyclerView.Adapter var2 = this.getListView().getAdapter();
+            RecyclerView.Adapter var2 = this.getListView().getAdapter();
             byte var3;
             if (var1.smallestScreenWidthDp <= 320) {
                 var3 = 1;
@@ -183,25 +183,25 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
         this.onCreatePreferences(var1, var5);
     }
 
-    public SeslRecyclerView.Adapter onCreateAdapter(PreferenceScreen var1) {
+    public RecyclerView.Adapter onCreateAdapter(PreferenceScreen var1) {
         return new PreferenceGroupAdapter(var1);
     }
 
-    public SeslRecyclerView.LayoutManager onCreateLayoutManager() {
+    public RecyclerView.LayoutManager onCreateLayoutManager() {
         return new SeslLinearLayoutManager(this.getContext());
     }
 
     public abstract void onCreatePreferences(Bundle var1, String var2);
 
-    public SeslRecyclerView onCreateRecyclerView(LayoutInflater var1, ViewGroup var2, Bundle var3) {
+    public RecyclerView onCreateRecyclerView(LayoutInflater var1, ViewGroup var2, Bundle var3) {
         if (this.getContext().getPackageManager().hasSystemFeature("android.hardware.type.automotive")) {
-            SeslRecyclerView var5 = (SeslRecyclerView) var2.findViewById(R.id.recycler_view);
+            RecyclerView var5 = (RecyclerView) var2.findViewById(R.id.recycler_view);
             if (var5 != null) {
                 return var5;
             }
         }
 
-        SeslRecyclerView var4 = (SeslRecyclerView) var1.inflate(R.layout.sesl_preference_recyclerview, var2, false);
+        RecyclerView var4 = (RecyclerView) var1.inflate(R.layout.sesl_preference_recyclerview, var2, false);
         var4.setLayoutManager(this.onCreateLayoutManager());
         var4.setAccessibilityDelegateCompat(new PreferenceRecyclerViewAccessibilityDelegate(var4));
         return var4;
@@ -231,7 +231,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
         View var11 = var10.findViewById(android.R.id.list_container);
         if (var11 instanceof ViewGroup) {
             var2 = (ViewGroup) var11;
-            SeslRecyclerView var12 = this.onCreateRecyclerView(var14, var2, var3);
+            RecyclerView var12 = this.onCreateRecyclerView(var14, var2, var3);
             if (var12 != null) {
                 this.mList = var12;
                 var12.addItemDecoration(this.mDividerDecoration);
@@ -483,7 +483,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
         boolean onPreferenceStartScreen(PreferenceFragment var1, PreferenceScreen var2);
     }
 
-    private class DividerDecoration extends SeslRecyclerView.ItemDecoration {
+    private class DividerDecoration extends RecyclerView.ItemDecoration {
         public boolean mAllowDividerAfterLastItem = true;
         public Drawable mDivider;
         public int mDividerHeight;
@@ -491,8 +491,8 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
         public DividerDecoration() {
         }
 
-        public final boolean canScrollUp(SeslRecyclerView var1) {
-            SeslRecyclerView.LayoutManager var2 = var1.getLayoutManager();
+        public final boolean canScrollUp(RecyclerView var1) {
+            RecyclerView.LayoutManager var2 = var1.getLayoutManager();
             boolean var3 = var2 instanceof SeslLinearLayoutManager;
             boolean var4 = false;
             boolean var5 = var4;
@@ -517,7 +517,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
             return var5;
         }
 
-        public void seslOnDispatchDraw(Canvas var1, SeslRecyclerView var2, SeslRecyclerView.State var3) {
+        public void seslOnDispatchDraw(Canvas var1, RecyclerView var2, RecyclerView.State var3) {
             super.seslOnDispatchDraw(var1, var2, var3);
             int var4 = var2.getChildCount();
             int var5 = var2.getWidth();
@@ -529,7 +529,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
             PreferenceViewHolder var10;
             for (var8 = var7; var6 < var4; var7 = var10) {
                 View var9 = var2.getChildAt(var6);
-                SeslRecyclerView.ViewHolder var12 = var2.getChildViewHolder(var9);
+                RecyclerView.ViewHolder var12 = var2.getChildViewHolder(var9);
                 PreferenceViewHolder var13;
                 if (var12 instanceof PreferenceViewHolder) {
                     var13 = (PreferenceViewHolder) var12;
@@ -592,8 +592,8 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
             PreferenceFragment.this.mList.invalidateItemDecorations();
         }
 
-        public final boolean shouldDrawDividerBelow(View var1, SeslRecyclerView var2) {
-            SeslRecyclerView.ViewHolder var3 = var2.getChildViewHolder(var1);
+        public final boolean shouldDrawDividerBelow(View var1, RecyclerView var2) {
+            RecyclerView.ViewHolder var3 = var2.getChildViewHolder(var1);
             boolean var4;
             if (var3 instanceof PreferenceViewHolder && ((PreferenceViewHolder) var3).isDividerAllowedBelow()) {
                 var4 = true;
@@ -607,7 +607,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
                 boolean var5 = this.mAllowDividerAfterLastItem;
                 int var7 = var2.indexOfChild(var1);
                 if (var7 < var2.getChildCount() - 1) {
-                    SeslRecyclerView.ViewHolder var6 = var2.getChildViewHolder(var2.getChildAt(var7 + 1));
+                    RecyclerView.ViewHolder var6 = var2.getChildViewHolder(var2.getChildAt(var7 + 1));
                     if (var6 instanceof PreferenceViewHolder && ((PreferenceViewHolder) var6).isDividerAllowedAbove()) {
                         var5 = true;
                     } else {

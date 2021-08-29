@@ -14,7 +14,7 @@
         android:paddingEnd="@dimen/sesl_progress_dialog_padding_horizontal"
         android:paddingBottom="@dimen/sesl_progress_dialog_padding_vertical">
 
-        <de.dlyt.yanndroid.oneui.ProgressBar
+        <de.dlyt.yanndroid.oneui.view.ProgressBar
             android:id="@id/progress"
             style="?android:progressBarStyle"
             android:layout_width="wrap_content"

@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.widget.Tooltip;
+import de.dlyt.yanndroid.oneui.view.Tooltip;
 
 public class TipsCardViewPreference extends Preference {
     private Context mContext;

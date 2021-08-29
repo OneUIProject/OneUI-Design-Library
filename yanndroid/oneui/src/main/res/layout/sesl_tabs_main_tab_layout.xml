@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="43.0dip">
 
-    <de.dlyt.yanndroid.oneui.tabs.TabDotLineIndicator
+    <de.dlyt.yanndroid.oneui.sesl.tabs.TabDotLineIndicator
         android:id="@id/indicator"
         android:layout_width="0.0dip"
         android:layout_height="4.0dip"

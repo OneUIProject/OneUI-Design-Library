@@ -27,7 +27,7 @@
         android:layout_marginEnd="6.0dip"
         android:orientation="horizontal" />
 
-    <de.dlyt.yanndroid.oneui.colorpicker.SpenColorValueSeekBar
+    <de.dlyt.yanndroid.oneui.sesl.colorpicker.SpenColorValueSeekBar
         android:id="@+id/color_picker_seek_bar"
         android:layout_width="@dimen/setting_color_picker_seekbar_layout_width_land"
         android:layout_height="@dimen/setting_color_picker_seekbar_layout_height_land"
@@ -72,7 +72,7 @@
                 android:thumb="@drawable/spen_color_picker_seekbar_point_circle"
                 android:thumbOffset="@dimen/color_picker_popup_seekbar_offset" />
         </RelativeLayout>
-    </de.dlyt.yanndroid.oneui.colorpicker.SpenColorValueSeekBar>
+    </de.dlyt.yanndroid.oneui.sesl.colorpicker.SpenColorValueSeekBar>
 
     <include
         layout="@layout/setting_color_picker_rgb_group"

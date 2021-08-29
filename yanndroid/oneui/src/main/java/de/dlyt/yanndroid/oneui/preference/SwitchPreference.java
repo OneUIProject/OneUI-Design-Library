@@ -13,7 +13,7 @@ import android.widget.CompoundButton;
 import androidx.core.content.res.TypedArrayUtils;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.Switch;
+import de.dlyt.yanndroid.oneui.view.Switch;
 
 public class SwitchPreference extends TwoStatePreference {
     private final DummyClickListener mClickListener = new DummyClickListener();

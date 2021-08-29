@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
-    <de.dlyt.yanndroid.oneui.tabs.TabRoundRectIndicator
+    <de.dlyt.yanndroid.oneui.sesl.tabs.TabRoundRectIndicator
         android:id="@+id/indicator"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

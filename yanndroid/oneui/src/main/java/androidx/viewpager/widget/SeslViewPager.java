@@ -44,7 +44,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import de.dlyt.yanndroid.oneui.widget.SamsungEdgeEffect;
+import de.dlyt.yanndroid.oneui.sesl.utils.SamsungEdgeEffect;
 
 public class SeslViewPager extends ViewGroup {
     public static final Comparator<ItemInfo> COMPARATOR = new Comparator<ItemInfo>() {

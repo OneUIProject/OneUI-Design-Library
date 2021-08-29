@@ -22,7 +22,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Widget.SeslSwitchBar"
             tools:ignore="RtlCompat" />
 
-        <de.dlyt.yanndroid.oneui.ProgressBar
+        <de.dlyt.yanndroid.oneui.view.ProgressBar
             android:id="@+id/sesl_switchbar_progress"
             android:layout_width="25.0dip"
             android:layout_height="25.0dip"

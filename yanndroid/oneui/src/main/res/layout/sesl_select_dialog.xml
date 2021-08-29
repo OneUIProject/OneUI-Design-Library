@@ -2,7 +2,7 @@
 <view xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/select_dialog_listview"
-    class="de.dlyt.yanndroid.oneui.dialog.SamsungAlertController$RecycleListView"
+    class="de.dlyt.yanndroid.oneui.sesl.dialog.SamsungAlertController$RecycleListView"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:cacheColorHint="@null"

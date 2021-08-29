@@ -39,11 +39,9 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.RoundLinearLayout;
-import de.dlyt.yanndroid.oneui.appbar.SamsungAppBarLayout;
-import de.dlyt.yanndroid.oneui.appbar.SamsungCollapsingToolbarLayout;
-import de.dlyt.yanndroid.oneui.coordinatorlayout.SamsungCoordinatorLayout;
-import de.dlyt.yanndroid.oneui.widget.ToolbarImageButton;
+import de.dlyt.yanndroid.oneui.sesl.appbar.SamsungAppBarLayout;
+import de.dlyt.yanndroid.oneui.sesl.appbar.SamsungCollapsingToolbarLayout;
+import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
 
 public class ToolbarLayout extends LinearLayout {
     public static final int APPBAR_LAYOUT = 0;
@@ -284,8 +282,8 @@ public class ToolbarLayout extends LinearLayout {
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) layoutParams;
             lp.setMargins(margin, 0, margin, 0);
             viewGroup.setLayoutParams(lp);
-        } else if (layoutParams instanceof SamsungCoordinatorLayout.LayoutParams) {
-            SamsungCoordinatorLayout.LayoutParams lp = (SamsungCoordinatorLayout.LayoutParams) layoutParams;
+        } else if (layoutParams instanceof CoordinatorLayout.LayoutParams) {
+            CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) layoutParams;
             lp.setMargins(margin, 0, margin, 0);
             viewGroup.setLayoutParams(lp);
         }

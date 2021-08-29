@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <de.dlyt.yanndroid.oneui.BottomNavigationView
+    <de.dlyt.yanndroid.oneui.view.BottomNavigationView
         android:id="@+id/main_samsung_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

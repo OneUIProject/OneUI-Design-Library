@@ -27,7 +27,7 @@
                 android:layout_marginTop="@dimen/sesl_color_picker_color_swatch_view_container_margin_top"
                 android:layout_marginBottom="@dimen/sesl_color_picker_color_swatch_view_container_margin_bottom">
 
-                <de.dlyt.yanndroid.oneui.colorpicker.SeslColorSwatchView
+                <de.dlyt.yanndroid.oneui.sesl.colorpicker.SeslColorSwatchView
                     android:id="@+id/sesl_color_picker_color_swatch_view"
                     android:layout_width="@dimen/sesl_color_picker_color_swatch_view_width"
                     android:layout_height="@dimen/sesl_color_picker_color_swatch_view_height" />
@@ -47,7 +47,7 @@
                     android:background="@drawable/sesl_color_picker_opacity_seekbar_background"
                     android:importantForAccessibility="no" />
 
-                <de.dlyt.yanndroid.oneui.colorpicker.SeslOpacitySeekBar
+                <de.dlyt.yanndroid.oneui.sesl.colorpicker.SeslOpacitySeekBar
                     android:id="@+id/sesl_color_picker_opacity_seekbar"
                     android:layout_width="@dimen/sesl_color_picker_seekbar_width"
                     android:layout_height="@dimen/sesl_color_picker_seekbar_height"

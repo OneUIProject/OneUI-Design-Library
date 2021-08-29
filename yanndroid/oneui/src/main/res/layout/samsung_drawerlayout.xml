@@ -39,7 +39,7 @@
                     android:layout_marginVertical="8dp"
                     android:layout_marginEnd="18dp">
 
-                    <de.dlyt.yanndroid.oneui.widget.ToolbarImageButton
+                    <de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton
                         android:id="@+id/drawer_layout_drawerButton"
                         android:layout_width="48dp"
                         android:layout_height="48dp"

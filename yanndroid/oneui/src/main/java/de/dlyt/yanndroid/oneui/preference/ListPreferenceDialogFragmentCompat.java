@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
-import de.dlyt.yanndroid.oneui.dialog.SamsungAlertDialog;
+import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
 
 public class ListPreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat {
     private static final String SAVE_STATE_INDEX = "ListPreferenceDialogFragment.index";
@@ -72,7 +72,7 @@ public class ListPreferenceDialogFragmentCompat extends PreferenceDialogFragment
     }
 
     @Override
-    protected void onPrepareDialogBuilder(SamsungAlertDialog.Builder builder) {
+    protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
         super.onPrepareDialogBuilder(builder);
 
         builder.setSingleChoiceItems(mEntries, mClickedDialogEntryIndex,

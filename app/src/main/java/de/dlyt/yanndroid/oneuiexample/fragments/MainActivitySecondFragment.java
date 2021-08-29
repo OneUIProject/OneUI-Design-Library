@@ -7,8 +7,8 @@ import android.view.View;
 
 import androidx.appcompat.util.SeslMisc;
 
-import de.dlyt.yanndroid.oneui.ThemeColor;
-import de.dlyt.yanndroid.oneui.SamsungPreferenceFragment;
+import de.dlyt.yanndroid.oneui.utils.ThemeColor;
+import de.dlyt.yanndroid.oneui.layout.PreferenceFragment;
 import de.dlyt.yanndroid.oneui.preference.SwitchPreferenceScreen;
 import de.dlyt.yanndroid.oneui.preference.internal.PreferencesRelatedCard;
 import de.dlyt.yanndroid.oneui.preference.HorizontalRadioPreference;
@@ -19,7 +19,7 @@ import de.dlyt.yanndroid.oneui.preference.TipsCardViewPreference;
 import de.dlyt.yanndroid.oneuiexample.MainActivity;
 import de.dlyt.yanndroid.oneuiexample.R;
 
-public class MainActivitySecondFragment extends SamsungPreferenceFragment
+public class MainActivitySecondFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener,
         View.OnClickListener {
     private long mLastClickTime = 0L;

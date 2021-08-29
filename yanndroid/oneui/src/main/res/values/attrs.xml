@@ -305,7 +305,7 @@
         <attr name="paddingTopNoTitle" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="SeslRecyclerView">
+    <declare-styleable name="RecyclerView">
         <attr name="layoutManager" format="string" />
         <attr name="android:orientation" />
         <attr name="android:descendantFocusability" />

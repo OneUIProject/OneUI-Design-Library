@@ -18,7 +18,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.SwitchBar;
+import de.dlyt.yanndroid.oneui.view.SwitchBar;
 
 public class SwitchBarLayout extends LinearLayout {
 

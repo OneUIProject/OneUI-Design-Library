@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.recyclerview.DiffUtil;
-import de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerView;
+import de.dlyt.yanndroid.oneui.sesl.recyclerview.DiffUtil;
+import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
-public class PreferenceGroupAdapter extends SeslRecyclerView.Adapter<PreferenceViewHolder> implements Preference.OnPreferenceChangeInternalListener, PreferenceGroup.PreferencePositionCallback {
+public class PreferenceGroupAdapter extends RecyclerView.Adapter<PreferenceViewHolder> implements Preference.OnPreferenceChangeInternalListener, PreferenceGroup.PreferencePositionCallback {
     boolean mIsCategoryAfter = false;
     Preference mNextGroupPreference = null;
     Preference mNextPreference = null;
@@ -175,7 +175,7 @@ public class PreferenceGroupAdapter extends SeslRecyclerView.Adapter<PreferenceV
     @Override
     public long getItemId(int position) {
         if (!hasStableIds()) {
-            return SeslRecyclerView.NO_ID;
+            return RecyclerView.NO_ID;
         }
         return this.getItem(position).getId();
     }
@@ -243,7 +243,7 @@ public class PreferenceGroupAdapter extends SeslRecyclerView.Adapter<PreferenceV
                 return i;
             }
         }
-        return SeslRecyclerView.NO_POSITION;
+        return RecyclerView.NO_POSITION;
     }
 
     @Override
@@ -255,7 +255,7 @@ public class PreferenceGroupAdapter extends SeslRecyclerView.Adapter<PreferenceV
                 return i;
             }
         }
-        return SeslRecyclerView.NO_POSITION;
+        return RecyclerView.NO_POSITION;
     }
 
 

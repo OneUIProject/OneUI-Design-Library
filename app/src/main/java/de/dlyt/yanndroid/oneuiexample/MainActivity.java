@@ -21,16 +21,16 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.LinkedHashMap;
 
-import de.dlyt.yanndroid.oneui.BottomNavigationView;
-import de.dlyt.yanndroid.oneui.ClassicColorPickerDialog;
-import de.dlyt.yanndroid.oneui.DetailedColorPickerDialog;
-import de.dlyt.yanndroid.oneui.ThemeColor;
+import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
+import de.dlyt.yanndroid.oneui.dialog.ClassicColorPickerDialog;
+import de.dlyt.yanndroid.oneui.dialog.DetailedColorPickerDialog;
+import de.dlyt.yanndroid.oneui.utils.ThemeColor;
 import de.dlyt.yanndroid.oneui.dialog.ProgressDialog;
-import de.dlyt.yanndroid.oneui.dialog.SamsungAlertDialog;
+import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
-import de.dlyt.yanndroid.oneui.snackbar.Snackbar;
-import de.dlyt.yanndroid.oneui.utils.ReflectUtils;
+import de.dlyt.yanndroid.oneui.view.Snackbar;
+import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
 
 import static de.dlyt.yanndroid.oneui.layout.DrawerLayout.DRAWER_LAYOUT;
@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void standardDialog(View view) {
-        new SamsungAlertDialog.Builder(this)
+        new AlertDialog.Builder(this)
                 .setTitle("Title")
                 .setMessage("Message")
                 .setNeutralButton("Maybe", null)
@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void singleChoiceDialog(View view) {
         CharSequence[] charSequences = {"Choice1", "Choice2", "Choice3"};
-        new SamsungAlertDialog.Builder(this)
+        new AlertDialog.Builder(this)
                 .setTitle("Title")
                 .setNeutralButton("Maybe", null)
                 .setNegativeButton("No", null)
@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
     public void multiChoiceDialog(View view) {
         CharSequence[] charSequences = {"Choice1", "Choice2", "Choice3"};
         boolean[] booleans = {true, false, true};
-        new SamsungAlertDialog.Builder(this)
+        new AlertDialog.Builder(this)
                 .setTitle("Title")
                 .setNeutralButton("Maybe", null)
                 .setNegativeButton("No", null)

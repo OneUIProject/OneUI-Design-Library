@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.SeslViewPager;
 
-import de.dlyt.yanndroid.oneui.TabLayout;
+import de.dlyt.yanndroid.oneui.view.TabLayout;
 import de.dlyt.yanndroid.oneuiexample.R;
 import de.dlyt.yanndroid.oneuiexample.tabs.ViewPagerAdapter;
 

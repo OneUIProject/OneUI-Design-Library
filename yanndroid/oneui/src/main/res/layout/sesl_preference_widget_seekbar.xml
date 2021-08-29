@@ -57,7 +57,7 @@
             android:textColor="?colorPrimaryDark"
             android:visibility="gone" />
 
-        <de.dlyt.yanndroid.oneui.SeekBar
+        <de.dlyt.yanndroid.oneui.view.SeekBar
             android:id="@+id/seekbar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

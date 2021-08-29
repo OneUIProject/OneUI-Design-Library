@@ -3,7 +3,7 @@ package androidx.appcompat.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import de.dlyt.yanndroid.oneui.Switch;
+import de.dlyt.yanndroid.oneui.view.Switch;
 
 public class SeslToggleSwitch extends Switch {
     private OnBeforeCheckedChangeListener mOnBeforeListener;

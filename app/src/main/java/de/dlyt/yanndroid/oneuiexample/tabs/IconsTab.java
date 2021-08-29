@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -14,8 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import de.dlyt.yanndroid.oneui.recyclerview.GridLayoutManager;
-import de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerView;
+import de.dlyt.yanndroid.oneui.sesl.recyclerview.GridLayoutManager;
+import de.dlyt.yanndroid.oneui.view.RecyclerView;
 import de.dlyt.yanndroid.oneuiexample.R;
 
 public class IconsTab extends Fragment {
@@ -45,7 +44,7 @@ public class IconsTab extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Icons
-        SeslRecyclerView images = mRootView.findViewById(R.id.images);
+        RecyclerView images = mRootView.findViewById(R.id.images);
         images.setLayoutManager(new GridLayoutManager(mActivity, 15));
         images.setAdapter(new ImageAdapter(mActivity));
         images.seslSetFillBottomEnabled(false);
@@ -54,7 +53,7 @@ public class IconsTab extends Fragment {
 
 
     //Adapter for the Icon RecyclerView
-    public class ImageAdapter extends SeslRecyclerView.Adapter<ImageAdapter.ViewHolder> {
+    public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
         private Context mContext;
 
         ImageAdapter(Context context) {
@@ -81,7 +80,7 @@ public class IconsTab extends Fragment {
             return imageIDs.length;
         }
 
-        public class ViewHolder extends SeslRecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
 
             ViewHolder(View itemView) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <view xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/SnackBarStyle"
-    class="de.dlyt.yanndroid.oneui.snackbar.Snackbar$SnackbarLayout"
+    class="de.dlyt.yanndroid.oneui.view.Snackbar$SnackbarLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|center"

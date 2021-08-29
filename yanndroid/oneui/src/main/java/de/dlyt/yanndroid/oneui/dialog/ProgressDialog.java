@@ -15,10 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import de.dlyt.yanndroid.oneui.ProgressBar;
+import de.dlyt.yanndroid.oneui.view.ProgressBar;
 import de.dlyt.yanndroid.oneui.R;
 
-public class ProgressDialog extends SamsungAlertDialog {
+public class ProgressDialog extends AlertDialog {
     public static final int STYLE_SPINNER = 0;
     public static final int STYLE_HORIZONTAL = 1;
     public static final int STYLE_CIRCLE_ONLY = 2;

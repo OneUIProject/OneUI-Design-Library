@@ -18,7 +18,7 @@ import android.widget.TextView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import de.dlyt.yanndroid.oneui.dialog.SamsungAlertDialog;
+import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
 
 public abstract class PreferenceDialogFragmentCompat extends DialogFragment implements DialogInterface.OnClickListener {
     protected static final String ARG_KEY = "key";
@@ -99,7 +99,7 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
         final Context context = getActivity();
         mWhichButtonClicked = DialogInterface.BUTTON_NEGATIVE;
 
-        final SamsungAlertDialog.Builder builder = new SamsungAlertDialog.Builder(context).setTitle(mDialogTitle).setIcon(mDialogIcon).setPositiveButton(mPositiveButtonText, this).setNegativeButton(mNegativeButtonText, this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle(mDialogTitle).setIcon(mDialogIcon).setPositiveButton(mPositiveButtonText, this).setNegativeButton(mNegativeButtonText, this);
 
         View contentView = onCreateDialogView(context);
         if (contentView != null) {
@@ -128,7 +128,7 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
         return mPreference;
     }
 
-    protected void onPrepareDialogBuilder(SamsungAlertDialog.Builder builder) {
+    protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
     }
 
     protected boolean needInputMethod() {

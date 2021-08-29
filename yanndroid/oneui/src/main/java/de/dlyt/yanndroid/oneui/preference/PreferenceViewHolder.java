@@ -5,9 +5,9 @@ import android.util.SparseArray;
 import android.view.View;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerView;
+import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
-public class PreferenceViewHolder extends SeslRecyclerView.ViewHolder {
+public class PreferenceViewHolder extends RecyclerView.ViewHolder {
     private final SparseArray<View> mCachedViews = new SparseArray<>(4);
     boolean mDrawBackground = false;
     int mDrawCorners;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerView
+<de.dlyt.yanndroid.oneui.view.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/images"
     android:layout_width="match_parent"

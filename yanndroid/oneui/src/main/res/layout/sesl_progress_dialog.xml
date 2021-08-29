@@ -16,7 +16,7 @@
         android:textSize="@dimen/sesl_progress_dialog_text_size"
         android:visibility="gone" />
 
-    <de.dlyt.yanndroid.oneui.ProgressBar
+    <de.dlyt.yanndroid.oneui.view.ProgressBar
         android:id="@id/progress"
         style="?android:progressBarStyleHorizontal"
         android:layout_width="fill_parent"

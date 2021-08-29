@@ -8,7 +8,7 @@ import android.view.animation.Animation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import de.dlyt.yanndroid.oneui.ThemeColor;
+import de.dlyt.yanndroid.oneui.utils.ThemeColor;
 import de.dlyt.yanndroid.oneui.layout.SplashViewAnimated;
 
 public class SplashActivity extends AppCompatActivity {

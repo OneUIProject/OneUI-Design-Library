@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:toolbar_title="SwitchBarLayout">
 
-    <de.dlyt.yanndroid.oneui.RoundNestedScrollView
+    <de.dlyt.yanndroid.oneui.view.RoundNestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_color"
@@ -21,7 +21,7 @@
             android:orientation="horizontal"
             android:descendantFocusability="afterDescendants">
 
-            <de.dlyt.yanndroid.oneui.RoundFrameLayout
+            <de.dlyt.yanndroid.oneui.layout.RoundFrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4.0"
@@ -34,7 +34,7 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@mipmap/ic_launcher" />
-            </de.dlyt.yanndroid.oneui.RoundFrameLayout>
+            </de.dlyt.yanndroid.oneui.layout.RoundFrameLayout>
 
             <TextView
                 android:layout_width="0dp"
@@ -52,6 +52,6 @@
 
         </LinearLayout>
 
-    </de.dlyt.yanndroid.oneui.RoundNestedScrollView>
+    </de.dlyt.yanndroid.oneui.view.RoundNestedScrollView>
 
 </de.dlyt.yanndroid.oneui.layout.SwitchBarLayout>

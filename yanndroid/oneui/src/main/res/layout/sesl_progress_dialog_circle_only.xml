@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <de.dlyt.yanndroid.oneui.ProgressBar
+    <de.dlyt.yanndroid.oneui.view.ProgressBar
         android:id="@id/progress"
         style="?android:progressBarStyleLarge"
         android:layout_width="70.0dip"
