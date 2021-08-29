@@ -7,12 +7,15 @@ import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,6 +41,7 @@ public class DrawerLayout extends LinearLayout {
     public static final int DRAWER_LAYOUT = 3;
     public static final int DRAWER = 4;
     public static final int N_BADGE = -1;
+    private Context mContext;
     private int mLayout;
     private String mToolbarTitle;
     private String mToolbarSubtitle;
@@ -56,6 +60,9 @@ public class DrawerLayout extends LinearLayout {
 
     public DrawerLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
+        mContext = context;
+
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DrawerLayout, 0, 0);
 
         try {
@@ -99,7 +106,7 @@ public class DrawerLayout extends LinearLayout {
         drawerLayout.setScrimColor(ContextCompat.getColor(getContext(), R.color.drawer_dim_color));
         drawerLayout.setDrawerElevation(0);
 
-        init();
+        setDrawerWidth();
 
         Boolean isRtl = getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         Window window = getActivity().getWindow();
@@ -141,9 +148,29 @@ public class DrawerLayout extends LinearLayout {
         }
     }
 
-    private void init() {
+    private void setDrawerWidth() {
         ViewGroup.LayoutParams layoutParams = drawer.getLayoutParams();
-        layoutParams.width = Math.min((int) ((double) this.getResources().getDisplayMetrics().widthPixels * ((double) getResources().getInteger(R.integer.drawerMaxWidth) / 1000)), this.getResources().getDimensionPixelSize(R.dimen.drawer_width));
+        Display display = ((WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Point p = new Point();
+        display.getSize(p);
+        int displayWidth = p.x;
+        float density = getResources().getDisplayMetrics().density;
+        float dpi = (float) displayWidth / density;
+
+        double widthRate;
+        if (dpi >= 1920.0F) {
+            widthRate = 0.22D;
+        } else if (dpi >= 960.0F && dpi < 1920.0F) {
+            widthRate = 0.2734D;
+        } else if (dpi >= 600.0F && dpi < 960.0F) {
+            widthRate = 0.46D;
+        } else if (dpi >= 480.0F && dpi < 600.0F) {
+            widthRate = 0.5983D;
+        } else {
+            widthRate = 0.844D;
+        }
+
+        layoutParams.width = (int) ((double) displayWidth * widthRate);
     }
 
     public androidx.appcompat.widget.Toolbar getToolbar() {
@@ -250,7 +277,7 @@ public class DrawerLayout extends LinearLayout {
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        init();
+        setDrawerWidth();
     }
 
     @IntDef({DRAWER_BUTTON, TOOLBAR, CONTENT_LAYOUT, DRAWER_LAYOUT, DRAWER})

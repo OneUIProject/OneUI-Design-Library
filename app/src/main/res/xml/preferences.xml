@@ -14,9 +14,9 @@
     <HorizontalRadioPreference
         android:key="dark_mode"
         android:title="Dark mode settings"
-        app:entriesImage="@array/inner_preferences_darkmode_entries_image"
-        app:entries="@array/inner_preferences_darkmode_entries"
-        app:entryValues="@array/inner_preferences_darkmode_values"
+        app:entriesImage="@array/preferences_darkmode_entries_image"
+        app:entries="@array/preferences_darkmode_entries"
+        app:entryValues="@array/preferences_darkmode_values"
         app:viewType="image" />
     <SwitchPreference
         android:key="dark_mode_auto"
@@ -29,7 +29,11 @@
         <SwitchPreferenceScreen
             android:key="switch_preference_screen"
             android:summary="Summary"
-            android:title="SwitchPreferenceScreen" />
+            android:title="SwitchPreferenceScreen">
+            <intent
+                android:targetPackage="de.dlyt.yanndroid.oneuiexample"
+                android:targetClass="de.dlyt.yanndroid.oneuiexample.SwitchBarActivity" />
+        </SwitchPreferenceScreen>
         <CheckBoxPreference
             android:summary="Summary"
             android:title="CheckBoxPreference" />
@@ -73,20 +77,20 @@
             android:summary="Summary"
             android:title="EditTextPreference" />
         <ListPreference
-            android:entries="@array/inner_preferences_test_entries"
-            android:entryValues="@array/inner_preferences_test_values"
+            android:entries="@array/preferences_test_entries"
+            android:entryValues="@array/preferences_test_values"
             android:key="key1"
             android:summary="Summary"
             android:title="ListPreference" />
         <DropDownPreference
-            android:entries="@array/inner_preferences_test_entries"
-            android:entryValues="@array/inner_preferences_test_values"
+            android:entries="@array/preferences_test_entries"
+            android:entryValues="@array/preferences_test_values"
             android:key="key2"
             android:summary="Summary"
             android:title="DropDownPreference" />
         <MultiSelectListPreference
-            android:entries="@array/inner_preferences_test_entries"
-            android:entryValues="@array/inner_preferences_test_values"
+            android:entries="@array/preferences_test_entries"
+            android:entryValues="@array/preferences_test_values"
             android:key="key3"
             android:summary="Summary"
             android:title="MultiSelectListPreference" />
@@ -108,8 +112,12 @@
     <PreferenceCategory
         android:key="spacing2"/>
 
-    <Preference
+    <PreferenceScreen
         android:title="About OneUI Sample"
-        android:key="about_app"/>
+        android:key="about_app">
+        <intent
+            android:targetPackage="de.dlyt.yanndroid.oneuiexample"
+            android:targetClass="de.dlyt.yanndroid.oneuiexample.AboutActivity" />
+    </PreferenceScreen>
 
 </de.dlyt.yanndroid.oneui.preference.PreferenceScreen>

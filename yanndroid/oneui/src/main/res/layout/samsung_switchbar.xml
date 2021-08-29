@@ -24,11 +24,11 @@
 
         <de.dlyt.yanndroid.oneui.ProgressBar
             android:id="@+id/sesl_switchbar_progress"
-            style="@style/ProgressBarStyle.Circle.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25.0dip"
+            android:layout_height="25.0dip"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="@dimen/sesl_switchbar_progress_margin_right"
+            android:indeterminateDrawable="@drawable/switchbar_progress"
             android:visibility="gone" />
 
         <androidx.appcompat.widget.SeslToggleSwitch

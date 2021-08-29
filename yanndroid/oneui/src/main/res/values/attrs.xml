@@ -81,10 +81,16 @@
         <attr name="android:layout" />
         <attr name="toolbar_title" format="string" />
         <attr name="toolbar_subtitle" format="string" />
-        <attr name="toolbar_expandable" format="boolean" />
         <attr name="toolbar_expanded" format="boolean" />
         <attr name="drawer_icon" format="reference" />
         <attr name="drawer_viewId" format="reference|enum" />
+    </declare-styleable>
+
+    <declare-styleable name="SwitchBarLayout">
+        <attr name="android:layout" />
+        <attr name="toolbar_title" />
+        <attr name="toolbar_subtitle" />
+        <attr name="toolbar_expanded" />
     </declare-styleable>
 
     <declare-styleable name="ToolBarLayout">
@@ -255,6 +261,9 @@
         <attr name="roundedCorners" />
     </declare-styleable>
     <declare-styleable name="RoundLinearLayout">
+        <attr name="roundedCorners" />
+    </declare-styleable>
+    <declare-styleable name="RoundNestedScrollView">
         <attr name="roundedCorners" />
     </declare-styleable>
 

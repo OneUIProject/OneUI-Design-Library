@@ -31,4 +31,6 @@
     <color name="secondary_color">#ff444444</color>
     <color name="primary_dark_color">#ff000000</color>-->
 
+    <color name="switchbar_help_image_bg_color">#CCFCFCFC</color>
+
 </resources>
