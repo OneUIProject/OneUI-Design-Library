@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import de.dlyt.yanndroid.oneui.recyclerview.GridLayoutManager;
+import de.dlyt.yanndroid.oneui.recyclerview.SeslRecyclerView;
 import de.dlyt.yanndroid.oneuiexample.R;
 
 public class IconsTab extends Fragment {
@@ -43,42 +45,49 @@ public class IconsTab extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Icons
-        GridView images = mRootView.findViewById(R.id.images);
+        SeslRecyclerView images = mRootView.findViewById(R.id.images);
+        images.setLayoutManager(new GridLayoutManager(mActivity, 15));
         images.setAdapter(new ImageAdapter(mActivity));
+        images.seslSetFillBottomEnabled(false);
+        images.seslSetLastRoundedCorner(false);
     }
 
 
-    //Adapter for the Icon GridView
-    public class ImageAdapter extends BaseAdapter {
+    //Adapter for the Icon RecyclerView
+    public class ImageAdapter extends SeslRecyclerView.Adapter<ImageAdapter.ViewHolder> {
         private Context mContext;
 
-        public ImageAdapter(Context c) {
-            mContext = c;
+        ImageAdapter(Context context) {
+            mContext = context;
         }
 
-        public int getCount() {
+        @Override
+        @NonNull
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            ImageView imageView;
+            imageView = new ImageView(mContext);
+            imageView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            return new ViewHolder(imageView);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            holder.imageView.setImageResource(imageIDs[position]);
+        }
+
+        @Override
+        public int getItemCount() {
             return imageIDs.length;
         }
 
-        public Object getItem(int position) {
-            return null;
-        }
+        public class ViewHolder extends SeslRecyclerView.ViewHolder {
+            ImageView imageView;
 
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView mImageView;
-            if (convertView == null) {
-                mImageView = new ImageView(mContext);
-                mImageView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            } else {
-                mImageView = (ImageView) convertView;
+            ViewHolder(View itemView) {
+                super(itemView);
+                imageView = (ImageView) itemView;
             }
-            mImageView.setImageResource(imageIDs[position]);
-            return mImageView;
         }
     }
 

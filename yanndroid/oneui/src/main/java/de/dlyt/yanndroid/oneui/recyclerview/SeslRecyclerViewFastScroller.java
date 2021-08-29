@@ -305,7 +305,7 @@ class SeslRecyclerViewFastScroller {
     }
 
     public void setStyle(int resId) {
-        TypedArray ta = mContext.obtainStyledAttributes(null, R.styleable.SeslRecyclerViewFastScroller, android.R.attr.fastScrollStyle, resId);
+        TypedArray ta = mContext.obtainStyledAttributes(null, R.styleable.SeslRecyclerViewFastScroller, 0, resId);
         int N = ta.getIndexCount();
         for (int i = 0; i < N; i++) {
             int index = ta.getIndex(i);
@@ -864,8 +864,10 @@ class SeslRecyclerViewFastScroller {
 
         if (mRecyclerView.mLayout instanceof SeslLinearLayoutManager) {
             ((SeslLinearLayoutManager) mRecyclerView.mLayout).scrollToPositionWithOffset(mHeaderCount + targetIndex, 0);
-        } else {
+        } else if (mRecyclerView.mLayout instanceof StaggeredGridLayoutManager) {
             ((StaggeredGridLayoutManager) mRecyclerView.mLayout).scrollToPositionWithOffset(mHeaderCount + targetIndex, 0);
+        } else {
+            ((GridLayoutManager) mRecyclerView.mLayout).scrollToPositionWithOffset(mHeaderCount + targetIndex, 0);
         }
         onScroll(mRecyclerView.findFirstVisibleItemPosition(), mRecyclerView.getChildCount(), mRecyclerView.getAdapter().getItemCount());
         mCurrentSection = sectionIndex;
@@ -1041,9 +1043,14 @@ class SeslRecyclerViewFastScroller {
                 if (view != null && ((StaggeredGridLayoutManager.LayoutParams) view.getLayoutParams()).isFullSpan()) {
                     return 1.0f;
                 }
+            } else if ((mRecyclerView.mLayout instanceof GridLayoutManager)) {
+                View childAt = mRecyclerView.getChildAt(0);
+                int paddingTop = this.mRecyclerView.getPaddingTop();
+                float top = (childAt == null || childAt.getHeight() == 0) ? 0.0f : firstVisibleItem == 0 ? ((float) (paddingTop - childAt.getTop())) / ((float) (childAt.getHeight() + paddingTop)) : ((float) (-childAt.getTop())) / ((float) childAt.getHeight());
+                return (((float) firstVisibleItem) + (top * ((float) (((GridLayoutManager) mRecyclerView.mLayout).getSpanCount() / ((GridLayoutManager) mRecyclerView.mLayout).getSpanSizeLookup().getSpanSize(firstVisibleItem))))) / ((float) totalItemCount);
             }
-            return 0.0f;
         }
+            return 0.0f;
     }
 
     private void cancelFling() {

@@ -1110,7 +1110,7 @@ public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager impl
         return getChildAt(mShouldReverseLayout ? 0 : getChildCount() - 1);
     }
 
-    private View findFirstVisibleChildClosestToStart(boolean completelyVisible, boolean acceptPartiallyVisible) {
+    View findFirstVisibleChildClosestToStart(boolean completelyVisible, boolean acceptPartiallyVisible) {
         if (mShouldReverseLayout) {
             return findOneVisibleChild(getChildCount() - 1, -1, completelyVisible, acceptPartiallyVisible);
         } else {
@@ -1118,7 +1118,7 @@ public class SeslLinearLayoutManager extends SeslRecyclerView.LayoutManager impl
         }
     }
 
-    private View findFirstVisibleChildClosestToEnd(boolean completelyVisible, boolean acceptPartiallyVisible) {
+    View findFirstVisibleChildClosestToEnd(boolean completelyVisible, boolean acceptPartiallyVisible) {
         if (mShouldReverseLayout) {
             return findOneVisibleChild(0, getChildCount(), completelyVisible, acceptPartiallyVisible);
         } else {
