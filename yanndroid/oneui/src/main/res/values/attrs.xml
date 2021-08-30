@@ -73,16 +73,12 @@
         <attr name="selectedOptionButton" format="reference" />
     </declare-styleable>
 
-    <attr name="bottom_viewId" format="reference|enum" />
-
     <declare-styleable name="DrawerLayout">
         <attr name="android:layout" />
         <attr name="toolbar_title" format="string" />
         <attr name="toolbar_subtitle" format="string" />
         <attr name="toolbar_expanded" format="boolean" />
         <attr name="drawer_icon" format="reference" />
-        <attr name="drawer_viewId" format="reference|enum" />
-        <attr name="bottom_viewId" />
     </declare-styleable>
 
     <declare-styleable name="ToolBarLayout">
@@ -92,7 +88,14 @@
         <attr name="expandable" format="boolean" />
         <attr name="expanded" format="boolean" />
         <attr name="navigationIcon" format="reference" />
-        <attr name="bottom_viewId" />
+    </declare-styleable>
+
+    <declare-styleable name="Drawer_ToolBar_LayoutLocation">
+        <attr name="layout_location">
+            <enum name="main_content" value="0" />
+            <enum name="footer" value="1" />
+            <enum name="drawer_panel" value="2" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="SwitchBarLayout">

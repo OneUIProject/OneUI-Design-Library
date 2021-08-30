@@ -79,8 +79,6 @@ public class ToolbarLayout extends LinearLayout {
     private ToolbarImageButton moreOverflowButton;
     private RoundLinearLayout mainContainer;
     private LinearLayout bottomContainer;
-    private int viewIdForBottom;
-
 
     public ToolbarLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -96,7 +94,6 @@ public class ToolbarLayout extends LinearLayout {
             mTitle = attr.getString(R.styleable.ToolBarLayout_title);
             mSubtitle = attr.getString(R.styleable.ToolBarLayout_subtitle);
             mNavigationIcon = attr.getDrawable(R.styleable.ToolBarLayout_navigationIcon);
-            viewIdForBottom = attr.getResourceId(R.styleable.ToolBarLayout_bottom_viewId, -2);
         } finally {
             attr.recycle();
         }
@@ -151,17 +148,42 @@ public class ToolbarLayout extends LinearLayout {
         if (mainContainer == null || bottomContainer == null) {
             super.addView(child, index, params);
         } else {
-            if (viewIdForBottom == child.getId()) {
-                bottomContainer.addView(child, index, params);
-            } else {
-                mainContainer.addView(child, index, params);
+            ToolbarLayout.Drawer_Toolbar_LayoutParams lp = (ToolbarLayout.Drawer_Toolbar_LayoutParams) params;
+            switch (lp.layout_location) {
+                case 0:
+                    mainContainer.addView(child, index, params);
+                    break;
+                case 1:
+                    bottomContainer.addView(child, index, params);
+                    break;
             }
         }
     }
 
-    public void setViewIdForBottom(int viewIdForBottom) {
-        this.viewIdForBottom = viewIdForBottom;
+    @Override
+    protected LayoutParams generateDefaultLayoutParams() {
+        return new Drawer_Toolbar_LayoutParams(getContext(), null);
     }
+
+    @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new Drawer_Toolbar_LayoutParams(getContext(), attrs);
+    }
+
+    public static class Drawer_Toolbar_LayoutParams extends LayoutParams {
+
+        public Integer layout_location;
+
+        public Drawer_Toolbar_LayoutParams(Context c, AttributeSet attrs) {
+            super(c, attrs);
+            if (c != null && attrs != null) {
+                TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.Drawer_ToolBar_LayoutLocation);
+                layout_location = a.getInteger(R.styleable.Drawer_ToolBar_LayoutLocation_layout_location, 0);
+                a.recycle();
+            }
+        }
+    }
+
 
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {

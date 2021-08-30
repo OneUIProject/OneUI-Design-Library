@@ -54,8 +54,6 @@ public class DrawerLayout extends LinearLayout {
     private NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
     private ToolbarLayout toolbarLayout;
     private LinearLayout drawer_container;
-    private int viewIdForDrawer;
-    private int viewIdForBottom;
     private androidx.drawerlayout.widget.DrawerLayout drawerLayout;
     private View drawer;
 
@@ -71,8 +69,6 @@ public class DrawerLayout extends LinearLayout {
             mToolbarTitle = attr.getString(R.styleable.DrawerLayout_toolbar_title);
             mToolbarSubtitle = attr.getString(R.styleable.DrawerLayout_toolbar_subtitle);
             mDrawerIcon = attr.getDrawable(R.styleable.DrawerLayout_drawer_icon);
-            viewIdForDrawer = attr.getResourceId(R.styleable.DrawerLayout_drawer_viewId, -2);
-            viewIdForBottom = attr.getResourceId(R.styleable.DrawerLayout_bottom_viewId, -2);
             mToolbarExpanded = attr.getBoolean(R.styleable.DrawerLayout_toolbar_expanded, true);
         } finally {
             attr.recycle();
@@ -88,7 +84,6 @@ public class DrawerLayout extends LinearLayout {
         toolbarLayout.setSubtitle(mToolbarSubtitle);
         toolbarLayout.setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigation_drawer));
         toolbarLayout.setExpanded(mToolbarExpanded, false);
-        toolbarLayout.setViewIdForBottom(viewIdForBottom);
         drawerButtonContainer = findViewById(R.id.drawer_layout_drawerButton_container);
         drawerButton = findViewById(R.id.drawer_layout_drawerButton);
 
@@ -269,13 +264,29 @@ public class DrawerLayout extends LinearLayout {
         if (toolbarLayout == null || drawer_container == null) {
             super.addView(child, index, params);
         } else {
-            if (viewIdForDrawer == child.getId()) {
-                drawer_container.addView(child, index, params);
-            } else {
-                toolbarLayout.addView(child, index, params);
+            ToolbarLayout.Drawer_Toolbar_LayoutParams lp = (ToolbarLayout.Drawer_Toolbar_LayoutParams) params;
+            switch (lp.layout_location) {
+                case 0:
+                case 1:
+                    toolbarLayout.addView(child, index, params);
+                    break;
+                case 2:
+                    drawer_container.addView(child, index, params);
+                    break;
             }
         }
     }
+
+    @Override
+    protected LayoutParams generateDefaultLayoutParams() {
+        return new ToolbarLayout.Drawer_Toolbar_LayoutParams(getContext(), null);
+    }
+
+    @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new ToolbarLayout.Drawer_Toolbar_LayoutParams(getContext(), attrs);
+    }
+
 
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
