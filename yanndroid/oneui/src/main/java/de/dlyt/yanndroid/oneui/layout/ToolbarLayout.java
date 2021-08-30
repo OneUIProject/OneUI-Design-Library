@@ -106,8 +106,6 @@ public class ToolbarLayout extends LinearLayout {
         if (mExpandable) {
             appBarLayout = findViewById(R.id.toolbar_layout_app_bar);
             collapsingToolbarLayout = findViewById(R.id.toolbar_layout_collapsing_toolbar_layout);
-
-            appBarLayout.addOnOffsetChangedListener(new AppBarOffsetListener());
         }
         toolbar = findViewById(R.id.toolbar_layout_toolbar);
 
@@ -123,6 +121,9 @@ public class ToolbarLayout extends LinearLayout {
         setNavigationButtonIcon(mNavigationIcon);
         setTitle(mTitle);
         setSubtitle(mSubtitle);
+
+        if (mExpandable)
+            appBarLayout.addOnOffsetChangedListener(new AppBarOffsetListener());
 
         refreshLayout(getResources().getConfiguration());
 
