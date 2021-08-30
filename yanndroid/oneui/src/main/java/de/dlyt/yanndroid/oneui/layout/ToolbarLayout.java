@@ -41,6 +41,8 @@ import java.util.Locale;
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.sesl.appbar.SamsungAppBarLayout;
 import de.dlyt.yanndroid.oneui.sesl.appbar.SamsungCollapsingToolbarLayout;
+import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
+import de.dlyt.yanndroid.oneui.sesl.support.WindowManagerSupport;
 import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
 
 public class ToolbarLayout extends LinearLayout {
@@ -120,7 +122,10 @@ public class ToolbarLayout extends LinearLayout {
         setTitle(mTitle);
         setSubtitle(mSubtitle);
 
-        init();
+        if (mExpandable)
+            appBarLayout.addOnOffsetChangedListener(new AppBarOffsetListener());
+
+        refreshLayout(getResources().getConfiguration());
 
     }
 
@@ -188,13 +193,7 @@ public class ToolbarLayout extends LinearLayout {
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        updateListBothSideMargin(mainContainer);
-        updateListBothSideMargin(findViewById(R.id.toolbar_layout_bottom_corners));
-        updateListBothSideMargin(findViewById(R.id.toolbar_layout_bottom_container));
-
-        if (mExpandable) {
-            resetAppBarHeight();
-        }
+        refreshLayout(newConfig);
     }
 
     private Activity getActivity() {
@@ -229,13 +228,14 @@ public class ToolbarLayout extends LinearLayout {
         }
     }
 
-    private void init() {
-        updateListBothSideMargin(mainContainer);
-        updateListBothSideMargin(findViewById(R.id.toolbar_layout_bottom_corners));
-        updateListBothSideMargin(findViewById(R.id.toolbar_layout_bottom_container));
+    private void refreshLayout(Configuration newConfig) {
+        WindowManagerSupport.hideStatusBarForLandscape(getActivity(), newConfig.orientation);
+
+        ViewSupport.updateListBothSideMargin(getActivity(), mainContainer);
+        ViewSupport.updateListBothSideMargin(getActivity(),findViewById(R.id.toolbar_layout_bottom_corners));
+        ViewSupport.updateListBothSideMargin(getActivity(),findViewById(R.id.toolbar_layout_bottom_container));
 
         if (mExpandable) {
-            appBarLayout.addOnOffsetChangedListener(new AppBarOffsetListener());
             resetAppBarHeight();
         }
     }
@@ -265,50 +265,6 @@ public class ToolbarLayout extends LinearLayout {
             appBarLayout.setPadding(0, 0, 0, bottomPadding);
         } else
             Log.w(TAG + ".resetAppBarHeight", "appBarLayout is null.");
-    }
-
-    private void updateListBothSideMargin(ViewGroup viewGroup) {
-        if (viewGroup != null && getActivity() != null && !getActivity().isDestroyed() && !getActivity().isFinishing()) {
-            getActivity().findViewById(android.R.id.content).post(new Runnable() {
-                public void run() {
-                    int width = getActivity().findViewById(android.R.id.content).getWidth();
-                    Configuration configuration = getActivity().getResources().getConfiguration();
-                    if (configuration.screenHeightDp <= 411 || configuration.screenWidthDp < 512) {
-                        setHorizontalMargin(viewGroup, 0);
-                        return;
-                    }
-                    viewGroup.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    int screenWidthDp = configuration.screenWidthDp;
-                    if (screenWidthDp < 685 || screenWidthDp > 959) {
-                        if (screenWidthDp >= 960 && screenWidthDp <= 1919) {
-                            int i = (int) (((float) width) * 0.125f);
-                            setHorizontalMargin(viewGroup, i);
-                        } else if (configuration.screenWidthDp >= 1920) {
-                            int i = (int) (((float) width) * 0.25f);
-                            setHorizontalMargin(viewGroup, i);
-                        } else {
-                            setHorizontalMargin(viewGroup, 0);
-                        }
-                    } else {
-                        int i = (int) (((float) width) * 0.05f);
-                        setHorizontalMargin(viewGroup, i);
-                    }
-                }
-            });
-        }
-    }
-
-    private void setHorizontalMargin(ViewGroup viewGroup, int margin) {
-        ViewGroup.LayoutParams layoutParams = viewGroup.getLayoutParams();
-        if (layoutParams instanceof LinearLayout.LayoutParams) {
-            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) layoutParams;
-            lp.setMargins(margin, 0, margin, 0);
-            viewGroup.setLayoutParams(lp);
-        } else if (layoutParams instanceof CoordinatorLayout.LayoutParams) {
-            CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) layoutParams;
-            lp.setMargins(margin, 0, margin, 0);
-            viewGroup.setLayoutParams(lp);
-        }
     }
 
     //
@@ -436,6 +392,7 @@ public class ToolbarLayout extends LinearLayout {
     //
     // More Menu Popup methods
     //
+    @SuppressLint("LongLogTag")
     public void showMoreMenuPopupWindow() {
         if (moreMenuPopupWindow != null || !moreMenuPopupWindow.isShowing())
             moreMenuPopupWindow.showAsDropDown(moreMenuPopupAnchor, moreMenuPopupOffX, 0);
@@ -443,6 +400,7 @@ public class ToolbarLayout extends LinearLayout {
             Log.w(TAG + ".showMoreMenuPopupWindow", "moreMenuPopupWindow is null or already shown.");
     }
 
+    @SuppressLint("LongLogTag")
     public void dismissMoreMenuPopupWindow() {
         if (moreMenuPopupWindow != null || moreMenuPopupWindow.isShowing()) {
             moreMenuPopupWindow.dismiss();

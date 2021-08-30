@@ -2,9 +2,7 @@ package de.dlyt.yanndroid.oneuiexample;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,13 +21,6 @@ public class SwitchBarActivity extends AppCompatActivity implements SwitchBar.On
         SwitchBarLayout switchBarLayout = findViewById(R.id.switchbarlayout_switchbaractivity);
         switchBarLayout.getSwitchBar().setChecked(getSwitchBarDefaultStatus());
         switchBarLayout.getSwitchBar().addOnSwitchChangeListener(this);
-
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        } else {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-
     }
 
     private boolean getSwitchBarDefaultStatus() {

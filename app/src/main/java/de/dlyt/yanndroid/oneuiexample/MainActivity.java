@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.LinkedHashMap;
 
+import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
 import de.dlyt.yanndroid.oneui.dialog.ClassicColorPickerDialog;
 import de.dlyt.yanndroid.oneui.dialog.DetailedColorPickerDialog;
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        ReflectUtils.genericInvokeMethod(getWindow().getDecorView(), "semSetRoundedCorners", 0);
+        ViewSupport.semSetRoundedCorners(getWindow().getDecorView(), 0);
 
         mIsLightTheme = SeslMisc.isLightTheme(mContext);
 

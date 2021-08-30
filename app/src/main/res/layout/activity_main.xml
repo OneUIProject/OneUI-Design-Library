@@ -16,7 +16,7 @@
     <de.dlyt.yanndroid.oneui.view.BottomNavigationView
         android:id="@+id/main_samsung_tabs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60.0dip"
         app:layout_location="footer" />
 
     <include layout="@layout/content_drawer" />
