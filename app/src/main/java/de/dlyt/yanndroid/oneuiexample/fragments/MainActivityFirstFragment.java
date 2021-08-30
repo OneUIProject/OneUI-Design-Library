@@ -1,12 +1,10 @@
 package de.dlyt.yanndroid.oneuiexample.fragments;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -45,23 +43,6 @@ public class MainActivityFirstFragment extends Fragment {
         viewPager.setAdapter(new ViewPagerAdapter(getChildFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.updateWidget();
-
-        //Fullscreen
-        init();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        init();
-    }
-
-    private void init() {
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            mActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        } else {
-            mActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
     }
 
 }

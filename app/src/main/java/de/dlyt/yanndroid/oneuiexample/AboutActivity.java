@@ -1,8 +1,6 @@
 package de.dlyt.yanndroid.oneuiexample;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,12 +24,5 @@ public class AboutActivity extends AppCompatActivity {
         ((MaterialButton) findViewById(R.id.about_btn3)).setOnClickListener(v -> about_page.setUpdateState(AboutPage.UPDATE_AVAILABLE));
         ((MaterialButton) findViewById(R.id.about_btn4)).setOnClickListener(v -> about_page.setUpdateState(AboutPage.NOT_UPDATEABLE));
         ((MaterialButton) findViewById(R.id.about_btn5)).setOnClickListener(v -> about_page.setUpdateState(AboutPage.NO_CONNECTION));
-
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        } else {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-
     }
 }
