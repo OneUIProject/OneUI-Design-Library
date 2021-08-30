@@ -31,12 +31,12 @@
 
     </style>
 
-    <style name="SamsungSplashTheme" parent="@style/OneUITheme">
+    <style name="OneUISplashTheme" parent="@style/OneUITheme">
         <item name="android:windowBackground">@color/splash_background</item>
         <item name="android:statusBarColor">@color/splash_background</item>
         <item name="android:navigationBarColor" tools:targetApi="27">@color/splash_background</item>
     </style>
 
-    <style name="SamsungAboutTheme" parent="@style/SamsungSplashTheme" />
+    <style name="OneUIAboutTheme" parent="@style/OneUISplashTheme" />
 
 </resources>

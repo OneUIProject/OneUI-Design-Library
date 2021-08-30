@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.oneui.sesl.utils;
+package de.dlyt.yanndroid.oneui.utils;
 
 import android.os.SystemClock;
 import android.view.View;

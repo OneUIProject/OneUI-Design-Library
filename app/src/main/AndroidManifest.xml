@@ -23,13 +23,13 @@
             android:name="de.dlyt.yanndroid.oneuiexample.SwitchBarActivity" />
         <activity
             android:name="de.dlyt.yanndroid.oneuiexample.AboutActivity"
-            android:theme="@style/SamsungAboutTheme" />
+            android:theme="@style/OneUIAboutTheme" />
         <activity
             android:name="de.dlyt.yanndroid.oneuiexample.MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
         <activity
             android:name="de.dlyt.yanndroid.oneuiexample.SplashActivity"
-            android:theme="@style/SamsungSplashTheme">
+            android:theme="@style/OneUISplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
