@@ -259,7 +259,7 @@ public class SeslRecyclerViewFastScroller {
 
         TypedValue outValue = new TypedValue();
         mContext.getTheme().resolveAttribute(R.attr.colorPrimary, outValue, true);
-        mColorPrimary = mContext.getResources().getColor(outValue.resourceId, mContext.getTheme());
+        mColorPrimary = outValue.data;
 
         mTrackImage.setImageDrawable(mTrackDrawable);
         if (mTrackDrawable != null) {
