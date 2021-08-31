@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="18.0dip"
+    android:height="18.0dip"
+    android:viewportWidth="18.0"
+    android:viewportHeight="18.0">
+    <group>
+        <path
+            android:fillColor="@color/sesl_spinner_icon_color_disabled"
+            android:fillType="evenOdd"
+            android:pathData="M8.8478,11.9237L5.1131,6.905C4.8348,6.5313 5.1018,6 5.5675,6L13.0368,6C13.5031,6 13.7701,6.5313 13.4918,6.905L9.7571,11.9237C9.5305,12.2283 9.0745,12.2283 8.8478,11.9237" />
+    </group>
+</vector>

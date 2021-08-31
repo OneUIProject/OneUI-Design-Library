@@ -11,7 +11,7 @@
     </item>
     <item
         android:width="22.0dip"
-        android:drawable="@drawable/sesl_spinner_background_am_alpha"
+        android:drawable="@drawable/sesl_spinner_icon_selector"
         android:end="7.0dip"
         android:gravity="end|center" />
 </layer-list>
