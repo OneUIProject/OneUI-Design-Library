@@ -175,10 +175,9 @@ public class IconsTab extends Fragment {
             R.drawable.ic_samsung_website,
             R.drawable.ic_samsung_work,
             -1};
-
+    RecyclerView listView;
     private View mRootView;
     private Context mContext;
-    RecyclerView listView;
 
     public IconsTab() {
     }
@@ -262,7 +261,7 @@ public class IconsTab extends Fragment {
 
         @Override
         public void onBindViewHolder(ImageAdapter.ViewHolder holder, final int position) {
-            if (holder.isItem)  {
+            if (holder.isItem) {
                 holder.imageView.setImageResource(imageIDs[position]);
                 holder.textView.setText(getResources().getResourceEntryName(imageIDs[position]));
                 holder.parentView.setOnClickListener(new View.OnClickListener() {
@@ -286,7 +285,7 @@ public class IconsTab extends Fragment {
 
                 isItem = viewType == 0;
 
-                if (isItem)  {
+                if (isItem) {
                     parentView = (RelativeLayout) itemView;
                     imageView = parentView.findViewById(R.id.icon_tab_item_image);
                     textView = parentView.findViewById(R.id.icon_tab_item_text);

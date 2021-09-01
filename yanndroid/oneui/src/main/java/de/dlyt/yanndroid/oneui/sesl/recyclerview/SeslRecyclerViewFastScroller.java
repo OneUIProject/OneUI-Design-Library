@@ -1051,7 +1051,7 @@ public class SeslRecyclerViewFastScroller {
                 return (((float) firstVisibleItem) + (top * ((float) (((GridLayoutManager) mRecyclerView.mLayout).getSpanCount() / ((GridLayoutManager) mRecyclerView.mLayout).getSpanSizeLookup().getSpanSize(firstVisibleItem))))) / ((float) totalItemCount);
             }
         }
-            return 0.0f;
+        return 0.0f;
     }
 
     private void cancelFling() {

@@ -44,16 +44,16 @@ public class Tooltip implements View.OnLongClickListener, View.OnHoverListener, 
     private boolean mFromTouch;
     private boolean mIsSPenPointChanged = false;
     private boolean mIsShowRunnablePostDelayed = false;
-    private final Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
     private final Runnable mShowRunnable = new Runnable() {
         @Override
         public void run() {
             show(false /* not from touch*/);
+        }
+    };
+    private final Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            hide();
         }
     };
     // SeslTooltip

@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/item_background_color"
-    android:scrollbars="vertical"
     android:fillViewport="true"
+    android:scrollbars="vertical"
     app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior">
 
     <LinearLayout
@@ -17,12 +17,12 @@
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
+            style="?textAppearanceListItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nothing"
             android:textAlignment="viewStart"
-            android:textSize="18sp"
-            style="?textAppearanceListItem"/>
+            android:textSize="18sp" />
 
     </LinearLayout>
 

@@ -64,7 +64,7 @@
                             android:text="@string/sesl_cancel"
                             android:textColor="?colorPrimary"
                             android:textSize="16.0sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
                     </RelativeLayout>
 
                     <View
@@ -92,7 +92,7 @@
                             android:text="@string/sesl_done"
                             android:textColor="?colorPrimary"
                             android:textSize="16.0sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>

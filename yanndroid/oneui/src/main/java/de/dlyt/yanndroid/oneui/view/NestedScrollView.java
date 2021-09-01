@@ -41,8 +41,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 
 import java.util.ArrayList;
 
-import de.dlyt.yanndroid.oneui.sesl.view.NestedScrollingChildHelper;
 import de.dlyt.yanndroid.oneui.sesl.utils.SamsungEdgeEffect;
+import de.dlyt.yanndroid.oneui.sesl.view.NestedScrollingChildHelper;
 
 public class NestedScrollView extends FrameLayout implements NestedScrollingParent3, NestedScrollingChild3, ScrollingView {
     static final int ANIMATED_SCROLL_GAP = 250;

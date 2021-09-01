@@ -6,11 +6,9 @@ import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.util.SeslMisc;
 
 public class ThemeColor {
     public static final int DARK_MODE_AUTO = 2;
@@ -23,6 +21,7 @@ public class ThemeColor {
     public ThemeColor(AppCompatActivity activity) {
         this(activity, "0381fe");
     }
+
     public ThemeColor(AppCompatActivity activity, String appColor) {
         SharedPreferences sharedPreferences = activity.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         int darkMode = sharedPreferences.getInt(KEY_DARK_MODE, DARK_MODE_AUTO);

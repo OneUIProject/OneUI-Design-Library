@@ -102,19 +102,19 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
     public static final int TOUCH_SLOP_DEFAULT = 0;
     public static final int TOUCH_SLOP_PAGING = 1;
     public static final int VERTICAL = 1;
-    static final boolean ALLOW_SIZE_IN_UNSPECIFIED_SPEC;
     public static final boolean DEBUG = false;
+    public static final long FOREVER_NS = 9223372036854775807L;
+    public static final String TRACE_NESTED_PREFETCH_TAG = "RV Nested Prefetch";
+    public static final String TRACE_PREFETCH_TAG = "RV Prefetch";
+    static final boolean ALLOW_SIZE_IN_UNSPECIFIED_SPEC;
     static final int DEFAULT_ORIENTATION = 1;
     static final boolean DISPATCH_TEMP_DETACH = false;
     static final boolean FORCE_INVALIDATE_DISPLAY_LIST;
-    public static final long FOREVER_NS = 9223372036854775807L;
     static final int MAX_SCROLL_DURATION = 2000;
     static final boolean POST_UPDATES_ON_ANIMATION;
     static final String TAG = "SeslRecyclerView";
     static final String TRACE_BIND_VIEW_TAG = "RV OnBindView";
     static final String TRACE_CREATE_VIEW_TAG = "RV CreateView";
-    public static final String TRACE_NESTED_PREFETCH_TAG = "RV Nested Prefetch";
-    public static final String TRACE_PREFETCH_TAG = "RV Prefetch";
     static final String TRACE_SCROLL_TAG = "RV Scroll";
     static final boolean VERBOSE_TRACING = false;
     static final Interpolator sQuinticInterpolator;
@@ -197,10 +197,10 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
         };
     }
 
-    final ArrayList<RecyclerView.ItemDecoration> mItemDecorations;
-    final List<RecyclerView.ViewHolder> mPendingAccessibilityImportanceChange;
     public final RecyclerView.Recycler mRecycler;
     public final RecyclerView.State mState;
+    final ArrayList<RecyclerView.ItemDecoration> mItemDecorations;
+    final List<RecyclerView.ViewHolder> mPendingAccessibilityImportanceChange;
     final Rect mTempRect;
     final RectF mTempRectF;
     final Runnable mUpdateChildViewsRunnable;
@@ -223,14 +223,17 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
     public int mGoToTopImmersiveBottomPadding;
     public ImageView mGoToTopView;
     public boolean mHoverAreaEnter;
-    SeslRecyclerViewAccessibilityDelegate mAccessibilityDelegate;
     public RecyclerView.Adapter mAdapter;
     public SeslAdapterHelper mAdapterHelper;
+    public int mBlackTop;
+    public boolean mDataSetHasChangedAfterLayout;
+    public RecyclerView.LayoutManager mLayout;
+    public Rect mListPadding;
+    public SeslGapWorker.LayoutPrefetchRegistryImpl mPrefetchRegistry;
+    SeslRecyclerViewAccessibilityDelegate mAccessibilityDelegate;
     boolean mAdapterUpdateDuringMeasure;
     int mAnimatedBlackTop;
-    public int mBlackTop;
     boolean mClipToPadding;
-    public boolean mDataSetHasChangedAfterLayout;
     boolean mDispatchItemsChangedEvent;
     boolean mDrawRect;
     boolean mDrawReverse;
@@ -244,12 +247,9 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
     boolean mItemsAddedOrRemoved;
     boolean mItemsChanged;
     int mLastBlackTop;
-    public RecyclerView.LayoutManager mLayout;
     boolean mLayoutFrozen;
     boolean mLayoutWasDefered;
-    public Rect mListPadding;
     boolean mPostedAnimatorRunner;
-    public SeslGapWorker.LayoutPrefetchRegistryImpl mPrefetchRegistry;
     RecyclerView.RecyclerListener mRecyclerListener;
     Drawable mSelector;
     Rect mSelectorRect;
@@ -7383,16 +7383,16 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
     }
 
     public abstract static class LayoutManager {
-        boolean mAutoMeasure;
-        SeslChildHelper mChildHelper;
         public SeslViewBoundsCheck mHorizontalBoundCheck;
-        boolean mIsAttachedToWindow;
         public int mPrefetchMaxCountObserved;
         public boolean mPrefetchMaxObservedInInitialPrefetch;
         public RecyclerView mRecyclerView;
+        public SeslViewBoundsCheck mVerticalBoundCheck;
+        boolean mAutoMeasure;
+        SeslChildHelper mChildHelper;
+        boolean mIsAttachedToWindow;
         boolean mRequestedSimpleAnimations;
         RecyclerView.SmoothScroller mSmoothScroller;
-        public SeslViewBoundsCheck mVerticalBoundCheck;
         private int mHeight;
         private final SeslViewBoundsCheck.Callback mVerticalBoundCheckCallback = new SeslViewBoundsCheck.Callback() {
             public View getChildAt(int var1) {
@@ -9666,14 +9666,14 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
         }
 
         public final View itemView;
+        public WeakReference<RecyclerView> mNestedRecyclerView;
+        public int mPosition = -1;
         long mItemId = -1L;
         int mItemViewType = -1;
-        public WeakReference<RecyclerView> mNestedRecyclerView;
         int mOldPosition = -1;
         RecyclerView mOwnerRecyclerView;
         List<Object> mPayloads = null;
         int mPendingAccessibilityState = -1;
-        public int mPosition = -1;
         int mPreLayoutPosition = -1;
         RecyclerView.ViewHolder mShadowedHolder = null;
         RecyclerView.ViewHolder mShadowingHolder = null;

@@ -47,6 +47,14 @@ public class SnackbarContentLayout extends LinearLayout implements ContentViewCa
         this.mSnackBarLayout = (SnackbarContentLayout) findViewById(R.id.snackbar_layout);
     }
 
+    private static void updateTopBottomPadding(@NonNull View view, int i, int i2) {
+        if (ViewCompat.isPaddingRelative(view)) {
+            ViewCompat.setPaddingRelative(view, ViewCompat.getPaddingStart(view), i, ViewCompat.getPaddingEnd(view), i2);
+        } else {
+            view.setPadding(view.getPaddingLeft(), i, view.getPaddingRight(), i2);
+        }
+    }
+
     /* access modifiers changed from: protected */
     public void onFinishInflate() {
         super.onFinishInflate();
@@ -118,14 +126,6 @@ public class SnackbarContentLayout extends LinearLayout implements ContentViewCa
         }
         updateTopBottomPadding(this.messageView, i2, i3);
         return true;
-    }
-
-    private static void updateTopBottomPadding(@NonNull View view, int i, int i2) {
-        if (ViewCompat.isPaddingRelative(view)) {
-            ViewCompat.setPaddingRelative(view, ViewCompat.getPaddingStart(view), i, ViewCompat.getPaddingEnd(view), i2);
-        } else {
-            view.setPadding(view.getPaddingLeft(), i, view.getPaddingRight(), i2);
-        }
     }
 
     @Override // ContentViewCallback

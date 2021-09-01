@@ -43,8 +43,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.sesl.utils.ABLBehavior;
 import de.dlyt.yanndroid.oneui.layout.CoordinatorLayout;
+import de.dlyt.yanndroid.oneui.sesl.utils.ABLBehavior;
 
 @CoordinatorLayout.DefaultBehavior(SamsungAppBarLayout.Behavior.class)
 public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {

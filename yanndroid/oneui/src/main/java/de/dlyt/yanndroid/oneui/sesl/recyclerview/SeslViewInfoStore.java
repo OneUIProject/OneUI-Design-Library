@@ -5,8 +5,6 @@ import androidx.collection.ArrayMap;
 import androidx.collection.LongSparseArray;
 import androidx.core.util.Pools;
 
-import static de.dlyt.yanndroid.oneui.view.RecyclerView.ItemAnimator.ItemHolderInfo;
-import static de.dlyt.yanndroid.oneui.view.RecyclerView.ViewHolder;
 import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslViewInfoStore.InfoRecord.FLAG_APPEAR;
 import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslViewInfoStore.InfoRecord.FLAG_APPEAR_AND_DISAPPEAR;
 import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslViewInfoStore.InfoRecord.FLAG_APPEAR_PRE_AND_POST;
@@ -14,6 +12,8 @@ import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslViewInfoStore.InfoRe
 import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslViewInfoStore.InfoRecord.FLAG_POST;
 import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslViewInfoStore.InfoRecord.FLAG_PRE;
 import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslViewInfoStore.InfoRecord.FLAG_PRE_AND_POST;
+import static de.dlyt.yanndroid.oneui.view.RecyclerView.ItemAnimator.ItemHolderInfo;
+import static de.dlyt.yanndroid.oneui.view.RecyclerView.ViewHolder;
 
 public class SeslViewInfoStore {
     private static final boolean DEBUG = false;

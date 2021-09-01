@@ -1,9 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="horizontal" android:focusable="false" android:clickable="false" android:layout_width="fill_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <de.dlyt.yanndroid.oneui.preference.internal.HorizontalRadioViewContainer android:orientation="horizontal" android:id="@+id/radio_layout" android:focusable="false" android:clickable="false" android:layout_width="fill_parent" android:layout_height="fill_parent">
-        <include android:id="@+id/item1" android:visibility="gone" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" layout="@layout/radio_preference_item" />
-        <include android:id="@+id/item2" android:visibility="gone" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" layout="@layout/radio_preference_item" />
-        <include android:id="@+id/item3" android:visibility="gone" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" layout="@layout/radio_preference_item" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    android:focusable="false"
+    android:orientation="horizontal">
+
+    <de.dlyt.yanndroid.oneui.preference.internal.HorizontalRadioViewContainer
+        android:id="@+id/radio_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="false"
+        android:focusable="false"
+        android:orientation="horizontal">
+
+        <include
+            android:id="@+id/item1"
+            layout="@layout/radio_preference_item"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/item2"
+            layout="@layout/radio_preference_item"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/item3"
+            layout="@layout/radio_preference_item"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:visibility="gone" />
     </de.dlyt.yanndroid.oneui.preference.internal.HorizontalRadioViewContainer>
 </LinearLayout>

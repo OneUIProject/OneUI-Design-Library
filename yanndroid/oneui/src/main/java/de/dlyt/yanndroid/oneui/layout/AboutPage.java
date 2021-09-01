@@ -34,6 +34,14 @@ public class AboutPage extends LinearLayout {
     public static final int UPDATE_AVAILABLE = 1;
     public static final int NO_UPDATE = 2;
     public static final int NO_CONNECTION = 3;
+    public static final int TOOLBAR = 0;
+    public static final int MAIN_CONTENT = 1;
+    public static final int VERSION_TEXT = 2;
+    public static final int STATUS_TEXT = 3;
+    public static final int OPTIONAL_TEXT = 4;
+    public static final int UPDATE_BUTTON = 5;
+    public static final int RETRY_BUTTON = 6;
+    public static final int LOADING_BAR = 7;
     private ToolbarLayout toolbarLayout;
     private LinearLayout about_content;
     private TextView version;
@@ -178,25 +186,6 @@ public class AboutPage extends LinearLayout {
         }
     }
 
-    @IntDef({LOADING, UPDATE_AVAILABLE, NO_UPDATE, NOT_UPDATEABLE, NO_CONNECTION})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface UpdateState {
-    }
-
-    public static final int TOOLBAR = 0;
-    public static final int MAIN_CONTENT = 1;
-    public static final int VERSION_TEXT = 2;
-    public static final int STATUS_TEXT = 3;
-    public static final int OPTIONAL_TEXT = 4;
-    public static final int UPDATE_BUTTON = 5;
-    public static final int RETRY_BUTTON = 6;
-    public static final int LOADING_BAR = 7;
-
-    @IntDef({TOOLBAR, MAIN_CONTENT, VERSION_TEXT, STATUS_TEXT, OPTIONAL_TEXT, UPDATE_BUTTON, RETRY_BUTTON, LOADING_BAR})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface AboutPageView {
-    }
-
     public View getView(@AboutPageView int view) {
         switch (view) {
             case TOOLBAR:
@@ -218,6 +207,16 @@ public class AboutPage extends LinearLayout {
             default:
                 return null;
         }
+    }
+
+    @IntDef({LOADING, UPDATE_AVAILABLE, NO_UPDATE, NOT_UPDATEABLE, NO_CONNECTION})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface UpdateState {
+    }
+
+    @IntDef({TOOLBAR, MAIN_CONTENT, VERSION_TEXT, STATUS_TEXT, OPTIONAL_TEXT, UPDATE_BUTTON, RETRY_BUTTON, LOADING_BAR})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface AboutPageView {
     }
 
 

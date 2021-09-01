@@ -14,10 +14,10 @@ import android.util.Log;
 import android.view.WindowManager;
 
 public class SMultiWindowActivity {
-    private static final String TAG = "SMultiWindowActivity";
     public static final int ZONE_A = SMultiWindowReflator.WindowManagerPolicy.WINDOW_MODE_OPTION_SPLIT_ZONE_A;
     public static final int ZONE_B = SMultiWindowReflator.WindowManagerPolicy.WINDOW_MODE_OPTION_SPLIT_ZONE_B;
     public static final int ZONE_FULL = (ZONE_A | ZONE_B);
+    private static final String TAG = "SMultiWindowActivity";
     private Context mContext;
     private Rect mDefaultSize;
     private float mDensity;
@@ -25,41 +25,6 @@ public class SMultiWindowActivity {
     private SMultiWindowReflator mMultiWindowReflator = new SMultiWindowReflator();
     private StateChangeListener mStateChangeListener;
     private int mWindowMode;
-
-    private boolean checkMode(int mode) {
-        return (mode & mWindowMode) != 0;
-    }
-
-    private boolean checkOption(int option) {
-        return (option & mWindowMode) != 0;
-    }
-
-    private void updateWindowMode() {
-        Object invoke;
-        if (mMultiWindow.isFeatureEnabled(SMultiWindow.MULTIWINDOW) && (invoke = mMultiWindowReflator.invoke("getWindowMode", null)) != null) {
-            mWindowMode = (Integer) invoke;
-        }
-    }
-
-    private void setWindowMode() {
-        if (mMultiWindow.isFeatureEnabled(SMultiWindow.MULTIWINDOW)) {
-            mMultiWindowReflator.invoke("setWindowMode", mWindowMode, true);
-        }
-    }
-
-    private Bundle getWindowInfo() {
-        return (Bundle) mMultiWindowReflator.invoke("getWindowInfo", null);
-    }
-
-    private Rect getLastSize() {
-        Bundle windowInfo = getWindowInfo();
-        Rect rect = windowInfo != null ? (Rect) windowInfo.getParcelable(SMultiWindowReflator.Intent.EXTRA_WINDOW_LAST_SIZE) : null;
-        return rect != null ? rect : mDefaultSize;
-    }
-
-    private Object getMultiPhoneWindowEvent() {
-        return mMultiWindowReflator.invoke("getMultiPhoneWindowEvent", null);
-    }
 
     public SMultiWindowActivity(Activity activity) {
         Class<?> cls = activity.getClass();
@@ -103,6 +68,75 @@ public class SMultiWindowActivity {
         } catch (SecurityException unused) {
             throw new SecurityException("com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY permission is required.");
         }
+    }
+
+    @SuppressLint("WrongConstant")
+    public static Intent makeMultiWindowIntent(Intent intent, int zone) {
+        int i;
+        if (intent == null) {
+            intent = new Intent();
+        }
+        if (!new SMultiWindow().isFeatureEnabled(SMultiWindow.MULTIWINDOW)) {
+            return intent;
+        }
+        intent.addFlags(268435456);
+        if (zone == ZONE_FULL) {
+            i = SMultiWindowReflator.WindowManagerPolicy.WINDOW_MODE_NORMAL;
+        } else {
+            i = zone | SMultiWindowReflator.WindowManagerPolicy.WINDOW_MODE_FREESTYLE;
+        }
+        intent.putExtra(SMultiWindowReflator.Intent.EXTRA_WINDOW_MODE, i | 0);
+        return intent;
+    }
+
+    @SuppressLint("WrongConstant")
+    public static Intent makeMultiWindowIntent(Intent intent, float windowScale) {
+        if (intent == null) {
+            intent = new Intent();
+        }
+        SMultiWindow sMultiWindow = new SMultiWindow();
+        if (!sMultiWindow.isFeatureEnabled(SMultiWindow.MULTIWINDOW) || !sMultiWindow.isFeatureEnabled(SMultiWindow.FREE_STYLE)) {
+            return intent;
+        }
+        intent.addFlags(268435456);
+        intent.putExtra(SMultiWindowReflator.Intent.EXTRA_WINDOW_MODE, SMultiWindowReflator.WindowManagerPolicy.WINDOW_MODE_FREESTYLE | SMultiWindowReflator.WindowManagerPolicy.WINDOW_MODE_OPTION_COMMON_PINUP | SMultiWindowReflator.WindowManagerPolicy.WINDOW_MODE_OPTION_COMMON_SCALE | 0);
+        intent.putExtra(SMultiWindowReflator.Intent.EXTRA_WINDOW_SCALE, windowScale);
+        return intent;
+    }
+
+    private boolean checkMode(int mode) {
+        return (mode & mWindowMode) != 0;
+    }
+
+    private boolean checkOption(int option) {
+        return (option & mWindowMode) != 0;
+    }
+
+    private void updateWindowMode() {
+        Object invoke;
+        if (mMultiWindow.isFeatureEnabled(SMultiWindow.MULTIWINDOW) && (invoke = mMultiWindowReflator.invoke("getWindowMode", null)) != null) {
+            mWindowMode = (Integer) invoke;
+        }
+    }
+
+    private void setWindowMode() {
+        if (mMultiWindow.isFeatureEnabled(SMultiWindow.MULTIWINDOW)) {
+            mMultiWindowReflator.invoke("setWindowMode", mWindowMode, true);
+        }
+    }
+
+    private Bundle getWindowInfo() {
+        return (Bundle) mMultiWindowReflator.invoke("getWindowInfo", null);
+    }
+
+    private Rect getLastSize() {
+        Bundle windowInfo = getWindowInfo();
+        Rect rect = windowInfo != null ? (Rect) windowInfo.getParcelable(SMultiWindowReflator.Intent.EXTRA_WINDOW_LAST_SIZE) : null;
+        return rect != null ? rect : mDefaultSize;
+    }
+
+    private Object getMultiPhoneWindowEvent() {
+        return mMultiWindowReflator.invoke("getMultiPhoneWindowEvent", null);
     }
 
     public boolean isNormalWindow() {
@@ -243,40 +277,6 @@ public class SMultiWindowActivity {
             });
         }
         return true;
-    }
-
-    @SuppressLint("WrongConstant")
-    public static Intent makeMultiWindowIntent(Intent intent, int zone) {
-        int i;
-        if (intent == null) {
-            intent = new Intent();
-        }
-        if (!new SMultiWindow().isFeatureEnabled(SMultiWindow.MULTIWINDOW)) {
-            return intent;
-        }
-        intent.addFlags(268435456);
-        if (zone == ZONE_FULL) {
-            i = SMultiWindowReflator.WindowManagerPolicy.WINDOW_MODE_NORMAL;
-        } else {
-            i = zone | SMultiWindowReflator.WindowManagerPolicy.WINDOW_MODE_FREESTYLE;
-        }
-        intent.putExtra(SMultiWindowReflator.Intent.EXTRA_WINDOW_MODE, i | 0);
-        return intent;
-    }
-
-    @SuppressLint("WrongConstant")
-    public static Intent makeMultiWindowIntent(Intent intent, float windowScale) {
-        if (intent == null) {
-            intent = new Intent();
-        }
-        SMultiWindow sMultiWindow = new SMultiWindow();
-        if (!sMultiWindow.isFeatureEnabled(SMultiWindow.MULTIWINDOW) || !sMultiWindow.isFeatureEnabled(SMultiWindow.FREE_STYLE)) {
-            return intent;
-        }
-        intent.addFlags(268435456);
-        intent.putExtra(SMultiWindowReflator.Intent.EXTRA_WINDOW_MODE, SMultiWindowReflator.WindowManagerPolicy.WINDOW_MODE_FREESTYLE | SMultiWindowReflator.WindowManagerPolicy.WINDOW_MODE_OPTION_COMMON_PINUP | SMultiWindowReflator.WindowManagerPolicy.WINDOW_MODE_OPTION_COMMON_SCALE | 0);
-        intent.putExtra(SMultiWindowReflator.Intent.EXTRA_WINDOW_SCALE, windowScale);
-        return intent;
     }
 
     private void insertLogForAPI(String extra) {

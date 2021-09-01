@@ -47,6 +47,13 @@ import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
 
 public class ToolbarLayout extends LinearLayout {
     public static final int N_BADGE = -1;
+    public static final int APPBAR_LAYOUT = 0;
+    public static final int COLLAPSING_TOOLBAR = 1;
+    public static final int TOOLBAR = 2;
+    public static final int NAVIGATION_BUTTON = 3;
+    public static final int COLLAPSED_TITLE = 4;
+    public static final int MAIN_CONTENT = 5;
+    public static final int FOOTER_CONTENT = 6;
     private static String TAG = "ToolbarLayout";
     public ViewGroup navigationBadgeBackground;
     public TextView navigationBadgeText;
@@ -149,21 +156,6 @@ public class ToolbarLayout extends LinearLayout {
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
         return new Drawer_Toolbar_LayoutParams(getContext(), attrs);
     }
-
-    public static class Drawer_Toolbar_LayoutParams extends LayoutParams {
-
-        public Integer layout_location;
-
-        public Drawer_Toolbar_LayoutParams(Context c, AttributeSet attrs) {
-            super(c, attrs);
-            if (c != null && attrs != null) {
-                TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.Drawer_ToolBar_LayoutLocation);
-                layout_location = a.getInteger(R.styleable.Drawer_ToolBar_LayoutLocation_layout_location, 0);
-                a.recycle();
-            }
-        }
-    }
-
 
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
@@ -534,6 +526,45 @@ public class ToolbarLayout extends LinearLayout {
         return measuredWidth;
     }
 
+    public View getView(@ToolbarLayoutView int view) {
+        switch (view) {
+            case APPBAR_LAYOUT:
+                return appBarLayout;
+            case COLLAPSING_TOOLBAR:
+                return collapsingToolbarLayout;
+            case TOOLBAR:
+                return toolbar;
+            case NAVIGATION_BUTTON:
+                return navigationButton;
+            case COLLAPSED_TITLE:
+                return collapsedTitleView;
+            case MAIN_CONTENT:
+                return mainContainer;
+            case FOOTER_CONTENT:
+                return bottomContainer;
+            default:
+                return null;
+        }
+    }
+    @IntDef({APPBAR_LAYOUT, COLLAPSING_TOOLBAR, TOOLBAR, NAVIGATION_BUTTON, COLLAPSED_TITLE, MAIN_CONTENT, FOOTER_CONTENT})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ToolbarLayoutView {
+    }
+
+    public static class Drawer_Toolbar_LayoutParams extends LayoutParams {
+
+        public Integer layout_location;
+
+        public Drawer_Toolbar_LayoutParams(Context c, AttributeSet attrs) {
+            super(c, attrs);
+            if (c != null && attrs != null) {
+                TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.Drawer_ToolBar_LayoutLocation);
+                layout_location = a.getInteger(R.styleable.Drawer_ToolBar_LayoutLocation_layout_location, 0);
+                a.recycle();
+            }
+        }
+    }
+
     private class AppBarOffsetListener implements SamsungAppBarLayout.OnOffsetChangedListener {
         @SuppressLint("Range")
         @Override
@@ -640,41 +671,6 @@ public class ToolbarLayout extends LinearLayout {
 
         PopupMenuItem(MoreMenuPopupAdapter instance) {
             adapter = instance;
-        }
-    }
-
-
-    public static final int APPBAR_LAYOUT = 0;
-    public static final int COLLAPSING_TOOLBAR = 1;
-    public static final int TOOLBAR = 2;
-    public static final int NAVIGATION_BUTTON = 3;
-    public static final int COLLAPSED_TITLE = 4;
-    public static final int MAIN_CONTENT = 5;
-    public static final int FOOTER_CONTENT = 6;
-
-    @IntDef({APPBAR_LAYOUT, COLLAPSING_TOOLBAR, TOOLBAR, NAVIGATION_BUTTON, COLLAPSED_TITLE, MAIN_CONTENT, FOOTER_CONTENT})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface ToolbarLayoutView {
-    }
-
-    public View getView(@ToolbarLayoutView int view) {
-        switch (view) {
-            case APPBAR_LAYOUT:
-                return appBarLayout;
-            case COLLAPSING_TOOLBAR:
-                return collapsingToolbarLayout;
-            case TOOLBAR:
-                return toolbar;
-            case NAVIGATION_BUTTON:
-                return navigationButton;
-            case COLLAPSED_TITLE:
-                return collapsedTitleView;
-            case MAIN_CONTENT:
-                return mainContainer;
-            case FOOTER_CONTENT:
-                return bottomContainer;
-            default:
-                return null;
         }
     }
 

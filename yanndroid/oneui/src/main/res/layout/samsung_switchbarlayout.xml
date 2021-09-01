@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.dlyt.yanndroid.oneui.layout.ToolbarLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<de.dlyt.yanndroid.oneui.layout.ToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar_switchbarlayout"
     android:layout_width="match_parent"
@@ -16,8 +15,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/background_color">
+            android:background="@color/background_color"
+            android:orientation="vertical">
+
             <de.dlyt.yanndroid.oneui.view.SwitchBar
                 android:id="@+id/switchbar_switchbarlayout"
                 android:layout_width="match_parent"

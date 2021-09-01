@@ -6,10 +6,10 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import de.dlyt.yanndroid.oneui.layout.SwitchBarLayout;
+import de.dlyt.yanndroid.oneui.utils.ThemeColor;
 import de.dlyt.yanndroid.oneui.view.Switch;
 import de.dlyt.yanndroid.oneui.view.SwitchBar;
-import de.dlyt.yanndroid.oneui.utils.ThemeColor;
-import de.dlyt.yanndroid.oneui.layout.SwitchBarLayout;
 
 public class SwitchBarActivity extends AppCompatActivity implements SwitchBar.OnSwitchChangeListener {
     @Override

@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
+
 import de.dlyt.yanndroid.oneui.sesl.sdk.SsdkInterface;
 import de.dlyt.yanndroid.oneui.sesl.sdk.SsdkUnsupportedException;
 import de.dlyt.yanndroid.oneui.sesl.sdk.SsdkVendorCheck;
-
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 
 public final class SMultiWindow implements SsdkInterface {

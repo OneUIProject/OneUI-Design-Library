@@ -41,38 +41,9 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
     private BaseCallback<Snackbar> callback;
     private boolean hasAction;
 
-    public static class Callback extends BaseCallback<Snackbar> {
-        public static final int DISMISS_EVENT_ACTION = 1;
-        public static final int DISMISS_EVENT_CONSECUTIVE = 4;
-        public static final int DISMISS_EVENT_MANUAL = 3;
-        public static final int DISMISS_EVENT_SWIPE = 0;
-        public static final int DISMISS_EVENT_TIMEOUT = 2;
-
-        public void onDismissed(Snackbar snackbar, int i) {
-        }
-
-        public void onShown(Snackbar snackbar) {
-        }
-    }
-
     private Snackbar(@NonNull ViewGroup viewGroup, @NonNull View view, @NonNull de.dlyt.yanndroid.oneui.sesl.snackbar.ContentViewCallback contentViewCallback) {
         super(viewGroup, view, contentViewCallback);
         this.accessibilityManager = (AccessibilityManager) viewGroup.getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
-    }
-
-    @Override // BaseTransientBottomBar
-    public void show() {
-        super.show();
-    }
-
-    @Override // BaseTransientBottomBar
-    public void dismiss() {
-        super.dismiss();
-    }
-
-    @Override // BaseTransientBottomBar
-    public boolean isShown() {
-        return super.isShown();
     }
 
     @NonNull
@@ -118,6 +89,21 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
             }
         }
         return (ViewGroup) view;
+    }
+
+    @Override // BaseTransientBottomBar
+    public void show() {
+        super.show();
+    }
+
+    @Override // BaseTransientBottomBar
+    public void dismiss() {
+        super.dismiss();
+    }
+
+    @Override // BaseTransientBottomBar
+    public boolean isShown() {
+        return super.isShown();
     }
 
     @NonNull
@@ -253,13 +239,22 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
         }
     }
 
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
-    public static final class SnackbarLayout extends SnackbarBaseLayout {
-        @Override // BaseTransientBottomBar.SnackbarBaseLayout
-        public /* bridge */ /* synthetic */ void setOnClickListener(@Nullable OnClickListener onClickListener) {
-            super.setOnClickListener(onClickListener);
+    public static class Callback extends BaseCallback<Snackbar> {
+        public static final int DISMISS_EVENT_ACTION = 1;
+        public static final int DISMISS_EVENT_CONSECUTIVE = 4;
+        public static final int DISMISS_EVENT_MANUAL = 3;
+        public static final int DISMISS_EVENT_SWIPE = 0;
+        public static final int DISMISS_EVENT_TIMEOUT = 2;
+
+        public void onDismissed(Snackbar snackbar, int i) {
         }
 
+        public void onShown(Snackbar snackbar) {
+        }
+    }
+
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
+    public static final class SnackbarLayout extends SnackbarBaseLayout {
         public SnackbarLayout(Context context) {
             super(context);
             setBackgroundColor(17170445);
@@ -268,6 +263,11 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
         public SnackbarLayout(Context context, AttributeSet attributeSet) {
             super(context, attributeSet);
             setBackgroundColor(17170445);
+        }
+
+        @Override // BaseTransientBottomBar.SnackbarBaseLayout
+        public /* bridge */ /* synthetic */ void setOnClickListener(@Nullable OnClickListener onClickListener) {
+            super.setOnClickListener(onClickListener);
         }
 
         /* access modifiers changed from: protected */

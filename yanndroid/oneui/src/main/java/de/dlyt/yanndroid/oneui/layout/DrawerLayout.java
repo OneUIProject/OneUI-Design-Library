@@ -37,6 +37,11 @@ public class DrawerLayout extends LinearLayout {
 
 
     public static final int N_BADGE = -1;
+    public static final int DRAWER_BUTTON = 0;
+    public static final int TOOLBAR = 1;
+    public static final int CONTENT_LAYOUT = 2;
+    public static final int DRAWER_LAYOUT = 3;
+    public static final int DRAWER = 4;
     private Context mContext;
     private int mLayout;
     private String mToolbarTitle;
@@ -266,23 +271,10 @@ public class DrawerLayout extends LinearLayout {
         return new ToolbarLayout.Drawer_Toolbar_LayoutParams(getContext(), attrs);
     }
 
-
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         setDrawerWidth();
-    }
-
-
-    public static final int DRAWER_BUTTON = 0;
-    public static final int TOOLBAR = 1;
-    public static final int CONTENT_LAYOUT = 2;
-    public static final int DRAWER_LAYOUT = 3;
-    public static final int DRAWER = 4;
-
-    @IntDef({DRAWER_BUTTON, TOOLBAR, CONTENT_LAYOUT, DRAWER_LAYOUT, DRAWER})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface DrawerLayoutView {
     }
 
     public View getView(@DrawerLayoutView int view) {
@@ -300,6 +292,11 @@ public class DrawerLayout extends LinearLayout {
             default:
                 return null;
         }
+    }
+
+    @IntDef({DRAWER_BUTTON, TOOLBAR, CONTENT_LAYOUT, DRAWER_LAYOUT, DRAWER})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface DrawerLayoutView {
     }
 
 }

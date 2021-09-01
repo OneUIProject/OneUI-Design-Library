@@ -34,9 +34,9 @@ public final class SeslGapWorker implements Runnable {
             return 0;
         }
     };
+    public long mFrameIntervalNs;
     ArrayList<RecyclerView> mRecyclerViews = new ArrayList<>();
     long mPostTimeNs;
-    public long mFrameIntervalNs;
     private ArrayList<Task> mTasks = new ArrayList<>();
 
     static boolean isPrefetchPositionAttached(RecyclerView view, int position) {

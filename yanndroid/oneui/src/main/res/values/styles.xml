@@ -848,6 +848,7 @@
         <item name="thumbMinWidth">0.0dip</item>
         <item name="trackDrawable">@drawable/sesl_fastscroll_track</item>
     </style>
+
     <style name="RecyclerViewFastScrollTextStyle" parent="@android:style/TextAppearance.Widget">
         <item name="android:textStyle">normal</item>
         <item name="android:fontFamily">@string/sesl_font_family_regular</item>

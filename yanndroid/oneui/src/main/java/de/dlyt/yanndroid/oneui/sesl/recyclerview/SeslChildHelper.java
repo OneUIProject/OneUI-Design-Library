@@ -137,7 +137,7 @@ public class SeslChildHelper {
     }
 
     public void attachViewToParent(View child, int index, ViewGroup.LayoutParams layoutParams,
-                            boolean hidden) {
+                                   boolean hidden) {
         final int offset;
         if (index < 0) {
             offset = mCallback.getChildCount();

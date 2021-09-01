@@ -7,15 +7,15 @@ import android.view.View;
 
 import androidx.appcompat.util.SeslMisc;
 
-import de.dlyt.yanndroid.oneui.utils.ThemeColor;
 import de.dlyt.yanndroid.oneui.layout.PreferenceFragment;
-import de.dlyt.yanndroid.oneui.preference.SwitchPreferenceScreen;
-import de.dlyt.yanndroid.oneui.preference.internal.PreferencesRelatedCard;
 import de.dlyt.yanndroid.oneui.preference.HorizontalRadioPreference;
 import de.dlyt.yanndroid.oneui.preference.Preference;
 import de.dlyt.yanndroid.oneui.preference.PreferenceGroup;
 import de.dlyt.yanndroid.oneui.preference.SwitchPreference;
+import de.dlyt.yanndroid.oneui.preference.SwitchPreferenceScreen;
 import de.dlyt.yanndroid.oneui.preference.TipsCardViewPreference;
+import de.dlyt.yanndroid.oneui.preference.internal.PreferencesRelatedCard;
+import de.dlyt.yanndroid.oneui.utils.ThemeColor;
 import de.dlyt.yanndroid.oneuiexample.MainActivity;
 import de.dlyt.yanndroid.oneuiexample.R;
 
@@ -71,7 +71,7 @@ public class MainActivitySecondFragment extends PreferenceFragment
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("de.dlyt.yanndroid.oneuiexample_preferences", Context.MODE_PRIVATE);
         SwitchPreferenceScreen switchPreferenceScreen = (SwitchPreferenceScreen) findPreference("switch_preference_screen");

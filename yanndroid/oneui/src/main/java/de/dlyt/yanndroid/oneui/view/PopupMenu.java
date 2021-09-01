@@ -72,6 +72,38 @@ public class PopupMenu {
         popupWindow.dismiss();
     }
 
+    private int getPopupMenuWidth() {
+        int makeMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        View view = null;
+        ViewGroup viewGroup = null;
+        int measuredWidth = 0;
+
+        int i = 0;
+        int count = popupMenuAdapter.getCount();
+
+        while (i < count) {
+            ViewGroup linearLayout;
+            int itemViewType = popupMenuAdapter.getItemViewType(i);
+
+            if (itemViewType != 0)
+                view = null;
+
+            if (viewGroup == null)
+                linearLayout = new LinearLayout(context);
+            else
+                linearLayout = viewGroup;
+
+            view = popupMenuAdapter.getView(i, view, linearLayout);
+            view.measure(makeMeasureSpec, makeMeasureSpec);
+            measuredWidth = view.getMeasuredWidth();
+            if (measuredWidth <= 0) {
+                measuredWidth = 0;
+            }
+            i++;
+            viewGroup = linearLayout;
+        }
+        return measuredWidth;
+    }
 
     private class PopupMenuAdapter extends ArrayAdapter {
         ArrayList<String> itemTitle;
@@ -117,39 +149,6 @@ public class PopupMenu {
 
             return view;
         }
-    }
-
-    private int getPopupMenuWidth() {
-        int makeMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        View view = null;
-        ViewGroup viewGroup = null;
-        int measuredWidth = 0;
-
-        int i = 0;
-        int count = popupMenuAdapter.getCount();
-
-        while (i < count) {
-            ViewGroup linearLayout;
-            int itemViewType = popupMenuAdapter.getItemViewType(i);
-
-            if (itemViewType != 0)
-                view = null;
-
-            if (viewGroup == null)
-                linearLayout = new LinearLayout(context);
-            else
-                linearLayout = viewGroup;
-
-            view = popupMenuAdapter.getView(i, view, linearLayout);
-            view.measure(makeMeasureSpec, makeMeasureSpec);
-            measuredWidth = view.getMeasuredWidth();
-            if (measuredWidth <= 0) {
-                measuredWidth = 0;
-            }
-            i++;
-            viewGroup = linearLayout;
-        }
-        return measuredWidth;
     }
 
 }

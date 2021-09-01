@@ -56,18 +56,18 @@ import java.util.List;
 import static com.google.android.material.theme.overlay.MaterialThemeOverlay.wrap;
 
 public abstract class BaseTransientBottomBar<B extends BaseTransientBottomBar<B>> {
-    static final int ANIMATION_DURATION = 250;
-    static final int ANIMATION_FADE_DURATION = 180;
-    private static final int ANIMATION_FADE_IN_DURATION = 500;
-    private static final int ANIMATION_FADE_OUT_DURATION = 500;
     public static final int ANIMATION_MODE_FADE = 1;
     public static final int ANIMATION_MODE_SLIDE = 0;
-    private static final float ANIMATION_SCALE_FROM_VALUE = 0.8f;
     public static final int LENGTH_INDEFINITE = -2;
     public static final int LENGTH_LONG = 0;
     public static final int LENGTH_SHORT = -1;
+    static final int ANIMATION_DURATION = 250;
+    static final int ANIMATION_FADE_DURATION = 180;
     static final int MSG_DISMISS = 1;
     static final int MSG_SHOW = 0;
+    private static final int ANIMATION_FADE_IN_DURATION = 500;
+    private static final int ANIMATION_FADE_OUT_DURATION = 500;
+    private static final float ANIMATION_SCALE_FROM_VALUE = 0.8f;
     private static final int[] SNACKBAR_STYLE_ATTR = {R.attr.snackbarStyle};
     private static final String TAG = BaseTransientBottomBar.class.getSimpleName();
     private static final boolean USE_OFFSET_API = (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT <= 19);
@@ -88,11 +88,36 @@ public abstract class BaseTransientBottomBar<B extends BaseTransientBottomBar<B>
             }
         }
     });
+    @NonNull
+    protected final SnackbarBaseLayout view;
     @Nullable
     private final AccessibilityManager accessibilityManager;
+    @NonNull
+    private final de.dlyt.yanndroid.oneui.sesl.snackbar.ContentViewCallback contentViewCallback;
+    private final Context context;
+    @NonNull
+    private final ViewGroup targetParent;
+    @NonNull
+    SnackbarManager.Callback managerCallback = new SnackbarManager.Callback() {
+        /* class BaseTransientBottomBar.AnonymousClass5 */
+
+        @Override // SnackbarManager.Callback
+        public void show() {
+            BaseTransientBottomBar.handler.sendMessage(BaseTransientBottomBar.handler.obtainMessage(0, BaseTransientBottomBar.this));
+        }
+
+        @Override // SnackbarManager.Callback
+        public void dismiss(int i) {
+            BaseTransientBottomBar.handler.sendMessage(BaseTransientBottomBar.handler.obtainMessage(1, i, 0, BaseTransientBottomBar.this));
+        }
+    };
     @Nullable
     private View anchorView;
     private Behavior behavior;
+    private List<BaseCallback<B>> callbacks;
+    private int duration;
+    private int extraBottomMarginAnchorView;
+    private int extraBottomMarginGestureInset;
     @RequiresApi(29)
     private final Runnable bottomMarginGestureInsetRunnable = new Runnable() {
         /* class BaseTransientBottomBar.AnonymousClass2 */
@@ -110,85 +135,12 @@ public abstract class BaseTransientBottomBar<B extends BaseTransientBottomBar<B>
             }
         }
     };
-    private List<BaseCallback<B>> callbacks;
-    @NonNull
-    private final de.dlyt.yanndroid.oneui.sesl.snackbar.ContentViewCallback contentViewCallback;
-    private final Context context;
-    private int duration;
-    private int extraBottomMarginAnchorView;
-    private int extraBottomMarginGestureInset;
     private int extraBottomMarginWindowInset;
     private int extraLeftMarginWindowInset;
     private int extraRightMarginWindowInset;
     private boolean gestureInsetBottomIgnored;
-    @NonNull
-    SnackbarManager.Callback managerCallback = new SnackbarManager.Callback() {
-        /* class BaseTransientBottomBar.AnonymousClass5 */
-
-        @Override // SnackbarManager.Callback
-        public void show() {
-            BaseTransientBottomBar.handler.sendMessage(BaseTransientBottomBar.handler.obtainMessage(0, BaseTransientBottomBar.this));
-        }
-
-        @Override // SnackbarManager.Callback
-        public void dismiss(int i) {
-            BaseTransientBottomBar.handler.sendMessage(BaseTransientBottomBar.handler.obtainMessage(1, i, 0, BaseTransientBottomBar.this));
-        }
-    };
     @Nullable
     private Rect originalMargins;
-    @NonNull
-    private final ViewGroup targetParent;
-    @NonNull
-    protected final SnackbarBaseLayout view;
-
-    @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
-    public @interface AnimationMode {
-    }
-
-    public static abstract class BaseCallback<B> {
-        public static final int DISMISS_EVENT_ACTION = 1;
-        public static final int DISMISS_EVENT_CONSECUTIVE = 4;
-        public static final int DISMISS_EVENT_MANUAL = 3;
-        public static final int DISMISS_EVENT_SWIPE = 0;
-        public static final int DISMISS_EVENT_TIMEOUT = 2;
-
-        @Retention(RetentionPolicy.SOURCE)
-        @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
-        public @interface DismissEvent {
-        }
-
-        public void onDismissed(B b, int i) {
-        }
-
-        public void onShown(B b) {
-        }
-    }
-
-    @Deprecated
-    public interface ContentViewCallback extends com.google.android.material.snackbar.ContentViewCallback {
-    }
-
-    @IntRange(from = 1)
-    @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
-    public @interface Duration {
-    }
-
-    /* access modifiers changed from: protected */
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
-    public interface OnAttachStateChangeListener {
-        void onViewAttachedToWindow(View view);
-
-        void onViewDetachedFromWindow(View view);
-    }
-
-    /* access modifiers changed from: protected */
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
-    public interface OnLayoutChangeListener {
-        void onLayoutChange(View view, int i, int i2, int i3, int i4);
-    }
 
     @SuppressLint("RestrictedApi")
     protected BaseTransientBottomBar(@NonNull ViewGroup viewGroup, @NonNull View view2, @NonNull de.dlyt.yanndroid.oneui.sesl.snackbar.ContentViewCallback contentViewCallback2) {
@@ -294,24 +246,24 @@ public abstract class BaseTransientBottomBar<B extends BaseTransientBottomBar<B>
         return (layoutParams instanceof CoordinatorLayout.LayoutParams) && (((CoordinatorLayout.LayoutParams) layoutParams).getBehavior() instanceof SwipeDismissBehavior);
     }
 
+    public int getDuration() {
+        return this.duration;
+    }
+
     @NonNull
     public B setDuration(int i) {
         this.duration = i;
         return (B) this;
     }
 
-    public int getDuration() {
-        return this.duration;
+    public boolean isGestureInsetBottomIgnored() {
+        return this.gestureInsetBottomIgnored;
     }
 
     @NonNull
     public B setGestureInsetBottomIgnored(boolean z) {
         this.gestureInsetBottomIgnored = z;
         return (B) this;
-    }
-
-    public boolean isGestureInsetBottomIgnored() {
-        return this.gestureInsetBottomIgnored;
     }
 
     public int getAnimationMode() {
@@ -344,14 +296,14 @@ public abstract class BaseTransientBottomBar<B extends BaseTransientBottomBar<B>
         throw new IllegalArgumentException("Unable to find anchor view with id: " + i);
     }
 
+    public Behavior getBehavior() {
+        return this.behavior;
+    }
+
     @NonNull
     public B setBehavior(Behavior behavior2) {
         this.behavior = behavior2;
         return (B) this;
-    }
-
-    public Behavior getBehavior() {
-        return this.behavior;
     }
 
     @NonNull
@@ -746,6 +698,54 @@ public abstract class BaseTransientBottomBar<B extends BaseTransientBottomBar<B>
         return true;
     }
 
+    @Retention(RetentionPolicy.SOURCE)
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
+    public @interface AnimationMode {
+    }
+
+    @Deprecated
+    public interface ContentViewCallback extends com.google.android.material.snackbar.ContentViewCallback {
+    }
+
+    @IntRange(from = 1)
+    @Retention(RetentionPolicy.SOURCE)
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
+    public @interface Duration {
+    }
+
+    /* access modifiers changed from: protected */
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
+    public interface OnAttachStateChangeListener {
+        void onViewAttachedToWindow(View view);
+
+        void onViewDetachedFromWindow(View view);
+    }
+
+    /* access modifiers changed from: protected */
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
+    public interface OnLayoutChangeListener {
+        void onLayoutChange(View view, int i, int i2, int i3, int i4);
+    }
+
+    public static abstract class BaseCallback<B> {
+        public static final int DISMISS_EVENT_ACTION = 1;
+        public static final int DISMISS_EVENT_CONSECUTIVE = 4;
+        public static final int DISMISS_EVENT_MANUAL = 3;
+        public static final int DISMISS_EVENT_SWIPE = 0;
+        public static final int DISMISS_EVENT_TIMEOUT = 2;
+
+        public void onDismissed(B b, int i) {
+        }
+
+        public void onShown(B b) {
+        }
+
+        @Retention(RetentionPolicy.SOURCE)
+        @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
+        public @interface DismissEvent {
+        }
+    }
+
     /* access modifiers changed from: protected */
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
     public static class SnackbarBaseLayout extends FrameLayout {
@@ -764,8 +764,8 @@ public abstract class BaseTransientBottomBar<B extends BaseTransientBottomBar<B>
             }
         };
         private final float actionTextColorAlpha;
-        private int animationMode;
         private final float backgroundOverlayColorAlpha;
+        private int animationMode;
         private BaseTransientBottomBar.OnAttachStateChangeListener onAttachStateChangeListener;
         private BaseTransientBottomBar.OnLayoutChangeListener onLayoutChangeListener;
 
@@ -785,6 +785,22 @@ public abstract class BaseTransientBottomBar<B extends BaseTransientBottomBar<B>
             obtainStyledAttributes.recycle();
             setOnTouchListener(consumeAllTouchListener);
             setFocusable(true);
+        }
+
+        static View findChildUnder(ViewGroup viewGroup, float f, float f2) {
+            for (int childCount = viewGroup.getChildCount() - 1; childCount >= 0; childCount--) {
+                View childAt = viewGroup.getChildAt(childCount);
+                if (isChildUnder(childAt, f, f2)) {
+                    return childAt;
+                }
+            }
+            return null;
+        }
+
+        static boolean isChildUnder(View view, float f, float f2) {
+            float x = view.getX();
+            float y = view.getY();
+            return f >= x && f2 >= y && f < ((float) view.getWidth()) + x && f2 < ((float) view.getHeight()) + y;
         }
 
         public void setOnClickListener(@Nullable OnClickListener onClickListener) {
@@ -849,22 +865,6 @@ public abstract class BaseTransientBottomBar<B extends BaseTransientBottomBar<B>
         public float getActionTextColorAlpha() {
             return this.actionTextColorAlpha;
         }
-
-        static View findChildUnder(ViewGroup viewGroup, float f, float f2) {
-            for (int childCount = viewGroup.getChildCount() - 1; childCount >= 0; childCount--) {
-                View childAt = viewGroup.getChildAt(childCount);
-                if (isChildUnder(childAt, f, f2)) {
-                    return childAt;
-                }
-            }
-            return null;
-        }
-
-        static boolean isChildUnder(View view, float f, float f2) {
-            float x = view.getX();
-            float y = view.getY();
-            return f >= x && f2 >= y && f < ((float) view.getWidth()) + x && f2 < ((float) view.getHeight()) + y;
-        }
     }
 
     public static class Behavior extends SwipeDismissBehavior<View> {
@@ -882,7 +882,8 @@ public abstract class BaseTransientBottomBar<B extends BaseTransientBottomBar<B>
             return this.delegate.canSwipeDismissView(view);
         }
 
-        @Override // com.google.android.material.behavior.SwipeDismissBehavior, androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior
+        @Override
+        // com.google.android.material.behavior.SwipeDismissBehavior, androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior
         public boolean onInterceptTouchEvent(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View view, @NonNull MotionEvent motionEvent) {
             this.delegate.onInterceptTouchEvent(coordinatorLayout, view, motionEvent);
             return super.onInterceptTouchEvent(coordinatorLayout, view, motionEvent);

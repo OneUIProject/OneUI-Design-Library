@@ -22,6 +22,9 @@ import de.dlyt.yanndroid.oneui.view.SwitchBar;
 
 public class SwitchBarLayout extends LinearLayout {
 
+    public static final int TOOLBAR_LAYOUT = 0;
+    public static final int SWITCHBAR = 1;
+    public static final int CONTENT_LAYOUT = 2;
     private int mLayout;
     private String mToolbarTitle;
     private String mToolbarSubtitle;
@@ -99,15 +102,6 @@ public class SwitchBarLayout extends LinearLayout {
         return null;
     }
 
-    public static final int TOOLBAR_LAYOUT = 0;
-    public static final int SWITCHBAR = 1;
-    public static final int CONTENT_LAYOUT = 2;
-
-    @IntDef({TOOLBAR_LAYOUT, SWITCHBAR, CONTENT_LAYOUT})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface SwitchBarLayoutView {
-    }
-
     public View getView(@SwitchBarLayoutView int view) {
         switch (view) {
             case TOOLBAR_LAYOUT:
@@ -119,5 +113,10 @@ public class SwitchBarLayout extends LinearLayout {
             default:
                 return null;
         }
+    }
+
+    @IntDef({TOOLBAR_LAYOUT, SWITCHBAR, CONTENT_LAYOUT})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface SwitchBarLayoutView {
     }
 }

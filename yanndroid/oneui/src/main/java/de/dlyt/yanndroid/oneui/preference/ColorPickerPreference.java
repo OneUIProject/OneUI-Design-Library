@@ -14,9 +14,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.dialog.ClassicColorPickerDialog;
 import de.dlyt.yanndroid.oneui.dialog.DetailedColorPickerDialog;
-import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.preference.internal.SeslPreferenceImageView;
 
 public class ColorPickerPreference extends Preference implements Preference.OnPreferenceClickListener,

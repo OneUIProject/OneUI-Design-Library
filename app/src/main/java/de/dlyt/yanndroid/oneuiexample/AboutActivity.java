@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 
-import de.dlyt.yanndroid.oneui.utils.ThemeColor;
 import de.dlyt.yanndroid.oneui.layout.AboutPage;
+import de.dlyt.yanndroid.oneui.utils.ThemeColor;
 
 public class AboutActivity extends AppCompatActivity {
 

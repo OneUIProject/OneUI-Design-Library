@@ -8,14 +8,14 @@
         android:title="TipsCardView" />
 
     <PreferenceCategory
-        android:title="HorizontalRadioPreference"
-        android:key="spacing"/>
+        android:key="spacing"
+        android:title="HorizontalRadioPreference" />
 
     <HorizontalRadioPreference
         android:key="dark_mode"
         android:title="Dark mode settings"
-        app:entriesImage="@array/preferences_darkmode_entries_image"
         app:entries="@array/preferences_darkmode_entries"
+        app:entriesImage="@array/preferences_darkmode_entries_image"
         app:entryValues="@array/preferences_darkmode_values"
         app:viewType="image" />
     <SwitchPreference
@@ -31,8 +31,8 @@
             android:summary="Summary"
             android:title="SwitchPreferenceScreen">
             <intent
-                android:targetPackage="de.dlyt.yanndroid.oneuiexample"
-                android:targetClass="de.dlyt.yanndroid.oneuiexample.SwitchBarActivity" />
+                android:targetClass="de.dlyt.yanndroid.oneuiexample.SwitchBarActivity"
+                android:targetPackage="de.dlyt.yanndroid.oneuiexample" />
         </SwitchPreferenceScreen>
         <CheckBoxPreference
             android:summary="Summary"
@@ -109,15 +109,14 @@
             app:pickerType="detailed" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:key="spacing2"/>
+    <PreferenceCategory android:key="spacing2" />
 
     <PreferenceScreen
-        android:title="About OneUI Sample"
-        android:key="about_app">
+        android:key="about_app"
+        android:title="About OneUI Sample">
         <intent
-            android:targetPackage="de.dlyt.yanndroid.oneuiexample"
-            android:targetClass="de.dlyt.yanndroid.oneuiexample.AboutActivity" />
+            android:targetClass="de.dlyt.yanndroid.oneuiexample.AboutActivity"
+            android:targetPackage="de.dlyt.yanndroid.oneuiexample" />
     </PreferenceScreen>
 
 </de.dlyt.yanndroid.oneui.preference.PreferenceScreen>

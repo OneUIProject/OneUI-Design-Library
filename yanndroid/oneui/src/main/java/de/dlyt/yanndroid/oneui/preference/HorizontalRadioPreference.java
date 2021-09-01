@@ -21,8 +21,6 @@ import androidx.appcompat.util.SeslMisc;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.TypedArrayUtils;
 
-import java.lang.reflect.Field;
-
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.preference.internal.HorizontalRadioViewContainer;
 
@@ -244,10 +242,6 @@ public class HorizontalRadioPreference extends Preference {
         return mValue;
     }
 
-    private int getValueIndex() {
-        return findIndexOfValue(mValue);
-    }
-
     public void setValue(String value) {
         final boolean changed = !TextUtils.equals(mValue, value);
         if (changed || !mValueSet) {
@@ -259,6 +253,10 @@ public class HorizontalRadioPreference extends Preference {
                 invalidate();
             }
         }
+    }
+
+    private int getValueIndex() {
+        return findIndexOfValue(mValue);
     }
 
     public void setDividerEnabled(boolean enabled) {

@@ -199,12 +199,9 @@
     <color name="widget_multi_button_divider_color">#ffe6e6e6</color>
 
 
-
-
     <!--Snackbar-->
     <color name="sesl_design_snackbar_text_color">#fffafafa</color>
     <color name="sesl_snackbar_action_ripple_color">#40000000</color>
-
 
 
 </resources>

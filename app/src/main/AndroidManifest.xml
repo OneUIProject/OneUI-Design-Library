@@ -14,13 +14,12 @@
             android:value="SEP10" />
         <meta-data
             android:name="com.samsung.android.icon_container.has_icon_container"
-            android:value="true"/>
+            android:value="true" />
         <meta-data
             android:name="com.samsung.android.icon_container.feature_appicon"
-            android:value="ADAPTIVEICON_SHADOW"/>
+            android:value="ADAPTIVEICON_SHADOW" />
 
-        <activity
-            android:name="de.dlyt.yanndroid.oneuiexample.SwitchBarActivity" />
+        <activity android:name="de.dlyt.yanndroid.oneuiexample.SwitchBarActivity" />
         <activity
             android:name="de.dlyt.yanndroid.oneuiexample.AboutActivity"
             android:theme="@style/OneUIAboutTheme" />

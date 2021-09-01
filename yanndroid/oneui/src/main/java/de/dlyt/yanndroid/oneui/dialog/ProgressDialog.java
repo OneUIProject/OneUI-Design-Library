@@ -15,8 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import de.dlyt.yanndroid.oneui.view.ProgressBar;
 import de.dlyt.yanndroid.oneui.R;
+import de.dlyt.yanndroid.oneui.view.ProgressBar;
 
 public class ProgressDialog extends AlertDialog {
     public static final int STYLE_SPINNER = 0;

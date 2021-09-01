@@ -43,10 +43,10 @@ import androidx.core.view.ViewCompat;
 
 import java.lang.ref.WeakReference;
 
-import de.dlyt.yanndroid.oneui.view.NestedScrollView;
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneui.sesl.utils.SamsungEdgeEffect;
+import de.dlyt.yanndroid.oneui.view.NestedScrollView;
 
 public class SamsungAlertController {
     public final int mButtonIconDimen;
