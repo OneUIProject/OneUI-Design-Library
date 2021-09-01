@@ -35,11 +35,7 @@ import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
 
 public class DrawerLayout extends LinearLayout {
 
-    public static final int DRAWER_BUTTON = 0;
-    public static final int TOOLBAR = 1;
-    public static final int CONTENT_LAYOUT = 2;
-    public static final int DRAWER_LAYOUT = 3;
-    public static final int DRAWER = 4;
+
     public static final int N_BADGE = -1;
     private Context mContext;
     private int mLayout;
@@ -127,23 +123,6 @@ public class DrawerLayout extends LinearLayout {
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         toolbarLayout.setNavigationOnClickListener(v -> drawerLayout.openDrawer(drawer, true));
-    }
-
-    public View getView(@DrawerLayoutView int view) {
-        switch (view) {
-            case DRAWER_BUTTON:
-                return drawerButton;
-            case TOOLBAR:
-                return toolbarLayout;
-            case CONTENT_LAYOUT:
-                return drawer_container;
-            case DRAWER_LAYOUT:
-                return drawerLayout;
-            case DRAWER:
-                return drawer;
-            default:
-                return null;
-        }
     }
 
     private void setDrawerWidth() {
@@ -294,9 +273,33 @@ public class DrawerLayout extends LinearLayout {
         setDrawerWidth();
     }
 
+
+    public static final int DRAWER_BUTTON = 0;
+    public static final int TOOLBAR = 1;
+    public static final int CONTENT_LAYOUT = 2;
+    public static final int DRAWER_LAYOUT = 3;
+    public static final int DRAWER = 4;
+
     @IntDef({DRAWER_BUTTON, TOOLBAR, CONTENT_LAYOUT, DRAWER_LAYOUT, DRAWER})
     @Retention(RetentionPolicy.SOURCE)
     public @interface DrawerLayoutView {
+    }
+
+    public View getView(@DrawerLayoutView int view) {
+        switch (view) {
+            case DRAWER_BUTTON:
+                return drawerButton;
+            case TOOLBAR:
+                return toolbarLayout;
+            case CONTENT_LAYOUT:
+                return drawer_container;
+            case DRAWER_LAYOUT:
+                return drawerLayout;
+            case DRAWER:
+                return drawer;
+            default:
+                return null;
+        }
     }
 
 }

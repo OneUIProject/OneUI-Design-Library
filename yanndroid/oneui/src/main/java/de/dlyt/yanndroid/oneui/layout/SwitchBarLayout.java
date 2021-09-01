@@ -22,9 +22,6 @@ import de.dlyt.yanndroid.oneui.view.SwitchBar;
 
 public class SwitchBarLayout extends LinearLayout {
 
-    public static final int TOOLBAR_LAYOUT = 0;
-    public static final int SWITCHBAR = 1;
-    public static final int CONTENT_LAYOUT = 2;
     private int mLayout;
     private String mToolbarTitle;
     private String mToolbarSubtitle;
@@ -60,19 +57,6 @@ public class SwitchBarLayout extends LinearLayout {
         switchBar = findViewById(R.id.switchbar_switchbarlayout);
 
         mainContainer = findViewById(R.id.switchbar_container);
-    }
-
-    public View getView(@SwitchBarLayoutView int view) {
-        switch (view) {
-            case TOOLBAR_LAYOUT:
-                return toolbarLayout;
-            case SWITCHBAR:
-                return switchBar;
-            case CONTENT_LAYOUT:
-                return mainContainer;
-            default:
-                return null;
-        }
     }
 
     public SwitchBar getSwitchBar() {
@@ -115,9 +99,25 @@ public class SwitchBarLayout extends LinearLayout {
         return null;
     }
 
+    public static final int TOOLBAR_LAYOUT = 0;
+    public static final int SWITCHBAR = 1;
+    public static final int CONTENT_LAYOUT = 2;
+
     @IntDef({TOOLBAR_LAYOUT, SWITCHBAR, CONTENT_LAYOUT})
     @Retention(RetentionPolicy.SOURCE)
     public @interface SwitchBarLayoutView {
     }
 
+    public View getView(@SwitchBarLayoutView int view) {
+        switch (view) {
+            case TOOLBAR_LAYOUT:
+                return toolbarLayout;
+            case SWITCHBAR:
+                return switchBar;
+            case CONTENT_LAYOUT:
+                return mainContainer;
+            default:
+                return null;
+        }
+    }
 }

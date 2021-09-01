@@ -34,12 +34,6 @@ public class AboutPage extends LinearLayout {
     public static final int UPDATE_AVAILABLE = 1;
     public static final int NO_UPDATE = 2;
     public static final int NO_CONNECTION = 3;
-    public static final int TOOLBAR = 0;
-    public static final int CONTENT_VIEW = 1;
-    public static final int VERSION_TEXT = 2;
-    public static final int OPTIONAL_TEXT = 3;
-    public static final int UPDATE_BUTTON = 4;
-    public static final int LOADING_BAR = 5;
     private ToolbarLayout toolbarLayout;
     private LinearLayout about_content;
     private TextView version;
@@ -50,7 +44,6 @@ public class AboutPage extends LinearLayout {
     private ProgressBar loading_bar;
     private String optional_text;
     private int update_state;
-
 
     public AboutPage(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -110,25 +103,6 @@ public class AboutPage extends LinearLayout {
             version.setText(context.getString(R.string.sesl_version) + " " + packageInfo.versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-        }
-    }
-
-    public View getView(@AboutPageView int view) {
-        switch (view) {
-            case TOOLBAR:
-                return toolbarLayout;
-            case CONTENT_VIEW:
-                return about_content;
-            case VERSION_TEXT:
-                return version;
-            case OPTIONAL_TEXT:
-                return about_optional_text;
-            case UPDATE_BUTTON:
-                return update_button;
-            case LOADING_BAR:
-                return loading_bar;
-            default:
-                return null;
         }
     }
 
@@ -204,14 +178,46 @@ public class AboutPage extends LinearLayout {
         }
     }
 
-    @IntDef({CONTENT_VIEW, VERSION_TEXT, OPTIONAL_TEXT, UPDATE_BUTTON, LOADING_BAR})
+    @IntDef({LOADING, UPDATE_AVAILABLE, NO_UPDATE, NOT_UPDATEABLE, NO_CONNECTION})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface UpdateState {
+    }
+
+    public static final int TOOLBAR = 0;
+    public static final int MAIN_CONTENT = 1;
+    public static final int VERSION_TEXT = 2;
+    public static final int STATUS_TEXT = 3;
+    public static final int OPTIONAL_TEXT = 4;
+    public static final int UPDATE_BUTTON = 5;
+    public static final int RETRY_BUTTON = 6;
+    public static final int LOADING_BAR = 7;
+
+    @IntDef({TOOLBAR, MAIN_CONTENT, VERSION_TEXT, STATUS_TEXT, OPTIONAL_TEXT, UPDATE_BUTTON, RETRY_BUTTON, LOADING_BAR})
     @Retention(RetentionPolicy.SOURCE)
     public @interface AboutPageView {
     }
 
-    @IntDef({LOADING, UPDATE_AVAILABLE, NO_UPDATE, NOT_UPDATEABLE, NO_CONNECTION})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface UpdateState {
+    public View getView(@AboutPageView int view) {
+        switch (view) {
+            case TOOLBAR:
+                return toolbarLayout;
+            case MAIN_CONTENT:
+                return about_content;
+            case VERSION_TEXT:
+                return version;
+            case STATUS_TEXT:
+                return status_text;
+            case OPTIONAL_TEXT:
+                return about_optional_text;
+            case UPDATE_BUTTON:
+                return update_button;
+            case RETRY_BUTTON:
+                return retry_button;
+            case LOADING_BAR:
+                return loading_bar;
+            default:
+                return null;
+        }
     }
 
 

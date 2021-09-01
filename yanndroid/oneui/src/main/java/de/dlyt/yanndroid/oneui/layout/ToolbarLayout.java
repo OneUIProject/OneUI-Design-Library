@@ -46,12 +46,6 @@ import de.dlyt.yanndroid.oneui.sesl.support.WindowManagerSupport;
 import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
 
 public class ToolbarLayout extends LinearLayout {
-    public static final int APPBAR_LAYOUT = 0;
-    public static final int COLLAPSING_TOOLBAR = 1;
-    public static final int TOOLBAR = 2;
-    public static final int NAVIGATION_ICON = 3;
-    public static final int COLLAPSED_TITLE = 4;
-    public static final int CONTENT_LAYOUT = 5;
     public static final int N_BADGE = -1;
     private static String TAG = "ToolbarLayout";
     public ViewGroup navigationBadgeBackground;
@@ -127,25 +121,6 @@ public class ToolbarLayout extends LinearLayout {
 
         refreshLayout(getResources().getConfiguration());
 
-    }
-
-    public View getView(@ToolbarLayoutView int view) {
-        switch (view) {
-            case APPBAR_LAYOUT:
-                return appBarLayout;
-            case COLLAPSING_TOOLBAR:
-                return collapsingToolbarLayout;
-            case TOOLBAR:
-                return toolbar;
-            case NAVIGATION_ICON:
-                return navigationButton;
-            case COLLAPSED_TITLE:
-                return collapsedTitleView;
-            case CONTENT_LAYOUT:
-                return mainContainer;
-            default:
-                return null;
-        }
     }
 
     @Override
@@ -232,8 +207,8 @@ public class ToolbarLayout extends LinearLayout {
         WindowManagerSupport.hideStatusBarForLandscape(getActivity(), newConfig.orientation);
 
         ViewSupport.updateListBothSideMargin(getActivity(), mainContainer);
-        ViewSupport.updateListBothSideMargin(getActivity(),findViewById(R.id.toolbar_layout_bottom_corners));
-        ViewSupport.updateListBothSideMargin(getActivity(),findViewById(R.id.toolbar_layout_bottom_container));
+        ViewSupport.updateListBothSideMargin(getActivity(), findViewById(R.id.toolbar_layout_bottom_corners));
+        ViewSupport.updateListBothSideMargin(getActivity(), findViewById(R.id.toolbar_layout_bottom_container));
 
         if (mExpandable) {
             resetAppBarHeight();
@@ -559,11 +534,6 @@ public class ToolbarLayout extends LinearLayout {
         return measuredWidth;
     }
 
-    @IntDef({APPBAR_LAYOUT, COLLAPSING_TOOLBAR, TOOLBAR, NAVIGATION_ICON, COLLAPSED_TITLE, CONTENT_LAYOUT})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface ToolbarLayoutView {
-    }
-
     private class AppBarOffsetListener implements SamsungAppBarLayout.OnOffsetChangedListener {
         @SuppressLint("Range")
         @Override
@@ -670,6 +640,41 @@ public class ToolbarLayout extends LinearLayout {
 
         PopupMenuItem(MoreMenuPopupAdapter instance) {
             adapter = instance;
+        }
+    }
+
+
+    public static final int APPBAR_LAYOUT = 0;
+    public static final int COLLAPSING_TOOLBAR = 1;
+    public static final int TOOLBAR = 2;
+    public static final int NAVIGATION_BUTTON = 3;
+    public static final int COLLAPSED_TITLE = 4;
+    public static final int MAIN_CONTENT = 5;
+    public static final int FOOTER_CONTENT = 6;
+
+    @IntDef({APPBAR_LAYOUT, COLLAPSING_TOOLBAR, TOOLBAR, NAVIGATION_BUTTON, COLLAPSED_TITLE, MAIN_CONTENT, FOOTER_CONTENT})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ToolbarLayoutView {
+    }
+
+    public View getView(@ToolbarLayoutView int view) {
+        switch (view) {
+            case APPBAR_LAYOUT:
+                return appBarLayout;
+            case COLLAPSING_TOOLBAR:
+                return collapsingToolbarLayout;
+            case TOOLBAR:
+                return toolbar;
+            case NAVIGATION_BUTTON:
+                return navigationButton;
+            case COLLAPSED_TITLE:
+                return collapsedTitleView;
+            case MAIN_CONTENT:
+                return mainContainer;
+            case FOOTER_CONTENT:
+                return bottomContainer;
+            default:
+                return null;
         }
     }
 
