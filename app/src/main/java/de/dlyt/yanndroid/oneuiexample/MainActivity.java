@@ -19,19 +19,21 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
-import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
+import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
 import de.dlyt.yanndroid.oneui.dialog.ClassicColorPickerDialog;
 import de.dlyt.yanndroid.oneui.dialog.DetailedColorPickerDialog;
-import de.dlyt.yanndroid.oneui.utils.ThemeColor;
 import de.dlyt.yanndroid.oneui.dialog.ProgressDialog;
-import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
-import de.dlyt.yanndroid.oneui.view.Snackbar;
+import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
+import de.dlyt.yanndroid.oneui.utils.ThemeColor;
+import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
+import de.dlyt.yanndroid.oneui.view.PopupMenu;
+import de.dlyt.yanndroid.oneui.view.Snackbar;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
 
 import static de.dlyt.yanndroid.oneui.layout.DrawerLayout.DRAWER_LAYOUT;
@@ -268,13 +270,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void standardDialog(View view) {
-        new AlertDialog.Builder(this)
-                .setTitle("Title")
-                .setMessage("Message")
-                .setNeutralButton("Maybe", null)
-                .setNegativeButton("No", null)
-                .setPositiveButton("Yes", null)
-                .show();
+        Context context = this;
+
+        PopupMenu popupMenu = new PopupMenu(view);
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            list.add("Menu Item " + i);
+        }
+
+        popupMenu.inflate(list);
+        popupMenu.setOnMenuItemClickListener((parent, view1, position, id) -> {
+            popupMenu.dismiss();
+            new AlertDialog.Builder(context)
+                    .setTitle("Title")
+                    .setMessage("Message")
+                    .setNeutralButton("Maybe", null)
+                    .setNegativeButton("No", null)
+                    .setPositiveButton("Yes", null)
+                    .show();
+        });
+        popupMenu.show();
     }
 
     public void singleChoiceDialog(View view) {
