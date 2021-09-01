@@ -64,6 +64,10 @@ public class PopupMenu {
         popupWindow.showAsDropDown(anchor);
     }
 
+    public void show(int xoff, int yoff) {
+        popupWindow.showAsDropDown(anchor, xoff, yoff);
+    }
+
     public void dismiss() {
         popupWindow.dismiss();
     }

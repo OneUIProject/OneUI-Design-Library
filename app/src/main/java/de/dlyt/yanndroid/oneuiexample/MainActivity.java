@@ -274,10 +274,7 @@ public class MainActivity extends AppCompatActivity {
 
         PopupMenu popupMenu = new PopupMenu(view);
         ArrayList<String> list = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            list.add("Menu Item " + i);
-        }
-
+        for (int i = 0; i < 4; i++) list.add("Menu Item " + i);
         popupMenu.inflate(list);
         popupMenu.setOnMenuItemClickListener((parent, view1, position, id) -> {
             popupMenu.dismiss();
