@@ -36,6 +36,8 @@ jobs:
           distribution: "zulu"
           java-version: "8"
           cache: "gradle"
+      - name: grant execute permission for gradlew
+        run: chmod +x gradlew
 
       - name: decode key
         run: |
