@@ -48,13 +48,13 @@ jobs:
       - name: assemble release
         run: ./gradlew -p ./yanndroid/oneui assembleRelease
 
-      - name: publish to maven central
-        run: ./gradlew publishToSonatype closeSonatypeStagingRepository
-        env:
-          SIGNING_KEYID: ${{ secrets.SIGNING_KEYID }}
-          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
-          SONATYPE_PWD: ${{ secrets.SONATYPE_PWD }}
+#      - name: publish to maven central
+#        run: ./gradlew publishToSonatype closeSonatypeStagingRepository
+#        env:
+#          SIGNING_KEYID: ${{ secrets.SIGNING_KEYID }}
+#          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+#          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
+#          SONATYPE_PWD: ${{ secrets.SONATYPE_PWD }}
 
   release:
     needs: versions
