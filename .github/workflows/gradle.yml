@@ -1,8 +1,8 @@
-name: Java CI with Gradle
+name: Java CI with Gradle for building, releasing and publishing
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   workflow_dispatch:
 
 jobs:
@@ -12,43 +12,39 @@ jobs:
       version: ${{ steps.version.outputs.version }}
       tags: ${{ steps.tags.outputs.tags }}
     steps:
-      - uses: actions/checkout@v2
       - name: get current version
-        run: |
-          echo ::set-output name=version::$(grep -Po '(?<=VERSION_NAME=).*' ./gradle.properties)
         id: version
-      - name: get old version-tags
-        run: |
-          echo ::set-output name=tags::$(curl -s https://api.github.com/repos/yanndroid/oneui-design-library/tags | grep -Po '(?<="name": ").*(?=")')
+        run: echo ::set-output name=version::$(curl -s https://raw.githubusercontent.com/yanndroid/OneUI-Design-Library/master/gradle.properties | grep -Po '(?<=VERSION_NAME=).*')
+      - name: get previous version tags
         id: tags
+        run: 'echo ::set-output name=tags::$(curl -s https://api.github.com/repos/yanndroid/oneui-design-library/tags | grep -Po ''(?<="name": ").*(?=")'')'
 
   publish:
-    runs-on: ubuntu-latest
+    name: build and publish
     needs: versions
+    runs-on: ubuntu-latest
     if: ${{ !contains(needs.versions.outputs.tags, needs.versions.outputs.version) }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: java setup and gradle caching
+        uses: actions/setup-java@v2
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-      - uses: actions/setup-java@v2
-        with:
-          distribution: 'zulu'
-          java-version: '8'
+          distribution: "zulu"
+          java-version: "8"
+          cache: "gradle"
+
       - name: grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: decode Key
+      - name: decode key
         run: |
           echo "${{secrets.SIGNING_KEYFILE_BASE64}}" > ~/key.gpg.b64
           base64 -d ~/key.gpg.b64 > ~/key.gpg
           echo "SIGNING_KEYFILE=$(echo ~/key.gpg)" >> $GITHUB_ENV
-      - name: assemble Release
+
+      - name: assemble release
         run: ./gradlew -p ./yanndroid/oneui assembleRelease
 
       - name: publish to maven central
@@ -59,17 +55,19 @@ jobs:
           SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
           SONATYPE_PWD: ${{ secrets.SONATYPE_PWD }}
 
-
   release:
-    runs-on: ubuntu-latest
     needs: versions
+    runs-on: ubuntu-latest
     if: ${{ !contains(needs.versions.outputs.tags, needs.versions.outputs.version) }}
     steps:
-      - uses: actions/checkout@v2
       - name: create release
         uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           release_name: ${{ needs.versions.outputs.version }}
           tag_name: ${{ needs.versions.outputs.version }}
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+          body: |
+            ${{ github.event.head_commit.message }}
+
+            The latest release can be found [here](https://mvnrepository.com/artifact/io.github.yanndroid/oneui/${{ needs.versions.outputs.version }}).
