@@ -19,6 +19,8 @@ jobs:
       - name: get previous version tags
         id: tags
         run: 'echo ::set-output name=tags::$(curl -s https://api.github.com/repos/yanndroid/oneui-design-library/tags | grep -Po ''(?<="name": ").*(?=")'')'
+      - name: debug logging
+        run: echo ${{ steps.tags.outputs.tags }} ${{ steps.tags.outputs.tags }}
 
   publish:
     name: build and publish
