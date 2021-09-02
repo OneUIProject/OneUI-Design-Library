@@ -63,7 +63,9 @@ jobs:
     if: ${{ !contains(needs.versions.outputs.tags, needs.versions.outputs.version) }}
     steps:
       - name: print latest commit message
-        run : echo ${{ github.event.head_commit.message }}
+        run : |
+          echo commit:
+          echo ${{ github.event.head_commit.message }}
       - name: create release
         uses: actions/create-release@v1
         env:
