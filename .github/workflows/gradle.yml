@@ -14,7 +14,8 @@ jobs:
     steps:
       - name: get current version
         id: version
-        run: echo ::set-output name=version::$(curl -s https://raw.githubusercontent.com/yanndroid/OneUI-Design-Library/master/gradle.properties | grep -Po '(?<=VERSION_NAME=).*')
+#        run: echo ::set-output name=version::$(curl -s https://raw.githubusercontent.com/yanndroid/OneUI-Design-Library/master/gradle.properties | grep -Po '(?<=VERSION_NAME=).*')
+        run: echo ::set-output name=version::$(curl -s https://raw.githubusercontent.com/leonbcode/OneUI-Design-Library/master/gradle.properties | grep -Po '(?<=VERSION_NAME=).*')
 
       - name: get previous version tags
         id: tags
