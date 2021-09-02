@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: get current version
         id: version
-#        run: echo ::set-output name=version::$(curl -s https://raw.githubusercontent.com/yanndroid/OneUI-Design-Library/master/gradle.properties | grep -Po '(?<=VERSION_NAME=).*')
+        #        run: echo ::set-output name=version::$(curl -s https://raw.githubusercontent.com/yanndroid/OneUI-Design-Library/master/gradle.properties | grep -Po '(?<=VERSION_NAME=).*')
         run: echo ::set-output name=version::$(curl -s https://raw.githubusercontent.com/leonbcode/OneUI-Design-Library/master/gradle.properties | grep -Po '(?<=VERSION_NAME=).*')
 
       - name: get previous version tags
@@ -49,21 +49,19 @@ jobs:
       - name: assemble release
         run: ./gradlew -p ./yanndroid/oneui assembleRelease
 
-#      - name: publish to maven central
-#        run: ./gradlew publishToSonatype closeSonatypeStagingRepository
-#        env:
-#          SIGNING_KEYID: ${{ secrets.SIGNING_KEYID }}
-#          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-#          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
-#          SONATYPE_PWD: ${{ secrets.SONATYPE_PWD }}
+  #      - name: publish to maven central
+  #        run: ./gradlew publishToSonatype closeSonatypeStagingRepository
+  #        env:
+  #          SIGNING_KEYID: ${{ secrets.SIGNING_KEYID }}
+  #          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+  #          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
+  #          SONATYPE_PWD: ${{ secrets.SONATYPE_PWD }}
 
   release:
     needs: versions
     runs-on: ubuntu-latest
     if: ${{ !contains(needs.versions.outputs.tags, needs.versions.outputs.version) }}
     steps:
-      - name: print latest commit message
-        run : echo ${{ github.event.head_commit.message }}
       - name: create release
         uses: actions/create-release@v1
         env:
@@ -71,3 +69,7 @@ jobs:
         with:
           release_name: ${{ needs.versions.outputs.version }}
           tag_name: ${{ needs.versions.outputs.version }}
+          body: |
+            ${{ github.event.head_commit.message }}
+            The latest release can be found [here](https://mvnrepository.com/artifact/io.github.yanndroid/oneui/${{ needs.versions.outputs.version }}).
+
