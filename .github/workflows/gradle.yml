@@ -2,7 +2,7 @@ name: Java CI with Gradle for building, releasing and publishing
 
 on:
   push:
-    branches: master
+    branches: [master]
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,8 @@ jobs:
     steps:
       - name: get current version
         id: version
-        run: echo ::set-output name=version::$(curl -s https://raw.githubusercontent.com/leonbcode/OneUI-Design-Library/master/gradle.properties | grep -Po '(?<=VERSION_NAME=).*')
+        run: echo ::set-output name=version::$(curl -s https://raw.githubusercontent.com/yanndroid/OneUI-Design-Library/master/gradle.properties | grep -Po '(?<=VERSION_NAME=).*')
+
       - name: get previous version tags
         id: tags
         run: 'echo ::set-output name=tags::$(curl -s https://api.github.com/repos/yanndroid/oneui-design-library/tags | grep -Po ''(?<="name": ").*(?=")'')'
@@ -27,21 +28,33 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+
       - name: java setup and gradle caching
         uses: actions/setup-java@v2
         with:
           distribution: "zulu"
           java-version: "8"
           cache: "gradle"
+
       - name: grant execute permission for gradlew
         run: chmod +x gradlew
+
       - name: decode key
         run: |
           echo "${{secrets.SIGNING_KEYFILE_BASE64}}" > ~/key.gpg.b64
           base64 -d ~/key.gpg.b64 > ~/key.gpg
           echo "SIGNING_KEYFILE=$(echo ~/key.gpg)" >> $GITHUB_ENV
+
       - name: assemble release
         run: ./gradlew -p ./yanndroid/oneui assembleRelease
+
+      - name: publish to maven central
+        run: ./gradlew publishToSonatype closeSonatypeStagingRepository
+        env:
+          SIGNING_KEYID: ${{ secrets.SIGNING_KEYID }}
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
+          SONATYPE_PWD: ${{ secrets.SONATYPE_PWD }}
 
   release:
     needs: versions
