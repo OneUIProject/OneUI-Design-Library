@@ -256,7 +256,7 @@
                     android:text="TextView"
                     android:textAlignment="viewStart" />
 
-                <androidx.appcompat.widget.AppCompatSpinner
+                <androidx.appcompat.widget.SeslSpinner
                     android:id="@+id/spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

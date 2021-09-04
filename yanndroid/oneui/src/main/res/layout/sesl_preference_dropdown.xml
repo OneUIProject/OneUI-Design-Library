@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="?listChoiceBackgroundIndicator">
 
-    <androidx.appcompat.widget.AppCompatSpinner
+    <androidx.appcompat.widget.SeslSpinner
         android:id="@+id/spinner"
         android:layout_width="0.0dip"
         android:layout_height="0.0dip"
