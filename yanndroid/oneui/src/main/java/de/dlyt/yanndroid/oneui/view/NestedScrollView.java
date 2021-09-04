@@ -843,64 +843,69 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
     }
 
     @SuppressLint("WrongConstant")
-    public boolean onInterceptTouchEvent(MotionEvent motionEvent) {
-        int action = motionEvent.getAction();
-        if (action == 2 && this.mIsBeingDragged) {
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        final int action = ev.getAction();
+        if ((action == MotionEvent.ACTION_MOVE) && mIsBeingDragged) {
             return true;
         }
-        int i = action & 255;
-        if (i != 0) {
-            if (i != 1) {
-                if (i == 2) {
-                    int i2 = this.mActivePointerId;
-                    if (i2 != -1) {
-                        int findPointerIndex = motionEvent.findPointerIndex(i2);
-                        if (findPointerIndex == -1) {
-                            Log.e(TAG, "Invalid pointerId=" + i2 + " in onInterceptTouchEvent");
-                        } else {
-                            int y = (int) motionEvent.getY(findPointerIndex);
-                            if (Math.abs(y - this.mLastMotionY) > this.mTouchSlop && (2 & getNestedScrollAxes()) == 0) {
-                                this.mIsBeingDragged = true;
-                                this.mLastMotionY = y;
-                                initVelocityTrackerIfNotExists();
-                                this.mVelocityTracker.addMovement(motionEvent);
-                                this.mNestedYOffset = 0;
-                                ViewParent parent = getParent();
-                                if (parent != null) {
-                                    parent.requestDisallowInterceptTouchEvent(true);
-                                }
-                            }
-                        }
-                    }
-                } else if (i != 3) {
-                    if (i == 6) {
-                        onSecondaryPointerUp(motionEvent);
+        switch (action & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_MOVE: {
+                final int activePointerId = mActivePointerId;
+                if (activePointerId == INVALID_POINTER) {
+                    break;
+                }
+                final int pointerIndex = ev.findPointerIndex(activePointerId);
+                if (pointerIndex == -1) {
+                    Log.e(TAG, "Invalid pointerId=" + activePointerId + " in onInterceptTouchEvent");
+                    break;
+                }
+                final int y = (int) ev.getY(pointerIndex);
+                final int yDiff = Math.abs(y - mLastMotionY);
+                if (yDiff > mTouchSlop && (getNestedScrollAxes() & ViewCompat.SCROLL_AXIS_VERTICAL) == 0) {
+                    mIsBeingDragged = true;
+                    mLastMotionY = y;
+                    initVelocityTrackerIfNotExists();
+                    mVelocityTracker.addMovement(ev);
+                    mNestedYOffset = 0;
+                    final ViewParent parent = getParent();
+                    if (parent != null) {
+                        parent.requestDisallowInterceptTouchEvent(true);
                     }
                 }
+                break;
             }
-            this.mIsBeingDragged = false;
-            this.mActivePointerId = -1;
-            recycleVelocityTracker();
-            if (this.mScroller.springBack(getScrollX(), getScrollY(), 0, 0, 0, getScrollRange())) {
-                ViewCompat.postInvalidateOnAnimation(this);
-            }
-            stopNestedScroll(0);
-        } else {
-            int y2 = (int) motionEvent.getY();
-            if (!inChild((int) motionEvent.getX(), y2)) {
-                this.mIsBeingDragged = false;
-                recycleVelocityTracker();
-            } else {
-                this.mLastMotionY = y2;
-                this.mActivePointerId = motionEvent.getPointerId(0);
+            case MotionEvent.ACTION_DOWN: {
+                final int y = (int) ev.getY();
+                if (!inChild((int) ev.getX(), y)) {
+                    mIsBeingDragged = !mScroller.isFinished();
+                    recycleVelocityTracker();
+                    break;
+                }
+                mLastMotionY = y;
+                mActivePointerId = ev.getPointerId(0);
                 initOrResetVelocityTracker();
-                this.mVelocityTracker.addMovement(motionEvent);
-                this.mScroller.computeScrollOffset();
-                this.mIsBeingDragged = !this.mScroller.isFinished();
-                startNestedScroll(2, 0);
+                mVelocityTracker.addMovement(ev);
+                mScroller.computeScrollOffset();
+                mIsBeingDragged = !mScroller.isFinished();
+                startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL, ViewCompat.TYPE_TOUCH);
+                break;
             }
+            case MotionEvent.ACTION_CANCEL:
+            case MotionEvent.ACTION_UP:
+                mIsBeingDragged = false;
+                mActivePointerId = INVALID_POINTER;
+                recycleVelocityTracker();
+                if (mScroller.springBack(getScrollX(), getScrollY(), 0, 0, 0, getScrollRange())) {
+                    ViewCompat.postInvalidateOnAnimation(this);
+                }
+                stopNestedScroll(ViewCompat.TYPE_TOUCH);
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
+                onSecondaryPointerUp(ev);
+                break;
         }
-        return this.mIsBeingDragged;
+
+        return mIsBeingDragged;
     }
 
     protected void onLayout(boolean z, int i, int i2, int i3, int i4) {
@@ -1076,127 +1081,135 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
         stopNestedScroll(i);
     }
 
-    @SuppressLint("WrongConstant")
-    public boolean onTouchEvent(MotionEvent motionEvent) {
-        ViewParent parent;
+    public boolean onTouchEvent(MotionEvent ev) {
         initVelocityTrackerIfNotExists();
-        int actionMasked = motionEvent.getActionMasked();
-        if (actionMasked == 0) {
-            this.mNestedYOffset = 0;
+        final int actionMasked = ev.getActionMasked();
+        if (actionMasked == MotionEvent.ACTION_DOWN) {
+            mNestedYOffset = 0;
         }
-        MotionEvent obtain = MotionEvent.obtain(motionEvent);
-        obtain.offsetLocation(0.0f, (float) this.mNestedYOffset);
-        if (actionMasked != 0) {
-            if (actionMasked == 1) {
-                VelocityTracker velocityTracker = this.mVelocityTracker;
-                velocityTracker.computeCurrentVelocity(1000, (float) this.mMaximumVelocity);
-                int yVelocity = (int) velocityTracker.getYVelocity(this.mActivePointerId);
-                if (Math.abs(yVelocity) >= this.mMinimumVelocity) {
-                    int i = -yVelocity;
-                    float f = (float) i;
-                    if (!dispatchNestedPreFling(0.0f, f)) {
-                        dispatchNestedFling(0.0f, f, true);
-                        fling(i);
-                    }
-                } else if (this.mScroller.springBack(getScrollX(), getScrollY(), 0, 0, 0, getScrollRange())) {
-                    ViewCompat.postInvalidateOnAnimation(this);
+        MotionEvent vtev = MotionEvent.obtain(ev);
+        vtev.offsetLocation(0, mNestedYOffset);
+        switch (actionMasked) {
+            case MotionEvent.ACTION_DOWN: {
+                if (getChildCount() == 0) {
+                    return false;
                 }
-                this.mActivePointerId = -1;
-                endDrag();
-            } else if (actionMasked == 2) {
-                int findPointerIndex = motionEvent.findPointerIndex(this.mActivePointerId);
-                if (findPointerIndex == -1) {
-                    Log.e(TAG, "Invalid pointerId=" + this.mActivePointerId + " in onTouchEvent");
-                } else {
-                    int y = (int) motionEvent.getY(findPointerIndex);
-                    int i2 = this.mLastMotionY - y;
-                    if (!this.mIsBeingDragged && Math.abs(i2) > this.mTouchSlop) {
-                        ViewParent parent2 = getParent();
-                        if (parent2 != null) {
-                            parent2.requestDisallowInterceptTouchEvent(true);
-                        }
-                        this.mIsBeingDragged = true;
-                        i2 = i2 > 0 ? i2 - this.mTouchSlop : i2 + this.mTouchSlop;
+                if (mIsBeingDragged) {
+                    final ViewParent parent = getParent();
+                    if (parent != null) {
+                        parent.requestDisallowInterceptTouchEvent(true);
                     }
-                    int i3 = i2;
-                    if (this.mIsBeingDragged) {
-                        if (dispatchNestedPreScroll(0, i3, this.mScrollConsumed, this.mScrollOffset, 0)) {
-                            i3 -= this.mScrollConsumed[1];
-                            this.mNestedYOffset += this.mScrollOffset[1];
-                        }
-                        this.mLastMotionY = y - this.mScrollOffset[1];
-                        int scrollY = getScrollY();
-                        int scrollRange = getScrollRange();
-                        int overScrollMode = getOverScrollMode();
-                        boolean z = overScrollMode == 0 || (overScrollMode == 1 && scrollRange > 0);
-                        if (overScrollByCompat(0, i3, 0, getScrollY(), 0, scrollRange, 0, 0, true) && !hasNestedScrollingParent(0)) {
-                            this.mVelocityTracker.clear();
-                        }
-                        int scrollY2 = getScrollY() - scrollY;
-                        int i4 = i3 - scrollY2;
-                        int[] iArr = this.mScrollConsumed;
-                        iArr[1] = 0;
-                        dispatchNestedScroll(0, scrollY2, 0, i4, this.mScrollOffset, 0, iArr);
-                        int i5 = this.mLastMotionY;
-                        int[] iArr2 = this.mScrollOffset;
-                        this.mLastMotionY = i5 - iArr2[1];
-                        this.mNestedYOffset += iArr2[1];
-                        if (z) {
-                            int i6 = i3 - this.mScrollConsumed[1];
-                            ensureGlows();
-                            int i7 = scrollY + i6;
-                            if (i7 < 0) {
-                                EdgeEffectCompat.onPull(this.mEdgeGlowTop, ((float) i6) / ((float) getHeight()), motionEvent.getX(findPointerIndex) / ((float) getWidth()));
-                                if (!this.mEdgeGlowBottom.isFinished()) {
-                                    this.mEdgeGlowBottom.onRelease();
-                                }
-                            } else if (i7 > scrollRange) {
-                                EdgeEffectCompat.onPull(this.mEdgeGlowBottom, ((float) i6) / ((float) getHeight()), 1.0f - (motionEvent.getX(findPointerIndex) / ((float) getWidth())));
-                                if (!this.mEdgeGlowTop.isFinished()) {
-                                    this.mEdgeGlowTop.onRelease();
-                                }
+                }
+                if (!mScroller.isFinished()) {
+                    abortAnimatedScroll();
+                }
+                mLastMotionY = (int) ev.getY();
+                mActivePointerId = ev.getPointerId(0);
+                startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL, ViewCompat.TYPE_TOUCH);
+                break;
+            }
+            case MotionEvent.ACTION_MOVE:
+                final int activePointerIndex = ev.findPointerIndex(mActivePointerId);
+                if (activePointerIndex == -1) {
+                    Log.e(TAG, "Invalid pointerId=" + mActivePointerId + " in onTouchEvent");
+                    break;
+                }
+                final int y = (int) ev.getY(activePointerIndex);
+                int deltaY = mLastMotionY - y;
+                if (!mIsBeingDragged && Math.abs(deltaY) > mTouchSlop) {
+                    final ViewParent parent = getParent();
+                    if (parent != null) {
+                        parent.requestDisallowInterceptTouchEvent(true);
+                    }
+                    mIsBeingDragged = true;
+                    if (deltaY > 0) {
+                        deltaY -= mTouchSlop;
+                    } else {
+                        deltaY += mTouchSlop;
+                    }
+                }
+                if (mIsBeingDragged) {
+                    if (dispatchNestedPreScroll(0, deltaY, mScrollConsumed, mScrollOffset,
+                            ViewCompat.TYPE_TOUCH)) {
+                        deltaY -= mScrollConsumed[1];
+                        mNestedYOffset += mScrollOffset[1];
+                    }
+
+                    mLastMotionY = y - mScrollOffset[1];
+                    final int oldY = getScrollY();
+                    final int range = getScrollRange();
+                    final int overscrollMode = getOverScrollMode();
+                    boolean canOverscroll = overscrollMode == View.OVER_SCROLL_ALWAYS || (overscrollMode == View.OVER_SCROLL_IF_CONTENT_SCROLLS && range > 0);
+                    boolean clearVelocityTracker = overScrollByCompat(0, deltaY, 0, getScrollY(), 0, range, 0, 0, true) && !hasNestedScrollingParent(ViewCompat.TYPE_TOUCH);
+                    final int scrolledDeltaY = getScrollY() - oldY;
+                    final int unconsumedY = deltaY - scrolledDeltaY;
+                    mScrollConsumed[1] = 0;
+                    dispatchNestedScroll(0, scrolledDeltaY, 0, unconsumedY, mScrollOffset, ViewCompat.TYPE_TOUCH, mScrollConsumed);
+                    mLastMotionY -= mScrollOffset[1];
+                    mNestedYOffset += mScrollOffset[1];
+                    if (canOverscroll) {
+                        deltaY -= mScrollConsumed[1];
+                        final int pulledToY = oldY + deltaY;
+                        if (pulledToY < 0) {
+                            EdgeEffectCompat.onPull(mEdgeGlowTop, (float) -deltaY / getHeight(), ev.getX(activePointerIndex) / getWidth());
+                            if (!mEdgeGlowBottom.isFinished()) {
+                                mEdgeGlowBottom.onRelease();
                             }
-                            SamsungEdgeEffect seslEdgeEffect = this.mEdgeGlowTop;
-                            if (seslEdgeEffect != null && (!seslEdgeEffect.isFinished() || !this.mEdgeGlowBottom.isFinished())) {
-                                ViewCompat.postInvalidateOnAnimation(this);
+                        } else if (pulledToY > range) {
+                            EdgeEffectCompat.onPull(mEdgeGlowBottom, (float) deltaY / getHeight(), 1.f - ev.getX(activePointerIndex) / getWidth());
+                            if (!mEdgeGlowTop.isFinished()) {
+                                mEdgeGlowTop.onRelease();
                             }
                         }
+                        if (mEdgeGlowTop != null && (!mEdgeGlowTop.isFinished() || !mEdgeGlowBottom.isFinished())) {
+                            ViewCompat.postInvalidateOnAnimation(this);
+                            clearVelocityTracker = false;
+                        }
+                    }
+                    if (clearVelocityTracker) {
+                        mVelocityTracker.clear();
                     }
                 }
-            } else if (actionMasked == 3) {
-                if (this.mIsBeingDragged && getChildCount() > 0 && this.mScroller.springBack(getScrollX(), getScrollY(), 0, 0, 0, getScrollRange())) {
+                break;
+            case MotionEvent.ACTION_UP:
+                final VelocityTracker velocityTracker = mVelocityTracker;
+                velocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
+                int initialVelocity = (int) velocityTracker.getYVelocity(mActivePointerId);
+                if ((Math.abs(initialVelocity) >= mMinimumVelocity)) {
+                    if (!dispatchNestedPreFling(0, -initialVelocity)) {
+                        dispatchNestedFling(0, -initialVelocity, true);
+                        fling(-initialVelocity);
+                    }
+                } else if (mScroller.springBack(getScrollX(), getScrollY(), 0, 0, 0, getScrollRange())) {
                     ViewCompat.postInvalidateOnAnimation(this);
                 }
-                this.mActivePointerId = -1;
+                mActivePointerId = INVALID_POINTER;
                 endDrag();
-            } else if (actionMasked == 5) {
-                int actionIndex = motionEvent.getActionIndex();
-                this.mLastMotionY = (int) motionEvent.getY(actionIndex);
-                this.mActivePointerId = motionEvent.getPointerId(actionIndex);
-            } else if (actionMasked == 6) {
-                onSecondaryPointerUp(motionEvent);
-                this.mLastMotionY = (int) motionEvent.getY(motionEvent.findPointerIndex(this.mActivePointerId));
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                if (mIsBeingDragged && getChildCount() > 0) {
+                    if (mScroller.springBack(getScrollX(), getScrollY(), 0, 0, 0, getScrollRange())) {
+                        ViewCompat.postInvalidateOnAnimation(this);
+                    }
+                }
+                mActivePointerId = INVALID_POINTER;
+                endDrag();
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN: {
+                final int index = ev.getActionIndex();
+                mLastMotionY = (int) ev.getY(index);
+                mActivePointerId = ev.getPointerId(index);
+                break;
             }
-        } else if (getChildCount() == 0) {
-            return false;
-        } else {
-            boolean z2 = !this.mScroller.isFinished();
-            this.mIsBeingDragged = z2;
-            if (z2 && (parent = getParent()) != null) {
-                parent.requestDisallowInterceptTouchEvent(true);
-            }
-            if (!this.mScroller.isFinished()) {
-                abortAnimatedScroll();
-            }
-            this.mLastMotionY = (int) motionEvent.getY();
-            this.mActivePointerId = motionEvent.getPointerId(0);
-            startNestedScroll(2, 0);
+            case MotionEvent.ACTION_POINTER_UP:
+                onSecondaryPointerUp(ev);
+                mLastMotionY = (int) ev.getY(ev.findPointerIndex(mActivePointerId));
+                break;
         }
-        VelocityTracker velocityTracker2 = this.mVelocityTracker;
-        if (velocityTracker2 != null) {
-            velocityTracker2.addMovement(obtain);
+        if (mVelocityTracker != null) {
+            mVelocityTracker.addMovement(vtev);
         }
-        obtain.recycle();
+        vtev.recycle();
         return true;
     }
 
