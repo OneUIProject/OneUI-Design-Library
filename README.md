@@ -1,10 +1,9 @@
 <h2 align="center">
 
-[![](https://img.shields.io/github/v/release/Yanndroid/OneUI-Design-Library?color=%235555ff)](https://github.com/Yanndroid/OneUI-Design-Library/releases)
-![](https://img.shields.io/github/last-commit/Yanndroid/OneUI-Design-Library)
+[![](https://img.shields.io/maven-central/v/io.github.yanndroid/oneui?label=maven%20central)](https://mvnrepository.com/artifact/io.github.yanndroid/oneui)
+[![](https://img.shields.io/github/last-commit/Yanndroid/OneUI-Design-Library)](https://github.com/Yanndroid/OneUI-Design-Library/commits/master)
 [![](https://img.shields.io/github/issues-raw/Yanndroid/OneUI-Design-Library?color=%23ff4400)](https://github.com/Yanndroid/OneUI-Design-Library/issues)
 [![](https://img.shields.io/github/issues-pr-raw/Yanndroid/OneUI-Design-Library?color=%23bb00bb)](https://github.com/Yanndroid/OneUI-Design-Library/pulls)
-[![](https://img.shields.io/github/forks/Yanndroid/OneUI-Design-Library?color=%2300bbbb)](https://github.com/Yanndroid/OneUI-Design-Library/network/members)
 [![](https://img.shields.io/github/contributors/Yanndroid/OneUI-Design-Library)](https://github.com/Yanndroid/OneUI-Design-Library/graphs/contributors)
 
 </h2>
@@ -53,7 +52,10 @@ dependencies {
 </application>
 ```
 
-Specifically for Samsung devices, two flags are needed in order to enable some UI elements in system frameworks:
+<details>
+<summary>If you're building apps specifically for Samsung devices, also check this out.</summary>
+
+In order to enable even more UI elements, two flags can be used:
 - In AndroidManifest.xml, add the following flags inside the "application" tag:
 ```xml
 <application
@@ -73,6 +75,8 @@ res/values/styles.xml
 res/values-v25/styles.xml
 ```
 ...with ```Theme.DeviceDefault.NoActionBar```.
+
+</details>
 
 
 <details>
@@ -793,7 +797,7 @@ Samsung's BottomNavigationView.
 </de.dlyt.yanndroid.oneui.view.BottomNavigationView>
 ```
 
-If you want to set it up with a ViewPager you'll have to use the [ViewPager](#ViewPager) bundled in the library, the usage is the same as Google's [TabLayout](https://developer.android.com/reference/com/google/android/material/tabs/TabLayout).
+If you want to set it up with a ViewPager you'll have to use the [ViewPager](#ViewPager) bundled in the library, the usage is the same as Google's [TabLayout](https://developer.android.com/reference/com/google/android/material/tabs/TabLayout), but you'll have to call ```updateWidget(Activity activity)``` after you configurated it. 
 
 ### TabLayout
 Samsung's TabLayout.
@@ -808,7 +812,7 @@ Samsung's TabLayout.
 </de.dlyt.yanndroid.oneui.view.TabLayout>
 ```
 
-If you want to set it up with a ViewPager you'll have to use the [ViewPager](#ViewPager) bundled in the library, the usage is the same as Google's [TabLayout](https://developer.android.com/reference/com/google/android/material/tabs/TabLayout).
+If you want to set it up with a ViewPager you'll have to use the [ViewPager](#ViewPager) bundled in the library, the usage is the same as Google's [TabLayout](https://developer.android.com/reference/com/google/android/material/tabs/TabLayout), but you'll have to call ```updateWidget()``` after you configurated it. 
 
 ### ViewPager
 ViewPager working with [BottomNavigationView](#BottomNavigationView) and [TabLayout](#TabLayout).
@@ -1248,6 +1252,7 @@ My sample app icon for example:
 - a lot of fixes and improvements
 - support for api 21> (needs to be tested)
 - Snackbar & PopupMenu
+- more icons
 - now available on mavencentral
 
 </details>

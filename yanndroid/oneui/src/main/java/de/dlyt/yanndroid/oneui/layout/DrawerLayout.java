@@ -11,6 +11,7 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,6 +92,15 @@ public class DrawerLayout extends LinearLayout {
         drawerButton.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.drawer_icon_color)));
         setDrawerButtonIcon(mDrawerIcon);
 
+        /*back logic*/
+        requestFocus();
+        setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK && drawerLayout.isDrawerOpen(drawer)) {
+                drawerLayout.closeDrawer(drawer, true);
+                return true;
+            }
+            return false;
+        });
 
         /*drawer logic*/
         View translationView = findViewById(R.id.drawer_custom_translation);
