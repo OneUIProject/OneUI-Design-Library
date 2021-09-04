@@ -420,7 +420,7 @@ public class ToolbarLayout extends LinearLayout {
         PopupListView listView = new PopupListView(mContext);
         moreMenuPopupAdapter = new MoreMenuPopupAdapter(getActivity(), linkedHashMap);
         listView.setAdapter(moreMenuPopupAdapter);
-        listView.setMaxHeightDp(getResources().getDimensionPixelSize(R.dimen.sesl_menu_popup_max_height));
+        listView.setMaxHeight(getResources().getDimensionPixelSize(R.dimen.sesl_menu_popup_max_height));
         listView.setDivider(null);
         listView.setSelector(getResources().getDrawable(R.drawable.sesl_list_selector, mContext.getTheme()));
         listView.setOnItemClickListener(ocl);

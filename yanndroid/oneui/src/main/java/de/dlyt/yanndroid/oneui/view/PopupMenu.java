@@ -41,7 +41,7 @@ public class PopupMenu {
         listView = new PopupListView(context);
         popupMenuAdapter = new PopupMenuAdapter(menu);
         listView.setAdapter(popupMenuAdapter);
-        listView.setMaxHeightDp(context.getResources().getDimensionPixelSize(R.dimen.sesl_menu_popup_max_height));
+        listView.setMaxHeight(context.getResources().getDimensionPixelSize(R.dimen.sesl_menu_popup_max_height));
         listView.setDivider(null);
         listView.setSelector(R.drawable.sesl_list_selector);
 

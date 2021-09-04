@@ -16,7 +16,7 @@ public class PopupListView extends ListView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    public void setMaxHeightDp(int maxHeight) {
+    public void setMaxHeight(int maxHeight) {
         mMaxHeight = maxHeight;
         invalidate();
     }
