@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
                     .setPositiveButton("Yes", null)
                     .show();
         });
-        popupMenu.show(0, 0);
+        popupMenu.show();
     }
 
     public void singleChoiceDialog(View view) {

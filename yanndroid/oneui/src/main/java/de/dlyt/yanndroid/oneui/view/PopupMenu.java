@@ -63,8 +63,7 @@ public class PopupMenu {
     }
 
     public void show() {
-        popupWindow.showAsDropDown(anchor);
-        ((View) ReflectUtils.genericGetField(popupWindow, "mBackgroundView")).setClipToOutline(true);
+        show(0, 0);
     }
 
     public void show(int xoff, int yoff) {
