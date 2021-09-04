@@ -47,6 +47,7 @@
 
 
     <!--Spinner-->
+    <dimen name="sesl_menu_popup_max_height">464.0dip</dimen>
     <dimen name="sesl_menu_popup_bottom_margin">6.0dip</dimen>
     <dimen name="sesl_menu_popup_bottom_padding">6.0dip</dimen>
     <dimen name="sesl_menu_popup_corner_radius">24.0dip</dimen>

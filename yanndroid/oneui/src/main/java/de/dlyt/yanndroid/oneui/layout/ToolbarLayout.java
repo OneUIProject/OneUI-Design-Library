@@ -21,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -43,6 +42,8 @@ import de.dlyt.yanndroid.oneui.sesl.appbar.SamsungAppBarLayout;
 import de.dlyt.yanndroid.oneui.sesl.appbar.SamsungCollapsingToolbarLayout;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.support.WindowManagerSupport;
+import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
+import de.dlyt.yanndroid.oneui.sesl.widget.PopupListView;
 import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
 
 public class ToolbarLayout extends LinearLayout {
@@ -361,9 +362,10 @@ public class ToolbarLayout extends LinearLayout {
     //
     @SuppressLint("LongLogTag")
     public void showMoreMenuPopupWindow() {
-        if (moreMenuPopupWindow != null || !moreMenuPopupWindow.isShowing())
+        if (moreMenuPopupWindow != null || !moreMenuPopupWindow.isShowing()) {
             moreMenuPopupWindow.showAsDropDown(moreMenuPopupAnchor, moreMenuPopupOffX, 0);
-        else
+            ((View) ReflectUtils.genericGetField(moreMenuPopupWindow, "mBackgroundView")).setClipToOutline(true);
+        } else
             Log.w(TAG + ".showMoreMenuPopupWindow", "moreMenuPopupWindow is null or already shown.");
     }
 
@@ -415,11 +417,12 @@ public class ToolbarLayout extends LinearLayout {
             }
             moreMenuPopupWindow = null;
         }
-        ListView listView = new ListView(mContext);
+        PopupListView listView = new PopupListView(mContext);
         moreMenuPopupAdapter = new MoreMenuPopupAdapter(getActivity(), linkedHashMap);
         listView.setAdapter(moreMenuPopupAdapter);
+        listView.setMaxHeightDp(getResources().getDimensionPixelSize(R.dimen.sesl_menu_popup_max_height));
         listView.setDivider(null);
-        listView.setSelector(getResources().getDrawable(R.drawable.menu_popup_list_selector, mContext.getTheme()));
+        listView.setSelector(getResources().getDrawable(R.drawable.sesl_list_selector, mContext.getTheme()));
         listView.setOnItemClickListener(ocl);
 
         if (getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
@@ -648,16 +651,6 @@ public class ToolbarLayout extends LinearLayout {
                 itemVar.badgeIcon.setVisibility(View.VISIBLE);
             } else {
                 itemVar.badgeIcon.setVisibility(View.GONE);
-            }
-
-            if (getCount() <= 1) {
-                view.setBackgroundResource(R.drawable.menu_popup_item_bg_all_round);
-            } else if (index == 0) {
-                view.setBackgroundResource(R.drawable.menu_popup_item_bg_top_round);
-            } else if (index == getCount() - 1) {
-                view.setBackgroundResource(R.drawable.menu_popup_item_bg_bottom_round);
-            } else {
-                view.setBackgroundResource(R.drawable.menu_popup_item_bg_no_round);
             }
 
             return view;
