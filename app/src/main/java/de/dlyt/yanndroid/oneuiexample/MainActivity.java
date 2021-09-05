@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +32,7 @@ import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
+import de.dlyt.yanndroid.oneui.utils.CustomButtonClickListener;
 import de.dlyt.yanndroid.oneui.utils.ThemeColor;
 import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
 import de.dlyt.yanndroid.oneui.view.PopupMenu;
@@ -153,9 +156,17 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         //BottomNavigationLayout
+        Drawable icon = getDrawable(R.drawable.ic_samsung_more);
+        icon.setColorFilter(getResources().getColor(R.color.sesl_tablayout_text_color), PorterDuff.Mode.SRC_IN);
         for (String s : mTabsTitleName) {
             bnvLayout.addTab(bnvLayout.newTab().setText(s));
         }
+        bnvLayout.addTabCustomButton(icon, new CustomButtonClickListener(bnvLayout) {
+            @Override
+            public void onClick(View v) {
+                popupView(v);
+            }
+        });
 
         bnvLayout.addOnTabSelectedListener(new BottomNavigationView.OnTabSelectedListener() {
             public void onTabSelected(BottomNavigationView.Tab tab) {
@@ -270,23 +281,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void standardDialog(View view) {
-        Context context = this;
-
-        PopupMenu popupMenu = new PopupMenu(view);
-        ArrayList<String> list = new ArrayList<>();
-        for (int i = 0; i < 4; i++) list.add("Menu Item " + i);
-        popupMenu.inflate(list);
-        popupMenu.setOnMenuItemClickListener((parent, view1, position, id) -> {
-            popupMenu.dismiss();
-            new AlertDialog.Builder(context)
-                    .setTitle("Title")
-                    .setMessage("Message")
-                    .setNeutralButton("Maybe", null)
-                    .setNegativeButton("No", null)
-                    .setPositiveButton("Yes", null)
-                    .show();
-        });
-        popupMenu.show();
+        new AlertDialog.Builder(this)
+                .setTitle("Title")
+                .setMessage("Message")
+                .setNeutralButton("Maybe", null)
+                .setNegativeButton("No", null)
+                .setPositiveButton("Yes", null)
+                .show();
     }
 
     public void singleChoiceDialog(View view) {
@@ -336,6 +337,18 @@ public class MainActivity extends AppCompatActivity {
             }
         }).show());
         dialog.show();
+    }
+
+    private void popupView(View view) {
+        PopupMenu popupMenu = new PopupMenu(view);
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < 4; i++) list.add("Menu Item " + i);
+        popupMenu.inflate(list);
+        popupMenu.setOnMenuItemClickListener((parent, view1, position, id) -> {
+            popupMenu.dismiss();
+        });
+        // temp
+        popupMenu.show(-120, (int) ((-bnvLayout.getHeight() * 5) * 0.88f));
     }
 
 

@@ -1361,6 +1361,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     }
 
     public static class Tab {
+        public boolean isCustomButton;
         public CharSequence contentDesc;
         public View customView;
         public Drawable icon;
@@ -1500,6 +1501,15 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                 var1.update();
             }
 
+        }
+
+        public boolean getIsCustomButtonView() {
+            return isCustomButton;
+        }
+
+        public Tab setIsCustomButtonView(boolean z) {
+            isCustomButton = z;
+            return this;
         }
     }
 

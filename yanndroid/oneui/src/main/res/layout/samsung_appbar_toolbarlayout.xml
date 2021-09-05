@@ -81,7 +81,7 @@
                                 android:layout_height="?actionBarSize"
                                 android:layout_alignParentEnd="true"
                                 android:orientation="horizontal"
-                                android:paddingEnd="6.0dip" />
+                                android:paddingEnd="8.0dip" />
 
                             <View
                                 android:id="@+id/toolbar_layout_popup_window_anchor"
