@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         //BottomNavigationLayout
-        Drawable icon = getDrawable(R.drawable.ic_samsung_more);
+        Drawable icon = getDrawable(R.drawable.ic_samsung_drawer);
         icon.setColorFilter(getResources().getColor(R.color.sesl_tablayout_text_color), PorterDuff.Mode.SRC_IN);
         for (String s : mTabsTitleName) {
             bnvLayout.addTab(bnvLayout.newTab().setText(s));
@@ -342,13 +342,12 @@ public class MainActivity extends AppCompatActivity {
     private void popupView(View view) {
         PopupMenu popupMenu = new PopupMenu(view);
         ArrayList<String> list = new ArrayList<>();
-        for (int i = 0; i < 4; i++) list.add("Menu Item " + i);
+        for (int i = 0; i < 24; i++) list.add("Menu Item " + i);
         popupMenu.inflate(list);
         popupMenu.setOnMenuItemClickListener((parent, view1, position, id) -> {
             popupMenu.dismiss();
         });
-        // temp
-        popupMenu.show(-120, (int) ((-bnvLayout.getHeight() * 5) * 0.88f));
+        popupMenu.show();
     }
 
 

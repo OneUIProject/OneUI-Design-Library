@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -45,9 +46,13 @@ public class PopupMenu {
         listView.setDivider(null);
         listView.setSelector(R.drawable.sesl_list_selector);
 
+        listView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        int height = listView.getMeasuredHeight() + context.getResources().getDimensionPixelSize(R.dimen.sesl_popup_menu_item_bottom_padding) -5;
+
         popupWindow = new PopupWindow(listView);
         popupWindow.setWidth(getPopupMenuWidth());
-        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setHeight(height);
+        //popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setAnimationStyle(R.style.MenuPopupAnimStyle);
         popupWindow.setBackgroundDrawable(context.getDrawable(R.drawable.sesl_menu_popup_background));
         popupWindow.setOutsideTouchable(true);

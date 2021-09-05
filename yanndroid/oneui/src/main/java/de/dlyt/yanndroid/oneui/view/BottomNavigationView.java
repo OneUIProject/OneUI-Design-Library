@@ -102,6 +102,9 @@ public class BottomNavigationView extends SamsungBaseTabLayout implements View.O
             tabTextWidthSum += width;
             ViewSupport.setPointerIcon(tabView, 1000 /* PointerIcon.TYPE_ARROW */);
         }
+        if (tabTextWidthSum >= getContext().getResources().getDisplayMetrics().widthPixels) {
+            setTabMode(0);
+        }
         addTabPaddingValue(tabTextWidthList, tabTextWidthSum);
     }
 
