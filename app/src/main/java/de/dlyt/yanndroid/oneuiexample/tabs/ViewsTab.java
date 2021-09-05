@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.SeslSpinner;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class ViewsTab extends Fragment {
 
 
         //Spinner
-        AppCompatSpinner spinner = mRootView.findViewById(R.id.spinner);
+        SeslSpinner spinner = mRootView.findViewById(R.id.spinner);
         List<String> categories = new ArrayList<String>();
         for (int i = 1; i < 16; i++) categories.add("Spinner Item " + i);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_item, categories);

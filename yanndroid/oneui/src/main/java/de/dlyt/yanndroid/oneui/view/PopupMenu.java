@@ -7,13 +7,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import de.dlyt.yanndroid.oneui.R;
+import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
+import de.dlyt.yanndroid.oneui.sesl.widget.PopupListView;
 
 public class PopupMenu {
 
@@ -21,7 +22,7 @@ public class PopupMenu {
     private View anchor;
 
     private PopupWindow popupWindow;
-    private ListView listView;
+    private PopupListView listView;
     private PopupMenuAdapter popupMenuAdapter;
 
     public PopupMenu(View anchor) {
@@ -37,11 +38,12 @@ public class PopupMenu {
             popupWindow = null;
         }
 
-        listView = new ListView(context);
+        listView = new PopupListView(context);
         popupMenuAdapter = new PopupMenuAdapter(menu);
         listView.setAdapter(popupMenuAdapter);
+        listView.setMaxHeight(context.getResources().getDimensionPixelSize(R.dimen.sesl_menu_popup_max_height));
         listView.setDivider(null);
-        listView.setSelector(R.drawable.menu_popup_list_selector);
+        listView.setSelector(R.drawable.sesl_list_selector);
 
         popupWindow = new PopupWindow(listView);
         popupWindow.setWidth(getPopupMenuWidth());
@@ -61,11 +63,12 @@ public class PopupMenu {
     }
 
     public void show() {
-        popupWindow.showAsDropDown(anchor);
+        show(0, 0);
     }
 
     public void show(int xoff, int yoff) {
         popupWindow.showAsDropDown(anchor, xoff, yoff);
+        ((View) ReflectUtils.genericGetField(popupWindow, "mBackgroundView")).setClipToOutline(true);
     }
 
     public void dismiss() {
@@ -136,16 +139,6 @@ public class PopupMenu {
             }
 
             titleText.setText(itemTitle.get(index));
-
-            if (getCount() <= 1) {
-                view.setBackgroundResource(R.drawable.menu_popup_item_bg_all_round);
-            } else if (index == 0) {
-                view.setBackgroundResource(R.drawable.menu_popup_item_bg_top_round);
-            } else if (index == getCount() - 1) {
-                view.setBackgroundResource(R.drawable.menu_popup_item_bg_bottom_round);
-            } else {
-                view.setBackgroundResource(R.drawable.menu_popup_item_bg_no_round);
-            }
 
             return view;
         }
