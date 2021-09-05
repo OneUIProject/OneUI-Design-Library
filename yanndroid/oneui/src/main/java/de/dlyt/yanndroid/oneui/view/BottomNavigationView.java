@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -22,11 +24,11 @@ import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.support.WindowManagerSupport;
 import de.dlyt.yanndroid.oneui.sesl.tabs.SamsungBaseTabLayout;
+import de.dlyt.yanndroid.oneui.utils.CustomButtonClickListener;
 
 public class BottomNavigationView extends SamsungBaseTabLayout implements View.OnSystemUiVisibilityChangeListener {
     private Activity mActivity;
     private boolean mIsResumed = false;
-    private ArrayList<TextView> mTextViews;
 
     public BottomNavigationView(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.bottomNaviViewStyle);
@@ -37,19 +39,48 @@ public class BottomNavigationView extends SamsungBaseTabLayout implements View.O
         mDepthStyle = 1;
     }
 
-    public void updateWidget(Activity activity) {
-        mActivity = activity;
-        mTextViews = new ArrayList<>();
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        invalidateTabLayout();
+    }
 
+    @Override
+    public void onSystemUiVisibilityChange(int visibility) {
+        if (mIsResumed) {
+            invalidateTabLayout();
+        }
+    }
+
+    public void addTabCustomButton(Drawable icon, CustomButtonClickListener listener) {
+        Tab tab = newTab().setIcon(icon).setIsCustomButtonView(true);
+        addTab(tab);
+        ((ViewGroup) getTabView(tab.getPosition())).setOnTouchListener(listener);
+    }
+
+    public void setResumeStatus(boolean isResumed) {
+        mIsResumed = isResumed;
+    }
+
+    public void setTabLayoutEnabled(boolean enabled) {
+        float f;
+        setEnabled(enabled);
         for (int tabPosition = 0; tabPosition < getTabCount(); tabPosition++) {
-            Tab tab = getTabAt(tabPosition);
             ViewGroup tabView = (ViewGroup) getTabView(tabPosition);
-            if (!(tab == null || tabView == null)) {
-                TextView textView = tab.seslGetTextView();
-                mTextViews.add(textView);
-                ViewSupport.setPointerIcon(tabView, 1000);
+            if (tabView != null) {
+                tabView.setEnabled(enabled);
+                if (enabled) {
+                    f = 1.0f;
+                } else {
+                    f = 0.4f;
+                }
+                tabView.setAlpha(f);
             }
         }
+    }
+
+    public void updateWidget(Activity activity) {
+        mActivity = activity;
         invalidateTabLayout();
     }
 
@@ -57,9 +88,19 @@ public class BottomNavigationView extends SamsungBaseTabLayout implements View.O
         ArrayList<Float> tabTextWidthList = new ArrayList<>();
         float tabTextWidthSum = 0.0f;
         for (int tabPosition = 0; tabPosition < getTabCount(); tabPosition++) {
-            float width = getTabTextWidth((TextView) mTextViews.get(tabPosition));
+            Tab tab = getTabAt(tabPosition);
+            ViewGroup tabView = (ViewGroup) getTabView(tabPosition);
+            float width = 0.0f;
+
+            if (tab.getIsCustomButtonView()) {
+                width = tab.getIcon().getIntrinsicWidth();
+                tabView.setBackground(getContext().getDrawable(R.drawable.bottomnavview_button_background));
+            } else
+                width = getTabTextWidth(tab.seslGetTextView());
+
             tabTextWidthList.add(width);
             tabTextWidthSum += width;
+            ViewSupport.setPointerIcon(tabView, 1000 /* PointerIcon.TYPE_ARROW */);
         }
         addTabPaddingValue(tabTextWidthList, tabTextWidthSum);
     }
@@ -130,40 +171,6 @@ public class BottomNavigationView extends SamsungBaseTabLayout implements View.O
             return null;
         }
         return (ViewGroup) view;
-    }
-
-    public void setTabLayoutEnabled(boolean enabled) {
-        float f;
-        setEnabled(enabled);
-        for (int tabPosition = 0; tabPosition < getTabCount(); tabPosition++) {
-            ViewGroup tabView = (ViewGroup) getTabView(tabPosition);
-            if (tabView != null) {
-                tabView.setEnabled(enabled);
-                if (enabled) {
-                    f = 1.0f;
-                } else {
-                    f = 0.4f;
-                }
-                tabView.setAlpha(f);
-            }
-        }
-    }
-
-    public void setResumeStatus(boolean isResumed) {
-        mIsResumed = isResumed;
-    }
-
-    @Override
-    public void onSystemUiVisibilityChange(int visibility) {
-        if (mIsResumed) {
-            invalidateTabLayout();
-        }
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        invalidateTabLayout();
     }
 
     private double getDensity(Context context) {
