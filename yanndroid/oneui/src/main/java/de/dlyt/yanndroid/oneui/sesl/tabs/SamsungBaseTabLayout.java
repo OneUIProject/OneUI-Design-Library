@@ -988,6 +988,8 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     }
 
     public void setScrollPosition(int var1, float var2, boolean var3, boolean var4) {
+        if (getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL)
+            var1 -= 1;
         int var5 = Math.round((float) var1 + var2);
         if (var5 >= 0 && var5 < this.slidingTabIndicator.getChildCount()) {
             if (var4) {
