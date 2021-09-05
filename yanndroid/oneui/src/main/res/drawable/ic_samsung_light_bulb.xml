@@ -2,11 +2,11 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24.0dip"
     android:height="24.0dip"
-    android:viewportWidth="24.0"
-    android:viewportHeight="24.0">
+    android:viewportWidth="22.0"
+    android:viewportHeight="22.0">
     <group
-        android:translateX="-2"
-        android:translateY="-2">
+        android:translateX="-3"
+        android:translateY="-3">
         <path
             android:fillColor="?actionMenuTextColor"
             android:fillType="nonZero"

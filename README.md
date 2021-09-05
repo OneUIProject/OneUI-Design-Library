@@ -38,7 +38,7 @@ v2.0.0 and future versions are (and only will be) available on mavenCentral. For
 1. Add the dependency to build.gradle (Module: ...)
 ```gradle
 dependencies {
-    implementation 'io.github.yanndroid:oneui:2.0.0'
+    implementation 'io.github.yanndroid:oneui:2.0.1'
     ...
 }
 ```
@@ -160,6 +160,7 @@ In general, most of the views are styled automatically when you apply ```android
 - [SeekBar](#SeekBar)
 - [ProgressBar](#ProgressBar)
 - [SwitchBar](#SwitchBar)
+- [Spinner](#Spinner)
 - [OptionButton](#OptionButton)
 - [OptionGroup](#OptionGroup)
 - [RelatedCard](#RelatedCard)
@@ -201,7 +202,7 @@ In general, most of the views are styled automatically when you apply ```android
 ```
 The children of this view can be at three different location: on the **main screen**, in the **drawer** or in the **footer** (useful for views like BottomNavigationView). To specify the location of each child you can set the attribute ```app:layout_location``` of the child to either ```main_content``` (default), ```drawer_panel``` or ```footer```.
 
-```app:toolbar_title``` and ```app:toolbar_subtitle``` can be used to set the title and subtitle of the AppBar and Toolbar. The AppBar status is set to expanded by default, you can simply set ```app:toolbar_expanded``` to false if you want it to be collapsed.
+```app:toolbar_title``` and ```app:toolbar_subtitle``` can be used to set the title and subtitle of the AppBar and Toolbar. The AppBar status is set to expanded by default, you can simply set ```app:toolbar_expanded``` to false if you want it to be collapsed. On small screens/dpi the toolbar will not expand.
 
 The drawable in ```app:drawer_icon="..."``` is the little icon in the header of the drawer panel. There are already some stock OneUI [icons](#Icons) included in the library you can use.
 
@@ -272,7 +273,7 @@ See [Advanced](#Advanced) for even more methods.
 ```
 The children of this view can be at two different location: on the **main screen**, or in the **footer** (useful for views like BottomNavigationView). To specify the location of each child you can set the attribute ```app:layout_location``` of the child to either ```main_content``` (default), or ```footer```.
 
-```app:title``` and ```app:subtitle``` can be used to set the title and subtitle of the AppBar and Toolbar. The AppBar status is set to expanded by default, you can simply set ```app:toolbar_expanded``` to false if you want it to be collapsed. You can also disable totally the CollapsingToolbar by setting ```app:toolbar_expandable``` to false.
+```app:title``` and ```app:subtitle``` can be used to set the title and subtitle of the AppBar and Toolbar. The AppBar status is set to expanded by default, you can simply set ```app:toolbar_expanded``` to false if you want it to be collapsed. You can also disable totally the CollapsingToolbar by setting ```app:toolbar_expandable``` to false. On small screens/dpi the toolbar will not expand.
 
 The drawable in ```app:navigationIcon="..."``` is the icon for the Toolbar Navigation Button. There are already some stock OneUI [icons](#Icons) included in the library you can use.
 
@@ -664,6 +665,20 @@ SwitchBar Listener.
 public void addOnSwitchChangeListener(OnSwitchChangeListener onSwitchChangeListener)
 ```
 
+### Spinner
+
+Spinner with rounded corners and custom selector.
+
+<img src="readme-resources/screenshots/spinner.png" width="260"/>
+
+```xml
+<androidx.appcompat.widget.SeslSpinner
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+```
+
+Same usage as [Spinner](https://developer.android.com/reference/android/widget/Spinner).
+
 ### OptionButton
 Create lists inside DrawerLayout without using RecyclerView with OptionButton.
 
@@ -797,7 +812,13 @@ Samsung's BottomNavigationView.
 </de.dlyt.yanndroid.oneui.view.BottomNavigationView>
 ```
 
-If you want to set it up with a ViewPager you'll have to use the [ViewPager](#ViewPager) bundled in the library, the usage is the same as Google's [TabLayout](https://developer.android.com/reference/com/google/android/material/tabs/TabLayout), but you'll have to call ```updateWidget(Activity activity)``` after you configurated it. 
+If you want to set it up with a ViewPager you'll have to use the [ViewPager](#ViewPager) bundled in the library, the usage is the same as Google's [TabLayout](https://developer.android.com/reference/com/google/android/material/tabs/TabLayout), but you'll have to call ```updateWidget(Activity activity)``` after you configurated it.
+
+#### Methods
+Add a custom ImageButton (like in Samsung's Gallery).
+```java
+public void addTabCustomButton(Drawable icon, CustomButtonClickListener listener)
+```
 
 ### TabLayout
 Samsung's TabLayout.
@@ -1120,7 +1141,7 @@ There are also some of the stock icons you can find in Samsung apps included in 
 
 <img src="readme-resources/screenshots/icons.png" width="350"/>
 
-*not all icons are shown here because there are too much now (152). They are all listed with the name in the icon tab of the sample app.
+*not all icons are shown here because there are too much now (186). They are all listed with the name in the icon tab of the sample app.
 
 ### Color theme
 The default color of the style is the same blue as Samsung (see [Screenshots](#Screenshots)). But like Samsung has different colors for different apps, you too can use other colors which will apply on the entire App and even on the [App Icon](#App-Icon). In this library there are three different ways to do that and all three can be used simultaneously:
@@ -1227,13 +1248,28 @@ My sample app icon for example:
 - [x] Drawer Divider
 - [x] SnackBar
 - [x] Color Picker Dialog
-- [x] Spinner *
+- [x] Spinner
 - [ ] SearchView
 - [ ] BottomSheet
 
 *needs improvement
 
 ## Changelog
+
+<details>
+<summary>2.0.1</summary>
+
+- fixed:
+    - scroll bevavior on clickable views
+    - aboutpage button font and ripple 
+    - popupmenu going beyond screen
+    - drawerLayout back click closes drawer
+    - crash on small screens/dpi
+- icons++
+- Spinner
+- BottomNavigationView improvements
+
+</details>
 
 <details>
 <summary>2.0.0</summary>

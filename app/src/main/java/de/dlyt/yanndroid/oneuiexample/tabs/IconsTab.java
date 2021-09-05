@@ -115,6 +115,7 @@ public class IconsTab extends Fragment {
             R.drawable.ic_samsung_info,
             R.drawable.ic_samsung_keyboard,
             R.drawable.ic_samsung_light_bulb,
+            R.drawable.ic_samsung_light_bulb_settings,
             R.drawable.ic_samsung_list,
             R.drawable.ic_samsung_list_extended,
             R.drawable.ic_samsung_list_grid,
