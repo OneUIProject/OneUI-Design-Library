@@ -362,7 +362,7 @@ public class ToolbarLayout extends LinearLayout {
     //
     @SuppressLint("LongLogTag")
     public void showMoreMenuPopupWindow() {
-        if (moreMenuPopupWindow != null || !moreMenuPopupWindow.isShowing()) {
+        if (moreMenuPopupWindow != null && !moreMenuPopupWindow.isShowing()) {
             moreMenuPopupWindow.showAsDropDown(moreMenuPopupAnchor, moreMenuPopupOffX, 0);
             ((View) ReflectUtils.genericGetField(moreMenuPopupWindow, "mBackgroundView")).setClipToOutline(true);
         } else
@@ -371,7 +371,7 @@ public class ToolbarLayout extends LinearLayout {
 
     @SuppressLint("LongLogTag")
     public void dismissMoreMenuPopupWindow() {
-        if (moreMenuPopupWindow != null || moreMenuPopupWindow.isShowing()) {
+        if (moreMenuPopupWindow != null && moreMenuPopupWindow.isShowing()) {
             moreMenuPopupWindow.dismiss();
         } else
             Log.w(TAG + ".dismissMoreMenuPopupWindow", "moreMenuPopupWindow is null or already hidden.");
