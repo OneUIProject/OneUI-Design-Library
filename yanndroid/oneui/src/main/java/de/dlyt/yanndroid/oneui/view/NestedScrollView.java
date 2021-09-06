@@ -1149,8 +1149,9 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
                     mNestedYOffset += mScrollOffset[1];
                     if (canOverscroll) {
                         deltaY -= mScrollConsumed[1];
+                        ensureGlows();
                         final int pulledToY = oldY + deltaY;
-                        if (mEdgeGlowTop != null && pulledToY < 0) {
+                        if (pulledToY < 0) {
                             EdgeEffectCompat.onPull(mEdgeGlowTop, (float) -deltaY / getHeight(), ev.getX(activePointerIndex) / getWidth());
                             if (!mEdgeGlowBottom.isFinished()) {
                                 mEdgeGlowBottom.onRelease();
