@@ -1,6 +1,7 @@
 package de.dlyt.yanndroid.oneui.view;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,7 @@ public class PopupMenu {
         popupWindow.setAnimationStyle(R.style.MenuPopupAnimStyle);
         popupWindow.setBackgroundDrawable(context.getDrawable(R.drawable.sesl_menu_popup_background));
         popupWindow.setOutsideTouchable(true);
-        popupWindow.setElevation(30);
+        popupWindow.setElevation(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) 12, context.getResources().getDisplayMetrics()));
         popupWindow.setFocusable(true);
         if (popupWindow.isClippingEnabled()) {
             popupWindow.setClippingEnabled(false);

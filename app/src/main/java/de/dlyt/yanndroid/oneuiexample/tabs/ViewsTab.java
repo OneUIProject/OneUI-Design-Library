@@ -1,6 +1,7 @@
 package de.dlyt.yanndroid.oneuiexample.tabs;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -47,20 +48,22 @@ public class ViewsTab extends Fragment {
 
         //SeekBar
         SeekBar seekBar1 = mRootView.findViewById(R.id.seekbar1);
-        android.widget.SeekBar seekBar2 = mRootView.findViewById(R.id.seekbar2);
+        SeekBar seekBar2 = mRootView.findViewById(R.id.seekbar2);
         seekBar1.setOverlapPointForDualColor(70);
-        seekBar2.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
+        seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(android.widget.SeekBar seekBar, int progress, boolean fromUser) {
-                seekBar1.setSecondaryProgress(progress);
+            public void onProgressChanged(SeekBar seslSeekBar, int i, boolean z) {
+                seekBar1.setSecondaryProgress(i);
             }
 
             @Override
-            public void onStartTrackingTouch(android.widget.SeekBar seekBar) {
+            public void onStartTrackingTouch(SeekBar seslSeekBar) {
+
             }
 
             @Override
-            public void onStopTrackingTouch(android.widget.SeekBar seekBar) {
+            public void onStopTrackingTouch(SeekBar seslSeekBar) {
+
             }
         });
 

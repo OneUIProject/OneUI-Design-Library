@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@id/background"
+        android:gravity="center_vertical">
+        <shape>
+            <corners android:radius="@dimen/sesl_seekbar_track_height_expand" />
+        </shape>
+    </item>
+    <item
+        android:id="@id/secondaryProgress"
+        android:gravity="center_vertical">
+        <clip>
+            <shape>
+                <corners android:radius="@dimen/sesl_seekbar_track_height_expand" />
+            </shape>
+        </clip>
+    </item>
+    <item
+        android:id="@id/progress"
+        android:gravity="center_vertical">
+        <clip>
+            <shape>
+                <corners android:radius="@dimen/sesl_seekbar_track_height_expand" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

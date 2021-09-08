@@ -63,6 +63,26 @@
                 app:icon="@drawable/ic_samsung_help"
                 app:text="Help" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <de.dlyt.yanndroid.oneui.view.SeekBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    app:seslSeekBarMode="expand_vertical" />
+
+                <de.dlyt.yanndroid.oneui.view.SeekBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    app:seslSeekBarMode="vertical" />
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

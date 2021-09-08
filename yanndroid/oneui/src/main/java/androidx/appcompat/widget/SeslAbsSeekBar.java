@@ -1495,6 +1495,7 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
                 } else {
                     Resources var2 = this.getContext().getResources();
                     this.setThumb(var2.getDrawable(R.drawable.sesl_scrubber_control_anim, null));
+                    this.setThumbTintList(this.mDefaultActivatedThumbColor);
                 }
             } else {
                 this.updateWarningMode(this.getProgress());
@@ -1645,6 +1646,24 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         var2.setBounds(var4, var5, var1, var8);
         this.mThumbPosX = var5 + var7 / 2 + this.getPaddingLeft();
     }
+
+
+    public int getPaddingTop() {
+        return (mCurrentMode == 3 || mCurrentMode == 6) ? super.getPaddingLeft() : super.getPaddingTop();
+    }
+
+    public int getPaddingBottom() {
+        return (mCurrentMode == 3 || mCurrentMode == 6) ? super.getPaddingRight() : super.getPaddingBottom();
+    }
+
+    public int getPaddingLeft() {
+        return (mCurrentMode == 3 || mCurrentMode == 6) ? super.getPaddingTop() : super.getPaddingLeft();
+    }
+
+    public int getPaddingRight() {
+        return (mCurrentMode == 3 || mCurrentMode == 6) ? super.getPaddingBottom() : super.getPaddingRight();
+    }
+
 
     public void setThumbTintColor(int var1) {
         ColorStateList var2 = this.colorToColorStateList(var1);
@@ -2018,7 +2037,7 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
 
     private class SliderDrawable extends Drawable {
         public final int ANIMATION_DURATION;
-        public final Paint mPaint;
+        //public final Paint mPaint;
         public final float mSliderMaxWidth;
         public final float mSliderMinWidth;
         public final SeslAbsSeekBar.SliderDrawable.SliderState mState;
@@ -2031,47 +2050,61 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         public float mRadius;
         public ValueAnimator mReleasedAnimator;
 
+        public Drawable mDrawable;
+
         public SliderDrawable(float var2, float var3, ColorStateList var4) {
             this(var2, var3, var4, false);
         }
 
         public SliderDrawable(float var2, float var3, ColorStateList var4, boolean var5) {
-            this.mPaint = new Paint();
+            //this.mPaint = new Paint();
             this.ANIMATION_DURATION = 250;
             this.mIsStateChanged = false;
             this.mAlpha = 255;
             this.mState = new SeslAbsSeekBar.SliderDrawable.SliderState();
-            this.mPaint.setStyle(Paint.Style.STROKE);
-            this.mPaint.setStrokeCap(Paint.Cap.ROUND);
+            //this.mPaint.setStyle(Paint.Style.STROKE);
+            //this.mPaint.setStrokeCap(Paint.Cap.ROUND);
             this.mColorStateList = var4;
             this.mColor = var4.getDefaultColor();
-            this.mPaint.setColor(this.mColor);
-            this.mPaint.setStrokeWidth(var2);
+            //this.mPaint.setColor(this.mColor);
+            //this.mPaint.setStrokeWidth(var2);
             this.mSliderMinWidth = var2;
             this.mSliderMaxWidth = var3;
             this.mRadius = var2 / 2.0F;
             this.mIsVertical = var5;
             this.initAnimator();
+
+            this.mDrawable = getResources().getDrawable(R.drawable.sesl_seekbar_progress_bg_fix, null);
+            this.mDrawable.setTint(mColor);
         }
 
         public void draw(Canvas var1) {
-            int var2 = this.mPaint.getAlpha();
-            this.mPaint.setAlpha(this.modulateAlpha(var2, this.mAlpha));
+            int var2 = this.mDrawable.getAlpha(); //this.mPaint.getAlpha();
+            //this.mPaint.setAlpha(this.modulateAlpha(var2, this.mAlpha));
+            this.mDrawable.setAlpha(this.modulateAlpha(var2, this.mAlpha));
             var1.save();
             float var3;
             float var4;
             if (!this.mIsVertical) {
                 var3 = (float) (SeslAbsSeekBar.this.getWidth() - SeslAbsSeekBar.this.getPaddingLeft() - SeslAbsSeekBar.this.getPaddingRight());
                 var4 = this.mRadius;
-                var1.drawLine(var4, (float) SeslAbsSeekBar.this.getHeight() / 2.0F, var3 - var4, (float) SeslAbsSeekBar.this.getHeight() / 2.0F, this.mPaint);
+                //var1.drawLine(var4, (float) SeslAbsSeekBar.this.getHeight() / 2.0F, var3 - var4, (float) SeslAbsSeekBar.this.getHeight() / 2.0F, this.mPaint);
+
+                mDrawable.setBounds(0, (int) (SeslAbsSeekBar.this.getHeight() / 2 - var4), (int) var3, (int) (SeslAbsSeekBar.this.getHeight() / 2 + var4));
+                mDrawable.draw(var1);
+
             } else {
                 var4 = (float) (SeslAbsSeekBar.this.getHeight() - SeslAbsSeekBar.this.getPaddingTop() - SeslAbsSeekBar.this.getPaddingBottom());
                 var3 = this.mRadius;
-                var1.drawLine((float) SeslAbsSeekBar.this.getWidth() / 2.0F, var4 - var3, (float) SeslAbsSeekBar.this.getWidth() / 2.0F, this.mRadius, this.mPaint);
+                //var1.drawLine((float) SeslAbsSeekBar.this.getWidth() / 2.0F, var4 - var3, (float) SeslAbsSeekBar.this.getWidth() / 2.0F, this.mRadius, this.mPaint);
+
+                mDrawable.setBounds((int) (this.mSliderMaxWidth / 2 - var3), 0, (int) (this.mSliderMaxWidth / 2 + var3), (int) var4);
+                mDrawable.draw(var1);
             }
 
             var1.restore();
-            this.mPaint.setAlpha(var2);
+            //this.mPaint.setAlpha(var2);
+            this.mDrawable.setAlpha(var2);
         }
 
         public ConstantState getConstantState() {
@@ -2088,17 +2121,18 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
 
         @SuppressLint("WrongConstant")
         public int getOpacity() {
-            Paint var1 = this.mPaint;
-            if (var1.getXfermode() == null) {
-                int var2 = var1.getAlpha();
-                if (var2 == 0) {
-                    return -2;
-                }
-
-                if (var2 == 255) {
-                    return -1;
-                }
+            Drawable var1 = this.mDrawable;
+            /*Paint var1 = this.mPaint;
+            if (var1.getXfermode() == null) {*/
+            int var2 = var1.getAlpha();
+            if (var2 == 0) {
+                return -2;
             }
+
+            if (var2 == 255) {
+                return -1;
+            }
+            //}
 
             return -3;
         }
@@ -2144,7 +2178,8 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
             int var3 = this.mColorStateList.getColorForState(var1, this.mColor);
             if (this.mColor != var3) {
                 this.mColor = var3;
-                this.mPaint.setColor(this.mColor);
+                //this.mPaint.setColor(this.mColor);
+                this.mDrawable.setTint(this.mColor);
                 this.invalidateSelf();
             }
 
@@ -2187,12 +2222,13 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         }
 
         public void setColorFilter(ColorFilter var1) {
-            this.mPaint.setColorFilter(var1);
+            //this.mPaint.setColorFilter(var1);
+            this.mDrawable.setColorFilter(var1);
             this.invalidateSelf();
         }
 
         public void setStrokeWidth(float var1) {
-            this.mPaint.setStrokeWidth(var1);
+            //this.mPaint.setStrokeWidth(var1);
             this.mRadius = var1 / 2.0F;
         }
 
@@ -2201,7 +2237,8 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
             if (var1 != null) {
                 this.mColorStateList = var1;
                 this.mColor = this.mColorStateList.getDefaultColor();
-                this.mPaint.setColor(this.mColor);
+                //this.mPaint.setColor(this.mColor);
+                this.mDrawable.setTint(this.mColor);
                 this.invalidateSelf();
             }
 
