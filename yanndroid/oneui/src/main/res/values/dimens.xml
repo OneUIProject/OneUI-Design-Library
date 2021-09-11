@@ -193,6 +193,14 @@
     <dimen name="sesl_menu_item_badge_text_size">11.0dip</dimen>
     <dimen name="sesl_menu_item_badge_top_margin">10.0dip</dimen>
 
+    <dimen name="select_all_width">68.0dip</dimen>
+    <dimen name="select_all_checkbox_size">32.0dip</dimen>
+    <dimen name="select_all_checkbox_margin_top">10.0dip</dimen>
+    <dimen name="select_all_checkbox_text_margin_bottom">2.0dip</dimen>
+    <dimen name="select_all_list_text_size">12.0dip</dimen>
+
+
+
     <!--TabLayout-->
     <dimen name="sesl_tab_max_width">0.0dip</dimen>
     <dimen name="sesl_tab_scrollable_min_width">72.0dip</dimen>

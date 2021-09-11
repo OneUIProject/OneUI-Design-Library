@@ -18,6 +18,9 @@
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
 
+    <string name="all_checkbox">All</string>
+    <string name="selected_check_info">%d selected</string>
+
     <string name="pen_string_current_any">Current %s</string>
     <string name="pen_string_new_any">New %s</string>
     <string name="pen_string_color">Colour</string>

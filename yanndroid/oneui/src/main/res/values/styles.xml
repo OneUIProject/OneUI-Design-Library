@@ -563,6 +563,15 @@
         <item name="android:textColor">@color/sesl_extended_appbar_subtitle</item>
     </style>
 
+    <style name="MultiSelectionCheckboxTextStyle">
+        <item name="android:textSize">@dimen/select_all_list_text_size</item>
+        <item name="android:textColor">@color/item_color</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:fontFamily">sec-roboto-light</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
     <!--TabLayout-->
     <style name="BaseTabLayoutStyle" parent="@android:style/Widget">
         <item name="android:background">@null</item>

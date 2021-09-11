@@ -19,9 +19,12 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.IntDef;
@@ -84,6 +87,10 @@ public class ToolbarLayout extends LinearLayout {
     private RoundLinearLayout mainContainer;
     private LinearLayout bottomContainer;
 
+    private boolean mSelectAll = false;
+    private RelativeLayout checkbox_withtext;
+    private CheckBox checkbox_all;
+
     public ToolbarLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
@@ -119,6 +126,9 @@ public class ToolbarLayout extends LinearLayout {
 
         mainContainer = findViewById(R.id.toolbar_layout_main_container);
         bottomContainer = findViewById(R.id.toolbar_layout_bottom_container);
+
+        checkbox_withtext = findViewById(R.id.checkbox_withtext);
+        checkbox_all = findViewById(R.id.checkbox_all);
 
         setNavigationButtonIcon(mNavigationIcon);
         setTitle(mTitle);
@@ -275,6 +285,39 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     //
+    // Select all checkbox methods
+    //
+    public void showSelectAllMode(boolean visible) {
+        mSelectAll = visible;
+        setNavigationButtonVisible(!visible);
+        if (visible) {
+            checkbox_withtext.setVisibility(View.VISIBLE);
+            setSelectAllCount(0);
+            moreOverflowButton.setVisibility(GONE);
+            overflowContainer.setVisibility(GONE);
+        } else {
+            checkbox_withtext.setVisibility(View.GONE);
+            setTitle(mTitle);
+            moreOverflowButton.setVisibility(VISIBLE);
+            overflowContainer.setVisibility(VISIBLE);
+        }
+    }
+
+    public void setSelectAllCount(int count) {
+        String title = getResources().getString(R.string.selected_check_info, count);
+        if (mExpandable) collapsingToolbarLayout.setTitle(title);
+        collapsedTitleView.setText(title);
+    }
+
+    public void setSelectAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener){
+        checkbox_all.setOnCheckedChangeListener(listener);
+    }
+
+    public void setSelectAllChecked(boolean checked){
+        checkbox_all.setChecked(checked);
+    }
+
+    //
     // Navigation Button methods
     //
     public void setNavigationButtonIcon(Drawable navigationIcon) {
@@ -285,7 +328,8 @@ public class ToolbarLayout extends LinearLayout {
 
     public void setNavigationButtonVisible(boolean visible) {
         navigationButtonContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
-        toolbar.setPaddingRelative(visible ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), 0, 0, 0);
+        toolbar.setPaddingRelative(0, 0, 0, 0);
+        toolbar.setPaddingRelative(visible || mSelectAll ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), 0, 0, 0);
     }
 
     public void setNavigationButtonBadge(int count) {
@@ -549,6 +593,7 @@ public class ToolbarLayout extends LinearLayout {
                 return null;
         }
     }
+
     @IntDef({APPBAR_LAYOUT, COLLAPSING_TOOLBAR, TOOLBAR, NAVIGATION_BUTTON, COLLAPSED_TITLE, MAIN_CONTENT, FOOTER_CONTENT})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ToolbarLayoutView {

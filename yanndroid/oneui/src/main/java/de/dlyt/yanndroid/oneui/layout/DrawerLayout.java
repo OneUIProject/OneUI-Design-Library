@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -240,6 +241,30 @@ public class DrawerLayout extends LinearLayout {
             drawerLayout.closeDrawer(drawer, animate);
         }
 
+    }
+
+    //
+    // Select all checkbox methods
+    //
+    public void showSelectAllMode(boolean visible) {
+        toolbarLayout.showSelectAllMode(visible);
+        if (visible) {
+            drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        } else {
+            drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
+        }
+    }
+
+    public void setSelectAllCount(int count) {
+        toolbarLayout.setSelectAllCount(count);
+    }
+
+    public void setSelectAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener){
+        toolbarLayout.setSelectAllCheckedChangeListener(listener);
+    }
+
+    public void setSelectAllChecked(boolean checked){
+        toolbarLayout.setSelectAllChecked(checked);
     }
 
     private Activity getActivity() {

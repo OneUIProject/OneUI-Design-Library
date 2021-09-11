@@ -2626,7 +2626,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
                                 }
                             }
                         } else if (this.mPenDragSelectedViewPosition != -1 && this.mPenDragSelectedItemArray.contains(this.mPenDragSelectedViewPosition)) {
-                            this.mPenDragSelectedItemArray.remove(this.mPenDragSelectedViewPosition);
+                            this.mPenDragSelectedItemArray.remove((Object) this.mPenDragSelectedViewPosition);
                             if (this.mLongPressMultiSelectionListener != null) {
                                 this.mLongPressMultiSelectionListener.onItemSelected(this, var8, this.mPenDragSelectedViewPosition, this.getChildItemId(var8));
                             }

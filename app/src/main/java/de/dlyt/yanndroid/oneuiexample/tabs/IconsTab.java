@@ -8,17 +8,25 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.util.SeslRoundedCorner;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.SeslViewPager;
 
+import java.util.HashMap;
+
+import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslLinearLayoutManager;
+import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
+import de.dlyt.yanndroid.oneui.view.TabLayout;
 import de.dlyt.yanndroid.oneuiexample.R;
 
 public class IconsTab extends Fragment {
@@ -227,6 +235,12 @@ public class IconsTab extends Fragment {
     private View mRootView;
     private Context mContext;
 
+    private ImageAdapter imageAdapter;
+    private OnBackPressedCallback onBackPressedCallback;
+    private HashMap<Integer, Boolean> selected = new HashMap<>();
+    private boolean mSelecting = false;
+    private boolean checkAllListening = true;
+
     public IconsTab() {
     }
 
@@ -250,9 +264,12 @@ public class IconsTab extends Fragment {
         TypedValue divider = new TypedValue();
         mContext.getTheme().resolveAttribute(android.R.attr.listDivider, divider, true);
 
+        for (int i = 0; i < imageIDs.length; i++) selected.put(i, false);
+
         listView = mRootView.findViewById(R.id.images);
         listView.setLayoutManager(new SeslLinearLayoutManager(mContext));
-        listView.setAdapter(new ImageAdapter(mContext));
+        imageAdapter = new ImageAdapter();
+        listView.setAdapter(imageAdapter);
 
         ItemDecoration decoration = new ItemDecoration();
         listView.addItemDecoration(decoration);
@@ -263,16 +280,72 @@ public class IconsTab extends Fragment {
         listView.seslSetFillBottomEnabled(true);
         listView.seslSetGoToTopEnabled(true);
         listView.seslSetLastRoundedCorner(false);
+
+        onBackPressedCallback = new OnBackPressedCallback(false) {
+            @Override
+            public void handleOnBackPressed() {
+                setSelecting(false);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
+    }
+
+
+    public void setSelecting(boolean enabled) {
+        DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawer_view);
+        TabLayout tabLayout = getActivity().findViewById(R.id.tabLayout);
+        BottomNavigationView bnv = getActivity().findViewById(R.id.main_samsung_tabs);
+        SeslViewPager seslViewPager = getActivity().findViewById(R.id.viewPager);
+
+        if (enabled) {
+            mSelecting = true;
+            imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount());
+            drawerLayout.showSelectAllMode(true);
+            drawerLayout.setSelectAllCheckedChangeListener((buttonView, isChecked) -> {
+                if (checkAllListening) {
+                    for (int i = 0; i < imageAdapter.getItemCount(); i++) {
+                        selected.put(i, isChecked);
+                        imageAdapter.notifyItemChanged(i);
+                    }
+                }
+                int count = 0;
+                for (Boolean b : selected.values()) if (b) count++;
+                drawerLayout.setSelectAllCount(count);
+            });
+            tabLayout.setVisibility(View.INVISIBLE); //if GONE the "scroll-select" will skip one item due to the different position of the RecyclerView.
+            bnv.setVisibility(View.GONE);
+            seslViewPager.setPagingEnabled(false);
+            onBackPressedCallback.setEnabled(true);
+        } else {
+            mSelecting = false;
+            for (int i = 0; i < imageAdapter.getItemCount(); i++) selected.put(i, false);
+            imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount());
+
+            drawerLayout.setSelectAllCount(0);
+            drawerLayout.showSelectAllMode(false);
+            tabLayout.setVisibility(View.VISIBLE);
+            bnv.setVisibility(View.VISIBLE);
+            seslViewPager.setPagingEnabled(true);
+            onBackPressedCallback.setEnabled(false);
+        }
+    }
+
+    public void toggleItemSelected(int position) {
+        selected.put(position, !selected.get(position));
+        imageAdapter.notifyItemChanged(position);
+
+        checkAllListening = false;
+        int count = 0;
+        for (Boolean b : selected.values()) if (b) count++;
+        DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawer_view);
+        drawerLayout.setSelectAllChecked(count == imageAdapter.getItemCount());
+        drawerLayout.setSelectAllCount(count);
+        checkAllListening = true;
     }
 
 
     //Adapter for the Icon RecyclerView
     public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
-        private Context mContext;
-
-        public ImageAdapter(Context context) {
-            mContext = context;
-        }
 
         @Override
         public int getItemCount() {
@@ -310,16 +383,40 @@ public class IconsTab extends Fragment {
         @Override
         public void onBindViewHolder(ImageAdapter.ViewHolder holder, final int position) {
             if (holder.isItem) {
+                holder.checkBox.setVisibility(mSelecting ? View.VISIBLE : View.GONE);
+                holder.checkBox.setChecked(selected.get(position));
+
                 holder.imageView.setImageResource(imageIDs[position]);
                 holder.textView.setText(getResources().getResourceEntryName(imageIDs[position]));
-                holder.parentView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                    }
+
+                holder.parentView.setOnClickListener(view -> {
+                    if (mSelecting) toggleItemSelected(position);
+                });
+                holder.parentView.setOnLongClickListener(v -> {
+                    if (!mSelecting) setSelecting(true);
+                    toggleItemSelected(position);
+
+                    listView.seslStartLongPressMultiSelection();
+                    listView.seslSetLongPressMultiSelectionListener(new RecyclerView.SeslLongPressMultiSelectionListener() {
+                        @Override
+                        public void onItemSelected(RecyclerView var1, View var2, int var3, long var4) {
+                            toggleItemSelected(var3);
+                        }
+
+                        @Override
+                        public void onLongPressMultiSelectionEnded(int var1, int var2) {
+
+                        }
+
+                        @Override
+                        public void onLongPressMultiSelectionStarted(int var1, int var2) {
+
+                        }
+                    });
+                    return true;
                 });
             }
         }
-
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             boolean isItem;
@@ -327,6 +424,7 @@ public class IconsTab extends Fragment {
             RelativeLayout parentView;
             ImageView imageView;
             TextView textView;
+            CheckBox checkBox;
 
             ViewHolder(View itemView, int viewType) {
                 super(itemView);
@@ -337,6 +435,7 @@ public class IconsTab extends Fragment {
                     parentView = (RelativeLayout) itemView;
                     imageView = parentView.findViewById(R.id.icon_tab_item_image);
                     textView = parentView.findViewById(R.id.icon_tab_item_text);
+                    checkBox = parentView.findViewById(R.id.checkbox);
                 }
             }
         }
@@ -376,7 +475,7 @@ public class IconsTab extends Fragment {
                     shallDrawDivider = false;
 
                 if (mDivider != null && viewHolder.isItem && shallDrawDivider) {
-                    mDivider.setBounds(0, y, width, mDividerHeight + y);
+                    mDivider.setBounds(130, y, width, mDividerHeight + y);
                     mDivider.draw(canvas);
                 }
 
