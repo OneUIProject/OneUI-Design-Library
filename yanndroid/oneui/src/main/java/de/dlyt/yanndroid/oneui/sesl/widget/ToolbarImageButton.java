@@ -13,6 +13,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.view.Tooltip;
@@ -74,6 +75,21 @@ public class ToolbarImageButton extends AppCompatImageButton {
             Tooltip.seslSetTooltipNull(true);
             return true;
         }
+    }
+
+    @Override
+    public boolean setFrame(int l, int t, int r, int b) {
+        boolean frame = super.setFrame(l, t, r, b);
+
+        Drawable background = getBackground();
+        if (getDrawable() != null && background != null) {
+            int width = getWidth();
+            int height = getHeight();
+            int padding = (getPaddingLeft() - getPaddingRight()) / 2;
+            DrawableCompat.setHotspotBounds(background, padding, 0, width + padding, height);
+        }
+
+        return frame;
     }
 
     @Override

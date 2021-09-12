@@ -141,8 +141,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        toolbarLayout.addOverflowButton(false,
-                R.drawable.ic_samsung_info,
+        toolbarLayout.addOverflowButton(R.drawable.ic_samsung_info,
                 R.string.app_info,
                 new View.OnClickListener() {
                     @Override

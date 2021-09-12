@@ -28,7 +28,6 @@
         <item name="radioButtonStyle">@style/RadioButtonStyle</item>
         <item name="seslSwitchBarStyle">@style/SeslSwitchBarStyle</item>
         <item name="seekBarStyle">@style/SeekBarStyle</item>
-        <item name="actionOverflowButtonStyle">@style/ActionButtonOverflow</item>
 
         <item name="android:listPreferredItemPaddingStart">
             @dimen/sesl_list_item_padding_horizontal
@@ -53,7 +52,6 @@
 
         <item name="spinnerStyle">@style/SpinnerStyle</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemStyle</item>
-        <item name="actionOverflowMenuStyle">@style/PopupMenuStyle</item>
         <item name="spinnerDropDownItemStyle">@style/SpinnerDropDownItemStyle</item>
         <item name="dropdownListPreferredItemHeight">@dimen/sesl_popup_menu_item_min_height</item>
 
@@ -430,17 +428,6 @@
 
 
     <!--PopupMenuStyle-->
-    <style name="PopupMenuStyle" parent="@android:style/Widget.Material.ListPopupWindow">
-        <item name="android:popupElevation">8.0dip</item>
-        <item name="android:popupBackground">@drawable/sesl_menu_popup_background</item>
-        <item name="android:popupAnimationStyle">@style/MenuPopupAnimStyle</item>
-        <item name="overlapAnchor">true</item>
-        <item name="popupEnterTransition">@null</item>
-        <item name="popupExitTransition">@null</item>
-        <item name="android:dropDownSelector">@drawable/sesl_list_selector</item>
-        <item name="android:dropDownWidth">wrap_content</item>
-    </style>
-
     <style name="MenuPopupAnimStyle" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/sesl_menu_popup_enter</item>
         <item name="android:windowExitAnimation">@anim/sesl_menu_popup_exit</item>
@@ -459,13 +446,6 @@
         <item name="animationMode">fade</item>
         <item name="elevation">@dimen/design_snackbar_elevation</item>
         <item name="maxActionInlineWidth">@dimen/design_snackbar_action_inline_max_width</item>
-    </style>
-
-
-    <!--Toolbar-->
-    <style name="ActionButtonOverflow" parent="@android:style/Widget.Material.ActionButton.Overflow">
-        <item name="android:src">@drawable/sesl_ic_menu_overflow</item>
-        <item name="android:contentDescription">@string/sesl_more_options</item>
     </style>
 
 

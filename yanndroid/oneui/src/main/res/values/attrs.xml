@@ -93,8 +93,8 @@
 
     <declare-styleable name="Drawer_ToolBar_LayoutLocation">
         <attr name="layout_location">
-            <enum name="appbar_header" value="0" />
-            <enum name="main_content" value="1" />
+            <enum name="main_content" value="0" />
+            <enum name="appbar_header" value="1" />
             <enum name="footer" value="2" />
             <enum name="drawer_panel" value="3" />
         </attr>
