@@ -312,8 +312,8 @@ public class IconsTab extends Fragment {
                 for (Boolean b : selected.values()) if (b) count++;
                 drawerLayout.setSelectAllCount(count);
             });
-            tabLayout.setVisibility(View.INVISIBLE); //if GONE the "scroll-select" will skip one item due to the different position of the RecyclerView.
-            bnv.setVisibility(View.GONE);
+            tabLayout.setEnabled(false);
+            bnv.setEnabled(false);
             seslViewPager.setPagingEnabled(false);
             onBackPressedCallback.setEnabled(true);
         } else {
@@ -323,8 +323,8 @@ public class IconsTab extends Fragment {
 
             drawerLayout.setSelectAllCount(0);
             drawerLayout.showSelectAllMode(false);
-            tabLayout.setVisibility(View.VISIBLE);
-            bnv.setVisibility(View.VISIBLE);
+            tabLayout.setEnabled(true);
+            bnv.setEnabled(true);
             seslViewPager.setPagingEnabled(true);
             onBackPressedCallback.setEnabled(false);
         }

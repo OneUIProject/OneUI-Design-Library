@@ -197,13 +197,11 @@ public class MainActivity extends AppCompatActivity {
                     toolbarLayout.setSubtitle("Design");
                     toolbarLayout.setNavigationButtonVisible(true);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.getView(DRAWER_LAYOUT)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
-                    findViewById(R.id.fragment_container).setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color));
                 } else {
                     // MainActivitySecondFragment
                     toolbarLayout.setSubtitle("Preferences");
                     toolbarLayout.setNavigationButtonVisible(false);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.getView(DRAWER_LAYOUT)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                    findViewById(R.id.fragment_container).setBackgroundColor(ContextCompat.getColor(mContext, R.color.item_background_color));
                 }
 
             }

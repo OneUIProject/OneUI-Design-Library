@@ -71,6 +71,12 @@ public class MainActivitySecondFragment extends PreferenceFragment
     }
 
     @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getView().setBackgroundColor(getResources().getColor(R.color.item_background_color));
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("de.dlyt.yanndroid.oneuiexample_preferences", Context.MODE_PRIVATE);
