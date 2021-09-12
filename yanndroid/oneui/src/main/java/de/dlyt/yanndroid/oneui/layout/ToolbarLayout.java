@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textview.MaterialTextView;
@@ -129,7 +130,10 @@ public class ToolbarLayout extends LinearLayout {
 
         checkbox_withtext = findViewById(R.id.checkbox_withtext);
         checkbox_all = findViewById(R.id.checkbox_all);
-
+        
+        getActivity().setSupportActionBar(toolbar);
+        getActivity().getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         setNavigationButtonIcon(mNavigationIcon);
         setTitle(mTitle);
         setSubtitle(mSubtitle);
@@ -174,11 +178,11 @@ public class ToolbarLayout extends LinearLayout {
         refreshLayout(newConfig);
     }
 
-    private Activity getActivity() {
+    private AppCompatActivity getActivity() {
         Context context = getContext();
         while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (Activity) context;
+            if (context instanceof AppCompatActivity) {
+                return (AppCompatActivity) context;
             }
             context = ((ContextWrapper) context).getBaseContext();
         }
