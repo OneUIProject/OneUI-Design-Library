@@ -69,6 +69,12 @@ public class MainActivitySecondFragment extends PreferenceFragment
         autoDarkModePref.setOnPreferenceChangeListener(this);
         autoDarkModePref.setChecked(darkMode == ThemeColor.DARK_MODE_AUTO);
     }
+    
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getView().setBackgroundColor(getResources().getColor(R.color.item_background_color));
+    }
 
     @Override
     public void onStart() {
