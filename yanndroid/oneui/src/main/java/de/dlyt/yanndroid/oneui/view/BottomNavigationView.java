@@ -52,6 +52,19 @@ public class BottomNavigationView extends SamsungBaseTabLayout implements View.O
         }
     }
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+
+        for (int tabPosition = 0; tabPosition < getTabCount(); tabPosition++) {
+            ViewGroup tabView = (ViewGroup) getTabView(tabPosition);
+            if (tabView != null) {
+                tabView.setEnabled(enabled);
+                tabView.setAlpha(enabled ? 1.0f : 0.4f);
+            }
+        }
+    }
+
     public void addTabCustomButton(Drawable icon, CustomButtonClickListener listener) {
         Tab tab = newTab().setIcon(icon).setIsCustomButtonView(true);
         addTab(tab);
@@ -60,23 +73,6 @@ public class BottomNavigationView extends SamsungBaseTabLayout implements View.O
 
     public void setResumeStatus(boolean isResumed) {
         mIsResumed = isResumed;
-    }
-
-    public void setTabLayoutEnabled(boolean enabled) {
-        float f;
-        setEnabled(enabled);
-        for (int tabPosition = 0; tabPosition < getTabCount(); tabPosition++) {
-            ViewGroup tabView = (ViewGroup) getTabView(tabPosition);
-            if (tabView != null) {
-                tabView.setEnabled(enabled);
-                if (enabled) {
-                    f = 1.0f;
-                } else {
-                    f = 0.4f;
-                }
-                tabView.setAlpha(f);
-            }
-        }
     }
 
     public void updateWidget(Activity activity) {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -19,6 +20,25 @@ public class TabLayout extends SamsungBaseTabLayout {
     public TabLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mDepthStyle = 2;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        updateWidget();
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+
+        for (int tabPosition = 0; tabPosition < getTabCount(); tabPosition++) {
+            ViewGroup tabView = (ViewGroup) getTabView(tabPosition);
+            if (tabView != null) {
+                tabView.setEnabled(enabled);
+                tabView.setAlpha(enabled ? 1.0f : 0.4f);
+            }
+        }
     }
 
     public void updateWidget() {
@@ -41,10 +61,23 @@ public class TabLayout extends SamsungBaseTabLayout {
         });
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        updateWidget();
+    private View getTabView(int position) {
+        ViewGroup viewGroup = getTabViewGroup();
+        if (viewGroup == null || viewGroup.getChildCount() <= position) {
+            return null;
+        }
+        return viewGroup.getChildAt(position);
+    }
+
+    private ViewGroup getTabViewGroup() {
+        if (getChildCount() <= 0) {
+            return null;
+        }
+        View view = getChildAt(0);
+        if (view == null || !(view instanceof ViewGroup)) {
+            return null;
+        }
+        return (ViewGroup) view;
     }
 
     private void setSelectedTabScrollPosition() {
