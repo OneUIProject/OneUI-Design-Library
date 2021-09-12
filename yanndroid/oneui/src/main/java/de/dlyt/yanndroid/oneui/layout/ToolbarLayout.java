@@ -153,9 +153,12 @@ public class ToolbarLayout extends LinearLayout {
             ToolbarLayout.Drawer_Toolbar_LayoutParams lp = (ToolbarLayout.Drawer_Toolbar_LayoutParams) params;
             switch (lp.layout_location) {
                 case 0:
-                    mainContainer.addView(child, index, params);
+                    setCustomTitleView(child, new SamsungCollapsingToolbarLayout.LayoutParams(params));
                     break;
                 case 1:
+                    mainContainer.addView(child, index, params);
+                    break;
+                case 2:
                     bottomContainer.addView(child, index, params);
                     break;
             }
@@ -286,6 +289,18 @@ public class ToolbarLayout extends LinearLayout {
             appBarLayout.setExpanded(expanded, animate);
         } else
             Log.d(TAG + ".setExpanded", "mExpandable is " + mExpandable);
+    }
+
+    public void setCustomTitleView(View view) {
+        setCustomTitleView(view, new SamsungCollapsingToolbarLayout.LayoutParams(view.getLayoutParams()));
+    }
+
+    public void setCustomTitleView(View view, SamsungCollapsingToolbarLayout.LayoutParams params) {
+        if (params == null) {
+            params = new SamsungCollapsingToolbarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+        params.seslSetIsTitleCustom(true);
+        collapsingToolbarLayout.seslSetCustomTitleView(view, params);
     }
 
     //
