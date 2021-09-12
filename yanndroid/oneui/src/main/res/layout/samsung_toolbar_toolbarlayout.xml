@@ -53,9 +53,9 @@
 
                 <de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton
                     android:id="@+id/toolbar_layout_navigationButton"
-                    android:layout_width="48.0dip"
+                    android:layout_width="56.0dip"
                     android:layout_height="?actionBarSize"
-                    android:layout_marginStart="8dp"
+                    android:paddingStart="8.0dip"
                     android:background="@drawable/sesl_action_bar_item_background"
                     android:scaleType="center" />
             </FrameLayout>
@@ -82,8 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="?actionBarSize"
                     android:layout_alignParentEnd="true"
-                    android:orientation="horizontal"
-                    android:paddingEnd="8.0dip" />
+                    android:orientation="horizontal" />
 
                 <View
                     android:id="@+id/toolbar_layout_popup_window_anchor"

@@ -87,8 +87,7 @@ public class AboutPage extends LinearLayout {
                 getActivity().onBackPressed();
             }
         });
-        toolbarLayout.addOverflowButton(true,
-                R.drawable.ic_samsung_info,
+        toolbarLayout.addOverflowButton(R.drawable.ic_samsung_info,
                 R.string.app_info,
                 new View.OnClickListener() {
                     @Override

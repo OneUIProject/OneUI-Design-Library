@@ -19,7 +19,7 @@
             android:importantForAccessibility="no"
             android:maxLines="1"
             android:textAlignment="viewStart"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.SeslSwitchBar"
+            android:textAppearance="@style/SeslSwitchBarTextStyle"
             tools:ignore="RtlCompat" />
 
         <de.dlyt.yanndroid.oneui.view.ProgressBar

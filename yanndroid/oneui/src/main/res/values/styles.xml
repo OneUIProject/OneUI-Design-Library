@@ -26,9 +26,8 @@
         <item name="materialCardViewStyle">@style/CardViewStyle</item>
         <item name="materialButtonStyle">@style/ButtonStyle</item>
         <item name="radioButtonStyle">@style/RadioButtonStyle</item>
-        <item name="seslSwitchBarStyle">@style/Base.Widget.AppCompat.SeslSwitchBar</item>
+        <item name="seslSwitchBarStyle">@style/SeslSwitchBarStyle</item>
         <item name="seekBarStyle">@style/SeekBarStyle</item>
-        <item name="actionOverflowButtonStyle">@style/ActionButtonOverflow</item>
 
         <item name="android:listPreferredItemPaddingStart">
             @dimen/sesl_list_item_padding_horizontal
@@ -40,7 +39,7 @@
         <item name="android:textSelectHandleLeft">@drawable/sesl_text_select_handle_left</item>
         <item name="android:textSelectHandleRight">@drawable/sesl_text_select_handle_right</item>
 
-        <item name="android:textAppearanceSmall">@style/TextAppearanceSmall</item>
+        <item name="android:textAppearanceSmall">@style/TextAppearanceSmallStyle</item>
         <item name="textAppearanceListItem">@style/SubheadTextStyle</item>
         <item name="textAppearanceListItemSmall">@style/SubheadTextStyle</item>
         <item name="listPreferredItemHeight">@dimen/sesl_list_preferred_item_height</item>
@@ -53,13 +52,23 @@
 
         <item name="spinnerStyle">@style/SpinnerStyle</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemStyle</item>
-        <item name="actionOverflowMenuStyle">@style/PopupMenuStyle</item>
         <item name="spinnerDropDownItemStyle">@style/SpinnerDropDownItemStyle</item>
         <item name="dropdownListPreferredItemHeight">@dimen/sesl_popup_menu_item_min_height</item>
 
         <item name="listChoiceBackgroundIndicator">@drawable/sesl_list_selector</item>
 
+        <item name="actionBarTheme">@null</item>
         <item name="actionMenuTextColor">@color/sesl_action_menu_text</item>
+        <item name="actionModeBackground">@drawable/sesl_action_bar_background</item>
+        <item name="actionModeCloseButtonStyle">@style/Widget.AppCompat.Light.ActionButton.CloseMode</item>
+        <item name="actionModeCloseDrawable">@drawable/sesl_ic_cab_done</item>
+        <item name="actionModeCopyDrawable">@drawable/ic_samsung_copy</item>
+        <item name="actionModeCutDrawable">@drawable/sesl_ic_menu_cut</item>
+        <item name="actionModePasteDrawable">@drawable/sesl_ic_menu_paste</item>
+        <item name="actionModeSelectAllDrawable">@drawable/sesl_ic_menu_selectall</item>
+        <item name="actionModeShareDrawable">@drawable/ic_samsung_share</item>
+        <item name="actionModeSplitBackground">?colorPrimaryDark</item>
+        <item name="actionModeStyle">@style/ActionModeStyle</item>
 
         <item name="tooltipForegroundColor">@color/sesl_tooltip_foreground</item>
         <item name="tooltipFrameBackground">@color/sesl_tooltip_background</item>
@@ -98,6 +107,7 @@
         <item name="android:scrollbarThumbVertical">@drawable/sesl_scrollbar_handle</item>
 
     </style>
+
 
     <!--ProgressBar-->
     <style name="ProgressBarStyle" parent="@android:style/Widget.ProgressBar">
@@ -286,22 +296,20 @@
 
 
     <!--SwitchBar-->
-    <style name="TextAppearance.AppCompat.Widget.SeslSwitchBar" parent="@style/Base.TextAppearance.AppCompat.Widget.SeslSwitchBar" />
-
-    <style name="Base.TextAppearance.AppCompat.Widget.SeslSwitchBar" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textSize">18.0sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?colorPrimaryDark</item>
-        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
-    </style>
-
-    <style name="Base.Widget.AppCompat.SeslSwitchBar" parent="@android:style/Widget">
+    <style name="SeslSwitchBarStyle" parent="@android:style/Widget">
         <item name="seslSwitchBarBackgroundActivatedColor">
             @color/sesl_switchbar_on_background_color
         </item>
         <item name="seslSwitchBarBackgroundColor">@color/sesl_switchbar_off_background_color</item>
         <item name="seslSwitchBarTextActivatedColor">@color/sesl_switchbar_text_color</item>
         <item name="seslSwitchBarTextColor">@color/sesl_switchbar_off_text_color</item>
+    </style>
+
+    <style name="SeslSwitchBarTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?colorPrimaryDark</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
 
@@ -325,9 +333,31 @@
 
 
     <!--TextAppearance-->
-    <style name="TextAppearance.AppCompat.Widget.ActionBar.Title" parent="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title" />
+    <style name="TextAppearanceStyle" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/sesl_text_size_body_1</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textColorHighlight">?android:textColorHighlight</item>
+        <item name="android:textColorHint">?android:textColorHint</item>
+        <item name="android:textColorLink">?android:textColorLink</item>
+    </style>
 
-    <style name="Base.TextAppearance.AppCompat.Widget.ActionBar.Title" parent="@style/TextAppearance.AppCompat.Title">
+    <style name="TextAppearanceSmallStyle" parent="@style/TextAppearanceStyle">
+        <item name="android:textSize">@dimen/sesl_text_size_small</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="TitleTextStyle" parent="@style/TextAppearanceStyle">
+        <item name="android:textSize">@dimen/sesl_text_size_title</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="SubheadTextStyle" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">@dimen/sesl_text_size_subhead</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="fontFamily">@string/sesl_font_family_regular</item>
+    </style>
+
+    <style name="ActionBarTitleTextStyle" parent="@style/TitleTextStyle">
         <item name="android:textSize">@dimen/sesl_toolbar_title_text_size</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/sesl_action_bar_text_color_title</item>
@@ -335,19 +365,12 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="TextAppearance.AppCompat.Title" parent="@style/Base.TextAppearance.AppCompat.Title" />
-
-    <style name="Base.TextAppearance.AppCompat.Title" parent="@style/Base.TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/sesl_text_size_title</item>
-        <item name="android:textColor">?android:textColorPrimary</item>
-    </style>
-
-    <style name="Base.TextAppearance.AppCompat" parent="@android:style/TextAppearance">
-        <item name="android:textSize">@dimen/sesl_text_size_body_1</item>
-        <item name="android:textColor">?android:textColorPrimary</item>
-        <item name="android:textColorHighlight">?android:textColorHighlight</item>
-        <item name="android:textColorHint">?android:textColorHint</item>
-        <item name="android:textColorLink">?android:textColorLink</item>
+    <style name="ActionBarSubtitleTextStyle" parent="@style/SubheadTextStyle">
+        <item name="android:textSize">@dimen/sesl_toolbar_subtitle_text_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/sesl_action_bar_text_color_subtitle</item>
+        <item name="fontFamily">sec-roboto-light</item>
+        <item name="textAllCaps">false</item>
     </style>
 
     <style name="EditTextWidgetStyle" parent="@android:style/Widget.EditText">
@@ -357,21 +380,10 @@
         <item name="android:background">?editTextBackground</item>
         <item name="android:focusableInTouchMode">true</item>
         <item name="android:clickable">true</item>
-        <item name="android:breakStrategy">simple</item>
-        <item name="android:hyphenationFrequency">none</item>
+        <item name="android:breakStrategy" tools:targetApi="m">simple</item>
+        <item name="android:hyphenationFrequency" tools:targetApi="m">none</item>
         <item name="android:textCursorDrawable">@drawable/sesl_text_cursor</item>
         <item name="fontFamily">sans-serif</item>
-    </style>
-
-    <style name="SubheadTextStyle" parent="TextAppearance.AppCompat.Subhead">
-        <item name="android:textSize">@dimen/sesl_text_size_subhead</item>
-        <item name="android:textColor">?android:textColorPrimary</item>
-        <item name="fontFamily">@string/sesl_font_family_regular</item>
-    </style>
-
-    <style name="TextAppearanceSmall" parent="@style/Base.TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/sesl_text_size_small</item>
-        <item name="android:textColor">?android:textColorSecondary</item>
     </style>
 
 
@@ -416,17 +428,6 @@
 
 
     <!--PopupMenuStyle-->
-    <style name="PopupMenuStyle" parent="@android:style/Widget.Material.ListPopupWindow">
-        <item name="android:popupElevation">8.0dip</item>
-        <item name="android:popupBackground">@drawable/sesl_menu_popup_background</item>
-        <item name="android:popupAnimationStyle">@style/MenuPopupAnimStyle</item>
-        <item name="overlapAnchor">true</item>
-        <item name="popupEnterTransition">@null</item>
-        <item name="popupExitTransition">@null</item>
-        <item name="android:dropDownSelector">@drawable/sesl_list_selector</item>
-        <item name="android:dropDownWidth">wrap_content</item>
-    </style>
-
     <style name="MenuPopupAnimStyle" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/sesl_menu_popup_enter</item>
         <item name="android:windowExitAnimation">@anim/sesl_menu_popup_exit</item>
@@ -445,13 +446,6 @@
         <item name="animationMode">fade</item>
         <item name="elevation">@dimen/design_snackbar_elevation</item>
         <item name="maxActionInlineWidth">@dimen/design_snackbar_action_inline_max_width</item>
-    </style>
-
-
-    <!--Toolbar-->
-    <style name="ActionButtonOverflow" parent="@android:style/Widget.Material.ActionButton.Overflow">
-        <item name="android:src">@drawable/sesl_ic_menu_overflow</item>
-        <item name="android:contentDescription">@string/sesl_more_options</item>
     </style>
 
 
@@ -475,6 +469,7 @@
         <item name="android:textColor">@color/setting_color_picker_mode_text_selected_color</item>
     </style>
 
+
     <!--Related Card-->
     <style name="RelatedButtonStyle">
         <item name="android:layout_width">wrap_content</item>
@@ -488,11 +483,13 @@
         <item name="android:fontFamily">sec-roboto-light</item>
     </style>
 
+
     <!--Tooltip-->
     <style name="TooltipAnimStyle" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/sesl_tooltip_enter</item>
         <item name="android:windowExitAnimation">@anim/sesl_tooltip_exit</item>
     </style>
+
 
     <!--AppBarLayout-->
     <style name="AppBarLayoutStyle" parent="@android:style/Widget">
@@ -608,6 +605,7 @@
     <style name="TabLayoutStyle" parent="@style/BaseTabLayoutStyle">
         <item name="tabSelectedTextColor">@color/sesl_tablayout_subtab_text_color_selected</item>
     </style>
+
 
     <!--Dialog-->
     <style name="DialogTheme" parent="Base.ThemeOverlay.AppCompat">
@@ -738,6 +736,7 @@
         <item name="textAllCaps">false</item>
     </style>
 
+
     <!-- SeslPreference -->
     <style name="PreferenceThemeStyle">
         <item name="checkBoxPreferenceStyle">@style/CheckBoxPreferenceStyle</item>
@@ -864,6 +863,17 @@
     <style name="RecyclerViewFastScrollTextStyle" parent="@android:style/TextAppearance.Widget">
         <item name="android:textStyle">normal</item>
         <item name="android:fontFamily">@string/sesl_font_family_regular</item>
+    </style>
+
+
+    <!-- Action Mode -->
+    <style name="ActionModeStyle">
+        <item name="background">?actionModeBackground</item>
+        <item name="backgroundSplit">?actionModeSplitBackground</item>
+        <item name="closeItemLayout">@layout/sesl_action_mode_close_item</item>
+        <item name="height">?actionBarSize</item>
+        <item name="subtitleTextStyle">@style/ActionBarSubtitleTextStyle</item>
+        <item name="titleTextStyle">@style/ActionBarTitleTextStyle</item>
     </style>
 
 </resources>

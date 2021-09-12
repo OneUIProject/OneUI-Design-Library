@@ -287,9 +287,10 @@ public class DrawerLayout extends LinearLayout {
             switch (lp.layout_location) {
                 case 0:
                 case 1:
+                case 2:
                     toolbarLayout.addView(child, index, params);
                     break;
-                case 2:
+                case 3:
                     drawer_container.addView(child, index, params);
                     break;
             }

@@ -2,17 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/sesl_menu_item_badge_size"
     android:layout_height="@dimen/sesl_menu_item_badge_size"
-    android:layout_gravity="end|center|top"
-    android:layout_marginStart="23.0dip"
     android:layout_marginTop="@dimen/sesl_menu_item_badge_top_margin"
-    android:layout_marginEnd="7.0dip"
+    android:layout_marginEnd="@dimen/sesl_menu_item_badge_end_margin"
+    android:layout_gravity="end|center|top"
+    android:gravity="center"
     android:background="@drawable/sesl_noti_badge"
+    android:focusable="false"
     android:clickable="false"
     android:duplicateParentState="true"
-    android:focusable="false"
-    android:gravity="center"
     android:visibility="gone">
-
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

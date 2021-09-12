@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textview.MaterialTextView;
@@ -129,7 +130,10 @@ public class ToolbarLayout extends LinearLayout {
 
         checkbox_withtext = findViewById(R.id.checkbox_withtext);
         checkbox_all = findViewById(R.id.checkbox_all);
-
+        
+        getActivity().setSupportActionBar(toolbar);
+        getActivity().getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         setNavigationButtonIcon(mNavigationIcon);
         setTitle(mTitle);
         setSubtitle(mSubtitle);
@@ -152,6 +156,9 @@ public class ToolbarLayout extends LinearLayout {
                     mainContainer.addView(child, index, params);
                     break;
                 case 1:
+                    setCustomTitleView(child, new SamsungCollapsingToolbarLayout.LayoutParams(params));
+                    break;
+                case 2:
                     bottomContainer.addView(child, index, params);
                     break;
             }
@@ -174,11 +181,11 @@ public class ToolbarLayout extends LinearLayout {
         refreshLayout(newConfig);
     }
 
-    private Activity getActivity() {
+    private AppCompatActivity getActivity() {
         Context context = getContext();
         while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (Activity) context;
+            if (context instanceof AppCompatActivity) {
+                return (AppCompatActivity) context;
             }
             context = ((ContextWrapper) context).getBaseContext();
         }
@@ -284,6 +291,18 @@ public class ToolbarLayout extends LinearLayout {
             Log.d(TAG + ".setExpanded", "mExpandable is " + mExpandable);
     }
 
+    public void setCustomTitleView(View view) {
+        setCustomTitleView(view, new SamsungCollapsingToolbarLayout.LayoutParams(view.getLayoutParams()));
+    }
+
+    public void setCustomTitleView(View view, SamsungCollapsingToolbarLayout.LayoutParams params) {
+        if (params == null) {
+            params = new SamsungCollapsingToolbarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+        params.seslSetIsTitleCustom(true);
+        collapsingToolbarLayout.seslSetCustomTitleView(view, params);
+    }
+
     //
     // Select all checkbox methods
     //
@@ -373,19 +392,25 @@ public class ToolbarLayout extends LinearLayout {
     // Overflow Buttons methods
     //
     public void addOverflowButton(int iconResId, int tooltipTextResId, View.OnClickListener listener) {
-        addOverflowButton(false, iconResId, tooltipTextResId, listener);
-    }
-
-    public void addOverflowButton(boolean bigIcon, int iconResId, int tooltipTextResId, View.OnClickListener listener) {
         if (moreMenuPopupWindow != null)
             throw new RuntimeException("Can't add a new Overflow button! Please make sure to add it BEFORE initializing moreMenuPopupWindow.");
 
+        if (overflowContainer.getChildCount() != 0) {
+            for (int i = 0; i < overflowContainer.getChildCount(); i++) {
+                ToolbarImageButton previousBtn = getOverflowIcon(i);
+                ViewGroup.LayoutParams lp = previousBtn.getLayoutParams();
+                lp.width = getResources().getDimensionPixelSize(R.dimen.overflow_button_size);
+                previousBtn.setPaddingRelative(getResources().getDimensionPixelSize(R.dimen.sesl_action_button_padding_horizontal), 0, getResources().getDimensionPixelSize(R.dimen.sesl_action_button_padding_horizontal), 0);
+            }
+        }
+
         ToolbarImageButton overflowButton = new ToolbarImageButton(mContext);
 
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams((int) getResources().getDimension(bigIcon ? R.dimen.overflow_big_button_dimens : R.dimen.sesl_action_button_min_width), (int) getResources().getDimension(R.dimen.sesl_action_bar_default_height));
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(getResources().getDimensionPixelSize(R.dimen.sesl_overflow_button_min_width), getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height));
 
         overflowButton.setBackgroundResource(R.drawable.sesl_action_bar_item_background);
         overflowButton.setImageResource(iconResId);
+        overflowButton.setPaddingRelative(getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_overflow_padding_start), 0, getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_overflow_padding_end), 0);
         overflowButton.setOnClickListener(listener);
         overflowButton.setTooltipText(getResources().getString(tooltipTextResId));
 
@@ -423,16 +448,26 @@ public class ToolbarLayout extends LinearLayout {
 
     public void setMoreMenuButton(LinkedHashMap<String, Integer> linkedHashMap, AdapterView.OnItemClickListener ocl) {
         if (moreOverflowButton == null) {
+            if (overflowContainer.getChildCount() != 0) {
+                for (int i = 0; i < overflowContainer.getChildCount(); i++) {
+                    ToolbarImageButton previousBtn = getOverflowIcon(i);
+                    ViewGroup.LayoutParams lp = previousBtn.getLayoutParams();
+                    lp.width = getResources().getDimensionPixelSize(R.dimen.overflow_button_size);
+                    previousBtn.setPaddingRelative(getResources().getDimensionPixelSize(R.dimen.sesl_action_button_padding_horizontal), 0, getResources().getDimensionPixelSize(R.dimen.sesl_action_button_padding_horizontal), 0);
+                }
+            }
+
             moreOverflowButtonContainer = new FrameLayout(mContext);
             FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
             overflowContainer.addView(moreOverflowButtonContainer, lp);
 
             moreOverflowButton = new ToolbarImageButton(mContext);
 
-            ViewGroup.LayoutParams lp2 = new ViewGroup.LayoutParams((int) getResources().getDimension(R.dimen.overflow_big_button_dimens), (int) getResources().getDimension(R.dimen.sesl_action_bar_default_height));
+            ViewGroup.LayoutParams lp2 = new ViewGroup.LayoutParams(getResources().getDimensionPixelSize(R.dimen.sesl_overflow_button_min_width), getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height));
 
             moreOverflowButton.setBackgroundResource(R.drawable.sesl_action_bar_item_background);
             moreOverflowButton.setImageResource(R.drawable.sesl_ic_menu_overflow);
+            moreOverflowButton.setPaddingRelative(getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_overflow_padding_start), 0, getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_overflow_padding_end), 0);
             moreOverflowButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -510,9 +545,8 @@ public class ToolbarLayout extends LinearLayout {
 
     private void initMoreMenuButtonBadge(int count) {
         if (moreOverflowBadgeBackground == null) {
-            moreOverflowBadgeBackground = (ViewGroup) ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.menu_button_badge_layout, overflowContainer, false);
+            moreOverflowBadgeBackground = (ViewGroup) ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.sesl_action_menu_item_badge, moreOverflowButtonContainer, false);
             moreOverflowBadgeText = (TextView) moreOverflowBadgeBackground.getChildAt(0);
-            moreOverflowBadgeText.setTextSize(0, (float) ((int) getResources().getDimension(R.dimen.sesl_menu_item_badge_text_size)));
             moreOverflowButtonContainer.addView(moreOverflowBadgeBackground);
         }
         if (moreOverflowBadgeText != null) {
@@ -527,8 +561,7 @@ public class ToolbarLayout extends LinearLayout {
                 lp.width = width;
                 lp.height = (int) getResources().getDimension(R.dimen.sesl_menu_item_badge_size);
                 lp.setMargins(0, getResources().getDimensionPixelSize(R.dimen.sesl_menu_item_badge_top_margin), 0, 0);
-                lp.setMarginStart((int) getDIPForPX(23));
-                lp.setMarginEnd((int) getDIPForPX(7));
+                lp.setMarginEnd(getResources().getDimensionPixelSize(R.dimen.sesl_menu_item_badge_end_margin) - (int) getDIPForPX(4));
                 moreOverflowBadgeBackground.setLayoutParams(lp);
                 moreOverflowBadgeBackground.setVisibility(View.VISIBLE);
             } else if (count == N_BADGE) {
