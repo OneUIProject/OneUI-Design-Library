@@ -8,12 +8,12 @@
 
 </h2>
 <p align="center">
-<img src="readme-resources/banner.png"/>
+<img src="readme-resources/banner.png" alt="OneUI Design Library" loading="lazy">
 </p>
 
 :warning: If you are upgrading to v2.0.0, you might want to read this again because this is a huge update with a lot of changes and new stuff.
 
-<img src="https://github.com/Yanndroid/Yanndroid/blob/master/cats.gif" width="25" height="25" /> A library for Android, useful for creating Samsung's OneUI styled apps. This library contains a theme which will apply for most views (see [which](#Progress)) in your layout, and some custom OneUI views. The text which is in the custom views is translated to 90 languages, so you don't need to worry for these. Android 5.0 (api 21) and above are supported, the library also has Dark mode, Landscape, Tablet, DeX and RTL support. This library has been tested in Android Studio, but should work in other IDEs too. You can download and install the latest version of the sample app either in my own [store](https://github.com/Yanndroid/YanndroidStore) or by downloading the apk [here](https://github.com/Yanndroid/OneUI-Design-Library/raw/master/app/release/app-release.apk). Suggestions, improvements and help are always welcome.
+<img src="https://github.com/Yanndroid/Yanndroid/blob/master/cats.gif" width="25" height="25" loading="lazy"> A library for Android, useful for creating Samsung's OneUI styled apps. This library contains a theme which will apply for most views (see [which](#Progress)) in your layout, and some custom OneUI views. The text which is in the custom views is translated to 90 languages, so you don't need to worry for these. Android 5.0 (api 21) and above are supported, the library also has Dark mode, Landscape, Tablet, DeX and RTL support. This library has been tested in Android Studio, but should work in other IDEs too. You can download and install the latest version of the sample app either in my own [store](https://github.com/Yanndroid/YanndroidStore) or by downloading the apk [here](https://github.com/Yanndroid/OneUI-Design-Library/raw/master/app/release/app-release.apk). Suggestions, improvements and help are always welcome.
 
 Huge thanks to [BlackMesa123](https://github.com/BlackMesa123) who has contributed a lot to this project.
 
@@ -30,7 +30,9 @@ Excuse my bad english, feel free to correct it. :)
 
 ## Screenshots
 
-<img src="readme-resources/screenshots/screenshot_1.png" width="150"/> <img src="readme-resources/screenshots/screenshot_2.png" width="150"/> <img src="readme-resources/screenshots/screenrecording.gif" width="150"/>
+<img src="readme-resources/screenshots/screenshot_1.png" width="150" loading="lazy">&nbsp;
+<img src="readme-resources/screenshots/screenshot_2.png" width="150" loading="lazy">&nbsp;
+<img src="readme-resources/screenshots/screenrecording.gif" width="150" loading="lazy">
 
 ## Installation
 v2.0.0 and future versions are (and only will be) available on mavenCentral. For older ones see below. (v1.3.0 was published to MavenCentral during development for testing purpose and should **not** be used as it's unstable and incomplete.)
@@ -186,7 +188,7 @@ In general, most of the views are styled automatically when you apply ```android
 ### DrawerLayout
 "Ready-to-go" DrawerLayout with included Samsung's AppBar.
 
-<img align="left" src="readme-resources/screenshots/drawerlayout.gif" width="150"/>
+<img align="left" src="readme-resources/screenshots/drawerlayout.gif" width="150" loading="lazy">
 
 ```xml
 <de.dlyt.yanndroid.oneui.layout.DrawerLayout
@@ -256,7 +258,7 @@ See [Advanced](#Advanced) for even more methods.
 ### ToolbarLayout
 "Ready-to-go" Samsung's AppBar.
 
-<img align="left" src="readme-resources/screenshots/toolbarlayout.gif" width="150"/>
+<img align="left" src="readme-resources/screenshots/toolbarlayout.gif" width="150" loading="lazy">
 
 ```xml
 <de.dlyt.yanndroid.oneui.layout.ToolbarLayout
@@ -349,7 +351,7 @@ The activity you are gonna use for SplashView has a different style than the res
 This view comes in two different configurations:  
 1) An animated Splash Screen View like the one in the Galaxy Store.
 
-<img align="left" src="readme-resources/screenshots/splash_animated.gif" width="150"/>
+<img align="left" src="readme-resources/screenshots/splash_animated.gif" width="150" loading="lazy">
 
 ```xml
 <de.dlyt.yanndroid.oneui.layout.SplashView
@@ -395,7 +397,7 @@ See [Advanced](#Advanced) for even more methods.
 
 2) A simple Splash View without animation. (Samsung apps use their own ```com.samsung.android.startingwindow.LAYOUT_RESID_FOR_MASS``` flag in manifest)
 
-<img align="left" src="readme-resources/screenshots/splash_simple.png" width="150"/>
+<img align="left" src="readme-resources/screenshots/splash_simple.png" width="150" loading="lazy">
 
 ```xml
 <de.dlyt.yanndroid.oneui.layout.SplashView
@@ -428,7 +430,7 @@ See [Advanced](#Advanced) for even more methods.
 ### AboutPage
 A layout that looks like and has the same functions as the About Screen in any Samsung app. Like the [SplashView](#SplashView), the activity you're gonna use has a different style than the rest of the application, so you need to add this ```android:theme="@style/OneUIAboutTheme"``` to your About Activity in AndroidManifest.
 
-<img align="left" src="readme-resources/screenshots/aboutpage.gif" width="150"/>
+<img align="left" src="readme-resources/screenshots/aboutpage.gif" width="150" loading="lazy">
 
 ```xml
 <de.dlyt.yanndroid.oneui.layout.AboutPage
@@ -471,7 +473,7 @@ See [Advanced](#Advanced) for even more methods.
 ### SwitchBarLayout
 This is a extended [ToolbarLayout](#ToolbarLayout) with [SwitchBar](#SwitchBar). Useful for creating inner preferences layouts in pair with [SwitchPreferenceScreen](#SwitchPreferenceScreen).
 
-<img align="left" src="readme-resources/screenshots/switchbarlayout.png" width="150"/>
+<img align="left" src="readme-resources/screenshots/switchbarlayout.png" width="150" loading="lazy">
 
 ```xml
 <de.dlyt.yanndroid.oneui.layout.SwitchBarLayout
@@ -570,12 +572,12 @@ Samsung's RecyclerView, heavily used in their apps.
 Attributes and usage are the same as Google's [RecyclerView](https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView).
 
 #### Methods
-Enable Samsung's FastScroller. <img src="readme-resources/screenshots/fastscroller.png" height="30"/>
+Enable Samsung's FastScroller. <img src="readme-resources/screenshots/fastscroller.png" height="30" loading="lazy">
 ```java
 public void seslSetFastScrollerEnabled(boolean enabled)
 public void seslSetFastScrollerEventListener(RecyclerView.SeslFastScrollerEventListener listener)
 ```
-Enable Samsung's Go To Top button. <img src="readme-resources/screenshots/gototop.png" height="30"/>
+Enable Samsung's Go To Top button. <img src="readme-resources/screenshots/gototop.png" height="30" loading="lazy">
 ```java
 public void seslSetGoToTopEnabled(boolean enabled)
 public void seslSetGoToTopBottomPadding(int padding)
@@ -596,7 +598,7 @@ Samsung also customized RecyclerView.ItemDecoration class by adding a call to **
 ### Button
 The Button has three styles which you can use, depending on your needs.
 
-<img src="readme-resources/screenshots/button.png" width="300"/>
+<img src="readme-resources/screenshots/button.png" width="300" loading="lazy">
 
 ```@style/ButtonStyle.Transparent```  
 ```@style/ButtonStyle.Invert``` 
@@ -607,7 +609,7 @@ The Button has three styles which you can use, depending on your needs.
 ### SeekBar
 Samsung's SeekBar.
 
-<img src="readme-resources/screenshots/seekbar.gif" width="300"/>
+<img src="readme-resources/screenshots/seekbar.gif" width="300" loading="lazy">
 
 ```xml
 <de.dlyt.yanndroid.oneui.SeekBar
@@ -625,7 +627,7 @@ public void setOverlapPointForDualColor(int i)
 Other methods are the same as the default [Seekbar](https://developer.android.com/reference/android/widget/SeekBar).
 
 ### ProgressBar
-<img src="readme-resources/screenshots/progressbar.gif" width="300"/>
+<img src="readme-resources/screenshots/progressbar.gif" width="300" loading="lazy">
 
 ```@style/ProgressBarStyle.Horizontal```  
 ```@style/ProgressBarStyle.Horizontal.Large```  
@@ -637,7 +639,7 @@ Other methods are the same as the default [Seekbar](https://developer.android.co
 ### SwitchBar
 Samsung's SwitchBar, same as the one you find in OneUI System Settings app.
 
-<img src="readme-resources/screenshots/switchbar.gif" width="300"/>
+<img src="readme-resources/screenshots/switchbar.gif" width="300" loading="lazy">
 
 ```xml
 <de.dlyt.yanndroid.oneui.SwitchBar
@@ -669,7 +671,7 @@ public void addOnSwitchChangeListener(OnSwitchChangeListener onSwitchChangeListe
 
 Spinner with rounded corners and custom selector.
 
-<img src="readme-resources/screenshots/spinner.png" width="260"/>
+<img src="readme-resources/screenshots/spinner.png" width="260" loading="lazy">
 
 ```xml
 <androidx.appcompat.widget.SeslSpinner
@@ -682,7 +684,7 @@ Same usage as [Spinner](https://developer.android.com/reference/android/widget/S
 ### OptionButton
 Create lists inside DrawerLayout without using RecyclerView with OptionButton.
 
-<img src="readme-resources/screenshots/optionbutton.png" width="260"/>
+<img src="readme-resources/screenshots/optionbutton.png" width="260" loading="lazy">
 
 ```xml
 <de.dlyt.yanndroid.oneui.drawer.OptionButton
@@ -726,7 +728,7 @@ public void setButtonEnabled(Boolean enabled)
 ### OptionGroup
 [OptionButton](#OptionButton) and OptionGroup are working together like [RadioButton](https://developer.android.com/reference/android/widget/RadioButton) and [RadioGroup](https://developer.android.com/reference/android/widget/RadioGroup). It will select an OptionButton on click.
 
-<img src="readme-resources/screenshots/optiongroup.gif" width="260"/>
+<img src="readme-resources/screenshots/optiongroup.gif" width="260" loading="lazy">
 
 ```xml
 <de.dlyt.yanndroid.oneui.drawer.OptionGroup
@@ -747,7 +749,7 @@ public void setButtonEnabled(Boolean enabled)
 
 ```app:selectedOptionButton="..."``` will set the default selected OptionButton with this id. This view can also have other children, for example a divider:
 
-<img src="readme-resources/screenshots/drawerdivider.png" width="260"/>
+<img src="readme-resources/screenshots/drawerdivider.png" width="260" loading="lazy">
 
 ```xml
 <View style="@style/DrawerDividerStyle" />
@@ -773,7 +775,7 @@ public void setOnOptionButtonClickListener(OnOptionButtonClickListener listener)
 ### RelatedCard
 Samsung's "Looking for something else?" Card you find in System Settings app.
 
-<img src="readme-resources/screenshots/relatedcard.png" width="300"/>  
+<img src="readme-resources/screenshots/relatedcard.png" width="300" loading="lazy">  
 
 (Depending on your screen right now you might not see it, but there's actually a light blue card around it.)
 
@@ -802,7 +804,7 @@ public void setTitle(String title)
 ### BottomNavigationView
 Samsung's BottomNavigationView.
 
-<img src="readme-resources/screenshots/bottomnavigationview.png" width="300"/>
+<img src="readme-resources/screenshots/bottomnavigationview.png" width="300" loading="lazy">
 
 ```xml
 <de.dlyt.yanndroid.oneui.view.BottomNavigationView
@@ -823,7 +825,7 @@ public void addTabCustomButton(Drawable icon, CustomButtonClickListener listener
 ### TabLayout
 Samsung's TabLayout.
 
-<img src="readme-resources/screenshots/tablayout.png" width="300"/>
+<img src="readme-resources/screenshots/tablayout.png" width="300" loading="lazy">
 
 ```xml
 <de.dlyt.yanndroid.oneui.view.TabLayout
@@ -851,14 +853,17 @@ The Adapter for this ViewPager has to extend [androidx.fragment.app.FragmentPage
 ### AlertDialog
 Samsung's AlertDialogs.
 
-<img src="readme-resources/screenshots/alertdialog_2.png" width="300"/> <img src="readme-resources/screenshots/alertdialog_3.png" width="300"/> <img src="readme-resources/screenshots/alertdialog_1.png" width="300"/>
+<img src="readme-resources/screenshots/alertdialog_2.png" width="300" loading="lazy">&nbsp;
+<img src="readme-resources/screenshots/alertdialog_3.png" width="300" loading="lazy">&nbsp;
+<img src="readme-resources/screenshots/alertdialog_1.png" width="300" loading="lazy">
 
 Usage is the same as the default [AlertDialog](https://developer.android.com/reference/android/app/AlertDialog), but you have to use ```de.dlyt.yanndroid.oneui.dialog.AlertDialog``` instead.
 
 ### ProgressDialog
 Samsung's Alert Dialog with Progress.
 
-<img src="readme-resources/screenshots/progressdialog_1.png" width="300"/> <img src="readme-resources/screenshots/progressdialog_2.png" width="153"/>
+<img src="readme-resources/screenshots/progressdialog_1.png" width="300" loading="lazy">&nbsp;
+<img src="readme-resources/screenshots/progressdialog_2.png" width="153" loading="lazy">
 
 Usage is the same as [AlertDialog](#AlertDialog) but with additional methods.
 
@@ -897,7 +902,7 @@ public void setProgressPercentFormat(NumberFormat format)
 ### ClassicColorPickerDialog
 Samsung's Sesl Color Picker Dialog.
 
-<img src="readme-resources/screenshots/colorpicker_c.png" width="200"/>
+<img src="readme-resources/screenshots/colorpicker_c.png" width="200" loading="lazy">
 
 Create the dialog with ColorPickerChangedListener, starting color, and recent colors.
 ```java
@@ -942,7 +947,8 @@ mColorPickerDialog.show();
 ### DetailedColorPickerDialog
 Samsung Notes app Color Picker Dialog, in case you need a more complete one.
 
-<img src="readme-resources/screenshots/colorpicker_1.png" width="200"/> <img src="readme-resources/screenshots/colorpicker_2.png" width="200"/>
+<img src="readme-resources/screenshots/colorpicker_1.png" width="200" loading="lazy">&nbsp;
+<img src="readme-resources/screenshots/colorpicker_2.png" width="200" loading="lazy">
 
 Create the dialog with mode (1 = Spectrum, 2 = Swatches) and fArr (starting color).
 ```java
@@ -1008,7 +1014,7 @@ relatedCard.addButton("This", this)
 
 #### SwitchPreferenceScreen
 
-<img src="readme-resources/screenshots/switchpreferencescreen.png" width="300"/>
+<img src="readme-resources/screenshots/switchpreferencescreen.png" width="300" loading="lazy">
 
 Clickable SwitchPreference used to contain inner preferences, can be used in combination with [SwitchBarLayout](#SwitchBarLayout).
 
@@ -1023,7 +1029,7 @@ Both ```OnPreferenceClickListener``` and ```intent``` tag can be used to manage 
 
 #### TipsCard
 
-<img src="readme-resources/screenshots/tipcard.png" width="300"/>
+<img src="readme-resources/screenshots/tipcard.png" width="300" loading="lazy">
 
 ```xml
 <TipsCardViewPreference
@@ -1034,7 +1040,9 @@ Both ```OnPreferenceClickListener``` and ```intent``` tag can be used to manage 
 
 #### ColorPickerPreference
 
-<img src="readme-resources/screenshots/colorpickerpreference.png" width="150"/> <img src="readme-resources/screenshots/colorpicker_1.png" width="150"/> <img src="readme-resources/screenshots/colorpicker_2.png" width="150"/>
+<img src="readme-resources/screenshots/colorpickerpreference.png" width="150" loading="lazy">&nbsp;
+<img src="readme-resources/screenshots/colorpicker_1.png" width="150" loading="lazy">&nbsp;
+<img src="readme-resources/screenshots/colorpicker_2.png" width="150" loading="lazy">
 
 ```xml
 <ColorPickerPreference
@@ -1052,7 +1060,7 @@ Both ```OnPreferenceClickListener``` and ```intent``` tag can be used to manage 
 #### HorizontalRadioPreference
 Samsung's Radio Preferences used in Light/Dark mode Settings and Resolution Settings.
 
-<img src="readme-resources/screenshots/horizontalradiopreference.png" width="300"/>
+<img src="readme-resources/screenshots/horizontalradiopreference.png" width="300" loading="lazy">
 
 ```xml
 <HorizontalRadioPreference
@@ -1073,7 +1081,7 @@ Samsung's Radio Preferences used in Light/Dark mode Settings and Resolution Sett
 
 
 ### PopupMenu
-<img src="readme-resources/screenshots/popupmenu.png" width="150"/>
+<img src="readme-resources/screenshots/popupmenu.png" width="150" loading="lazy">
 
 Create a PopupMenu.
 ```java
@@ -1098,7 +1106,7 @@ public void dismiss()
 ### Tooltip
 Samsung's Tooltip.
 
-<img src="readme-resources/screenshots/tooltip.png" width="100"/>
+<img src="readme-resources/screenshots/tooltip.png" width="100" loading="lazy">
 
 Usage is the same as [TooltipCompat](https://developer.android.com/reference/androidx/appcompat/widget/TooltipCompat) but with additional methods. Please note this won't show up on default views and has to be added manually instead of using ```view.setTooltipText(text)```:
 ```java
@@ -1119,7 +1127,7 @@ public void showPenPointEffect(MotionEvent event, boolean more)
 ### Snackbar
 Samsung's Snackbar.
 
-<img src="readme-resources/screenshots/snackbar.png" width="300"/>
+<img src="readme-resources/screenshots/snackbar.png" width="300" loading="lazy">
 
 Same usage as the default [Snackbar](https://developer.android.com/reference/com/google/android/material/snackbar/Snackbar):
 ```java
@@ -1139,7 +1147,7 @@ This is for advanced usage only. I've added the method ```getView(int view)``` t
 ### Icons
 There are also some of the stock icons you can find in Samsung apps included in this library, and we will add more over time. You can use them with ```@drawable/ic_samsung_...``` and ```R.drawable.ic_samsung_...```.
 
-<img src="readme-resources/screenshots/icons.png" width="350"/>
+<img src="readme-resources/screenshots/icons.png" width="350" loading="lazy">
 
 *not all icons are shown here because there are too much now (186). They are all listed with the name in the icon tab of the sample app.
 
@@ -1216,12 +1224,18 @@ ThemeColor.setDarkMode(AppCompatActivity activity, int mode)
 ### App Icon
 The most app icons of Samsung apps are made of one solid color as background and a white icon as foreground. Sometimes there is even a little detail of the foreground with a similar color as the background.
 
-<img src="readme-resources/app-icons/settings.png" width="50" height="50" />   <img src="readme-resources/app-icons/notes.png" width="50" height="50" />   <img src="readme-resources/app-icons/messages.png" width="50" height="50" />   <img src="readme-resources/app-icons/camera.png" width="50" height="50" />   <img src="readme-resources/app-icons/calculator.png" width="50" height="50" />   <img src="readme-resources/app-icons/contacts.png" width="50" height="50" />   <img src="readme-resources/app-icons/myfiles.png" width="50" height="50" />
+<img src="readme-resources/app-icons/settings.png" width="50" height="50" loading="lazy">&nbsp;
+<img src="readme-resources/app-icons/notes.png" width="50" height="50" loading="lazy">
+<img src="readme-resources/app-icons/messages.png" width="50" height="50" loading="lazy">&nbsp;
+<img src="readme-resources/app-icons/camera.png" width="50" height="50" loading="lazy">
+<img src="readme-resources/app-icons/calculator.png" width="50" height="50" loading="lazy">&nbsp;
+<img src="readme-resources/app-icons/contacts.png" width="50" height="50" loading="lazy">&nbsp;
+<img src="readme-resources/app-icons/myfiles.png" width="50" height="50" loading="lazy">&nbsp;
 
  I would suggest you to use ```@color/primary_color``` for the background color and either ```@color/launcher_foreground_detail_color``` , ```@color/secondary_color``` or ```@color/primary_dark_color``` for the foreground "detail" color, so [your color theme](#Color-theme) applies for the app icon too.  
 My sample app icon for example:
 
-<img src="readme-resources/app-icons/sample.png" width="50" height="50" />
+<img src="readme-resources/app-icons/sample.png" width="50" height="50" loading="lazy">
 
 ## Progress
 
