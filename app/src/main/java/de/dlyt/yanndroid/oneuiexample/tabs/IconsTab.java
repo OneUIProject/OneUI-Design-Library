@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.util.SeslRoundedCorner;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.SeslViewPager;
 
 import java.util.HashMap;
 
@@ -27,6 +26,7 @@ import de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslLinearLayoutManager;
 import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 import de.dlyt.yanndroid.oneui.view.TabLayout;
+import de.dlyt.yanndroid.oneui.view.ViewPager;
 import de.dlyt.yanndroid.oneuiexample.R;
 
 public class IconsTab extends Fragment {
@@ -295,7 +295,7 @@ public class IconsTab extends Fragment {
         DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawer_view);
         TabLayout tabLayout = getActivity().findViewById(R.id.tabLayout);
         BottomNavigationView bnv = getActivity().findViewById(R.id.main_samsung_tabs);
-        SeslViewPager seslViewPager = getActivity().findViewById(R.id.viewPager);
+        ViewPager viewPager = getActivity().findViewById(R.id.viewPager);
 
         if (enabled) {
             mSelecting = true;
@@ -314,7 +314,7 @@ public class IconsTab extends Fragment {
             });
             tabLayout.setEnabled(false);
             bnv.setEnabled(false);
-            seslViewPager.setPagingEnabled(false);
+            viewPager.setPagingEnabled(false);
             onBackPressedCallback.setEnabled(true);
         } else {
             mSelecting = false;
@@ -325,7 +325,7 @@ public class IconsTab extends Fragment {
             drawerLayout.showSelectAllMode(false);
             tabLayout.setEnabled(true);
             bnv.setEnabled(true);
-            seslViewPager.setPagingEnabled(true);
+            viewPager.setPagingEnabled(true);
             onBackPressedCallback.setEnabled(false);
         }
     }

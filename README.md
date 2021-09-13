@@ -839,14 +839,14 @@ If you want to set it up with a ViewPager you'll have to use the [ViewPager](#Vi
 ViewPager working with [BottomNavigationView](#BottomNavigationView) and [TabLayout](#TabLayout).
 
 ```xml
-<androidx.viewpager.widget.SeslViewPager
+<de.dlyt.yanndroid.oneui.view.ViewPager
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</androidx.viewpager.widget.SeslViewPager>
+</de.dlyt.yanndroid.oneui.view.ViewPager>
 ```
 
-The Adapter for this ViewPager has to extend [androidx.fragment.app.FragmentPagerAdapter](https://developer.android.com/reference/androidx/fragment/app/FragmentPagerAdapter).
+The Adapter for this ViewPager has to extend [androidx.fragment.app.PagerAdapter](https://developer.android.com/reference/androidx/fragment/app/PagerAdapter) or a subclass.
 
 ### AlertDialog
 Samsung's AlertDialogs.

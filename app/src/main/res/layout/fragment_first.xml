@@ -16,7 +16,7 @@
         android:orientation="vertical"
         app:roundedCorners="top_left|top_right">
 
-        <androidx.viewpager.widget.SeslViewPager
+        <de.dlyt.yanndroid.oneui.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
