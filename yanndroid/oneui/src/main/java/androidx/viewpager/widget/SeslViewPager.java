@@ -127,7 +127,6 @@ public class SeslViewPager extends ViewGroup {
     public float mTouchSlopRatio = 0.5F;
     public boolean mUsePagingTouchSlopForStylus = false;
     public VelocityTracker mVelocityTracker;
-    private boolean pagingEnabled = true;
 
     public SeslViewPager(Context var1) {
         super(var1);
@@ -1445,14 +1444,6 @@ public class SeslViewPager extends ViewGroup {
 
     }
 
-    public void setPagingEnabled(boolean pagingEnabled){
-        this.pagingEnabled = pagingEnabled;
-    }
-
-    public boolean isPagingEnabled(){
-        return this.pagingEnabled;
-    }
-
     public boolean onGenericMotionEvent(MotionEvent var1) {
         if (this.mIsMouseWheelEventSupport && (var1.getSource() & 2) != 0 && var1.getAction() == 8) {
             float var2 = var1.getAxisValue(9);
@@ -1471,7 +1462,6 @@ public class SeslViewPager extends ViewGroup {
     }
 
     public boolean onInterceptTouchEvent(MotionEvent var1) {
-        if (!pagingEnabled) return false;
         int var2 = var1.getAction() & 255;
         if (var2 != 3 && var2 != 1) {
             if (var2 != 0) {
@@ -1985,7 +1975,6 @@ public class SeslViewPager extends ViewGroup {
     }
 
     public boolean onTouchEvent(MotionEvent var1) {
-        if (!pagingEnabled) return false;
         if (this.mFakeDragging) {
             return true;
         } else {

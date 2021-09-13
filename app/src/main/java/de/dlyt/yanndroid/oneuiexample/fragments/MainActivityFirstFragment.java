@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.SeslViewPager;
 
 import de.dlyt.yanndroid.oneui.view.TabLayout;
+import de.dlyt.yanndroid.oneui.view.ViewPager;
 import de.dlyt.yanndroid.oneuiexample.R;
 import de.dlyt.yanndroid.oneuiexample.tabs.ViewPagerAdapter;
 
@@ -41,7 +41,7 @@ public class MainActivityFirstFragment extends Fragment {
 
         // TabLayout and ViewPager
         TabLayout tabLayout = mRootView.findViewById(R.id.tabLayout);
-        SeslViewPager viewPager = mRootView.findViewById(R.id.viewPager);
+        ViewPager viewPager = mRootView.findViewById(R.id.viewPager);
         viewPager.setAdapter(new ViewPagerAdapter(getChildFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.updateWidget();
