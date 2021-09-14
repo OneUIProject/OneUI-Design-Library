@@ -244,10 +244,10 @@ public class DrawerLayout extends LinearLayout {
     }
 
     //
-    // Select all checkbox methods
+    // Action Mode methods
     //
-    public void showSelectAllMode(boolean visible) {
-        toolbarLayout.showSelectAllMode(visible);
+    public void showActionMode(boolean visible) {
+        toolbarLayout.showActionMode(visible);
         if (visible) {
             drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         } else {
@@ -255,16 +255,16 @@ public class DrawerLayout extends LinearLayout {
         }
     }
 
-    public void setSelectAllCount(int count) {
-        toolbarLayout.setSelectAllCount(count);
+    public void setActionModeSelectCount(int count) {
+        toolbarLayout.setActionModeSelectCount(count);
     }
 
-    public void setSelectAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener){
-        toolbarLayout.setSelectAllCheckedChangeListener(listener);
+    public void setActionModeSelectAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener){
+        toolbarLayout.setActionModeSelectAllCheckedChangeListener(listener);
     }
 
-    public void setSelectAllChecked(boolean checked){
-        toolbarLayout.setSelectAllChecked(checked);
+    public void setActionModeSelectAllChecked(boolean checked){
+        toolbarLayout.setActionModeSelectAllChecked(checked);
     }
 
     private Activity getActivity() {

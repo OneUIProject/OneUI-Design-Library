@@ -300,8 +300,8 @@ public class IconsTab extends Fragment {
         if (enabled) {
             mSelecting = true;
             imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount()-1);
-            drawerLayout.showSelectAllMode(true);
-            drawerLayout.setSelectAllCheckedChangeListener((buttonView, isChecked) -> {
+            drawerLayout.showActionMode(true);
+            drawerLayout.setActionModeSelectAllCheckedChangeListener((buttonView, isChecked) -> {
                 if (checkAllListening) {
                     for (int i = 0; i < imageAdapter.getItemCount()-1; i++) {
                         selected.put(i, isChecked);
@@ -310,7 +310,7 @@ public class IconsTab extends Fragment {
                 }
                 int count = 0;
                 for (Boolean b : selected.values()) if (b) count++;
-                drawerLayout.setSelectAllCount(count);
+                drawerLayout.setActionModeSelectCount(count);
             });
             tabLayout.setEnabled(false);
             bnv.setEnabled(false);
@@ -321,8 +321,8 @@ public class IconsTab extends Fragment {
             for (int i = 0; i < imageAdapter.getItemCount()-1; i++) selected.put(i, false);
             imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount()-1);
 
-            drawerLayout.setSelectAllCount(0);
-            drawerLayout.showSelectAllMode(false);
+            drawerLayout.setActionModeSelectCount(0);
+            drawerLayout.showActionMode(false);
             tabLayout.setEnabled(true);
             bnv.setEnabled(true);
             viewPager.setPagingEnabled(true);
@@ -338,8 +338,8 @@ public class IconsTab extends Fragment {
         int count = 0;
         for (Boolean b : selected.values()) if (b) count++;
         DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawer_view);
-        drawerLayout.setSelectAllChecked(count == imageAdapter.getItemCount()-1);
-        drawerLayout.setSelectAllCount(count);
+        drawerLayout.setActionModeSelectAllChecked(count == imageAdapter.getItemCount()-1);
+        drawerLayout.setActionModeSelectCount(count);
         checkAllListening = true;
     }
 

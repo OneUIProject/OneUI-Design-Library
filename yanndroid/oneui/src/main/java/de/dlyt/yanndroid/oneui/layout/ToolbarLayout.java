@@ -100,7 +100,7 @@ public class ToolbarLayout extends LinearLayout {
     private OnMenuItemClickListener onMenuItemClickListener = item -> {
     };
 
-    private boolean mSelectAll = false;
+    private boolean mActionMode = false;
     private RelativeLayout checkbox_withtext;
     private CheckBox checkbox_all;
 
@@ -316,14 +316,14 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     //
-    // Select all checkbox methods
+    // Action Mode methods
     //
-    public void showSelectAllMode(boolean visible) {
-        mSelectAll = visible;
+    public void showActionMode(boolean visible) {
+        mActionMode = visible;
         setNavigationButtonVisible(!visible);
         if (visible) {
             checkbox_withtext.setVisibility(View.VISIBLE);
-            setSelectAllCount(0);
+            setActionModeSelectCount(0);
             overflowButton.setVisibility(GONE);
             actionButtonContainer.setVisibility(GONE);
         } else {
@@ -334,17 +334,17 @@ public class ToolbarLayout extends LinearLayout {
         }
     }
 
-    public void setSelectAllCount(int count) {
+    public void setActionModeSelectCount(int count) {
         String title = getResources().getString(R.string.selected_check_info, count);
         if (mExpandable) collapsingToolbarLayout.setTitle(title);
         collapsedTitleView.setText(title);
     }
 
-    public void setSelectAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener) {
+    public void setActionModeSelectAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener) {
         checkbox_all.setOnCheckedChangeListener(listener);
     }
 
-    public void setSelectAllChecked(boolean checked) {
+    public void setActionModeSelectAllChecked(boolean checked) {
         checkbox_all.setChecked(checked);
     }
 
@@ -360,7 +360,7 @@ public class ToolbarLayout extends LinearLayout {
     public void setNavigationButtonVisible(boolean visible) {
         navigationButtonContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
         toolbar.setPaddingRelative(0, 0, 0, 0);
-        toolbar.setPaddingRelative(visible || mSelectAll ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), 0, 0, 0);
+        toolbar.setPaddingRelative(visible || mActionMode ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), 0, 0, 0);
     }
 
     public void setNavigationButtonBadge(int count) {
