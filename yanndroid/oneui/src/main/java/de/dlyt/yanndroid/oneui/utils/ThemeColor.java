@@ -105,7 +105,7 @@ public class ThemeColor {
 
     public static void setColor(AppCompatActivity activity, float[] hsv) {
         int c = Color.HSVToColor(hsv);
-        setColor(activity, Color.red(c) * 255, Color.green(c) * 255, Color.blue(c) * 255);
+        setColor(activity, Color.red(c), Color.green(c), Color.blue(c));
     }
 
 }

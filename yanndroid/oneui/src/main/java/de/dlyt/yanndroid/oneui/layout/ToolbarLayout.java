@@ -649,10 +649,6 @@ public class ToolbarLayout extends LinearLayout {
         Activity activity;
         ArrayList<MenuItem> overflowItems;
 
-        public ArrayList<MenuItem> getOverflowItems() {
-            return overflowItems;
-        }
-
         public OverflowMenuAdapter(Activity instance, ArrayList<MenuItem> overflowItems) {
             super(instance, 0);
             this.activity = instance;

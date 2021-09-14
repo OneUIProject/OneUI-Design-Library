@@ -14,15 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.util.SeslMisc;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
 import de.dlyt.yanndroid.oneui.dialog.ClassicColorPickerDialog;
@@ -57,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ToolbarLayout toolbarLayout;
     private BottomNavigationView bnvLayout;
+    private PopupMenu bnvPopupMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -343,22 +342,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void popupView(View view) {
-        PopupMenu popupMenu = new PopupMenu(view);
-        ArrayList<String> list = new ArrayList<>();
-        for (int i = 0; i < 4; i++) list.add("Menu Item " + i);
-        popupMenu.inflate(list);
-        popupMenu.setOnMenuItemClickListener((parent, view1, position, id) -> {
-            popupMenu.dismiss();
-        });
-        popupMenu.show();
-    }
-
-
-    private LinkedHashMap<String, Integer> getMoreMenuButtonList() {
-        LinkedHashMap linkedHashMap = new LinkedHashMap();
-        linkedHashMap.put("Menu Item 1", 0);
-        linkedHashMap.put("Menu Item 2", 87);
-        linkedHashMap.put("Menu Item 3", ToolbarLayout.N_BADGE);
-        return linkedHashMap;
+        if (bnvPopupMenu == null) {
+            bnvPopupMenu = new PopupMenu(view);
+            bnvPopupMenu.inflate(R.menu.bnv_menu);
+            bnvPopupMenu.setOnMenuItemClickListener(item -> bnvPopupMenu.setMenuItemBadge(item, bnvPopupMenu.getOverflowMenuBadge(item) + 1));
+        }
+        bnvPopupMenu.show();
     }
 }
