@@ -299,11 +299,11 @@ public class IconsTab extends Fragment {
 
         if (enabled) {
             mSelecting = true;
-            imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount());
+            imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount()-1);
             drawerLayout.showSelectAllMode(true);
             drawerLayout.setSelectAllCheckedChangeListener((buttonView, isChecked) -> {
                 if (checkAllListening) {
-                    for (int i = 0; i < imageAdapter.getItemCount(); i++) {
+                    for (int i = 0; i < imageAdapter.getItemCount()-1; i++) {
                         selected.put(i, isChecked);
                         imageAdapter.notifyItemChanged(i);
                     }
@@ -318,8 +318,8 @@ public class IconsTab extends Fragment {
             onBackPressedCallback.setEnabled(true);
         } else {
             mSelecting = false;
-            for (int i = 0; i < imageAdapter.getItemCount(); i++) selected.put(i, false);
-            imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount());
+            for (int i = 0; i < imageAdapter.getItemCount()-1; i++) selected.put(i, false);
+            imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount()-1);
 
             drawerLayout.setSelectAllCount(0);
             drawerLayout.showSelectAllMode(false);
@@ -338,7 +338,7 @@ public class IconsTab extends Fragment {
         int count = 0;
         for (Boolean b : selected.values()) if (b) count++;
         DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawer_view);
-        drawerLayout.setSelectAllChecked(count == imageAdapter.getItemCount());
+        drawerLayout.setSelectAllChecked(count == imageAdapter.getItemCount()-1);
         drawerLayout.setSelectAllCount(count);
         checkAllListening = true;
     }
@@ -400,7 +400,7 @@ public class IconsTab extends Fragment {
                     listView.seslSetLongPressMultiSelectionListener(new RecyclerView.SeslLongPressMultiSelectionListener() {
                         @Override
                         public void onItemSelected(RecyclerView var1, View var2, int var3, long var4) {
-                            toggleItemSelected(var3);
+                            if (getItemViewType(var3) == 0) toggleItemSelected(var3);
                         }
 
                         @Override

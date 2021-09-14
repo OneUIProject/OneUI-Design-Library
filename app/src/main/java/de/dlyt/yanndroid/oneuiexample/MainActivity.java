@@ -10,13 +10,13 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.util.SeslMisc;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -141,18 +141,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        toolbarLayout.addOverflowButton(R.drawable.ic_samsung_info,
-                R.string.app_info,
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+        toolbarLayout.inflateMenu(R.menu.main);
+        toolbarLayout.setOnMenuItemClickListener(new ToolbarLayout.OnMenuItemClickListener() {
+            @Override
+            public void onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.search:
+                        break;
+                    case R.id.info:
                         startActivity(new Intent().setClass(mContext, AboutActivity.class));
-                    }
-                });
-        toolbarLayout.setMoreMenuButton(getMoreMenuButtonList(),
-                (adapterView, view2, i, j) -> {
-                    toolbarLayout.dismissMoreMenuPopupWindow();
-                });
+                        break;
+                    case R.id.item1:
+                    case R.id.item2:
+                    case R.id.item3:
+                        toolbarLayout.setOverflowMenuBadge(item, toolbarLayout.getOverflowMenuBadge(item) + 1);
+                        break;
+                }
+            }
+        });
 
         //BottomNavigationLayout
         Drawable icon = getDrawable(R.drawable.ic_samsung_drawer);

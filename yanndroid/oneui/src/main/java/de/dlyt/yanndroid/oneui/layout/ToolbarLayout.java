@@ -13,6 +13,9 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +31,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.MenuRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.SupportMenuInflater;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuItemImpl;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textview.MaterialTextView;
@@ -38,7 +45,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Locale;
 
 import de.dlyt.yanndroid.oneui.R;
@@ -66,10 +73,6 @@ public class ToolbarLayout extends LinearLayout {
     public TextView moreOverflowBadgeText;
     private Context mContext;
     private NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-    private PopupWindow moreMenuPopupWindow = null;
-    private MoreMenuPopupAdapter moreMenuPopupAdapter;
-    private View moreMenuPopupAnchor = null;
-    private int moreMenuPopupOffX;
     private Drawable mNavigationIcon;
     private int mLayout;
     private CharSequence mTitle;
@@ -82,11 +85,20 @@ public class ToolbarLayout extends LinearLayout {
     private FrameLayout navigationButtonContainer;
     private ToolbarImageButton navigationButton;
     private MaterialTextView collapsedTitleView;
-    private LinearLayout overflowContainer;
-    private FrameLayout moreOverflowButtonContainer;
-    private ToolbarImageButton moreOverflowButton;
     private RoundLinearLayout mainContainer;
     private LinearLayout bottomContainer;
+
+    private LinearLayout actionButtonContainer;
+    private FrameLayout overflowButtonContainer;
+    private ToolbarImageButton overflowButton;
+    private PopupWindow overflowMenuPopupWindow = null;
+    private OverflowMenuAdapter overflowMenuPopupAdapter;
+    private View overflowMenuPopupAnchor = null;
+    private int overflowMenuPopupOffX;
+    private Menu menu;
+    private HashMap<MenuItem, Integer> overflowBadges = new HashMap<>();
+    private OnMenuItemClickListener onMenuItemClickListener = item -> {
+    };
 
     private boolean mSelectAll = false;
     private RelativeLayout checkbox_withtext;
@@ -122,15 +134,15 @@ public class ToolbarLayout extends LinearLayout {
         navigationButtonContainer = findViewById(R.id.toolbar_layout_navigationButton_container);
         navigationButton = findViewById(R.id.toolbar_layout_navigationButton);
         collapsedTitleView = findViewById(R.id.toolbar_layout_collapsed_title);
-        overflowContainer = findViewById(R.id.toolbar_layout_overflow_container);
-        moreMenuPopupAnchor = findViewById(R.id.toolbar_layout_popup_window_anchor);
+        actionButtonContainer = findViewById(R.id.toolbar_layout_overflow_container);
+        overflowMenuPopupAnchor = findViewById(R.id.toolbar_layout_popup_window_anchor);
 
         mainContainer = findViewById(R.id.toolbar_layout_main_container);
         bottomContainer = findViewById(R.id.toolbar_layout_bottom_container);
 
         checkbox_withtext = findViewById(R.id.checkbox_withtext);
         checkbox_all = findViewById(R.id.checkbox_all);
-        
+
         getActivity().setSupportActionBar(toolbar);
         getActivity().getSupportActionBar().setDisplayShowTitleEnabled(false);
         getActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -312,13 +324,13 @@ public class ToolbarLayout extends LinearLayout {
         if (visible) {
             checkbox_withtext.setVisibility(View.VISIBLE);
             setSelectAllCount(0);
-            moreOverflowButton.setVisibility(GONE);
-            overflowContainer.setVisibility(GONE);
+            overflowButton.setVisibility(GONE);
+            actionButtonContainer.setVisibility(GONE);
         } else {
             checkbox_withtext.setVisibility(View.GONE);
             setTitle(mTitle);
-            moreOverflowButton.setVisibility(VISIBLE);
-            overflowContainer.setVisibility(VISIBLE);
+            overflowButton.setVisibility(VISIBLE);
+            actionButtonContainer.setVisibility(VISIBLE);
         }
     }
 
@@ -328,11 +340,11 @@ public class ToolbarLayout extends LinearLayout {
         collapsedTitleView.setText(title);
     }
 
-    public void setSelectAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener){
+    public void setSelectAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener) {
         checkbox_all.setOnCheckedChangeListener(listener);
     }
 
-    public void setSelectAllChecked(boolean checked){
+    public void setSelectAllChecked(boolean checked) {
         checkbox_all.setChecked(checked);
     }
 
@@ -389,14 +401,47 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     //
-    // Overflow Buttons methods
+    // Menu methods
     //
-    public void addOverflowButton(int iconResId, int tooltipTextResId, View.OnClickListener listener) {
-        if (moreMenuPopupWindow != null)
-            throw new RuntimeException("Can't add a new Overflow button! Please make sure to add it BEFORE initializing moreMenuPopupWindow.");
+    public interface OnMenuItemClickListener {
+        void onMenuItemClick(MenuItem item);
+    }
 
-        if (overflowContainer.getChildCount() != 0) {
-            for (int i = 0; i < overflowContainer.getChildCount(); i++) {
+    public void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
+        onMenuItemClickListener = listener;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    @SuppressLint("RestrictedApi")
+    public void inflateMenu(@MenuRes int resId) {
+        actionButtonContainer.removeAllViews();
+        overflowButton = null;
+
+        menu = new MenuBuilder(getContext());
+        MenuInflater menuInflater = new SupportMenuInflater(getContext());
+        menuInflater.inflate(resId, menu);
+
+        ArrayList<MenuItem> overflowItems = new ArrayList<>();
+
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            if (((MenuItemImpl) item).requiresActionButton()) {
+                addActionButton(item);
+            } else {
+                overflowBadges.put(item, 0);
+                overflowItems.add(item);
+            }
+        }
+
+        if (!overflowItems.isEmpty()) setOverflowMenu(overflowItems);
+    }
+
+    private void addActionButton(MenuItem item) {
+        if (actionButtonContainer.getChildCount() != 0) {
+            for (int i = 0; i < actionButtonContainer.getChildCount(); i++) {
                 ToolbarImageButton previousBtn = getOverflowIcon(i);
                 ViewGroup.LayoutParams lp = previousBtn.getLayoutParams();
                 lp.width = getResources().getDimensionPixelSize(R.dimen.overflow_button_size);
@@ -409,47 +454,18 @@ public class ToolbarLayout extends LinearLayout {
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(getResources().getDimensionPixelSize(R.dimen.sesl_overflow_button_min_width), getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height));
 
         overflowButton.setBackgroundResource(R.drawable.sesl_action_bar_item_background);
-        overflowButton.setImageResource(iconResId);
+        overflowButton.setImageDrawable(item.getIcon());
         overflowButton.setPaddingRelative(getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_overflow_padding_start), 0, getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_overflow_padding_end), 0);
-        overflowButton.setOnClickListener(listener);
-        overflowButton.setTooltipText(getResources().getString(tooltipTextResId));
+        overflowButton.setTooltipText(item.getTitle());
+        overflowButton.setOnClickListener(v -> onMenuItemClickListener.onMenuItemClick(item));
 
-        overflowContainer.addView(overflowButton, lp);
+        actionButtonContainer.addView(overflowButton, lp);
     }
 
-    public ToolbarImageButton getOverflowIcon(int index) {
-        if (overflowContainer != null && overflowContainer.getChildCount() != 0) {
-            return (ToolbarImageButton) overflowContainer.getChildAt(index);
-        } else {
-            Log.w(TAG + ".getOverflowIcon", "overflowContainer is null or contains no icons.");
-            return null;
-        }
-    }
-
-    //
-    // More Menu Popup methods
-    //
-    @SuppressLint("LongLogTag")
-    public void showMoreMenuPopupWindow() {
-        if (moreMenuPopupWindow != null && !moreMenuPopupWindow.isShowing()) {
-            moreMenuPopupWindow.showAsDropDown(moreMenuPopupAnchor, moreMenuPopupOffX, 0);
-            ((View) ReflectUtils.genericGetField(moreMenuPopupWindow, "mBackgroundView")).setClipToOutline(true);
-        } else
-            Log.w(TAG + ".showMoreMenuPopupWindow", "moreMenuPopupWindow is null or already shown.");
-    }
-
-    @SuppressLint("LongLogTag")
-    public void dismissMoreMenuPopupWindow() {
-        if (moreMenuPopupWindow != null && moreMenuPopupWindow.isShowing()) {
-            moreMenuPopupWindow.dismiss();
-        } else
-            Log.w(TAG + ".dismissMoreMenuPopupWindow", "moreMenuPopupWindow is null or already hidden.");
-    }
-
-    public void setMoreMenuButton(LinkedHashMap<String, Integer> linkedHashMap, AdapterView.OnItemClickListener ocl) {
-        if (moreOverflowButton == null) {
-            if (overflowContainer.getChildCount() != 0) {
-                for (int i = 0; i < overflowContainer.getChildCount(); i++) {
+    private void setOverflowMenu(ArrayList<MenuItem> overflowItems) {
+        if (overflowButton == null) {
+            if (actionButtonContainer.getChildCount() != 0) {
+                for (int i = 0; i < actionButtonContainer.getChildCount(); i++) {
                     ToolbarImageButton previousBtn = getOverflowIcon(i);
                     ViewGroup.LayoutParams lp = previousBtn.getLayoutParams();
                     lp.width = getResources().getDimensionPixelSize(R.dimen.overflow_button_size);
@@ -457,97 +473,111 @@ public class ToolbarLayout extends LinearLayout {
                 }
             }
 
-            moreOverflowButtonContainer = new FrameLayout(mContext);
+            overflowButtonContainer = new FrameLayout(mContext);
             FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
-            overflowContainer.addView(moreOverflowButtonContainer, lp);
+            actionButtonContainer.addView(overflowButtonContainer, lp);
 
-            moreOverflowButton = new ToolbarImageButton(mContext);
+            overflowButton = new ToolbarImageButton(mContext);
 
             ViewGroup.LayoutParams lp2 = new ViewGroup.LayoutParams(getResources().getDimensionPixelSize(R.dimen.sesl_overflow_button_min_width), getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height));
 
-            moreOverflowButton.setBackgroundResource(R.drawable.sesl_action_bar_item_background);
-            moreOverflowButton.setImageResource(R.drawable.sesl_ic_menu_overflow);
-            moreOverflowButton.setPaddingRelative(getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_overflow_padding_start), 0, getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_overflow_padding_end), 0);
-            moreOverflowButton.setOnClickListener(new View.OnClickListener() {
+            overflowButton.setBackgroundResource(R.drawable.sesl_action_bar_item_background);
+            overflowButton.setImageResource(R.drawable.sesl_ic_menu_overflow);
+            overflowButton.setPaddingRelative(getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_overflow_padding_start), 0, getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_overflow_padding_end), 0);
+            overflowButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showMoreMenuPopupWindow();
+                    showOverflowMenu();
                 }
             });
-            moreOverflowButton.setTooltipText(getResources().getString(R.string.sesl_more_options));
+            overflowButton.setTooltipText(getResources().getString(R.string.sesl_more_options));
 
-            moreOverflowButtonContainer.addView(moreOverflowButton, lp2);
+            overflowButtonContainer.addView(overflowButton, lp2);
         }
 
-        for (int i : linkedHashMap.values()) {
-            if (i != 0) {
-                initMoreMenuButtonBadge(i);
-                break;
+        if (overflowMenuPopupWindow != null) {
+            if (overflowMenuPopupWindow.isShowing()) {
+                overflowMenuPopupWindow.dismiss();
             }
-        }
-
-        initMoreMenuPopupWindow(linkedHashMap, ocl);
-    }
-
-    private void initMoreMenuPopupWindow(LinkedHashMap<String, Integer> linkedHashMap, AdapterView.OnItemClickListener ocl) {
-        if (moreMenuPopupWindow != null) {
-            if (moreMenuPopupWindow.isShowing()) {
-                moreMenuPopupWindow.dismiss();
-            }
-            moreMenuPopupWindow = null;
+            overflowMenuPopupWindow = null;
         }
         PopupListView listView = new PopupListView(mContext);
-        moreMenuPopupAdapter = new MoreMenuPopupAdapter(getActivity(), linkedHashMap);
-        listView.setAdapter(moreMenuPopupAdapter);
+        overflowMenuPopupAdapter = new OverflowMenuAdapter(getActivity(), overflowItems);
+        listView.setAdapter(overflowMenuPopupAdapter);
         listView.setMaxHeight(getResources().getDimensionPixelSize(R.dimen.sesl_menu_popup_max_height));
         listView.setDivider(null);
         listView.setSelector(getResources().getDrawable(R.drawable.sesl_list_selector, mContext.getTheme()));
-        listView.setOnItemClickListener(ocl);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                onMenuItemClickListener.onMenuItemClick((MenuItem) overflowMenuPopupAdapter.getItem(position));
+            }
+        });
 
         if (getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
-            moreMenuPopupOffX = getMoreMenuPopupWidth(moreMenuPopupAdapter);
+            overflowMenuPopupOffX = getOverflowMenuPopupWidth(overflowMenuPopupAdapter);
         } else {
-            moreMenuPopupOffX = -getMoreMenuPopupWidth(moreMenuPopupAdapter);
+            overflowMenuPopupOffX = -getOverflowMenuPopupWidth(overflowMenuPopupAdapter);
         }
 
-        moreMenuPopupWindow = new PopupWindow(listView);
-        moreMenuPopupWindow.setWidth(getMoreMenuPopupWidth(moreMenuPopupAdapter));
-        moreMenuPopupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        moreMenuPopupWindow.setAnimationStyle(R.style.MenuPopupAnimStyle);
-        moreMenuPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.sesl_menu_popup_background, mContext.getTheme()));
-        moreMenuPopupWindow.setOutsideTouchable(true);
-        moreMenuPopupWindow.setElevation(getDIPForPX(12));
-        moreMenuPopupWindow.setFocusable(true);
-        if (moreMenuPopupWindow.isClippingEnabled()) {
-            moreMenuPopupWindow.setClippingEnabled(false);
+        overflowMenuPopupWindow = new PopupWindow(listView);
+        overflowMenuPopupWindow.setWidth(getOverflowMenuPopupWidth(overflowMenuPopupAdapter));
+        overflowMenuPopupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        overflowMenuPopupWindow.setAnimationStyle(R.style.MenuPopupAnimStyle);
+        overflowMenuPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.sesl_menu_popup_background, mContext.getTheme()));
+        overflowMenuPopupWindow.setOutsideTouchable(true);
+        overflowMenuPopupWindow.setElevation(getDIPForPX(12));
+        overflowMenuPopupWindow.setFocusable(true);
+        if (overflowMenuPopupWindow.isClippingEnabled()) {
+            overflowMenuPopupWindow.setClippingEnabled(false);
         }
-        moreMenuPopupWindow.getContentView().setOnKeyListener(new View.OnKeyListener() {
+        overflowMenuPopupWindow.getContentView().setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if (keyEvent.getKeyCode() != KeyEvent.KEYCODE_MENU || keyEvent.getAction() != KeyEvent.ACTION_UP || !moreMenuPopupWindow.isShowing()) {
+                if (keyEvent.getKeyCode() != KeyEvent.KEYCODE_MENU || keyEvent.getAction() != KeyEvent.ACTION_UP || !overflowMenuPopupWindow.isShowing()) {
                     return false;
                 }
-                moreMenuPopupWindow.dismiss();
+                overflowMenuPopupWindow.dismiss();
                 return true;
             }
         });
-        moreMenuPopupWindow.setTouchInterceptor(new View.OnTouchListener() {
+        overflowMenuPopupWindow.setTouchInterceptor(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() != MotionEvent.ACTION_OUTSIDE) {
                     return false;
                 }
-                moreMenuPopupWindow.dismiss();
+                overflowMenuPopupWindow.dismiss();
                 return true;
             }
         });
     }
 
-    private void initMoreMenuButtonBadge(int count) {
+    @SuppressLint("RestrictedApi")
+    public void setOverflowMenuBadge(MenuItem item, Integer badge) {
+        if (!((MenuItemImpl) item).requiresActionButton()) {
+            overflowBadges.put(item, badge);
+            overflowMenuPopupAdapter.notifyDataSetChanged();
+
+            int count = 0;
+            boolean n = false;
+            for (Integer i : overflowBadges.values()) if (i > 0) count += i;
+            showOverflowMenuButtonBadge(count == 0 ? (n ? N_BADGE : 0) : count);
+
+            overflowMenuPopupWindow.setWidth(getOverflowMenuPopupWidth(overflowMenuPopupAdapter));
+            if (overflowMenuPopupWindow.isShowing()) overflowMenuPopupWindow.dismiss();
+        }
+    }
+
+    public Integer getOverflowMenuBadge(MenuItem item) {
+        return overflowBadges.get(item);
+    }
+
+    private void showOverflowMenuButtonBadge(int count) {
         if (moreOverflowBadgeBackground == null) {
-            moreOverflowBadgeBackground = (ViewGroup) ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.sesl_action_menu_item_badge, moreOverflowButtonContainer, false);
+            moreOverflowBadgeBackground = (ViewGroup) ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.sesl_action_menu_item_badge, overflowButtonContainer, false);
             moreOverflowBadgeText = (TextView) moreOverflowBadgeBackground.getChildAt(0);
-            moreOverflowButtonContainer.addView(moreOverflowBadgeBackground);
+            overflowButtonContainer.addView(moreOverflowBadgeBackground);
         }
         if (moreOverflowBadgeText != null) {
             if (count > 0) {
@@ -573,38 +603,107 @@ public class ToolbarLayout extends LinearLayout {
         }
     }
 
-    private int getMoreMenuPopupWidth(MoreMenuPopupAdapter adapter) {
-        int makeMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        View view = null;
-        ViewGroup viewGroup = null;
-        int measuredWidth = 0;
-
-        int i = 0;
-        int count = adapter.getCount();
-
-        while (i < count) {
-            ViewGroup linearLayout;
-            int itemViewType = adapter.getItemViewType(i);
-
-            if (itemViewType != 0)
-                view = null;
-
-            if (viewGroup == null)
-                linearLayout = new LinearLayout(mContext);
-            else
-                linearLayout = viewGroup;
-
-            view = adapter.getView(i, view, linearLayout);
-            view.measure(makeMeasureSpec, makeMeasureSpec);
-            measuredWidth = view.getMeasuredWidth();
-            if (measuredWidth <= 0) {
-                measuredWidth = 0;
-            }
-            i++;
-            viewGroup = linearLayout;
-        }
-        return measuredWidth;
+    @SuppressLint("LongLogTag")
+    public void showOverflowMenu() {
+        if (overflowMenuPopupWindow != null && !overflowMenuPopupWindow.isShowing()) {
+            overflowMenuPopupWindow.showAsDropDown(overflowMenuPopupAnchor, overflowMenuPopupOffX, 0);
+            ((View) ReflectUtils.genericGetField(overflowMenuPopupWindow, "mBackgroundView")).setClipToOutline(true);
+        } else
+            Log.w(TAG + ".showMoreMenuPopupWindow", "moreMenuPopupWindow is null or already shown.");
     }
+
+    @SuppressLint("LongLogTag")
+    public void dismissOverflowMenu() {
+        if (overflowMenuPopupWindow != null && overflowMenuPopupWindow.isShowing()) {
+            overflowMenuPopupWindow.dismiss();
+        } else
+            Log.w(TAG + ".dismissMoreMenuPopupWindow", "moreMenuPopupWindow is null or already hidden.");
+    }
+
+    private ToolbarImageButton getOverflowIcon(int index) {
+        if (actionButtonContainer != null && actionButtonContainer.getChildCount() != 0) {
+            return (ToolbarImageButton) actionButtonContainer.getChildAt(index);
+        } else {
+            Log.w(TAG + ".getOverflowIcon", "overflowContainer is null or contains no icons.");
+            return null;
+        }
+    }
+
+    private int getOverflowMenuPopupWidth(OverflowMenuAdapter adapter) {
+        int makeMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int popupWidth = 0;
+
+        for (int i = 0; i < adapter.getCount(); i++) {
+            View view = adapter.getView(i, null, new LinearLayout(mContext));
+            view.measure(makeMeasureSpec, makeMeasureSpec);
+            int measuredWidth = view.getMeasuredWidth();
+            if (measuredWidth > popupWidth) {
+                popupWidth = measuredWidth;
+            }
+        }
+        return popupWidth;
+
+    }
+
+    private class OverflowMenuAdapter extends ArrayAdapter {
+        Activity activity;
+        ArrayList<MenuItem> overflowItems;
+
+        public ArrayList<MenuItem> getOverflowItems() {
+            return overflowItems;
+        }
+
+        public OverflowMenuAdapter(Activity instance, ArrayList<MenuItem> overflowItems) {
+            super(instance, 0);
+            this.activity = instance;
+            this.overflowItems = overflowItems;
+        }
+
+        @Override
+        public int getCount() {
+            return overflowItems.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return overflowItems.get(position);
+        }
+
+        @Override
+        public View getView(int index, View view, ViewGroup parent) {
+            TextView titleText;
+            TextView badgeIcon;
+
+            view = ((LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.menu_popup_item_layout, parent, false);
+            titleText = view.findViewById(R.id.more_menu_popup_title_text);
+            titleText.setText(overflowItems.get(index).getTitle());
+
+            badgeIcon = view.findViewById(R.id.more_menu_popup_badge);
+            Integer badgeCount = overflowBadges.get(overflowItems.get(index));
+
+            if (badgeCount > 0) {
+                int count = badgeCount;
+                if (count > 99) {
+                    count = 99;
+                }
+                String countString = numberFormat.format((long) count);
+                badgeIcon.setText(countString);
+                int width = (int) (getResources().getDimension(R.dimen.sesl_badge_default_width) + (float) countString.length() * getResources().getDimension(R.dimen.sesl_badge_additional_width));
+                LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) badgeIcon.getLayoutParams();
+                lp.width = width;
+                badgeIcon.setLayoutParams(lp);
+                badgeIcon.setVisibility(View.VISIBLE);
+            } else if (badgeCount == N_BADGE) {
+                badgeIcon.setText("N");
+                badgeIcon.setVisibility(View.VISIBLE);
+            } else {
+                badgeIcon.setVisibility(View.GONE);
+            }
+
+            return view;
+        }
+    }
+
 
     public View getView(@ToolbarLayoutView int view) {
         switch (view) {
@@ -667,81 +766,6 @@ public class ToolbarLayout extends LinearLayout {
                 else
                     collapsedTitleView.setAlpha(1.0f);
             }
-        }
-    }
-
-    private class MoreMenuPopupAdapter extends ArrayAdapter {
-        ArrayList<String> itemTitle;
-        ArrayList<Integer> badgeCount;
-        Activity activity;
-
-        public MoreMenuPopupAdapter(Activity instance, LinkedHashMap<String, Integer> linkedHashMap) {
-            super(instance, 0);
-            activity = instance;
-            itemTitle = new ArrayList(linkedHashMap.keySet());
-            badgeCount = new ArrayList(linkedHashMap.values());
-        }
-
-        public void setArrays(LinkedHashMap<String, Integer> linkedHashMap) {
-            itemTitle = new ArrayList(linkedHashMap.keySet());
-            badgeCount = new ArrayList(linkedHashMap.values());
-        }
-
-        @Override
-        public int getCount() {
-            return itemTitle.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return itemTitle.get(position);
-        }
-
-        @Override
-        public View getView(int index, View view, ViewGroup parent) {
-            PopupMenuItem itemVar;
-
-            if (view == null) {
-                view = ((LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.menu_popup_item_layout, parent, false);
-                itemVar = new PopupMenuItem(this);
-                itemVar.titleText = view.findViewById(R.id.more_menu_popup_title_text);
-                itemVar.badgeIcon = view.findViewById(R.id.more_menu_popup_badge);
-                view.setTag(itemVar);
-            } else {
-                itemVar = (PopupMenuItem) view.getTag();
-            }
-
-            itemVar.titleText.setText(itemTitle.get(index));
-            if (badgeCount.get(index) > 0) {
-                int count = badgeCount.get(index);
-                if (count > 99) {
-                    count = 99;
-                }
-                String countString = numberFormat.format((long) count);
-                itemVar.badgeIcon.setText(countString);
-                int width = (int) (getResources().getDimension(R.dimen.sesl_badge_default_width) + (float) countString.length() * getResources().getDimension(R.dimen.sesl_badge_additional_width));
-                LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) itemVar.badgeIcon.getLayoutParams();
-                lp.width = width;
-                itemVar.badgeIcon.setLayoutParams(lp);
-                itemVar.badgeIcon.setVisibility(View.VISIBLE);
-            } else if (badgeCount.get(index) == N_BADGE) {
-                itemVar.badgeIcon.setText("N");
-                itemVar.badgeIcon.setVisibility(View.VISIBLE);
-            } else {
-                itemVar.badgeIcon.setVisibility(View.GONE);
-            }
-
-            return view;
-        }
-    }
-
-    private class PopupMenuItem {
-        MoreMenuPopupAdapter adapter;
-        TextView titleText;
-        TextView badgeIcon;
-
-        PopupMenuItem(MoreMenuPopupAdapter instance) {
-            adapter = instance;
         }
     }
 

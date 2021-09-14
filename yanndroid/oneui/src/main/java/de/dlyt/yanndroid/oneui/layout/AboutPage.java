@@ -11,6 +11,7 @@ import android.content.res.TypedArray;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -87,23 +88,25 @@ public class AboutPage extends LinearLayout {
                 getActivity().onBackPressed();
             }
         });
-        toolbarLayout.addOverflowButton(R.drawable.ic_samsung_info,
-                R.string.app_info,
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        try {
-                            Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.setData(Uri.parse("package:" + getActivity().getApplicationContext().getPackageName()));
-                            getActivity().startActivity(intent);
-                        } catch (ActivityNotFoundException unused) {
-                            getActivity().startActivity(new Intent("android.settings.MANAGE_APPLICATIONS_SETTINGS"));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+
+        toolbarLayout.inflateMenu(R.menu.about_page);
+        toolbarLayout.setOnMenuItemClickListener(new ToolbarLayout.OnMenuItemClickListener() {
+            @Override
+            public void onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.app_info){
+                    try {
+                        Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.setData(Uri.parse("package:" + getActivity().getApplicationContext().getPackageName()));
+                        getActivity().startActivity(intent);
+                    } catch (ActivityNotFoundException unused) {
+                        getActivity().startActivity(new Intent("android.settings.MANAGE_APPLICATIONS_SETTINGS"));
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                });
+                }
+            }
+        });
 
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
