@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.util.SeslMisc;
@@ -345,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
         if (bnvPopupMenu == null) {
             bnvPopupMenu = new PopupMenu(view);
             bnvPopupMenu.inflate(R.menu.bnv_menu);
-            bnvPopupMenu.setOnMenuItemClickListener(item -> bnvPopupMenu.setMenuItemBadge(item, bnvPopupMenu.getOverflowMenuBadge(item) + 1));
+            bnvPopupMenu.setOnMenuItemClickListener(item -> bnvPopupMenu.setMenuItemBadge(item, bnvPopupMenu.getMenuItemBadge(item) + 1));
         }
         bnvPopupMenu.show();
     }

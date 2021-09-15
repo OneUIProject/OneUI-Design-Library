@@ -45,7 +45,7 @@ public class PopupMenu {
     private Menu menu;
     private PopupWindow popupWindow;
     private PopupMenuAdapter popupMenuAdapter;
-    private HashMap<MenuItem, Integer> overflowBadges = new HashMap<>();
+    private HashMap<MenuItem, Integer> menuItemBadges = new HashMap<>();
 
     public PopupMenu(View anchor) {
         this.context = anchor.getContext();
@@ -74,7 +74,6 @@ public class PopupMenu {
 
         for (int i = 0; i < menu.size(); i++) {
             MenuItem item = menu.getItem(i);
-            overflowBadges.put(item, 0);
             menuItems.add(item);
         }
         inflate(menuItems);
@@ -82,6 +81,10 @@ public class PopupMenu {
 
     public void inflate(ArrayList<MenuItem> menuItems) {
         if (menuItems.isEmpty()) return;
+
+        for (MenuItem item : menuItems) {
+            menuItemBadges.put(item, 0);
+        }
 
         if (popupWindow != null) {
             if (popupWindow.isShowing()) {
@@ -157,17 +160,24 @@ public class PopupMenu {
 
 
     public void setMenuItemBadge(MenuItem item, Integer badge) {
-        overflowBadges.put(item, badge);
+        menuItemBadges.put(item, badge);
         popupMenuAdapter.notifyDataSetChanged();
         popupWindow.setWidth(getPopupMenuWidth());
         if (popupWindow.isShowing()) popupWindow.dismiss();
     }
 
-    public Integer getOverflowMenuBadge(MenuItem item) {
-        return overflowBadges.get(item);
+    public Integer getMenuItemBadge(MenuItem item) {
+        return menuItemBadges.get(item);
     }
 
-    private int getPopupMenuWidth() {
+    public Integer getTotalBadgeCount() {
+        int count = 0;
+        boolean n = false;
+        for (Integer i : menuItemBadges.values()) if (i > 0) count += i;
+        return (count == 0 ? (n ? N_BADGE : 0) : count);
+    }
+
+    public int getPopupMenuWidth() {
         int makeMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         int popupWidth = 0;
 
@@ -223,7 +233,7 @@ public class PopupMenu {
             titleText.setText(overflowItems.get(index).getTitle());
 
             badgeIcon = view.findViewById(R.id.more_menu_popup_badge);
-            Integer badgeCount = overflowBadges.get(overflowItems.get(index));
+            Integer badgeCount = menuItemBadges.get(overflowItems.get(index));
 
             if (badgeCount == null) return view;
 

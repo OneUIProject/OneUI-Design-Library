@@ -32,7 +32,7 @@ public class ActionModeBottomBarButton extends LinearLayout {
         icon = new ImageView(getContext());
         int iconSize = (int) getResources().getDimension(R.dimen.bottom_bar_item_image_size);
         LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(iconSize, iconSize);
-        containerParams.setMargins(0, 0, 0, 1);
+        iconParams.setMargins(0, 0, 0, 1);
         icon.setLayoutParams(iconParams);
         icon.setColorFilter(ContextCompat.getColor(getContext(), R.color.bottom_bar_item_image_color), android.graphics.PorterDuff.Mode.SRC_IN);
         addView(icon);
