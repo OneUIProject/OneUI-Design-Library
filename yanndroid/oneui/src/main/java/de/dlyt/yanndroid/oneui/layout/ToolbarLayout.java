@@ -54,8 +54,10 @@ import de.dlyt.yanndroid.oneui.sesl.appbar.SamsungCollapsingToolbarLayout;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.support.WindowManagerSupport;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
+import de.dlyt.yanndroid.oneui.sesl.widget.ActionModeBottomBarButton;
 import de.dlyt.yanndroid.oneui.sesl.widget.PopupListView;
 import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
+import de.dlyt.yanndroid.oneui.view.PopupMenu;
 
 public class ToolbarLayout extends LinearLayout {
     public static final int N_BADGE = -1;
@@ -100,6 +102,10 @@ public class ToolbarLayout extends LinearLayout {
     private OnMenuItemClickListener onMenuItemClickListener = item -> {
     };
 
+    private Menu bottomMenu;
+    private OnMenuItemClickListener onActionModeItemClickListener = item -> {
+    };
+
     private boolean mActionMode = false;
     private RelativeLayout checkbox_withtext;
     private CheckBox checkbox_all;
@@ -138,7 +144,7 @@ public class ToolbarLayout extends LinearLayout {
         overflowMenuPopupAnchor = findViewById(R.id.toolbar_layout_popup_window_anchor);
 
         mainContainer = findViewById(R.id.toolbar_layout_main_container);
-        bottomContainer = findViewById(R.id.toolbar_layout_bottom_container);
+        bottomContainer = findViewById(R.id.toolbar_layout_footer);
 
         checkbox_withtext = findViewById(R.id.checkbox_withtext);
         checkbox_all = findViewById(R.id.checkbox_all);
@@ -230,7 +236,7 @@ public class ToolbarLayout extends LinearLayout {
 
         ViewSupport.updateListBothSideMargin(getActivity(), mainContainer);
         ViewSupport.updateListBothSideMargin(getActivity(), findViewById(R.id.toolbar_layout_bottom_corners));
-        ViewSupport.updateListBothSideMargin(getActivity(), findViewById(R.id.toolbar_layout_bottom_container));
+        ViewSupport.updateListBothSideMargin(getActivity(), findViewById(R.id.toolbar_layout_footer_container));
 
         if (mExpandable) {
             resetAppBarHeight();
@@ -318,26 +324,92 @@ public class ToolbarLayout extends LinearLayout {
     //
     // Action Mode methods
     //
-    public void showActionMode(boolean visible) {
-        mActionMode = visible;
-        setNavigationButtonVisible(!visible);
-        if (visible) {
-            checkbox_withtext.setVisibility(View.VISIBLE);
-            setActionModeSelectCount(0);
-            overflowButton.setVisibility(GONE);
-            actionButtonContainer.setVisibility(GONE);
-        } else {
-            checkbox_withtext.setVisibility(View.GONE);
-            setTitle(mTitle);
-            overflowButton.setVisibility(VISIBLE);
-            actionButtonContainer.setVisibility(VISIBLE);
+    public void showActionMode() {
+        mActionMode = true;
+        setNavigationButtonVisible(false);
+        checkbox_withtext.setVisibility(View.VISIBLE);
+        setActionModeSelectCount(0);
+        overflowButton.setVisibility(GONE);
+        actionButtonContainer.setVisibility(GONE);
+
+        if (bottomMenu != null) {
+            bottomContainer.setVisibility(GONE);
+            findViewById(R.id.toolbar_layout_footer_action_mode).setVisibility(VISIBLE);
         }
     }
 
+    @SuppressLint("RestrictedApi")
+    public void setActionModeBottomMenu(@MenuRes int menuRes, OnMenuItemClickListener listener) {
+        LinearLayout footer_action_mode = findViewById(R.id.toolbar_layout_footer_action_mode);
+        footer_action_mode.removeAllViews();
+
+        onActionModeItemClickListener = listener;
+
+        bottomMenu = new MenuBuilder(getContext());
+        MenuInflater menuInflater = new SupportMenuInflater(getContext());
+        menuInflater.inflate(menuRes, bottomMenu);
+
+        ArrayList<MenuItem> bottomItems = new ArrayList<>();
+
+        for (int i = 0; i < bottomMenu.size(); i++) {
+            MenuItem item = bottomMenu.getItem(i);
+            if (((MenuItemImpl) item).requiresActionButton()) {
+                ActionModeBottomBarButton button = new ActionModeBottomBarButton(mContext);
+                button.setText(item.getTitle());
+                button.setIcon(item.getIcon());
+                button.setOnClickListener(v -> {
+                    onActionModeItemClickListener.onMenuItemClick(item);
+                });
+                footer_action_mode.addView(button);
+            } else {
+                bottomItems.add(item);
+            }
+        }
+
+        if (!bottomItems.isEmpty()) {
+            ActionModeBottomBarButton button = new ActionModeBottomBarButton(mContext);
+            button.setText(getResources().getString(R.string.sesl_more_item_label));
+            button.setIcon(getResources().getDrawable(R.drawable.ic_samsung_more, getContext().getTheme()));
+            footer_action_mode.addView(button);
+
+            PopupMenu popupMenu = new PopupMenu(button);
+            popupMenu.inflate(bottomItems);
+            popupMenu.setOnMenuItemClickListener(item -> {
+                popupMenu.dismiss();
+                onActionModeItemClickListener.onMenuItemClick(item);
+            });
+
+            button.setOnClickListener(v -> {
+                popupMenu.show();
+            });
+
+        }
+
+    }
+
+    public Menu getActionModeBottomMenu() {
+        return bottomMenu;
+    }
+
+    public void dismissActionMode() {
+        mActionMode = false;
+        setNavigationButtonVisible(true);
+        checkbox_withtext.setVisibility(View.GONE);
+        setTitle(mTitle);
+        overflowButton.setVisibility(VISIBLE);
+        actionButtonContainer.setVisibility(VISIBLE);
+
+        bottomContainer.setVisibility(VISIBLE);
+        findViewById(R.id.toolbar_layout_footer_action_mode).setVisibility(GONE);
+    }
+
     public void setActionModeSelectCount(int count) {
-        String title = getResources().getString(R.string.selected_check_info, count);
+        String title = count > 0 ? getResources().getString(R.string.selected_check_info, count) : getResources().getString(R.string.settings_import_select_items);
         if (mExpandable) collapsingToolbarLayout.setTitle(title);
         collapsedTitleView.setText(title);
+
+        if (bottomMenu != null)
+            findViewById(R.id.toolbar_layout_footer_action_mode).setVisibility(count > 0 ? VISIBLE : GONE);
     }
 
     public void setActionModeSelectAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener) {

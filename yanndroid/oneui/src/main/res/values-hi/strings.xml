@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">मैजंटा</string>
     <string name="pen_string_current_any">वर्तमान %s</string>
     <string name="pen_string_spectrum">स्पेक्ट्रम</string>
+    <string name="sesl_more_item_label">अधिक</string>
     <string name="sesl_button">बटन</string>
     <string name="pen_string_saturation">संतृप्तता</string>
     <string name="pen_string_select_color">कोई रंग चुनें।</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">हल्का आसमानी</string>
     <string name="pen_swatch_color_light_spring_green">हल्का स्प्रिंग ग्रीन</string>
     <string name="pen_palette_color_white">सफेद</string>
+    <string name="selected_check_info">%d चयनित</string>
     <string name="pen_palette_color_dark_green">गहरा हरा</string>
     <string name="sesl_done">पूर्ण</string>
     <string name="action_search">खोजें</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">हाल ही में उपयोग किए गए रंग</string>
     <string name="pen_swatch_color_cyan">सियान</string>
     <string name="sesl_navigation_drawer">नेविगेशन ड्रॉअर</string>
+    <string name="settings_import_select_items">मदें चुनें</string>
     <string name="pen_string_green">हरा</string>
     <string name="pen_string_selected">चयनित</string>
     <string name="pen_swatch_color_light_blue">हल्का नीला</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">हल्का सियान</string>
     <string name="pen_swatch_color_dark_yellow">गहरा पीला</string>
     <string name="pen_string_red">लाल</string>
+    <string name="all_checkbox">सभी</string>
     <string name="pen_palette_color_spring_green">स्प्रिंग ग्रीन</string>
     <string name="sesl_preferencecategory_added_title">शीर्षलेख</string>
     <string name="pen_palette_color_black">काला</string>

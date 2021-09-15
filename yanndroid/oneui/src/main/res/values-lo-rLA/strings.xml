@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">ສີແດງມ່ວງ</string>
     <string name="pen_string_current_any">%s ປະຈຸບັນ</string>
     <string name="pen_string_spectrum">ແຖບສີ</string>
+    <string name="sesl_more_item_label">ເພີ່ມເຕີມ</string>
     <string name="sesl_button">ປຸ່ມ</string>
     <string name="pen_string_saturation">ລະດັບສີ</string>
     <string name="pen_string_select_color">ເລືອກສີ.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">ສີຟ້າອ່ອນ</string>
     <string name="pen_swatch_color_light_spring_green">ສີຂຽວອ່ອນລະດູບານໃໝ່</string>
     <string name="pen_palette_color_white">ສີຂາວ</string>
+    <string name="selected_check_info">ເລືອກ %d ແລ້ວ</string>
     <string name="pen_palette_color_dark_green">ສີຂຽວຄໍ້າ</string>
     <string name="sesl_done">ສໍາເລັດ</string>
     <string name="action_search">ຄົ້ນຫາ</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">ສີທີ່ໃຊ້ຜ່ານມາມໍ່ໆນີ້</string>
     <string name="pen_swatch_color_cyan">ສີພື້ນຂຽວກັບນໍ້າເງິນ</string>
     <string name="sesl_navigation_drawer">ລີ້ນຊັກການກຳນົດທິດທາງ</string>
+    <string name="settings_import_select_items">ເລືອກລາຍການ</string>
     <string name="pen_string_green">ສີຂຽວ</string>
     <string name="pen_string_selected">​ເລືອກ​ແລ້ວ</string>
     <string name="pen_swatch_color_light_blue">ສີຟ້າແຈ້ງ</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">ສີຂຽວແກບຟ້າອ່ອນ</string>
     <string name="pen_swatch_color_dark_yellow">ສີເຫຼືອງແກ່</string>
     <string name="pen_string_red">ສີແດງ</string>
+    <string name="all_checkbox">ທັງໝົດ</string>
     <string name="pen_palette_color_spring_green">ສີຂຽວລະດູບານໃໝ່</string>
     <string name="sesl_preferencecategory_added_title">ສ່ວນຫົວ</string>
     <string name="pen_palette_color_black">ສີດໍາ</string>

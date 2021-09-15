@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Amarantowy</string>
     <string name="pen_string_current_any">Terŏźnŏ %s</string>
     <string name="pen_string_spectrum">Spektrum</string>
+    <string name="sesl_more_item_label">Wiyncy</string>
     <string name="sesl_button">Knefel</string>
     <string name="pen_string_saturation">Nasycynie</string>
     <string name="pen_string_select_color">Wybierz kolor.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Jasnolazurowy</string>
     <string name="pen_swatch_color_light_spring_green">Jasnŏ wiosynnŏ ziylyń</string>
     <string name="pen_palette_color_white">Bioło</string>
+    <string name="selected_check_info">%d ôbrane</string>
     <string name="pen_palette_color_dark_green">Ćmawoziylōny</string>
     <string name="sesl_done">Fertich</string>
     <string name="action_search">Sznupej</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Ôstatnio używane farby</string>
     <string name="pen_swatch_color_cyan">Cyjan</string>
     <string name="sesl_navigation_drawer">Sfijane menu nawigacyji</string>
+    <string name="settings_import_select_items">Ôbier elymynty</string>
     <string name="pen_string_green">Ziylōnŏ</string>
     <string name="pen_string_selected">Ôbrane</string>
     <string name="pen_swatch_color_light_blue">Bladomodry</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Jasny cyjan</string>
     <string name="pen_swatch_color_dark_yellow">Ćmawożōłty</string>
     <string name="pen_string_red">Czyrwōno</string>
+    <string name="all_checkbox">Wszyjske</string>
     <string name="pen_palette_color_spring_green">Wiosynno zielyń</string>
     <string name="sesl_preferencecategory_added_title">Nagłówek</string>
     <string name="pen_palette_color_black">Czŏrny</string>

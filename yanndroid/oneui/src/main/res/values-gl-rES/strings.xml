@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Maxenta</string>
     <string name="pen_string_current_any">%s actual</string>
     <string name="pen_string_spectrum">Espectro</string>
+    <string name="sesl_more_item_label">Máis</string>
     <string name="sesl_button">Botón</string>
     <string name="pen_string_saturation">Saturación</string>
     <string name="pen_string_select_color">Seleccionar unha cor</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Azul celeste claro</string>
     <string name="pen_swatch_color_light_spring_green">Verde primavera claro</string>
     <string name="pen_palette_color_white">Branco</string>
+    <string name="selected_check_info">%d seleccionado(s)</string>
     <string name="pen_palette_color_dark_green">Verde escuro</string>
     <string name="sesl_done">Feito</string>
     <string name="action_search">Buscar</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Cores usadas recentemente</string>
     <string name="pen_swatch_color_cyan">Ciano</string>
     <string name="sesl_navigation_drawer">Caixón de navegación</string>
+    <string name="settings_import_select_items">Seleccionar elementos</string>
     <string name="pen_string_green">Verde</string>
     <string name="pen_string_selected">Seleccionado</string>
     <string name="pen_swatch_color_light_blue">Azul claro</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Turquesa claro</string>
     <string name="pen_swatch_color_dark_yellow">Amarelo escuro</string>
     <string name="pen_string_red">Vermello</string>
+    <string name="all_checkbox">Todo</string>
     <string name="pen_palette_color_spring_green">Verde primavera</string>
     <string name="sesl_preferencecategory_added_title">Cabeceira</string>
     <string name="pen_palette_color_black">Negro</string>

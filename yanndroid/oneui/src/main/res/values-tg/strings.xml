@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Рӯянранг</string>
     <string name="pen_string_current_any">Ҷорӣ %s</string>
     <string name="pen_string_spectrum">Спектр</string>
+    <string name="sesl_more_item_label">Бештар</string>
     <string name="sesl_button">Тугма</string>
     <string name="pen_string_saturation">Сершавӣ</string>
     <string name="pen_string_select_color">Интихоби ранг.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Лоҷвардии кушод</string>
     <string name="pen_swatch_color_light_spring_green">Сабзи баланди кушод</string>
     <string name="pen_palette_color_white">Сафед</string>
+    <string name="selected_check_info">%d интихоб шудаанд</string>
     <string name="pen_palette_color_dark_green">Сабзи амиқ</string>
     <string name="sesl_done">Тайёр</string>
     <string name="action_search">Ҷустуҷӯ кардан</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Рангҳои ба наздикӣ истифодашуда</string>
     <string name="pen_swatch_color_cyan">Обиранг</string>
     <string name="sesl_navigation_drawer">Панели паймоиш</string>
+    <string name="settings_import_select_items">Интихоби ҷузъҳо</string>
     <string name="pen_string_green">Сабз</string>
     <string name="pen_string_selected">Интихоб шуд</string>
     <string name="pen_swatch_color_light_blue">Кабуди кушод</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Обиранги кушод</string>
     <string name="pen_swatch_color_dark_yellow">Зарди тира</string>
     <string name="pen_string_red">Сурх</string>
+    <string name="all_checkbox">Ҳама</string>
     <string name="pen_palette_color_spring_green">Кабуди сабзтоб</string>
     <string name="sesl_preferencecategory_added_title">Унвон</string>
     <string name="pen_palette_color_black">Сиёҳ</string>

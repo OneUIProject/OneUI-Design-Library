@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">રાણી</string>
     <string name="pen_string_current_any">વર્તમાન %s</string>
     <string name="pen_string_spectrum">સ્પેક્ટ્રમ</string>
+    <string name="sesl_more_item_label">વધુ</string>
     <string name="sesl_button">બટન</string>
     <string name="pen_string_saturation">સંતૃપ્તિ</string>
     <string name="pen_string_select_color">રંગ પસંદ કરો.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">આછો આસમાની</string>
     <string name="pen_swatch_color_light_spring_green">આછો વાસંતી લીલો</string>
     <string name="pen_palette_color_white">સફેદ</string>
+    <string name="selected_check_info">%d પસંદ કર્યુ</string>
     <string name="pen_palette_color_dark_green">ઘેરો લીલો</string>
     <string name="sesl_done">પૂર્ણ થયું</string>
     <string name="action_search">શોધો</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">તાજેતરમાં ઉપયોગ કરેલ રંગો</string>
     <string name="pen_swatch_color_cyan">મોરપીંછ</string>
     <string name="sesl_navigation_drawer">નૅવિગેશન ડ્રૉઅર</string>
+    <string name="settings_import_select_items">વસ્તુઓ પસંદ કરો</string>
     <string name="pen_string_green">લીલો</string>
     <string name="pen_string_selected">પસંદ કરેલ</string>
     <string name="pen_swatch_color_light_blue">આછો ભૂરો</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">આછો સ્યાન</string>
     <string name="pen_swatch_color_dark_yellow">ઘેરો પીળો</string>
     <string name="pen_string_red">લાલ</string>
+    <string name="all_checkbox">બધા</string>
     <string name="pen_palette_color_spring_green">વસંત લીલો</string>
     <string name="sesl_preferencecategory_added_title">મથાળું</string>
     <string name="pen_palette_color_black">કાળો</string>

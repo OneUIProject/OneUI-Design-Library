@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">மெஜந்தா</string>
     <string name="pen_string_current_any">நடப்பு %s</string>
     <string name="pen_string_spectrum">ஸ்பெக்ட்ரம்</string>
+    <string name="sesl_more_item_label">மேலும்</string>
     <string name="sesl_button">பொத்தான்</string>
     <string name="pen_string_saturation">செறிவு</string>
     <string name="pen_string_select_color">ஒரு நிறத்தைத் தேர்வுசெய்யவும்.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">வெளிர் அசூர்</string>
     <string name="pen_swatch_color_light_spring_green">வெளிர் ஆலிவ் பச்சை</string>
     <string name="pen_palette_color_white">வெள்ளை</string>
+    <string name="selected_check_info">%d தேர்வு</string>
     <string name="pen_palette_color_dark_green">கரும் பச்சை நிறம்</string>
     <string name="sesl_done">முடிந்தது</string>
     <string name="action_search">தேடுக</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">சமீபத்தில் பயன்படுத்தப்பட்ட நிறங்கள்</string>
     <string name="pen_swatch_color_cyan">சியான்</string>
     <string name="sesl_navigation_drawer">நகர்தல் ட்ராயர்</string>
+    <string name="settings_import_select_items">உருப்படிகளை தேர்வுசெய்க</string>
     <string name="pen_string_green">பச்சை</string>
     <string name="pen_string_selected">தேர்வுசெய்யப்பட்டது</string>
     <string name="pen_swatch_color_light_blue">வெளிர் நீல நிறம்</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">வெளிர் சியான்</string>
     <string name="pen_swatch_color_dark_yellow">கரும் மஞ்சள்</string>
     <string name="pen_string_red">சிவப்பு</string>
+    <string name="all_checkbox">எல்லாம்</string>
     <string name="pen_palette_color_spring_green">ஸ்பிரிங் பச்சை</string>
     <string name="sesl_preferencecategory_added_title">தலைப்பு</string>
     <string name="pen_palette_color_black">கருப்பு</string>

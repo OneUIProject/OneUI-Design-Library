@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">ارغوانی</string>
     <string name="pen_string_current_any">%s فعلی</string>
     <string name="pen_string_spectrum">طیف</string>
+    <string name="sesl_more_item_label">بیشتر</string>
     <string name="sesl_button">دکمه</string>
     <string name="pen_string_saturation">اشباع</string>
     <string name="pen_string_select_color">یک رنگ را انتخاب کنید.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">نیلی روشن</string>
     <string name="pen_swatch_color_light_spring_green">سبز بهاری روشن</string>
     <string name="pen_palette_color_white">سفید</string>
+    <string name="selected_check_info">‎%d انتخاب شد</string>
     <string name="pen_palette_color_dark_green">سبز تیره</string>
     <string name="sesl_done">انجام شد</string>
     <string name="action_search">جستجو</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">رنگ‌های تازه استفاده‌شده</string>
     <string name="pen_swatch_color_cyan">فیروزه‌ای</string>
     <string name="sesl_navigation_drawer">کشوی پیمایش</string>
+    <string name="settings_import_select_items">انتخاب موارد</string>
     <string name="pen_string_green">سبز</string>
     <string name="pen_string_selected">انتخاب شد</string>
     <string name="pen_swatch_color_light_blue">آبی روشن</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">فیروزه‌ای روشن</string>
     <string name="pen_swatch_color_dark_yellow">زرد تیره</string>
     <string name="pen_string_red">قرمز</string>
+    <string name="all_checkbox">همه</string>
     <string name="pen_palette_color_spring_green">سبز بهاری</string>
     <string name="sesl_preferencecategory_added_title">عنوان</string>
     <string name="pen_palette_color_black">سیاه</string>

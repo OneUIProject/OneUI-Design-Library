@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Majenta</string>
     <string name="pen_string_current_any">Häzirki %s</string>
     <string name="pen_string_spectrum">Spektr</string>
+    <string name="sesl_more_item_label">Başgalar</string>
     <string name="sesl_button">Düwme</string>
     <string name="pen_string_saturation">Doýgunlyk</string>
     <string name="pen_string_select_color">Reňk saýlaň.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Açyk gök</string>
     <string name="pen_swatch_color_light_spring_green">Açyk ýiti ýaşyl</string>
     <string name="pen_palette_color_white">Ak</string>
+    <string name="selected_check_info">%d saýlandy</string>
     <string name="pen_palette_color_dark_green">Goýy ýaşyl</string>
     <string name="sesl_done">Tamam</string>
     <string name="action_search">Gözle</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Soňky ulanylan reňkler</string>
     <string name="pen_swatch_color_cyan">Gök-ýaşyl</string>
     <string name="sesl_navigation_drawer">Nawigasiýa çekeri</string>
+    <string name="settings_import_select_items">Elementleri saýla</string>
     <string name="pen_string_green">Ýaşyl</string>
     <string name="pen_string_selected">Saýlanyldy</string>
     <string name="pen_swatch_color_light_blue">Açyk gök</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Açyk gök-ýaşyl</string>
     <string name="pen_swatch_color_dark_yellow">Goýy sary</string>
     <string name="pen_string_red">Gyzyl</string>
+    <string name="all_checkbox">Ähli</string>
     <string name="pen_palette_color_spring_green">Açyk ýaşyl</string>
     <string name="sesl_preferencecategory_added_title">Sözbaşy</string>
     <string name="pen_palette_color_black">Gara</string>

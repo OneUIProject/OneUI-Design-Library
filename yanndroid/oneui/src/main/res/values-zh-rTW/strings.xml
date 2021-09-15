@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">洋紅色</string>
     <string name="pen_string_current_any">目前%s</string>
     <string name="pen_string_spectrum">色彩頻譜</string>
+    <string name="sesl_more_item_label">更多</string>
     <string name="sesl_button">按鍵</string>
     <string name="pen_string_saturation">飽和度</string>
     <string name="pen_string_select_color">選擇色彩。</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">淺天藍</string>
     <string name="pen_swatch_color_light_spring_green">淺嫩綠</string>
     <string name="pen_palette_color_white">白色</string>
+    <string name="selected_check_info">已選擇 %d 個</string>
     <string name="pen_palette_color_dark_green">墨綠</string>
     <string name="sesl_done">完成</string>
     <string name="action_search">搜尋</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">最近使用的色彩</string>
     <string name="pen_swatch_color_cyan">青色</string>
     <string name="sesl_navigation_drawer">導覽隱藏式選單</string>
+    <string name="settings_import_select_items">選擇項目</string>
     <string name="pen_string_green">綠色</string>
     <string name="pen_string_selected">已選擇</string>
     <string name="pen_swatch_color_light_blue">淡藍色</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">淡青綠</string>
     <string name="pen_swatch_color_dark_yellow">深黃色</string>
     <string name="pen_string_red">紅色</string>
+    <string name="all_checkbox">全部</string>
     <string name="pen_palette_color_spring_green">春綠色</string>
     <string name="sesl_preferencecategory_added_title">標題</string>
     <string name="pen_palette_color_black">黑色</string>

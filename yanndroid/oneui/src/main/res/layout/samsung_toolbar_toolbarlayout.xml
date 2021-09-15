@@ -19,7 +19,7 @@
             android:layout_height="?actionBarSize"
             android:gravity="center_vertical">
 
-            <!-- select all checkbox -->
+            <!-- action mode checkbox -->
             <RelativeLayout
                 android:id="@+id/checkbox_withtext"
                 android:layout_width="@dimen/select_all_width"
@@ -56,8 +56,8 @@
                     android:id="@+id/toolbar_layout_navigationButton"
                     android:layout_width="56.0dip"
                     android:layout_height="?actionBarSize"
-                    android:paddingStart="8.0dip"
                     android:background="@drawable/sesl_action_bar_item_background"
+                    android:paddingStart="8.0dip"
                     android:scaleType="center" />
             </FrameLayout>
 
@@ -108,9 +108,29 @@
         app:roundedCorners="all" />
 
     <LinearLayout
-        android:id="@+id/toolbar_layout_bottom_container"
+        android:id="@+id/toolbar_layout_footer_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/toolbar_layout_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/toolbar_layout_footer_action_mode"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/message_list_bottom_bar_height"
+            android:layout_gravity="bottom"
+            android:background="?android:windowBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="4dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
 
 </LinearLayout>

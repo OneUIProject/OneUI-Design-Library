@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">মেজেণ্টা</string>
     <string name="pen_string_current_any">সাম্প্ৰতিক %s</string>
     <string name="pen_string_spectrum">স্পেকট্ৰাম</string>
+    <string name="sesl_more_item_label">অধিক</string>
     <string name="sesl_button">বুটাম</string>
     <string name="pen_string_saturation">চেটুৰেশ্বন</string>
     <string name="pen_string_select_color">এটা ৰং চয়ন কৰক৷</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">পাতল আকাশী নীলা</string>
     <string name="pen_swatch_color_light_spring_green">লাইট স্প্ৰিং গ্ৰীণ</string>
     <string name="pen_palette_color_white">বগা</string>
+    <string name="selected_check_info">%d টা চয়নিত</string>
     <string name="pen_palette_color_dark_green">গাঢ় সেউজীয়া</string>
     <string name="sesl_done">সম্পন্ন</string>
     <string name="action_search">অনুসন্ধান</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">শেহতীয়াকৈ ব্যৱহৃত ৰংসমূহ</string>
     <string name="pen_swatch_color_cyan">পাতল নীলা</string>
     <string name="sesl_navigation_drawer">নেভিগেশ্বন ড্ৰৱাৰ</string>
+    <string name="settings_import_select_items">আইটেমসমূহ চয়ন কৰক</string>
     <string name="pen_string_green">সেউজীয়া</string>
     <string name="pen_string_selected">চয়নিত</string>
     <string name="pen_swatch_color_light_blue">পাতল নীলা</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">লাইট চিয়ান</string>
     <string name="pen_swatch_color_dark_yellow">গাঢ় হালধীয়া</string>
     <string name="pen_string_red">ৰঙা</string>
+    <string name="all_checkbox">সকলো</string>
     <string name="pen_palette_color_spring_green">স্প্ৰিং গ্ৰীণ</string>
     <string name="sesl_preferencecategory_added_title">শীৰোশাৰী</string>
     <string name="pen_palette_color_black">"ক'লা"</string>

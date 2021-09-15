@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">"מג'נטה"</string>
     <string name="pen_string_current_any">נוכחי: %s</string>
     <string name="pen_string_spectrum">קשת</string>
+    <string name="sesl_more_item_label">עוד</string>
     <string name="sesl_button">לחצן</string>
     <string name="pen_string_saturation">רוויה</string>
     <string name="pen_string_select_color">בחר צבע.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">תכול בהיר</string>
     <string name="pen_swatch_color_light_spring_green">ירוק אביבי בהיר</string>
     <string name="pen_palette_color_white">לבן</string>
+    <string name="selected_check_info">%d נבחרו</string>
     <string name="pen_palette_color_dark_green">ירוק כהה</string>
     <string name="sesl_done">בוצע</string>
     <string name="action_search">חיפוש</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">צבעים שהיו בשימוש לאחרונה</string>
     <string name="pen_swatch_color_cyan">כחול</string>
     <string name="sesl_navigation_drawer">מגירת הניווט</string>
+    <string name="settings_import_select_items">בחר פריטים</string>
     <string name="pen_string_green">ירוק</string>
     <string name="pen_string_selected">נבחר</string>
     <string name="pen_swatch_color_light_blue">כחול בהיר</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">תכלת בהיר</string>
     <string name="pen_swatch_color_dark_yellow">צהוב כהה</string>
     <string name="pen_string_red">אדום</string>
+    <string name="all_checkbox">הכל</string>
     <string name="pen_palette_color_spring_green">ירוק אביבי</string>
     <string name="sesl_preferencecategory_added_title">כותרת</string>
     <string name="pen_palette_color_black">שחור</string>

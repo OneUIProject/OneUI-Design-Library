@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">ม่วงแดง</string>
     <string name="pen_string_current_any">%sปัจจุบัน</string>
     <string name="pen_string_spectrum">สเปกตรัม</string>
+    <string name="sesl_more_item_label">เพิ่ม​เติม</string>
     <string name="sesl_button">ปุ่ม</string>
     <string name="pen_string_saturation">ระดับสี</string>
     <string name="pen_string_select_color">เลือกสี</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">สีฟ้าท้องฟ้าอ่อน</string>
     <string name="pen_swatch_color_light_spring_green">สีเขียวใบไม้ผลิอ่อน</string>
     <string name="pen_palette_color_white">สีขาว</string>
+    <string name="selected_check_info">%d ถูกเลือกแล้ว</string>
     <string name="pen_palette_color_dark_green">สีเขียวเข้ม</string>
     <string name="sesl_done">ทำ</string>
     <string name="action_search">ค้น​หา</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">สีที่ใช้ล่าสุด</string>
     <string name="pen_swatch_color_cyan">สีฟ้า</string>
     <string name="sesl_navigation_drawer">ลิ้นชักการนำทาง</string>
+    <string name="settings_import_select_items">เลือกรายการ</string>
     <string name="pen_string_green">สีเขียว</string>
     <string name="pen_string_selected">เลือก​ไว้</string>
     <string name="pen_swatch_color_light_blue">สีฟ้าอ่อน</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">สีฟ้าอ่อน</string>
     <string name="pen_swatch_color_dark_yellow">สีเหลืองเข้ม</string>
     <string name="pen_string_red">สีแดง</string>
+    <string name="all_checkbox">ทั้งหมด</string>
     <string name="pen_palette_color_spring_green">สีเขียวใบไม้ผลิ</string>
     <string name="sesl_preferencecategory_added_title">ส่วนหัว</string>
     <string name="pen_palette_color_black">สีดำ</string>

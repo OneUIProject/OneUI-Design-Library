@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">მეწამული</string>
     <string name="pen_string_current_any">მიმდინარე %s</string>
     <string name="pen_string_spectrum">სპექტრი</string>
+    <string name="sesl_more_item_label">სხვა</string>
     <string name="sesl_button">ღილაკი</string>
     <string name="pen_string_saturation">გაჯერება</string>
     <string name="pen_string_select_color">აირჩიეთ ფერი.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">ღია ლაჟვარდისფერი</string>
     <string name="pen_swatch_color_light_spring_green">გაზაფხულის ღია მწვანე</string>
     <string name="pen_palette_color_white">თეთრი</string>
+    <string name="selected_check_info">%d არჩეულია</string>
     <string name="pen_palette_color_dark_green">მუქი მწვანე</string>
     <string name="sesl_done">მზადაა</string>
     <string name="action_search">ძიება</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">ბოლოდროს გამოყენებული ფერები</string>
     <string name="pen_swatch_color_cyan">ცისფერი</string>
     <string name="sesl_navigation_drawer">ნავიგაციის მხაზავი</string>
+    <string name="settings_import_select_items">ელემენტების არჩევა</string>
     <string name="pen_string_green">მწვანე</string>
     <string name="pen_string_selected">არჩეულია</string>
     <string name="pen_swatch_color_light_blue">ღია ცისფერი</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">ღია ფირუზისფერი</string>
     <string name="pen_swatch_color_dark_yellow">მუქი ყვითელი</string>
     <string name="pen_string_red">წითელი</string>
+    <string name="all_checkbox">ყველა</string>
     <string name="pen_palette_color_spring_green">გაზაფხულის მწვანე</string>
     <string name="sesl_preferencecategory_added_title">თავსართი</string>
     <string name="pen_palette_color_black">შავი</string>

@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">මැජෙන්ටා</string>
     <string name="pen_string_current_any">පවත්නා %s</string>
     <string name="pen_string_spectrum">වර්ණාවලිය</string>
+    <string name="sesl_more_item_label">තවත්</string>
     <string name="sesl_button">බොත්තම</string>
     <string name="pen_string_saturation">සන්තෘප්තිය</string>
     <string name="pen_string_select_color">වර්ණයක් තෝරන්න.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">ලා ඝන නිල්</string>
     <string name="pen_swatch_color_light_spring_green">ලා වසන්ත කොළ</string>
     <string name="pen_palette_color_white">සුදු</string>
+    <string name="selected_check_info">%d ක් තෝරා ඇත</string>
     <string name="pen_palette_color_dark_green">තද කොළ</string>
     <string name="sesl_done">නිමයි</string>
     <string name="action_search">සොයන්න</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">මෑත දී භාවිත වර්ණ</string>
     <string name="pen_swatch_color_cyan">මයුර නිල</string>
     <string name="sesl_navigation_drawer">සංචාලන ලාච්චුව</string>
+    <string name="settings_import_select_items">අයිතම තෝරන්න</string>
     <string name="pen_string_green">කොළ</string>
     <string name="pen_string_selected">තෝරා ගැනිණි</string>
     <string name="pen_swatch_color_light_blue">ලා නිල්</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">ලා මයුර නිල්</string>
     <string name="pen_swatch_color_dark_yellow">තද කහ</string>
     <string name="pen_string_red">රතු</string>
+    <string name="all_checkbox">සියල්ල</string>
     <string name="pen_palette_color_spring_green">වසන්ත කොළ</string>
     <string name="sesl_preferencecategory_added_title">ශීර්ෂකය</string>
     <string name="pen_palette_color_black">කළු</string>

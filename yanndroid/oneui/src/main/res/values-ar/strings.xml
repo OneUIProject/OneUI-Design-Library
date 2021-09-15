@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">أرجواني</string>
     <string name="pen_string_current_any">%s الحالية</string>
     <string name="pen_string_spectrum">طيف</string>
+    <string name="sesl_more_item_label">المزيد</string>
     <string name="sesl_button">زر</string>
     <string name="pen_string_saturation">التشبع</string>
     <string name="pen_string_select_color">حدد اللون.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">لازوردي فاتح</string>
     <string name="pen_swatch_color_light_spring_green">أخضر ربيعي فاتح</string>
     <string name="pen_palette_color_white">أبيض</string>
+    <string name="selected_check_info">تم تحديد %d</string>
     <string name="pen_palette_color_dark_green">أخضر داكن</string>
     <string name="sesl_done">تم</string>
     <string name="action_search">بحث</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">الألوان المستخدمة مؤخراً</string>
     <string name="pen_swatch_color_cyan">أزرق سماوي</string>
     <string name="sesl_navigation_drawer">درج التنقل</string>
+    <string name="settings_import_select_items">تحديد عناصر</string>
     <string name="pen_string_green">أخضر</string>
     <string name="pen_string_selected">تم التحديد</string>
     <string name="pen_swatch_color_light_blue">أزرق فاتح</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">أزرق سماوي فاتح</string>
     <string name="pen_swatch_color_dark_yellow">أصفر داكن</string>
     <string name="pen_string_red">أحمر</string>
+    <string name="all_checkbox">الكل</string>
     <string name="pen_palette_color_spring_green">فيروزي أخضر</string>
     <string name="sesl_preferencecategory_added_title">رأس</string>
     <string name="pen_palette_color_black">أسود</string>

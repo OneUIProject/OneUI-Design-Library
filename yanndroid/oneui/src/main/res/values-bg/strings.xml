@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Пурпурно</string>
     <string name="pen_string_current_any">Текущо %s</string>
     <string name="pen_string_spectrum">Спектър</string>
+    <string name="sesl_more_item_label">Още</string>
     <string name="sesl_button">Бутон</string>
     <string name="pen_string_saturation">Наситеност</string>
     <string name="pen_string_select_color">Изберете цвят.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Светло небесносиньо</string>
     <string name="pen_swatch_color_light_spring_green">Светло пролетно зелено</string>
     <string name="pen_palette_color_white">Бели</string>
+    <string name="selected_check_info">%d избрани</string>
     <string name="pen_palette_color_dark_green">Тъмнозелено</string>
     <string name="sesl_done">Готово</string>
     <string name="action_search">Търсене</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Наскоро използвани цветове</string>
     <string name="pen_swatch_color_cyan">Циан</string>
     <string name="sesl_navigation_drawer">Чекмедже за навигация</string>
+    <string name="settings_import_select_items">Избор на елементи</string>
     <string name="pen_string_green">Зелено</string>
     <string name="pen_string_selected">Избрани</string>
     <string name="pen_swatch_color_light_blue">Светлосиньо</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Светъл циан</string>
     <string name="pen_swatch_color_dark_yellow">Тъмножълто</string>
     <string name="pen_string_red">Червен</string>
+    <string name="all_checkbox">Всички</string>
     <string name="pen_palette_color_spring_green">Пролетно зелено</string>
     <string name="sesl_preferencecategory_added_title">Заглавие</string>
     <string name="pen_palette_color_black">Черно</string>

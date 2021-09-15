@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Blárauður</string>
     <string name="pen_string_current_any">Núverandi %s</string>
     <string name="pen_string_spectrum">Litróf</string>
+    <string name="sesl_more_item_label">Meira</string>
     <string name="sesl_button">Hnappur</string>
     <string name="pen_string_saturation">Mettun</string>
     <string name="pen_string_select_color">Velja lit.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Ljósheiðblár</string>
     <string name="pen_swatch_color_light_spring_green">Ljósvorgrænn</string>
     <string name="pen_palette_color_white">Hvítur</string>
+    <string name="selected_check_info">%d valin</string>
     <string name="pen_palette_color_dark_green">Dökkgrænn</string>
     <string name="sesl_done">Lokið</string>
     <string name="action_search">Leit</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Nýlega notaðir litir</string>
     <string name="pen_swatch_color_cyan">Blágrænn</string>
     <string name="sesl_navigation_drawer">Yfirlitsskúffa</string>
+    <string name="settings_import_select_items">Velja hluti</string>
     <string name="pen_string_green">Grænt</string>
     <string name="pen_string_selected">Valið</string>
     <string name="pen_swatch_color_light_blue">Ljósblár</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Ljósblágrænn</string>
     <string name="pen_swatch_color_dark_yellow">Dökkgulur</string>
     <string name="pen_string_red">Rauður</string>
+    <string name="all_checkbox">Allt</string>
     <string name="pen_palette_color_spring_green">Vorgrænn</string>
     <string name="sesl_preferencecategory_added_title">Haus</string>
     <string name="pen_palette_color_black">Svartur</string>

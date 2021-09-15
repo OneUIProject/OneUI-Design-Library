@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">ਨਾਭੀ</string>
     <string name="pen_string_current_any">ਮੌਜੂਦਾ %s</string>
     <string name="pen_string_spectrum">ਸਪੈਕਟ੍ਰਮ</string>
+    <string name="sesl_more_item_label">ਹੋਰ</string>
     <string name="sesl_button">ਬਟਨ</string>
     <string name="pen_string_saturation">ਸੰਤ੍ਰਿਪਤੀ</string>
     <string name="pen_string_select_color">ਕੋਈ ਰੰਗ ਚੁਣੋ।</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">ਹਲਕਾ ਅਜ਼ੂਰ</string>
     <string name="pen_swatch_color_light_spring_green">ਹਲਕਾ ਸਪਰਿੰਗ ਹਰਾ</string>
     <string name="pen_palette_color_white">ਸਫੈਦ</string>
+    <string name="selected_check_info">%d ਚੁਣੇ ਗਏ</string>
     <string name="pen_palette_color_dark_green">ਗੂੜ੍ਹਾ ਹਰਾ</string>
     <string name="sesl_done">ਪੂਰਨ</string>
     <string name="action_search">ਖੋਜੋ</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">ਹਾਲ ਹੀ ਵਿੱਚ ਵਰਤੇ ਰੰਗ</string>
     <string name="pen_swatch_color_cyan">ਗੂੜ੍ਹਾ ਨੀਲਾ</string>
     <string name="sesl_navigation_drawer">ਨੈਵੀਗੇਸ਼ਨ ਡ੍ਰਾਅਰ</string>
+    <string name="settings_import_select_items">ਆਈਟਮਸ ਚੁਣੋ</string>
     <string name="pen_string_green">ਹਰਾ</string>
     <string name="pen_string_selected">ਚੁਣਿਆ</string>
     <string name="pen_swatch_color_light_blue">ਹਲਕਾ ਨੀਲਾ</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">ਹਲਕਾ ਸਿਆਨ</string>
     <string name="pen_swatch_color_dark_yellow">ਗੂੜ੍ਹਾ ਪੀਲਾ</string>
     <string name="pen_string_red">ਲਾਲ</string>
+    <string name="all_checkbox">ਸਭ</string>
     <string name="pen_palette_color_spring_green">ਸਪ੍ਰਿੰਗ ਹਰਾ</string>
     <string name="sesl_preferencecategory_added_title">ਹੈਡਰ</string>
     <string name="pen_palette_color_black">ਕਾਲਾ</string>

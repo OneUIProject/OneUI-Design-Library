@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Magenta</string>
     <string name="pen_string_current_any">Nuvarande %s</string>
     <string name="pen_string_spectrum">Spektrum</string>
+    <string name="sesl_more_item_label">Mer</string>
     <string name="sesl_button">Knapp</string>
     <string name="pen_string_saturation">Mättnad</string>
     <string name="pen_string_select_color">Välj en färg.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Ljusazurblått</string>
     <string name="pen_swatch_color_light_spring_green">Vårljusgrönt</string>
     <string name="pen_palette_color_white">Vitt</string>
+    <string name="selected_check_info">%d valda</string>
     <string name="pen_palette_color_dark_green">Mörkgrönt</string>
     <string name="sesl_done">Klar</string>
     <string name="action_search">Sök</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Nyligen använda färger</string>
     <string name="pen_swatch_color_cyan">Cyan</string>
     <string name="sesl_navigation_drawer">Navigeringslåda</string>
+    <string name="settings_import_select_items">Välj objekt</string>
     <string name="pen_string_green">Grönt</string>
     <string name="pen_string_selected">Valt</string>
     <string name="pen_swatch_color_light_blue">Ljust blått</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Ljust cyan</string>
     <string name="pen_swatch_color_dark_yellow">Mörkgul</string>
     <string name="pen_string_red">Rött</string>
+    <string name="all_checkbox">Allt</string>
     <string name="pen_palette_color_spring_green">Vårgrönt</string>
     <string name="sesl_preferencecategory_added_title">Sidhuvud</string>
     <string name="pen_palette_color_black">Svart</string>

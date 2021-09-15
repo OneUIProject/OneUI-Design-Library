@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Пурпурный</string>
     <string name="pen_string_current_any">Текущее значение: %s</string>
     <string name="pen_string_spectrum">Цветовой спектр</string>
+    <string name="sesl_more_item_label">Опции</string>
     <string name="sesl_button">Кнопка</string>
     <string name="pen_string_saturation">Насыщенность</string>
     <string name="pen_string_select_color">Выбрать цвет.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Светло-лазурный</string>
     <string name="pen_swatch_color_light_spring_green">Светлый оттенок весеннего зеленого</string>
     <string name="pen_palette_color_white">Белый</string>
+    <string name="selected_check_info">Выбрано: %d</string>
     <string name="pen_palette_color_dark_green">Темно-зеленый</string>
     <string name="sesl_done">Готово</string>
     <string name="action_search">Поиск</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Недавно использовавшиеся цвета</string>
     <string name="pen_swatch_color_cyan">Голубой</string>
     <string name="sesl_navigation_drawer">Панель навигации</string>
+    <string name="settings_import_select_items">Выберите элементы</string>
     <string name="pen_string_green">Зеленый</string>
     <string name="pen_string_selected">Выбрано</string>
     <string name="pen_swatch_color_light_blue">Светло-синий</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Светло-голубой</string>
     <string name="pen_swatch_color_dark_yellow">Темно-желтый</string>
     <string name="pen_string_red">Красный</string>
+    <string name="all_checkbox">Все</string>
     <string name="pen_palette_color_spring_green">Весенний зеленый</string>
     <string name="sesl_preferencecategory_added_title">Заголовок</string>
     <string name="pen_palette_color_black">Черный</string>

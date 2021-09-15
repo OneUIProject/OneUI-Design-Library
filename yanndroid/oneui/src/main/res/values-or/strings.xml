@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">ମ୍ୟାଗ୍ନେଟା</string>
     <string name="pen_string_current_any">ସମ୍ପ୍ରତି %s</string>
     <string name="pen_string_spectrum">ସ୍ପେକ୍ଟ୍ରମ୍</string>
+    <string name="sesl_more_item_label">ଅଧିକ</string>
     <string name="sesl_button">ବଟନ୍</string>
     <string name="pen_string_saturation">ସମ୍ପୃକ୍ତି</string>
     <string name="pen_string_select_color">ଏକ ରଙ୍ଗ ଚୟନ କରନ୍ତୁ।</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">ହାଲୁକା ଆଜୁରେ</string>
     <string name="pen_swatch_color_light_spring_green">ହାଲୁକା ଅଲିଭ୍ ଗ୍ରୀନ୍</string>
     <string name="pen_palette_color_white">ଧଳା</string>
+    <string name="selected_check_info">%dଟି ଚୟନିତ</string>
     <string name="pen_palette_color_dark_green">ଗାଢ ସବୁଜ</string>
     <string name="sesl_done">ସମାପ୍ତ</string>
     <string name="action_search">ସନ୍ଧାନ</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">ସାମ୍ପ୍ରତିକ ଭାବେ ବ୍ୟବହାର ହୋଇଥିବା ରଙ୍ଗଗୁଡିକ</string>
     <string name="pen_swatch_color_cyan">ସିୟାନ୍</string>
     <string name="sesl_navigation_drawer">ନେଭିଗେସନ୍ ଡ୍ରୟର୍</string>
+    <string name="settings_import_select_items">ଆଇଟମଗୁଡିକ ଚୟନ</string>
     <string name="pen_string_green">ସବୁଜ</string>
     <string name="pen_string_selected">ଚୟନିତ</string>
     <string name="pen_swatch_color_light_blue">ହାଲୁକା ନୀଳ</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">ହାଲୁକା କାୟନ୍</string>
     <string name="pen_swatch_color_dark_yellow">ଗାଢ ହଳଦିଆ</string>
     <string name="pen_string_red">ଲାଲ୍</string>
+    <string name="all_checkbox">ସମସ୍ତ</string>
     <string name="pen_palette_color_spring_green">ସ୍ପ୍ରିଙ୍ଗ୍ ଗ୍ରୀନ୍</string>
     <string name="sesl_preferencecategory_added_title">ଶୀର୍ଷଲେଖ</string>
     <string name="pen_palette_color_black">କଳା</string>

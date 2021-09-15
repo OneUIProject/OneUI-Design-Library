@@ -201,6 +201,12 @@
     <dimen name="select_all_list_text_size">12.0dip</dimen>
     <dimen name="overflow_button_size">48.0dip</dimen>
 
+    <dimen name="message_list_bottom_bar_height">60.0dip</dimen>
+    <dimen name="bottom_bar_item_spacing">3.0dip</dimen>
+    <dimen name="bottom_bar_item_image_size">24.0dip</dimen>
+    <dimen name="bottom_bar_item_text_size">12.0sp</dimen>
+
+
 
     <!--TabLayout-->
     <dimen name="sesl_tab_max_width">0.0dip</dimen>

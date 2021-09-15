@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">ပန္းခရမ္းေရာင္</string>
     <string name="pen_string_current_any">လက္ရွိ %s</string>
     <string name="pen_string_spectrum">ေရာင္စဥ္</string>
+    <string name="sesl_more_item_label">ေနာက္ထပ္</string>
     <string name="sesl_button">ခလုတ္</string>
     <string name="pen_string_saturation">ျပည့္ဝမႈ</string>
     <string name="pen_string_select_color">အေရာင္တစ္ခု ေရြးပါ</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">မိုးျပာႏုေရာင္</string>
     <string name="pen_swatch_color_light_spring_green">သစ္ရြက္စိမ္းႏုေရာင္</string>
     <string name="pen_palette_color_white">အျဖဴ</string>
+    <string name="selected_check_info">%d ကို ေရြးထားပါသည္</string>
     <string name="pen_palette_color_dark_green">အစိမ္းပုပ္</string>
     <string name="sesl_done">ၿပီးပါၿပီ</string>
     <string name="action_search">ရွာေဖြပါ</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">မၾကာမီက သုံးထားသည့္ အေရာင္မ်ား</string>
     <string name="pen_swatch_color_cyan">စိမ္းျပာ</string>
     <string name="sesl_navigation_drawer">ရွာေဖြၾကည့္ရႈသည့္ အံဆြဲ</string>
+    <string name="settings_import_select_items">အရာမ်ားကို ေရြးခ်ယ္ပါ</string>
     <string name="pen_string_green">အစိမ္း</string>
     <string name="pen_string_selected">ေ႐ြးထားသည္</string>
     <string name="pen_swatch_color_light_blue">အျပာႏု</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">အျပာႏုေရာင္</string>
     <string name="pen_swatch_color_dark_yellow">အဝါရင့္ေရာင္</string>
     <string name="pen_string_red">အနီ</string>
+    <string name="all_checkbox">အားလုံး</string>
     <string name="pen_palette_color_spring_green">စိမ္းႏုေရာင္</string>
     <string name="sesl_preferencecategory_added_title">ေခါင္းစည္း</string>
     <string name="pen_palette_color_black">အနက္</string>

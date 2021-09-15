@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Пурпурны</string>
     <string name="pen_string_current_any">Бягучае значэнне %s</string>
     <string name="pen_string_spectrum">Спектр</string>
+    <string name="sesl_more_item_label">Болей</string>
     <string name="sesl_button">Кнопка</string>
     <string name="pen_string_saturation">Насычанасць</string>
     <string name="pen_string_select_color">Выберыце колер.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Светла лазурны</string>
     <string name="pen_swatch_color_light_spring_green">Светлы вясновы зялёны</string>
     <string name="pen_palette_color_white">Белы</string>
+    <string name="selected_check_info">Выбрана: %d</string>
     <string name="pen_palette_color_dark_green">Цёмна-зялёны</string>
     <string name="sesl_done">Гатова</string>
     <string name="action_search">Пошук</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Нядаўна выкарыстаныя колеры</string>
     <string name="pen_swatch_color_cyan">Блакітны</string>
     <string name="sesl_navigation_drawer">Высоўнае меню навігацыі</string>
+    <string name="settings_import_select_items">Выберыце элементы</string>
     <string name="pen_string_green">Зялёны</string>
     <string name="pen_string_selected">Выбрана</string>
     <string name="pen_swatch_color_light_blue">Светла-сіні</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Светла блакітны</string>
     <string name="pen_swatch_color_dark_yellow">Цёмна-жоўты</string>
     <string name="pen_string_red">Чырвоны</string>
+    <string name="all_checkbox">Усе</string>
     <string name="pen_palette_color_spring_green">Вясновы зялёны</string>
     <string name="sesl_preferencecategory_added_title">Загаловак</string>
     <string name="pen_palette_color_black">Чорны</string>

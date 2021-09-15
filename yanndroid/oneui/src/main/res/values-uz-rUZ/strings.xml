@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Qirmizi</string>
     <string name="pen_string_current_any">Joriy %s</string>
     <string name="pen_string_spectrum">Spektrum</string>
+    <string name="sesl_more_item_label">Ko‘proq</string>
     <string name="sesl_button">Tugma</string>
     <string name="pen_string_saturation">To‘yinish</string>
     <string name="pen_string_select_color">Rang tanlash.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Och lojuvard</string>
     <string name="pen_swatch_color_light_spring_green">Och bahoriy yashil</string>
     <string name="pen_palette_color_white">Oq</string>
+    <string name="selected_check_info">%d tanlandi</string>
     <string name="pen_palette_color_dark_green">To‘q yashil</string>
     <string name="sesl_done">Tayyor</string>
     <string name="action_search">Qidirish</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Oxirgi ishlatilgan ranglar</string>
     <string name="pen_swatch_color_cyan">Moviy</string>
     <string name="sesl_navigation_drawer">Navigatsiya chizish vositasi</string>
+    <string name="settings_import_select_items">Elementlar tanlash</string>
     <string name="pen_string_green">Yashil</string>
     <string name="pen_string_selected">Tanlangan</string>
     <string name="pen_swatch_color_light_blue">Och ko‘k</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Och moviy</string>
     <string name="pen_swatch_color_dark_yellow">To‘q sariq</string>
     <string name="pen_string_red">Qizil</string>
+    <string name="all_checkbox">Barchasi</string>
     <string name="pen_palette_color_spring_green">Bahoriy yashil</string>
     <string name="sesl_preferencecategory_added_title">Sarlavha</string>
     <string name="pen_palette_color_black">Qora</string>

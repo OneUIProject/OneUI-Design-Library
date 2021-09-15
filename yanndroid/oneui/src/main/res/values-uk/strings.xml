@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Пурпурний</string>
     <string name="pen_string_current_any">Поточне значення: %s</string>
     <string name="pen_string_spectrum">Колірний спектр</string>
+    <string name="sesl_more_item_label">Більше</string>
     <string name="sesl_button">Кнопка</string>
     <string name="pen_string_saturation">Насиченість</string>
     <string name="pen_string_select_color">Виберіть колір.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Світло-лазурний</string>
     <string name="pen_swatch_color_light_spring_green">Світлий відтінок весняного зеленого</string>
     <string name="pen_palette_color_white">Білий</string>
+    <string name="selected_check_info">Вибрано: %d</string>
     <string name="pen_palette_color_dark_green">Темно-зелений</string>
     <string name="sesl_done">Готово</string>
     <string name="action_search">Пошук</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Кольори, які нещодавно використовувалися</string>
     <string name="pen_swatch_color_cyan">Блакитний</string>
     <string name="sesl_navigation_drawer">Бокове меню навігації</string>
+    <string name="settings_import_select_items">Вибір об’єктів</string>
     <string name="pen_string_green">Зелений</string>
     <string name="pen_string_selected">Вибрано</string>
     <string name="pen_swatch_color_light_blue">Світло-синій</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Світло-блакитний</string>
     <string name="pen_swatch_color_dark_yellow">Темно-жовтий</string>
     <string name="pen_string_red">Червоний</string>
+    <string name="all_checkbox">Усі</string>
     <string name="pen_palette_color_spring_green">Яскраво-зелений</string>
     <string name="sesl_preferencecategory_added_title">Заголовок</string>
     <string name="pen_palette_color_black">Чорний</string>

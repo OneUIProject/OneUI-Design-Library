@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Magenta</string>
     <string name="pen_string_current_any">Current %s</string>
     <string name="pen_string_spectrum">Spectrum</string>
+    <string name="sesl_more_item_label">More</string>
     <string name="sesl_button">Button</string>
     <string name="pen_string_saturation">Saturation</string>
     <string name="pen_string_select_color">Select a color.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Light azure</string>
     <string name="pen_swatch_color_light_spring_green">Light spring green</string>
     <string name="pen_palette_color_white">White</string>
+    <string name="selected_check_info">%d selected</string>
     <string name="pen_palette_color_dark_green">Dark green</string>
     <string name="sesl_done">Done</string>
     <string name="action_search">Search</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Recently used colors</string>
     <string name="pen_swatch_color_cyan">Cyan</string>
     <string name="sesl_navigation_drawer">Navigation drawer</string>
+    <string name="settings_import_select_items">Select items</string>
     <string name="pen_string_green">Green</string>
     <string name="pen_string_selected">Selected</string>
     <string name="pen_swatch_color_light_blue">Light blue</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Light cyan</string>
     <string name="pen_swatch_color_dark_yellow">Dark yellow</string>
     <string name="pen_string_red">Red</string>
+    <string name="all_checkbox">All</string>
     <string name="pen_palette_color_spring_green">Spring green</string>
     <string name="sesl_preferencecategory_added_title">Header</string>
     <string name="pen_palette_color_black">Black</string>

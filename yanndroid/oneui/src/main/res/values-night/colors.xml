@@ -93,6 +93,10 @@
     <color name="sesl_action_bar_text_color_subtitle">#ff9c9c9c</color>
     <color name="sesl_extended_appbar_subtitle">#ff9c9c9c</color>
 
+    <color name="bottom_bar_item_image_color">#ffcccccc</color>
+    <color name="bottom_bar_item_text_color">#ff9c9c9c</color>
+
+
 
     <!--TabLayout-->
     <color name="sesl_tablayout_show_button_text_color">#252525</color>

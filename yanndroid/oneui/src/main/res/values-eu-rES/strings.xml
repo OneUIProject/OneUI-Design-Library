@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Magenta</string>
     <string name="pen_string_current_any">Uneko %s</string>
     <string name="pen_string_spectrum">Espektroa</string>
+    <string name="sesl_more_item_label">Gehiago</string>
     <string name="sesl_button">Botoia</string>
     <string name="pen_string_saturation">Saturazioa</string>
     <string name="pen_string_select_color">Hautatu kolorea</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Zeru urdin argia</string>
     <string name="pen_swatch_color_light_spring_green">Udaberriko berde argia</string>
     <string name="pen_palette_color_white">Zuria</string>
+    <string name="selected_check_info">%d hautatuta</string>
     <string name="pen_palette_color_dark_green">Berde iluna</string>
     <string name="sesl_done">Eginda</string>
     <string name="action_search">Bilatu</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Berriki erabilitako koloreak</string>
     <string name="pen_swatch_color_cyan">Ziana</string>
     <string name="sesl_navigation_drawer">Nabigazio menu lerrakorra</string>
+    <string name="settings_import_select_items">Hautatu elementuak</string>
     <string name="pen_string_green">Berdea</string>
     <string name="pen_string_selected">Hautatuta</string>
     <string name="pen_swatch_color_light_blue">Urdin argia</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Zian argia</string>
     <string name="pen_swatch_color_dark_yellow">Hori iluna</string>
     <string name="pen_string_red">Gorria</string>
+    <string name="all_checkbox">Guztiak</string>
     <string name="pen_palette_color_spring_green">Udaberriaren berdea</string>
     <string name="sesl_preferencecategory_added_title">Goiburua</string>
     <string name="pen_palette_color_black">Beltza</string>

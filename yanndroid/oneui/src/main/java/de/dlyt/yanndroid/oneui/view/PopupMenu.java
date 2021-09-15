@@ -65,7 +65,7 @@ public class PopupMenu {
     }
 
     @SuppressLint("RestrictedApi")
-    public void inflate(@MenuRes int menuRes){
+    public void inflate(@MenuRes int menuRes) {
         menu = new MenuBuilder(context);
         MenuInflater menuInflater = new SupportMenuInflater(context);
         menuInflater.inflate(menuRes, menu);
@@ -77,7 +77,10 @@ public class PopupMenu {
             overflowBadges.put(item, 0);
             menuItems.add(item);
         }
+        inflate(menuItems);
+    }
 
+    public void inflate(ArrayList<MenuItem> menuItems) {
         if (menuItems.isEmpty()) return;
 
         if (popupWindow != null) {
@@ -148,7 +151,7 @@ public class PopupMenu {
         popupWindow.dismiss();
     }
 
-    public boolean isShowing(){
+    public boolean isShowing() {
         return popupWindow.isShowing();
     }
 
@@ -221,6 +224,8 @@ public class PopupMenu {
 
             badgeIcon = view.findViewById(R.id.more_menu_popup_badge);
             Integer badgeCount = overflowBadges.get(overflowItems.get(index));
+
+            if (badgeCount == null) return view;
 
             if (badgeCount > 0) {
                 int count = badgeCount;

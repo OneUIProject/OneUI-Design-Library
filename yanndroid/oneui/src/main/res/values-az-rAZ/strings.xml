@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Al qırmızı</string>
     <string name="pen_string_current_any">Cari %s</string>
     <string name="pen_string_spectrum">Spektr</string>
+    <string name="sesl_more_item_label">Daha çox</string>
     <string name="sesl_button">Düymə</string>
     <string name="pen_string_saturation">Dolğunluq</string>
     <string name="pen_string_select_color">Rəngi seçin.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Açıq mavi</string>
     <string name="pen_swatch_color_light_spring_green">Açıq yaşıl</string>
     <string name="pen_palette_color_white">Ağ</string>
+    <string name="selected_check_info">%d seçilmişdir</string>
     <string name="pen_palette_color_dark_green">Tünd yaşıl</string>
     <string name="sesl_done">Hazır</string>
     <string name="action_search">Axtar</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Son zamanda istifadə edilən rənglər</string>
     <string name="pen_swatch_color_cyan">Mavi</string>
     <string name="sesl_navigation_drawer">Naviqasiya rəfi</string>
+    <string name="settings_import_select_items">Elementləri seç</string>
     <string name="pen_string_green">Yaşıl</string>
     <string name="pen_string_selected">Seçildi</string>
     <string name="pen_swatch_color_light_blue">Açıq mavi</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Açıq yaşımtıl</string>
     <string name="pen_swatch_color_dark_yellow">Tünd sarı</string>
     <string name="pen_string_red">Qırmızı</string>
+    <string name="all_checkbox">Hamısı</string>
     <string name="pen_palette_color_spring_green">Yaz yaşılı</string>
     <string name="sesl_preferencecategory_added_title">Başlıq</string>
     <string name="pen_palette_color_black">Qara</string>

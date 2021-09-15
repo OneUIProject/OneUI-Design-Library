@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Magenta</string>
     <string name="pen_string_current_any">Trenutno %s</string>
     <string name="pen_string_spectrum">Spektar</string>
+    <string name="sesl_more_item_label">Još</string>
     <string name="sesl_button">Tipka</string>
     <string name="pen_string_saturation">Zasićenost</string>
     <string name="pen_string_select_color">Izaberite boju.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Svijetla azurno plava</string>
     <string name="pen_swatch_color_light_spring_green">Svijetla proljetno zelena</string>
     <string name="pen_palette_color_white">Bijela</string>
+    <string name="selected_check_info">Izabrano: %d</string>
     <string name="pen_palette_color_dark_green">Tamnozelena</string>
     <string name="sesl_done">Gotovo</string>
     <string name="action_search">Pretraživanje</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Nedavno korištene boje</string>
     <string name="pen_swatch_color_cyan">Cijan</string>
     <string name="sesl_navigation_drawer">Ladica navigacije</string>
+    <string name="settings_import_select_items">Izaberi stavke</string>
     <string name="pen_string_green">Zelena</string>
     <string name="pen_string_selected">Izabrano</string>
     <string name="pen_swatch_color_light_blue">Svijetloplava</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Svijetlo cijan</string>
     <string name="pen_swatch_color_dark_yellow">Tamno žuta</string>
     <string name="pen_string_red">Crvena</string>
+    <string name="all_checkbox">Sve</string>
     <string name="pen_palette_color_spring_green">Proljetno zelena</string>
     <string name="sesl_preferencecategory_added_title">Header</string>
     <string name="pen_palette_color_black">Crna</string>

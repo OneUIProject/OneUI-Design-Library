@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Magenta</string>
     <string name="pen_string_current_any">Nuværende %s</string>
     <string name="pen_string_spectrum">Spektrum</string>
+    <string name="sesl_more_item_label">Mere</string>
     <string name="sesl_button">Tast</string>
     <string name="pen_string_saturation">Mætning</string>
     <string name="pen_string_select_color">Vælg en farve.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Lys azurblå</string>
     <string name="pen_swatch_color_light_spring_green">Lys forårsgrøn</string>
     <string name="pen_palette_color_white">Hvid</string>
+    <string name="selected_check_info">%d valgt</string>
     <string name="pen_palette_color_dark_green">Mørkegrøn</string>
     <string name="sesl_done">Udført</string>
     <string name="action_search">Søg</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Senest brugte farver</string>
     <string name="pen_swatch_color_cyan">Cyan</string>
     <string name="sesl_navigation_drawer">Navigationsskuffe</string>
+    <string name="settings_import_select_items">Vælg elementer</string>
     <string name="pen_string_green">Grøn</string>
     <string name="pen_string_selected">Valgt</string>
     <string name="pen_swatch_color_light_blue">Lys blå</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Lys cyan</string>
     <string name="pen_swatch_color_dark_yellow">Mørk gul</string>
     <string name="pen_string_red">Rød</string>
+    <string name="all_checkbox">Alt</string>
     <string name="pen_palette_color_spring_green">Forårsgrøn</string>
     <string name="sesl_preferencecategory_added_title">Overskrift</string>
     <string name="pen_palette_color_black">Sort</string>

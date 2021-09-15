@@ -7,5 +7,5 @@
     android:focusable="true"
     android:clickable="true"
     android:src="?actionModeCloseDrawable"
-    android:contentDescription="@string/sesl_action_mode_done"
+    android:contentDescription="@string/sesl_done"
     style="?actionModeCloseButtonStyle" />

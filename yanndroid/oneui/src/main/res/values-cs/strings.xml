@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Purpurová</string>
     <string name="pen_string_current_any">%s – aktuální hodnota</string>
     <string name="pen_string_spectrum">Spektrum</string>
+    <string name="sesl_more_item_label">Další</string>
     <string name="sesl_button">Tlačítko</string>
     <string name="pen_string_saturation">Sytost</string>
     <string name="pen_string_select_color">Vybrat barvu.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Světle azurová</string>
     <string name="pen_swatch_color_light_spring_green">Světlá jarní zelená</string>
     <string name="pen_palette_color_white">Bílá</string>
+    <string name="selected_check_info">Vybráno %d</string>
     <string name="pen_palette_color_dark_green">Tmavě zelená</string>
     <string name="sesl_done">Hotovo</string>
     <string name="action_search">Hledat</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Naposledy použité barvy</string>
     <string name="pen_swatch_color_cyan">Azurová</string>
     <string name="sesl_navigation_drawer">Navigační panel</string>
+    <string name="settings_import_select_items">Vyberte položky</string>
     <string name="pen_string_green">Zelená</string>
     <string name="pen_string_selected">Vybráno</string>
     <string name="pen_swatch_color_light_blue">Světle modrá</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Světle modrozelená</string>
     <string name="pen_swatch_color_dark_yellow">Tmavě žlutá</string>
     <string name="pen_string_red">Červená</string>
+    <string name="all_checkbox">Vše</string>
     <string name="pen_palette_color_spring_green">Jarní zelená</string>
     <string name="sesl_preferencecategory_added_title">Záhlaví</string>
     <string name="pen_palette_color_black">Černá</string>

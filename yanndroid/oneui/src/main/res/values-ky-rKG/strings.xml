@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Мажента</string>
     <string name="pen_string_current_any">Учурдагы %s</string>
     <string name="pen_string_spectrum">Спектр</string>
+    <string name="sesl_more_item_label">Дагы</string>
     <string name="sesl_button">Баскыч</string>
     <string name="pen_string_saturation">Сатурация</string>
     <string name="pen_string_select_color">Түс тандаңыз.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Ачык көгүш</string>
     <string name="pen_swatch_color_light_spring_green">Жазгы ачык жашыл</string>
     <string name="pen_palette_color_white">Ак</string>
+    <string name="selected_check_info">%d тандалды</string>
     <string name="pen_palette_color_dark_green">Кочкул жашыл</string>
     <string name="sesl_done">Даяр</string>
     <string name="action_search">Издөө</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Акыркы колдонулган түстөр</string>
     <string name="pen_swatch_color_cyan">Көгүш</string>
     <string name="sesl_navigation_drawer">Навигация тарткычы</string>
+    <string name="settings_import_select_items">Нерсени тандоо</string>
     <string name="pen_string_green">Жашыл</string>
     <string name="pen_string_selected">Тандалган</string>
     <string name="pen_swatch_color_light_blue">Ачык көк</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Ачык циан</string>
     <string name="pen_swatch_color_dark_yellow">Кочкул сары</string>
     <string name="pen_string_red">Кызыл</string>
+    <string name="all_checkbox">Баары</string>
     <string name="pen_palette_color_spring_green">Жаз жашылы</string>
     <string name="sesl_preferencecategory_added_title">Баш аты</string>
     <string name="pen_palette_color_black">Кара</string>

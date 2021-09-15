@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Rausva</string>
     <string name="pen_string_current_any">Dabartinė %s</string>
     <string name="pen_string_spectrum">Spektras</string>
+    <string name="sesl_more_item_label">Daugiau</string>
     <string name="sesl_button">Mygtukas</string>
     <string name="pen_string_saturation">Sotis</string>
     <string name="pen_string_select_color">Pasirinkite spalvą.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Šviesiai žydra</string>
     <string name="pen_swatch_color_light_spring_green">Šviesi pavasario žalia</string>
     <string name="pen_palette_color_white">Balta</string>
+    <string name="selected_check_info">Pasirinkta: %d</string>
     <string name="pen_palette_color_dark_green">Tamsiai žalia</string>
     <string name="sesl_done">Atlikta</string>
     <string name="action_search">Ieškoti</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Neseniai naudotos spalvos</string>
     <string name="pen_swatch_color_cyan">Žalsvai mėlyna</string>
     <string name="sesl_navigation_drawer">Naršymo stalčius</string>
+    <string name="settings_import_select_items">Rinktis elementus</string>
     <string name="pen_string_green">Žalia</string>
     <string name="pen_string_selected">Pasirinkta</string>
     <string name="pen_swatch_color_light_blue">Šviesiai mėlyna</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Žalsvai mėlyna</string>
     <string name="pen_swatch_color_dark_yellow">Tamsiai geltona</string>
     <string name="pen_string_red">Raudona</string>
+    <string name="all_checkbox">Visi</string>
     <string name="pen_palette_color_spring_green">Pavasario žalia</string>
     <string name="sesl_preferencecategory_added_title">Antraštė</string>
     <string name="pen_palette_color_black">Juoda</string>

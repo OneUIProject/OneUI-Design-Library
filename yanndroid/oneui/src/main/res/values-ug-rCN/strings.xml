@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">ئاچ قىزىل</string>
     <string name="pen_string_current_any">نۆۋەتتىكى %s</string>
     <string name="pen_string_spectrum">光谱</string>
+    <string name="sesl_more_item_label">تېخىمۇ كۆپ</string>
     <string name="sesl_button">كۇنۇپكا</string>
     <string name="pen_string_saturation">饱和度</string>
     <string name="pen_string_select_color">选择颜色。</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">ئاچ ئاسمان كۆك</string>
     <string name="pen_swatch_color_light_spring_green">ئاچ كۆكلەم يېشىل</string>
     <string name="pen_palette_color_white">ئاق</string>
+    <string name="selected_check_info">%d تاللىنىش</string>
     <string name="pen_palette_color_dark_green">توق يېشىل</string>
     <string name="sesl_done">تامام</string>
     <string name="action_search">ئىزدەش</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">يېقىندا ئىشلىتىلگەن رەڭلەر</string>
     <string name="pen_swatch_color_cyan">كۆكيېشىل</string>
     <string name="sesl_navigation_drawer">يولچى سىزغۇچ</string>
+    <string name="settings_import_select_items">نەرسە تاللاش</string>
     <string name="pen_string_green">绿色</string>
     <string name="pen_string_selected">تاللاندى</string>
     <string name="pen_swatch_color_light_blue">ئاچ كۆك</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">ئاچ كۆكۈچ</string>
     <string name="pen_swatch_color_dark_yellow">توق سېرىق</string>
     <string name="pen_string_red">红色</string>
+    <string name="all_checkbox">بارلىق</string>
     <string name="pen_palette_color_spring_green">كۆكلەم يېشىل</string>
     <string name="sesl_preferencecategory_added_title">بەت قېشى</string>
     <string name="pen_palette_color_black">قارا</string>

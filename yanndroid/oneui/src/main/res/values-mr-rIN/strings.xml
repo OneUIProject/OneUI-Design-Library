@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">किरमीजी</string>
     <string name="pen_string_current_any">वर्तमान %s</string>
     <string name="pen_string_spectrum">स्पेक्ट्रम</string>
+    <string name="sesl_more_item_label">अधिक</string>
     <string name="sesl_button">बटण</string>
     <string name="pen_string_saturation">सॅचुरेशन</string>
     <string name="pen_string_select_color">रंग निवडा.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">फिकट ॲझ्यूअर रंग</string>
     <string name="pen_swatch_color_light_spring_green">फिकट स्प्रिंग ग्रीन रंग</string>
     <string name="pen_palette_color_white">पांढरा</string>
+    <string name="selected_check_info">%d निवडलेले</string>
     <string name="pen_palette_color_dark_green">गडद हिरवा</string>
     <string name="sesl_done">झाले</string>
     <string name="action_search">शोधा</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">अलीकडे वापरलेले रंग</string>
     <string name="pen_swatch_color_cyan">निळसर</string>
     <string name="sesl_navigation_drawer">नेव्हिगेशन ड्रॉवर</string>
+    <string name="settings_import_select_items">आयटेम्‍स निवडा</string>
     <string name="pen_string_green">हिरवा</string>
     <string name="pen_string_selected">निवडले</string>
     <string name="pen_swatch_color_light_blue">फिकट निळा</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">फिकट हिरवा-निळा रंग</string>
     <string name="pen_swatch_color_dark_yellow">गडद पिवळा</string>
     <string name="pen_string_red">लाल</string>
+    <string name="all_checkbox">सर्व</string>
     <string name="pen_palette_color_spring_green">स्प्रिंग गीन</string>
     <string name="sesl_preferencecategory_added_title">हेडर</string>
     <string name="pen_palette_color_black">काळा</string>

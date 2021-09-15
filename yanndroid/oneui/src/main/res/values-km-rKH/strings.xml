@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">ផ្កាឈូក​ស្វាយ</string>
     <string name="pen_string_current_any">%s បច្ចុប្បន្ន</string>
     <string name="pen_string_spectrum">វិសាលគម</string>
+    <string name="sesl_more_item_label">ច្រើន​ទៀត</string>
     <string name="sesl_button">ប៊ូតុង</string>
     <string name="pen_string_saturation">ភាពសើម</string>
     <string name="pen_string_select_color">ជ្រើស​ពណ៌។</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">ខៀវ​ផ្ទៃមេឃ​ភ្លឺ​ស្រាល</string>
     <string name="pen_swatch_color_light_spring_green">បៃតង​ខ្ចី​ស្រាល</string>
     <string name="pen_palette_color_white">ស</string>
+    <string name="selected_check_info">បាន​ជ្រើស %d</string>
     <string name="pen_palette_color_dark_green">បៃតង​ចាស់</string>
     <string name="sesl_done">រួចរាល់</string>
     <string name="action_search">ស្វែង​រក</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">ពណ៌​បាន​ប្រើ​ថ្មីៗ</string>
     <string name="pen_swatch_color_cyan">បៃតង​ខៀវ</string>
     <string name="sesl_navigation_drawer">កេក​ការប្រាប់​ទិសដៅ</string>
+    <string name="settings_import_select_items">ជ្រើស​ធាតុ</string>
     <string name="pen_string_green">បៃតង</string>
     <string name="pen_string_selected">បាន​ជ្រើស</string>
     <string name="pen_swatch_color_light_blue">ខៀវ​ស្រាល</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">បៃតង​ខៀវ​ស្រាល</string>
     <string name="pen_swatch_color_dark_yellow">លឿង​ចាស់</string>
     <string name="pen_string_red">ក្រហម</string>
+    <string name="all_checkbox">ទាំងអស់</string>
     <string name="pen_palette_color_spring_green">បៃតង​ខ្ចី</string>
     <string name="sesl_preferencecategory_added_title">ក្បាលទំព័រ</string>
     <string name="pen_palette_color_black">ខ្មៅ</string>

@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Magenta</string>
     <string name="pen_string_current_any">%s din prezent</string>
     <string name="pen_string_spectrum">Spectru</string>
+    <string name="sesl_more_item_label">Mai multe</string>
     <string name="sesl_button">Buton</string>
     <string name="pen_string_saturation">Saturație</string>
     <string name="pen_string_select_color">Selectați o culoare.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Azuriu deschis</string>
     <string name="pen_swatch_color_light_spring_green">Verde crud deschis</string>
     <string name="pen_palette_color_white">Alb</string>
+    <string name="selected_check_info">%d selectate</string>
     <string name="pen_palette_color_dark_green">Verde închis</string>
     <string name="sesl_done">Efectuat</string>
     <string name="action_search">Căutare</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Culori utilizate recent</string>
     <string name="pen_swatch_color_cyan">Cyan</string>
     <string name="sesl_navigation_drawer">Panou de navigare</string>
+    <string name="settings_import_select_items">Selectare elemente</string>
     <string name="pen_string_green">Verde</string>
     <string name="pen_string_selected">Selectată</string>
     <string name="pen_swatch_color_light_blue">Albastru deschis</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Cyan deschis</string>
     <string name="pen_swatch_color_dark_yellow">Galben închis</string>
     <string name="pen_string_red">Roșu</string>
+    <string name="all_checkbox">Toate</string>
     <string name="pen_palette_color_spring_green">Verde crud</string>
     <string name="sesl_preferencecategory_added_title">Titlu</string>
     <string name="pen_palette_color_black">Negru</string>

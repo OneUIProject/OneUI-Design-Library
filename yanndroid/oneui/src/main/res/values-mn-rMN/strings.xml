@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Тод ягаан</string>
     <string name="pen_string_current_any">Одоогийн %s</string>
     <string name="pen_string_spectrum">Спектр</string>
+    <string name="sesl_more_item_label">Бусад</string>
     <string name="sesl_button">Товч</string>
     <string name="pen_string_saturation">Нэвтрэлт</string>
     <string name="pen_string_select_color">Өнгө сонгох</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Цайвар хөх</string>
     <string name="pen_swatch_color_light_spring_green">Цайвар хаврын ногоон</string>
     <string name="pen_palette_color_white">Цагаан</string>
+    <string name="selected_check_info">%d сонгосон</string>
     <string name="pen_palette_color_dark_green">Бараан ногоон</string>
     <string name="sesl_done">Дууслаа</string>
     <string name="action_search">Хайх</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Саяхан ашигласан өнгүүд</string>
     <string name="pen_swatch_color_cyan">Шар хөх</string>
     <string name="sesl_navigation_drawer">Залуурдалтын зурагч</string>
+    <string name="settings_import_select_items">Зүйлс сонгох</string>
     <string name="pen_string_green">Ногоон</string>
     <string name="pen_string_selected">Сонгогдсон</string>
     <string name="pen_swatch_color_light_blue">Цэнхэр</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Цайвар шар хөх</string>
     <string name="pen_swatch_color_dark_yellow">Бараан шар</string>
     <string name="pen_string_red">Улаан</string>
+    <string name="all_checkbox">Бүгд</string>
     <string name="pen_palette_color_spring_green">Шар ногоон</string>
     <string name="sesl_preferencecategory_added_title">Толгой хэсэг</string>
     <string name="pen_palette_color_black">Хар</string>

@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Magenta</string>
     <string name="pen_string_current_any">Praegune %s</string>
     <string name="pen_string_spectrum">Spekter</string>
+    <string name="sesl_more_item_label">Veel</string>
     <string name="sesl_button">Nupp</string>
     <string name="pen_string_saturation">Küllastus</string>
     <string name="pen_string_select_color">Vali varv.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Hele taevasinine</string>
     <string name="pen_swatch_color_light_spring_green">Hele kevadroheline</string>
     <string name="pen_palette_color_white">Valge</string>
+    <string name="selected_check_info">%d on valitud</string>
     <string name="pen_palette_color_dark_green">Tumeroheline</string>
     <string name="sesl_done">Valmis</string>
     <string name="action_search">Otsi</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Hiljuti kasutatud värvid</string>
     <string name="pen_swatch_color_cyan">Tsüaan</string>
     <string name="sesl_navigation_drawer">Navigatsiooni sahtel</string>
+    <string name="settings_import_select_items">Vali üksused</string>
     <string name="pen_string_green">Roheline</string>
     <string name="pen_string_selected">Valitud</string>
     <string name="pen_swatch_color_light_blue">Helesinine</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Hele tsüaan</string>
     <string name="pen_swatch_color_dark_yellow">Tumekollane</string>
     <string name="pen_string_red">Punane</string>
+    <string name="all_checkbox">Kõik</string>
     <string name="pen_palette_color_spring_green">Kevadroheline</string>
     <string name="sesl_preferencecategory_added_title">Päis</string>
     <string name="pen_palette_color_black">Must</string>

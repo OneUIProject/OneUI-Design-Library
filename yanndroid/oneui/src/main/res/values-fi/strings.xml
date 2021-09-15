@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Magenta</string>
     <string name="pen_string_current_any">Nykyinen %s</string>
     <string name="pen_string_spectrum">Spektri</string>
+    <string name="sesl_more_item_label">Lisää</string>
     <string name="sesl_button">Painike</string>
     <string name="pen_string_saturation">Kylläisyys</string>
     <string name="pen_string_select_color">Valitse väri.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Vaalea asuurinsininen</string>
     <string name="pen_swatch_color_light_spring_green">Vaalea keväänvihreä</string>
     <string name="pen_palette_color_white">Valkoinen</string>
+    <string name="selected_check_info">%d valittu</string>
     <string name="pen_palette_color_dark_green">Dark green</string>
     <string name="sesl_done">Valmis</string>
     <string name="action_search">Etsi</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Viimeksi käytetyt värit</string>
     <string name="pen_swatch_color_cyan">Syaani</string>
     <string name="sesl_navigation_drawer">Siirtymisvalikko</string>
+    <string name="settings_import_select_items">Valitse kohteet</string>
     <string name="pen_string_green">Vihreä</string>
     <string name="pen_string_selected">Valittu</string>
     <string name="pen_swatch_color_light_blue">Vaaleansininen</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Vaalea syaani</string>
     <string name="pen_swatch_color_dark_yellow">Tummankeltainen</string>
     <string name="pen_string_red">Punainen</string>
+    <string name="all_checkbox">Kaikki</string>
     <string name="pen_palette_color_spring_green">Spring green</string>
     <string name="sesl_preferencecategory_added_title">Otsikko</string>
     <string name="pen_palette_color_black">Musta</string>

@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">മജന്ത</string>
     <string name="pen_string_current_any">നിലവിലുള്ള %s</string>
     <string name="pen_string_spectrum">സ്പെക്ട്രം</string>
+    <string name="sesl_more_item_label">കൂടുതല്‍</string>
     <string name="sesl_button">ബട്ടണ്‍</string>
     <string name="pen_string_saturation">വ്യാപനം</string>
     <string name="pen_string_select_color">ഒരു നിറം തിരഞ്ഞെടുക്കുക.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">ലൈറ്റ് ആഷർ</string>
     <string name="pen_swatch_color_light_spring_green">ലൈറ്റ് സ്പ്രിംഗ് ഗ്രീൻ</string>
     <string name="pen_palette_color_white">വെള്ള</string>
+    <string name="selected_check_info">%d തിരഞ്ഞെടുത്തു</string>
     <string name="pen_palette_color_dark_green">ഡാർക്ക് ഗ്രീൻ</string>
     <string name="sesl_done">ചെയ്‌തു</string>
     <string name="action_search">തിരച്ചില്‍</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">സമീപകാലത്ത് ഉപയോഗിച്ച നിറങ്ങൾ</string>
     <string name="pen_swatch_color_cyan">സൈഅൻ</string>
     <string name="sesl_navigation_drawer">നാവിഗേഷൻ ഡ്രോയർ</string>
+    <string name="settings_import_select_items">ഇനങ്ങള്‍ തിരഞ്ഞെടുക്കുക</string>
     <string name="pen_string_green">പച്ച</string>
     <string name="pen_string_selected">തിരഞ്ഞെടുത്തു</string>
     <string name="pen_swatch_color_light_blue">ഇളം നീല</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">ലൈറ്റ് സയൻ</string>
     <string name="pen_swatch_color_dark_yellow">ഇരുണ്ട മഞ്ഞ</string>
     <string name="pen_string_red">ചുവപ്പ്</string>
+    <string name="all_checkbox">എല്ലാം</string>
     <string name="pen_palette_color_spring_green">സ്പ്രിംഗ് ഗ്രീൻ</string>
     <string name="sesl_preferencecategory_added_title">ശീർഷകം</string>
     <string name="pen_palette_color_black">കറുപ്പ്</string>

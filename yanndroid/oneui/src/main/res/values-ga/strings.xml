@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Maigeanta</string>
     <string name="pen_string_current_any">%s reatha</string>
     <string name="pen_string_spectrum">Speictream</string>
+    <string name="sesl_more_item_label">Tuilleadh</string>
     <string name="sesl_button">Cnaipe</string>
     <string name="pen_string_saturation">Sáithiú</string>
     <string name="pen_string_select_color">Roghnaigh dath</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Gormghlas éadrom</string>
     <string name="pen_swatch_color_light_spring_green">Glas éadrom an earraigh</string>
     <string name="pen_palette_color_white">Bán</string>
+    <string name="selected_check_info">%d roghnaithe</string>
     <string name="pen_palette_color_dark_green">Dúghlas</string>
     <string name="sesl_done">Déanta</string>
     <string name="action_search">Cuardaigh</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Dathanna a úsáideadh le déanaí</string>
     <string name="pen_swatch_color_cyan">Cian</string>
     <string name="sesl_navigation_drawer">Tarraiceán nascleanúna</string>
+    <string name="settings_import_select_items">Roghnaigh míreanna</string>
     <string name="pen_string_green">Glas</string>
     <string name="pen_string_selected">Roghnaithe</string>
     <string name="pen_swatch_color_light_blue">Gorm éadrom</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Cian éadrom</string>
     <string name="pen_swatch_color_dark_yellow">Dúbhuí</string>
     <string name="pen_string_red">Dearg</string>
+    <string name="all_checkbox">Gach</string>
     <string name="pen_palette_color_spring_green">Glas an earraigh</string>
     <string name="sesl_preferencecategory_added_title">Ceanntásc</string>
     <string name="pen_palette_color_black">Dubh</string>

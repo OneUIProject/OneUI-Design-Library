@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Bíbor</string>
     <string name="pen_string_current_any">Jelenlegi %s</string>
     <string name="pen_string_spectrum">Spektrum</string>
+    <string name="sesl_more_item_label">Egyebek</string>
     <string name="sesl_button">Gomb</string>
     <string name="pen_string_saturation">Telítettség</string>
     <string name="pen_string_select_color">Válasszon színt.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Világos azúrkék</string>
     <string name="pen_swatch_color_light_spring_green">Világos tavaszi zöld</string>
     <string name="pen_palette_color_white">Fehér</string>
+    <string name="selected_check_info">%d kijelölve</string>
     <string name="pen_palette_color_dark_green">Sötétzöld</string>
     <string name="sesl_done">Kész</string>
     <string name="action_search">Keresés</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Legutóbb használt színek</string>
     <string name="pen_swatch_color_cyan">Ciánkék</string>
     <string name="sesl_navigation_drawer">Navigációs tálca</string>
+    <string name="settings_import_select_items">Tételek kijelölése</string>
     <string name="pen_string_green">Zöld</string>
     <string name="pen_string_selected">Kijelölve</string>
     <string name="pen_swatch_color_light_blue">Világoskék</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Világos ciánkék</string>
     <string name="pen_swatch_color_dark_yellow">Sötétsárga</string>
     <string name="pen_string_red">Piros</string>
+    <string name="all_checkbox">Mind</string>
     <string name="pen_palette_color_spring_green">Tavaszi zöld</string>
     <string name="sesl_preferencecategory_added_title">Fejléc</string>
     <string name="pen_palette_color_black">Fekete</string>

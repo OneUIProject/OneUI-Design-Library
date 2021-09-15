@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Đỏ thẫm</string>
     <string name="pen_string_current_any">Hiện tại %s</string>
     <string name="pen_string_spectrum">Quang phổ</string>
+    <string name="sesl_more_item_label">N.hơn</string>
     <string name="sesl_button">Phím</string>
     <string name="pen_string_saturation">Độ bão hòa</string>
     <string name="pen_string_select_color">Chọn màu.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Xanh da trời nhạt</string>
     <string name="pen_swatch_color_light_spring_green">Xanh lá mạ nhạt</string>
     <string name="pen_palette_color_white">Trắng</string>
+    <string name="selected_check_info">Đã chọn %d</string>
     <string name="pen_palette_color_dark_green">Xanh lá đậm</string>
     <string name="sesl_done">H.tất</string>
     <string name="action_search">Tìm kiếm</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Màu đã dùng gần đây</string>
     <string name="pen_swatch_color_cyan">Lục lam</string>
     <string name="sesl_navigation_drawer">Ngăn kéo điều hướng</string>
+    <string name="settings_import_select_items">Chọn mục</string>
     <string name="pen_string_green">Xanh lá</string>
     <string name="pen_string_selected">Đã chọn</string>
     <string name="pen_swatch_color_light_blue">Xanh dương nhạt</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Xanh nhạt</string>
     <string name="pen_swatch_color_dark_yellow">Vàng đậm</string>
     <string name="pen_string_red">Đỏ</string>
+    <string name="all_checkbox">Tất cả</string>
     <string name="pen_palette_color_spring_green">Xanh lá mạ</string>
     <string name="sesl_preferencecategory_added_title">Tiêu đề</string>
     <string name="pen_palette_color_black">Đen</string>

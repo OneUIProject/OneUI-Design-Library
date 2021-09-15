@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">ম্যাজেন্টা</string>
     <string name="pen_string_current_any">বর্তমান %s</string>
     <string name="pen_string_spectrum">স্পেকট্রাম</string>
+    <string name="sesl_more_item_label">আরও</string>
     <string name="sesl_button">বোতাম</string>
     <string name="pen_string_saturation">স্যাচুরেশন</string>
     <string name="pen_string_select_color">একটি রঙ নির্বাচন করুন।</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">হালকা অ্যাজিওর</string>
     <string name="pen_swatch_color_light_spring_green">হালকা স্প্রিং সবুজ</string>
     <string name="pen_palette_color_white">সাদা</string>
+    <string name="selected_check_info">%dটি নির্বাচিত</string>
     <string name="pen_palette_color_dark_green">গাঢ় সবুজ</string>
     <string name="sesl_done">সম্পন্ন</string>
     <string name="action_search">সন্ধান</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">সম্প্রতি ব্যবহৃত রঙগুলি</string>
     <string name="pen_swatch_color_cyan">সবজে নীল</string>
     <string name="sesl_navigation_drawer">নেভিগেশন ড্রয়ার</string>
+    <string name="settings_import_select_items">আইটেমগুলি নির্বাচন করুন</string>
     <string name="pen_string_green">সবুজ</string>
     <string name="pen_string_selected">নির্বাচিত</string>
     <string name="pen_swatch_color_light_blue">হালকা নীল</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">হালকা সবজে নীল</string>
     <string name="pen_swatch_color_dark_yellow">গাঢ় হলুদ</string>
     <string name="pen_string_red">লাল</string>
+    <string name="all_checkbox">সমস্ত</string>
     <string name="pen_palette_color_spring_green">স্প্রিং গ্রিন</string>
     <string name="sesl_preferencecategory_added_title">শিরোলেখ</string>
     <string name="pen_palette_color_black">কালো</string>

@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Մաջենտա</string>
     <string name="pen_string_current_any">Ընթացիկ %s</string>
     <string name="pen_string_spectrum">Սպեկտր</string>
+    <string name="sesl_more_item_label">Ավելին</string>
     <string name="sesl_button">Կոճակ</string>
     <string name="pen_string_saturation">Հագեցում</string>
     <string name="pen_string_select_color">Ընտրել գույն:</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Բաց երկնակապույտ</string>
     <string name="pen_swatch_color_light_spring_green">Բաց գարնանային կանաչ</string>
     <string name="pen_palette_color_white">Սպիտակ</string>
+    <string name="selected_check_info">%d ընտրված</string>
     <string name="pen_palette_color_dark_green">Մուգ կանաչ</string>
     <string name="sesl_done">Արված է</string>
     <string name="action_search">Որոնում</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Վերջերս օգտագործված գույներ</string>
     <string name="pen_swatch_color_cyan">Կապտականաչ</string>
     <string name="sesl_navigation_drawer">Նավարկման դարակ</string>
+    <string name="settings_import_select_items">Ընտրել տարրեր</string>
     <string name="pen_string_green">Կանաչ</string>
     <string name="pen_string_selected">Ընտրված</string>
     <string name="pen_swatch_color_light_blue">Բաց կապույտ</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Բաց երկնագույն</string>
     <string name="pen_swatch_color_dark_yellow">Մուգ դեղին</string>
     <string name="pen_string_red">Կարմիր</string>
+    <string name="all_checkbox">Բոլոր</string>
     <string name="pen_palette_color_spring_green">Գարնանային կանաչ</string>
     <string name="sesl_preferencecategory_added_title">Գլխագիր</string>
     <string name="pen_palette_color_black">Սև</string>

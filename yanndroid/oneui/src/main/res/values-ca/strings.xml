@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Magenta</string>
     <string name="pen_string_current_any">%s actual</string>
     <string name="pen_string_spectrum">Espectre</string>
+    <string name="sesl_more_item_label">Més</string>
     <string name="sesl_button">Botó</string>
     <string name="pen_string_saturation">Saturació</string>
     <string name="pen_string_select_color">Seleccioni un color</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Celeste clar</string>
     <string name="pen_swatch_color_light_spring_green">Verd primavera clar</string>
     <string name="pen_palette_color_white">Blanc</string>
+    <string name="selected_check_info">%d seleccionats</string>
     <string name="pen_palette_color_dark_green">Verd fosc</string>
     <string name="sesl_done">Realitz</string>
     <string name="action_search">Cercar</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Colors utilitzats fa poc</string>
     <string name="pen_swatch_color_cyan">Cian</string>
     <string name="sesl_navigation_drawer">Calaix de navegació</string>
+    <string name="settings_import_select_items">Seleccionar elements</string>
     <string name="pen_string_green">Verd</string>
     <string name="pen_string_selected">Seleccionat</string>
     <string name="pen_swatch_color_light_blue">Blau clar</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Cian clar</string>
     <string name="pen_swatch_color_dark_yellow">Groc fosc</string>
     <string name="pen_string_red">Vermell</string>
+    <string name="all_checkbox">Tot</string>
     <string name="pen_palette_color_spring_green">Verd primavera</string>
     <string name="sesl_preferencecategory_added_title">Encapçalament</string>
     <string name="pen_palette_color_black">Negre</string>

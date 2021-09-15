@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">དམར་སྨུག</string>
     <string name="pen_string_current_any">མིག་སྔར།%s</string>
     <string name="pen_string_spectrum">光谱</string>
+    <string name="sesl_more_item_label">དེ་ལས་མང་བ།</string>
     <string name="sesl_button">མཐེབ་གནོན།</string>
     <string name="pen_string_saturation">饱和度</string>
     <string name="pen_string_select_color">ཁ་དོག་དབྱེ་འདེམ་བྱ།</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">མཐིང་སྐྱ།</string>
     <string name="pen_swatch_color_light_spring_green">ལྗང་སེར།</string>
     <string name="pen_palette_color_white">དཀར་པོ།</string>
+    <string name="selected_check_info">གྲངས་%dའདེམས་ཟིན།</string>
     <string name="pen_palette_color_dark_green">ལྗང་ནག</string>
     <string name="sesl_done">ལས་ཟིན།</string>
     <string name="action_search">འཚོལ་བཤེར།</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">ཉེ་དུས་སྤྱོད་པའི་ཚོན་མདོག</string>
     <string name="pen_swatch_color_cyan">ལྗང་མདོག</string>
     <string name="sesl_navigation_drawer">འདྲེན་སྒམ་མཛུབ་སྟོན།</string>
+    <string name="settings_import_select_items">རྣམ་གྲངས་འདེམས་པ།</string>
     <string name="pen_string_green">ལྗང་མདོག</string>
     <string name="pen_string_selected">བདམས་ཟིན།</string>
     <string name="pen_swatch_color_light_blue">སྔོ་སྐྱ།</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">ལྗང་སྲབ།</string>
     <string name="pen_swatch_color_dark_yellow">སེར་སྟུག</string>
     <string name="pen_string_red">དམར་པོ།</string>
+    <string name="all_checkbox">ཚང་མ།</string>
     <string name="pen_palette_color_spring_green">དཔྱོད་ལྗང་།</string>
     <string name="sesl_preferencecategory_added_title">ཁ་བྱང་།</string>
     <string name="pen_palette_color_black">ནག་པོ།</string>

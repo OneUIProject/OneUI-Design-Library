@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">ಮ್ಯಾಜೆಂಟಾ</string>
     <string name="pen_string_current_any">ಪ್ರಸ್ತುತ %s</string>
     <string name="pen_string_spectrum">ಸ್ಪೆಕ್ಟ್ರಮ್</string>
+    <string name="sesl_more_item_label">ಅಧಿಕ</string>
     <string name="sesl_button">ಬಟನ್</string>
     <string name="pen_string_saturation">ಸ್ಯಾಚುರೇಶನ್</string>
     <string name="pen_string_select_color">ಬಣ್ಣವೊಂದನ್ನು ಆಯ್ಕೆಮಾಡಿ.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">ತಿಳಿ ಆಕಾಶ ನೀಲಿ ಬಣ್ಣ</string>
     <string name="pen_swatch_color_light_spring_green">ತಿಳಿ ಸ್ಪ್ರಿಂಗ್ ಹಸಿರು ಬಣ್ಣ</string>
     <string name="pen_palette_color_white">ಬಿಳಿ</string>
+    <string name="selected_check_info">%d ಆಯ್ಕೆಮಾಡಿದೆ</string>
     <string name="pen_palette_color_dark_green">ಗಾಢ ಹಸಿರು</string>
     <string name="sesl_done">ಮುಗಿದಿದೆ</string>
     <string name="action_search">ಶೋಧಿಸಿ</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">ಇತ್ತೀಚೆಗೆ ಬಳಸಿರುವ ಬಣ್ಣಗಳು</string>
     <string name="pen_swatch_color_cyan">ಕ್ಯಾನ್</string>
     <string name="sesl_navigation_drawer">ನ್ಯಾವಿಗೇಶನ್ ಡ್ರಾಯರ್</string>
+    <string name="settings_import_select_items">ಅಂಶಗಳನ್ನು ಆರಿಸಿ</string>
     <string name="pen_string_green">ಹಸಿರು</string>
     <string name="pen_string_selected">ಆಯ್ಕೆ ಮಾಡಿದೆ</string>
     <string name="pen_swatch_color_light_blue">ಲೈಟ್ ನೀಲಿ</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">ತಿಳಿ ಹಸಿರು ನೀಲಿ ಬಣ್ಣ</string>
     <string name="pen_swatch_color_dark_yellow">ಗಾಢ ಹಳದಿ</string>
     <string name="pen_string_red">ಕೆಂಪು</string>
+    <string name="all_checkbox">ಎಲ್ಲ</string>
     <string name="pen_palette_color_spring_green">ಸ್ಪ್ರಿಂಗ್ ಹಸಿರು</string>
     <string name="sesl_preferencecategory_added_title">ತಲೆಬರಹ</string>
     <string name="pen_palette_color_black">ಕಪ್ಪು</string>

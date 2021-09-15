@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Fuksīna</string>
     <string name="pen_string_current_any">Pašreizējais %s</string>
     <string name="pen_string_spectrum">Spektrs</string>
+    <string name="sesl_more_item_label">Citi</string>
     <string name="sesl_button">Poga</string>
     <string name="pen_string_saturation">Piesātinājums</string>
     <string name="pen_string_select_color">Izvēlieties krāsu.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Gaiši debeszila</string>
     <string name="pen_swatch_color_light_spring_green">Gaiši koši zaļa</string>
     <string name="pen_palette_color_white">Balta</string>
+    <string name="selected_check_info">Izvēlēti %d</string>
     <string name="pen_palette_color_dark_green">Tumši zaļa</string>
     <string name="sesl_done">Gatavs</string>
     <string name="action_search">Meklēt</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Nesen izmantotās krāsas</string>
     <string name="pen_swatch_color_cyan">Ciāna</string>
     <string name="sesl_navigation_drawer">Navigācijas izvēlne</string>
+    <string name="settings_import_select_items">Objektu izvēle</string>
     <string name="pen_string_green">Zaļa</string>
     <string name="pen_string_selected">Izvēlēts</string>
     <string name="pen_swatch_color_light_blue">Gaiši zila</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Gaiši ciāna</string>
     <string name="pen_swatch_color_dark_yellow">Tumši dzeltena</string>
     <string name="pen_string_red">Sarkana</string>
+    <string name="all_checkbox">Visi</string>
     <string name="pen_palette_color_spring_green">Koši zaļa</string>
     <string name="sesl_preferencecategory_added_title">Galvene</string>
     <string name="pen_palette_color_black">Melna</string>

@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.MenuRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.content.ContextCompat;
@@ -246,24 +247,29 @@ public class DrawerLayout extends LinearLayout {
     //
     // Action Mode methods
     //
-    public void showActionMode(boolean visible) {
-        toolbarLayout.showActionMode(visible);
-        if (visible) {
-            drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        } else {
-            drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
-        }
+    public void showActionMode() {
+        toolbarLayout.showActionMode();
+        drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    public void setActionModeBottomMenu(@MenuRes int menuRes, ToolbarLayout.OnMenuItemClickListener listener) {
+        toolbarLayout.setActionModeBottomMenu(menuRes, listener);
+    }
+
+    public void dismissActionMode() {
+        toolbarLayout.dismissActionMode();
+        drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
     public void setActionModeSelectCount(int count) {
         toolbarLayout.setActionModeSelectCount(count);
     }
 
-    public void setActionModeSelectAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener){
+    public void setActionModeSelectAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener) {
         toolbarLayout.setActionModeSelectAllCheckedChangeListener(listener);
     }
 
-    public void setActionModeSelectAllChecked(boolean checked){
+    public void setActionModeSelectAllChecked(boolean checked) {
         toolbarLayout.setActionModeSelectAllChecked(checked);
     }
 

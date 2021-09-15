@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">قرمزی</string>
     <string name="pen_string_current_any">حالیہ %s</string>
     <string name="pen_string_spectrum">اسپیکٹرم</string>
+    <string name="sesl_more_item_label">مزید</string>
     <string name="sesl_button">بٹن</string>
     <string name="pen_string_saturation">سیچوریشن</string>
     <string name="pen_string_select_color">ایک رنگ منتخب کریں</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">ہلکا نیلگوں</string>
     <string name="pen_swatch_color_light_spring_green">ہلکا ہرا بھرا سبزہ</string>
     <string name="pen_palette_color_white">سفید</string>
+    <string name="selected_check_info">%d منتخب</string>
     <string name="pen_palette_color_dark_green">گہرا سبز</string>
     <string name="sesl_done">مکمل</string>
     <string name="action_search">تلاش</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">حالیہ استعمال کردہ رنگ</string>
     <string name="pen_swatch_color_cyan">لاجوردی</string>
     <string name="sesl_navigation_drawer">نیویگیشن ڈراور</string>
+    <string name="settings_import_select_items">اشیاء منتخب کریں</string>
     <string name="pen_string_green">سبز</string>
     <string name="pen_string_selected">منتخب شدہ</string>
     <string name="pen_swatch_color_light_blue">ہلکا نیلا</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">ہلکا ازرق</string>
     <string name="pen_swatch_color_dark_yellow">گاڑھا پیلا</string>
     <string name="pen_string_red">سرخ</string>
+    <string name="all_checkbox">تمام</string>
     <string name="pen_palette_color_spring_green">ہرا بھرا سبز</string>
     <string name="sesl_preferencecategory_added_title">ہیڈر</string>
     <string name="pen_palette_color_black">سیاہ</string>

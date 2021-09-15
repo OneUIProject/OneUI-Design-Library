@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Magenta</string>
     <string name="pen_string_current_any">Huidige %s</string>
     <string name="pen_string_spectrum">Spectrum</string>
+    <string name="sesl_more_item_label">Meer</string>
     <string name="sesl_button">Knop</string>
     <string name="pen_string_saturation">Intensiteit</string>
     <string name="pen_string_select_color">Selecteer een kleur.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Lichtazuur</string>
     <string name="pen_swatch_color_light_spring_green">Lichtlentegroen</string>
     <string name="pen_palette_color_white">Wit</string>
+    <string name="selected_check_info">%d geselecteerd</string>
     <string name="pen_palette_color_dark_green">Donkergroen</string>
     <string name="sesl_done">Gereed</string>
     <string name="action_search">Zoeken</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Recent gebruikte kleuren</string>
     <string name="pen_swatch_color_cyan">Cyaan</string>
     <string name="sesl_navigation_drawer">Navigatielade</string>
+    <string name="settings_import_select_items">Items selecteren</string>
     <string name="pen_string_green">Groen</string>
     <string name="pen_string_selected">Geselecteerd</string>
     <string name="pen_swatch_color_light_blue">Lichtblauw</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Lichtcyaan</string>
     <string name="pen_swatch_color_dark_yellow">Donkergeel</string>
     <string name="pen_string_red">Rood</string>
+    <string name="all_checkbox">Alle</string>
     <string name="pen_palette_color_spring_green">Lentegroen</string>
     <string name="sesl_preferencecategory_added_title">Koptekst</string>
     <string name="pen_palette_color_black">Zwart</string>

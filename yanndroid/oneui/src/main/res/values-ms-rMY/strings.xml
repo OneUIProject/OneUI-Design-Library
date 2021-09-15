@@ -4,6 +4,7 @@
     <string name="pen_swatch_color_magenta">Merah tua</string>
     <string name="pen_string_current_any">Semasa %s</string>
     <string name="pen_string_spectrum">Spektrum</string>
+    <string name="sesl_more_item_label">Lebih</string>
     <string name="sesl_button">Butang</string>
     <string name="pen_string_saturation">Ketepuan</string>
     <string name="pen_string_select_color">Pilih warna.</string>
@@ -22,6 +23,7 @@
     <string name="pen_swatch_color_light_azure">Biru langit lembut</string>
     <string name="pen_swatch_color_light_spring_green">Hijau musim bunga lembut</string>
     <string name="pen_palette_color_white">Putih</string>
+    <string name="selected_check_info">%d dipilih</string>
     <string name="pen_palette_color_dark_green">Hijau gelap</string>
     <string name="sesl_done">Selesai</string>
     <string name="action_search">Cari</string>
@@ -51,6 +53,7 @@
     <string name="pen_string_recent_color">Warna yang terkini diguna</string>
     <string name="pen_swatch_color_cyan">Biru kehijauan</string>
     <string name="sesl_navigation_drawer">Laci pemanduan arah</string>
+    <string name="settings_import_select_items">Pilih item</string>
     <string name="pen_string_green">Hijau</string>
     <string name="pen_string_selected">Dipilih</string>
     <string name="pen_swatch_color_light_blue">Biru muda</string>
@@ -59,6 +62,7 @@
     <string name="pen_swatch_color_light_cyan">Biru kehijauan lembut</string>
     <string name="pen_swatch_color_dark_yellow">Kuning gelap</string>
     <string name="pen_string_red">Merah</string>
+    <string name="all_checkbox">Semua</string>
     <string name="pen_palette_color_spring_green">Hijau musim bunga</string>
     <string name="sesl_preferencecategory_added_title">Pengepala</string>
     <string name="pen_palette_color_black">Hitam</string>

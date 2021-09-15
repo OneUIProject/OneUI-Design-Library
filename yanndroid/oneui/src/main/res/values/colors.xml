@@ -152,6 +152,10 @@
     <color name="sesl_action_bar_text_color_subtitle">#ff636363</color>
     <color name="sesl_extended_appbar_subtitle">#ff636363</color>
 
+    <color name="bottom_bar_item_image_color">#ff454545</color>
+    <color name="bottom_bar_item_text_color">#ff636363</color>
+
+
     <!--TabLayout-->
     <color name="sesl_tablayout_badge_text_color">#FAFAFA</color>
     <color name="sesl_tablayout_show_button_text_color">#FAFAFA</color>
