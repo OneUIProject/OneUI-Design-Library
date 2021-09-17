@@ -78,6 +78,10 @@ public class SwitchBarLayout extends LinearLayout {
         toolbarLayout.setSubtitle(subtitle);
     }
 
+    public void setToolbarSubtitle(CharSequence expandedSubtitle, CharSequence collapsedSubtitle) {
+        toolbarLayout.setSubtitle(expandedSubtitle, collapsedSubtitle);
+    }
+
     public void setToolbarExpanded(boolean expanded, boolean animate) {
         toolbarLayout.setExpanded(expanded, animate);
     }

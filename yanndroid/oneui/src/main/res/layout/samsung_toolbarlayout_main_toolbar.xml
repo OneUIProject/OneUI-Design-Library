@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar_layout_main_toolbar"
+    android:layout_width="fill_parent"
+    android:layout_height="?actionBarSize"
+    android:gravity="center_vertical">
+
+    <!-- action mode checkbox -->
+    <RelativeLayout
+        android:id="@+id/checkbox_withtext"
+        android:layout_width="@dimen/select_all_width"
+        android:layout_height="fill_parent"
+        android:visibility="gone">
+
+        <CheckBox
+            android:id="@+id/checkbox_all"
+            android:layout_width="@dimen/select_all_checkbox_size"
+            android:layout_height="@dimen/select_all_checkbox_size"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/select_all_checkbox_margin_top" />
+
+        <TextView
+            android:id="@+id/check_all_text"
+            style="@style/MultiSelectionCheckboxTextStyle"
+            android:layout_width="@dimen/select_all_width"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/select_all_checkbox_text_margin_bottom"
+            android:text="@string/all_checkbox" />
+    </RelativeLayout>
+
+    <!-- custom navigation button -->
+    <FrameLayout
+        android:id="@+id/toolbar_layout_navigationButton_container"
+        android:layout_width="56.0dip"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="center"
+        android:visibility="gone">
+
+        <de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton
+            android:id="@+id/toolbar_layout_navigationButton"
+            android:layout_width="56.0dip"
+            android:layout_height="?actionBarSize"
+            android:background="@drawable/sesl_action_bar_item_background"
+            android:paddingStart="8.0dip"
+            android:scaleType="center" />
+    </FrameLayout>
+
+    <!-- custom toolbar title -->
+    <LinearLayout
+        android:id="@+id/toolbar_layout_collapsed_title_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.0"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/toolbar_layout_collapsed_title"
+            style="@style/CollapsedActionBarTitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:singleLine="true"
+            android:textColor="?actionMenuTextColor"
+            android:textDirection="locale" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/toolbar_layout_collapsed_subtitle"
+            style="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:singleLine="true"
+            android:text="Subtitle"
+            android:textColor="@color/sesl_tablayout_text_color"
+            android:textDirection="locale"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- custom overflow buttons -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="?actionBarSize"
+        android:gravity="end|center_vertical">
+
+        <LinearLayout
+            android:id="@+id/toolbar_layout_overflow_container"
+            android:layout_width="wrap_content"
+            android:layout_height="?actionBarSize"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal" />
+
+        <View
+            android:id="@+id/toolbar_layout_popup_window_anchor"
+            android:layout_width="1.0px"
+            android:layout_height="1.0px"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center|top"
+            android:layout_marginEnd="10.0dip" />
+    </RelativeLayout>
+
+</LinearLayout>

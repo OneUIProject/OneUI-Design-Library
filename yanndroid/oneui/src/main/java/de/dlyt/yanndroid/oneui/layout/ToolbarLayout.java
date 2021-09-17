@@ -83,8 +83,10 @@ public class ToolbarLayout extends LinearLayout {
     private NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
     private Drawable mNavigationIcon;
     private int mLayout;
-    private CharSequence mTitle;
-    private CharSequence mSubtitle;
+    private CharSequence mTitleExpanded;
+    private CharSequence mTitleCollapsed;
+    private CharSequence mSubtitleExpanded;
+    private CharSequence mSubtitleCollapsed;
     private Boolean mExpandable;
     private Boolean mExpanded;
     private SamsungAppBarLayout appBarLayout;
@@ -93,11 +95,12 @@ public class ToolbarLayout extends LinearLayout {
     private FrameLayout navigationButtonContainer;
     private ToolbarImageButton navigationButton;
     private MaterialTextView collapsedTitleView;
+    private MaterialTextView collapsedSubTitleView;
     private RoundLinearLayout mainContainer;
     private LinearLayout bottomContainer;
     private OnBackPressedCallback onBackPressedCallback;
     private DrawerLayout drawerLayout;
-    private int toolbar_padding_start = 0;
+    private boolean navigationButtonVisible;
 
     public interface OnMenuItemClickListener {
         void onMenuItemClick(MenuItem item);
@@ -165,8 +168,8 @@ public class ToolbarLayout extends LinearLayout {
             mExpandable = attr.getBoolean(R.styleable.ToolBarLayout_expandable, true);
             mExpanded = attr.getBoolean(R.styleable.ToolBarLayout_expanded, true);
             mLayout = attr.getResourceId(R.styleable.ToolBarLayout_android_layout, mExpandable ? R.layout.samsung_appbar_toolbarlayout : R.layout.samsung_toolbar_toolbarlayout);
-            mTitle = attr.getString(R.styleable.ToolBarLayout_title);
-            mSubtitle = attr.getString(R.styleable.ToolBarLayout_subtitle);
+            mTitleExpanded = attr.getString(R.styleable.ToolBarLayout_title);
+            mSubtitleExpanded = attr.getString(R.styleable.ToolBarLayout_subtitle);
             mNavigationIcon = attr.getDrawable(R.styleable.ToolBarLayout_navigationIcon);
         } finally {
             attr.recycle();
@@ -178,12 +181,15 @@ public class ToolbarLayout extends LinearLayout {
         if (mExpandable) {
             appBarLayout = findViewById(R.id.toolbar_layout_app_bar);
             collapsingToolbarLayout = findViewById(R.id.toolbar_layout_collapsing_toolbar_layout);
+
+            appBarLayout.setLiftableState(false);
         }
         toolbar = findViewById(R.id.toolbar_layout_toolbar);
 
         navigationButtonContainer = findViewById(R.id.toolbar_layout_navigationButton_container);
         navigationButton = findViewById(R.id.toolbar_layout_navigationButton);
         collapsedTitleView = findViewById(R.id.toolbar_layout_collapsed_title);
+        collapsedSubTitleView = findViewById(R.id.toolbar_layout_collapsed_subtitle);
         actionButtonContainer = findViewById(R.id.toolbar_layout_overflow_container);
         overflowMenuPopupAnchor = findViewById(R.id.toolbar_layout_popup_window_anchor);
 
@@ -213,11 +219,14 @@ public class ToolbarLayout extends LinearLayout {
         mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
         mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         setNavigationButtonIcon(mNavigationIcon);
-        setTitle(mTitle);
-        setSubtitle(mSubtitle);
+        setTitle(mTitleExpanded);
+        setSubtitle(mSubtitleExpanded);
 
-        if (mExpandable)
+        if (mExpandable) {
             appBarLayout.addOnOffsetChangedListener(new AppBarOffsetListener());
+        } else {
+            findViewById(R.id.toolbar_layout_collapsed_title_container).setAlpha(1.0f);
+        }
 
         /*back logic*/
         onBackPressedCallback = new OnBackPressedCallback(false) {
@@ -321,9 +330,9 @@ public class ToolbarLayout extends LinearLayout {
         ViewSupport.updateListBothSideMargin(mActivity, findViewById(R.id.toolbar_layout_bottom_corners));
         ViewSupport.updateListBothSideMargin(mActivity, findViewById(R.id.toolbar_layout_footer_container));
 
-        if (mExpandable) {
-            resetAppBarHeight();
-        }
+        if (mExpandable) resetAppBarHeight();
+
+        updateCollapsedSubtitleVisibility();
     }
 
     private void resetAppBarHeight() {
@@ -369,19 +378,37 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     public void setTitle(CharSequence expandedTitle, CharSequence collapsedTitle) {
-        mTitle = collapsedTitle;
+        mTitleCollapsed = collapsedTitle;
+        mTitleExpanded = expandedTitle;
         if (mExpandable) {
             collapsingToolbarLayout.setTitle(expandedTitle);
         }
-        collapsedTitleView.setText(mTitle);
+        collapsedTitleView.setText(collapsedTitle);
     }
 
     public void setSubtitle(CharSequence subtitle) {
-        mSubtitle = subtitle;
+        setSubtitle(subtitle, subtitle);
+    }
+
+    public void setSubtitle(CharSequence expandedSubtitle, CharSequence collapsedSubtitle) {
+        mSubtitleCollapsed = collapsedSubtitle;
+        mSubtitleExpanded = expandedSubtitle;
         if (mExpandable) {
-            collapsingToolbarLayout.setSubtitle(mSubtitle);
-        } else
-            Log.d(TAG + ".setAppBarSubtitle", "mExpandable is " + mExpandable);
+            collapsingToolbarLayout.setSubtitle(expandedSubtitle);
+        }
+        collapsedSubTitleView.setText(collapsedSubtitle);
+
+        updateCollapsedSubtitleVisibility();
+    }
+
+    private void updateCollapsedSubtitleVisibility() {
+        TypedValue outValue = new TypedValue();
+        getResources().getValue(R.dimen.sesl_appbar_height_proportion, outValue, true);
+        if (!mExpandable || outValue.getFloat() == 0.0) {
+            collapsedSubTitleView.setVisibility((mSubtitleCollapsed != null && mSubtitleCollapsed.length() != 0) ? VISIBLE : GONE);
+        } else {
+            collapsedSubTitleView.setVisibility(GONE);
+        }
     }
 
     public void setExpanded(boolean expanded, boolean animate) {
@@ -415,7 +442,7 @@ public class ToolbarLayout extends LinearLayout {
         mSelectMode = true;
         lockDrawerIfAvailable(true);
         if (mSearchMode) dismissSearchMode();
-        toolbar.setPaddingRelative(0, 0, 0, 0);
+        setNavigationButtonVisible(false);
         selectModeCheckboxContainer.setVisibility(View.VISIBLE);
         setSelectModeCount(0);
         actionButtonContainer.setVisibility(GONE);
@@ -487,9 +514,9 @@ public class ToolbarLayout extends LinearLayout {
     public void dismissSelectMode() {
         mSelectMode = false;
         lockDrawerIfAvailable(false);
-        toolbar.setPaddingRelative(toolbar_padding_start, 0, 0, 0);
+        setNavigationButtonVisible(navigationButtonVisible);
         selectModeCheckboxContainer.setVisibility(View.GONE);
-        setTitle(mTitle);
+        setTitle(mTitleExpanded, mTitleCollapsed);
         actionButtonContainer.setVisibility(VISIBLE);
 
         bottomContainer.setVisibility(VISIBLE);
@@ -520,7 +547,7 @@ public class ToolbarLayout extends LinearLayout {
     public void showSearchMode() {
         mSearchMode = true;
         lockDrawerIfAvailable(true);
-        toolbar.setPaddingRelative(0, 0, 0, 0);
+        setNavigationButtonVisible(false);
         onBackPressedCallback.setEnabled(true);
         if (mSelectMode) dismissSelectMode();
         if (mExpandable)
@@ -568,15 +595,14 @@ public class ToolbarLayout extends LinearLayout {
     public void dismissSearchMode() {
         mSearchMode = false;
         lockDrawerIfAvailable(false);
-        toolbar.setPaddingRelative(toolbar_padding_start, 0, 0, 0);
+        setNavigationButtonVisible(navigationButtonVisible);
         onBackPressedCallback.setEnabled(false);
         setEditTextFocus(false);
         main_toolbar.setVisibility(VISIBLE);
         search_toolbar.setVisibility(GONE);
         bottomContainer.setVisibility(VISIBLE);
 
-        if (mExpandable)
-            collapsingToolbarLayout.setTitle(mTitle);
+        setTitle(mTitleExpanded, mTitleCollapsed);
     }
 
     public boolean isSearchMode() {
@@ -635,8 +661,8 @@ public class ToolbarLayout extends LinearLayout {
 
     public void setNavigationButtonVisible(boolean visible) {
         navigationButtonContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
-        toolbar_padding_start = visible ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset);
-        toolbar.setPaddingRelative(mSelectMode || mSearchMode ? 0 : toolbar_padding_start, 0, 0, 0);
+        if (!(mSelectMode || mSearchMode)) navigationButtonVisible = visible;
+        toolbar.setPaddingRelative(mSelectMode || mSearchMode || visible ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), 0, 0, 0);
     }
 
     public void setNavigationButtonBadge(int count) {
@@ -877,18 +903,20 @@ public class ToolbarLayout extends LinearLayout {
             float alphaRange = ((float) collapsingToolbarLayout.getHeight()) * 0.17999999f;
             float toolbarTitleAlphaStart = ((float) collapsingToolbarLayout.getHeight()) * 0.35f;
 
+            LinearLayout collapsedTitleContainer = findViewById(R.id.toolbar_layout_collapsed_title_container);
+
             if (appBarLayout.getHeight() <= ((int) getResources().getDimension(R.dimen.sesl_action_bar_height_with_padding))) {
-                collapsedTitleView.setAlpha(1.0f);
+                collapsedTitleContainer.setAlpha(1.0f);
             } else {
                 float collapsedTitleAlpha = ((150.0f / alphaRange) * (((float) layoutPosition) - toolbarTitleAlphaStart));
 
                 if (collapsedTitleAlpha >= 0.0f && collapsedTitleAlpha <= 255.0f) {
                     collapsedTitleAlpha /= 255.0f;
-                    collapsedTitleView.setAlpha(collapsedTitleAlpha);
+                    collapsedTitleContainer.setAlpha(collapsedTitleAlpha);
                 } else if (collapsedTitleAlpha < 0.0f)
-                    collapsedTitleView.setAlpha(0.0f);
+                    collapsedTitleContainer.setAlpha(0.0f);
                 else
-                    collapsedTitleView.setAlpha(1.0f);
+                    collapsedTitleContainer.setAlpha(1.0f);
             }
         }
     }
