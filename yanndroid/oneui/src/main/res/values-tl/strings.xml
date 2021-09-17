@@ -28,6 +28,7 @@
     <string name="sesl_done">Tapos na</string>
     <string name="action_search">Maghanap</string>
     <string name="pen_palette_color_green">Berde</string>
+    <string name="sec_relative_description">May hinahanap kang iba?</string>
     <string name="network_connect_is_not_stable">Hindi makakonekta. Suriin ang koneksiyon mo sa network at subukang muli.</string>
     <string name="pen_swatch_color_dark_cyan">Dark cyan</string>
     <string name="pen_swatch_color_light_red">Light red</string>

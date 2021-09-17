@@ -28,6 +28,7 @@
     <string name="sesl_done">Bitti</string>
     <string name="action_search">Ara</string>
     <string name="pen_palette_color_green">Yeşil</string>
+    <string name="sec_relative_description">Başka bir şey mi arıyorsunuz?</string>
     <string name="network_connect_is_not_stable">Bağlanılamadı. Ağ bağlantınızı kontrol edip tekrar deneyin.</string>
     <string name="pen_swatch_color_dark_cyan">Koyu camgöbeği</string>
     <string name="pen_swatch_color_light_red">Açık kırmızı</string>

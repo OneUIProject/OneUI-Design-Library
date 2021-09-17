@@ -28,6 +28,7 @@
     <string name="sesl_done">ಮುಗಿದಿದೆ</string>
     <string name="action_search">ಶೋಧಿಸಿ</string>
     <string name="pen_palette_color_green">ಹಸಿರು</string>
+    <string name="sec_relative_description">ಬೇರೆ ಸಂಗತಿಗಳಿಗಾಗಿ ಹುಡುಕುತ್ತಿರುವಿರೇ?</string>
     <string name="network_connect_is_not_stable">ಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ. ನಿಮ್ಮ ನೆಟ್‌ವರ್ಕ್ ಸಂಪರ್ಕವನ್ನು ಪರೀಕ್ಷಿಸಿ ಹಾಗೂ ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.</string>
     <string name="pen_swatch_color_dark_cyan">ಗಾಢ ಹಸಿರುನೀಲಿ ಬಣ್ಣ</string>
     <string name="pen_swatch_color_light_red">ತಿಳಿ ಕೆಂಪು ಬಣ್ಣ</string>

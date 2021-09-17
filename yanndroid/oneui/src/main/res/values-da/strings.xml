@@ -28,6 +28,7 @@
     <string name="sesl_done">Udført</string>
     <string name="action_search">Søg</string>
     <string name="pen_palette_color_green">Grøn</string>
+    <string name="sec_relative_description">Leder du efter noget andet?</string>
     <string name="network_connect_is_not_stable">Det var ikke muligt at oprette forbindelse. Kontroller din netværksforbindelse, og prøv igen.</string>
     <string name="pen_swatch_color_dark_cyan">Mørk cyan</string>
     <string name="pen_swatch_color_light_red">Lys rød</string>

@@ -24,7 +24,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4.0"
-                android:background="@color/switchbar_help_image_bg_color">
+                android:background="@color/item_background_color">
 
                 <ImageView
                     android:layout_width="150dp"

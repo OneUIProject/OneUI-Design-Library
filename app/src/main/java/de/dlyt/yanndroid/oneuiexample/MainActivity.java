@@ -10,10 +10,11 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.text.Editable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.util.SeslMisc;
@@ -139,22 +140,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        toolbarLayout.inflateMenu(R.menu.main);
-        toolbarLayout.setOnMenuItemClickListener(new ToolbarLayout.OnMenuItemClickListener() {
-            @Override
-            public void onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.search:
-                        break;
-                    case R.id.info:
-                        startActivity(new Intent().setClass(mContext, AboutActivity.class));
-                        break;
-                    case R.id.item1:
-                    case R.id.item2:
-                    case R.id.item3:
-                        toolbarLayout.setOverflowMenuBadge(item, toolbarLayout.getOverflowMenuBadge(item) + 1);
-                        break;
-                }
+        toolbarLayout.setOnToolbarMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.search:
+                    toolbarLayout.showSearchMode();
+                    toolbarLayout.setSearchModeListener(new ToolbarLayout.SearchModeListener() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                        }
+
+                        @Override
+                        public void onKeyboardSearchClick(CharSequence s) {
+                            Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    break;
+                case R.id.info:
+                    startActivity(new Intent().setClass(mContext, AboutActivity.class));
+                    break;
+                case R.id.item1:
+                case R.id.item2:
+                case R.id.item3:
+                    toolbarLayout.setOverflowMenuBadge(item, toolbarLayout.getOverflowMenuBadge(item) + 1);
+                    break;
             }
         });
 
@@ -200,11 +216,13 @@ public class MainActivity extends AppCompatActivity {
                     // MainActivityFirstFragment
                     toolbarLayout.setSubtitle("Design");
                     toolbarLayout.setNavigationButtonVisible(true);
+                    toolbarLayout.inflateToolbarMenu(R.menu.main_with_search);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.getView(DRAWER_LAYOUT)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
                 } else {
                     // MainActivitySecondFragment
                     toolbarLayout.setSubtitle("Preferences");
                     toolbarLayout.setNavigationButtonVisible(false);
+                    toolbarLayout.inflateToolbarMenu(R.menu.main);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.getView(DRAWER_LAYOUT)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 }
 

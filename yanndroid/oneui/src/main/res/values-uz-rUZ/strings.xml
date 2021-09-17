@@ -28,6 +28,7 @@
     <string name="sesl_done">Tayyor</string>
     <string name="action_search">Qidirish</string>
     <string name="pen_palette_color_green">Yashil</string>
+    <string name="sec_relative_description">Yana boshqa narsa qidiryapsizmi?</string>
     <string name="network_connect_is_not_stable">Ulanib bo‘lmadi. Tarmoq ulanishini tekshiring va qayta urinib ko‘ring.</string>
     <string name="pen_swatch_color_dark_cyan">To‘q moviy</string>
     <string name="pen_swatch_color_light_red">Och qizil</string>

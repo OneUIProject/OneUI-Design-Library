@@ -28,6 +28,7 @@
     <string name="sesl_done">ਪੂਰਨ</string>
     <string name="action_search">ਖੋਜੋ</string>
     <string name="pen_palette_color_green">ਹਰਾ</string>
+    <string name="sec_relative_description">ਕੁਝ ਹੋਰ ਖੋਜ ਰਹੇ ਹੋ?</string>
     <string name="network_connect_is_not_stable">ਕਨੈਕਟ ਨਹੀਂ ਕਰ ਸਕੇ। ਆਪਣੇ ਨੈੱਟਵਰਕ ਕਨੈਕਸ਼ਨ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
     <string name="pen_swatch_color_dark_cyan">ਡਾਰਕ ਸਿਆਨ</string>
     <string name="pen_swatch_color_light_red">ਹਲਕਾ ਲਾਲ</string>

@@ -206,6 +206,10 @@
     <dimen name="bottom_bar_item_image_size">24.0dip</dimen>
     <dimen name="bottom_bar_item_text_size">12.0sp</dimen>
 
+    <dimen name="sesl_search_view_text_min_width">160.0dip</dimen>
+    <dimen name="sesl_search_view_search_text_size">20.0sp</dimen>
+
+
 
 
     <!--TabLayout-->

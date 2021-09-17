@@ -28,6 +28,7 @@
     <string name="sesl_done">ပြီးပါပြီ</string>
     <string name="action_search">ရှာဖွေပါ</string>
     <string name="pen_palette_color_green">အစိမ်းရောင်</string>
+    <string name="sec_relative_description">အလိုရှိသည်ကို ရှာဖွေနေပါသလား?</string>
     <string name="network_connect_is_not_stable">ချိတ်ဆက်၍ မရနိုင်ပါ။ သင်၏ ကွန်ရက်ချိတ်ဆက်မှုကို စစ်ဆေးပြီးနောက် ထပ်ကြိုးစားပါ။</string>
     <string name="pen_swatch_color_dark_cyan">စိမ်းပြာရောင်</string>
     <string name="pen_swatch_color_light_red">အနီနု</string>

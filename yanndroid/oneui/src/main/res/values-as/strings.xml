@@ -28,6 +28,7 @@
     <string name="sesl_done">সম্পন্ন</string>
     <string name="action_search">অনুসন্ধান</string>
     <string name="pen_palette_color_green">সেউজীয়া</string>
+    <string name="sec_relative_description">অন্য কিবা চাই আছে নেকি?</string>
     <string name="network_connect_is_not_stable">"সংযোগ কৰিব পৰা নগ'ল। আপোনাৰ নেটৱৰ্ক সংযোগ পৰীক্ষা কৰক আৰু পুনঃচেষ্টা কৰক।"</string>
     <string name="pen_swatch_color_dark_cyan">ডাৰ্ক চিয়ান</string>
     <string name="pen_swatch_color_light_red">পাতল ৰঙা</string>

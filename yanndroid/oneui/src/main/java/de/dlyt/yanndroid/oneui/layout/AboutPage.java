@@ -11,7 +11,6 @@ import android.content.res.TypedArray;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -82,28 +81,25 @@ public class AboutPage extends LinearLayout {
 
         toolbarLayout.setNavigationButtonIcon(getResources().getDrawable(R.drawable.ic_samsung_back, context.getTheme()));
         toolbarLayout.setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigate_up));
-        toolbarLayout.setNavigationOnClickListener(new OnClickListener() {
+        toolbarLayout.setNavigationButtonOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().onBackPressed();
             }
         });
 
-        toolbarLayout.inflateMenu(R.menu.about_page);
-        toolbarLayout.setOnMenuItemClickListener(new ToolbarLayout.OnMenuItemClickListener() {
-            @Override
-            public void onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.app_info){
-                    try {
-                        Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.setData(Uri.parse("package:" + getActivity().getApplicationContext().getPackageName()));
-                        getActivity().startActivity(intent);
-                    } catch (ActivityNotFoundException unused) {
-                        getActivity().startActivity(new Intent("android.settings.MANAGE_APPLICATIONS_SETTINGS"));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+        toolbarLayout.inflateToolbarMenu(R.menu.about_page);
+        toolbarLayout.setOnToolbarMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.app_info) {
+                try {
+                    Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.setData(Uri.parse("package:" + getActivity().getApplicationContext().getPackageName()));
+                    getActivity().startActivity(intent);
+                } catch (ActivityNotFoundException unused) {
+                    getActivity().startActivity(new Intent("android.settings.MANAGE_APPLICATIONS_SETTINGS"));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });

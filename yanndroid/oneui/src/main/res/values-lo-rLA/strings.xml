@@ -28,6 +28,7 @@
     <string name="sesl_done">ສໍາເລັດ</string>
     <string name="action_search">ຄົ້ນຫາ</string>
     <string name="pen_palette_color_green">ສີຂຽວ</string>
+    <string name="sec_relative_description">ກຳລັງຊອກຫາບາງສິ່ງບາງຢ່າງອື່ນອີກບໍ?</string>
     <string name="network_connect_is_not_stable">ບໍ່ສາມາດເຊື່ອມຕໍ່ໄດ້. ກວດເບິ່ງການເຊື່ອມຕໍ່ເຄືອຂ່າຍຂອງທ່ານ ແລະລອງໃໝ່ອີກ.</string>
     <string name="pen_swatch_color_dark_cyan">ສີຂຽວແກບຟ້າແກ່</string>
     <string name="pen_swatch_color_light_red">ສີແດງອ່ອນ</string>

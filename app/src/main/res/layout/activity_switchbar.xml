@@ -26,7 +26,7 @@
             <de.dlyt.yanndroid.oneui.layout.RoundFrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/switchbar_help_image_bg_color">
+                android:background="@color/item_background_color">
 
                 <ImageView
                     android:layout_width="150dp"

@@ -28,6 +28,7 @@
     <string name="sesl_done">Valmis</string>
     <string name="action_search">Etsi</string>
     <string name="pen_palette_color_green">Vihreä</string>
+    <string name="sec_relative_description">Etsitkö jotain muuta?</string>
     <string name="network_connect_is_not_stable">Yhteyden muodostaminen epäonnistui. Tarkista verkkoyhteys ja yritä uudelleen.</string>
     <string name="pen_swatch_color_dark_cyan">Tumma syaani</string>
     <string name="pen_swatch_color_light_red">Vaalea punainen</string>

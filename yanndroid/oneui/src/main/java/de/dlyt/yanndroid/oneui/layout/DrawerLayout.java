@@ -1,6 +1,5 @@
 package de.dlyt.yanndroid.oneui.layout;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.ColorStateList;
@@ -11,21 +10,20 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.IntDef;
-import androidx.annotation.MenuRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import java.lang.annotation.Retention;
@@ -46,6 +44,7 @@ public class DrawerLayout extends LinearLayout {
     public static final int DRAWER_LAYOUT = 3;
     public static final int DRAWER = 4;
     private Context mContext;
+    private AppCompatActivity mActivity;
     private int mLayout;
     private String mToolbarTitle;
     private String mToolbarSubtitle;
@@ -60,11 +59,13 @@ public class DrawerLayout extends LinearLayout {
     private LinearLayout drawer_container;
     private androidx.drawerlayout.widget.DrawerLayout drawerLayout;
     private View drawer;
+    private OnBackPressedCallback onBackPressedCallback;
 
     public DrawerLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         mContext = context;
+        mActivity = getActivity();
 
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DrawerLayout, 0, 0);
 
@@ -84,6 +85,7 @@ public class DrawerLayout extends LinearLayout {
         drawer_container = findViewById(R.id.drawer_container);
         toolbarLayout = findViewById(R.id.drawer_toolbarlayout);
 
+        toolbarLayout.syncWithDrawer(this);
         toolbarLayout.setTitle(mToolbarTitle);
         toolbarLayout.setSubtitle(mToolbarSubtitle);
         toolbarLayout.setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigation_drawer));
@@ -94,15 +96,20 @@ public class DrawerLayout extends LinearLayout {
         drawerButton.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.drawer_icon_color)));
         setDrawerButtonIcon(mDrawerIcon);
 
-        /*back logic*/
-        requestFocus();
-        setOnKeyListener((v, keyCode, event) -> {
-            if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK && drawerLayout.isDrawerOpen(drawer)) {
-                drawerLayout.closeDrawer(drawer, true);
-                return true;
+
+        onBackPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (drawerLayout.isDrawerOpen(drawer)) {
+                    drawerLayout.closeDrawer(drawer, true);
+                    return;
+                }
+                this.setEnabled(false);
+                mActivity.onBackPressed();
+                this.setEnabled(true);
             }
-            return false;
-        });
+        };
+        mActivity.getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
 
         /*drawer logic*/
         View translationView = findViewById(R.id.drawer_custom_translation);
@@ -120,9 +127,9 @@ public class DrawerLayout extends LinearLayout {
         setDrawerWidth();
 
         Boolean isRtl = getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-        Window window = getActivity().getWindow();
+        Window window = mActivity.getWindow();
 
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, R.string.opened, R.string.closed) {
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, drawerLayout, R.string.opened, R.string.closed) {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
@@ -139,7 +146,7 @@ public class DrawerLayout extends LinearLayout {
             }
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        toolbarLayout.setNavigationOnClickListener(v -> drawerLayout.openDrawer(drawer, true));
+        toolbarLayout.setNavigationButtonOnClickListener(v -> drawerLayout.openDrawer(drawer, true));
     }
 
     private void setDrawerWidth() {
@@ -167,6 +174,9 @@ public class DrawerLayout extends LinearLayout {
         layoutParams.width = (int) ((double) displayWidth * widthRate);
     }
 
+    //
+    // Drawer methods
+    //
     public ToolbarLayout getToolbarLayout() {
         return toolbarLayout;
     }
@@ -208,7 +218,7 @@ public class DrawerLayout extends LinearLayout {
 
     public void setDrawerButtonBadge(int count) {
         if (drawerIconBadgeBackground == null) {
-            drawerIconBadgeBackground = (ViewGroup) ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.navigation_button_badge_layout, drawerButtonContainer, false);
+            drawerIconBadgeBackground = (ViewGroup) ((LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.navigation_button_badge_layout, drawerButtonContainer, false);
             drawerIconBadgeText = (TextView) drawerIconBadgeBackground.getChildAt(0);
             drawerIconBadgeText.setTextSize(0, (float) ((int) getResources().getDimension(R.dimen.sesl_menu_item_badge_text_size)));
             drawerButtonContainer.addView(drawerIconBadgeBackground);
@@ -245,39 +255,13 @@ public class DrawerLayout extends LinearLayout {
     }
 
     //
-    // Action Mode methods
+    // others
     //
-    public void showActionMode() {
-        toolbarLayout.showActionMode();
-        drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-    }
-
-    public void setActionModeBottomMenu(@MenuRes int menuRes, ToolbarLayout.OnMenuItemClickListener listener) {
-        toolbarLayout.setActionModeBottomMenu(menuRes, listener);
-    }
-
-    public void dismissActionMode() {
-        toolbarLayout.dismissActionMode();
-        drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
-    }
-
-    public void setActionModeSelectCount(int count) {
-        toolbarLayout.setActionModeSelectCount(count);
-    }
-
-    public void setActionModeSelectAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener) {
-        toolbarLayout.setActionModeSelectAllCheckedChangeListener(listener);
-    }
-
-    public void setActionModeSelectAllChecked(boolean checked) {
-        toolbarLayout.setActionModeSelectAllChecked(checked);
-    }
-
-    private Activity getActivity() {
+    private AppCompatActivity getActivity() {
         Context context = getContext();
         while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (Activity) context;
+            if (context instanceof AppCompatActivity) {
+                return (AppCompatActivity) context;
             }
             context = ((ContextWrapper) context).getBaseContext();
         }

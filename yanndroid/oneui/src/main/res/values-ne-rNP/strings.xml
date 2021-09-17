@@ -28,6 +28,7 @@
     <string name="sesl_done">भयो</string>
     <string name="action_search">खोज्‍नुहोस्</string>
     <string name="pen_palette_color_green">हरियो</string>
+    <string name="sec_relative_description">अरू केही खोज्दै हुनुहुन्छ?</string>
     <string name="network_connect_is_not_stable">जडान गर्न सकिएन। आफ्नो नेटवर्क जडानको जाँच गरी फेरि प्रयास गर्नुहोस्।</string>
     <string name="pen_swatch_color_dark_cyan">गाढा स्यान</string>
     <string name="pen_swatch_color_light_red">हल्का रातो</string>

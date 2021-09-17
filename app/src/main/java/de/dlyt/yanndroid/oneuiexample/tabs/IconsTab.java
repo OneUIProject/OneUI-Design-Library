@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import java.util.HashMap;
 
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
+import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslLinearLayoutManager;
 import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
@@ -293,7 +294,7 @@ public class IconsTab extends Fragment {
 
 
     public void setSelecting(boolean enabled) {
-        DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawer_view);
+        ToolbarLayout toolbarLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view)).getToolbarLayout();
         TabLayout tabLayout = getActivity().findViewById(R.id.tabLayout);
         BottomNavigationView bnv = getActivity().findViewById(R.id.main_samsung_tabs);
         ViewPager viewPager = getActivity().findViewById(R.id.viewPager);
@@ -301,9 +302,9 @@ public class IconsTab extends Fragment {
         if (enabled) {
             mSelecting = true;
             imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount() - 1);
-            drawerLayout.setActionModeBottomMenu(R.menu.action_mode_menu, item -> Toast.makeText(mContext, item.getTitle(), Toast.LENGTH_SHORT).show());
-            drawerLayout.showActionMode();
-            drawerLayout.setActionModeSelectAllCheckedChangeListener((buttonView, isChecked) -> {
+            toolbarLayout.setSelectModeBottomMenu(R.menu.action_mode_menu, item -> Toast.makeText(mContext, item.getTitle(), Toast.LENGTH_SHORT).show());
+            toolbarLayout.showSelectMode();
+            toolbarLayout.setSelectModeAllCheckedChangeListener((buttonView, isChecked) -> {
                 if (checkAllListening) {
                     for (int i = 0; i < imageAdapter.getItemCount() - 1; i++) {
                         selected.put(i, isChecked);
@@ -312,7 +313,7 @@ public class IconsTab extends Fragment {
                 }
                 int count = 0;
                 for (Boolean b : selected.values()) if (b) count++;
-                drawerLayout.setActionModeSelectCount(count);
+                toolbarLayout.setSelectModeCount(count);
             });
             tabLayout.setEnabled(false);
             bnv.setEnabled(false);
@@ -323,8 +324,8 @@ public class IconsTab extends Fragment {
             for (int i = 0; i < imageAdapter.getItemCount() - 1; i++) selected.put(i, false);
             imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount() - 1);
 
-            drawerLayout.setActionModeSelectCount(0);
-            drawerLayout.dismissActionMode();
+            toolbarLayout.setSelectModeCount(0);
+            toolbarLayout.dismissSelectMode();
             tabLayout.setEnabled(true);
             bnv.setEnabled(true);
             viewPager.setPagingEnabled(true);
@@ -339,9 +340,9 @@ public class IconsTab extends Fragment {
         checkAllListening = false;
         int count = 0;
         for (Boolean b : selected.values()) if (b) count++;
-        DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawer_view);
-        drawerLayout.setActionModeSelectAllChecked(count == imageAdapter.getItemCount() - 1);
-        drawerLayout.setActionModeSelectCount(count);
+        ToolbarLayout toolbarLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view)).getToolbarLayout();
+        toolbarLayout.setSelectModeAllChecked(count == imageAdapter.getItemCount() - 1);
+        toolbarLayout.setSelectModeCount(count);
         checkAllListening = true;
     }
 

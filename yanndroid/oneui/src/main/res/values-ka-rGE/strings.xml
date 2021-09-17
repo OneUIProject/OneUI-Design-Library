@@ -28,6 +28,7 @@
     <string name="sesl_done">მზადაა</string>
     <string name="action_search">ძიება</string>
     <string name="pen_palette_color_green">მწვანე</string>
+    <string name="sec_relative_description">კიდევ სხვა რამეს ეძებთ?</string>
     <string name="network_connect_is_not_stable">ვერ დაკავშირდა. შეამოწმეთ კავშირი ქსელთან და ისევ სცადეთ.</string>
     <string name="pen_swatch_color_dark_cyan">მუქი ფირუზისფერი</string>
     <string name="pen_swatch_color_light_red">ღია წითელი</string>

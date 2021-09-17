@@ -28,6 +28,7 @@
     <string name="sesl_done">முடிந்தது</string>
     <string name="action_search">தேடுக</string>
     <string name="pen_palette_color_green">பச்சை</string>
+    <string name="sec_relative_description">வேறு ஏதோவொன்றைத் தேடுகிறீர்களா?</string>
     <string name="network_connect_is_not_stable">இணைக்க இயலவில்லை. உங்கள் நெட்வொர்க் இணைப்பைச் சரிபார்த்து, மீண்டும் முயலவும்.</string>
     <string name="pen_swatch_color_dark_cyan">அடர் சியான்</string>
     <string name="pen_swatch_color_light_red">இளஞ்சிவப்பு</string>

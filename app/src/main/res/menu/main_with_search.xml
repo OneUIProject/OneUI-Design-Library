@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_samsung_search"
+        android:title="@string/action_search"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/info"
         android:icon="@drawable/ic_samsung_info"
         android:title="@string/app_info"

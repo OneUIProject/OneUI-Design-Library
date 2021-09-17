@@ -28,6 +28,7 @@
     <string name="sesl_done">Déanta</string>
     <string name="action_search">Cuardaigh</string>
     <string name="pen_palette_color_green">Glas</string>
+    <string name="sec_relative_description">Sa tóir ar rud éigin eile?</string>
     <string name="network_connect_is_not_stable">Nascadh dodhéanta. Seiceáil do nasc líonra agus triail arís.</string>
     <string name="pen_swatch_color_dark_cyan">Dúchian</string>
     <string name="pen_swatch_color_light_red">Dearg éadrom</string>

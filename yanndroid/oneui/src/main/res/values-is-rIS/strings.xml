@@ -28,6 +28,7 @@
     <string name="sesl_done">Lokið</string>
     <string name="action_search">Leit</string>
     <string name="pen_palette_color_green">Grænn</string>
+    <string name="sec_relative_description">Ertu að leita að einhverju öðru?</string>
     <string name="network_connect_is_not_stable">Ekki náðist tenging. Athugaðu nettenginguna og reyndu aftur.</string>
     <string name="pen_swatch_color_dark_cyan">Dökkblágrænn</string>
     <string name="pen_swatch_color_light_red">Ljósrauður</string>

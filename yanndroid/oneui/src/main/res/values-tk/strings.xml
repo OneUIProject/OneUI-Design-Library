@@ -28,6 +28,7 @@
     <string name="sesl_done">Tamam</string>
     <string name="action_search">Gözle</string>
     <string name="pen_palette_color_green">Ýaşyl</string>
+    <string name="sec_relative_description">Başga bir zat gözleýäňizmi?</string>
     <string name="network_connect_is_not_stable">Birigip bolmady. Tor birikmäňizi barlap, täzeden synanyşyň.</string>
     <string name="pen_swatch_color_dark_cyan">Goýy gök-ýaşyl</string>
     <string name="pen_swatch_color_light_red">Açyk gyzyl</string>

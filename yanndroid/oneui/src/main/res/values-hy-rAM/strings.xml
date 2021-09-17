@@ -28,6 +28,7 @@
     <string name="sesl_done">Արված է</string>
     <string name="action_search">Որոնում</string>
     <string name="pen_palette_color_green">Կանաչ</string>
+    <string name="sec_relative_description">Էլի ինչ-որ բա՞ն եք փնտրում:</string>
     <string name="network_connect_is_not_stable">Չհաջողվեց միանալ: Ստուգեք Ձեր ցանցային միացումը և նորից փորձեք:</string>
     <string name="pen_swatch_color_dark_cyan">Մուգ երկնագույն</string>
     <string name="pen_swatch_color_light_red">Բաց կարմիր</string>

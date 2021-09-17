@@ -28,6 +28,7 @@
     <string name="sesl_done">완료</string>
     <string name="action_search">검색</string>
     <string name="pen_palette_color_green">녹색</string>
+    <string name="sec_relative_description">다른 기능을 찾고 있나요?</string>
     <string name="network_connect_is_not_stable">연결하지 못했습니다. 네트워크 연결을 확인하고 다시 해보세요.</string>
     <string name="pen_swatch_color_dark_cyan">진한 청록색</string>
     <string name="pen_swatch_color_light_red">연한 빨간색</string>

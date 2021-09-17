@@ -28,6 +28,7 @@
     <string name="sesl_done">সম্পন্ন</string>
     <string name="action_search">সন্ধান</string>
     <string name="pen_palette_color_green">সবুজ</string>
+    <string name="sec_relative_description">অন্য কিছু খুঁজছেন?</string>
     <string name="network_connect_is_not_stable">সংযোগ করা যায়নি। আপনার নেটওয়ার্ক সংযোগ পরীক্ষা করুন ও আবার চেষ্টা করুন।</string>
     <string name="pen_swatch_color_dark_cyan">গাঢ় সবজে নীল</string>
     <string name="pen_swatch_color_light_red">হালকা লাল</string>

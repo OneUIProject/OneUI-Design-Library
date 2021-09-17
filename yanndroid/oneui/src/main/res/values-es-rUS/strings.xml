@@ -28,6 +28,7 @@
     <string name="sesl_done">Realiz.</string>
     <string name="action_search">Buscar</string>
     <string name="pen_palette_color_green">Verde</string>
+    <string name="sec_relative_description">¿Está buscando otra cosa?</string>
     <string name="network_connect_is_not_stable">No fue posible conectarse. Compruebe su conexión de red e inténtelo de nuevo.</string>
     <string name="pen_swatch_color_dark_cyan">Cian oscuro</string>
     <string name="pen_swatch_color_light_red">Rojo claro</string>

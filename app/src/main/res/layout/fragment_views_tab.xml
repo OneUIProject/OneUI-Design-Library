@@ -263,6 +263,11 @@
                     android:text="TextView"
                     android:textAlignment="viewStart" />
 
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="EditText" />
+
                 <androidx.appcompat.widget.SeslSpinner
                     android:id="@+id/spinner"
                     android:layout_width="match_parent"

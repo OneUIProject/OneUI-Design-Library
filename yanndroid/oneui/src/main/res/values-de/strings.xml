@@ -28,6 +28,7 @@
     <string name="sesl_done">OK</string>
     <string name="action_search">Suche</string>
     <string name="pen_palette_color_green">Grün</string>
+    <string name="sec_relative_description">Suchen Sie nach etwas Anderem?</string>
     <string name="network_connect_is_not_stable">Verbindung konnte nicht hergestellt werden. Überprüfen Sie Ihre Netzwerkverbindung und versuchen Sie es erneut.</string>
     <string name="pen_swatch_color_dark_cyan">Dunkles Cyan</string>
     <string name="pen_swatch_color_light_red">Hellrot</string>

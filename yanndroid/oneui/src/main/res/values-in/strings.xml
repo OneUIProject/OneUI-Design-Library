@@ -28,6 +28,7 @@
     <string name="sesl_done">Selesai</string>
     <string name="action_search">Cari</string>
     <string name="pen_palette_color_green">Hijau</string>
+    <string name="sec_relative_description">Mencari sesuatu yang lain?</string>
     <string name="network_connect_is_not_stable">Tidak dapat tersambung. Periksa koneksi jaringan Anda dan coba lagi.</string>
     <string name="pen_swatch_color_dark_cyan">Cyan tua</string>
     <string name="pen_swatch_color_light_red">Merah terang</string>

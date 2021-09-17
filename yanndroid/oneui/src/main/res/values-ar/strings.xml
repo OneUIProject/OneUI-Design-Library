@@ -28,6 +28,7 @@
     <string name="sesl_done">تم</string>
     <string name="action_search">بحث</string>
     <string name="pen_palette_color_green">أخضر</string>
+    <string name="sec_relative_description">هل تبحث عن شيء آخر؟</string>
     <string name="network_connect_is_not_stable">تعذر الاتصال. تحقق من اتصال الشبكة وحاول مرة أخرى.</string>
     <string name="pen_swatch_color_dark_cyan">أزرق سماوي داكن</string>
     <string name="pen_swatch_color_light_red">أحمر فاتح</string>

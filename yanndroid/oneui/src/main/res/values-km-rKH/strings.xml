@@ -28,6 +28,7 @@
     <string name="sesl_done">រួចរាល់</string>
     <string name="action_search">ស្វែង​រក</string>
     <string name="pen_palette_color_green">បៃតង</string>
+    <string name="sec_relative_description">កំពុង​ស្វែងរក​អ្វី​ផ្សេង?</string>
     <string name="network_connect_is_not_stable">មិន​អាច​ភ្ជាប់។ ពិនិត្យ​ការភ្ជាប់​បណ្ដាញ​របស់​អ្នក ហើយ​សាកល្បង​ម្ដងទៀត។</string>
     <string name="pen_swatch_color_dark_cyan">បៃតង​ខៀវ​ចាស់</string>
     <string name="pen_swatch_color_light_red">ក្រហម​ស្រាល</string>

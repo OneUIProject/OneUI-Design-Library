@@ -28,6 +28,7 @@
     <string name="sesl_done">Даяр</string>
     <string name="action_search">Издөө</string>
     <string name="pen_palette_color_green">Жашыл</string>
+    <string name="sec_relative_description">Башка бир нерсени издеп жатасызбы?</string>
     <string name="network_connect_is_not_stable">Туташуу болбоду. Тармактык туташууңузду текшерип, дагы аракеттениңиз.</string>
     <string name="pen_swatch_color_dark_cyan">Кочкул циан</string>
     <string name="pen_swatch_color_light_red">Ачык кызыл</string>

@@ -28,6 +28,7 @@
     <string name="sesl_done">ทำ</string>
     <string name="action_search">ค้น​หา</string>
     <string name="pen_palette_color_green">เขียว</string>
+    <string name="sec_relative_description">กำลังมองหารายการอื่นอยู่หรือไม่?</string>
     <string name="network_connect_is_not_stable">ไม่สามารถเชื่อมต่อได้ ตรวจสอบการเชื่อมต่อเครือข่ายของคุณ แล้วลองอีกครั้ง</string>
     <string name="pen_swatch_color_dark_cyan">สีฟ้าเข้ม</string>
     <string name="pen_swatch_color_light_red">สีแดงอ่อน</string>
