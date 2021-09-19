@@ -16,6 +16,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.util.SeslMisc;
 import androidx.fragment.app.Fragment;
@@ -57,12 +59,17 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bnvLayout;
     private PopupMenu bnvPopupMenu;
 
+    private ActivityResultLauncher<Intent> activityResultLauncher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         new ThemeColor(this);
         super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(R.layout.activity_main);
+
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> toolbarLayout.onSearchModeVoiceInputResult(result));
+
         init();
     }
 
@@ -160,6 +167,11 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onKeyboardSearchClick(CharSequence s) {
                             Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onVoiceInputClick(Intent intent) {
+                            activityResultLauncher.launch(intent);
                         }
                     });
                     break;

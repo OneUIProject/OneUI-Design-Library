@@ -34,8 +34,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.activity.result.ActivityResult;
 import androidx.annotation.IntDef;
 import androidx.annotation.MenuRes;
 import androidx.annotation.Nullable;
@@ -85,8 +84,7 @@ public class ToolbarLayout extends LinearLayout {
     private int mLayout;
     private CharSequence mTitleExpanded;
     private CharSequence mTitleCollapsed;
-    private CharSequence mSubtitleExpanded;
-    private CharSequence mSubtitleCollapsed;
+    private CharSequence mSubtitle;
     private Boolean mExpandable;
     private Boolean mExpanded;
     private SamsungAppBarLayout appBarLayout;
@@ -131,7 +129,7 @@ public class ToolbarLayout extends LinearLayout {
     private ToolbarImageButton search_navButton;
     private ToolbarImageButton search_action_button;
     private EditText search_edittext;
-    private ActivityResultLauncher<Intent> voiceSearchResultLauncher;
+    //private ActivityResultLauncher<Intent> voiceSearchResultLauncher;
     private SearchModeListener searchModeListener = new SearchModeListener() {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
@@ -144,6 +142,10 @@ public class ToolbarLayout extends LinearLayout {
 
         public void onKeyboardSearchClick(CharSequence s) {
         }
+
+        @Override
+        public void onVoiceInputClick(Intent intent) {
+        }
     };
 
     public interface SearchModeListener {
@@ -154,6 +156,8 @@ public class ToolbarLayout extends LinearLayout {
         void afterTextChanged(Editable s);
 
         void onKeyboardSearchClick(CharSequence s);
+
+        void onVoiceInputClick(Intent intent);
     }
 
     public ToolbarLayout(Context context, @Nullable AttributeSet attrs) {
@@ -169,7 +173,7 @@ public class ToolbarLayout extends LinearLayout {
             mExpanded = attr.getBoolean(R.styleable.ToolBarLayout_expanded, true);
             mLayout = attr.getResourceId(R.styleable.ToolBarLayout_android_layout, mExpandable ? R.layout.samsung_appbar_toolbarlayout : R.layout.samsung_toolbar_toolbarlayout);
             mTitleExpanded = attr.getString(R.styleable.ToolBarLayout_title);
-            mSubtitleExpanded = attr.getString(R.styleable.ToolBarLayout_subtitle);
+            mSubtitle = attr.getString(R.styleable.ToolBarLayout_subtitle);
             mNavigationIcon = attr.getDrawable(R.styleable.ToolBarLayout_navigationIcon);
         } finally {
             attr.recycle();
@@ -204,7 +208,7 @@ public class ToolbarLayout extends LinearLayout {
         search_navButton = findViewById(R.id.toolbar_layout_search_navigationButton);
         search_action_button = findViewById(R.id.search_view_action_button);
         search_edittext = findViewById(R.id.toolbar_layout_search_field);
-        voiceSearchResultLauncher = mActivity.registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        /*voiceSearchResultLauncher = mActivity.registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK) {
                 final ArrayList<String> matches = result.getData().getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 if (!matches.isEmpty()) {
@@ -213,14 +217,14 @@ public class ToolbarLayout extends LinearLayout {
                     search_edittext.setSelection(search_edittext.getText().length());
                 }
             }
-        });
+        });*/
 
         mActivity.setSupportActionBar(toolbar);
         mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
         mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         setNavigationButtonIcon(mNavigationIcon);
         setTitle(mTitleExpanded);
-        setSubtitle(mSubtitleExpanded);
+        setSubtitle(mSubtitle);
 
         if (mExpandable) {
             appBarLayout.addOnOffsetChangedListener(new AppBarOffsetListener());
@@ -387,16 +391,11 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     public void setSubtitle(CharSequence subtitle) {
-        setSubtitle(subtitle, subtitle);
-    }
-
-    public void setSubtitle(CharSequence expandedSubtitle, CharSequence collapsedSubtitle) {
-        mSubtitleCollapsed = collapsedSubtitle;
-        mSubtitleExpanded = expandedSubtitle;
+        mSubtitle = subtitle;
         if (mExpandable) {
-            collapsingToolbarLayout.setSubtitle(expandedSubtitle);
+            collapsingToolbarLayout.setSubtitle(subtitle);
         }
-        collapsedSubTitleView.setText(collapsedSubtitle);
+        collapsedSubTitleView.setText(subtitle);
 
         updateCollapsedSubtitleVisibility();
     }
@@ -405,7 +404,7 @@ public class ToolbarLayout extends LinearLayout {
         TypedValue outValue = new TypedValue();
         getResources().getValue(R.dimen.sesl_appbar_height_proportion, outValue, true);
         if (!mExpandable || outValue.getFloat() == 0.0) {
-            collapsedSubTitleView.setVisibility((mSubtitleCollapsed != null && mSubtitleCollapsed.length() != 0) ? VISIBLE : GONE);
+            collapsedSubTitleView.setVisibility((mSubtitle != null && mSubtitle.length() != 0) ? VISIBLE : GONE);
         } else {
             collapsedSubTitleView.setVisibility(GONE);
         }
@@ -640,12 +639,24 @@ public class ToolbarLayout extends LinearLayout {
                 Intent intent = new Intent("android.speech.action.RECOGNIZE_SPEECH");
                 intent.putExtra("android.speech.extra.LANGUAGE_MODEL", "free_form");
                 intent.putExtra("android.speech.extra.LANGUAGE", Locale.getDefault());
-                voiceSearchResultLauncher.launch(intent);
+                //voiceSearchResultLauncher.launch(intent);
+                searchModeListener.onVoiceInputClick(intent);
             });
         } else {
             search_action_button.setImageResource(R.drawable.ic_samsung_close);
             search_action_button.setTooltipText(getResources().getString(R.string.sesl_searchview_description_clear));
             search_action_button.setOnClickListener(v -> search_edittext.setText(""));
+        }
+    }
+
+    public void onSearchModeVoiceInputResult(ActivityResult result) {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            final ArrayList<String> matches = result.getData().getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (!matches.isEmpty()) {
+                String Query = matches.get(0);
+                search_edittext.setText(Query);
+                search_edittext.setSelection(search_edittext.getText().length());
+            }
         }
     }
 

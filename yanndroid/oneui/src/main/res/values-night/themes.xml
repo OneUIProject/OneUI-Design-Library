@@ -24,7 +24,7 @@
         <item name="android:listDivider">@drawable/sesl_list_divider</item>
 
         <item name="android:theme">@style/OneUIStyleMain</item>
-        <item name="theme">@style/OneUIStyleMain</item>
+        <!--<item name="theme">@style/OneUIStyleMain</item>-->
 
         <item name="alertDialogTheme">@style/DialogTheme</item>
         <item name="alertDialogStyle">@style/AlertDialogStyle</item>
