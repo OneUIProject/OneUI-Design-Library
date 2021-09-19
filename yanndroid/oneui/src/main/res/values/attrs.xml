@@ -5,13 +5,6 @@
     <attr name="colorControlActivated" format="color" />
     <attr name="colorControlNormal" format="color" />
 
-
-    <attr name="seslSwitchBarBackgroundActivatedColor" format="color" />
-    <attr name="seslSwitchBarBackgroundColor" format="color" />
-    <attr name="seslSwitchBarStyle" format="reference" />
-    <attr name="seslSwitchBarTextActivatedColor" format="color" />
-    <attr name="seslSwitchBarTextColor" format="color" />
-
     <attr name="colorPickerEmptySlotColor" format="reference|color" />
     <attr name="colorPickerSelectedItemTextColor" format="reference|color" />
     <attr name="colorPickerStrokeColor" format="reference|color" />
@@ -507,4 +500,39 @@
     <declare-styleable name="SwipeRefreshLayout">
         <attr name="swipeRefreshLayoutProgressSpinnerBackgroundColor" format="color" />
     </declare-styleable>
+    <declare-styleable name="ProgressBar">
+        <attr name="android:indeterminate" />
+        <attr name="android:indeterminateBehavior" />
+        <attr name="android:indeterminateDrawable" />
+        <attr name="android:indeterminateDuration" />
+        <attr name="android:indeterminateOnly" />
+        <attr name="android:indeterminateTint" />
+        <attr name="android:indeterminateTintMode" />
+        <attr name="android:interpolator" />
+        <attr name="android:max" />
+        <attr name="android:maxHeight" />
+        <attr name="android:maxWidth" />
+        <attr name="android:min" />
+        <attr name="android:minHeight" />
+        <attr name="android:minWidth" />
+        <attr name="android:mirrorForRtl" />
+        <attr name="android:progress" />
+        <attr name="android:progressBackgroundTint" />
+        <attr name="android:progressBackgroundTintMode" />
+        <attr name="android:progressDrawable" />
+        <attr name="android:progressTint" />
+        <attr name="android:progressTintMode" />
+        <attr name="android:secondaryProgress" />
+        <attr name="android:secondaryProgressTint" />
+        <attr name="android:secondaryProgressTintMode" />
+    </declare-styleable>
+    <declare-styleable name="SeslSwitchBar">
+        <attr name="seslSwitchBarBackgroundActivatedColor" format="color" />
+        <attr name="seslSwitchBarBackgroundColor" format="color" />
+        <attr name="seslSwitchBarStyle" format="reference" />
+        <attr name="seslSwitchBarTextActivatedColor" format="color" />
+        <attr name="seslSwitchBarTextColor" format="color" />
+    </declare-styleable>
+
+
 </resources>

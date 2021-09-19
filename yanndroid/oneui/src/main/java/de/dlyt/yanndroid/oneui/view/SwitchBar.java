@@ -17,7 +17,6 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.Styleable;
 import androidx.annotation.ColorInt;
 import androidx.annotation.StringRes;
 import androidx.appcompat.util.SeslMisc;
@@ -74,11 +73,11 @@ public class SwitchBar extends LinearLayout implements CompoundButton.OnCheckedC
         this.mSessionDesc = null;
         LayoutInflater.from(context).inflate(R.layout.samsung_switchbar, this);
         Resources resources = getResources();
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, Styleable.styleable.SeslSwitchBar, i, i2);
-        this.mBackgroundColor = obtainStyledAttributes.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarBackgroundColor, resources.getColor(R.color.sesl_switchbar_off_background_color_light));
-        this.mBackgroundActivatedColor = obtainStyledAttributes.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarBackgroundActivatedColor, resources.getColor(R.color.sesl_switchbar_on_background_color));
-        this.mOnTextColor = obtainStyledAttributes.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarTextActivatedColor, resources.getColor(R.color.sesl_switchbar_text_color));
-        this.mOffTextColor = obtainStyledAttributes.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarTextColor, resources.getColor(R.color.sesl_switchbar_text_color));
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.SeslSwitchBar, i, i2);
+        this.mBackgroundColor = obtainStyledAttributes.getColor(R.styleable.SeslSwitchBar_seslSwitchBarBackgroundColor, resources.getColor(R.color.sesl_switchbar_off_background_color_light));
+        this.mBackgroundActivatedColor = obtainStyledAttributes.getColor(R.styleable.SeslSwitchBar_seslSwitchBarBackgroundActivatedColor, resources.getColor(R.color.sesl_switchbar_on_background_color));
+        this.mOnTextColor = obtainStyledAttributes.getColor(R.styleable.SeslSwitchBar_seslSwitchBarTextActivatedColor, resources.getColor(R.color.sesl_switchbar_text_color));
+        this.mOffTextColor = obtainStyledAttributes.getColor(R.styleable.SeslSwitchBar_seslSwitchBarTextColor, resources.getColor(R.color.sesl_switchbar_text_color));
         obtainStyledAttributes.recycle();
         this.mProgressBar = (ProgressBar) findViewById(R.id.sesl_switchbar_progress);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.sesl_switchbar_container);

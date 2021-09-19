@@ -428,12 +428,9 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
     }
 
     private Animation startAlphaAnimation(final int i, final int i2) {
-        /*AnonymousClass4 r0 = new Animation() {
-            *//* class androidx.swiperefreshlayout.widget.SwipeRefreshLayout.AnonymousClass4 *//*
-
+        Animation r0 = new Animation() {
             public void applyTransformation(float f, Transformation transformation) {
                 CircularProgressDrawable circularProgressDrawable = SwipeRefreshLayout.this.mProgress;
-                int i = i;
                 circularProgressDrawable.setAlpha((int) (((float) i) + (((float) (i2 - i)) * f)));
             }
         };
@@ -441,8 +438,7 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
         this.mCircleView.setAnimationListener(null);
         this.mCircleView.clearAnimation();
         this.mCircleView.startAnimation(r0);
-        return r0;*/
-        return null;
+        return r0;
     }
 
     @Deprecated

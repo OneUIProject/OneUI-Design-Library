@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import androidx.Styleable;
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
 import androidx.appcompat.util.SeslMisc;
@@ -54,12 +53,8 @@ public class OptionButton extends LinearLayout {
         mCounter = attr.getInteger(R.styleable.OptionButton_counter, 0);
         attr.recycle();
 
-
-        TypedArray switchbar_attr = context.obtainStyledAttributes(attrs, Styleable.styleable.SeslSwitchBar, R.attr.seslSwitchBarStyle, 0);
-        mOnTextColor = switchbar_attr.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarTextActivatedColor, ContextCompat.getColor(getContext(), R.color.sesl_switchbar_text_color));
-        mOffTextColor = switchbar_attr.getColor(Styleable.styleable.SeslSwitchBar_seslSwitchBarTextColor, ContextCompat.getColor(getContext(), R.color.sesl_switchbar_text_color));
-        switchbar_attr.recycle();
-
+        mOnTextColor = ContextCompat.getColor(getContext(), R.color.sesl_switchbar_text_color);
+        mOffTextColor = ContextCompat.getColor(getContext(), R.color.sesl_switchbar_off_text_color);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.samsung_drawer_optionbutton, this, true);
