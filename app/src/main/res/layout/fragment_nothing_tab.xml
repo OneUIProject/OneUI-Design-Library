@@ -1,29 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.dlyt.yanndroid.oneui.view.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<de.dlyt.yanndroid.oneui.layout.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/item_background_color"
-    android:fillViewport="true"
-    android:scrollbars="vertical"
-    app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior">
+    android:background="@color/item_background_color">
 
-    <LinearLayout
-        android:id="@+id/nothing_layout"
+    <de.dlyt.yanndroid.oneui.view.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior">
 
-        <com.google.android.material.textview.MaterialTextView
-            style="?textAppearanceListItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nothing"
-            android:textAlignment="viewStart"
-            android:textSize="18sp" />
+        <LinearLayout
+            android:id="@+id/nothing_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <com.google.android.material.textview.MaterialTextView
+                style="?textAppearanceListItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nothing"
+                android:textAlignment="viewStart"
+                android:textSize="18sp" />
 
-</de.dlyt.yanndroid.oneui.view.NestedScrollView>
+        </LinearLayout>
+
+    </de.dlyt.yanndroid.oneui.view.NestedScrollView>
+
+</de.dlyt.yanndroid.oneui.layout.SwipeRefreshLayout>
+
+    <!--
+    <?xml version="1.0" encoding="utf-8"?>
+    <de.dlyt.yanndroid.oneui.view.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/item_background_color"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/nothing_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="?textAppearanceListItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nothing"
+                android:textAlignment="viewStart"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </de.dlyt.yanndroid.oneui.view.NestedScrollView>
+    -->

@@ -504,4 +504,7 @@
             <enum name="noImage" value="1" />
         </attr>
     </declare-styleable>
+    <declare-styleable name="SwipeRefreshLayout">
+        <attr name="swipeRefreshLayoutProgressSpinnerBackgroundColor" format="color" />
+    </declare-styleable>
 </resources>
