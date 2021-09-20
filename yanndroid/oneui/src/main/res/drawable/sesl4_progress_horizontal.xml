@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@android:id/background"
+        android:height="@dimen/sesl4_progress_bar_height"
+        android:gravity="fill_horizontal|center">
+        <nine-patch
+            android:src="@drawable/sesl4_progress_bar"
+            android:tint="?progressNormalColor" />
+    </item>
+    <item
+        android:id="@android:id/secondaryProgress"
+        android:height="@dimen/sesl4_progress_bar_height"
+        android:gravity="fill_horizontal|center">
+        <scale android:scaleWidth="100%">
+            <nine-patch
+                android:src="@drawable/sesl4_progress_bar"
+                android:tint="?progressActivatedColor" />
+        </scale>
+    </item>
+    <item
+        android:id="@android:id/progress"
+        android:height="@dimen/sesl4_progress_bar_height"
+        android:gravity="fill_horizontal|center">
+        <scale android:scaleWidth="100%">
+            <nine-patch
+                android:src="@drawable/sesl4_progress_bar"
+                android:tint="?progressActivatedColor" />
+        </scale>
+    </item>
+</layer-list>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="isOneUI4" format="boolean"/>
+
     <attr name="progressActivatedColor" format="reference|color" />
     <attr name="progressNormalColor" format="reference|color" />
     <attr name="colorControlActivated" format="color" />
@@ -533,6 +535,5 @@
         <attr name="seslSwitchBarTextActivatedColor" format="color" />
         <attr name="seslSwitchBarTextColor" format="color" />
     </declare-styleable>
-
 
 </resources>

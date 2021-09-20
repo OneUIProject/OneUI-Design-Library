@@ -62,7 +62,7 @@
 
         <ProgressBar
             android:id="@+id/loading_bar"
-            style="@style/ProgressBarStyle.Circle"
+            style="?android:progressBarStyle"
             android:layout_width="50dp"
             android:layout_height="50dp" />
 

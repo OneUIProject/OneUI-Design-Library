@@ -49,6 +49,10 @@
     <color name="sesl_switchbar_off_background_color">#2bfafafa</color>
     <color name="sesl_switchbar_off_text_color">#fffafafa</color>
 
+    <color name="sesl4_switchbar_on_background_color">#26ffffff</color>
+    <color name="sesl4_switchbar_off_background_color">#ff171717</color>
+    <color name="sesl4_switchbar_off_text_color">#fffafafa</color>
+
     <!--Spinner-->
     <color name="sesl_menu_popup_background_color">#ff252525</color>
     <color name="sesl_menu_popup_background_stroke_color">#ff252525</color>

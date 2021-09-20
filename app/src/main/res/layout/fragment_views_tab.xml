@@ -35,7 +35,7 @@
 
 
                 <ProgressBar
-                    style="@style/ProgressBarStyle.Horizontal"
+                    style="?android:progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:indeterminate="true" />
@@ -50,22 +50,22 @@
                     android:orientation="horizontal">
 
                     <ProgressBar
-                        style="@style/ProgressBarStyle.Circle.Large"
+                        style="?android:progressBarStyleLarge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <ProgressBar
-                        style="@style/ProgressBarStyle.Circle"
+                        style="?android:progressBarStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <ProgressBar
-                        style="@style/ProgressBarStyle.Circle.Small"
+                        style="?android:progressBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <ProgressBar
-                        style="@style/ProgressBarStyle.Title"
+                        style="?android:progressBarStyleSmallTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 

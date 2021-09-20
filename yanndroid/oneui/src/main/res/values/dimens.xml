@@ -351,4 +351,12 @@
     <dimen name="sesl_design_snackbar_text_padding_right">20.0dip</dimen>
 
 
+
+    <!--#############-->
+    <!--#  OneUI  4 #-->
+    <!--#############-->
+
+    <dimen name="sesl4_progress_bar_height">4.0dip</dimen>
+
+
 </resources>

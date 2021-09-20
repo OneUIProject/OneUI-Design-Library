@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together">
+    <set android:ordering="sequentially">
+        <objectAnimator
+            android:duration="500"
+            android:propertyName="translateX"
+            android:repeatCount="infinite"
+            android:valueFrom="-1083.5"
+            android:valueTo="-1083.5" />
+        <objectAnimator
+            android:duration="1250"
+            android:interpolator="@anim/sesl4_easing_sine_in_out_90"
+            android:propertyName="translateX"
+            android:repeatCount="infinite"
+            android:valueFrom="-1083.5"
+            android:valueTo="2415.5" />
+    </set>
+</set>

@@ -28,7 +28,6 @@
 
         <item name="alertDialogTheme">@style/DialogTheme</item>
         <item name="alertDialogStyle">@style/AlertDialogStyle</item>
-
     </style>
 
     <style name="OneUISplashTheme" parent="@style/OneUITheme">
@@ -38,5 +37,18 @@
     </style>
 
     <style name="OneUIAboutTheme" parent="@style/OneUISplashTheme" />
+
+
+    <style name="OneUI4Theme" parent="OneUITheme">
+        <item name="android:theme">@style/OneUI4StyleMain</item>
+    </style>
+
+    <style name="OneUI4SplashTheme" parent="@style/OneUI4Theme">
+        <item name="android:windowBackground">@color/splash_background</item>
+        <item name="android:statusBarColor">@color/splash_background</item>
+        <item name="android:navigationBarColor" tools:targetApi="27">@color/splash_background</item>
+    </style>
+
+    <style name="OneUI4AboutTheme" parent="@style/OneUI4SplashTheme" />
 
 </resources>

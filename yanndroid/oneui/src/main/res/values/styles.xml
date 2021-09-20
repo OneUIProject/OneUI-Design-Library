@@ -3,6 +3,7 @@
 
     <!--Main-->
     <style name="OneUIStyleMain">
+        <item name="isOneUI4">false</item>
         <item name="colorAccent">?colorSecondary</item>
         <item name="colorBackgroundFloating">@color/sesl_background_floating</item>
         <item name="colorControlActivated">?colorSecondary</item>
@@ -147,12 +148,13 @@
         <item name="android:layout_marginTop">@dimen/spacing_vertical_small</item>
         <item name="android:layout_marginBottom">@dimen/spacing_vertical_tiny</item>
         <item name="android:maxHeight">@dimen/progress_bar_height</item>
-        <item name="android:indeterminateDrawable">@drawable/progress_bar</item>
-        <item name="android:progressDrawable">@drawable/progress_bar</item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_progress_bar_horizontal_large</item>
+        <item name="android:progressDrawable">@drawable/sesl_progress_bar_horizontal_large</item>
         <item name="android:minHeight">@dimen/progress_bar_height</item>
     </style>
 
-    <style name="ProgressBarStyle.Circle" parent="@android:style/Widget.ProgressBar">
+    <!--not need this-->
+    <!--<style name="ProgressBarStyle.Circle" parent="@android:style/Widget.ProgressBar">
         <item name="android:maxWidth">@dimen/sesl_progress_circle_size</item>
         <item name="android:maxHeight">@dimen/sesl_progress_circle_size</item>
         <item name="android:indeterminate">true</item>
@@ -175,7 +177,7 @@
         <item name="android:maxHeight">@dimen/sesl_progress_bar_size_large</item>
         <item name="android:minWidth">@dimen/sesl_progress_bar_size_large</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_size_large</item>
-    </style>
+    </style>-->
 
 
     <!--CheckBox-->
@@ -875,5 +877,99 @@
         <item name="subtitleTextStyle">@style/ActionBarSubtitleTextStyle</item>
         <item name="titleTextStyle">@style/ActionBarTitleTextStyle</item>
     </style>
+
+
+
+
+
+    <!--#############-->
+    <!--#  OneUI  4 #-->
+    <!--#############-->
+
+
+
+    <style name="OneUI4StyleMain" parent="OneUIStyleMain">
+        <item name="isOneUI4">true</item>
+
+        <item name="progressNormalColor">@color/sesl4_progress_control_color_normal</item>
+
+        <item name="android:progressBarStyle">@style/OneUI4.ProgressBarStyle</item>
+        <item name="android:progressBarStyleHorizontal">@style/OneUI4.ProgressBarStyle.Horizontal</item>
+        <item name="android:progressBarStyleSmall">@style/OneUI4.ProgressBarStyle.Small</item>
+        <item name="android:progressBarStyleLarge">@style/OneUI4.ProgressBarStyle.Large</item>
+        <item name="android:progressBarStyleSmallTitle">@style/OneUI4.ProgressBarStyle.Title</item>
+        <item name="android:progressBarStyleInverse">@style/OneUI4.ProgressBarStyle</item>
+        <item name="android:progressBarStyleSmallInverse">@style/OneUI4.ProgressBarStyle.Small</item>
+        <item name="android:progressBarStyleLargeInverse">@style/OneUI4.ProgressBarStyle.Large</item>
+
+        <item name="seslSwitchBarStyle">@style/OneUI4.SeslSwitchBarStyle</item>
+
+    </style>
+
+
+    <!--ProgressBar-->
+    <style name="OneUI4.ProgressBarStyle" parent="@android:style/Widget.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/sesl4_progress</item>
+    </style>
+
+    <style name="OneUI4.ProgressBarStyle.Small" parent="@style/OneUI4.ProgressBarStyle">
+        <item name="android:maxWidth">@dimen/sesl_progress_bar_size_small</item>
+        <item name="android:maxHeight">@dimen/sesl_progress_bar_size_small</item>
+        <item name="android:minWidth">@dimen/sesl_progress_bar_size_small</item>
+        <item name="android:minHeight">@dimen/sesl_progress_bar_size_small</item>
+    </style>
+
+    <style name="OneUI4.ProgressBarStyle.Large" parent="@style/OneUI4.ProgressBarStyle">
+        <item name="android:maxWidth">@dimen/sesl_progress_bar_size_large</item>
+        <item name="android:maxHeight">@dimen/sesl_progress_bar_size_large</item>
+        <item name="android:minWidth">@dimen/sesl_progress_bar_size_large</item>
+        <item name="android:minHeight">@dimen/sesl_progress_bar_size_large</item>
+    </style>
+
+    <style name="OneUI4.ProgressBarStyle.Title" parent="@style/OneUI4.ProgressBarStyle">
+        <item name="android:maxWidth">@dimen/sesl_progress_bar_size_small_title</item>
+        <item name="android:maxHeight">@dimen/sesl_progress_bar_size_small_title</item>
+        <item name="android:minWidth">@dimen/sesl_progress_bar_size_small_title</item>
+        <item name="android:minHeight">@dimen/sesl_progress_bar_size_small_title</item>
+    </style>
+
+    <style name="OneUI4.ProgressBarStyle.Horizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <!--indeterminate is still broken so temporarily using the progress drawable-->
+        <!--<item name="android:indeterminateDrawable">@drawable/sesl4_progress_bar_indeterminate_xlarge_transition</item>-->
+        <item name="android:progressDrawable">@drawable/sesl4_progress_horizontal</item>
+        <item name="android:indeterminateDrawable">@drawable/sesl4_progress_horizontal</item>
+    </style>
+
+    <style name="OneUI4.ProgressBarStyle.Horizontal.Large" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/spacing_vertical_small</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_vertical_tiny</item>
+        <item name="android:maxHeight">@dimen/progress_bar_height</item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_progress_bar_horizontal_large</item>
+        <item name="android:progressDrawable">@drawable/sesl_progress_bar_horizontal_large</item>
+        <item name="android:minHeight">@dimen/progress_bar_height</item>
+    </style>
+
+
+
+
+    <!--SwitchBar-->
+    <style name="OneUI4.SeslSwitchBarStyle" parent="@android:style/Widget">
+        <item name="seslSwitchBarBackgroundActivatedColor">@color/sesl4_switchbar_on_background_color</item>
+        <item name="seslSwitchBarBackgroundColor">@color/sesl4_switchbar_off_background_color</item>
+        <item name="seslSwitchBarTextActivatedColor">?colorPrimaryDark</item>
+        <item name="seslSwitchBarTextColor">@color/sesl4_switchbar_off_text_color</item>
+    </style>
+
+    <style name="OneUI4.SeslSwitchBarTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">20.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?colorPrimaryDark</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
+    </style>
+
+
+
 
 </resources>
