@@ -13,6 +13,8 @@ import de.dlyt.yanndroid.oneui.utils.ThemeColor;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private boolean launchCanceled = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         new ThemeColor(this);
@@ -31,13 +33,30 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startActivity(new Intent().setClass(getApplicationContext(), MainActivity.class));
-                finish();
+                if (!launchCanceled) launchApp();
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
             }
         });
+    }
+
+    private void launchApp() {
+        startActivity(new Intent().setClass(getApplicationContext(), MainActivity.class));
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        launchCanceled = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (launchCanceled) launchApp();
     }
 }

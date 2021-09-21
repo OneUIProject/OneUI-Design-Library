@@ -83,7 +83,7 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="?actionBarSize"
-        android:gravity="end|center_vertical">
+        android:gravity="center_vertical">
 
         <LinearLayout
             android:id="@+id/toolbar_layout_overflow_container"
@@ -93,9 +93,9 @@
 
         <View
             android:id="@+id/toolbar_layout_popup_window_anchor"
-            android:layout_width="1.0px"
-            android:layout_height="1.0px"
-            android:layout_gravity="center|top"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="end|top"
             android:layout_marginEnd="10.0dip" />
     </FrameLayout>
 

@@ -42,10 +42,13 @@ public class PopupMenu {
     private OnMenuItemClickListener onMenuItemClickListener = item -> {
     };
 
+    private ArrayList<MenuItem> menuItems;
     private Menu menu;
     private PopupWindow popupWindow;
     private PopupMenuAdapter popupMenuAdapter;
     private HashMap<MenuItem, Integer> menuItemBadges = new HashMap<>();
+    private HashMap<MenuItem, Boolean> menuItemEnabled = new HashMap<>();
+
 
     public PopupMenu(View anchor) {
         this.context = anchor.getContext();
@@ -70,7 +73,7 @@ public class PopupMenu {
         MenuInflater menuInflater = new SupportMenuInflater(context);
         menuInflater.inflate(menuRes, menu);
 
-        ArrayList<MenuItem> menuItems = new ArrayList<>();
+        menuItems = new ArrayList<>();
 
         for (int i = 0; i < menu.size(); i++) {
             MenuItem item = menu.getItem(i);
@@ -82,8 +85,11 @@ public class PopupMenu {
     public void inflate(ArrayList<MenuItem> menuItems) {
         if (menuItems.isEmpty()) return;
 
+        this.menuItems = menuItems;
+
         for (MenuItem item : menuItems) {
             menuItemBadges.put(item, 0);
+            menuItemEnabled.put(item, true);
         }
 
         if (popupWindow != null) {
@@ -166,6 +172,22 @@ public class PopupMenu {
         if (popupWindow.isShowing()) popupWindow.dismiss();
     }
 
+    public void setMenuItemTitle(MenuItem item, CharSequence title) {
+        for (int i = 0; i < menuItems.size(); i++) {
+            if (menuItems.get(i) == item) {
+                item.setTitle(title);
+                menuItems.set(i, item);
+                popupMenuAdapter.notifyDataSetChanged();
+                break;
+            }
+        }
+    }
+
+    public void setMenuItemEnabled(MenuItem item, boolean enabled) {
+        menuItemEnabled.put(item, enabled);
+        popupMenuAdapter.notifyDataSetChanged();
+    }
+
     public Integer getMenuItemBadge(MenuItem item) {
         return menuItemBadges.get(item);
     }
@@ -205,35 +227,37 @@ public class PopupMenu {
 
     private class PopupMenuAdapter extends ArrayAdapter {
         Activity activity;
-        ArrayList<MenuItem> overflowItems;
+        ArrayList<MenuItem> menuItems;
 
-        public PopupMenuAdapter(Activity instance, ArrayList<MenuItem> overflowItems) {
+        public PopupMenuAdapter(Activity instance, ArrayList<MenuItem> menuItems) {
             super(instance, 0);
             this.activity = instance;
-            this.overflowItems = overflowItems;
+            this.menuItems = menuItems;
         }
 
         @Override
         public int getCount() {
-            return overflowItems.size();
+            return menuItems.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return overflowItems.get(position);
+            return menuItems.get(position);
         }
 
         @Override
         public View getView(int index, View view, ViewGroup parent) {
+            //if (!menuItemVisibility.get(menuItems.get(index))) return new View(context);
+
             TextView titleText;
             TextView badgeIcon;
 
             view = ((LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.menu_popup_item_layout, parent, false);
             titleText = view.findViewById(R.id.more_menu_popup_title_text);
-            titleText.setText(overflowItems.get(index).getTitle());
+            titleText.setText(menuItems.get(index).getTitle());
 
             badgeIcon = view.findViewById(R.id.more_menu_popup_badge);
-            Integer badgeCount = menuItemBadges.get(overflowItems.get(index));
+            Integer badgeCount = menuItemBadges.get(menuItems.get(index));
 
             if (badgeCount == null) return view;
 
@@ -256,6 +280,10 @@ public class PopupMenu {
                 badgeIcon.setVisibility(View.GONE);
             }
 
+            boolean enabled = menuItemEnabled.get(menuItems.get(index));
+            view.setEnabled(enabled);
+            titleText.setEnabled(enabled);
+            view.setClickable(!enabled); //seems counterintuitive, but it disables the listener
             return view;
         }
     }
