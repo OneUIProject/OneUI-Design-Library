@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        toolbarLayout.inflateToolbarMenu(R.menu.main);
         toolbarLayout.setOnToolbarMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.search:
@@ -228,13 +229,13 @@ public class MainActivity extends AppCompatActivity {
                     // MainActivityFirstFragment
                     toolbarLayout.setSubtitle("Design");
                     toolbarLayout.setNavigationButtonVisible(true);
-                    toolbarLayout.inflateToolbarMenu(R.menu.main_with_search);
+                    toolbarLayout.setToolbarMenuItemVisibility(toolbarLayout.getToolbarMenu().findItem(R.id.search), true);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.getView(DRAWER_LAYOUT)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
                 } else {
                     // MainActivitySecondFragment
                     toolbarLayout.setSubtitle("Preferences");
                     toolbarLayout.setNavigationButtonVisible(false);
-                    toolbarLayout.inflateToolbarMenu(R.menu.main);
+                    toolbarLayout.setToolbarMenuItemVisibility(toolbarLayout.getToolbarMenu().findItem(R.id.search), false);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.getView(DRAWER_LAYOUT)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 }
 

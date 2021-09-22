@@ -72,8 +72,9 @@ public class ToolbarLayout extends LinearLayout {
     public static final int TOOLBAR = 2;
     public static final int NAVIGATION_BUTTON = 3;
     public static final int COLLAPSED_TITLE = 4;
-    public static final int MAIN_CONTENT = 5;
-    public static final int FOOTER_CONTENT = 6;
+    public static final int COLLAPSED_SUBTITLE = 5;
+    public static final int MAIN_CONTENT = 6;
+    public static final int FOOTER_CONTENT = 7;
     private static String TAG = "ToolbarLayout";
     public ViewGroup navigationBadgeBackground;
     public TextView navigationBadgeText;
@@ -211,16 +212,6 @@ public class ToolbarLayout extends LinearLayout {
         search_navButton = findViewById(R.id.toolbar_layout_search_navigationButton);
         search_action_button = findViewById(R.id.search_view_action_button);
         search_edittext = findViewById(R.id.toolbar_layout_search_field);
-        /*voiceSearchResultLauncher = mActivity.registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (result.getResultCode() == Activity.RESULT_OK) {
-                final ArrayList<String> matches = result.getData().getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                if (!matches.isEmpty()) {
-                    String Query = matches.get(0);
-                    search_edittext.setText(Query);
-                    search_edittext.setSelection(search_edittext.getText().length());
-                }
-            }
-        });*/
 
         mActivity.setSupportActionBar(toolbar);
         mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -544,7 +535,7 @@ public class ToolbarLayout extends LinearLayout {
 
 
     //
-    // Select Mode methods
+    // Search Mode methods
     //
     public void showSearchMode() {
         mSearchMode = true;
@@ -917,6 +908,8 @@ public class ToolbarLayout extends LinearLayout {
                 return navigationButton;
             case COLLAPSED_TITLE:
                 return collapsedTitleView;
+            case COLLAPSED_SUBTITLE:
+                return collapsedSubTitleView;
             case MAIN_CONTENT:
                 return mainContainer;
             case FOOTER_CONTENT:
@@ -926,7 +919,7 @@ public class ToolbarLayout extends LinearLayout {
         }
     }
 
-    @IntDef({APPBAR_LAYOUT, COLLAPSING_TOOLBAR, TOOLBAR, NAVIGATION_BUTTON, COLLAPSED_TITLE, MAIN_CONTENT, FOOTER_CONTENT})
+    @IntDef({APPBAR_LAYOUT, COLLAPSING_TOOLBAR, TOOLBAR, NAVIGATION_BUTTON, COLLAPSED_TITLE, COLLAPSED_SUBTITLE, MAIN_CONTENT, FOOTER_CONTENT})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ToolbarLayoutView {
     }

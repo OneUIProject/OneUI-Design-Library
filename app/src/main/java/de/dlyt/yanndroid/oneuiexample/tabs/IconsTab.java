@@ -302,7 +302,7 @@ public class IconsTab extends Fragment {
         if (enabled) {
             mSelecting = true;
             imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount() - 1);
-            toolbarLayout.setSelectModeBottomMenu(R.menu.action_mode_menu, item -> Toast.makeText(mContext, item.getTitle(), Toast.LENGTH_SHORT).show());
+            toolbarLayout.setSelectModeBottomMenu(R.menu.select_mode_menu, item -> Toast.makeText(mContext, item.getTitle(), Toast.LENGTH_SHORT).show());
             toolbarLayout.showSelectMode();
             toolbarLayout.setSelectModeAllCheckedChangeListener((buttonView, isChecked) -> {
                 if (checkAllListening) {
