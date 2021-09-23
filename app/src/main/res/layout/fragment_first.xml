@@ -8,7 +8,7 @@
     <de.dlyt.yanndroid.oneui.view.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:layout_height="60.0dip" />
 
     <de.dlyt.yanndroid.oneui.layout.RoundLinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,8 @@
         <de.dlyt.yanndroid.oneui.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:overScrollMode="never" />
 
     </de.dlyt.yanndroid.oneui.layout.RoundLinearLayout>
 
