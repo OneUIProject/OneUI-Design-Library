@@ -7,13 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 
 import de.dlyt.yanndroid.oneui.layout.AboutPage;
-import de.dlyt.yanndroid.oneui.utils.ThemeColor;
+import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
 
 public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new ThemeColor(this);
+        new ThemeUtil(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 

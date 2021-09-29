@@ -15,7 +15,7 @@ import de.dlyt.yanndroid.oneui.preference.SwitchPreference;
 import de.dlyt.yanndroid.oneui.preference.SwitchPreferenceScreen;
 import de.dlyt.yanndroid.oneui.preference.TipsCardViewPreference;
 import de.dlyt.yanndroid.oneui.preference.internal.PreferencesRelatedCard;
-import de.dlyt.yanndroid.oneui.utils.ThemeColor;
+import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
 import de.dlyt.yanndroid.oneuiexample.MainActivity;
 import de.dlyt.yanndroid.oneuiexample.R;
 
@@ -44,7 +44,7 @@ public class MainActivitySecondFragment extends PreferenceFragment
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
 
-        int darkMode = ThemeColor.getDarkMode(mContext);
+        int darkMode = ThemeUtil.getDarkMode(mContext);
 
         TipsCardViewPreference tipCard = (TipsCardViewPreference) findPreference("tip_card");
         PreferenceGroup parent = getParent(getPreferenceScreen(), tipCard);
@@ -62,12 +62,12 @@ public class MainActivitySecondFragment extends PreferenceFragment
         darkModePref.setOnPreferenceChangeListener(this);
         darkModePref.setDividerEnabled(false);
         darkModePref.setTouchEffectEnabled(false);
-        darkModePref.setEnabled(darkMode != ThemeColor.DARK_MODE_AUTO);
+        darkModePref.setEnabled(darkMode != ThemeUtil.DARK_MODE_AUTO);
         darkModePref.setValue(SeslMisc.isLightTheme(mContext) ? "0" : "1");
 
         SwitchPreference autoDarkModePref = (SwitchPreference) findPreference("dark_mode_auto");
         autoDarkModePref.setOnPreferenceChangeListener(this);
-        autoDarkModePref.setChecked(darkMode == ThemeColor.DARK_MODE_AUTO);
+        autoDarkModePref.setChecked(darkMode == ThemeUtil.DARK_MODE_AUTO);
     }
 
     @Override
@@ -90,19 +90,19 @@ public class MainActivitySecondFragment extends PreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        String currentDarkMode = String.valueOf(ThemeColor.getDarkMode(mContext));
+        String currentDarkMode = String.valueOf(ThemeUtil.getDarkMode(mContext));
         HorizontalRadioPreference darkModePref = (HorizontalRadioPreference) findPreference("dark_mode");
 
         switch (preference.getKey()) {
             case "dark_mode":
                 if (currentDarkMode != newValue) {
-                    ThemeColor.setDarkMode(mActivity, ((String) newValue).equals("0") ? ThemeColor.DARK_MODE_DISABLED : ThemeColor.DARK_MODE_ENABLED);
+                    ThemeUtil.setDarkMode(mActivity, ((String) newValue).equals("0") ? ThemeUtil.DARK_MODE_DISABLED : ThemeUtil.DARK_MODE_ENABLED);
                 }
                 return true;
             case "dark_mode_auto":
                 if ((boolean) newValue) {
                     darkModePref.setEnabled(false);
-                    ThemeColor.setDarkMode(mActivity, ThemeColor.DARK_MODE_AUTO);
+                    ThemeUtil.setDarkMode(mActivity, ThemeUtil.DARK_MODE_AUTO);
                 } else {
                     darkModePref.setEnabled(true);
                 }

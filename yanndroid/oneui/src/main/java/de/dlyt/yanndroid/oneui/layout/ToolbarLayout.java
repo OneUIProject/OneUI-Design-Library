@@ -893,6 +893,13 @@ public class ToolbarLayout extends LinearLayout {
         }
     }
 
+    public ToolbarImageButton getToolbarMenuItemView(MenuItem item) {
+        if (toolbarMenuButtons.containsKey(item)) {
+            return ((ToolbarImageButton) toolbarMenuButtons.get(item));
+        }
+        return null;
+    }
+
     //
     // others
     //

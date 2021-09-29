@@ -6,6 +6,7 @@
         android:id="@+id/app_info"
         android:icon="@drawable/ic_samsung_info"
         android:title="@string/app_info"
+        app:iconTint="@color/about_info_button_tint"
         app:showAsAction="always" />
 
 </menu>

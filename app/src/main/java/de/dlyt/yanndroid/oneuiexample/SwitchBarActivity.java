@@ -7,14 +7,14 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import de.dlyt.yanndroid.oneui.layout.SwitchBarLayout;
-import de.dlyt.yanndroid.oneui.utils.ThemeColor;
+import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
 import de.dlyt.yanndroid.oneui.view.Switch;
 import de.dlyt.yanndroid.oneui.view.SwitchBar;
 
 public class SwitchBarActivity extends AppCompatActivity implements SwitchBar.OnSwitchChangeListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new ThemeColor(this);
+        new ThemeUtil(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_switchbar);
 

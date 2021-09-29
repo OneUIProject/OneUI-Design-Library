@@ -9,7 +9,7 @@ import android.view.animation.Animation;
 import androidx.appcompat.app.AppCompatActivity;
 
 import de.dlyt.yanndroid.oneui.layout.SplashView;
-import de.dlyt.yanndroid.oneui.utils.ThemeColor;
+import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -17,7 +17,7 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new ThemeColor(this);
+        new ThemeUtil(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 

@@ -33,7 +33,7 @@ import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneui.utils.CustomButtonClickListener;
-import de.dlyt.yanndroid.oneui.utils.ThemeColor;
+import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
 import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
 import de.dlyt.yanndroid.oneui.view.PopupMenu;
 import de.dlyt.yanndroid.oneui.view.Snackbar;
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new ThemeColor(this);
+        new ThemeUtil(this);
         super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(R.layout.activity_main);
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     public void attachBaseContext(Context context) {
         // pre-OneUI
         if (Build.VERSION.SDK_INT <= 28) {
-            super.attachBaseContext(ThemeColor.createDarkModeContextWrapper(context));
+            super.attachBaseContext(ThemeUtil.createDarkModeContextWrapper(context));
         } else
             super.attachBaseContext(context);
     }
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         // pre-OneUI
         if (Build.VERSION.SDK_INT <= 28) {
             Resources res = getResources();
-            res.getConfiguration().setTo(ThemeColor.createDarkModeConfig(mContext, newConfig));
+            res.getConfiguration().setTo(ThemeUtil.createDarkModeConfig(mContext, newConfig));
         }
     }
 
@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onColorChanged(int i) {
                             if (currentColor != i)
-                                ThemeColor.setColor(MainActivity.this, Color.red(i), Color.green(i), Color.blue(i));
+                                ThemeUtil.setColor(MainActivity.this, Color.red(i), Color.green(i), Color.blue(i));
                         }
                     },
                     currentColor);
@@ -301,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onColorChanged(int i, float[] fArr) {
                 if (!(fArr[0] == currentColor[0] && fArr[1] == currentColor[1] && fArr[2] == currentColor[2]))
-                    ThemeColor.setColor(MainActivity.this, fArr);
+                    ThemeUtil.setColor(MainActivity.this, fArr);
             }
 
             @Override

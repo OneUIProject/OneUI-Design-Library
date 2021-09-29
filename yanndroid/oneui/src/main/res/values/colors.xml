@@ -133,6 +133,7 @@
     <color name="splash_background">#ffffffff</color>
     <color name="sesl_scrollbar_handle_tint">#ffdedede</color>
     <color name="sesl_list_subheader_text_color">#ff8c8c8c</color>
+    <color name="about_info_button_tint">#ff454545</color>
 
 
     <!--ColorPicker-->
