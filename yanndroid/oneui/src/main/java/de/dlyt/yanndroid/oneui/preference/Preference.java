@@ -505,6 +505,7 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
 
     public void setWidgetLayoutResource(int var1) {
         this.mWidgetLayoutResId = var1;
+        this.notifyChanged();
     }
 
     public boolean hasKey() {
@@ -597,7 +598,7 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         return this.mVisible;
     }
 
-    protected void notifyChanged() {
+    public void notifyChanged() {
         if (this.mListener != null) {
             this.mListener.onPreferenceChange(this);
         }

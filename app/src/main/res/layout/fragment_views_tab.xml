@@ -191,7 +191,7 @@
                         android:background="@color/divider_color" />
 
                     <com.google.android.material.button.MaterialButton
-                        style="@style/ButtonStyle.Invert"
+                        style="@style/ButtonStyle.Colored"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -206,7 +206,7 @@
                         android:background="@color/divider_color" />
 
                     <com.google.android.material.button.MaterialButton
-                        style="@style/ButtonStyle.Invert.Secondary"
+                        style="@style/ButtonStyle.Filled"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -297,7 +297,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.button.MaterialButton
-                    style="@style/ButtonStyle.Invert"
+                    style="@style/ButtonStyle.Colored"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -306,7 +306,7 @@
                     android:text="Classic" />
 
                 <com.google.android.material.button.MaterialButton
-                    style="@style/ButtonStyle.Invert"
+                    style="@style/ButtonStyle.Colored"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

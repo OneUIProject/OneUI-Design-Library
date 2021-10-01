@@ -71,12 +71,12 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/update_button"
-                style="@style/AboutPageButtonStyle.Update"
+                style="@style/ButtonStyle.AboutPageUpdate"
                 android:text="@string/sesl_update" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/retry_button"
-                style="@style/AboutPageButtonStyle.Update"
+                style="@style/ButtonStyle.AboutPageUpdate"
                 android:text="@string/retry" />
 
 

@@ -11,27 +11,27 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/about_btn1"
-        style="@style/AboutPageButtonStyle"
+        style="@style/ButtonStyle.AboutPage"
         android:text="Loading" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/about_btn2"
-        style="@style/AboutPageButtonStyle"
+        style="@style/ButtonStyle.AboutPage"
         android:text="No Update" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/about_btn3"
-        style="@style/AboutPageButtonStyle"
+        style="@style/ButtonStyle.AboutPage"
         android:text="Update available" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/about_btn4"
-        style="@style/AboutPageButtonStyle"
+        style="@style/ButtonStyle.AboutPage"
         android:text="Not Updateable" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/about_btn5"
-        style="@style/AboutPageButtonStyle"
+        style="@style/ButtonStyle.AboutPage"
         android:text="No Connection" />
 
 </de.dlyt.yanndroid.oneui.layout.AboutPage>
