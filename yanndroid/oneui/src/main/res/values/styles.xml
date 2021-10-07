@@ -902,6 +902,7 @@
         <item name="android:progressBarStyleLargeInverse">@style/OneUI4.ProgressBarStyle.Large</item>
 
         <item name="seslSwitchBarStyle">@style/OneUI4.SeslSwitchBarStyle</item>
+        <item name="switchStyle">@style/OneUI4.SwitchStyle</item>
 
     </style>
 
@@ -951,6 +952,17 @@
     </style>
 
 
+    <!--Switch-->
+    <style name="OneUI4.SwitchStyle" parent="@android:style/Widget.CompoundButton">
+        <item name="android:background">@drawable/sesl_switch_background</item>
+        <item name="android:textOn">@string/sesl_on_text</item>
+        <item name="android:textOff">@string/sesl_off_text</item>
+        <item name="android:thumb">@drawable/sesl4_switch_thumb_selector</item>
+        <item name="showText">false</item>
+        <item name="switchPadding">0.0dip</item>
+        <item name="switchTextAppearance">@style/TextAppearance.AppCompat.Widget.Switch</item>
+        <item name="track">@drawable/sesl4_switch_track_selector</item>
+    </style>
 
 
     <!--SwitchBar-->

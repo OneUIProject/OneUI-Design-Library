@@ -24,7 +24,7 @@
         <item name="android:listDivider">@drawable/sesl_list_divider</item>
 
         <item name="android:theme">@style/OneUIStyleMain</item>
-        <!--<item name="theme">@style/OneUIStyleMain</item>-->
+        <item name="theme">@style/OneUIStyleMain</item>
 
         <item name="alertDialogTheme">@style/DialogTheme</item>
         <item name="alertDialogStyle">@style/AlertDialogStyle</item>
@@ -41,6 +41,7 @@
 
     <style name="OneUI4Theme" parent="OneUITheme">
         <item name="android:theme">@style/OneUI4StyleMain</item>
+        <item name="theme">@style/OneUI4StyleMain</item>
     </style>
 
     <style name="OneUI4SplashTheme" parent="@style/OneUI4Theme">

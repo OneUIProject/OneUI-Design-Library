@@ -43,6 +43,11 @@
     <color name="sesl_switch_thumb_on_disabled_stroke_color">#ff3d3d3d</color>
     <color name="sesl_switch_track_off_disabled_stroke_color">#668f8f8f</color>
     <color name="sesl_switch_track_off_stroke_color">#ff8f8f8f</color>
+    <color name="sesl_switch_thumb_off_stroke_color">#ff8f8f8f</color>
+
+    <color name="sesl4_switch_thumb_off_disabled_stroke_color">#668f8f8f</color>
+    <color name="sesl4_switch_track_off_color">#ff666660</color>
+    <color name="sesl4_switch_track_off_disabled_color">#66666660</color>
 
 
     <!--SwitchBar-->

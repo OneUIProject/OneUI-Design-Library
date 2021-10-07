@@ -36,7 +36,7 @@ v2.0.0 and future versions are (and only will be) available on mavenCentral. For
 1. Add the dependency to build.gradle (Module: ...)
 ```gradle
 dependencies {
-    implementation 'io.github.yanndroid:oneui:2.1.0'
+    implementation 'io.github.yanndroid:oneui:2.1.1'
     ...
 }
 ```
@@ -311,6 +311,8 @@ public void setToolbarMenuItemIcon(MenuItem item, @DrawableRes int resId)
 public void setToolbarMenuItemTitle(MenuItem item, CharSequence title) //title = tooltip
 public void setToolbarMenuItemVisibility(MenuItem item, boolean visible)
 public void setToolbarMenuItemEnabled(MenuItem item, boolean enabled)
+
+public ToolbarImageButton getToolbarMenuItemView(MenuItem item)
 ```
 SelectMode. Changes the layout of the Toolbar to the one you can see in any Samsung app, when you long click a list item. This will show a "All" checkbox, "x selected" counter as the title and a bottom menu (see [screenshot](readme-resources/screenshots/toolbarlayout_selectmode.png)). In the Menu resource file for the bottom menu use ```app:showAsAction="always"``` to show the item as a Action instead of in the "more" menu.
 ```java
@@ -438,7 +440,7 @@ A layout that looks like and has the same functions as the About Screen in any S
     app:update_state="...">
 
     <com.google.android.material.button.MaterialButton
-        style="@style/AboutPageButtonStyle"
+        style="@style/ButtonStyle.AboutPage"
         android:text="..." />
 
     ...
@@ -448,7 +450,7 @@ A layout that looks like and has the same functions as the About Screen in any S
 
 The App Name and Version are automatically added to the view. The Info Button at the top right will redirect the user to the App Info in System Settings. ```app:optional_text``` is the text that can be added between the version and the status text. The status text will change according to the state you have set to the view programmatically (see below) ,or in the layout with ```app:update_state```.
 
-You can use ```style="@style/AboutPageButtonStyle"``` for the buttons, which are shown at the bottom.
+You can use ```style="@style/ButtonStyle.AboutPage"``` for the buttons, which are shown at the bottom (layout_width and layout_height are also in this style).
 <br clear="left"/>
 
 #### Methods
@@ -610,10 +612,10 @@ The Button has three styles which you can use, depending on your needs.
 <img loading="lazy" src="readme-resources/screenshots/button.png" width="300"/>
 
 ```@style/ButtonStyle.Transparent```  
-```@style/ButtonStyle.Invert``` 
-```@style/ButtonStyle.Invert.Secondary```
+```@style/ButtonStyle.Colored``` 
+```@style/ButtonStyle.Filled```
 
-(There are also ```AboutPageButtonStyle``` and ```AboutPageButtonStyle.Update``` for the [AboutPage](#AboutPage), you can also use them.)
+(There are also ```ButtonStyle.AboutPage``` and ```ButtonStyle.AboutPageUpdate``` for the [AboutPage](#AboutPage), you can also use.)
 
 ### SeekBar
 Samsung's SeekBar.
@@ -1237,18 +1239,19 @@ Then apply it on the activities you want with ```android:theme="@style/ThemeName
 #### 3. Via Code
 This method allows you to change the color of your theme dynamically within your app. It's based on [this idea](https://stackoverflow.com/a/48517223). In your activity onCreate add this line at the top **before** ```super.onCreate(...)```:
 ```java
-new ThemeColor(this);
+new ThemeUtil(this);
 ```
 This will apply the color theme at launch. If you want to change the color you can use these functions:
 ```java
-ThemeColor.setColor(Activity activity, int red, int green, int blue)
-ThemeColor.setColor(Activity activity, float red, float green, float blue)
-ThemeColor.setColor(Activity activity, float[] hsv)
+ThemeUtil.setColor(Activity activity, int red, int green, int blue)
+ThemeUtil.setColor(Activity activity, float red, float green, float blue)
+ThemeUtil.setColor(Activity activity, float[] hsv)
 ```
-The color you apply with these functions will apply on every activity with ```new ThemeColor(this)``` at the top. You can also enable/disable Dark theme programmatically:
+The color you apply with these functions will apply on every activity with ```new ThemeUtil(this)``` at the top. If you are using ThemeUtil and you want to enable/disable Dark theme you'll have to do it with these methods:
 ```java
 // mode: DARK_MODE_AUTO; DARK_MODE_DISABLED; DARK_MODE_ENABLED
-ThemeColor.setDarkMode(AppCompatActivity activity, int mode)
+public static void setDarkMode(AppCompatActivity activity, int mode)
+public static int getDarkMode(Context context)
 ```
 
 ### App Icon
@@ -1262,7 +1265,7 @@ The sample app icon for example:
 <img loading="lazy" src="readme-resources/app-icons/sample.png" width="50" height="50" />
 
 ### OneUI 4
-Starting with v2.1.0, the new OneUI 4 design is being added to this library. Since Samsung hasn't released a stable version yet and still has a lot of stuff to fix, only some views are (partly) using the new style. As long as OneUI 4 is beta, this feature will also be, so don't expect too much. All the views which don't have the new style yet will use the old one (OneUI 3) instead. If you already want to use the OneUI 4 style, instead of ```@style/OneUITheme``` use ```@style/OneUITheme``` in your manifest file.
+Starting with v2.1.0, the new OneUI 4 design is being added to this library. Since Samsung hasn't released a stable version yet and still has a lot of stuff to fix, only some views are (partly) using the new style. As long as OneUI 4 is beta, this feature will also be, so don't expect too much. All the views which don't have the new style yet will use the old one (OneUI 3) instead. If you already want to use the OneUI 4 style, instead of ```@style/OneUITheme```, ```@style/OneUIAboutTheme``` and ```@style/OneUISplashTheme``` use ```@style/OneUI4Theme```, ```@style/OneUI4AboutTheme``` and ```@style/OneUI4SplashTheme``` in your manifest file.
 
 ## Progress
 
@@ -1295,6 +1298,19 @@ Starting with v2.1.0, the new OneUI 4 design is being added to this library. Sin
 - [ ] BottomSheet
 
 ## Changelog
+
+<details>
+<summary>2.1.1</summary>
+
+- ThemeColor > ThemeUtil
+- dark mode fix (ThemeUtil)
+- Button/AboutPage improvements
+- preference notifyChanged()
+- ToolbarLayout getToolbarMenuItemView()
+- OneUI4 Switch
+- minor changes
+
+</details>
 
 <details>
 <summary>2.1.0</summary>
@@ -1343,7 +1359,7 @@ Starting with v2.1.0, the new OneUI 4 design is being added to this library. Sin
     - NestedScrollView, RecyclerView, Round Layouts
     - and much more (most of the stuff in this release)
 - a lot of fixes and improvements
-- support for api 21> (needs to be tested)
+- support for api 21+
 - Snackbar & PopupMenu
 - more icons
 - now available on mavencentral

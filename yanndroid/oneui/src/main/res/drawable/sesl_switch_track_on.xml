@@ -8,7 +8,7 @@
             <size
                 android:width="35.0dip"
                 android:height="18.5dip" />
-            <solid android:color="@color/sesl_switch_track_on_color" />
+            <solid android:color="?colorPrimary" />
         </shape>
     </item>
 </layer-list>
