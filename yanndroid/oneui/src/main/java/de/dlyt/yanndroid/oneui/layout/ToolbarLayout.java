@@ -838,7 +838,10 @@ public class ToolbarLayout extends LinearLayout {
                 lp.width = width;
                 lp.height = (int) getResources().getDimension(R.dimen.sesl_menu_item_badge_size);
                 lp.setMargins(0, getResources().getDimensionPixelSize(R.dimen.sesl_menu_item_badge_top_margin), 0, 0);
-                lp.setMarginEnd(getResources().getDimensionPixelSize(R.dimen.sesl_menu_item_badge_end_margin) - (int) getDIPForPX(4));
+                if (count > 9)
+                    lp.setMarginEnd(getResources().getDimensionPixelSize(R.dimen.sesl_menu_item_badge_end_margin) - (int) getDIPForPX(4));
+                else
+                    lp.setMarginEnd(getResources().getDimensionPixelSize(R.dimen.sesl_menu_item_badge_end_margin));
                 moreOverflowBadgeBackground.setLayoutParams(lp);
                 moreOverflowBadgeBackground.setVisibility(View.VISIBLE);
             } else if (count == N_BADGE) {
