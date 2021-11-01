@@ -1177,11 +1177,11 @@ Snackbar.make(view, "Text label", Snackbar.LENGTH_SHORT).setAction("Action", new
 This is for advanced usage only. I've added the method ```getView(int view)``` to some of the custom views to access the views inside it and change them directly. This can be helpful if you want to do something which isn't implemented in the custom views yet as I can't think of all possible uses. Currently this method is available in DrawerLayout, ToolbarLayout, SplashView, AboutPage and SwitchBarLayout.
 
 ### Icons
-There are also some of the stock icons you can find in Samsung apps included in this library, and we will add more over time. You can use them with ```@drawable/ic_samsung_...``` and ```R.drawable.ic_samsung_...```.
+There are also a lot of the stock icons you can find in Samsung apps included in this library, and we will add more over time. You can use them with ```@drawable/ic_samsung_...``` and ```R.drawable.ic_samsung_...```.
 
 <img loading="lazy" src="readme-resources/screenshots/icons.png" width="350"/>
 
-*not all icons are shown here because there are too much now (200). They are all listed with the file name in the icon tab of the sample app.
+*not all icons are shown here because there are too much by now(229). They are all listed with the file name in the icon tab of the sample app.
 
 ### Color theme
 The default color of the style is the same blue as Samsung (see [Screenshots](#Screenshots)). But like Samsung has different colors for different apps, you too can use other colors which will apply on the entire App and even on the [App Icon](#App-Icon). In this library there are three different ways to do that and all three can be used simultaneously:
@@ -1429,6 +1429,7 @@ Starting with v2.1.0, the new OneUI 4 design is being added to this library. Sin
 
 ## More info
 - [Official OneUI Design Guide](https://design.samsung.com/global/contents/one-ui/download/oneui_design_guide_eng.pdf)
+- [Samsung's EULA](https://www.samsung.com/sg/Legal/SamsungLegal-EULA/)
 
 ## Special thanks to:
 - [Samsung](https://www.samsung.com/) for their awesome OneUI Design. :)

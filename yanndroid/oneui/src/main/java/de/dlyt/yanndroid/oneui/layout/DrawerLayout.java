@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Outline;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -13,6 +14,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -147,6 +149,16 @@ public class DrawerLayout extends LinearLayout {
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         toolbarLayout.setNavigationButtonOnClickListener(v -> drawerLayout.openDrawer(drawer, true));
+
+        drawer.setOutlineProvider(new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                float cornerRadius = getResources().getDimension(R.dimen.rounded_corner_size);
+                boolean isRtl = getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+                outline.setRoundRect(isRtl ? 0 : (int) (-cornerRadius), 0, isRtl ? (int) (view.getWidth() + cornerRadius) : view.getWidth(), view.getHeight(), cornerRadius);
+            }
+        });
+        drawer.setClipToOutline(true);
     }
 
     private void setDrawerWidth() {

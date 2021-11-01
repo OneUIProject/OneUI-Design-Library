@@ -63,8 +63,9 @@ public class PopupMenu {
         onMenuItemClickListener = listener;
     }
 
+    @SuppressLint("RestrictedApi")
     public Menu getMenu() {
-        return menu;
+        return menu != null ? menu : new MenuBuilder(context);
     }
 
     @SuppressLint("RestrictedApi")
