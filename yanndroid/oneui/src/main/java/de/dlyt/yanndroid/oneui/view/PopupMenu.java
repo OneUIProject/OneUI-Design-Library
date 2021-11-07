@@ -34,6 +34,7 @@ import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneui.sesl.widget.PopupListView;
 
 public class PopupMenu {
+    private boolean mIsOneUI4;
 
     private Context context;
     private View anchor;
@@ -53,6 +54,7 @@ public class PopupMenu {
     public PopupMenu(View anchor) {
         this.context = anchor.getContext();
         this.anchor = anchor;
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
     }
 
     public interface OnMenuItemClickListener {
@@ -256,6 +258,7 @@ public class PopupMenu {
             view = ((LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.menu_popup_item_layout, parent, false);
             titleText = view.findViewById(R.id.more_menu_popup_title_text);
             titleText.setText(menuItems.get(index).getTitle());
+            titleText.setTextSize(0, context.getResources().getDimension(mIsOneUI4 ? R.dimen.sesl4_popup_menu_item_text_size : R.dimen.sesl_popup_menu_item_text_size));
 
             badgeIcon = view.findViewById(R.id.more_menu_popup_badge);
             Integer badgeCount = menuItemBadges.get(menuItems.get(index));

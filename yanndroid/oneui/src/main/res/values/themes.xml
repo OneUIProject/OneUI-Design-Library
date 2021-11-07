@@ -1,6 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="OneUITheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="OneUITheme" parent="@style/OneUI4Theme" />
+    <style name="OneUISplashTheme" parent="@style/OneUI4SplashTheme" />
+    <style name="OneUIAboutTheme" parent="@style/OneUI4AboutTheme" />
+
+    <style name="OneUI3Theme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowBackground">@color/background_color</item>
         <item name="android:statusBarColor">@color/background_color</item>
         <item name="android:navigationBarColor">@color/background_color</item>
@@ -23,25 +27,27 @@
 
         <item name="android:listDivider">@drawable/sesl_list_divider</item>
 
-        <item name="android:theme">@style/OneUIStyleMain</item>
-        <item name="theme">@style/OneUIStyleMain</item>
+        <item name="android:theme">@style/OneUI3StyleMain</item>
+        <item name="theme">@style/OneUI3StyleMain</item>
+        <item name="toolbarTheme">@style/OneUI3StyleMain</item>
 
         <item name="alertDialogTheme">@style/DialogTheme</item>
         <item name="alertDialogStyle">@style/AlertDialogStyle</item>
     </style>
 
-    <style name="OneUISplashTheme" parent="@style/OneUITheme">
+    <style name="OneUI3SplashTheme" parent="@style/OneUI3Theme">
         <item name="android:windowBackground">@color/splash_background</item>
         <item name="android:statusBarColor">@color/splash_background</item>
         <item name="android:navigationBarColor" tools:targetApi="27">@color/splash_background</item>
     </style>
 
-    <style name="OneUIAboutTheme" parent="@style/OneUISplashTheme" />
+    <style name="OneUI3AboutTheme" parent="@style/OneUI3SplashTheme" />
 
 
-    <style name="OneUI4Theme" parent="OneUITheme">
+    <style name="OneUI4Theme" parent="OneUI3Theme">
         <item name="android:theme">@style/OneUI4StyleMain</item>
         <item name="theme">@style/OneUI4StyleMain</item>
+        <item name="toolbarTheme">@style/OneUI4StyleMain</item>
     </style>
 
     <style name="OneUI4SplashTheme" parent="@style/OneUI4Theme">

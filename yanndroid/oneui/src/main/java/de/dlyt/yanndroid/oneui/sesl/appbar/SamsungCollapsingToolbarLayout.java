@@ -56,6 +56,7 @@ import java.lang.annotation.RetentionPolicy;
 import de.dlyt.yanndroid.oneui.R;
 
 public class SamsungCollapsingToolbarLayout extends FrameLayout {
+    private boolean mIsOneUI4;
     static final Interpolator SINE_OUT_80_INTERPOLATOR = new PathInterpolator(0.17f, 0.17f, 0.2f, 1.0f);
     private static final int DEFAULT_SCRIM_ANIMATION_DURATION = 600;
     private final Rect mTmpRect = new Rect();
@@ -106,6 +107,8 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
     @SuppressLint("RestrictedApi")
     public SamsungCollapsingToolbarLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SamsungCollapsingToolbarLayout, defStyleAttr, 0);
 
@@ -267,21 +270,23 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
 
     private void updateTitleLayout() {
         TypedValue typedValue = new TypedValue();
-        getResources().getValue(R.dimen.sesl_appbar_height_proportion, typedValue, true);
+        getResources().getValue(mIsOneUI4 ? R.dimen.sesl4_appbar_height_proportion : R.dimen.sesl_appbar_height_proportion, typedValue, true);
         mHeightPercent = typedValue.getFloat();
         if (mCollapsingToolbarLayoutTitleEnabled) {
             TypedArray appearance = getContext().obtainStyledAttributes(mExtendTitleAppearance, R.styleable.TextAppearance);
             float textSize = TypedValue.complexToFloat(appearance.peekValue(R.styleable.TextAppearance_android_textSize).data);
             float fontScale = getContext().getResources().getConfiguration().fontScale;
-            if (fontScale > 1.1f) {
+            if (mIsOneUI4) {
+                fontScale = Math.min(fontScale, 1.0f);
+            } else if (fontScale > 1.1f) {
                 fontScale = 1.1f;
             }
             Log.d("Sesl_CTL", "updateTitleLayout: context:" + getContext() + ", orientation:" + getContext().getResources().getConfiguration().orientation + " density:" + getContext().getResources().getConfiguration().densityDpi + " ,testSize : " + textSize + "fontScale : " + fontScale + ", mCollapsingToolbarLayoutSubTitleEnabled :" + mCollapsingToolbarLayoutSubTitleEnabled);
             if (!mCollapsingToolbarLayoutSubTitleEnabled) {
                 mCollapsingToolbarExtendedTitle.setTextSize(1, textSize * fontScale);
             } else {
-                mCollapsingToolbarExtendedTitle.setTextSize(0, (float) getContext().getResources().getDimensionPixelSize(R.dimen.sesl_appbar_extended_title_text_size_with_subtitle));
-                mCollapsingToolbarExtendedSubTitle.setTextSize(0, (float) getContext().getResources().getDimensionPixelSize(R.dimen.sesl_toolbar_subtitle_text_size));
+                mCollapsingToolbarExtendedTitle.setTextSize(0, (float) getContext().getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_appbar_extended_title_text_size_with_subtitle : R.dimen.sesl_appbar_extended_title_text_size_with_subtitle));
+                mCollapsingToolbarExtendedSubTitle.setTextSize(0, (float) getContext().getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_toolbar_subtitle_text_size : R.dimen.sesl_toolbar_subtitle_text_size));
             }
             if (mHeightPercent != 0.3f) {
                 mCollapsingToolbarExtendedTitle.setSingleLine(false);
@@ -303,10 +308,10 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
             if (abl.getPaddingBottom() > 0) {
                 mDefaultHeightDp = (float) getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
             } else {
-                mDefaultHeightDp = (float) getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height);
+                mDefaultHeightDp = (float) getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_default_height);
             }
         } else {
-            mDefaultHeightDp = (float) getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
+            mDefaultHeightDp = (float) getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_height_with_padding);
         }
     }
 
@@ -999,7 +1004,7 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         TypedValue typedValue = new TypedValue();
-        getResources().getValue(R.dimen.sesl_appbar_height_proportion, typedValue, true);
+        getResources().getValue(mIsOneUI4 ? R.dimen.sesl4_appbar_height_proportion : R.dimen.sesl_appbar_height_proportion, typedValue, true);
         mHeightPercent = typedValue.getFloat();
         updateDefaultHeightDP();
         updateTitleLayout();
@@ -1094,10 +1099,10 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
                 if (abl.getPaddingBottom() > 0) {
                     mDefaultHeightDp = (float) getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
                 } else {
-                    mDefaultHeightDp = (float) getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height);
+                    mDefaultHeightDp = (float) getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_default_height);
                 }
             } else {
-                mDefaultHeightDp = (float) getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
+                mDefaultHeightDp = (float) getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_height_with_padding);
             }
         }
 

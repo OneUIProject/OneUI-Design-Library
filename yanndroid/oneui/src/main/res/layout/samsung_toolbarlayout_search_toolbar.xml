@@ -51,7 +51,7 @@
         <de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton
             android:id="@+id/search_view_action_button"
             android:layout_width="@dimen/sesl_overflow_button_min_width"
-            android:layout_height="@dimen/sesl_action_bar_default_height"
+            android:layout_height="?actionBarSize"
             android:background="@drawable/sesl_action_bar_item_background"
             android:paddingStart="@dimen/sesl_action_bar_overflow_padding_start"
             android:paddingEnd="@dimen/sesl_action_bar_overflow_padding_end" />

@@ -19,309 +19,343 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.EdgeEffect;
 
+import androidx.annotation.ColorInt;
 import androidx.reflect.view.SeslHapticFeedbackConstantsReflector;
 
+import de.dlyt.yanndroid.oneui.R;
+
 public class SamsungEdgeEffect extends EdgeEffect {
-    private static final double ANGLE = 0.5235987755982988d;
-    private static final int[] ATTRS = {android.R.attr.colorEdgeEffect};
-    private static final float COS = ((float) Math.cos(ANGLE));
-    private static final float EDGE_CONTROL_POINT_HEIGHT_NON_TAB_IN_DIP = 29.0f;
-    private static final float EDGE_CONTROL_POINT_HEIGHT_TAB_IN_DIP = 19.0f;
-    private static final float EDGE_PADDING_NON_TAB_IN_DIP = 5.0f;
-    private static final float EDGE_PADDING_TAB_IN_DIP = 3.0f;
-    private static final float MAX_GLOW_SCALE = 2.0f;
-    private static final int MAX_VELOCITY = 10000;
-    private static final int MIN_VELOCITY = 100;
-    private static final int MSG_CALL_ONRELEASE = 1;
-    private static final float PULL_GLOW_BEGIN = 0.0f;
-    private static final int SESL_STATE_APPEAR = 5;
-    private static final int SESL_STATE_KEEP = 6;
-    private static final float SIN = ((float) Math.sin(ANGLE));
-    private static final int STATE_ABSORB = 2;
-    private static final int STATE_IDLE = 0;
-    private static final int STATE_PULL = 1;
-    private static final int STATE_PULL_DECAY = 4;
-    private static final int STATE_RECEDE = 3;
-    private static final float TAB_HEIGHT_BUFFER_IN_DIP = 5.0f;
-    private final Rect mBounds = new Rect();
-    private final DisplayMetrics mDisplayMetrics;
-    private final Interpolator mInterpolator;
-    private final Paint mPaint = new Paint();
-    private final Path mPath = new Path();
-    private final float mTabHeight;
-    private final float mTabHeightBuffer;
-    private float SESL_MAX_ALPHA = 0.15f;
-    private float SESL_MAX_SCALE = 1.0f;
-    private float mDisplacement = 0.5f;
-    private float mDuration;
-    private float mEdgeControlPointHeight;
-    private float mEdgePadding;
-    private float mGlowAlpha;
-    private float mGlowAlphaFinish;
-    private float mGlowAlphaStart;
-    private float mGlowScaleY;
-    private float mGlowScaleYFinish;
-    private float mGlowScaleYStart;
-    private boolean mOnReleaseCalled = false;
-    private float mPullDistance;
-    private View mSeslHostView;
-    private long mStartTime;
-    private int mState = STATE_IDLE;
-    private Handler mHandler = new Handler(Looper.getMainLooper()) {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
+    private boolean mIsOneUI4;
+    public static final double ANGLE = 0.5235987755982988d;
+    public static final int APPEAR_TIME = 250;
+    public static final int[] ATTRS = {android.R.attr.colorEdgeEffect};
+    public static final float COS = ((float) Math.cos(0.5235987755982988d));
+    public static final boolean DEBUG = false;
+    public static final float EDGE_CONTROL_POINT_HEIGHT_WITHOUT_TAB_IN_DIP = 29.0f;
+    public static final float EDGE_CONTROL_POINT_HEIGHT_WITH_TAB_IN_DIP = 19.0f;
+    public static final float EDGE_MAX_ALPAH_DARK = 0.08f;
+    public static final float EDGE_MAX_ALPAH_LIGHT = 0.05f;
+    public static final float EDGE_PADDING_WITHOUT_TAB_IN_DIP = 5.0f;
+    public static final float EDGE_PADDING_WITH_TAB_IN_DIP = 3.0f;
+    public static final float EPSILON = 0.001f;
+    public static final int KEEP_TIME = 0;
+    public static final float MAX_GLOW_SCALE = 2.0f;
+    public static final int MAX_VELOCITY = 10000;
+    public static final int MIN_VELOCITY = 100;
+    public static final int MSG_CALL_ONRELEASE = 1;
+    public static final float PULL_GLOW_BEGIN = 0.0f;
+    public static final int PULL_TIME = 167;
+    public static final float RADIUS_FACTOR = 0.75f;
+    public static final int RECEDE_TIME = 450;
+    public static final float SIN = ((float) Math.sin(0.5235987755982988d));
+    public static final int STATE_ABSORB = 2;
+    public static final int STATE_APPEAR = 5;
+    public static final int STATE_IDLE = 0;
+    public static final int STATE_KEEP = 6;
+    public static final int STATE_PULL = 1;
+    public static final int STATE_PULL_DECAY = 4;
+    public static final int STATE_RECEDE = 3;
+    public static final float TAB_HEIGHT_BUFFER_IN_DIP = 5.0f;
+    public static final float TAB_HEIGHT_IN_DIP = 85.0f;
+    public static final String TAG = "SeslEdgeEffect";
+    public static float sMaxAlpha;
+    public float MAX_SCALE = 1.0f;
+    public final Rect mBounds = new Rect();
+    public boolean mCanVerticalScroll = true;
+    public float mDisplacement = 0.5f;
+    public final DisplayMetrics mDisplayMetrics;
+    public float mDuration;
+    public float mEdgeControlPointHeight;
+    public float mEdgeEffectMargin = 0.0f;
+    public float mEdgePadding;
+    public Runnable mForceCallOnRelease = new Runnable() {
+        public void run() {
+            SamsungEdgeEffect.this.mOnReleaseCalled = true;
+            SamsungEdgeEffect seslEdgeEffect = SamsungEdgeEffect.this;
+            seslEdgeEffect.onPull(seslEdgeEffect.mTempDeltaDistance, SamsungEdgeEffect.this.mTempDisplacement);
+            SamsungEdgeEffect.this.mHandler.sendEmptyMessageDelayed(1, 700);
+        }
+    };
+    public float mGlowAlpha;
+    public float mGlowAlphaFinish;
+    public float mGlowAlphaStart;
+    public float mGlowScaleY;
+    public float mGlowScaleYFinish;
+    public float mGlowScaleYStart;
+    public Handler mHandler = new Handler(Looper.getMainLooper()) {
+        public void handleMessage(Message message) {
+            if (message.what == 1) {
+                SamsungEdgeEffect.this.onRelease();
+            }
+        }
+    };
+    public View mHostView;
+    public final Interpolator mInterpolator;
+    public boolean mOnReleaseCalled = false;
+    public final Paint mPaint = new Paint();
+    public final Path mPath = new Path();
+    public float mPullDistance;
+    public long mStartTime;
+    public int mState = 0;
+    public final float mTabHeight;
+    public final float mTabHeightBuffer;
+    public float mTargetDisplacement = 0.5f;
+    public float mTempDeltaDistance;
+    public float mTempDisplacement;
+
+    public SamsungEdgeEffect(Context context) {
+        super(context);
+
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
+
+        this.mPaint.setAntiAlias(true);
+        TypedArray obtainStyledAttributes = context.getTheme().obtainStyledAttributes(ATTRS);
+        int color = obtainStyledAttributes.getColor(0, -10066330);
+        obtainStyledAttributes.recycle();
+        if (mIsOneUI4)
+            this.mPaint.setColor(color & 0x33000000);
+        else
+            mPaint.setColor((0xFFFFFF & color) | 0x33000000);
+        this.mPaint.setStyle(Paint.Style.FILL);
+        this.mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        sMaxAlpha = isLightTheme(context) ? 0.05f : 0.08f;
+        this.mInterpolator = new DecelerateInterpolator();
+        this.mDisplayMetrics = context.getResources().getDisplayMetrics();
+        this.mTabHeight = dipToPixels(85.0f);
+        this.mTabHeightBuffer = dipToPixels(5.0f);
+    }
+
+    private float calculateEdgeEffectMargin(int i) {
+        return ((float) (((double) i) * 0.136d)) / 2.0f;
+    }
+
+    private float dipToPixels(float f) {
+        return TypedValue.applyDimension(1, f, this.mDisplayMetrics);
+    }
+
+    private boolean isEdgeEffectRunning() {
+        int i = this.mState;
+        return i == 5 || i == 6 || i == 3 || i == 2;
+    }
+
+    private boolean isLightTheme(Context context) {
+        TypedValue typedValue = new TypedValue();
+        return !context.getTheme().resolveAttribute(16844176, typedValue, true) || typedValue.data != 0;
+    }
+
+    private void update() {
+        float min = Math.min(((float) (AnimationUtils.currentAnimationTimeMillis() - this.mStartTime)) / this.mDuration, 1.0f);
+        float interpolation = this.mInterpolator.getInterpolation(min);
+        float f = this.mGlowAlphaStart;
+        this.mGlowAlpha = f + ((this.mGlowAlphaFinish - f) * interpolation);
+        float f2 = this.mGlowScaleYStart;
+        this.mGlowScaleY = f2 + ((this.mGlowScaleYFinish - f2) * interpolation);
+        this.mDisplacement = (this.mDisplacement + this.mTargetDisplacement) / 2.0f;
+        if (min >= 0.999f || this.mState == 1) {
+            switch (this.mState) {
                 case 1:
-                    SamsungEdgeEffect.this.onRelease();
+                    this.mState = 5;
+                    this.mStartTime = AnimationUtils.currentAnimationTimeMillis();
+                    this.mDuration = 250.0f;
+                    this.mGlowAlphaStart = 0.0f;
+                    this.mGlowScaleYStart = 0.0f;
+                    this.mGlowAlphaFinish = sMaxAlpha;
+                    this.mGlowScaleYFinish = this.MAX_SCALE;
+                    this.mGlowScaleY = 0.0f;
+                    this.mOnReleaseCalled = false;
+                    return;
+                case 2:
+                    this.mState = 6;
+                    this.mStartTime = AnimationUtils.currentAnimationTimeMillis();
+                    this.mDuration = 0.0f;
+                    float f3 = sMaxAlpha;
+                    this.mGlowAlphaStart = f3;
+                    this.mGlowAlphaFinish = f3;
+                    float f4 = this.MAX_SCALE;
+                    this.mGlowScaleYStart = f4;
+                    this.mGlowScaleYFinish = f4;
+                    return;
+                case 3:
+                    this.mState = 0;
+                    return;
+                case 4:
+                    this.mState = 3;
+                    return;
+                case 5:
+                    this.mState = 6;
+                    this.mStartTime = AnimationUtils.currentAnimationTimeMillis();
+                    this.mDuration = 0.0f;
+                    float f5 = sMaxAlpha;
+                    this.mGlowAlphaStart = f5;
+                    this.mGlowAlphaFinish = f5;
+                    float f6 = this.MAX_SCALE;
+                    this.mGlowScaleYStart = f6;
+                    this.mGlowScaleYFinish = f6;
+                    return;
+                case 6:
+                    this.mState = 3;
+                    this.mStartTime = AnimationUtils.currentAnimationTimeMillis();
+                    this.mDuration = 450.0f;
+                    this.mGlowAlphaStart = this.mGlowAlpha;
+                    this.mGlowScaleYStart = this.mGlowScaleY;
+                    this.mGlowAlphaFinish = 0.0f;
+                    this.mGlowScaleYFinish = 0.0f;
                     return;
                 default:
                     return;
             }
         }
-    };
-    private float mTargetDisplacement = 0.5f;
-    private float mTempDeltaDistance;
-    private float mTempDisplacement;
-    private Runnable mForceCallOnRelease = new Runnable() {
-        public void run() {
-            SamsungEdgeEffect.this.mOnReleaseCalled = true;
-            SamsungEdgeEffect.this.onPull(SamsungEdgeEffect.this.mTempDeltaDistance, SamsungEdgeEffect.this.mTempDisplacement);
-            SamsungEdgeEffect.this.mHandler.sendEmptyMessageDelayed(MSG_CALL_ONRELEASE, 700);
-        }
-    };
-
-    public SamsungEdgeEffect(Context context) {
-        super(context);
-        mPaint.setAntiAlias(true);
-        final TypedArray a = context.getTheme().obtainStyledAttributes(ATTRS);
-        final int themeColor = a.getColor(0, -10066330);
-        a.recycle();
-        mPaint.setColor((0xFFFFFF & themeColor) | 0x33000000);
-        mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-        mInterpolator = new DecelerateInterpolator();
-        mDisplayMetrics = context.getResources().getDisplayMetrics();
-        mTabHeight = dipToPixels(85.0f);
-        mTabHeightBuffer = dipToPixels(TAB_HEIGHT_BUFFER_IN_DIP);
     }
 
-    @Override
+    public boolean draw(Canvas canvas) {
+        boolean z;
+        update();
+        int save = canvas.save();
+        float centerX = (float) this.mBounds.centerX();
+        canvas.scale(1.0f, Math.min(this.mGlowScaleY, 1.0f), centerX, 0.0f);
+        Math.max(0.0f, Math.min(this.mDisplacement, 1.0f));
+        float f = this.mEdgeControlPointHeight;
+        float width = ((float) this.mBounds.width()) * 0.2f;
+        this.mPath.reset();
+        this.mPath.moveTo(this.mEdgeEffectMargin, 0.0f);
+        this.mPath.lineTo(this.mEdgeEffectMargin, 0.0f);
+        this.mPath.cubicTo(centerX - width, f, centerX + width, f, ((float) this.mBounds.width()) - this.mEdgeEffectMargin, 0.0f);
+        this.mPath.lineTo(((float) this.mBounds.width()) - this.mEdgeEffectMargin, 0.0f);
+        this.mPath.close();
+        this.mPaint.setAlpha((int) (this.mGlowAlpha * 255.0f));
+        canvas.drawPath(this.mPath, this.mPaint);
+        canvas.restoreToCount(save);
+        if (this.mState == 3 && this.mGlowScaleY == 0.0f) {
+            this.mState = 0;
+            z = true;
+        } else {
+            z = false;
+        }
+        return this.mState != 0 || z;
+    }
+
     public void finish() {
-        mState = STATE_IDLE;
+        this.mState = 0;
     }
 
-    @Override
+    @ColorInt
     public int getColor() {
-        return mPaint.getColor();
+        return this.mPaint.getColor();
     }
 
-    @Override
-    public void setColor(int color) {
-        mPaint.setColor(color);
-    }
-
-    @Override
     public int getMaxHeight() {
-        return (int) ((((float) mBounds.height()) * MAX_GLOW_SCALE) + 0.5f);
+        return (int) ((((float) this.mBounds.height()) * 2.0f) + 0.5f);
     }
 
-    @Override
     public boolean isFinished() {
-        return mState == STATE_IDLE;
+        return this.mState == 0;
     }
 
-    @Override
-    public void onAbsorb(int velocity) {
+    public void onAbsorb(int i) {
         if (!isEdgeEffectRunning()) {
-            if (mSeslHostView != null) {
-                mSeslHostView.performHapticFeedback(SeslHapticFeedbackConstantsReflector.semGetVibrationIndex(28));
-
-
+            View view = this.mHostView;
+            if (view != null) {
+                view.performHapticFeedback(SeslHapticFeedbackConstantsReflector.semGetVibrationIndex(28));
             }
-            mOnReleaseCalled = true;
-            mState = STATE_ABSORB;
-            int velocity2 = Math.min(Math.max(MIN_VELOCITY, Math.abs(velocity)), MAX_VELOCITY);
-            mStartTime = AnimationUtils.currentAnimationTimeMillis();
-            mDuration = 250.0f;
-            mGlowAlphaStart = 0.0f;
-            mGlowScaleYStart = PULL_GLOW_BEGIN;
-            mGlowScaleYFinish = SESL_MAX_SCALE;
-            mGlowAlphaFinish = SESL_MAX_ALPHA;
-            mTargetDisplacement = 0.5f;
-            mHandler.sendEmptyMessageDelayed(MSG_CALL_ONRELEASE, 700);
+            this.mOnReleaseCalled = true;
+            this.mState = 2;
+            Math.min(Math.max(100, Math.abs(i)), 10000);
+            this.mStartTime = AnimationUtils.currentAnimationTimeMillis();
+            this.mDuration = 250.0f;
+            this.mGlowAlphaStart = 0.0f;
+            this.mGlowScaleYStart = 0.0f;
+            this.mGlowScaleYFinish = this.MAX_SCALE;
+            this.mGlowAlphaFinish = sMaxAlpha;
+            this.mTargetDisplacement = 0.5f;
+            this.mHandler.sendEmptyMessageDelayed(1, 700);
         }
     }
 
-    @Override
-    public void onPull(float deltaDistance) {
-        onPull(deltaDistance, 0.5f);
+    public void onPull(float f) {
+        onPull(f, 0.5f);
     }
 
-    @Override
-    public void onPull(float deltaDistance, float displacement) {
-        if (mPullDistance == 0.0f) {
-            mOnReleaseCalled = false;
+    public void onPull(float f, float f2) {
+        int semGetVibrationIndex;
+        if (this.mPullDistance == 0.0f) {
+            this.mOnReleaseCalled = false;
             if (isEdgeEffectRunning()) {
-                mPullDistance += deltaDistance;
+                this.mPullDistance += f;
             }
         }
-        long now = AnimationUtils.currentAnimationTimeMillis();
-        mTargetDisplacement = displacement;
-        if (mState != STATE_PULL_DECAY || ((float) (now - mStartTime)) >= mDuration) {
-            if (mState != STATE_PULL) {
-                mGlowScaleY = Math.max(PULL_GLOW_BEGIN, mGlowScaleY);
+        long currentAnimationTimeMillis = AnimationUtils.currentAnimationTimeMillis();
+        this.mTargetDisplacement = f2;
+        if (this.mState != 4 || ((float) (currentAnimationTimeMillis - this.mStartTime)) >= this.mDuration) {
+            if (this.mState != 1) {
+                this.mGlowScaleY = Math.max(0.0f, this.mGlowScaleY);
             }
             if (isEdgeEffectRunning()) {
                 return;
             }
-            if (mPullDistance == 0.0f || mOnReleaseCalled) {
-                if (mSeslHostView != null) {
-                    int indexOfHaptic = SeslHapticFeedbackConstantsReflector.semGetVibrationIndex(28);
-                    if (indexOfHaptic != -1) {
-                        mSeslHostView.performHapticFeedback(indexOfHaptic);
-                    }
+            if (this.mPullDistance == 0.0f || this.mOnReleaseCalled) {
+                if (!(this.mHostView == null || (semGetVibrationIndex = SeslHapticFeedbackConstantsReflector.semGetVibrationIndex(28)) == -1)) {
+                    this.mHostView.performHapticFeedback(semGetVibrationIndex);
                 }
-                mState = STATE_PULL;
-                mStartTime = now;
-                mDuration = 167.0f;
-                mPullDistance += deltaDistance;
+                this.mState = 1;
+                this.mStartTime = currentAnimationTimeMillis;
+                this.mDuration = 167.0f;
+                this.mPullDistance += f;
             }
         }
     }
 
-    @Override
+    public void onPullCallOnRelease(float f, float f2, int i) {
+        this.mTempDeltaDistance = f;
+        this.mTempDisplacement = f2;
+        if (i == 0) {
+            this.mOnReleaseCalled = true;
+            onPull(f, f2);
+            this.mHandler.sendEmptyMessageDelayed(1, 700);
+            return;
+        }
+        this.mHandler.postDelayed(this.mForceCallOnRelease, (long) i);
+    }
+
     public void onRelease() {
-        mPullDistance = 0.0f;
-        mOnReleaseCalled = true;
-        if (mState == STATE_PULL || mState == STATE_PULL_DECAY) {
-            mState = STATE_RECEDE;
-            mGlowAlphaStart = mGlowAlpha;
-            mGlowScaleYStart = mGlowScaleY;
-            mGlowAlphaFinish = 0.0f;
-            mGlowScaleYFinish = PULL_GLOW_BEGIN;
-            mStartTime = AnimationUtils.currentAnimationTimeMillis();
-            mDuration = 450.0f;
+        this.mPullDistance = 0.0f;
+        this.mOnReleaseCalled = true;
+        int i = this.mState;
+        if (i == 1 || i == 4) {
+            this.mState = 3;
+            this.mGlowAlphaStart = this.mGlowAlpha;
+            this.mGlowScaleYStart = this.mGlowScaleY;
+            this.mGlowAlphaFinish = 0.0f;
+            this.mGlowScaleYFinish = 0.0f;
+            this.mStartTime = AnimationUtils.currentAnimationTimeMillis();
+            this.mDuration = 450.0f;
         }
     }
 
-    @Override
-    public void setSize(int width, int height) {
-        float r = (((float) width) * 0.75f) / SIN;
-        float h = r - (COS * r);
-        float or = (((float) height) * 0.75f) / SIN;
-        float f = or - (COS * or);
-        if (((float) width) <= mTabHeight + mTabHeightBuffer) {
-            mEdgePadding = dipToPixels(EDGE_PADDING_TAB_IN_DIP);
-            mEdgeControlPointHeight = dipToPixels(EDGE_CONTROL_POINT_HEIGHT_TAB_IN_DIP);
+    public void setColor(@ColorInt int i) {
+        this.mPaint.setColor(i);
+    }
+
+    public void setHostView(View view, boolean z) {
+        this.mHostView = view;
+        this.mCanVerticalScroll = z;
+    }
+
+    public void setSize(int i, int i2) {
+        float f = (float) i;
+        float f2 = (0.75f * f) / SIN;
+        float f3 = f2 - (COS * f2);
+        float f4 = (float) i2;
+        if (f <= this.mTabHeight + this.mTabHeightBuffer) {
+            this.mEdgePadding = dipToPixels(3.0f);
+            this.mEdgeControlPointHeight = dipToPixels(19.0f);
         } else {
-            mEdgePadding = dipToPixels(EDGE_PADDING_NON_TAB_IN_DIP);
-            mEdgeControlPointHeight = dipToPixels(EDGE_CONTROL_POINT_HEIGHT_NON_TAB_IN_DIP);
+            this.mEdgePadding = dipToPixels(5.0f);
+            this.mEdgeControlPointHeight = dipToPixels(29.0f);
         }
-        mBounds.set(mBounds.left, mBounds.top, width, (int) Math.min((float) height, h));
-    }
-
-    private float dipToPixels(float dipValue) {
-        return TypedValue.applyDimension(1, dipValue, mDisplayMetrics);
-    }
-
-    public boolean draw(Canvas canvas) {
-        update();
-        int count = canvas.save();
-        float centerX = (float) mBounds.centerX();
-        canvas.scale(1.0f, Math.min(mGlowScaleY, 1.0f), centerX, PULL_GLOW_BEGIN);
-        float max = Math.max(PULL_GLOW_BEGIN, Math.min(mDisplacement, 1.0f)) - 0.5f;
-        float controlX = centerX;
-        float controlY = mEdgeControlPointHeight + mEdgePadding;
-        float topDistance = ((float) mBounds.width()) * 0.2f;
-        mPath.reset();
-        mPath.moveTo(0.0f, 0.0f);
-        mPath.lineTo(0.0f, mEdgePadding);
-        mPath.cubicTo(controlX - topDistance, controlY, controlX + topDistance, controlY, (float) mBounds.width(), mEdgePadding);
-        mPath.lineTo((float) mBounds.width(), 0.0f);
-        mPath.close();
-        mPaint.setAlpha((int) (255.0f * mGlowAlpha));
-        canvas.drawPath(mPath, mPaint);
-        canvas.restoreToCount(count);
-        boolean oneLastFrame = false;
-        if (mState == STATE_RECEDE && mGlowScaleY == PULL_GLOW_BEGIN) {
-            mState = STATE_IDLE;
-            oneLastFrame = true;
+        if (mIsOneUI4 && this.mCanVerticalScroll) {
+            this.mEdgeEffectMargin = calculateEdgeEffectMargin(i);
         }
-        return mState != STATE_IDLE || oneLastFrame;
-    }
-
-    private boolean isEdgeEffectRunning() {
-        return mState == SESL_STATE_APPEAR || mState == SESL_STATE_KEEP || mState == STATE_RECEDE || mState == STATE_ABSORB;
-    }
-
-    public void onPullCallOnRelease(float deltaDistance, float displacement, int delayTime) {
-        mTempDeltaDistance = deltaDistance;
-        mTempDisplacement = displacement;
-        mHandler.postDelayed(mForceCallOnRelease, (long) delayTime);
-    }
-
-    public void setSeslHostView(View hostView) {
-        mSeslHostView = hostView;
-    }
-
-    private void update() {
-        float t = Math.min(((float) (AnimationUtils.currentAnimationTimeMillis() - mStartTime)) / mDuration, 1.0f);
-        float interp = mInterpolator.getInterpolation(t);
-        mGlowAlpha = mGlowAlphaStart + ((mGlowAlphaFinish - mGlowAlphaStart) * interp);
-        mGlowScaleY = mGlowScaleYStart + ((mGlowScaleYFinish - mGlowScaleYStart) * interp);
-        mDisplacement = (mDisplacement + mTargetDisplacement) / MAX_GLOW_SCALE;
-        if (t >= 0.999f || mState == STATE_PULL) {
-            switch (mState) {
-                case STATE_PULL:
-                    mState = SESL_STATE_APPEAR;
-                    mStartTime = AnimationUtils.currentAnimationTimeMillis();
-                    mDuration = 250.0f;
-                    mGlowAlphaStart = 0.0f;
-                    mGlowScaleYStart = PULL_GLOW_BEGIN;
-                    mGlowAlphaFinish = SESL_MAX_ALPHA;
-                    mGlowScaleYFinish = SESL_MAX_SCALE;
-                    mGlowScaleY = PULL_GLOW_BEGIN;
-                    mOnReleaseCalled = false;
-                    return;
-                case STATE_ABSORB:
-                    mState = SESL_STATE_KEEP;
-                    mStartTime = AnimationUtils.currentAnimationTimeMillis();
-                    mDuration = 0.0f;
-                    float f = SESL_MAX_ALPHA;
-                    mGlowAlphaStart = f;
-                    mGlowAlphaFinish = f;
-                    float f2 = SESL_MAX_SCALE;
-                    mGlowScaleYStart = f2;
-                    mGlowScaleYFinish = f2;
-                    return;
-                case STATE_RECEDE:
-                    mState = STATE_IDLE;
-                    return;
-                case STATE_PULL_DECAY:
-                    mState = STATE_RECEDE;
-                    return;
-                case SESL_STATE_APPEAR:
-                    mState = SESL_STATE_KEEP;
-                    mStartTime = AnimationUtils.currentAnimationTimeMillis();
-                    mDuration = 0.0f;
-                    float f3 = SESL_MAX_ALPHA;
-                    mGlowAlphaStart = f3;
-                    mGlowAlphaFinish = f3;
-                    float f4 = SESL_MAX_SCALE;
-                    mGlowScaleYStart = f4;
-                    mGlowScaleYFinish = f4;
-                    return;
-                case SESL_STATE_KEEP:
-                    mState = STATE_RECEDE;
-                    mStartTime = AnimationUtils.currentAnimationTimeMillis();
-                    mDuration = 450.0f;
-                    mGlowAlphaStart = mGlowAlpha;
-                    mGlowScaleYStart = mGlowScaleY;
-                    mGlowAlphaFinish = 0.0f;
-                    mGlowScaleYFinish = PULL_GLOW_BEGIN;
-                    return;
-                default:
-                    return;
-            }
-        }
+        Rect rect = this.mBounds;
+        rect.set(rect.left, rect.top, i, (int) Math.min(f4, f3));
     }
 }

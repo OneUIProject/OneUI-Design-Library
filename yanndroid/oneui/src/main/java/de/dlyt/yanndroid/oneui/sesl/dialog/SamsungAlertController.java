@@ -1414,8 +1414,8 @@ public class SamsungAlertController {
                     Context var2 = this.getContext();
                     SamsungEdgeEffect var3 = new SamsungEdgeEffect(var2);
                     SamsungEdgeEffect var4 = new SamsungEdgeEffect(var2);
-                    var3.setSeslHostView(this);
-                    var4.setSeslHostView(this);
+                    var3.setHostView(this, true);
+                    var4.setHostView(this, true);
 
                     ReflectUtils.genericSetField(this, Build.VERSION.SDK_INT >= 29 ? "hidden_mEdgeGlowTop" : "mEdgeGlowTop", var3);
                     ReflectUtils.genericSetField(this, Build.VERSION.SDK_INT >= 29 ? "hidden_mEdgeGlowBottom" : "mEdgeGlowBottom", var4);

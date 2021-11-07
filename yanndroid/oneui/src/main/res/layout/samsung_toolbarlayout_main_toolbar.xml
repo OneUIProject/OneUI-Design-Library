@@ -58,7 +58,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/toolbar_layout_collapsed_title"
-            style="@style/CollapsedActionBarTitleTextStyle"
+            style="?toolbarTitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -68,7 +68,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/toolbar_layout_collapsed_subtitle"
-            style="?android:attr/textAppearanceSmall"
+            style="?toolbarSubtitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"

@@ -2,4 +2,17 @@
 <resources>
     <!--AppBarLayout-->
     <item name="sesl_appbar_height_proportion" type="dimen">0.3</item>
+
+
+
+    <!--#############-->
+    <!--#  OneUI  4 #-->
+    <!--#############-->
+
+    <item name="sesl4_appbar_height_proportion" type="dimen">0.32</item>
+    <dimen name="sesl4_action_bar_default_height">64.0dip</dimen>
+    <dimen name="sesl4_action_bar_height_with_padding">80.0dip</dimen>
+    <dimen name="sesl4_action_bar_top_padding">16.0dip</dimen>
+    <dimen name="sesl4_toolbar_title_text_size">21.0sp</dimen>
+
 </resources>

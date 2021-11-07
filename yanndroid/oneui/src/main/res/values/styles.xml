@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--Main-->
-    <style name="OneUIStyleMain">
+    <style name="OneUI3StyleMain">
         <item name="isOneUI4">false</item>
         <item name="colorAccent">?colorSecondary</item>
         <item name="colorBackgroundFloating">@color/sesl_background_floating</item>
@@ -59,6 +59,7 @@
         <item name="listChoiceBackgroundIndicator">@drawable/sesl_list_selector</item>
 
         <item name="actionBarTheme">@null</item>
+        <item name="actionBarSize">@dimen/sesl_action_bar_default_height</item>
         <item name="actionMenuTextColor">@color/sesl_action_menu_text</item>
         <item name="actionModeBackground">@drawable/sesl_action_bar_background</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.AppCompat.Light.ActionButton.CloseMode</item>
@@ -76,6 +77,7 @@
 
         <item name="switchStyle">@style/SwitchStyle</item>
 
+        <item name="appBarLayoutStyle">@style/AppBarLayoutStyle</item>
         <item name="collapsingToolbarLayoutStyle">@style/CollapsingToolbarLayoutStyle</item>
 
         <item name="bottomNaviViewStyle">@style/BaseTabLayoutStyle</item>
@@ -98,6 +100,8 @@
 
         <item name="toolbarStyle">@style/ToolbarStyle</item>
         <item name="toolbarNavigationButtonStyle">@style/ToolbarNavButtonStyle</item>
+        <item name="toolbarTitleStyle">@style/CollapsedActionBarTitleTextStyle</item>
+        <item name="toolbarSubtitleStyle">@style/CollapsedActionBarSubtitleTextStyle</item>
 
         <item name="goToTopStyle">@drawable/sesl_list_go_to_top</item>
 
@@ -887,7 +891,7 @@
 
 
 
-    <style name="OneUI4StyleMain" parent="OneUIStyleMain">
+    <style name="OneUI4StyleMain" parent="OneUI3StyleMain">
         <item name="isOneUI4">true</item>
 
         <item name="progressNormalColor">@color/sesl4_progress_control_color_normal</item>
@@ -903,6 +907,12 @@
 
         <item name="seslSwitchBarStyle">@style/OneUI4.SeslSwitchBarStyle</item>
         <item name="switchStyle">@style/OneUI4.SwitchStyle</item>
+
+        <item name="actionBarSize">@dimen/sesl4_action_bar_default_height</item>
+        <item name="appBarLayoutStyle">@style/OneUI4.AppBarLayoutStyle</item>
+        <item name="collapsingToolbarLayoutStyle">@style/OneUI4.CollapsingToolbarLayoutStyle</item>
+        <item name="toolbarTitleStyle">@style/OneUI4.CollapsedActionBarTitleTextStyle</item>
+        <item name="toolbarSubtitleStyle">@style/OneUI4.CollapsedActionBarSubtitleTextStyle</item>
 
     </style>
 
@@ -934,7 +944,7 @@
     </style>
 
     <style name="OneUI4.ProgressBarStyle.Horizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
-        <!--indeterminate is still broken so temporarily using the progress drawable-->
+        <!-- OUI 4 indeterminate drawable is sorta of broken -->
         <!--<item name="android:indeterminateDrawable">@drawable/sesl4_progress_bar_indeterminate_xlarge_transition</item>-->
         <item name="android:progressDrawable">@drawable/sesl4_progress_horizontal</item>
         <item name="android:indeterminateDrawable">@drawable/sesl4_progress_horizontal</item>
@@ -979,6 +989,43 @@
         <item name="android:textColor">?colorPrimaryDark</item>
         <item name="android:fontFamily">@string/sesl_font_family_regular</item>
     </style>
+
+
+    <!--AppBarLayout-->
+    <style name="OneUI4.AppBarLayoutStyle" parent="@style/AppBarLayoutStyle">
+        <item name="android:paddingBottom">0.0dip</item>
+    </style>
+
+    <style name="OneUI4.CollapsingToolbarLayoutStyle" parent="@style/CollapsingToolbarLayoutStyle">
+        <item name="extendTitleTextAppearance">@style/OneUI4.CollapsingToolbarExpandTitleStyle</item>
+        <item name="extendSubTitleTextAppearance">@style/OneUI4.CollapsingToolbarExpandSubtitleStyle</item>
+        <item name="collapseTitleTextAppearance">@style/OneUI4.CollapsedActionBarTitleTextStyle</item>
+    </style>
+
+    <style name="OneUI4.CollapsedActionBarTitleTextStyle" parent="@style/CollapsedActionBarTitleTextStyle">
+        <item name="android:textSize">@dimen/sesl4_toolbar_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="OneUI4.CollapsedActionBarSubtitleTextStyle" parent="@style/CollapsedActionBarSubtitleTextStyle">
+        <item name="android:textSize">@dimen/sesl4_toolbar_subtitle_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="OneUI4.CollapsingToolbarExpandTitleStyle" parent="@style/OneUI4.CollapsedActionBarTitleTextStyle">
+        <item name="android:textSize">@dimen/sesl4_appbar_extended_title_text_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sec-roboto-regular</item>
+        <item name="fontFamily">sec-roboto-regular</item>
+    </style>
+
+    <style name="OneUI4.CollapsingToolbarExpandSubtitleStyle" parent="@style/OneUI4.CollapsedActionBarSubtitleTextStyle">
+        <item name="android:textColor">@color/sesl_extended_appbar_subtitle</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sec-roboto-regular</item>
+        <item name="fontFamily">sec-roboto-regular</item>
+    </style>
+
 
 
 

@@ -48,6 +48,7 @@ import de.dlyt.yanndroid.oneui.sesl.utils.ABLBehavior;
 
 @CoordinatorLayout.DefaultBehavior(SamsungAppBarLayout.Behavior.class)
 public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
+    private boolean mIsOneUI4;
     public static final Interpolator SINE_OUT_80_INTERPOLATOR = new PathInterpolator(0.17F, 0.17F, 0.2F, 1.0F);
     public static float mAppBarHeight;
     public boolean liftOnScroll;
@@ -82,6 +83,9 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
     @SuppressLint({"WrongConstant", "RestrictedApi"})
     public SamsungAppBarLayout(Context var1, AttributeSet var2, int var3) {
         super(var1, var2, var3);
+
+        mIsOneUI4 = var1.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
+
         this.mTotalScrollRange = -1;
         this.mDownPreScrollRange = -1;
         this.mDownScrollRange = -1;
@@ -120,9 +124,9 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         }
 
         TypedValue var5 = new TypedValue();
-        this.getResources().getValue(R.dimen.sesl_appbar_height_proportion, var5, true);
+        this.getResources().getValue(mIsOneUI4 ? R.dimen.sesl4_appbar_height_proportion : R.dimen.sesl_appbar_height_proportion, var5, true);
         this.mHeightPercent = var5.getFloat();
-        if (var4.hasValue(R.styleable.SamsungAppBarLayout_android_paddingBottom)) {
+        if (!mIsOneUI4 && var4.hasValue(R.styleable.SamsungAppBarLayout_android_paddingBottom)) {
             this.mBottomPadding = var4.getDimensionPixelSize(R.styleable.SamsungAppBarLayout_android_paddingBottom, 0);
             this.setPadding(0, 0, 0, this.mBottomPadding);
         } else {
@@ -145,7 +149,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
         if (this.mBottomPadding > 0) {
             mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
         } else {
-            mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height);
+            mAppBarHeight = (float) this.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_default_height);
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(this, new androidx.core.view.OnApplyWindowInsetsListener() {
@@ -554,16 +558,16 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             this.setBackgroundColor(this.getResources().getColor(R.color.sesl_action_bar_background_color, getContext().getTheme()));
         }
 
-        this.mBottomPadding = this.getContext().getResources().getDimensionPixelSize(R.dimen.sesl_extended_appbar_bottom_padding);
+        this.mBottomPadding = mIsOneUI4 ? 0 : this.getContext().getResources().getDimensionPixelSize(R.dimen.sesl_extended_appbar_bottom_padding);
         this.setPadding(0, 0, 0, this.mBottomPadding);
         if (this.mBottomPadding > 0) {
             mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
         } else {
-            mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height);
+            mAppBarHeight = (float) this.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_default_height);
         }
 
         TypedValue var3 = new TypedValue();
-        this.getResources().getValue(R.dimen.sesl_appbar_height_proportion, var3, true);
+        this.getResources().getValue(mIsOneUI4 ? R.dimen.sesl4_appbar_height_proportion : R.dimen.sesl_appbar_height_proportion, var3, true);
         this.mHeightPercent = var3.getFloat();
         if (this.mHeightCustom > 0.0F) {
             Log.d("Sesl_AppBarLayout", "onConfigurationChanged");
@@ -651,7 +655,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             if (this.mBottomPadding > 0) {
                 mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
             } else {
-                mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height);
+                mAppBarHeight = (float) this.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_default_height);
             }
         }
 

@@ -22,8 +22,7 @@
         android:singleLine="true"
         android:textAlignment="viewStart"
         android:textColor="?actionMenuTextColor"
-        android:textDirection="locale"
-        android:textSize="@dimen/sesl_popup_menu_item_text_size" />
+        android:textDirection="locale" />
 
     <TextView
         android:id="@+id/more_menu_popup_badge"

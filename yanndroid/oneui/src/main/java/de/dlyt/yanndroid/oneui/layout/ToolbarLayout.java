@@ -76,6 +76,7 @@ public class ToolbarLayout extends LinearLayout {
     public static final int MAIN_CONTENT = 6;
     public static final int FOOTER_CONTENT = 7;
     private static String TAG = "ToolbarLayout";
+    private boolean mIsOneUI4;
     public ViewGroup navigationBadgeBackground;
     public TextView navigationBadgeText;
     public ViewGroup moreOverflowBadgeBackground;
@@ -169,6 +170,8 @@ public class ToolbarLayout extends LinearLayout {
 
         mContext = context;
         mActivity = getActivity();
+
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
 
         TypedArray attr = mContext.getTheme().obtainStyledAttributes(attrs, R.styleable.ToolBarLayout, 0, 0);
 
@@ -284,9 +287,16 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        resetToolbarHeight();
+    }
+
+    @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         refreshLayout(newConfig);
+        resetToolbarHeight();
     }
 
     private AppCompatActivity getActivity() {
@@ -302,6 +312,10 @@ public class ToolbarLayout extends LinearLayout {
 
     private float getDIPForPX(int i) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) i, getResources().getDisplayMetrics());
+    }
+
+    private int getToolbarTopPadding() {
+        return mIsOneUI4 ? getResources().getDimensionPixelSize(R.dimen.sesl4_action_bar_top_padding) : 0;
     }
 
     private int getWindowHeight() {
@@ -342,14 +356,14 @@ public class ToolbarLayout extends LinearLayout {
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 appBarLayout.setActivated(false);
                 bottomPadding = 0;
-                params.height = (int) getResources().getDimension(R.dimen.sesl_action_bar_default_height);
+                params.height = (int) getResources().getDimension(mIsOneUI4 ? R.dimen.sesl4_action_bar_default_height : R.dimen.sesl_action_bar_default_height);
             } else {
                 appBarLayout.setActivated(true);
                 setExpanded(mExpanded, false);
-                bottomPadding = getResources().getDimensionPixelSize(R.dimen.sesl_extended_appbar_bottom_padding);
+                bottomPadding = mIsOneUI4 ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_extended_appbar_bottom_padding);
 
                 TypedValue outValue = new TypedValue();
-                getResources().getValue(R.dimen.sesl_appbar_height_proportion, outValue, true);
+                getResources().getValue(mIsOneUI4 ? R.dimen.sesl4_appbar_height_proportion : R.dimen.sesl_appbar_height_proportion, outValue, true);
 
                 params.height = (int) ((float) windowHeight * outValue.getFloat());
             }
@@ -358,6 +372,17 @@ public class ToolbarLayout extends LinearLayout {
             appBarLayout.setPadding(0, 0, 0, bottomPadding);
         } else
             Log.w(TAG + ".resetAppBarHeight", "appBarLayout is null.");
+    }
+
+    private void resetToolbarHeight() {
+        if (toolbar != null) {
+            toolbar.setPaddingRelative(mSelectMode || mSearchMode || navigationButtonVisible ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), getToolbarTopPadding(), 0, 0);
+
+            ViewGroup.LayoutParams lp = toolbar.getLayoutParams();
+            lp.height = lp.height + getToolbarTopPadding();
+            toolbar.setLayoutParams(lp);
+        } else
+            Log.w(TAG + ".resetToolbarHeight", "toolbar is null.");
     }
 
     //
@@ -396,7 +421,7 @@ public class ToolbarLayout extends LinearLayout {
 
     private void updateCollapsedSubtitleVisibility() {
         TypedValue outValue = new TypedValue();
-        getResources().getValue(R.dimen.sesl_appbar_height_proportion, outValue, true);
+        getResources().getValue(mIsOneUI4 ? R.dimen.sesl4_appbar_height_proportion : R.dimen.sesl_appbar_height_proportion, outValue, true);
         if (!mExpandable || outValue.getFloat() == 0.0) {
             collapsedSubTitleView.setVisibility((mSubtitle != null && mSubtitle.length() != 0) ? VISIBLE : GONE);
         } else {
@@ -667,7 +692,7 @@ public class ToolbarLayout extends LinearLayout {
     public void setNavigationButtonVisible(boolean visible) {
         navigationButtonContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
         if (!(mSelectMode || mSearchMode)) navigationButtonVisible = visible;
-        toolbar.setPaddingRelative(mSelectMode || mSearchMode || visible ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), 0, 0, 0);
+        toolbar.setPaddingRelative(mSelectMode || mSearchMode || visible ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), getToolbarTopPadding(), 0, 0);
     }
 
     public void setNavigationButtonBadge(int count) {
@@ -754,7 +779,7 @@ public class ToolbarLayout extends LinearLayout {
 
         ToolbarImageButton actionButton = new ToolbarImageButton(mContext);
 
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(getResources().getDimensionPixelSize(R.dimen.sesl_overflow_button_min_width), getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height));
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(getResources().getDimensionPixelSize(R.dimen.sesl_overflow_button_min_width), getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_default_height : R.dimen.sesl_action_bar_default_height));
 
         actionButton.setBackgroundResource(R.drawable.sesl_action_bar_item_background);
         actionButton.setImageDrawable(item.getIcon());
@@ -790,7 +815,7 @@ public class ToolbarLayout extends LinearLayout {
 
             overflowButton = new ToolbarImageButton(mContext);
 
-            ViewGroup.LayoutParams lp2 = new ViewGroup.LayoutParams(getResources().getDimensionPixelSize(R.dimen.sesl_overflow_button_min_width), getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_default_height));
+            ViewGroup.LayoutParams lp2 = new ViewGroup.LayoutParams(getResources().getDimensionPixelSize(R.dimen.sesl_overflow_button_min_width), getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_default_height : R.dimen.sesl_action_bar_default_height));
 
             overflowButton.setBackgroundResource(R.drawable.sesl_action_bar_item_background);
             overflowButton.setImageResource(R.drawable.sesl_ic_menu_overflow);
@@ -958,7 +983,7 @@ public class ToolbarLayout extends LinearLayout {
 
             LinearLayout collapsedTitleContainer = findViewById(R.id.toolbar_layout_collapsed_title_container);
 
-            if (appBarLayout.getHeight() <= ((int) getResources().getDimension(R.dimen.sesl_action_bar_height_with_padding))) {
+            if (appBarLayout.getHeight() <= ((int) getResources().getDimension(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_height_with_padding))) {
                 collapsedTitleContainer.setAlpha(1.0f);
             } else {
                 float collapsedTitleAlpha = ((150.0f / alphaRange) * (((float) layoutPosition) - toolbarTitleAlphaStart));
