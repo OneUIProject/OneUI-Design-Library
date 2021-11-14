@@ -3844,7 +3844,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
     void ensureBottomGlow() {
         if (this.mBottomGlow == null) {
             this.mBottomGlow = new SamsungEdgeEffect(this.getContext());
-            this.mBottomGlow.setSeslHostView(this);
+            this.mBottomGlow.setHostView(this, true);
             if (this.mClipToPadding) {
                 this.mBottomGlow.setSize(this.getMeasuredWidth() - this.getPaddingLeft() - this.getPaddingRight(), this.getMeasuredHeight() - this.getPaddingTop() - this.getPaddingBottom());
             } else {
@@ -3857,7 +3857,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
     void ensureLeftGlow() {
         if (this.mLeftGlow == null) {
             this.mLeftGlow = new SamsungEdgeEffect(this.getContext());
-            this.mLeftGlow.setSeslHostView(this);
+            this.mLeftGlow.setHostView(this, false);
             if (this.mClipToPadding) {
                 this.mLeftGlow.setSize(this.getMeasuredHeight() - this.getPaddingTop() - this.getPaddingBottom(), this.getMeasuredWidth() - this.getPaddingLeft() - this.getPaddingRight());
             } else {
@@ -3870,7 +3870,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
     void ensureRightGlow() {
         if (this.mRightGlow == null) {
             this.mRightGlow = new SamsungEdgeEffect(this.getContext());
-            this.mRightGlow.setSeslHostView(this);
+            this.mRightGlow.setHostView(this, false);
             if (this.mClipToPadding) {
                 this.mRightGlow.setSize(this.getMeasuredHeight() - this.getPaddingTop() - this.getPaddingBottom(), this.getMeasuredWidth() - this.getPaddingLeft() - this.getPaddingRight());
             } else {
@@ -3883,7 +3883,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
     void ensureTopGlow() {
         if (this.mTopGlow == null) {
             this.mTopGlow = new SamsungEdgeEffect(this.getContext());
-            this.mTopGlow.setSeslHostView(this);
+            this.mTopGlow.setHostView(this, true);
             if (this.mClipToPadding) {
                 this.mTopGlow.setSize(this.getMeasuredWidth() - this.getPaddingLeft() - this.getPaddingRight(), this.getMeasuredHeight() - this.getPaddingTop() - this.getPaddingBottom());
             } else {

@@ -358,5 +358,17 @@
 
     <dimen name="sesl4_progress_bar_height">4.0dip</dimen>
 
+    <item name="sesl4_appbar_height_proportion" type="dimen">0.0</item>
+    <dimen name="sesl4_action_bar_default_height">64.0dip</dimen>
+    <dimen name="sesl4_action_bar_height_with_padding">80.0dip</dimen>
+    <dimen name="sesl4_action_bar_top_padding">16.0dip</dimen>
+    <dimen name="sesl4_appbar_extended_title_text_size">34.0sp</dimen>
+    <dimen name="sesl4_appbar_extended_title_text_size_with_subtitle">34.0dip</dimen>
+    <dimen name="sesl4_toolbar_title_text_size">21.0sp</dimen>
+    <dimen name="sesl4_toolbar_subtitle_text_size">13.0dip</dimen>
+
+    <dimen name="sesl4_popup_menu_item_text_size">16.0sp</dimen>
+
+
 
 </resources>

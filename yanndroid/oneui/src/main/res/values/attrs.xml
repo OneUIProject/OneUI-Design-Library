@@ -17,9 +17,14 @@
 
     <attr name="layout_isTitleCustom" format="boolean" />
 
-    <attr name="collapsingToolbarLayoutStyle" format="reference" />
     <attr name="bottomNaviViewStyle" format="reference" />
     <attr name="tabLayoutStyle" format="reference" />
+
+    <attr name="toolbarTheme" format="reference" />
+    <attr name="appBarLayoutStyle" format="reference" />
+    <attr name="collapsingToolbarLayoutStyle" format="reference" />
+    <attr name="toolbarTitleStyle" format="reference" />
+    <attr name="toolbarSubtitleStyle" format="reference" />
 
     <attr name="goToTopStyle" format="reference" />
 

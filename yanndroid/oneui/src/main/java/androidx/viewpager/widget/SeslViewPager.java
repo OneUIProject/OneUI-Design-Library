@@ -1309,8 +1309,8 @@ public class SeslViewPager extends ViewGroup {
         this.mMaximumVelocity = var2.getScaledMaximumFlingVelocity();
         this.mLeftEdge = new SamsungEdgeEffect(var1);
         this.mRightEdge = new SamsungEdgeEffect(var1);
-        this.mLeftEdge.setSeslHostView(this);
-        this.mRightEdge.setSeslHostView(this);
+        this.mLeftEdge.setHostView(this, false);
+        this.mRightEdge.setHostView(this, false);
         this.mFlingDistance = (int) (25.0F * var3);
         this.mCloseEnough = (int) (2.0F * var3);
         this.mDefaultGutterSize = (int) (var3 * 16.0F);

@@ -169,8 +169,8 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
             Context context = getContext();
             this.mEdgeGlowTop = new SamsungEdgeEffect(context);
             this.mEdgeGlowBottom = new SamsungEdgeEffect(context);
-            this.mEdgeGlowTop.setSeslHostView(this);
-            this.mEdgeGlowBottom.setSeslHostView(this);
+            this.mEdgeGlowTop.setHostView(this, true);
+            this.mEdgeGlowBottom.setHostView(this, true);
         }
     }
 

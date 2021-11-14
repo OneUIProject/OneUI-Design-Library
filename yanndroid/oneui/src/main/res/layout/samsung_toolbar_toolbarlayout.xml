@@ -10,9 +10,8 @@
         android:id="@+id/toolbar_layout_toolbar"
         android:layout_width="fill_parent"
         android:layout_height="?actionBarSize"
-        android:layout_marginBottom="@dimen/sesl_extended_appbar_bottom_padding"
         android:paddingStart="@dimen/sesl_action_bar_content_inset"
-        app:popupTheme="@style/OneUIStyleMain">
+        app:popupTheme="?toolbarTheme">
 
         <!--main toolbar-->
         <include layout="@layout/samsung_toolbarlayout_main_toolbar" />

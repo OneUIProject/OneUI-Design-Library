@@ -14,7 +14,7 @@
 
         <de.dlyt.yanndroid.oneui.sesl.appbar.SamsungAppBarLayout
             android:id="@+id/toolbar_layout_app_bar"
-            style="@style/AppBarLayoutStyle"
+            style="?appBarLayoutStyle"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
@@ -33,7 +33,7 @@
                     android:layout_gravity="bottom"
                     android:paddingStart="@dimen/sesl_action_bar_content_inset"
                     app:layout_collapseMode="pin"
-                    app:popupTheme="@style/OneUIStyleMain">
+                    app:popupTheme="?toolbarTheme">
 
                     <!--main toolbar-->
                     <include layout="@layout/samsung_toolbarlayout_main_toolbar" />

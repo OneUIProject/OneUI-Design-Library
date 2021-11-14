@@ -17,4 +17,16 @@
     <dimen name="sesl_color_picker_used_color_group_width">260.0dip</dimen>
     <dimen name="sesl_color_picker_used_color_item_gap_margin">8.399994dip</dimen>
     <dimen name="sesl_color_picker_used_color_item_size">36.0dip</dimen>
+
+
+
+    <!--#############-->
+    <!--#  OneUI  4 #-->
+    <!--#############-->
+
+    <dimen name="sesl4_action_bar_default_height">56.0dip</dimen>
+    <dimen name="sesl4_action_bar_height_with_padding">56.0dip</dimen>
+    <dimen name="sesl4_action_bar_top_padding">0.0dip</dimen>
+    <dimen name="sesl4_toolbar_title_text_size">19.0sp</dimen>
+
 </resources>
