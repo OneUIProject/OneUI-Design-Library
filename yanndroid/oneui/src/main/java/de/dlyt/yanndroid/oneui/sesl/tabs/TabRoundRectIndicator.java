@@ -17,6 +17,7 @@ import androidx.core.view.ViewCompat;
 import de.dlyt.yanndroid.oneui.R;
 
 public class TabRoundRectIndicator extends AbsIndicatorView {
+    private boolean mIsOneUI4;
     private AnimationSet mPressAnimationSet;
 
     public TabRoundRectIndicator(Context context) {
@@ -33,7 +34,8 @@ public class TabRoundRectIndicator extends AbsIndicatorView {
 
     public TabRoundRectIndicator(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        ViewCompat.setBackground(this, ContextCompat.getDrawable(context, R.drawable.sesl_tablayout_subtab_indicator_background));
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
+        ViewCompat.setBackground(this, ContextCompat.getDrawable(context, mIsOneUI4 ? R.drawable.sesl4_tablayout_subtab_indicator_background : R.drawable.sesl_tablayout_subtab_indicator_background));
     }
 
     @Override
