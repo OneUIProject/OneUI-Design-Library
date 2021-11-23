@@ -29,6 +29,7 @@ import de.dlyt.yanndroid.oneui.R;
 
 public class AboutPage extends LinearLayout {
 
+    private boolean mIsOneUI4;
     public static final int NOT_UPDATEABLE = -1;
     public static final int LOADING = 0;
     public static final int UPDATE_AVAILABLE = 1;
@@ -55,6 +56,8 @@ public class AboutPage extends LinearLayout {
 
     public AboutPage(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
 
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.AboutPage, 0, 0);
         try {
@@ -89,6 +92,9 @@ public class AboutPage extends LinearLayout {
         });
 
         toolbarLayout.inflateToolbarMenu(R.menu.about_page);
+        if (mIsOneUI4) {
+            toolbarLayout.getToolbarMenuItemView(toolbarLayout.getToolbarMenu().findItem(R.id.app_info)).setImageDrawable(getResources().getDrawable(R.drawable.ic_samsung_info_2, context.getTheme()));
+        }
         toolbarLayout.setOnToolbarMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.app_info) {
                 try {

@@ -914,6 +914,7 @@
         <item name="toolbarTitleStyle">@style/OneUI4.CollapsedActionBarTitleTextStyle</item>
         <item name="toolbarSubtitleStyle">@style/OneUI4.CollapsedActionBarSubtitleTextStyle</item>
 
+        <item name="bottomNaviViewStyle">@style/OneUI4.BaseTabLayoutStyle</item>
     </style>
 
 
@@ -1009,25 +1010,23 @@
 
     <style name="OneUI4.CollapsedActionBarSubtitleTextStyle" parent="@style/CollapsedActionBarSubtitleTextStyle">
         <item name="android:textSize">@dimen/sesl4_toolbar_subtitle_text_size</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="OneUI4.CollapsingToolbarExpandTitleStyle" parent="@style/OneUI4.CollapsedActionBarTitleTextStyle">
         <item name="android:textSize">@dimen/sesl4_appbar_extended_title_text_size</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:fontFamily">sec-roboto-regular</item>
-        <item name="fontFamily">sec-roboto-regular</item>
     </style>
 
     <style name="OneUI4.CollapsingToolbarExpandSubtitleStyle" parent="@style/OneUI4.CollapsedActionBarSubtitleTextStyle">
         <item name="android:textColor">@color/sesl_extended_appbar_subtitle</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:fontFamily">sec-roboto-regular</item>
-        <item name="fontFamily">sec-roboto-regular</item>
     </style>
 
 
-
-
+    <!-- TabLayout -->
+    <style name="OneUI4.BaseTabLayoutStyle" parent="@style/BaseTabLayoutStyle">
+        <item name="tabIndicatorColor">@color/sesl4_tablayout_selected_indicator_color</item>
+        <item name="tabSelectedTextColor">@color/sesl4_tablayout_selected_text_color</item>
+    </style>
 
 </resources>
