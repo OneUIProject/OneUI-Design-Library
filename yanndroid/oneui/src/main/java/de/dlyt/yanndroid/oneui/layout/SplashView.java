@@ -23,10 +23,6 @@ import de.dlyt.yanndroid.oneui.R;
 
 public class SplashView extends LinearLayout {
 
-    public static final int TEXTVIEW = 0;
-    public static final int IMAGE_FOREGROUND = 1;
-    public static final int IMAGE_BACKGROUND = 2;
-    public static final int IMAGEVIEW = 3;
     private boolean animated;
     private Drawable mImage_foreground;
     private Drawable mImage_background;
@@ -115,25 +111,5 @@ public class SplashView extends LinearLayout {
             this.mImage = image;
             imageview.setImageDrawable(image);
         }
-    }
-
-    public View getView(@SplashViewView int view) {
-        switch (view) {
-            case TEXTVIEW:
-                return textView;
-            case IMAGE_FOREGROUND:
-                return imageview_foreground;
-            case IMAGE_BACKGROUND:
-                return imageview_background;
-            case IMAGEVIEW:
-                return imageview;
-            default:
-                return null;
-        }
-    }
-
-    @IntDef({TEXTVIEW, IMAGE_FOREGROUND, IMAGE_BACKGROUND, IMAGEVIEW})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface SplashViewView {
     }
 }

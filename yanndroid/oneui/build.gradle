@@ -63,7 +63,7 @@ signing {
 
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
@@ -90,7 +90,7 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

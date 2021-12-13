@@ -109,7 +109,7 @@ public class OptionButton extends LinearLayout {
         setButtonSelected(!mSelected);
     }
 
-    public Boolean isButtonSelcted() {
+    public Boolean isButtonSelected() {
         return mSelected;
     }
 

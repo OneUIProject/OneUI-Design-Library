@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -30,16 +31,15 @@ import de.dlyt.yanndroid.oneui.dialog.DetailedColorPickerDialog;
 import de.dlyt.yanndroid.oneui.dialog.ProgressDialog;
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
+import de.dlyt.yanndroid.oneui.menu.MenuItem;
+import de.dlyt.yanndroid.oneui.menu.PopupMenu;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneui.utils.CustomButtonClickListener;
 import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
 import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
-import de.dlyt.yanndroid.oneui.view.PopupMenu;
 import de.dlyt.yanndroid.oneui.view.Snackbar;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
-
-import static de.dlyt.yanndroid.oneui.layout.DrawerLayout.DRAWER_LAYOUT;
 
 public class MainActivity extends AppCompatActivity {
     private String[] mTabsTagName;
@@ -151,8 +151,15 @@ public class MainActivity extends AppCompatActivity {
         toolbarLayout.setOnToolbarMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.search:
-                    toolbarLayout.showSearchMode();
                     toolbarLayout.setSearchModeListener(new ToolbarLayout.SearchModeListener() {
+                        @Override
+                        public void onSearchOpened(EditText search_edittext) {
+                        }
+
+                        @Override
+                        public void onSearchDismissed(EditText search_edittext) {
+                        }
+
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                         }
@@ -175,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
                             activityResultLauncher.launch(intent);
                         }
                     });
+                    toolbarLayout.showSearchMode();
                     break;
                 case R.id.info:
                     startActivity(new Intent().setClass(mContext, AboutActivity.class));
@@ -182,9 +190,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.item1:
                 case R.id.item2:
                 case R.id.item3:
-                    toolbarLayout.setOverflowMenuBadge(item, toolbarLayout.getOverflowMenuBadge(item) + 1);
+                    item.setBadge(item.getBadge() + 1);
                     break;
             }
+            return true;
         });
 
         //BottomNavigationLayout
@@ -229,14 +238,14 @@ public class MainActivity extends AppCompatActivity {
                     // MainActivityFirstFragment
                     toolbarLayout.setSubtitle("Design");
                     toolbarLayout.setNavigationButtonVisible(true);
-                    toolbarLayout.setToolbarMenuItemVisibility(toolbarLayout.getToolbarMenu().findItem(R.id.search), true);
-                    ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.getView(DRAWER_LAYOUT)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
+                    toolbarLayout.getToolbarMenu().findItem(R.id.search).setVisible(true);
+                    ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.findViewById(R.id.drawerLayout)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
                 } else {
                     // MainActivitySecondFragment
                     toolbarLayout.setSubtitle("Preferences");
                     toolbarLayout.setNavigationButtonVisible(false);
-                    toolbarLayout.setToolbarMenuItemVisibility(toolbarLayout.getToolbarMenu().findItem(R.id.search), false);
-                    ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.getView(DRAWER_LAYOUT)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    toolbarLayout.getToolbarMenu().findItem(R.id.search).setVisible(false);
+                    ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.findViewById(R.id.drawerLayout)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 }
 
             }
@@ -375,8 +384,24 @@ public class MainActivity extends AppCompatActivity {
         if (bnvPopupMenu == null) {
             bnvPopupMenu = new PopupMenu(view);
             bnvPopupMenu.inflate(R.menu.bnv_menu);
-            bnvPopupMenu.setOnMenuItemClickListener(item -> bnvPopupMenu.setMenuItemBadge(item, bnvPopupMenu.getMenuItemBadge(item) + 1));
+            bnvPopupMenu.setPopupMenuListener(new PopupMenu.PopupMenuListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    item.setBadge(item.getBadge() + 1);
+                    return true;
+                }
+
+                @Override
+                public void onMenuItemUpdate(MenuItem menuItem) {
+
+                }
+            });
         }
-        bnvPopupMenu.show();
+        int xoff = bnvPopupMenu.getPopupMenuWidth() - view.getWidth() + 7;
+        if (getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            bnvPopupMenu.show(xoff, 0);
+        } else {
+            bnvPopupMenu.show(-xoff, 0);
+        }
     }
 }

@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/message_list_bottom_bar_height"
         android:layout_gravity="bottom"
+        android:animateLayoutChanges="true"
         android:background="?android:windowBackground"
         android:gravity="center"
         android:orientation="horizontal"

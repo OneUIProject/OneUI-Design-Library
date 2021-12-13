@@ -26,7 +26,8 @@
     <!-- search edittext -->
     <EditText
         android:id="@+id/toolbar_layout_search_field"
-        android:layout_width="match_parent"
+        style="?toolbarTitleStyle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@null"
@@ -38,13 +39,13 @@
         android:maxLines="1"
         android:minWidth="@dimen/sesl_search_view_text_min_width"
         android:paddingStart="4.0dip"
+        android:textDirection="locale"
         android:textSize="@dimen/sesl_search_view_search_text_size" />
 
     <!-- search action button -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="?actionBarSize"
-        android:layout_alignParentEnd="true"
         android:layout_marginStart="5dp"
         android:orientation="horizontal">
 

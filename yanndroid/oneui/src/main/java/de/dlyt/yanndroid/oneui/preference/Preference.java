@@ -499,6 +499,17 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         return this.mTitle;
     }
 
+    public void setTitle(CharSequence title) {
+        if (!TextUtils.equals(mTitle, title)) {
+            mTitle = title;
+            notifyChanged();
+        }
+    }
+
+    public void setTitle(int titleResId) {
+        setTitle(mContext.getString(titleResId));
+    }
+
     public final int getWidgetLayoutResource() {
         return this.mWidgetLayoutResId;
     }

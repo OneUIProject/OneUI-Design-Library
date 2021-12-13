@@ -22,14 +22,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -40,11 +37,6 @@ public class DrawerLayout extends LinearLayout {
 
 
     public static final int N_BADGE = -1;
-    public static final int DRAWER_BUTTON = 0;
-    public static final int TOOLBAR = 1;
-    public static final int CONTENT_LAYOUT = 2;
-    public static final int DRAWER_LAYOUT = 3;
-    public static final int DRAWER = 4;
     private Context mContext;
     private AppCompatActivity mActivity;
     private int mLayout;
@@ -290,9 +282,10 @@ public class DrawerLayout extends LinearLayout {
                 case 0:
                 case 1:
                 case 2:
+                case 3:
                     toolbarLayout.addView(child, index, params);
                     break;
-                case 3:
+                case 4:
                     drawer_container.addView(child, index, params);
                     break;
             }
@@ -314,27 +307,4 @@ public class DrawerLayout extends LinearLayout {
         super.onConfigurationChanged(newConfig);
         setDrawerWidth();
     }
-
-    public View getView(@DrawerLayoutView int view) {
-        switch (view) {
-            case DRAWER_BUTTON:
-                return drawerButton;
-            case TOOLBAR:
-                return toolbarLayout;
-            case CONTENT_LAYOUT:
-                return drawer_container;
-            case DRAWER_LAYOUT:
-                return drawerLayout;
-            case DRAWER:
-                return drawer;
-            default:
-                return null;
-        }
-    }
-
-    @IntDef({DRAWER_BUTTON, TOOLBAR, CONTENT_LAYOUT, DRAWER_LAYOUT, DRAWER})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface DrawerLayoutView {
-    }
-
 }

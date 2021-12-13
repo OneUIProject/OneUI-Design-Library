@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Menu Item 1" />
-    <item android:title="Menu Item 2" />
-    <item android:title="Menu Item 3" />
-    <item android:title="Menu Item 4" />
-    <item android:title="Menu Item 5" />
-    <item android:title="Menu Item 6" />
+    <item
+        android:id="@+id/item1"
+        android:icon="@drawable/ic_samsung_image"
+        android:title="MenuItem 1" />
+
+    <item
+        android:id="@+id/smparent1"
+        android:title="SubMenu 1">
+        <menu>
+            <item
+                android:id="@+id/smitem1"
+                android:title="SubMenuItem 1" />
+
+            <item
+                android:id="@+id/smitem2"
+                android:title="SubMenuItem 2" />
+        </menu>
+    </item>
+
+    <group android:id="@+id/group1">
+        <item
+            android:id="@+id/gitem1"
+            android:title="GroupItem 1" />
+        <item
+            android:id="@+id/gitem2"
+            android:title="GroupItem 2" />
+    </group>
+
+    <item
+        android:id="@+id/item2"
+        android:enabled="false"
+        android:title="MenuItem 2" />
+
+    <item
+        android:id="@+id/item3"
+        android:checkable="true"
+        android:title="MenuItem 3" />
+
+    <item
+        android:id="@+id/item4"
+        android:title="MenuItem 4"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/item5"
+        android:title="MenuItem 5" />
+
 
 </menu>

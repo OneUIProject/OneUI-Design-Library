@@ -11,20 +11,13 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.view.SwitchBar;
 
 public class SwitchBarLayout extends LinearLayout {
 
-    public static final int TOOLBAR_LAYOUT = 0;
-    public static final int SWITCHBAR = 1;
-    public static final int CONTENT_LAYOUT = 2;
     private int mLayout;
     private String mToolbarTitle;
     private String mToolbarSubtitle;
@@ -100,23 +93,5 @@ public class SwitchBarLayout extends LinearLayout {
             context = ((ContextWrapper) context).getBaseContext();
         }
         return null;
-    }
-
-    public View getView(@SwitchBarLayoutView int view) {
-        switch (view) {
-            case TOOLBAR_LAYOUT:
-                return toolbarLayout;
-            case SWITCHBAR:
-                return switchBar;
-            case CONTENT_LAYOUT:
-                return mainContainer;
-            default:
-                return null;
-        }
-    }
-
-    @IntDef({TOOLBAR_LAYOUT, SWITCHBAR, CONTENT_LAYOUT})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface SwitchBarLayoutView {
     }
 }

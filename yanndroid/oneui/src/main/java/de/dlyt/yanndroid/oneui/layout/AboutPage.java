@@ -35,14 +35,6 @@ public class AboutPage extends LinearLayout {
     public static final int UPDATE_AVAILABLE = 1;
     public static final int NO_UPDATE = 2;
     public static final int NO_CONNECTION = 3;
-    public static final int TOOLBAR = 0;
-    public static final int MAIN_CONTENT = 1;
-    public static final int VERSION_TEXT = 2;
-    public static final int STATUS_TEXT = 3;
-    public static final int OPTIONAL_TEXT = 4;
-    public static final int UPDATE_BUTTON = 5;
-    public static final int RETRY_BUTTON = 6;
-    public static final int LOADING_BAR = 7;
     private ToolbarLayout toolbarLayout;
     private LinearLayout about_content;
     private TextView version;
@@ -93,7 +85,7 @@ public class AboutPage extends LinearLayout {
 
         toolbarLayout.inflateToolbarMenu(R.menu.about_page);
         if (mIsOneUI4) {
-            toolbarLayout.getToolbarMenuItemView(toolbarLayout.getToolbarMenu().findItem(R.id.app_info)).setImageDrawable(getResources().getDrawable(R.drawable.ic_samsung_info_2, context.getTheme()));
+            toolbarLayout.getToolbarMenu().findItem(R.id.app_info).setIcon(getResources().getDrawable(R.drawable.ic_samsung_info_2, context.getTheme()));
         }
         toolbarLayout.setOnToolbarMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.app_info) {
@@ -108,6 +100,7 @@ public class AboutPage extends LinearLayout {
                     e.printStackTrace();
                 }
             }
+            return false;
         });
 
         try {
@@ -190,38 +183,9 @@ public class AboutPage extends LinearLayout {
         }
     }
 
-    public View getView(@AboutPageView int view) {
-        switch (view) {
-            case TOOLBAR:
-                return toolbarLayout;
-            case MAIN_CONTENT:
-                return about_content;
-            case VERSION_TEXT:
-                return version;
-            case STATUS_TEXT:
-                return status_text;
-            case OPTIONAL_TEXT:
-                return about_optional_text;
-            case UPDATE_BUTTON:
-                return update_button;
-            case RETRY_BUTTON:
-                return retry_button;
-            case LOADING_BAR:
-                return loading_bar;
-            default:
-                return null;
-        }
-    }
-
     @IntDef({LOADING, UPDATE_AVAILABLE, NO_UPDATE, NOT_UPDATEABLE, NO_CONNECTION})
     @Retention(RetentionPolicy.SOURCE)
     public @interface UpdateState {
     }
-
-    @IntDef({TOOLBAR, MAIN_CONTENT, VERSION_TEXT, STATUS_TEXT, OPTIONAL_TEXT, UPDATE_BUTTON, RETRY_BUTTON, LOADING_BAR})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface AboutPageView {
-    }
-
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu_item_container"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -12,12 +13,20 @@
     android:paddingEnd="@dimen/sesl_popup_menu_item_end_padding"
     android:paddingBottom="@dimen/sesl_popup_menu_item_bottom_padding">
 
-    <TextView
-        android:id="@+id/more_menu_popup_title_text"
+    <ImageView
+        android:id="@+id/menu_item_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/menu_item_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="start|center"
+        android:layout_weight="1"
         android:fontFamily="@string/sesl_font_family_regular"
+        android:paddingStart="7.0dip"
         android:paddingEnd="7.0dip"
         android:singleLine="true"
         android:textAlignment="viewStart"
@@ -25,7 +34,7 @@
         android:textDirection="locale" />
 
     <TextView
-        android:id="@+id/more_menu_popup_badge"
+        android:id="@+id/menu_item_badge"
         android:layout_width="@dimen/sesl_menu_item_badge_size"
         android:layout_height="@dimen/sesl_menu_item_badge_size"
         android:layout_gravity="center_vertical"
@@ -40,4 +49,21 @@
         android:textColor="@color/sesl_menu_badge_text_color"
         android:textSize="@dimen/sesl_menu_item_badge_text_size"
         android:visibility="gone" />
+
+    <CheckBox
+        android:id="@+id/menu_item_check_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:clickable="false"
+        android:focusable="false"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/menu_item_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_samsung_arrow_right"
+        android:visibility="gone" />
+
 </LinearLayout>

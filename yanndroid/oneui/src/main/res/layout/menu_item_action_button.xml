@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/sesl_overflow_button_min_width"
+    android:layout_height="?actionBarSize">
+
+    <de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton
+        android:id="@+id/menu_item_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/menu_item_badge"
+        android:layout_width="@dimen/sesl_menu_item_badge_size"
+        android:layout_height="@dimen/sesl_menu_item_badge_size"
+        android:layout_gravity="end|top"
+        android:layout_marginTop="@dimen/sesl_menu_item_badge_top_margin"
+        android:layout_marginEnd="7.0dip"
+        android:background="@drawable/sesl_noti_badge"
+        android:duplicateParentState="true"
+        android:gravity="center"
+        android:textColor="@color/sesl_menu_badge_text_color"
+        android:textSize="@dimen/sesl_menu_item_badge_text_size"
+        android:visibility="gone" />
+
+</FrameLayout>

@@ -1,7 +1,6 @@
 package de.dlyt.yanndroid.oneuiexample.tabs;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;

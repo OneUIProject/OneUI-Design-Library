@@ -37,4 +37,10 @@
         </activity>
     </application>
 
+    <queries>
+        <intent>
+            <action android:name="android.speech.action.RECOGNIZE_SPEECH" />
+        </intent>
+    </queries>
+
 </manifest>
