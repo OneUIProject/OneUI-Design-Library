@@ -288,7 +288,6 @@ public class ToolbarLayout extends LinearLayout {
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         refreshLayout(newConfig);
-        resetToolbarHeight();
     }
 
     private AppCompatActivity getActivity() {
@@ -370,13 +369,9 @@ public class ToolbarLayout extends LinearLayout {
         if (toolbar != null) {
             toolbar.setPaddingRelative(mSelectMode || mSearchMode || navigationButtonVisible ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), getToolbarTopPadding(), 0, 0);
 
-            TypedValue typedValue = new TypedValue();
-            if (getActivity().getTheme().resolveAttribute(R.attr.actionBarSize, typedValue, true)) {
-                int height = TypedValue.complexToDimensionPixelSize(typedValue.data, getResources().getDisplayMetrics());
-                ViewGroup.LayoutParams lp = toolbar.getLayoutParams();
-                lp.height = height + getToolbarTopPadding();
-                toolbar.setLayoutParams(lp);
-            }
+            ViewGroup.LayoutParams lp = toolbar.getLayoutParams();
+            lp.height += getToolbarTopPadding();
+            toolbar.setLayoutParams(lp);
         } else
             Log.w(TAG + ".resetToolbarHeight", "toolbar is null.");
     }

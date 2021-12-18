@@ -8,9 +8,9 @@
     android:minWidth="@dimen/sesl_popup_menu_item_min_width"
     android:minHeight="@dimen/sesl_popup_menu_item_min_height"
     android:orientation="horizontal"
-    android:paddingStart="@dimen/sesl_popup_menu_item_start_padding"
+    android:paddingStart="@dimen/sesl_popup_menu_item_padding"
     android:paddingTop="@dimen/sesl_popup_menu_item_top_padding"
-    android:paddingEnd="@dimen/sesl_popup_menu_item_end_padding"
+    android:paddingEnd="@dimen/sesl_popup_menu_item_padding"
     android:paddingBottom="@dimen/sesl_popup_menu_item_bottom_padding">
 
     <ImageView

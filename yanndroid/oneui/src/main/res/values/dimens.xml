@@ -58,10 +58,10 @@
     <dimen name="sesl_menu_popup_top_padding">6.0dip</dimen>
 
     <dimen name="sesl_popup_menu_item_bottom_padding">13.0dip</dimen>
-    <dimen name="sesl_popup_menu_item_end_padding">17.0dip</dimen> <!--24.0dip-->
+    <dimen name="sesl_popup_menu_item_end_padding">24.0dip</dimen>
     <dimen name="sesl_popup_menu_item_min_height">43.0dip</dimen>
     <dimen name="sesl_popup_menu_item_min_width">168.0dip</dimen>
-    <dimen name="sesl_popup_menu_item_start_padding">17.0dip</dimen> <!--24.0dip-->
+    <dimen name="sesl_popup_menu_item_start_padding">24.0dip</dimen>
     <dimen name="sesl_popup_menu_item_top_padding">13.0dip</dimen>
 
     <dimen name="sesl_checked_text_padding">18.0dip</dimen>
@@ -69,6 +69,7 @@
 
     <!--Popup-->
     <dimen name="sesl_popup_menu_item_text_size">17.0sp</dimen>
+    <dimen name="sesl_popup_menu_item_padding">17.0dip</dimen>
 
     <!--Toolbar-->
     <dimen name="sesl_action_button_icon_size">24.0dip</dimen>
@@ -193,7 +194,6 @@
     <dimen name="sesl_menu_item_badge_end_margin">16.0dip</dimen>
     <dimen name="sesl_menu_item_badge_size">17.0dip</dimen>
     <dimen name="sesl_menu_item_badge_text_size">11.0dip</dimen>
-    <dimen name="sesl_menu_item_badge_top_margin">10.0dip</dimen>
     <dimen name="select_all_width">68.0dip</dimen>
     <dimen name="select_all_checkbox_size">32.0dip</dimen>
     <dimen name="select_all_checkbox_margin_top">10.0dip</dimen>

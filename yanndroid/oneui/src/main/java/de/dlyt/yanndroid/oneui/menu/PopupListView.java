@@ -3,10 +3,10 @@ package de.dlyt.yanndroid.oneui.menu;
 import android.content.Context;
 import android.widget.ListView;
 
-public class PopupListView extends ListView {
+class PopupListView extends ListView {
     private int mMaxHeight;
 
-    public PopupListView(Context context) {
+    PopupListView(Context context) {
         super(context);
     }
 
@@ -16,7 +16,7 @@ public class PopupListView extends ListView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    public void setMaxHeight(int maxHeight) {
+    void setMaxHeight(int maxHeight) {
         mMaxHeight = maxHeight;
         invalidate();
     }

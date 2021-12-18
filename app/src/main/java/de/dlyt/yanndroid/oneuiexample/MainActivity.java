@@ -187,12 +187,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.info:
                     startActivity(new Intent().setClass(mContext, AboutActivity.class));
                     break;
-                case R.id.item1:
-                case R.id.item2:
-                case R.id.item3:
-                    item.setBadge(item.getBadge() + 1);
-                    break;
             }
+            item.setBadge(item.getBadge() + 1);
             return true;
         });
 

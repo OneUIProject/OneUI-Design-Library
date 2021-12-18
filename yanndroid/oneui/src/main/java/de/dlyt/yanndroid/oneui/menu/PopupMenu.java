@@ -1,6 +1,5 @@
 package de.dlyt.yanndroid.oneui.menu;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -28,6 +27,9 @@ public class PopupMenu {
     private PopupWindow popupWindow;
     private PopupListView listView;
     private PopupMenuAdapter popupMenuAdapter;
+
+    private int xoff = 0;
+    private int yoff = 0;
 
     public PopupMenu(View anchor) {
         this.context = anchor.getContext();
@@ -89,7 +91,7 @@ public class PopupMenu {
                         popupMenuListener.onMenuItemUpdate(menuItem);
                     }
                 });
-                subPopupMenu.show();
+                subPopupMenu.show(xoff, yoff);
                 popupWindow.dismiss();
             } else if (popupMenuListener != null && popupMenuListener.onMenuItemClick(clickedMenuItem)) {
                 popupWindow.dismiss();
@@ -153,6 +155,8 @@ public class PopupMenu {
     }
 
     public void show(int xoff, int yoff) {
+        this.xoff = xoff;
+        this.yoff = yoff;
         popupWindow.showAsDropDown(anchor, xoff, yoff);
         updatePopupSize();
         ((View) ReflectUtils.genericGetField(popupWindow, "mBackgroundView")).setClipToOutline(true);

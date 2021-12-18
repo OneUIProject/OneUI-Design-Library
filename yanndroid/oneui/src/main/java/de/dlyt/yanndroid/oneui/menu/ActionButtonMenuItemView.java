@@ -25,6 +25,7 @@ public class ActionButtonMenuItemView extends LinearLayout {
     private MenuItem menuItem;
     private ToolbarImageButton iconView;
     private TextView badgeView;
+    private TextView titleView;
 
     public ActionButtonMenuItemView(Context context, MenuItem menuItem) {
         super(context);
@@ -55,6 +56,7 @@ public class ActionButtonMenuItemView extends LinearLayout {
         inflater.inflate(R.layout.menu_item_action_button, this, true);
         iconView = findViewById(R.id.menu_item_icon);
         badgeView = findViewById(R.id.menu_item_badge);
+        titleView = findViewById(R.id.menu_item_title);
 
         iconView.setBackgroundResource(R.drawable.sesl_action_bar_item_background);
     }
@@ -72,6 +74,16 @@ public class ActionButtonMenuItemView extends LinearLayout {
 
             iconView.setImageDrawable(menuItem.getIcon());
             iconView.setTooltipText(menuItem.getTitle());
+
+            if (menuItem.getIcon() == null) {
+                iconView.setVisibility(GONE);
+                titleView.setVisibility(VISIBLE);
+                titleView.setText(menuItem.getTitle());
+            } else {
+                iconView.setVisibility(VISIBLE);
+                titleView.setVisibility(GONE);
+            }
+
 
             badgeCount = menuItem.getBadge();
         } else if (menu != null) {
@@ -100,5 +112,6 @@ public class ActionButtonMenuItemView extends LinearLayout {
     @Override
     public void setOnClickListener(@Nullable OnClickListener l) {
         iconView.setOnClickListener(l);
+        titleView.setOnClickListener(l);
     }
 }
