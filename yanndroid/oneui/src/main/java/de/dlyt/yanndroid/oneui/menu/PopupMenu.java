@@ -1,13 +1,17 @@
 package de.dlyt.yanndroid.oneui.menu;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import androidx.annotation.MenuRes;
 
@@ -27,6 +31,9 @@ public class PopupMenu {
     private PopupWindow popupWindow;
     private PopupListView listView;
     private PopupMenuAdapter popupMenuAdapter;
+
+    private LinearLayout layoutWithTitle;
+    private CharSequence title;
 
     private int xoff = 0;
     private int yoff = 0;
@@ -54,8 +61,17 @@ public class PopupMenu {
         inflate(new Menu(menuRes, context));
     }
 
+    public void inflate(@MenuRes int menuRes, CharSequence title) {
+        inflate(new Menu(menuRes, context), title);
+    }
+
     public void inflate(Menu menu) {
+        inflate(menu, null);
+    }
+
+    public void inflate(Menu menu, CharSequence title) {
         this.menu = menu;
+        this.title = title;
 
         if (popupWindow != null) {
             if (popupWindow.isShowing()) {
@@ -78,8 +94,8 @@ public class PopupMenu {
             MenuItem clickedMenuItem = menu.getItem(position);
             if (clickedMenuItem.isCheckable()) clickedMenuItem.toggleChecked();
             if (clickedMenuItem.hasSubMenu()) {
-                PopupMenu subPopupMenu = new PopupMenu(anchor); //itemViews.get(position)
-                subPopupMenu.inflate(clickedMenuItem.getSubMenu());
+                PopupMenu subPopupMenu = new PopupMenu(anchor);
+                subPopupMenu.inflate(clickedMenuItem.getSubMenu(), menu.getItem(position).getTitle());
                 subPopupMenu.setPopupMenuListener(new PopupMenuListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -98,12 +114,18 @@ public class PopupMenu {
             }
         });
 
-        listView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        int height = listView.getMeasuredHeight() + context.getResources().getDimensionPixelSize(R.dimen.sesl_popup_menu_item_bottom_padding) - 5;
+        if (title != null) {
+            layoutWithTitle = new LinearLayout(context);
+            layoutWithTitle.setOrientation(LinearLayout.VERTICAL);
+            layoutWithTitle.addView(createTitleView());
+            layoutWithTitle.addView(listView);
+            popupWindow = new PopupWindow(layoutWithTitle);
+        } else {
+            popupWindow = new PopupWindow(listView);
+        }
 
-        popupWindow = new PopupWindow(listView);
         popupWindow.setWidth(getPopupMenuWidth());
-        popupWindow.setHeight(height);
+        popupWindow.setHeight(getPopupMenuHeight());
         popupWindow.setAnimationStyle(R.style.MenuPopupAnimStyle);
         popupWindow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.sesl_menu_popup_background, context.getTheme()));
         popupWindow.setOutsideTouchable(true);
@@ -129,6 +151,22 @@ public class PopupMenu {
         });
     }
 
+    private TextView createTitleView() {
+        TextView titleView = new TextView(context);
+        titleView.setPadding(context.getResources().getDimensionPixelSize(R.dimen.sesl_popup_menu_item_start_padding),
+                context.getResources().getDimensionPixelSize(R.dimen.sesl_popup_menu_item_top_padding),
+                context.getResources().getDimensionPixelSize(R.dimen.sesl_popup_menu_item_end_padding),
+                context.getResources().getDimensionPixelSize(R.dimen.sesl_menu_popup_bottom_padding));
+        titleView.setTextDirection(View.TEXT_DIRECTION_LOCALE);
+        titleView.setTextColor(context.getResources().getColor(R.color.item_color));
+        titleView.setTypeface(Typeface.DEFAULT_BOLD);
+        titleView.setEllipsize(TextUtils.TruncateAt.END);
+        titleView.setMaxLines(1);
+        titleView.setTextSize(16);
+        titleView.setText(title);
+        return titleView;
+    }
+
     public int getPopupMenuWidth() {
         int makeMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         int popupWidth = 0;
@@ -144,10 +182,18 @@ public class PopupMenu {
         return popupWidth;
     }
 
+    public int getPopupMenuHeight() {
+        if (title == null) {
+            listView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            return listView.getMeasuredHeight() + context.getResources().getDimensionPixelSize(R.dimen.sesl_popup_menu_item_bottom_padding) - 5;
+        } else {
+            layoutWithTitle.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            return layoutWithTitle.getMeasuredHeight() + context.getResources().getDimensionPixelSize(R.dimen.sesl_popup_menu_item_bottom_padding) - 5;
+        }
+    }
+
     private void updatePopupSize() {
-        listView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        int height = listView.getMeasuredHeight() + context.getResources().getDimensionPixelSize(R.dimen.sesl_popup_menu_item_bottom_padding) - 5;
-        if (popupWindow.isShowing()) popupWindow.update(getPopupMenuWidth(), height);
+        if (popupWindow.isShowing()) popupWindow.update(getPopupMenuWidth(), getPopupMenuHeight());
     }
 
     public void show() {

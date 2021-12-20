@@ -2,6 +2,7 @@ package de.dlyt.yanndroid.oneui.menu;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,6 +46,8 @@ class PopupMenuItemView extends LinearLayout {
         badgeView = findViewById(R.id.menu_item_badge);
         checkBox = findViewById(R.id.menu_item_check_box);
         arrowView = findViewById(R.id.menu_item_arrow);
+        if (getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL)
+            arrowView.setImageResource(R.drawable.ic_samsung_arrow_left);
 
         titleView.setTextSize(0, context.getResources().getDimension(mIsOneUI4 ? R.dimen.sesl4_popup_menu_item_text_size : R.dimen.sesl_popup_menu_item_text_size));
 
