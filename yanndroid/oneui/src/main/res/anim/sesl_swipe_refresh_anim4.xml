@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set android:ordering="together"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <set android:ordering="sequentially">
+        <objectAnimator android:interpolator="@anim/sesl_swipe_refresh_interpolator" android:duration="983" android:valueFrom="0" android:valueTo="353.99997" android:propertyName="rotation" />
+    </set>
+</set>

@@ -905,6 +905,13 @@
         <item name="android:progressBarStyleSmallInverse">@style/OneUI4.ProgressBarStyle.Small</item>
         <item name="android:progressBarStyleLargeInverse">@style/OneUI4.ProgressBarStyle.Large</item>
 
+        <item name="editTextBackground">@drawable/sesl4_edit_text_background</item>
+        <item name="editTextStyle">@style/OneUI4.EditTextWidgetStyle</item>
+
+        <item name="buttonBarNegativeButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+
         <item name="seslSwitchBarStyle">@style/OneUI4.SeslSwitchBarStyle</item>
         <item name="switchStyle">@style/OneUI4.SwitchStyle</item>
 
@@ -1027,6 +1034,18 @@
     <style name="OneUI4.BaseTabLayoutStyle" parent="@style/BaseTabLayoutStyle">
         <item name="tabIndicatorColor">@color/sesl4_tablayout_selected_indicator_color</item>
         <item name="tabSelectedTextColor">@color/sesl4_tablayout_selected_text_color</item>
+    </style>
+
+
+    <!-- Dialog -->
+    <style name="OneUI4.DialogButtonStyle" parent="@style/DialogButtonStyle">
+        <item name="android:textColor">@color/sesl_dialog_button_text_color</item>
+    </style>
+
+
+    <!-- TextAppearance -->
+    <style name="OneUI4.EditTextWidgetStyle" parent="@style/EditTextWidgetStyle">
+        <item name="android:textCursorDrawable">@drawable/sesl4_text_cursor</item>
     </style>
 
 </resources>

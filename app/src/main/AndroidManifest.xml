@@ -7,7 +7,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/OneUI4Theme">
+        android:theme="@style/OneUITheme">
 
         <meta-data
             android:name="SamsungBasicInteraction"
@@ -22,13 +22,14 @@
         <activity android:name=".SwitchBarActivity" />
         <activity
             android:name=".AboutActivity"
-            android:theme="@style/OneUI4AboutTheme" />
+            android:theme="@style/OneUIAboutTheme" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/OneUI4SplashTheme">
+            android:theme="@style/OneUISplashTheme"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

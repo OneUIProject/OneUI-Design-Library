@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector android:drawable="@drawable/sesl_swipe_refresh_dot"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <target android:name="s5" android:animation="@anim/sesl_swipe_refresh_anim1" />
+    <target android:name="s5s4" android:animation="@anim/sesl_swipe_refresh_anim2" />
+    <target android:name="s4" android:animation="@anim/sesl_swipe_refresh_anim3" />
+    <target android:name="s5s3" android:animation="@anim/sesl_swipe_refresh_anim4" />
+    <target android:name="s3" android:animation="@anim/sesl_swipe_refresh_anim5" />
+    <target android:name="s5s2" android:animation="@anim/sesl_swipe_refresh_anim6" />
+    <target android:name="s2" android:animation="@anim/sesl_swipe_refresh_anim7" />
+    <target android:name="s5s1" android:animation="@anim/sesl_swipe_refresh_anim8" />
+    <target android:name="s1" android:animation="@anim/sesl_swipe_refresh_anim9" />
+</animated-vector>

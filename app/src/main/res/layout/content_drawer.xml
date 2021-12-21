@@ -26,21 +26,21 @@
                     android:id="@+id/ob1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:icon="@drawable/ic_samsung_info"
+                    app:icon="@drawable/ic_samsung_info_2"
                     app:text="Option 1" />
 
                 <de.dlyt.yanndroid.oneui.view.OptionButton
                     android:id="@+id/ob2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:icon="@drawable/ic_samsung_info"
+                    app:icon="@drawable/ic_samsung_info_2"
                     app:text="Option 2" />
 
                 <de.dlyt.yanndroid.oneui.view.OptionButton
                     android:id="@+id/ob3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:icon="@drawable/ic_samsung_info"
+                    app:icon="@drawable/ic_samsung_info_2"
                     app:text="Option 3" />
 
 
@@ -60,7 +60,7 @@
                 android:id="@+id/ob_help"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/ic_samsung_help"
+                app:icon="@drawable/ic_samsung_help_2"
                 app:text="Help" />
 
             <LinearLayout

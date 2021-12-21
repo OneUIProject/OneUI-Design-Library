@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:inset="@dimen/sesl_edit_textfield_cursor_inset">
+    <shape
+        android:shape="rectangle"
+        android:tint="@color/sesl_edit_text_tint_color">
+        <size
+            android:width="@dimen/sesl_edit_textfield_cursor_width"
+            android:height="@dimen/sesl_edit_textfield_cursor_width" />
+        <solid android:color="@color/sesl_edit_text_tint_color" />
+    </shape>
+</inset>
