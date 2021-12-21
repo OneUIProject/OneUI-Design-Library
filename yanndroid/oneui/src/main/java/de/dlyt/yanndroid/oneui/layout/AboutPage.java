@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class AboutPage extends LinearLayout {
     public static final int NO_CONNECTION = 3;
     private ToolbarLayout toolbarLayout;
     private LinearLayout about_content;
+    private TextView app_name;
     private TextView version;
     private TextView status_text;
     private TextView about_optional_text;
@@ -64,6 +66,7 @@ public class AboutPage extends LinearLayout {
 
         toolbarLayout = findViewById(R.id.toolbar_layout);
         about_content = findViewById(R.id.about_content);
+        app_name = findViewById(R.id.app_name);
         version = findViewById(R.id.version);
         status_text = findViewById(R.id.status_text);
         about_optional_text = findViewById(R.id.about_optional_text);
@@ -102,6 +105,14 @@ public class AboutPage extends LinearLayout {
             }
             return false;
         });
+
+        if (mIsOneUI4) {
+            app_name.setTypeface(Typeface.create("sec-roboto-regular", Typeface.NORMAL));
+            app_name.setTextSize(0, getResources().getDimension(R.dimen.sesl4_about_app_name_text_size));
+            version.setTextSize(0, getResources().getDimension(R.dimen.sesl4_about_secondary_text_size));
+            about_optional_text.setTextSize(0, getResources().getDimension(R.dimen.sesl4_about_secondary_text_size));
+            status_text.setTextSize(0, getResources().getDimension(R.dimen.sesl4_about_secondary_text_size));
+        }
 
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);

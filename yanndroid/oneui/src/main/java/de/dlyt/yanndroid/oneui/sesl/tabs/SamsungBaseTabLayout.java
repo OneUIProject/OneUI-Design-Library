@@ -72,6 +72,7 @@ import de.dlyt.yanndroid.oneui.view.TabItem;
 
 @SeslViewPager.DecorView
 public class SamsungBaseTabLayout extends HorizontalScrollView {
+    private boolean mIsOneUI4;
     public static final Pools.Pool<Tab> tabPool = new Pools.SynchronizedPool(16);
     public final int requestedTabMaxWidth;
     public final int requestedTabMinWidth;
@@ -149,6 +150,9 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         this.mSubTabSelectedIndicatorColor = -1;
         this.mSubTabIndicatorHeight = 1;
         this.mIsScaledTextSizeType = false;
+
+        mIsOneUI4 = var1.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
+
         this.setHorizontalScrollBarEnabled(false);
         this.slidingTabIndicator = new SlidingTabIndicator(var1);
         super.addView(this.slidingTabIndicator, 0, new LayoutParams(-2, -1));
@@ -2528,6 +2532,11 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                         this.mIndicatorView = (AbsIndicatorView) relativeLayout3.findViewById(R.id.indicator);
                         AbsIndicatorView AbsIndicatorView = this.mIndicatorView;
                         if (AbsIndicatorView != null) {
+                            if (mIsOneUI4) {
+                                ViewGroup.LayoutParams lp = mIndicatorView.getLayoutParams();
+                                lp.height = getContext().getResources().getDimensionPixelSize(R.dimen.sesl4_tab_line_height);
+                                mIndicatorView.setLayoutParams(lp);
+                            }
                             AbsIndicatorView.setSelectedIndicatorColor(SamsungBaseTabLayout.this.mTabSelectedIndicatorColor);
                         }
                         this.mMainTabTouchBackground = relativeLayout3.findViewById(R.id.main_tab_touch_background);

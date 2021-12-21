@@ -59,6 +59,10 @@ public class SwitchBarLayout extends LinearLayout {
         return switchBar;
     }
 
+    public ToolbarLayout getToolbarLayout() {
+        return toolbarLayout;
+    }
+
     public void setToolbarTitle(CharSequence title) {
         toolbarLayout.setTitle(title);
     }

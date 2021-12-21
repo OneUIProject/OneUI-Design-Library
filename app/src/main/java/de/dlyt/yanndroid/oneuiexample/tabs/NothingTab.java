@@ -2,6 +2,7 @@ package de.dlyt.yanndroid.oneuiexample.tabs;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,15 @@ public class NothingTab extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         SwipeRefreshLayout swipeRefreshLayout = mRootView.findViewById(R.id.swipe_refresh);
-        swipeRefreshLayout.setOnRefreshListener(() -> Toast.makeText(mContext, "refreshing", Toast.LENGTH_SHORT).show());
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(mContext, "Refresh", Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(() -> {
+                    swipeRefreshLayout.setRefreshing(false);
+                }, 700);
+            }
+        });
 
     }
 }

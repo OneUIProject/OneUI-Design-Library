@@ -31,6 +31,7 @@
     <color name="sesl_edit_text_color_disabled">#ffbebebe</color>
     <color name="sesl_edit_text_color">@color/sesl_black</color>
     <color name="sesl_edit_text_hint_color">#ff8c8c8c</color>
+    <color name="sesl_edit_text_tint_color">@color/sesl_black</color>
     <color name="sesl_edit_text_tint_color_disabled">#ffbebebe</color>
     <color name="sesl_edit_text_tint_color_unfocused">#ff8c8c8c</color>
 
@@ -38,6 +39,8 @@
 
     <color name="sesl_menu_badge_background_color">#fff56a0d</color>
     <color name="sesl_menu_badge_text_color">@color/sesl_white</color>
+
+    <color name="sesl_swipe_refresh_background">#fffafafa</color>
 
 
     <!--Colors-->
@@ -68,6 +71,9 @@
     <color name="progress_bar_background_color">#4d9c9c9c</color>
 
     <color name="sesl4_progress_control_color_normal">#66cacaca</color>
+
+    <color name="sesl_swipe_refresh_color1">#ff00d694</color>
+    <color name="sesl_swipe_refresh_color2">?colorPrimary</color>
 
 
 
@@ -184,7 +190,6 @@
 
     <!--Dialog-->
     <color name="sesl_dialog_body_text_color">#ff505050</color>
-    <color name="sesl_dialog_button_text_color">#ff0074d4</color>
     <color name="sesl_dialog_divider_color_material">#ffe6e6e6</color>
     <color name="sesl_dialog_list_text_color">#ff252525</color>
     <color name="sesl_dialog_scrollbar_handle_tint_color_mtrl">#ffdedede</color>
@@ -201,6 +206,8 @@
     <color name="sesl_color_picker_stroke_color">#D4D4D4</color>
     <color name="sesl_color_picker_used_color_item_empty_slot_color">#E6E6E6</color>
     <color name="sesl_color_picker_used_color_text_color">#979797</color>
+
+    <color name="sesl_dialog_button_text_color">#ff010101</color>
 
     <!--RecyclerView-->
     <color name="sesl_list_go_to_top_arrow_bottom">#404040</color>

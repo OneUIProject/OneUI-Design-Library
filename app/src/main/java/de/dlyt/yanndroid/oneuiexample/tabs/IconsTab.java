@@ -226,6 +226,7 @@ public class IconsTab extends Fragment {
             R.drawable.ic_samsung_send,
             R.drawable.ic_samsung_settings,
             R.drawable.ic_samsung_settings_2,
+            R.drawable.ic_samsung_settings_3,
             R.drawable.ic_samsung_share,
             R.drawable.ic_samsung_share_2,
             R.drawable.ic_samsung_shuffle,
