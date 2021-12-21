@@ -142,6 +142,8 @@ dependencies {
 </details>
 <br/>
 
+If you encounter problems with Proguard (missing classes), see this [Issue](https://github.com/Yanndroid/OneUI-Design-Library/issues/53) by [AlirezaIvaz](https://github.com/AlirezaIvaz).
+
 ## Usage
 In general, most of the views are styled automatically when you apply ```android:theme="@style/OneUITheme"``` in AndroidManifest.xml, the usage of the custom views in the library however is needed to achieve the best results.
 
@@ -200,7 +202,7 @@ In general, most of the views are styled automatically when you apply ```android
 
 </de.dlyt.yanndroid.oneui.layout.DrawerLayout>
 ```
-The children of this view can be at four different location: on the **main screen**, in the **drawer**, in the **footer** (useful for views like BottomNavigationView) or in the **appbar header** as a custom title. To specify the location of each child you can set the attribute ```app:layout_location``` of the child to either ```main_content``` (default), ```drawer_panel```, ```footer``` or ```appbar_header```.
+The children of this view can be at five different location: on the **main screen**, in the **drawer**, in the **footer** (useful for views like BottomNavigationView), in the **appbar header** as a custom title or in the **root layout** (views like FAB). To specify the location of each child you can set the attribute ```app:layout_location``` of the child to either ```main_content``` (default), ```drawer_panel```, ```footer```, ```appbar_header``` or ```root```.
 
 ```app:toolbar_title``` and ```app:toolbar_subtitle``` can be used to set the title and subtitle of the AppBar and Toolbar. The AppBar status is set to expanded by default, you can simply set ```app:toolbar_expanded``` to false if you want it to be collapsed. On small screens/dpi the toolbar will not expand.
 
@@ -222,7 +224,7 @@ public void setDrawerButtonIcon(Drawable drawerIcon)
 public void setDrawerButtonTooltip(CharSequence tooltipText)
 public void setDrawerButtonOnClickListener(OnClickListener listener)
 ```
-Toolbar methods. (for more use ```getToolbarLayout()``` and it's methods)
+Toolbar methods. (for more, use ```getToolbarLayout()``` and it's methods)
 ```java
 public void setToolbarTitle(CharSequence title)
 public void setToolbarTitle(CharSequence expandedTitle, CharSequence collapsedTitle)
@@ -238,8 +240,6 @@ Open/close the drawer panel with an optional animation.
 ```java
 public void setDrawerOpen(Boolean open, Boolean animate)
 ```
-
-See [Advanced](#Advanced) for even more methods.
 
 ### ToolbarLayout
 "Ready-to-go" Samsung's AppBar.
@@ -259,7 +259,7 @@ See [Advanced](#Advanced) for even more methods.
 
 </de.dlyt.yanndroid.oneui.layout.ToolbarLayout>
 ```
-The children of this view can be at three different location: on the **main screen**, in the **footer** (useful for views like BottomNavigationView) or in the **appbar header** as a custom title. To specify the location of each child you can set the attribute ```app:layout_location``` of the child to either ```main_content``` (default), ```footer``` or ```appbar_header```.
+The children of this view can be at four different location: on the **main screen**, in the **footer** (useful for views like BottomNavigationView), in the **appbar header** as a custom title or in the **root layout** (views like FAB). To specify the location of each child you can set the attribute ```app:layout_location``` of the child to either ```main_content``` (default), ```footer```, ```appbar_header``` or ```root```.
 
 ```app:title``` and ```app:subtitle``` can be used to set the title and subtitle of the AppBar and Toolbar. The AppBar status is set to expanded by default, you can simply set ```app:toolbar_expanded``` to false if you want it to be collapsed. You can also disable totally the CollapsingToolbar by setting ```app:toolbar_expandable``` to false. On small screens/dpi the toolbar will not expand anyway.
 
@@ -297,22 +297,12 @@ public void setNavigationButtonVisible(boolean visible)
 public void setNavigationButtonBadge(int count)
 public void setNavigationOnClickListener(OnClickListener listener)
 ```
-Manage the Toolbar Menu. In the Menu resource file use ```app:showAsAction="always"``` to show the item as a Action instead of in the popup menu. Changing the Icon or the Visibility won't do anything if this item isn't a Action.
+Manage the Toolbar Menu. In the Menu resource file use ```app:showAsAction="always"``` to show the item as a Action instead of in the popup menu.
 ```java
-public void inflateToolbarMenu(@MenuRes int resId)
+public void inflateToolbarMenu(Menu menu)
+public void inflateToolbarMenu(@MenuRes int menuRes)
 public Menu getToolbarMenu()
 public void setOnToolbarMenuItemClickListener(OnMenuItemClickListener listener)
-
-public void setOverflowMenuBadge(MenuItem item, Integer badge)
-public Integer getOverflowMenuBadge(MenuItem item)
-
-public void setToolbarMenuItemIcon(MenuItem item, Drawable drawable)
-public void setToolbarMenuItemIcon(MenuItem item, @DrawableRes int resId)
-public void setToolbarMenuItemTitle(MenuItem item, CharSequence title) //title = tooltip
-public void setToolbarMenuItemVisibility(MenuItem item, boolean visible)
-public void setToolbarMenuItemEnabled(MenuItem item, boolean enabled)
-
-public ToolbarImageButton getToolbarMenuItemView(MenuItem item)
 ```
 SelectMode. Changes the layout of the Toolbar to the one you can see in any Samsung app, when you long click a list item. This will show a "All" checkbox, "x selected" counter as the title and a bottom menu (see [screenshot](readme-resources/screenshots/toolbarlayout_selectmode.png)). In the Menu resource file for the bottom menu use ```app:showAsAction="always"``` to show the item as a Action instead of in the "more" menu.
 ```java
@@ -323,27 +313,33 @@ public void setSelectModeCount(int count)
 public void setSelectModeAllChecked(boolean checked)
 public void setSelectModeAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener)
 
+public void setSelectModeBottomMenu(Menu menu, OnMenuItemClickListener listener)
 public void setSelectModeBottomMenu(@MenuRes int menuRes, OnMenuItemClickListener listener)
 public Menu getSelectModeBottomMenu()
 ```
-SearchMode. Changes the layout of the Toolbar to a Search layout, with a text field and a voice input icon. (see [screenshot](readme-resources/screenshots/toolbarlayout_searchmode.png))
+SearchMode. Changes the layout of the Toolbar to a Search layout, with a text field and a voice input icon (see [screenshot](readme-resources/screenshots/toolbarlayout_searchmode.png)).
 ```java
 public void showSearchMode()
 public void dismissSearchMode()
 public boolean isSearchMode()
 public void setSearchModeListener(SearchModeListener listener)
-
-public void onSearchModeVoiceInputResult(ActivityResult result)
-
-//for the voice input to work you need to add this in your activity/fragment:
-private ActivityResultLauncher<Intent> activityResultLauncher;
+```
+:warning: For the voice input to work, you need to add this in your activity/fragment:
+ ```java
+ private ActivityResultLauncher<Intent> activityResultLauncher;
 //onCreate:
 activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> toolbarLayout.onSearchModeVoiceInputResult(result));
 //setSearchModeListener - onVoiceInputClick
 activityResultLauncher.launch(intent);
+ ```
+Also add this in your manifest for api 30+:
+```xml
+<queries>
+    <intent>
+        <action android:name="android.speech.action.RECOGNIZE_SPEECH" />
+    </intent>
+</queries>
 ```
-
-See [Advanced](#Advanced) for even more methods.
 
 ### SplashView
 The activity you are gonna use for SplashView has a different style than the rest of the application, so you need to add this ```android:theme="@style/OneUISplashTheme"``` to your splash activity in AndroidManifest.
@@ -393,8 +389,6 @@ Listener for the Splash Animation
 public void setSplashAnimationListener(Animation.AnimationListener listener)
 ```
 
-See [Advanced](#Advanced) for even more methods.
-
 2) A simple Splash View without animation. (Samsung apps use their own ```com.samsung.android.startingwindow.LAYOUT_RESID_FOR_MASS``` flag in manifest)
 
 <img loading="lazy" align="left" src="readme-resources/screenshots/splash_simple.png" width="150"/>
@@ -424,8 +418,6 @@ Returns the text of the Splash TextView
 ```java
 public String getText()
 ```
-
-See [Advanced](#Advanced) for even more methods.
 
 ### AboutPage
 A layout that looks like and has the same functions as the About Screen in any Samsung app. Like the [SplashView](#SplashView), the activity you're gonna use has a different style than the rest of the application, so you need to add this ```android:theme="@style/OneUIAboutTheme"``` to your About Activity in AndroidManifest.
@@ -468,8 +460,6 @@ public void setUpdateButtonOnClickListener(OnClickListener listener)
 public void setRetryButtonOnClickListener(OnClickListener listener)
 ```
 
-See [Advanced](#Advanced) for even more methods.
-
 ### SwitchBarLayout
 This is a extended [ToolbarLayout](#ToolbarLayout) with [SwitchBar](#SwitchBar). Useful for creating inner preferences layouts in pair with [SwitchPreferenceScreen](#SwitchPreferenceScreen).
 
@@ -507,8 +497,6 @@ Expand or collapse the toolbar with an optional animation.
 ```java
 public void setToolbarExpanded(boolean expanded, boolean animate)
 ```
-
-See [Advanced](#Advanced) for even more methods.
 
 ### CoordinatorLayout
 Samsung's CoordinatorLayout
@@ -739,7 +727,7 @@ Control the state (colored, bold text).
 ```java
 public void setButtonSelected(Boolean selected)
 public void toggleButtonSelected()
-public Boolean isButtonSelcted()
+public Boolean isButtonSelected()
 ```
 Enable/disable the OptionButton.
 ```java
@@ -1100,21 +1088,21 @@ Samsung's Radio Preferences used in Light/Dark mode Settings and Resolution Sett
 
 Create a PopupMenu with it's anchor.
 ```java
-//de.dlyt.yanndroid.oneui.view.PopupMenu
+//de.dlyt.yanndroid.oneui.menu.PopupMenu
 PopupMenu popupMenu = new PopupMenu(view);
 ```
-Inflate a menu resource or a list of the items to show.
+Inflate a menu resource or a Menu (de.dlyt.yanndroid.oneui.menu.Menu).
 ```java
 public void inflate(@MenuRes int menuRes)
-public void inflate(ArrayList<MenuItem> menuItems)
+public void inflate(Menu menu)
 ```
-Get the menu (will only work if you inflate with a menu resource)
+Get the menu.
 ```java
 public Menu getMenu()
 ```
-Set the menu item click listener.
+Set the menu item click and update listener.
 ```java
-public void setOnMenuItemClickListener(OnMenuItemClickListener listener)
+public void setPopupMenuListener(PopupMenuListener listener)
 ```
 Show and dismiss the popup.
 ```java
@@ -1122,17 +1110,6 @@ public void show()
 public void show(int xoff, int yoff) //with offset
 public void dismiss()
 public boolean isShowing()
-```
-Manage the menu items.
-```java
-public void setMenuItemBadge(MenuItem item, Integer badge)
-public void setMenuItemTitle(MenuItem item, CharSequence title)
-public void setMenuItemEnabled(MenuItem item, boolean enabled)
-public Integer getMenuItemBadge(MenuItem item)
-```
-Get the number of all badges in the menu.
-```java
-public Integer getTotalBadgeCount()
 ```
 
 ### Tooltip
@@ -1174,7 +1151,7 @@ Snackbar.make(view, "Text label", Snackbar.LENGTH_SHORT).setAction("Action", new
 ```
 
 ### Advanced
-This is for advanced usage only. I've added the method ```getView(int view)``` to some of the custom views to access the views inside it and change them directly. This can be helpful if you want to do something which isn't implemented in the custom views yet as I can't think of all possible uses. Currently this method is available in DrawerLayout, ToolbarLayout, SplashView, AboutPage and SwitchBarLayout.
+For further customization or if you need something which isn't implemented in the custom views yet (I can't think of all possible uses), you can always access the views inside it with ```findViewById(int id)``` and change them directly. For the Ids please refer to the source code.
 
 ### Icons
 There are also a lot of the stock icons you can find in Samsung apps included in this library, and we will add more over time. You can use them with ```@drawable/ic_samsung_...``` and ```R.drawable.ic_samsung_...```.
@@ -1436,5 +1413,4 @@ Starting with v2.1.0, the new OneUI 4 design is being added to this library. Sin
 - [BlackMesa123](https://github.com/BlackMesa123) for a lot of OneUI stuff, more compatibility and his experience.
 - [TenSeventy7](https://github.com/TenSeventy7) for some stuff and help.
 - [leonbcode](https://github.com/leonbcode) for github actions, so this library is always up-to-date.
-- [AlirezaIvaz](https://github.com/AlirezaIvaz) for translation correction (Persian) and issue reporting.
-- [nfauv2001](https://github.com/nfauv2001) for helping me out with my english.
+- All the [Contributors](https://github.com/Yanndroid/OneUI-Design-Library/graphs/contributors) and Issue Reporters.
