@@ -49,14 +49,7 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
     public static final boolean IS_BASE_SDK_VERSION;
 
     static {
-        boolean var0;
-        if (Build.VERSION.SDK_INT <= 23) {
-            var0 = true;
-        } else {
-            var0 = false;
-        }
-
-        IS_BASE_SDK_VERSION = var0;
+        IS_BASE_SDK_VERSION = Build.VERSION.SDK_INT <= 23;
     }
 
     public final List<Rect> mGestureExclusionRects;
@@ -265,7 +258,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
             int[] var8 = new int[]{16842910};
             int[] var10 = new int[]{-16842910};
             var4 = getColor(var1, R.attr.colorPrimary);
-            ;
             var3 = var6.getColor(R.color.sesl_seekbar_disable_color_activated, var1.getTheme());
             this.mDefaultActivatedThumbColor = new ColorStateList(new int[][]{var8, var10}, new int[]{var4, var3});
         }
@@ -579,7 +571,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
                 var1 = super.getMax();
             }
         } finally {
-            ;
         }
 
         return var1;
@@ -602,7 +593,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
                 this.setKeyProgressIncrement(Math.max(1, Math.round((float) var1 / 20.0F)));
             }
         } finally {
-            ;
         }
 
     }
@@ -619,7 +609,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
                 var1 = super.getMin();
             }
         } finally {
-            ;
         }
 
         return var1;
@@ -641,7 +630,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
                 this.setKeyProgressIncrement(Math.max(1, Math.round((float) var1 / 20.0F)));
             }
         } finally {
-            ;
         }
 
     }
@@ -658,7 +646,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
                 var1 = super.getProgress();
             }
         } finally {
-            ;
         }
 
         return var1;
@@ -676,7 +663,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
 
             super.setProgress(var2);
         } finally {
-            ;
         }
 
     }
@@ -970,7 +956,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
                 this.drawThumb(var1);
             }
         } finally {
-            ;
         }
 
     }
@@ -1476,33 +1461,30 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
 
     public void setMode(int var1) {
         super.setMode(var1);
-        if (var1 != 0) {
-            if (var1 != 1) {
-                if (var1 != 3) {
-                    if (var1 != 4) {
-                        if (var1 != 5) {
-                            if (var1 == 6) {
-                                this.initializeExpandVerticalMode();
-                            }
-                        } else {
-                            this.initializeExpandMode();
-                        }
-                    } else {
-                        this.mSplitProgress = this.getContext().getResources().getDrawable(R.drawable.sesl_split_seekbar_primary_progress, null);
-                        this.mDivider = this.getContext().getResources().getDrawable(R.drawable.sesl_split_seekbar_vertical_bar, null);
-                        this.updateSplitProgress();
-                    }
-                } else {
-                    Resources var2 = this.getContext().getResources();
-                    this.setThumb(var2.getDrawable(R.drawable.sesl_scrubber_control_anim, null));
-                    this.setThumbTintList(this.mDefaultActivatedThumbColor);
-                }
-            } else {
+        switch (var1) {
+            case 0:
+                this.setProgressTintList(this.mDefaultActivatedProgressColor);
+                this.setThumbTintList(this.mDefaultActivatedThumbColor);
+                break;
+            case 1:
                 this.updateWarningMode(this.getProgress());
-            }
-        } else {
-            this.setProgressTintList(this.mDefaultActivatedProgressColor);
-            this.setThumbTintList(this.mDefaultActivatedThumbColor);
+                break;
+            case 3:
+                Resources var2 = this.getContext().getResources();
+                this.setThumb(var2.getDrawable(R.drawable.sesl_scrubber_control_anim, null));
+                this.setThumbTintList(this.mDefaultActivatedThumbColor);
+                break;
+            case 4:
+                this.mSplitProgress = this.getContext().getResources().getDrawable(R.drawable.sesl_split_seekbar_primary_progress, null);
+                this.mDivider = this.getContext().getResources().getDrawable(R.drawable.sesl_split_seekbar_vertical_bar, null);
+                this.updateSplitProgress();
+                break;
+            case 5:
+                this.initializeExpandMode();
+                break;
+            case 6:
+                this.initializeExpandVerticalMode();
+                break;
         }
 
         this.invalidate();
@@ -1535,10 +1517,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
 
             this.invalidate();
         }
-    }
-
-    public void setProgressDrawable(Drawable var1) {
-        super.setProgressDrawable(var1);
     }
 
     public boolean setProgressInternal(int var1, boolean var2, boolean var3) {
@@ -1579,7 +1557,9 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
     @SuppressLint("RestrictedApi")
     public final void setThumbPos(int var1, Drawable var2, float var3, int var4) {
         int var5 = super.mCurrentMode;
-        if (var5 != 3 && var5 != 6) {
+        if (var5 == 3 || var5 == 6) {
+            this.setThumbPosInVertical(this.getHeight(), var2, var3, var4);
+        } else {
             int var6 = this.getPaddingLeft();
             int var7 = this.getPaddingRight();
             int var8 = var2.getIntrinsicWidth();
@@ -1614,8 +1594,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
             this.updateGestureExclusionRects();
             this.mThumbPosX = var5 + this.getPaddingLeft() - (this.getPaddingLeft() - var8 / 2);
             this.updateSplitProgress();
-        } else {
-            this.setThumbPosInVertical(this.getHeight(), var2, var3, var4);
         }
     }
 
@@ -2092,7 +2070,6 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
 
                 mDrawable.setBounds(0, (int) (SeslAbsSeekBar.this.getHeight() / 2 - var4), (int) var3, (int) (SeslAbsSeekBar.this.getHeight() / 2 + var4));
                 mDrawable.draw(var1);
-
             } else {
                 var4 = (float) (SeslAbsSeekBar.this.getHeight() - SeslAbsSeekBar.this.getPaddingTop() - SeslAbsSeekBar.this.getPaddingBottom());
                 var3 = this.mRadius;
@@ -2325,7 +2302,11 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
             if (!this.mIsVertical) {
                 var1.drawCircle((float) SeslAbsSeekBar.this.mThumbPosX, (float) SeslAbsSeekBar.this.getHeight() / 2.0F, (float) this.mRadiusForAni, this.mPaint);
             } else {
-                var1.drawCircle((float) SeslAbsSeekBar.this.getWidth() / 2.0F, (float) SeslAbsSeekBar.this.mThumbPosX, (float) this.mRadiusForAni, this.mPaint);
+                if (SeslAbsSeekBar.this.mCurrentMode == 3) {
+                    var1.drawCircle((float) SeslAbsSeekBar.this.getWidth() / 2.0F, (float) SeslAbsSeekBar.this.mThumbPosX, (float) this.mRadiusForAni, this.mPaint);
+                } else {
+                    var1.drawCircle((float) (SeslAbsSeekBar.this.getWidth() - (SeslAbsSeekBar.this.getPaddingLeft() + SeslAbsSeekBar.this.getPaddingRight())) / 2.0F, (float) SeslAbsSeekBar.this.mThumbPosX - SeslAbsSeekBar.this.getPaddingLeft(), (float) this.mRadiusForAni, this.mPaint);
+                }
             }
 
             var1.restore();
