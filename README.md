@@ -11,16 +11,14 @@
 <img loading="lazy" src="readme-resources/banner.png"/>
 </p>
 
-<img loading="lazy" src="https://github.com/Yanndroid/Yanndroid/blob/master/cats.gif" width="25" height="25" /> A library for Android, useful for creating Samsung's OneUI styled apps. This library contains a theme which will apply for most views (see [which](#Progress)) in your layout, and some custom OneUI views. The text which is in the custom views is translated to 90 languages, so you don't need to worry for these. Android 5.0 (api 21) and above are supported, the library also has Dark mode, Landscape, Tablet, DeX and RTL support. This library has been tested in Android Studio, but should work in other IDEs too. You can download and install the latest apk of the sample app [here](https://github.com/Yanndroid/OneUI-Design-Library/raw/master/app/release/app-release.apk). Suggestions, improvements and help are always welcome.
+<img loading="lazy" src="https://github.com/Yanndroid/Yanndroid/blob/master/cats.gif" width="25" height="25" /> A library for Android, useful for creating Samsung's OneUI styled apps. This library contains a theme which will apply for most views (see [which](#Progress)) in your layout, and some custom OneUI views. The text which is in the custom views is translated to 90 languages, so you don't need to worry for these. Android 5.0 (api 21) and above are supported, the library also has Dark mode, Landscape, Tablet, DeX and RTL support. This library has been tested in Android Studio, but should work in other IDEs too. You can download and install the latest apk of the sample app [here](https://github.com/Yanndroid/OneUI-Design-Library/raw/master/app/release/app-release.apk). You can also check out my other apps for more examples on how to use this library. Suggestions, improvements and help are always welcome.
 
 Huge thanks to [BlackMesa123](https://github.com/BlackMesa123) who has contributed a lot to this project.
-
-Excuse my bad english, feel free to correct it. :)
 
 
 - [Screenshots](#Screenshots)
 - [Installation](#Installation)
-- [Usage](#Usage)
+- [Documentation](#Documentation)
 - [Progress](#Progress)
 - [Changelog](#Changelog)
 - [More info](#More-info)
@@ -36,7 +34,7 @@ v2.0.0 and future versions are (and only will be) available on mavenCentral. For
 1. Add the dependency to build.gradle (Module: ...)
 ```gradle
 dependencies {
-    implementation 'io.github.yanndroid:oneui:2.1.1'
+    implementation 'io.github.yanndroid:oneui:2.2.0'
     ...
 }
 ```
@@ -144,7 +142,7 @@ dependencies {
 
 If you encounter problems with Proguard (missing classes), see this [Issue](https://github.com/Yanndroid/OneUI-Design-Library/issues/53) by [AlirezaIvaz](https://github.com/AlirezaIvaz).
 
-## Usage
+## Documentation
 In general, most of the views are styled automatically when you apply ```android:theme="@style/OneUITheme"``` in AndroidManifest.xml, the usage of the custom views in the library however is needed to achieve the best results.
 
 - [DrawerLayout](#DrawerLayout)
@@ -1242,7 +1240,7 @@ The sample app icon for example:
 <img loading="lazy" src="readme-resources/app-icons/sample.png" width="50" height="50" />
 
 ### OneUI 4
-Starting with v2.1.0, the new OneUI 4 design is being added to this library. Since Samsung hasn't released a stable version yet and still has a lot of stuff to fix, only some views are (partly) using the new style. As long as OneUI 4 is beta, this feature will also be, so don't expect too much. All the views which don't have the new style yet will use the old one (OneUI 3) instead. If you already want to use the OneUI 4 style, instead of ```@style/OneUITheme```, ```@style/OneUIAboutTheme``` and ```@style/OneUISplashTheme``` use ```@style/OneUI4Theme```, ```@style/OneUI4AboutTheme``` and ```@style/OneUI4SplashTheme``` in your manifest file.
+Starting with v2.1.0, the new OneUI 4 design is being added to this library and v2.2.0 makes it the default theme of the library. If you still want to use the OneUI 3 style, instead of ```@style/OneUITheme```, ```@style/OneUIAboutTheme``` and ```@style/OneUISplashTheme``` use ```@style/OneUI3Theme```, ```@style/OneUI3AboutTheme``` and ```@style/OneUI3SplashTheme``` in your manifest file. All the views which don't have the new style yet will use the old one (OneUI 3) instead.
 
 ## Progress
 
@@ -1275,6 +1273,22 @@ Starting with v2.1.0, the new OneUI 4 design is being added to this library. Sin
 - [ ] BottomSheet
 
 ## Changelog
+
+<details>
+<summary>2.2.0</summary>
+
+- OneUI4++ (huge thanks to [BlackMesa123](https://github.com/BlackMesa123))
+    - AppBar/Toolbar
+    - Edge effect
+    - TabLayout/BottomNavigationView
+    - SwipeRefreshLayout
+    - EditText
+    - and more...
+- ToolbarLayout & PopupMenu/Menu improvements
+- icons++ (OneUI4)
+- fixes & minor changes
+
+</details>
 
 <details>
 <summary>2.1.1</summary>
