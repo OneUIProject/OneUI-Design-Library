@@ -643,8 +643,6 @@ public class ProgressBar extends View {
         }
     }
 
-    /* JADX INFO: finally extract failed */
-    /* access modifiers changed from: package-private */
     @SuppressLint("RestrictedApi")
     public void drawTrack(Canvas canvas) {
         Drawable drawable = this.mCurrentDrawable;
@@ -945,7 +943,7 @@ public class ProgressBar extends View {
                 if (drawable.isStateful()) {
                     drawable.setState(getDrawableState());
                 }
-                if (this.mCurrentMode == 3) {
+                if (this.mCurrentMode == 3 || this.mCurrentMode == 6) {
                     int minimumWidth = drawable.getMinimumWidth();
                     if (this.mMaxWidth < minimumWidth) {
                         this.mMaxWidth = minimumWidth;
@@ -1307,13 +1305,11 @@ public class ProgressBar extends View {
     }
 
     public void setMode(int i2) {
-        Drawable drawable;
+        Drawable drawable = null;
         this.mCurrentMode = i2;
         if (i2 == 3) {
             drawable = androidx.core.content.ContextCompat.getDrawable(getContext(), R.drawable.sesl_scrubber_progress_vertical);
-        } else if (i2 != 4) {
-            drawable = null;
-        } else {
+        } else if (i2 == 4) {
             drawable = androidx.core.content.ContextCompat.getDrawable(getContext(), R.drawable.sesl_split_seekbar_background_progress);
         }
         if (drawable != null) {
