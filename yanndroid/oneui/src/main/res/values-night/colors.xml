@@ -80,6 +80,7 @@
     <color name="sesl_scrollbar_handle_tint">#ff595959</color>
     <color name="sesl_list_subheader_text_color">#ff999999</color>
     <color name="about_info_button_tint">#ffd9d9d9</color>
+    <color name="sesl_edge_effect_device_default">#14fafafa</color>
 
 
     <!--ColorPicker-->

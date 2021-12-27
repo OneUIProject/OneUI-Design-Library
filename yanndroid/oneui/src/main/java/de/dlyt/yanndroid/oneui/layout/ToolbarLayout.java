@@ -205,9 +205,6 @@ public class ToolbarLayout extends LinearLayout {
         search_action_button = findViewById(R.id.search_view_action_button);
         search_edittext = findViewById(R.id.toolbar_layout_search_field);
 
-        mActivity.setSupportActionBar(toolbar);
-        mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-        mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         setNavigationButtonIcon(mNavigationIcon);
         setTitle(mTitleExpanded);
         setSubtitle(mSubtitle);
@@ -225,10 +222,15 @@ public class ToolbarLayout extends LinearLayout {
                 if (mSearchMode) dismissSearchMode();
             }
         };
-        mActivity.getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
+
+        if (!isInEditMode()){
+            mActivity.setSupportActionBar(toolbar);
+            mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+            mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            mActivity.getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
+        }
 
         refreshLayout(getResources().getConfiguration());
-
     }
 
     void syncWithDrawer(DrawerLayout drawerLayout) {
@@ -327,7 +329,7 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     private void refreshLayout(Configuration newConfig) {
-        WindowManagerSupport.hideStatusBarForLandscape(mActivity, newConfig.orientation);
+        if (!isInEditMode()) WindowManagerSupport.hideStatusBarForLandscape(mActivity, newConfig.orientation);
 
         ViewSupport.updateListBothSideMargin(mActivity, mainContainer);
         ViewSupport.updateListBothSideMargin(mActivity, findViewById(R.id.toolbar_layout_bottom_corners));

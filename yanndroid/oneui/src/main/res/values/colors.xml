@@ -144,6 +144,7 @@
     <color name="sesl_scrollbar_handle_tint">#ffdedede</color>
     <color name="sesl_list_subheader_text_color">#ff8c8c8c</color>
     <color name="about_info_button_tint">#ff454545</color>
+    <color name="sesl_edge_effect_device_default">#0d000000</color>
 
 
     <!--ColorPicker-->
