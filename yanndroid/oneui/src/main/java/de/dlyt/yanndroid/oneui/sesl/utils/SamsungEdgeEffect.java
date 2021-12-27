@@ -113,7 +113,7 @@ public class SamsungEdgeEffect extends EdgeEffect {
         int color = obtainStyledAttributes.getColor(0, -10066330);
         obtainStyledAttributes.recycle();
         if (mIsOneUI4)
-            this.mPaint.setColor(color & 0x33000000);
+            this.mPaint.setColor(color);
         else
             mPaint.setColor((0xFFFFFF & color) | 0x33000000);
         this.mPaint.setStyle(Paint.Style.FILL);

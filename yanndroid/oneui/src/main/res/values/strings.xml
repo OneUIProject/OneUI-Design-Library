@@ -1,7 +1,7 @@
 <resources>
     <string name="closed" translatable="false">closed</string>
     <string name="opened" translatable="false">opened</string>
-    <string name="sesl_font_family_regular" translatable="false">sec-roboto-light</string>
+    <string name="sesl_font_family_regular" translatable="false">sans-serif-light</string> <!--sec-roboto-light--> <!--preview render problem-->
     <string name="app_name" translatable="false" />
     <string name="sesl_appbar_scrolling_view_behavior" translatable="false">de.dlyt.yanndroid.oneui.sesl.appbar.SamsungAppBarLayout$ScrollingViewBehavior</string>
 

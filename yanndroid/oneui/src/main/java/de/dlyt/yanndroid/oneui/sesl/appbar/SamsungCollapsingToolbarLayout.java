@@ -504,7 +504,12 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
             if (mDrawCollapsingTitle) {
                 final boolean isRtl = ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL;
 
-                final int maxOffset = getMaxOffsetForPinChild(mToolbarDirectChild != null ? mToolbarDirectChild : mToolbar);
+                final int maxOffset;
+                if (mToolbarDirectChild != null) {
+                    maxOffset = getMaxOffsetForPinChild(mToolbarDirectChild);
+                } else {
+                    maxOffset = getMaxOffsetForPinChild(mToolbar);
+                }
                 ViewGroupUtils.getDescendantRect(this, mDummyView, mTmpRect);
                 mCollapsingTextHelper.setCollapsedBounds(mTmpRect.left + (isRtl ? mToolbar.getTitleMarginEnd() : mToolbar.getTitleMarginStart()), mTmpRect.top + maxOffset + mToolbar.getTitleMarginTop(), mTmpRect.right + (isRtl ? mToolbar.getTitleMarginStart() : mToolbar.getTitleMarginEnd()), mTmpRect.bottom + maxOffset - mToolbar.getTitleMarginBottom());
 
@@ -1024,9 +1029,12 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
 
     public static class LayoutParams extends FrameLayout.LayoutParams {
         private static final float DEFAULT_PARALLAX_MULTIPLIER = 0.5f;
+
         @IntDef({COLLAPSE_MODE_OFF, COLLAPSE_MODE_PIN, COLLAPSE_MODE_PARALLAX})
         @Retention(RetentionPolicy.SOURCE)
-        @interface CollapseMode {}
+        @interface CollapseMode {
+        }
+
         public static final int COLLAPSE_MODE_OFF = 0;
         public static final int COLLAPSE_MODE_PIN = 1;
         public static final int COLLAPSE_MODE_PARALLAX = 2;

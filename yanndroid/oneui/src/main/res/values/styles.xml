@@ -922,6 +922,8 @@
         <item name="toolbarSubtitleStyle">@style/OneUI4.CollapsedActionBarSubtitleTextStyle</item>
 
         <item name="bottomNaviViewStyle">@style/OneUI4.BaseTabLayoutStyle</item>
+
+        <item name="android:colorEdgeEffect">@color/sesl_edge_effect_device_default</item>
     </style>
 
 
