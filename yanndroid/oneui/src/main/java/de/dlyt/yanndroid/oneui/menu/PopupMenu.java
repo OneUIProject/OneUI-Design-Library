@@ -21,6 +21,7 @@ import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 
 public class PopupMenu {
+    private boolean mIsOneUI4;
 
     private Context context;
     private View anchor;
@@ -41,6 +42,7 @@ public class PopupMenu {
     public PopupMenu(View anchor) {
         this.context = anchor.getContext();
         this.anchor = anchor;
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
     }
 
     public interface PopupMenuListener {
@@ -89,7 +91,7 @@ public class PopupMenu {
         listView.setAdapter(popupMenuAdapter);
         listView.setMaxHeight(context.getResources().getDimensionPixelSize(R.dimen.sesl_menu_popup_max_height));
         listView.setDivider(null);
-        listView.setSelector(context.getResources().getDrawable(R.drawable.sesl_list_selector, context.getTheme()));
+        listView.setSelector(context.getResources().getDrawable(mIsOneUI4 ? R.drawable.sesl4_list_selector : R.drawable.sesl_list_selector, context.getTheme()));
         listView.setOnItemClickListener((parent, view, position, id) -> {
             MenuItem clickedMenuItem = menu.getItem(position);
             if (clickedMenuItem.isCheckable()) clickedMenuItem.toggleChecked();
@@ -127,7 +129,7 @@ public class PopupMenu {
         popupWindow.setWidth(getPopupMenuWidth());
         popupWindow.setHeight(getPopupMenuHeight());
         popupWindow.setAnimationStyle(R.style.MenuPopupAnimStyle);
-        popupWindow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.sesl_menu_popup_background, context.getTheme()));
+        popupWindow.setBackgroundDrawable(context.getResources().getDrawable(mIsOneUI4 ? R.drawable.sesl4_menu_popup_background : R.drawable.sesl_menu_popup_background, context.getTheme()));
         popupWindow.setOutsideTouchable(true);
         popupWindow.setElevation(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) 12, context.getResources().getDisplayMetrics()));
         popupWindow.setFocusable(true);

@@ -13,6 +13,7 @@
 
     <color name="sesl_background_floating">@color/sesl_white</color>
     <color name="sesl_ripple_color">#1a000000</color>
+    <color name="sesl4_ripple_color">#0d000000</color>
     <color name="sesl_error_color">#fff4511e</color>
     <color name="sesl_control_color_normal">@color/control_color_normal</color>
 
@@ -26,7 +27,7 @@
 
     <color name="sesl_btn_default_text_color">@color/sesl_black</color>
 
-    <color name="sesl_list_ripple_color">@color/sesl_ripple_color</color>
+    <!-- <color name="sesl_list_ripple_color">@color/sesl_ripple_color</color> -->
 
     <color name="sesl_edit_text_color_disabled">#ffbebebe</color>
     <color name="sesl_edit_text_color">@color/sesl_black</color>
@@ -123,6 +124,8 @@
     <!--Spinner-->
     <color name="sesl_menu_popup_background_color">#fffcfcfc</color>
     <color name="sesl_menu_popup_background_stroke_color">#fffcfcfc</color>
+    <color name="sesl4_menu_popup_background_color">#fffcfcfc</color>
+    <color name="sesl4_menu_popup_background_stroke_color">#fffcfcfc</color>
     <color name="sesl_popup_menu_item_text_color_checked">?colorPrimaryDark</color>
     <color name="sesl_spinner_dropdown_item_checkmark">?colorPrimaryDark</color>
     <color name="sesl_spinner_dropdown_item_text_color_disabled">#66000000</color>
@@ -215,7 +218,7 @@
     <color name="sesl_list_go_to_top_arrow_top">#888888</color>
     <color name="sesl_list_go_to_top_inner_round">#FCFCFC</color>
     <color name="sesl_list_go_to_top_outer_round">#33252525</color>
-    <color name="sesl_list_go_to_top_ripple">@color/sesl_ripple_color</color>
+    <!-- <color name="sesl_list_go_to_top_ripple">@color/sesl_ripple_color</color> -->
 
     <!--Preference-->
     <color name="sesl_switch_divider_color">#ffc4c4c4</color>

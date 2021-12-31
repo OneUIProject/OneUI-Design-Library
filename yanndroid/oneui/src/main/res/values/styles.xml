@@ -909,6 +909,8 @@
 
         <item name="android:colorEdgeEffect">@color/sesl_edge_effect_device_default</item>
 
+        <item name="colorControlHighlight">@color/sesl4_ripple_color</item>
+
         <item name="editTextBackground">@drawable/sesl4_edit_text_background</item>
         <item name="editTextStyle">@style/OneUI4.EditTextWidgetStyle</item>
 
@@ -916,14 +918,20 @@
         <item name="buttonBarNeutralButtonStyle">@style/OneUI4.DialogButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/OneUI4.DialogButtonStyle</item>
 
+        <item name="spinnerStyle">@style/OneUI4.SpinnerStyle</item>
+
         <item name="seslSwitchBarStyle">@style/OneUI4.SeslSwitchBarStyle</item>
         <item name="switchStyle">@style/OneUI4.SwitchStyle</item>
+
+        <item name="listChoiceBackgroundIndicator">@drawable/sesl4_list_selector</item>
 
         <item name="actionBarSize">@dimen/sesl4_action_bar_default_height</item>
         <item name="appBarLayoutStyle">@style/OneUI4.AppBarLayoutStyle</item>
         <item name="collapsingToolbarLayoutStyle">@style/OneUI4.CollapsingToolbarLayoutStyle</item>
         <item name="toolbarTitleStyle">@style/OneUI4.CollapsedActionBarTitleTextStyle</item>
         <item name="toolbarSubtitleStyle">@style/OneUI4.CollapsedActionBarSubtitleTextStyle</item>
+
+        <item name="goToTopStyle">@drawable/sesl4_list_go_to_top</item>
 
         <item name="bottomNaviViewStyle">@style/OneUI4.BaseTabLayoutStyle</item>
     </style>
@@ -1050,6 +1058,12 @@
     <!-- TextAppearance -->
     <style name="OneUI4.EditTextWidgetStyle" parent="@style/EditTextWidgetStyle">
         <item name="android:textCursorDrawable">@drawable/sesl4_text_cursor</item>
+    </style>
+
+
+    <!--Spinner-->
+    <style name="OneUI4.SpinnerStyle" parent="@style/SpinnerStyle">
+        <item name="android:popupBackground">@drawable/sesl4_menu_popup_background</item>
     </style>
 
 </resources>

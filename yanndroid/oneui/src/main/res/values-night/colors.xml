@@ -8,6 +8,7 @@
 
     <color name="sesl_background_floating">@color/sesl_black</color>
     <color name="sesl_ripple_color">#33ffffff</color>
+    <color name="sesl4_ripple_color">#26fafafa</color>
 
     <color name="sesl_round_and_bgcolor">#010101</color>
 
@@ -17,7 +18,7 @@
 
     <color name="sesl_btn_default_text_color">@color/sesl_white</color>
 
-    <color name="sesl_list_ripple_color">@color/sesl_ripple_color</color>
+    <!-- <color name="sesl_list_ripple_color">@color/sesl_ripple_color</color> -->
 
     <color name="sesl_edit_text_color">@color/sesl_white</color>
     <color name="sesl_edit_text_color_disabled">#ff454545</color>
@@ -64,6 +65,8 @@
     <!--Spinner-->
     <color name="sesl_menu_popup_background_color">#ff252525</color>
     <color name="sesl_menu_popup_background_stroke_color">#ff252525</color>
+    <color name="sesl4_menu_popup_background_color">#ff3a3a3a</color>
+    <color name="sesl4_menu_popup_background_stroke_color">#ff3a3a3a</color>
     <color name="sesl_spinner_dropdown_item_text_color_normal">#fffafafa</color>
     <color name="sesl_spinner_dropdown_item_text_color_disabled">#66fafafa</color>
     <color name="sesl_spinner_icon_color_default">#ffd9d9d9</color>
