@@ -14,7 +14,7 @@
         android:includeFontPadding="false"
         android:text="@string/pen_string_swatches"
         android:textAllCaps="false"
-        android:textColor="@color/picker_tab_text_color"
+        android:textColor="@color/picker_tab_oui4_text_color"
         android:textSize="15.0dip"
         android:textStyle="bold" />
 
@@ -30,7 +30,7 @@
         android:includeFontPadding="false"
         android:text="@string/pen_string_spectrum"
         android:textAllCaps="false"
-        android:textColor="@color/picker_tab_text_color"
+        android:textColor="@color/picker_tab_oui4_text_color"
         android:textSize="15.0dip"
         android:textStyle="bold" />
 

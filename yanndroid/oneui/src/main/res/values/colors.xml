@@ -164,6 +164,8 @@
     <color name="dialog_action_ripple">#1a000000</color>
     <color name="setting_color_picker_mode_text_selected_color">#ff252525</color>
     <color name="setting_color_picker_mode_text_unselected_color">#ff858585</color>
+    <color name="setting_color_picker_mode_text_tab_selected_color">#ff252525</color>
+    <color name="setting_color_picker_mode_text_tab_unselected_color">#ff858585</color>
     <color name="background_color_white">@color/base_background_color_white</color>
     <color name="base_background_color_white">#fffcfcfc</color>
 
