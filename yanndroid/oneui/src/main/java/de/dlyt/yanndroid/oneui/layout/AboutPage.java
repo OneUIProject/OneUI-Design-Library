@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -107,7 +108,7 @@ public class AboutPage extends LinearLayout {
         });
 
         if (mIsOneUI4) {
-            app_name.setTypeface(Typeface.create("sec-roboto-regular", Typeface.NORMAL));
+            app_name.setTypeface(ResourcesCompat.getFont(context, R.font.sesl_roboto), Typeface.NORMAL);
             app_name.setTextSize(0, getResources().getDimension(R.dimen.sesl4_about_app_name_text_size));
             version.setTextSize(0, getResources().getDimension(R.dimen.sesl4_about_secondary_text_size));
             about_optional_text.setTextSize(0, getResources().getDimension(R.dimen.sesl4_about_secondary_text_size));
