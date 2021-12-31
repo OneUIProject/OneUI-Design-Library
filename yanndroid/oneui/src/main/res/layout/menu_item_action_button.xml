@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/sesl_btn_transparent"
-        android:fontFamily="@string/sesl_font_family_regular"
+        android:fontFamily="@font/sesl_roboto"
         android:gravity="center"
         android:singleLine="true"
         android:textColor="@color/item_color"
