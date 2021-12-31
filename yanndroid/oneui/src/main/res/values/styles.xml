@@ -23,6 +23,8 @@
         <item name="android:progressBarStyleSmallInverse">@style/ProgressBarStyle.Small</item>
         <item name="android:progressBarStyleLargeInverse">@style/ProgressBarStyle.Large</item>
 
+        <item name="android:colorEdgeEffect">?colorPrimary</item>
+
         <item name="checkboxStyle">@style/CheckBoxStyle</item>
         <item name="materialCardViewStyle">@style/CardViewStyle</item>
         <item name="materialButtonStyle">@style/ButtonStyle</item>
@@ -228,7 +230,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/sesl_btn_text_color</item>
         <item name="textAllCaps">false</item>
-        <item name="fontFamily">@string/sesl_font_family_regular</item>
+        <item name="fontFamily">@font/sesl_roboto</item>
     </style>
 
     <style name="ButtonStyle.Transparent">
@@ -314,7 +316,7 @@
         <item name="android:textSize">18.0sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?colorPrimaryDark</item>
-        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
+        <item name="android:fontFamily">@font/sesl_roboto</item>
     </style>
 
 
@@ -359,7 +361,7 @@
     <style name="SubheadTextStyle" parent="TextAppearance.AppCompat.Subhead">
         <item name="android:textSize">@dimen/sesl_text_size_subhead</item>
         <item name="android:textColor">?android:textColorPrimary</item>
-        <item name="fontFamily">@string/sesl_font_family_regular</item>
+        <item name="fontFamily">@font/sesl_roboto</item>
     </style>
 
     <style name="ActionBarTitleTextStyle" parent="@style/TitleTextStyle">
@@ -428,7 +430,7 @@
     <style name="DropDownItemTextStyle" parent="@android:style/TextAppearance.Small">
         <item name="android:textSize">@dimen/sesl_popup_menu_item_text_size</item>
         <item name="android:textColor">@color/sesl_spinner_dropdown_text_color</item>
-        <item name="fontFamily">@string/sesl_font_family_regular</item>
+        <item name="fontFamily">@font/sesl_roboto</item>
     </style>
 
 
@@ -544,7 +546,7 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/sesl_action_bar_text_color_title</item>
         <item name="textAllCaps">false</item>
-        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
+        <item name="android:fontFamily">@font/sesl_roboto</item>
     </style>
 
     <style name="CollapsedActionBarSubtitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
@@ -552,7 +554,7 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/sesl_action_bar_text_color_subtitle</item>
         <item name="textAllCaps">false</item>
-        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
+        <item name="android:fontFamily">@font/sesl_roboto</item>
     </style>
 
     <style name="CollapsingToolbarExpandTitleStyle" parent="@style/CollapsedActionBarTitleTextStyle">
@@ -603,7 +605,7 @@
     <style name="TabLayoutTextStyle" parent="TextAppearance.AppCompat.Button">
         <item name="android:textSize">@dimen/sesl_tab_text_size</item>
         <item name="android:textColor">@color/sesl_tablayout_text_color</item>
-        <item name="fontFamily">@string/sesl_font_family_regular</item>
+        <item name="fontFamily">@font/sesl_roboto</item>
         <item name="textAllCaps">false</item>
     </style>
 
@@ -692,13 +694,13 @@
         <item name="android:textSize">@dimen/sesl_dialog_title_text_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/sesl_dialog_title_text_color</item>
-        <item name="fontFamily">@string/sesl_font_family_regular</item>
+        <item name="fontFamily">@font/sesl_roboto</item>
     </style>
 
     <style name="DialogTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/sesl_dialog_body_text_size</item>
         <item name="android:textColor">@color/sesl_dialog_body_text_color</item>
-        <item name="fontFamily">@string/sesl_font_family_regular</item>
+        <item name="fontFamily">@font/sesl_roboto</item>
     </style>
 
     <style name="DialogTextInverseStyle" parent="TextAppearance.AppCompat">
@@ -737,7 +739,7 @@
         <item name="android:minHeight">@dimen/sesl_dialog_button_min_height</item>
         <item name="android:singleLine">true</item>
         <item name="android:stateListAnimator">@drawable/sesl_dialog_button_disabled_anim</item>
-        <item name="fontFamily">@string/sesl_font_family_regular</item>
+        <item name="fontFamily">@font/sesl_roboto</item>
         <item name="textAllCaps">false</item>
     </style>
 
@@ -847,7 +849,7 @@
         <item name="android:textDirection">locale</item>
         <item name="android:paddingStart">?android:listPreferredItemPaddingStart</item>
         <item name="android:paddingEnd">?android:listPreferredItemPaddingEnd</item>
-        <item name="fontFamily">@string/sesl_font_family_regular</item>
+        <item name="fontFamily">@font/sesl_roboto</item>
     </style>
 
     <style name="RecyclerViewFastScrollStyle" parent="@android:style/Widget.Material.FastScroll">
@@ -867,7 +869,7 @@
 
     <style name="RecyclerViewFastScrollTextStyle" parent="@android:style/TextAppearance.Widget">
         <item name="android:textStyle">normal</item>
-        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
+        <item name="android:fontFamily">@font/sesl_roboto</item>
     </style>
 
 
@@ -905,6 +907,10 @@
         <item name="android:progressBarStyleSmallInverse">@style/OneUI4.ProgressBarStyle.Small</item>
         <item name="android:progressBarStyleLargeInverse">@style/OneUI4.ProgressBarStyle.Large</item>
 
+        <item name="android:colorEdgeEffect">@color/sesl_edge_effect_device_default</item>
+
+        <item name="colorControlHighlight">@color/sesl4_ripple_color</item>
+
         <item name="editTextBackground">@drawable/sesl4_edit_text_background</item>
         <item name="editTextStyle">@style/OneUI4.EditTextWidgetStyle</item>
 
@@ -912,8 +918,12 @@
         <item name="buttonBarNeutralButtonStyle">@style/OneUI4.DialogButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/OneUI4.DialogButtonStyle</item>
 
+        <item name="spinnerStyle">@style/OneUI4.SpinnerStyle</item>
+
         <item name="seslSwitchBarStyle">@style/OneUI4.SeslSwitchBarStyle</item>
         <item name="switchStyle">@style/OneUI4.SwitchStyle</item>
+
+        <item name="listChoiceBackgroundIndicator">@drawable/sesl4_list_selector</item>
 
         <item name="actionBarSize">@dimen/sesl4_action_bar_default_height</item>
         <item name="appBarLayoutStyle">@style/OneUI4.AppBarLayoutStyle</item>
@@ -921,9 +931,9 @@
         <item name="toolbarTitleStyle">@style/OneUI4.CollapsedActionBarTitleTextStyle</item>
         <item name="toolbarSubtitleStyle">@style/OneUI4.CollapsedActionBarSubtitleTextStyle</item>
 
-        <item name="bottomNaviViewStyle">@style/OneUI4.BaseTabLayoutStyle</item>
+        <item name="goToTopStyle">@drawable/sesl4_list_go_to_top</item>
 
-        <item name="android:colorEdgeEffect">@color/sesl_edge_effect_device_default</item>
+        <item name="bottomNaviViewStyle">@style/OneUI4.BaseTabLayoutStyle</item>
     </style>
 
 
@@ -997,7 +1007,7 @@
         <item name="android:textSize">20.0sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?colorPrimaryDark</item>
-        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
+        <item name="android:fontFamily">@font/sesl_roboto</item>
     </style>
 
 
@@ -1048,6 +1058,12 @@
     <!-- TextAppearance -->
     <style name="OneUI4.EditTextWidgetStyle" parent="@style/EditTextWidgetStyle">
         <item name="android:textCursorDrawable">@drawable/sesl4_text_cursor</item>
+    </style>
+
+
+    <!--Spinner-->
+    <style name="OneUI4.SpinnerStyle" parent="@style/SpinnerStyle">
+        <item name="android:popupBackground">@drawable/sesl4_menu_popup_background</item>
     </style>
 
 </resources>

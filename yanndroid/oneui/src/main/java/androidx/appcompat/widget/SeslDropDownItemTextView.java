@@ -31,7 +31,7 @@ public class SeslDropDownItemTextView extends SeslCheckedTextView {
     public void setChecked(boolean z) {
         Context context;
         super.setChecked(z);
-        setTypeface(Typeface.create("sec-roboto-light", z ? 1 : 0));
+        setTypeface(ResourcesCompat.getFont(getContext(), R.font.sesl_roboto), z ? 1 : 0);
         if (z && (context = getContext()) != null && getCurrentTextColor() == -65281) {
             Log.w(TAG, "text color reload!");
             ColorStateList colorStateList = ResourcesCompat.getColorStateList(context.getResources(), R.color.sesl_spinner_dropdown_text_color, context.getTheme());

@@ -224,7 +224,7 @@
                     android:onClick="progressDialog"
                     app:counter="44"
                     app:counterEnabled="true"
-                    app:icon="@drawable/ic_samsung_info"
+                    app:icon="@drawable/ic_samsung_settings_3"
                     app:selected="true"
                     app:text="OptionButton" />
 

@@ -27,7 +27,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:fontFamily="@string/sesl_font_family_regular"
+            android:fontFamily="@font/sesl_roboto"
             android:lineSpacingExtra="@dimen/sesl_dialog_body_text_line_spacing_extra"
             android:textColor="@color/sesl_dialog_body_text_color"
             android:textSize="@dimen/sesl_dialog_body_text_size" />

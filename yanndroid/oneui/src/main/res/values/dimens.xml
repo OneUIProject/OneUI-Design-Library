@@ -374,6 +374,8 @@
     <dimen name="sesl4_about_app_name_text_size">38.0sp</dimen>
     <dimen name="sesl4_about_secondary_text_size">14.0sp</dimen>
 
+    <dimen name="sesl4_menu_popup_corner_radius">26.0dip</dimen>
+    <dimen name="sesl4_menu_popup_stroke_width">2.0px</dimen>
 
 
 </resources>
