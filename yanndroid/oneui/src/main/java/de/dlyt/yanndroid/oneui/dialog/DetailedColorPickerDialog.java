@@ -31,6 +31,7 @@ import de.dlyt.yanndroid.oneui.sesl.colorpicker.util.SpenSettingUtilText;
 
 @TargetApi(17)
 public class DetailedColorPickerDialog extends Dialog {
+    private boolean mIsOneUI4;
     public static final int VIEW_MODE_GRADIENT = 1;
     public static final int VIEW_MODE_SWATCH = 2;
     private static final int TYPE_CUSTOMIZE = 0;
@@ -97,7 +98,8 @@ public class DetailedColorPickerDialog extends Dialog {
     };
 
     public DetailedColorPickerDialog(Context context, int mode, float[] fArr) {
-        super(context, R.style.ColorPickerPopupDialog);
+        super(context,
+                context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false) ? R.style.OneUI4_ColorPickerPopupDialog : R.style.ColorPickerPopupDialog);
         SpenSettingUtil.initDialogWindow(this, 5376, -1);
         getWindow().setFlags(256, 256);
         getWindow().setSoftInputMode(33);
@@ -106,7 +108,8 @@ public class DetailedColorPickerDialog extends Dialog {
     }
 
     public DetailedColorPickerDialog(Context context, float[] fArr) {
-        super(context, R.style.ColorPickerPopupDialog);
+        super(context,
+                context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false) ? R.style.OneUI4_ColorPickerPopupDialog : R.style.ColorPickerPopupDialog);
         SpenSettingUtil.initDialogWindow(this, 4096, -1);
         this.mIsSupportRGBCode = false;
         construct(context, 2, fArr);
@@ -114,6 +117,7 @@ public class DetailedColorPickerDialog extends Dialog {
 
     private void construct(Context context, int i, float[] fArr) {
         this.mContext = context;
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
         this.mColorTheme = new SpenColorPickerTheme(context, fArr);
         this.mPickerControl = new SpenColorPickerControl(i, fArr);
     }
@@ -353,7 +357,7 @@ public class DetailedColorPickerDialog extends Dialog {
     private void initView() {
         SpenColorPickerViewInfo spenColorPickerViewInfo = new SpenColorPickerViewInfo();
 
-        spenColorPickerViewInfo.layoutId = R.layout.setting_color_picker_view_oneui30;
+        spenColorPickerViewInfo.layoutId = mIsOneUI4 ? R.layout.setting_color_picker_view_oneui40 : R.layout.setting_color_picker_view_oneui30;
         spenColorPickerViewInfo.modeType = 1;
         spenColorPickerViewInfo.itemLayoutId = R.layout.setting_color_swatch_item;
         spenColorPickerViewInfo.gradientCursorSizeDimen = R.dimen.color_picker_popup_content_point_size;
@@ -372,7 +376,7 @@ public class DetailedColorPickerDialog extends Dialog {
 
         LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Resources mSdkResources = mContext.getResources();
-        this.mParentLayout = (RelativeLayout) mInflater.inflate(mSdkResources.getLayout(R.layout.setting_color_picker_layout), null);
+        this.mParentLayout = (RelativeLayout) mInflater.inflate(mSdkResources.getLayout(mIsOneUI4 ? R.layout.setting_color_picker_oui4_layout : R.layout.setting_color_picker_layout), null);
 
         FrameLayout frameLayout = this.mParentLayout.findViewById(R.id.popup_content_view);
         float[] fArr = new float[3];

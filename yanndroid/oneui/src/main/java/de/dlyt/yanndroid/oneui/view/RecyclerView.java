@@ -279,7 +279,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
     private boolean mFastScrollerEnabled;
     private RecyclerView.SeslFastScrollerEventListener mFastScrollerEventListener;
     private int mGoToTopBottomPadding;
-    private int mGoToTopElevation;
+    private float mGoToTopElevation;
     private ValueAnimator mGoToTopFadeInAnimator;
     private ValueAnimator mGoToTopFadeOutAnimator;
     private Drawable mGoToTopImage;
@@ -6379,7 +6379,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
         this.mGoToTopBottomPadding = var3.getDimensionPixelSize(R.dimen.sesl_go_to_top_scrollable_view_gap);
         this.mGoToTopImmersiveBottomPadding = 0;
         this.mGoToTopSize = var3.getDimensionPixelSize(R.dimen.sesl_go_to_top_scrollable_view_size);
-        this.mGoToTopElevation = var3.getDimensionPixelSize(R.dimen.sesl_go_to_top_elevation);
+        this.mGoToTopElevation = var3.getDimension(R.dimen.sesl_go_to_top_elevation);
         this.mNavigationBarHeight = var3.getDimensionPixelSize(R.dimen.sesl_navigation_bar_height);
     }
 
@@ -6464,7 +6464,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
                     if (VERSION.SDK_INT >= 26) {
                         var3 = this.mContext.getResources().getDrawable(R.drawable.sesl_go_to_top_background, (Resources.Theme) null);
                         this.mGoToTopView.setBackground(var3);
-                        this.mGoToTopView.setElevation((float) this.mGoToTopElevation);
+                        this.mGoToTopView.setElevation(this.mGoToTopElevation);
                     }
 
                     this.mGoToTopView.setImageDrawable(this.mGoToTopImage);

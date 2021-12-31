@@ -14,6 +14,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.MenuRes;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
 
@@ -161,7 +162,7 @@ public class PopupMenu {
                 context.getResources().getDimensionPixelSize(R.dimen.sesl_menu_popup_bottom_padding));
         titleView.setTextDirection(View.TEXT_DIRECTION_LOCALE);
         titleView.setTextColor(context.getResources().getColor(R.color.item_color));
-        titleView.setTypeface(Typeface.DEFAULT_BOLD);
+        titleView.setTypeface(ResourcesCompat.getFont(context, R.font.sesl_roboto), Typeface.BOLD);
         titleView.setEllipsize(TextUtils.TruncateAt.END);
         titleView.setMaxLines(1);
         titleView.setTextSize(16);

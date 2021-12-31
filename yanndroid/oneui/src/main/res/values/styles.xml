@@ -3,7 +3,6 @@
 
     <!--Main-->
     <style name="OneUI3StyleMain">
-        <item name="isOneUI4">false</item>
         <item name="colorAccent">?colorSecondary</item>
         <item name="colorBackgroundFloating">@color/sesl_background_floating</item>
         <item name="colorControlActivated">?colorSecondary</item>
@@ -894,8 +893,6 @@
 
 
     <style name="OneUI4StyleMain" parent="OneUI3StyleMain">
-        <item name="isOneUI4">true</item>
-
         <item name="progressNormalColor">@color/sesl4_progress_control_color_normal</item>
 
         <item name="android:progressBarStyle">@style/OneUI4.ProgressBarStyle</item>
@@ -914,9 +911,13 @@
         <item name="editTextBackground">@drawable/sesl4_edit_text_background</item>
         <item name="editTextStyle">@style/OneUI4.EditTextWidgetStyle</item>
 
+        <item name="dialogTheme">@style/OneUI4.DialogTheme</item>
         <item name="buttonBarNegativeButtonStyle">@style/OneUI4.DialogButtonStyle</item>
         <item name="buttonBarNeutralButtonStyle">@style/OneUI4.DialogButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+
+        <item name="textAppearanceListItem">@style/OneUI4.SubheadTextStyle</item>
+        <item name="textAppearanceListItemSmall">@style/OneUI4.SubheadTextStyle</item>
 
         <item name="spinnerStyle">@style/OneUI4.SpinnerStyle</item>
 
@@ -1049,13 +1050,22 @@
     </style>
 
 
-    <!-- Dialog -->
+    <!--Dialog-->
+    <style name="OneUI4.DialogTheme" parent="@style/DialogTheme">
+        <item name="android:backgroundDimAmount">@integer/sesl4_dialog_background_dim_amount</item>
+        <item name="colorControlHighlight">@color/sesl4_ripple_color</item>
+    </style>
+
     <style name="OneUI4.DialogButtonStyle" parent="@style/DialogButtonStyle">
         <item name="android:textColor">@color/sesl_dialog_button_text_color</item>
     </style>
 
 
     <!-- TextAppearance -->
+    <style name="OneUI4.SubheadTextStyle" parent="@style/SubheadTextStyle">
+        <item name="android:textSize">@dimen/sesl4_text_size_subhead</item>
+    </style>
+
     <style name="OneUI4.EditTextWidgetStyle" parent="@style/EditTextWidgetStyle">
         <item name="android:textCursorDrawable">@drawable/sesl4_text_cursor</item>
     </style>
@@ -1064,6 +1074,24 @@
     <!--Spinner-->
     <style name="OneUI4.SpinnerStyle" parent="@style/SpinnerStyle">
         <item name="android:popupBackground">@drawable/sesl4_menu_popup_background</item>
+    </style>
+
+
+    <!-- SeslPreference -->
+    <style name="OneUI4.ListSeparatorStyle" parent="@style/ListSeparatorStyle">
+        <item name="android:textSize">@dimen/sesl4_list_subheader_text_size</item>
+        <item name="android:paddingTop">@dimen/sesl4_list_subheader_padding_top</item>
+    </style>
+
+
+    <!--ColorPicker-->
+    <style name="OneUI4.ColorPickerPopupDialog" parent="@style/OneUI4.DialogTheme">
+        <item name="android:windowAnimationStyle">@style/DialogAnimStyle</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowMinWidthMajor">99.90001%</item>
     </style>
 
 </resources>
