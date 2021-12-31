@@ -92,6 +92,7 @@ import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneui.sesl.utils.SamsungEdgeEffect;
 
 public class RecyclerView extends ViewGroup implements NestedScrollingChild2, ScrollingView {
+    private boolean mIsOneUI4;
     public static final int HORIZONTAL = 0;
     public static final int INVALID_TYPE = -1;
     public static final long NO_ID = -1L;
@@ -398,6 +399,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
     @SuppressLint("WrongConstant")
     public RecyclerView(Context var1, AttributeSet var2, int var3) {
         super(var1, var2, var3);
+        mIsOneUI4 = var1.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
         this.mSeslTouchSlop = 0;
         this.mSeslPagingTouchSlop = 0;
         this.mUsePagingTouchSlopForStylus = false;
@@ -6446,7 +6448,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
         if (var2) {
             var3 = this.mGoToTopImageLight;
         } else {
-            var3 = this.mContext.getResources().getDrawable(R.drawable.sesl_list_go_to_top, null);
+            var3 = this.mContext.getResources().getDrawable(mIsOneUI4 ? R.drawable.sesl4_list_go_to_top : R.drawable.sesl_list_go_to_top, null);
         }
 
         this.mGoToTopImage = var3;
