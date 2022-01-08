@@ -373,7 +373,9 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
 
     private void startScaleUpAnimation(AnimationListener listener) {
         mCircleView.setVisibility(View.VISIBLE);
-        mOUI4Progress.setAlpha(MAX_ALPHA);
+        if (mIsOneUI4) {
+            mOUI4Progress.setAlpha(MAX_ALPHA);
+        }
         mScaleAnimation = new Animation() {
             @Override
             public void applyTransformation(float interpolatedTime, Transformation t) {
