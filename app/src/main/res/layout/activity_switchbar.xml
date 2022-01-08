@@ -9,7 +9,7 @@
     <de.dlyt.yanndroid.oneui.view.RoundNestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color"
+        android:background="?roundedCornerColor"
         android:fillViewport="true"
         android:orientation="vertical"
         android:scrollbarStyle="outsideOverlay"

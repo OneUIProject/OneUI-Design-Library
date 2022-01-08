@@ -11,6 +11,7 @@
     <color name="sesl4_ripple_color">#26fafafa</color>
 
     <color name="sesl_round_and_bgcolor">#010101</color>
+    <color name="sesl4_round_and_bgcolor">#010101</color>
 
     <color name="background_color">#ff010101</color>
     <color name="item_background_color">#ff171717</color>
@@ -107,6 +108,7 @@
 
     <!--AppBarLayout-->
     <color name="sesl_action_bar_background_color">#ff010101</color>
+    <color name="sesl4_action_bar_background_color">#ff010101</color>
     <color name="sesl_action_bar_text_color_title">#fffafafa</color>
     <color name="sesl_action_bar_text_color_subtitle">#ff9c9c9c</color>
     <color name="sesl_extended_appbar_subtitle">#ff9c9c9c</color>

@@ -1,9 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="OneUI3Theme" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="android:windowBackground">@color/background_color</item>
-        <item name="android:statusBarColor">@color/background_color</item>
-        <item name="android:navigationBarColor">@color/background_color</item>
+        <item name="isOneUI4">false</item>
+        <item name="android:windowBackground">@color/sesl_round_and_bgcolor</item>
+        <item name="android:statusBarColor">@color/sesl_round_and_bgcolor</item>
+        <item name="android:navigationBarColor">@color/sesl_round_and_bgcolor</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
 
@@ -25,6 +26,7 @@
 
         <item name="android:theme">@style/OneUI3StyleMain</item>
         <item name="theme">@style/OneUI3StyleMain</item>
+        <item name="toolbarTheme">@style/OneUI3StyleMain</item>
 
         <item name="alertDialogTheme">@style/DialogTheme</item>
         <item name="alertDialogStyle">@style/AlertDialogStyle</item>

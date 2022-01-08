@@ -320,7 +320,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
-                    android:background="@color/background_color"
+                    android:background="?roundedCornerColor"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -369,7 +369,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@color/background_color"
+                        android:background="?roundedCornerColor"
                         android:backgroundTint="@color/sesl_control_color_normal" />
 
                 </LinearLayout>
@@ -381,7 +381,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/sesl_list_subheader_min_height"
-            android:background="@color/background_color" />
+            android:background="?roundedCornerColor" />
 
     </LinearLayout>
 </de.dlyt.yanndroid.oneui.view.NestedScrollView>

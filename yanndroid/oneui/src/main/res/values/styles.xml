@@ -839,7 +839,7 @@
         <item name="android:textColor">@color/sesl_list_subheader_text_color</item>
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:background">@color/background_color</item>
+        <item name="android:background">?roundedCornerColor</item>
         <item name="android:paddingTop">@dimen/sesl_list_subheader_padding_top</item>
         <item name="android:paddingBottom">@dimen/sesl_list_subheader_padding_bottom</item>
         <item name="android:layout_width">fill_parent</item>
@@ -929,8 +929,10 @@
         <item name="listChoiceBackgroundIndicator">@drawable/sesl4_list_selector</item>
 
         <item name="actionBarSize">@dimen/sesl4_action_bar_default_height</item>
+        <item name="actionModeBackground">@drawable/sesl4_action_bar_background</item>
         <item name="appBarLayoutStyle">@style/OneUI4.AppBarLayoutStyle</item>
         <item name="collapsingToolbarLayoutStyle">@style/OneUI4.CollapsingToolbarLayoutStyle</item>
+        <item name="toolbarStyle">@style/OneUI4.ToolbarStyle</item>
         <item name="toolbarTitleStyle">@style/OneUI4.CollapsedActionBarTitleTextStyle</item>
         <item name="toolbarSubtitleStyle">@style/OneUI4.CollapsedActionBarSubtitleTextStyle</item>
 
@@ -1020,9 +1022,16 @@
     </style>
 
     <style name="OneUI4.CollapsingToolbarLayoutStyle" parent="@style/CollapsingToolbarLayoutStyle">
+        <item name="android:background">@color/sesl4_action_bar_background_color</item>
         <item name="extendTitleTextAppearance">@style/OneUI4.CollapsingToolbarExpandTitleStyle</item>
         <item name="extendSubTitleTextAppearance">@style/OneUI4.CollapsingToolbarExpandSubtitleStyle</item>
         <item name="collapseTitleTextAppearance">@style/OneUI4.CollapsedActionBarTitleTextStyle</item>
+    </style>
+
+    <style name="OneUI4.ToolbarStyle" parent="@style/ToolbarStyle">
+        <item name="background">@color/sesl4_action_bar_background_color</item>
+        <item name="titleTextAppearance">@style/OneUI4.CollapsedActionBarTitleTextStyle</item>
+        <item name="subtitleTextAppearance">@style/OneUI4.CollapsedActionBarSubtitleTextStyle</item>
     </style>
 
     <style name="OneUI4.CollapsedActionBarTitleTextStyle" parent="@style/CollapsedActionBarTitleTextStyle">

@@ -826,7 +826,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
             this.mGoToTopImageLight = var8.getDrawable(var11.resourceId, null);
         }
 
-        this.mRectColor = var8.getColor(R.color.background_color, null);
+        this.mRectColor = var8.getColor(mIsOneUI4 ? R.color.sesl4_round_and_bgcolor : R.color.sesl_round_and_bgcolor, null);
 
         this.mRectPaint.setColor(this.mRectColor);
         this.mRectPaint.setStyle(Style.FILL_AND_STROKE);
