@@ -379,6 +379,7 @@ public class MainActivity extends AppCompatActivity {
     private void popupView(View view) {
         if (bnvPopupMenu == null) {
             bnvPopupMenu = new PopupMenu(view);
+            bnvPopupMenu.setGroupDividerEnabled(true);
             bnvPopupMenu.inflate(R.menu.bnv_menu);
             bnvPopupMenu.setPopupMenuListener(new PopupMenu.PopupMenuListener() {
                 @Override

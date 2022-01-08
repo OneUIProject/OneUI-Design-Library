@@ -20,15 +20,6 @@
         </menu>
     </item>
 
-    <group android:id="@+id/group1">
-        <item
-            android:id="@+id/gitem1"
-            android:title="GroupItem 1" />
-        <item
-            android:id="@+id/gitem2"
-            android:title="GroupItem 2" />
-    </group>
-
     <item
         android:id="@+id/item2"
         android:enabled="false"
@@ -41,12 +32,16 @@
 
     <item
         android:id="@+id/item4"
-        android:title="MenuItem 4"
-        android:visible="false" />
+        android:title="MenuItem 4" />
 
-    <item
-        android:id="@+id/item5"
-        android:title="MenuItem 5" />
-
+    <group
+        android:id="@+id/group1">
+        <item
+            android:id="@+id/gitem1"
+            android:title="GroupItem 1" />
+        <item
+            android:id="@+id/gitem2"
+            android:title="GroupItem 2" />
+    </group>
 
 </menu>

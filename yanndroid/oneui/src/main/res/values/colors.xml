@@ -134,6 +134,8 @@
     <color name="sesl_spinner_icon_color_disabled">#663b3b3b</color>
     <color name="sesl_spinner_item_text_color_disabled">#66252525</color>
     <color name="sesl_spinner_item_text_color_normal">@color/sesl_black</color>
+    <color name="sesl_popup_menu_divider_color">#80979797</color>
+
 
 
     <!--Others-->

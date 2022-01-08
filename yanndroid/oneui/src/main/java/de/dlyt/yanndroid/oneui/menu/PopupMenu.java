@@ -37,6 +37,9 @@ public class PopupMenu {
     private LinearLayout layoutWithTitle;
     private CharSequence title;
 
+    private boolean mGroupDividerEnabled;
+
+    private int lastGroupId = 0;
     private int xoff = 0;
     private int yoff = 0;
 
@@ -84,15 +87,16 @@ public class PopupMenu {
         }
 
         itemViews = new ArrayList<>();
-        for (MenuItem menuItem : menu.menuItems)
-            itemViews.add(new PopupMenuItemView(context, menuItem));
+        for (MenuItem menuItem : menu.menuItems) {
+            itemViews.add(new PopupMenuItemView(context, menuItem, shouldShowGroupDivider(menuItem)));
+        }
 
         popupMenuAdapter = new PopupMenuAdapter();
         listView = new PopupListView(context);
         listView.setAdapter(popupMenuAdapter);
         listView.setMaxHeight(context.getResources().getDimensionPixelSize(R.dimen.sesl_menu_popup_max_height));
         listView.setDivider(null);
-        listView.setSelector(context.getResources().getDrawable(mIsOneUI4 ? R.drawable.sesl4_list_selector : R.drawable.sesl_list_selector, context.getTheme()));
+        listView.setSelector(context.getResources().getDrawable(android.R.color.transparent));
         listView.setOnItemClickListener((parent, view, position, id) -> {
             MenuItem clickedMenuItem = menu.getItem(position);
             if (clickedMenuItem.isCheckable()) clickedMenuItem.toggleChecked();
@@ -170,6 +174,20 @@ public class PopupMenu {
         return titleView;
     }
 
+    private boolean shouldShowGroupDivider(MenuItem menuItem) {
+        if (mGroupDividerEnabled) {
+            if (menuItem.getGroupId() == lastGroupId) {
+                return false;
+            } else {
+                boolean showDivider = lastGroupId != 0 || menuItem.getGroupId() != 0;
+                lastGroupId = menuItem.getGroupId();
+                return showDivider;
+            }
+        } else {
+            return false;
+        }
+    }
+
     public int getPopupMenuWidth() {
         int makeMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         int popupWidth = 0;
@@ -209,6 +227,17 @@ public class PopupMenu {
         popupWindow.showAsDropDown(anchor, xoff, yoff);
         updatePopupSize();
         ((View) ReflectUtils.genericGetField(popupWindow, "mBackgroundView")).setClipToOutline(true);
+    }
+
+    public void setGroupDividerEnabled(boolean enabled) {
+        mGroupDividerEnabled = enabled;
+
+        if (itemViews != null) {
+            for (int i = 0; i < itemViews.size(); i++) {
+                PopupMenuItemView itemView = itemViews.get(i);
+                itemView.setGroupDividerEnabled(shouldShowGroupDivider(itemView.getMenuItem()));
+            }
+        }
     }
 
     public void dismiss() {
