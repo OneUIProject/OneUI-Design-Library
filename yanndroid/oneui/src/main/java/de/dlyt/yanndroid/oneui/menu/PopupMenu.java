@@ -2,8 +2,8 @@ package de.dlyt.yanndroid.oneui.menu;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.text.TextUtils;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -156,16 +156,16 @@ public class PopupMenu {
 
     private TextView createTitleView() {
         TextView titleView = new TextView(context);
-        titleView.setPadding(context.getResources().getDimensionPixelSize(R.dimen.sesl_popup_menu_item_start_padding),
-                context.getResources().getDimensionPixelSize(R.dimen.sesl_popup_menu_item_top_padding),
-                context.getResources().getDimensionPixelSize(R.dimen.sesl_popup_menu_item_end_padding),
-                context.getResources().getDimensionPixelSize(R.dimen.sesl_menu_popup_bottom_padding));
-        titleView.setTextDirection(View.TEXT_DIRECTION_LOCALE);
+        titleView.setGravity(Gravity.CENTER_VERTICAL);
+        titleView.setPaddingRelative(context.getResources().getDimensionPixelSize(R.dimen.sesl_context_menu_title_start_padding),
+                context.getResources().getDimensionPixelSize(R.dimen.sesl_context_menu_title_top_padding),
+                context.getResources().getDimensionPixelSize(R.dimen.sesl_context_menu_title_end_padding),
+                context.getResources().getDimensionPixelSize(R.dimen.sesl_context_menu_title_bottom_padding));
         titleView.setTextColor(context.getResources().getColor(R.color.item_color));
         titleView.setTypeface(ResourcesCompat.getFont(context, R.font.sesl_roboto), Typeface.BOLD);
-        titleView.setEllipsize(TextUtils.TruncateAt.END);
-        titleView.setMaxLines(1);
-        titleView.setTextSize(16);
+        titleView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+        titleView.setMaxLines(2);
+        titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimensionPixelSize(R.dimen.sesl_context_menu_title_text_size));
         titleView.setText(title);
         return titleView;
     }
