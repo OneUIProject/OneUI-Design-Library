@@ -920,6 +920,8 @@
         <item name="textAppearanceListItemSmall">@style/OneUI4.SubheadTextStyle</item>
 
         <item name="spinnerStyle">@style/OneUI4.SpinnerStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/OneUI4.SpinnerDropDownItemStyle</item>
+        <item name="spinnerDropDownItemStyle">@style/OneUI4.SpinnerDropDownItemStyle</item>
 
         <item name="seslSwitchBarStyle">@style/OneUI4.SeslSwitchBarStyle</item>
         <item name="switchStyle">@style/OneUI4.SwitchStyle</item>
@@ -1074,6 +1076,14 @@
     <!--Spinner-->
     <style name="OneUI4.SpinnerStyle" parent="@style/SpinnerStyle">
         <item name="android:popupBackground">@drawable/sesl4_menu_popup_background</item>
+    </style>
+
+    <style name="OneUI4.SpinnerDropDownItemStyle" parent="@style/SpinnerDropDownItemStyle">
+        <item name="android:textAppearance">@style/OneUI4.DropDownItemTextStyle</item>
+    </style>
+
+    <style name="OneUI4.DropDownItemTextStyle" parent="@style/DropDownItemTextStyle">
+        <item name="android:textSize">@dimen/sesl4_popup_menu_item_text_size</item>
     </style>
 
 

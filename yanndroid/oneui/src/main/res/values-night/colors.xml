@@ -73,6 +73,7 @@
     <color name="sesl_spinner_icon_color_disabled">#66d9d9d9</color>
     <color name="sesl_spinner_item_text_color_disabled">#66fafafa</color>
     <color name="sesl_spinner_item_text_color_normal">@color/sesl_white</color>
+    <color name="sesl_popup_menu_divider_color">#59fafafa</color>
 
 
     <!--Others-->

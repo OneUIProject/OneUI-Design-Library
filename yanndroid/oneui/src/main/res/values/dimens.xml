@@ -72,6 +72,11 @@
     <dimen name="sesl_context_menu_title_text_size">17.0sp</dimen>
     <dimen name="sesl_context_menu_title_top_padding">14.0dip</dimen>
 
+    <dimen name="sesl_popup_menu_divider_bottom_margin">7.5dip</dimen>
+    <dimen name="sesl_popup_menu_divider_end_margin">12.0dip</dimen>
+    <dimen name="sesl_popup_menu_divider_start_margin">12.0dip</dimen>
+    <dimen name="sesl_popup_menu_divider_top_margin">7.5dip</dimen>
+
     <dimen name="sesl_checked_text_padding">18.0dip</dimen>
 
 

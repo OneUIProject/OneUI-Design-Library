@@ -114,7 +114,7 @@ public class SMultiWindowActivity {
 
     private void updateWindowMode() {
         Object invoke;
-        if (mMultiWindow.isFeatureEnabled(SMultiWindow.MULTIWINDOW) && (invoke = mMultiWindowReflator.invoke("getWindowMode", null)) != null) {
+        if (mMultiWindow.isFeatureEnabled(SMultiWindow.MULTIWINDOW) && (invoke = mMultiWindowReflator.invoke("getWindowMode", (Object[]) null)) != null) {
             mWindowMode = (Integer) invoke;
         }
     }
@@ -126,7 +126,7 @@ public class SMultiWindowActivity {
     }
 
     private Bundle getWindowInfo() {
-        return (Bundle) mMultiWindowReflator.invoke("getWindowInfo", null);
+        return (Bundle) mMultiWindowReflator.invoke("getWindowInfo", (Object[]) null);
     }
 
     private Rect getLastSize() {
@@ -136,7 +136,7 @@ public class SMultiWindowActivity {
     }
 
     private Object getMultiPhoneWindowEvent() {
-        return mMultiWindowReflator.invoke("getMultiPhoneWindowEvent", null);
+        return mMultiWindowReflator.invoke("getMultiPhoneWindowEvent", (Object[]) null);
     }
 
     public boolean isNormalWindow() {
@@ -251,7 +251,7 @@ public class SMultiWindowActivity {
         if (!mMultiWindow.isFeatureEnabled(SMultiWindow.FREE_STYLE)) {
             return new PointF(1.0f, 1.0f);
         }
-        return (PointF) mMultiWindowReflator.invoke("getScaleInfo", null);
+        return (PointF) mMultiWindowReflator.invoke("getScaleInfo", (Object[]) null);
     }
 
     public boolean setStateChangeListener(StateChangeListener listener) {
@@ -260,7 +260,7 @@ public class SMultiWindowActivity {
         }
         mStateChangeListener = listener;
         if (mStateChangeListener == null) {
-            mMultiWindowReflator.invoke("setStateChangeListener", null);
+            mMultiWindowReflator.invoke("setStateChangeListener", (Object[]) null);
         } else {
             mMultiWindowReflator.invoke("setStateChangeListener", new SMultiWindowActivity.StateChangeListener() {
                 public void onModeChanged(boolean z) {
