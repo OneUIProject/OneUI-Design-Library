@@ -37,7 +37,7 @@ public class MainActivityFirstFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getView().setBackgroundColor(getResources().getColor(R.color.background_color));
+        getView().setBackgroundColor(getResources().getColor(R.color.sesl4_round_and_bgcolor));
 
         // TabLayout and ViewPager
         TabLayout tabLayout = mRootView.findViewById(R.id.tabLayout);

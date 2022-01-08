@@ -35,7 +35,7 @@ import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
 
 public class DrawerLayout extends LinearLayout {
 
-
+    private boolean mIsOneUI4;
     public static final int N_BADGE = -1;
     private Context mContext;
     private AppCompatActivity mActivity;
@@ -57,6 +57,8 @@ public class DrawerLayout extends LinearLayout {
 
     public DrawerLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
 
         mContext = context;
         mActivity = getActivity();
@@ -140,7 +142,7 @@ public class DrawerLayout extends LinearLayout {
                     content.setTranslationX(slideX);
 
                     float[] hsv = new float[3];
-                    Color.colorToHSV(ContextCompat.getColor(getContext(), R.color.background_color), hsv);
+                    Color.colorToHSV(ContextCompat.getColor(getContext(), mIsOneUI4 ? R.color.sesl4_round_and_bgcolor : R.color.sesl_round_and_bgcolor), hsv);
                     hsv[2] *= 1f - (slideOffset * 0.2f);
                     window.setStatusBarColor(Color.HSVToColor(hsv));
                     window.setNavigationBarColor(Color.HSVToColor(hsv));
