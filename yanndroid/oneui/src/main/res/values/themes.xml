@@ -5,6 +5,7 @@
     <style name="OneUIAboutTheme" parent="@style/OneUI4AboutTheme" />
 
     <style name="OneUI3Theme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="isOneUI4">false</item>
         <item name="android:windowBackground">@color/background_color</item>
         <item name="android:statusBarColor">@color/background_color</item>
         <item name="android:navigationBarColor">@color/background_color</item>
@@ -45,9 +46,15 @@
 
 
     <style name="OneUI4Theme" parent="OneUI3Theme">
+        <item name="isOneUI4">true</item>
+
+        <item name="android:listSeparatorTextViewStyle">@style/OneUI4.ListSeparatorStyle</item>
+
         <item name="android:theme">@style/OneUI4StyleMain</item>
         <item name="theme">@style/OneUI4StyleMain</item>
         <item name="toolbarTheme">@style/OneUI4StyleMain</item>
+
+        <item name="alertDialogTheme">@style/OneUI4.DialogTheme</item>
     </style>
 
     <style name="OneUI4SplashTheme" parent="@style/OneUI4Theme">

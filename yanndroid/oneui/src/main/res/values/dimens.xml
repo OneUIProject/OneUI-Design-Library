@@ -41,8 +41,10 @@
     <dimen name="sesl_edit_textfield_cursor_width">2.0px</dimen>
 
     <dimen name="sesl_list_primary_text_size">18.0sp</dimen>
+    <dimen name="sesl4_list_primary_text_size">17.0sp</dimen>
     <dimen name="sesl_list_secondary_text_size">13.0sp</dimen>
     <item name="sesl_text_size_subhead" type="dimen">@dimen/sesl_list_primary_text_size</item>
+    <item name="sesl4_text_size_subhead" type="dimen">@dimen/sesl4_list_primary_text_size</item>
     <item name="sesl_text_size_small" type="dimen">@dimen/sesl_list_secondary_text_size</item>
 
 
@@ -376,6 +378,9 @@
 
     <dimen name="sesl4_menu_popup_corner_radius">26.0dip</dimen>
     <dimen name="sesl4_menu_popup_stroke_width">2.0px</dimen>
+
+    <dimen name="sesl4_list_subheader_padding_top">13.0dip</dimen>
+    <dimen name="sesl4_list_subheader_text_size">13.0sp</dimen>
 
 
 </resources>

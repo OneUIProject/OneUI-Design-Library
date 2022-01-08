@@ -373,7 +373,9 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
 
     private void startScaleUpAnimation(AnimationListener listener) {
         mCircleView.setVisibility(View.VISIBLE);
-        mOUI4Progress.setAlpha(MAX_ALPHA);
+        if (mIsOneUI4) {
+            mOUI4Progress.setAlpha(MAX_ALPHA);
+        }
         mScaleAnimation = new Animation() {
             @Override
             public void applyTransformation(float interpolatedTime, Transformation t) {
@@ -441,7 +443,7 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
                     }
                 }
             };
-            mScaleDownAnimation.setDuration(SCALE_DOWN_DURATION);
+            mScaleDownAnimation.setDuration(END_SCALE_DOWN_DURATION);
             mScaleDownAnimation.setInterpolator(SINE_OUT_60);
         } else {
             mScaleDownAnimation = new Animation() {
@@ -450,7 +452,7 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
                     setAnimationProgress((mStartingScale + ((-mStartingScale) * interpolatedTime)));
                 }
             };
-            mScaleDownAnimation.setDuration(SCALE_DOWN_DURATION);
+            mScaleDownAnimation.setDuration(END_SCALE_DOWN_DURATION);
             mScaleDownAnimation.setInterpolator(SINE_IN_80);
         }
         mCircleView.setAnimationListener(listener);

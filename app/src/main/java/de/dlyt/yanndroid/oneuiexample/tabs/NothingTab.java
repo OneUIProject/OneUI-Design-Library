@@ -40,13 +40,11 @@ public class NothingTab extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         SwipeRefreshLayout swipeRefreshLayout = mRootView.findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.seslSetRefreshOnce(true);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(mContext, "Refresh", Toast.LENGTH_SHORT).show();
-                new Handler().postDelayed(() -> {
-                    swipeRefreshLayout.setRefreshing(false);
-                }, 700);
+                Toast.makeText(mContext, "onRefresh called", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -159,9 +159,13 @@
     <color name="setting_ripple_color">#29000000</color>
     <color name="setting_brush_picker_layout_divider_shape_color">#ff979797</color>
     <color name="setting_color_picker_mode_bg_selected_color">#cc717171</color>
+    <color name="setting_color_picker_mode_oui4_bg_selected_color">#ffe6e6e6</color>
+    <color name="setting_color_picker_mode_bg_stroke_selected_color">#cce6e6e6</color>
     <color name="dialog_action_ripple">#1a000000</color>
     <color name="setting_color_picker_mode_text_selected_color">#ff252525</color>
     <color name="setting_color_picker_mode_text_unselected_color">#ff858585</color>
+    <color name="setting_color_picker_mode_text_tab_selected_color">#ff252525</color>
+    <color name="setting_color_picker_mode_text_tab_unselected_color">#ff858585</color>
     <color name="background_color_white">@color/base_background_color_white</color>
     <color name="base_background_color_white">#fffcfcfc</color>
 
@@ -214,6 +218,7 @@
     <color name="sesl_dialog_button_text_color">#ff010101</color>
 
     <!--RecyclerView-->
+    <color name="sesl_fast_scrollbar_bg_color">#e64d4d4d</color>
     <color name="sesl_list_go_to_top_arrow_bottom">#404040</color>
     <color name="sesl_list_go_to_top_arrow_top">#888888</color>
     <color name="sesl_list_go_to_top_inner_round">#FCFCFC</color>
