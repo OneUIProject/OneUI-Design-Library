@@ -197,9 +197,8 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         }
 
         Resources var12 = this.getResources();
-        String var13 = var12.getString(R.string.sesl_font_family_regular);
-        this.mBoldTypeface = Typeface.create(var13, 1);
-        this.mNormalTypeface = Typeface.create(var13, 0);
+        this.mBoldTypeface = Typeface.create(var12.getString(R.string.sesl_font_family_bold), 0);
+        this.mNormalTypeface = Typeface.create(var12.getString(R.string.sesl_font_family_regular), 0);
         this.mSubTabIndicatorHeight = var12.getDimensionPixelSize(R.dimen.sesl_tablayout_subtab_indicator_height);
         if (var9.hasValue(R.styleable.SamsungTabLayout_tabTextColor)) {
             this.tabTextColors = MaterialResources.getColorStateList(var1, var9, R.styleable.SamsungTabLayout_tabTextColor);
