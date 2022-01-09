@@ -81,38 +81,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            resValue "string", "sesl_font_family_regular", "sec-roboto-light"
-        }
-        debug {
-            resValue "string", "sesl_font_family_regular", "sans-serif"
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    /*project.gradle.addBuildListener(new BuildListener() {
-        @Override
-        void settingsEvaluated(Settings settings) {}
-
-        @Override
-        void projectsLoaded(Gradle gradle) {}
-
-        @Override
-        void projectsEvaluated(Gradle gradle) {
-            print("change to sec-roboto-light")
-            File stringFile = new File("${projectDir}/src/main/res/values/strings.xml")
-            stringFile.write(stringFile.getText('UTF-8').replace("<string name=\"sesl_font_family_regular\" translatable=\"false\">sans-serif-thin</string>", "<string name=\"sesl_font_family_regular\" translatable=\"false\">sec-roboto-light</string>"), 'UTF-8')
-        }
-
-        @Override
-        void buildFinished(BuildResult result) {
-            print("change to sans-serif-thin")
-            File stringFile = new File("${projectDir}/src/main/res/values/strings.xml")
-            stringFile.write(stringFile.getText('UTF-8').replace("<string name=\"sesl_font_family_regular\" translatable=\"false\">sec-roboto-light</string>", "<string name=\"sesl_font_family_regular\" translatable=\"false\">sans-serif-thin</string>"), 'UTF-8')
-        }
-    })*/
 }
 
 dependencies {

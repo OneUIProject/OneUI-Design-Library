@@ -27,6 +27,26 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    project.gradle.addBuildListener(new BuildListener() {
+        @Override
+        void settingsEvaluated(Settings settings) {}
+
+        @Override
+        void projectsLoaded(Gradle gradle) {}
+
+        @Override
+        void projectsEvaluated(Gradle gradle) {
+            File stringFile = new File("${projectDir}/src/main/res/values/strings.xml")
+            stringFile.write(stringFile.getText('UTF-8').replace("<string name=\"sesl_font_family_regular\" translatable=\"false\">sans-serif</string>", "<string name=\"sesl_font_family_regular\" translatable=\"false\">sec-roboto-light</string>"), 'UTF-8')
+        }
+
+        @Override
+        void buildFinished(BuildResult result) {
+            File stringFile = new File("${projectDir}/src/main/res/values/strings.xml")
+            stringFile.write(stringFile.getText('UTF-8').replace("<string name=\"sesl_font_family_regular\" translatable=\"false\">sec-roboto-light</string>", "<string name=\"sesl_font_family_regular\" translatable=\"false\">sans-serif</string>"), 'UTF-8')
+        }
+    })
 }
 
 dependencies {
