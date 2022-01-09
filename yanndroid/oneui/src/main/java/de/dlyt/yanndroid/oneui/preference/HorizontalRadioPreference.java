@@ -324,10 +324,10 @@ public class HorizontalRadioPreference extends Preference {
             if (!mIsDividerEnabled)
                 radioButton.jumpDrawablesToCurrentState();
             tv1.setSelected(z);
-            tv1.setTypeface(Typeface.create(z ? "sans-serif-medium" : "sans-serif", 0));
+            tv1.setTypeface(Typeface.create("sec-roboto-light", z ? 1 : 0));
             if (tv2 != null) {
                 tv2.setSelected(z);
-                tv2.setTypeface(Typeface.create(z ? "sans-serif-medium" : "sans-serif", 0));
+                tv2.setTypeface(Typeface.create("sec-roboto-light", z ? 1 : 0));
             }
             if (mIsColorFilterEnabled && imageView != null) {
                 imageView.setColorFilter(z ? mSelectedColor : mUnselectedColor);

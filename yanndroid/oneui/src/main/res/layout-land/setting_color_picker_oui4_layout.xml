@@ -57,13 +57,14 @@
                             android:layout_height="fill_parent"
                             android:background="@drawable/setting_dialog_action_button_ripple"
                             android:focusable="true"
-                            android:fontFamily="@string/sesl_font_family_bold"
+                            android:fontFamily="@string/sesl_font_family_regular"
                             android:gravity="center"
                             android:includeFontPadding="false"
                             android:singleLine="true"
                             android:text="@string/sesl_cancel"
                             android:textColor="@color/sesl_dialog_button_text_color"
-                            android:textSize="16.0sp" />
+                            android:textSize="16.0sp"
+                            android:textStyle="bold" />
                     </RelativeLayout>
 
                     <View
@@ -85,12 +86,13 @@
                             android:layout_height="fill_parent"
                             android:background="@drawable/setting_dialog_action_button_ripple"
                             android:focusable="true"
-                            android:fontFamily="@string/sesl_font_family_bold"
+                            android:fontFamily="@string/sesl_font_family_regular"
                             android:gravity="center"
                             android:includeFontPadding="false"
                             android:text="@string/sesl_done"
                             android:textColor="@color/sesl_dialog_button_text_color"
-                            android:textSize="16.0sp" />
+                            android:textSize="16.0sp"
+                            android:textStyle="bold" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>

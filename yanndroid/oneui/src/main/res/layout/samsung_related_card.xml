@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/widget_related_card_title_text_margin_bottom"
         android:layout_weight="1.0"
-        android:fontFamily="@string/sesl_font_family_regular"
+        android:fontFamily="sec-roboto-light"
         android:paddingStart="@dimen/widget_related_card_view_margin_start_end"
         android:text="@string/sec_relative_description"
         android:textColor="@color/sesl_primary_text_color"

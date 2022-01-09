@@ -18,7 +18,7 @@
             android:layout_height="wrap_content" />
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/OneUI4.ListSeparatorStyle"
+            style="?android:listSeparatorTextViewStyle"
             android:text="ProgressBar" />
 
 
@@ -77,7 +77,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/OneUI4.ListSeparatorStyle"
+            style="?android:listSeparatorTextViewStyle"
             android:text="SeekBar" />
 
         <com.google.android.material.card.MaterialCardView
@@ -117,7 +117,7 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/OneUI4.ListSeparatorStyle"
+            style="?android:listSeparatorTextViewStyle"
             android:text="Buttons" />
 
 
@@ -234,7 +234,7 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/OneUI4.ListSeparatorStyle"
+            style="?android:listSeparatorTextViewStyle"
             android:text="Others" />
 
 
@@ -284,7 +284,7 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/OneUI4.ListSeparatorStyle"
+            style="?android:listSeparatorTextViewStyle"
             android:text="Color Pickers" />
 
 

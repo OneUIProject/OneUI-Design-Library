@@ -15,18 +15,8 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/item1"
+        android:id="@+id/theme_toggle"
         android:title="Menu Item 1"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/item2"
-        android:title="Menu Item 2"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/item3"
-        android:title="Menu Item 3"
         app:showAsAction="never" />
 
 </menu>
