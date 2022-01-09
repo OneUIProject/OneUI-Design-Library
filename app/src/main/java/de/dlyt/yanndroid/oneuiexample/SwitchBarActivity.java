@@ -1,25 +1,19 @@
 package de.dlyt.yanndroid.oneuiexample;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import de.dlyt.yanndroid.oneui.layout.SwitchBarLayout;
 import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
-import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
 import de.dlyt.yanndroid.oneui.view.Switch;
 import de.dlyt.yanndroid.oneui.view.SwitchBar;
+import de.dlyt.yanndroid.oneuiexample.base.BaseThemeActivity;
 
-public class SwitchBarActivity extends AppCompatActivity implements SwitchBar.OnSwitchChangeListener {
+public class SwitchBarActivity extends BaseThemeActivity implements SwitchBar.OnSwitchChangeListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new ThemeUtil(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_switchbar);
 
