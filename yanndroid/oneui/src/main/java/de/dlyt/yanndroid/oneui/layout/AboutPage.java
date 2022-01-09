@@ -108,7 +108,7 @@ public class AboutPage extends LinearLayout {
         });
 
         if (mIsOneUI4) {
-            app_name.setTypeface(ResourcesCompat.getFont(context, R.font.sesl_roboto), Typeface.NORMAL);
+            app_name.setTypeface(Typeface.create(getResources().getString(R.string.sesl_font_family_regular), Typeface.NORMAL));
             app_name.setTextSize(0, getResources().getDimension(R.dimen.sesl4_about_app_name_text_size));
             version.setTextSize(0, getResources().getDimension(R.dimen.sesl4_about_secondary_text_size));
             about_optional_text.setTextSize(0, getResources().getDimension(R.dimen.sesl4_about_secondary_text_size));

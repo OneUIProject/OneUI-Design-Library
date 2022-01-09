@@ -170,7 +170,7 @@ public class PopupMenu {
                 context.getResources().getDimensionPixelSize(R.dimen.sesl_context_menu_title_end_padding),
                 context.getResources().getDimensionPixelSize(R.dimen.sesl_context_menu_title_bottom_padding));
         titleView.setTextColor(context.getResources().getColor(R.color.item_color));
-        titleView.setTypeface(ResourcesCompat.getFont(context, R.font.sesl_roboto), Typeface.BOLD);
+        titleView.setTypeface(Typeface.create(context.getResources().getString(R.string.sesl_font_family_regular), Typeface.BOLD));
         titleView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
         titleView.setMaxLines(2);
         titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimensionPixelSize(R.dimen.sesl_context_menu_title_text_size));

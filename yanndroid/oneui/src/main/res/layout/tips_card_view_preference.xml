@@ -19,7 +19,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="5.0dip"
             android:layout_marginBottom="8.0dip"
-            android:fontFamily="@font/sesl_roboto"
+            android:fontFamily="@string/sesl_font_family_regular"
             android:textAppearance="?textAppearanceListItem"
             android:textSize="18.0sp"
             android:textColor="@color/tips_card_view_item_color" />
@@ -31,7 +31,7 @@
             android:layout_below="@android:id/title"
             android:layout_alignParentStart="true"
             android:layout_marginEnd="38.0dip"
-            android:fontFamily="@font/sesl_roboto"
+            android:fontFamily="@string/sesl_font_family_regular"
             android:textAlignment="viewStart"
             android:textColor="@color/tips_card_view_item_color"
             android:textSize="15.0sp"
