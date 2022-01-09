@@ -18,6 +18,7 @@ Huge thanks to [BlackMesa123](https://github.com/BlackMesa123) who has contribut
 
 - [Screenshots](#Screenshots)
 - [Installation](#Installation)
+- [Issues](#Issues)
 - [Documentation](#Documentation)
 - [Progress](#Progress)
 - [Changelog](#Changelog)
@@ -140,7 +141,18 @@ dependencies {
 </details>
 <br/>
 
+## Issues
+
+### Proguard
+
 If you encounter problems with Proguard (missing classes), see this [Issue](https://github.com/Yanndroid/OneUI-Design-Library/issues/53) by [AlirezaIvaz](https://github.com/AlirezaIvaz).
+
+### Preview render problem
+Some of the custom views might not render in the preview, because this library is using a font (```sec-roboto-light```), which Android Studio (and other IDEs probably too) don't know. To temporarily bypass this problem you can simply add 
+```xml
+<string name="sesl_font_family_regular">sans-serif</string>
+```
+to your strings.xml. But don't forget to remove it afterwards for your release. Thanks to [roynatech2544](https://github.com/roynatech2544), for reporting this issue.
 
 ## Documentation
 In general, most of the views are styled automatically when you apply ```android:theme="@style/OneUITheme"``` in AndroidManifest.xml, the usage of the custom views in the library however is needed to achieve the best results.
