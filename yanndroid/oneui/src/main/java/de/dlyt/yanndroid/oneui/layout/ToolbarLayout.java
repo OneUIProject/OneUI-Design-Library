@@ -493,6 +493,7 @@ public class ToolbarLayout extends LinearLayout {
 
             PopupMenu overflowPopupMenu = new PopupMenu(moreButton);
             overflowPopupMenu.inflate(overflowMenu);
+            overflowPopupMenu.setAnimationStyle(R.style.BottomMenuPopupAnimStyle);
             overflowPopupMenu.setPopupMenuListener(new PopupMenu.PopupMenuListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
