@@ -439,6 +439,11 @@
         <item name="android:windowExitAnimation">@anim/sesl_menu_popup_exit</item>
     </style>
 
+    <style name="BottomMenuPopupAnimStyle" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/sesl_bottom_menu_popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/sesl_bottom_menu_popup_exit</item>
+    </style>
+
 
     <!--Snackbar-->
     <style name="SnackBarStyle" parent="@android:style/Widget">

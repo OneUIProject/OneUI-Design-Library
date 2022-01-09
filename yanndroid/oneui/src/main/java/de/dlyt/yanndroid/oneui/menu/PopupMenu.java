@@ -37,6 +37,7 @@ public class PopupMenu {
     private LinearLayout layoutWithTitle;
     private CharSequence title;
 
+    private int mAnimationStyleRes = 0;
     private boolean mGroupDividerEnabled;
 
     private int lastGroupId = 0;
@@ -103,6 +104,9 @@ public class PopupMenu {
             if (clickedMenuItem.hasSubMenu()) {
                 PopupMenu subPopupMenu = new PopupMenu(anchor);
                 subPopupMenu.inflate(clickedMenuItem.getSubMenu(), menu.getItem(position).getTitle());
+                if (mAnimationStyleRes != 0) {
+                    subPopupMenu.setAnimationStyle(mAnimationStyleRes);
+                }
                 subPopupMenu.setPopupMenuListener(new PopupMenuListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -133,7 +137,7 @@ public class PopupMenu {
 
         popupWindow.setWidth(getPopupMenuWidth());
         popupWindow.setHeight(getPopupMenuHeight());
-        popupWindow.setAnimationStyle(R.style.MenuPopupAnimStyle);
+        popupWindow.setAnimationStyle(mAnimationStyleRes == 0 ? R.style.MenuPopupAnimStyle : mAnimationStyleRes);
         popupWindow.setBackgroundDrawable(context.getResources().getDrawable(mIsOneUI4 ? R.drawable.sesl4_menu_popup_background : R.drawable.sesl_menu_popup_background, context.getTheme()));
         popupWindow.setOutsideTouchable(true);
         popupWindow.setElevation(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) 12, context.getResources().getDisplayMetrics()));
@@ -227,6 +231,13 @@ public class PopupMenu {
         popupWindow.showAsDropDown(anchor, xoff, yoff);
         updatePopupSize();
         ((View) ReflectUtils.genericGetField(popupWindow, "mBackgroundView")).setClipToOutline(true);
+    }
+
+    public void setAnimationStyle(int animationStyle) {
+        mAnimationStyleRes = animationStyle;
+        if (popupWindow != null) {
+            popupWindow.setAnimationStyle(animationStyle);
+        }
     }
 
     public void setGroupDividerEnabled(boolean enabled) {
