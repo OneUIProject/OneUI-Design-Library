@@ -38,6 +38,7 @@
     <color name="sesl_edit_text_tint_color_unfocused">#ff8c8c8c</color>
 
     <color name="sesl_action_bar_text_color_menu">@color/sesl_black</color>
+    <color name="sesl4_action_bar_text_color_menu">#ff010101</color>
 
     <color name="sesl_menu_badge_background_color">#fff56a0d</color>
     <color name="sesl_menu_badge_text_color">@color/sesl_white</color>
@@ -180,7 +181,9 @@
     <color name="sesl_action_bar_background_color">#fff2f2f2</color>
     <color name="sesl4_action_bar_background_color">#fff6f6f6</color>
     <color name="sesl_action_bar_text_color_title">#ff252525</color>
+    <color name="sesl4_action_bar_text_color_title">#ff010101</color>
     <color name="sesl_action_bar_text_color_subtitle">#ff636363</color>
+    <color name="sesl4_action_bar_text_color_subtitle">#ff636363</color>
     <color name="sesl_extended_appbar_subtitle">#ff636363</color>
 
     <color name="bottom_bar_item_image_color">#ff454545</color>

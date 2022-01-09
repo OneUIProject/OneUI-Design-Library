@@ -290,6 +290,7 @@ public class ToolbarLayout extends LinearLayout {
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         refreshLayout(newConfig);
+        resetToolbarHeight();
     }
 
     private AppCompatActivity getActivity() {
@@ -308,7 +309,7 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     private int getToolbarTopPadding() {
-        return mIsOneUI4 ? getResources().getDimensionPixelSize(R.dimen.sesl4_action_bar_top_padding) : 0;
+        return mIsOneUI4 ? mContext.getResources().getDimensionPixelSize(R.dimen.sesl4_action_bar_top_padding) : 0;
     }
 
     private int getWindowHeight() {
@@ -372,7 +373,7 @@ public class ToolbarLayout extends LinearLayout {
             toolbar.setPaddingRelative(mSelectMode || mSearchMode || navigationButtonVisible ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), getToolbarTopPadding(), 0, 0);
 
             ViewGroup.LayoutParams lp = toolbar.getLayoutParams();
-            lp.height += getToolbarTopPadding();
+            lp.height = mContext.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_default_height : R.dimen.sesl_action_bar_default_height) + getToolbarTopPadding();
             toolbar.setLayoutParams(lp);
         } else
             Log.w(TAG + ".resetToolbarHeight", "toolbar is null.");
@@ -821,7 +822,7 @@ public class ToolbarLayout extends LinearLayout {
 
             LinearLayout collapsedTitleContainer = findViewById(R.id.toolbar_layout_collapsed_title_container);
 
-            if (appBarLayout.getHeight() <= ((int) getResources().getDimension(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_height_with_padding))) {
+            if (appBarLayout.seslIsCollapsed()) {
                 collapsedTitleContainer.setAlpha(1.0f);
             } else {
                 float collapsedTitleAlpha = ((150.0f / alphaRange) * (((float) layoutPosition) - toolbarTitleAlphaStart));

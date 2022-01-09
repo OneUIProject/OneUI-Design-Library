@@ -52,6 +52,7 @@ public class ProgressDialog extends AlertDialog {
     public ProgressDialog(Context context) {
         super(context);
         mContext = context;
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
         initFormats();
     }
 

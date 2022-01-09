@@ -9,7 +9,7 @@
     <!--#  OneUI  4 #-->
     <!--#############-->
 
-    <item name="sesl4_appbar_height_proportion" type="dimen">0.32</item>
+    <item name="sesl4_appbar_height_proportion" type="dimen">0.44</item>
     <dimen name="sesl4_action_bar_default_height">64.0dip</dimen>
     <dimen name="sesl4_action_bar_height_with_padding">80.0dip</dimen>
     <dimen name="sesl4_action_bar_top_padding">16.0dip</dimen>
