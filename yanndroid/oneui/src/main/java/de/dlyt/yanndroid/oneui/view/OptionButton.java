@@ -103,7 +103,7 @@ public class OptionButton extends LinearLayout {
     public void setButtonSelected(Boolean selected) {
         this.mSelected = selected;
         setTextColor(mSelected);
-        textView.setTypeface(Typeface.create(getResources().getString(R.string.sesl_font_family_regular), mSelected ? Typeface.BOLD : Typeface.NORMAL));
+        textView.setTypeface(Typeface.create(getResources().getString(mSelected ? R.string.sesl_font_family_bold : R.string.sesl_font_family_regular), Typeface.NORMAL));
     }
 
     public void toggleButtonSelected() {
