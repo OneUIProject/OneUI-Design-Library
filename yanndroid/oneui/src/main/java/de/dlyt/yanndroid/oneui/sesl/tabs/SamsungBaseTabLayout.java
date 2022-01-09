@@ -45,7 +45,6 @@ import androidx.appcompat.animation.SeslAnimationUtils;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.util.Pools;
 import androidx.core.view.AccessibilityDelegateCompat;
@@ -90,14 +89,15 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
     public boolean inlineLabel;
     public int mBadgeColor;
     public int mBadgeTextColor;
+    public Typeface mBoldTypeface;
     public int mDepthStyle;
     public int mIconTextGap;
     public boolean mIsScaledTextSizeType;
+    public Typeface mNormalTypeface;
     public int mRequestedTabWidth;
     public int mSubTabIndicatorHeight;
     public int mSubTabSelectedIndicatorColor;
     public int mTabSelectedIndicatorColor;
-    public Typeface mTypeface;
     public int mode;
     public TabLayoutOnPageChangeListener pageChangeListener;
     public PagerAdapter pagerAdapter;
@@ -197,7 +197,9 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
         }
 
         Resources var12 = this.getResources();
-        this.mTypeface = ResourcesCompat.getFont(var1, R.font.sesl_roboto);
+        String var13 = var12.getString(R.string.sesl_font_family_regular);
+        this.mBoldTypeface = Typeface.create(var13, 1);
+        this.mNormalTypeface = Typeface.create(var13, 0);
         this.mSubTabIndicatorHeight = var12.getDimensionPixelSize(R.dimen.sesl_tablayout_subtab_indicator_height);
         if (var9.hasValue(R.styleable.SamsungTabLayout_tabTextColor)) {
             this.tabTextColors = MaterialResources.getColorStateList(var1, var9, R.styleable.SamsungTabLayout_tabTextColor);
@@ -1087,7 +1089,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                         if (var4 == var1) {
                             if (var8.textView != null) {
                                 this.startTextColorChangeAnimation(var8.textView, this.getSelectedTabTextColor());
-                                var8.textView.setTypeface(mTypeface, Typeface.BOLD);
+                                var8.textView.setTypeface(this.mBoldTypeface);
                                 var8.textView.setSelected(true);
                             }
 
@@ -1106,7 +1108,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                             }
 
                             if (var8.textView != null) {
-                                var8.textView.setTypeface(mTypeface, Typeface.NORMAL);
+                                var8.textView.setTypeface(this.mNormalTypeface);
                                 this.startTextColorChangeAnimation(var8.textView, this.tabTextColors.getDefaultColor());
                                 var8.textView.setSelected(false);
                             }
@@ -2290,7 +2292,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                 if (var3 != 0) {
                     if (var3 != 1) {
                         if (var3 == 3) {
-                            this.textView.setTypeface(mTypeface, Typeface.NORMAL);
+                            this.textView.setTypeface(SamsungBaseTabLayout.this.mNormalTypeface);
                             var5 = SamsungBaseTabLayout.this;
                             var5.startTextColorChangeAnimation(this.textView, var5.tabTextColors.getDefaultColor());
                             var6 = this.mIndicatorView;
@@ -2303,7 +2305,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                             if (var7 != null) {
                                 var4 = var7.view.textView;
                                 if (var4 != null) {
-                                    var4.setTypeface(mTypeface, Typeface.BOLD);
+                                    var4.setTypeface(SamsungBaseTabLayout.this.mBoldTypeface);
                                     var8 = SamsungBaseTabLayout.this;
                                     var8.startTextColorChangeAnimation(var7.view.textView, var8.getSelectedTabTextColor());
                                 }
@@ -2341,7 +2343,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                         if (this.tab.position != SamsungBaseTabLayout.this.getSelectedTabPosition()) {
                             TextView var9 = this.textView;
                             if (var9 != null) {
-                                var9.setTypeface(mTypeface, Typeface.BOLD);
+                                var9.setTypeface(SamsungBaseTabLayout.this.mBoldTypeface);
                                 var5 = SamsungBaseTabLayout.this;
                                 var5.startTextColorChangeAnimation(this.textView, var5.getSelectedTabTextColor());
                                 var6 = this.mIndicatorView;
@@ -2354,7 +2356,7 @@ public class SamsungBaseTabLayout extends HorizontalScrollView {
                                 if (var7 != null) {
                                     var4 = var7.view.textView;
                                     if (var4 != null) {
-                                        var4.setTypeface(mTypeface, Typeface.NORMAL);
+                                        var4.setTypeface(SamsungBaseTabLayout.this.mNormalTypeface);
                                         var8 = SamsungBaseTabLayout.this;
                                         var8.startTextColorChangeAnimation(var7.view.textView, var8.tabTextColors.getDefaultColor());
                                     }

@@ -3,6 +3,7 @@ package de.dlyt.yanndroid.oneui.preference;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -323,10 +324,10 @@ public class HorizontalRadioPreference extends Preference {
             if (!mIsDividerEnabled)
                 radioButton.jumpDrawablesToCurrentState();
             tv1.setSelected(z);
-            tv1.setTypeface(null, z ? 1 : 0);
+            tv1.setTypeface(Typeface.create("sec-roboto-light", z ? 1 : 0));
             if (tv2 != null) {
                 tv2.setSelected(z);
-                tv2.setTypeface(null, z ? 1 : 0);
+                tv2.setTypeface(Typeface.create("sec-roboto-light", z ? 1 : 0));
             }
             if (mIsColorFilterEnabled && imageView != null) {
                 imageView.setColorFilter(z ? mSelectedColor : mUnselectedColor);

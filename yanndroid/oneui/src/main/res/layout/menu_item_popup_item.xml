@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:layout_weight="1"
-            android:fontFamily="@font/sesl_roboto"
+            android:fontFamily="@string/sesl_font_family_regular"
             android:paddingStart="7.0dip"
             android:paddingEnd="7.0dip"
             android:singleLine="true"
