@@ -31,7 +31,6 @@
             android:layout_weight="1"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:text="OptionButton"
             android:textAlignment="viewStart"
             android:textSize="18dp" />
 
@@ -39,8 +38,7 @@
             android:id="@+id/optionbutton_counter"
             style="?android:attr/textAppearanceSmall"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

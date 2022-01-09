@@ -1,7 +1,7 @@
 <resources>
     <string name="closed" translatable="false">closed</string>
     <string name="opened" translatable="false">opened</string>
-    <string name="sesl_font_family_regular" translatable="false">sec-roboto-light</string>
+    <!--<string name="sesl_font_family_regular" translatable="false">sans-serif-thin</string>-->
     <string name="app_name" translatable="false" />
     <string name="sesl_appbar_scrolling_view_behavior" translatable="false">de.dlyt.yanndroid.oneui.sesl.appbar.SamsungAppBarLayout$ScrollingViewBehavior</string>
 
@@ -17,7 +17,7 @@
 
 
     <string name="action_settings">Settings</string>
-    <string name="sec_relative_description">Looking for something else?</string> <!--Uyghur and Tibetan missing-->
+    <string name="sec_relative_description">Looking for something else?</string>
 
     <string name="action_search">Search</string>
     <string name="sesl_searchview_description_clear">Clear search field</string>

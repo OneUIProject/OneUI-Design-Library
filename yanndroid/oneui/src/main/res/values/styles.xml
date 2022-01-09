@@ -367,7 +367,7 @@
         <item name="android:textSize">@dimen/sesl_toolbar_title_text_size</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/sesl_action_bar_text_color_title</item>
-        <item name="fontFamily">sec-roboto-light</item>
+        <item name="fontFamily">@string/sesl_font_family_regular</item>
         <item name="textAllCaps">false</item>
     </style>
 
@@ -375,7 +375,7 @@
         <item name="android:textSize">@dimen/sesl_toolbar_subtitle_text_size</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/sesl_action_bar_text_color_subtitle</item>
-        <item name="fontFamily">sec-roboto-light</item>
+        <item name="fontFamily">@string/sesl_font_family_regular</item>
         <item name="textAllCaps">false</item>
     </style>
 
@@ -491,7 +491,7 @@
         <item name="android:textSize">@dimen/widget_related_card_text_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?colorPrimaryDark</item>
-        <item name="android:fontFamily">sec-roboto-light</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
 
@@ -576,7 +576,7 @@
         <item name="android:textColor">@color/item_color</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
-        <item name="android:fontFamily">sec-roboto-light</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
         <item name="android:textAlignment">center</item>
     </style>
 
