@@ -620,6 +620,7 @@
 
     <!--Dialog-->
     <style name="DialogTheme" parent="Base.ThemeOverlay.AppCompat">
+        <item name="isOneUI4">false</item>
         <item name="android:colorBackground">@color/sesl_dialog_window_background_color_material
         </item>
         <item name="android:backgroundDimAmount">@integer/sesl_dialog_background_dim_amount</item>
@@ -934,6 +935,7 @@
         <item name="listChoiceBackgroundIndicator">@drawable/sesl4_list_selector</item>
 
         <item name="actionBarSize">@dimen/sesl4_action_bar_default_height</item>
+        <item name="actionMenuTextColor">@color/sesl4_action_menu_text</item>
         <item name="actionModeBackground">@drawable/sesl4_action_bar_background</item>
         <item name="appBarLayoutStyle">@style/OneUI4.AppBarLayoutStyle</item>
         <item name="collapsingToolbarLayoutStyle">@style/OneUI4.CollapsingToolbarLayoutStyle</item>
@@ -1042,10 +1044,12 @@
     <style name="OneUI4.CollapsedActionBarTitleTextStyle" parent="@style/CollapsedActionBarTitleTextStyle">
         <item name="android:textSize">@dimen/sesl4_toolbar_title_text_size</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/sesl4_action_bar_text_color_title</item>
     </style>
 
     <style name="OneUI4.CollapsedActionBarSubtitleTextStyle" parent="@style/CollapsedActionBarSubtitleTextStyle">
         <item name="android:textSize">@dimen/sesl4_toolbar_subtitle_text_size</item>
+        <item name="android:textColor">@color/sesl4_action_bar_text_color_subtitle</item>
     </style>
 
     <style name="OneUI4.CollapsingToolbarExpandTitleStyle" parent="@style/OneUI4.CollapsedActionBarTitleTextStyle">
@@ -1068,6 +1072,7 @@
 
     <!--Dialog-->
     <style name="OneUI4.DialogTheme" parent="@style/DialogTheme">
+        <item name="isOneUI4">true</item>
         <item name="android:backgroundDimAmount">@integer/sesl4_dialog_background_dim_amount</item>
         <item name="colorControlHighlight">@color/sesl4_ripple_color</item>
     </style>

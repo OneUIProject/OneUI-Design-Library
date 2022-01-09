@@ -821,7 +821,7 @@ public class ToolbarLayout extends LinearLayout {
 
             LinearLayout collapsedTitleContainer = findViewById(R.id.toolbar_layout_collapsed_title_container);
 
-            if (appBarLayout.getHeight() <= ((int) getResources().getDimension(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_height_with_padding))) {
+            if (appBarLayout.seslIsCollapsed()) {
                 collapsedTitleContainer.setAlpha(1.0f);
             } else {
                 float collapsedTitleAlpha = ((150.0f / alphaRange) * (((float) layoutPosition) - toolbarTitleAlphaStart));
