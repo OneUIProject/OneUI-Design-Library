@@ -461,6 +461,8 @@ public class ToolbarLayout extends LinearLayout {
         if (mSearchMode) dismissSearchMode();
         setNavigationButtonVisible(false);
         selectModeCheckboxContainer.setVisibility(View.VISIBLE);
+        selectModeCheckbox.setChecked(false);
+        selectModeCheckbox.jumpDrawablesToCurrentState();
         setSelectModeCount(0);
         actionButtonContainer.setVisibility(GONE);
 
