@@ -27,9 +27,9 @@ Huge thanks to [BlackMesa123](https://github.com/BlackMesa123) who has contribut
 
 ## Screenshots
 
-<p align="center"><img loading="lazy" src="readme-resources/screenshots/screenshot_1.jpg" height="350"/> <img loading="lazy" src="readme-resources/screenshots/screenshot_2.jpg" height="350"/> <img loading="lazy" src="readme-resources/screenshots/screenshot_3.jpg" height="350"/> <img loading="lazy" src="readme-resources/screenshots/screenshot_4.jpg" height="350"/>
+<p align="center"><img loading="lazy" src="readme-resources/screenshots/screenshot_1.jpg" height="350"/> <img loading="lazy" src="readme-resources/screenshots/screenshot_2.jpg" height="350"/> <img loading="lazy" src="readme-resources/screenshots/screenshot_3.jpg" height="350"/> <img loading="lazy" src="readme-resources/screenshots/screenshot_4.jpg" height="350"/></p>
 
-[GIF version](https://github.com/Yanndroid/OneUI-Design-Library/blob/master/readme-resources/screenshots/screenrecording.gif)</p>
+[GIF version](https://github.com/Yanndroid/OneUI-Design-Library/blob/master/readme-resources/screenshots/screenrecording.gif)
 
 ## Installation
 v2.0.0 and future versions are (and only will be) available on mavenCentral. For older ones see below. (v1.3.0 was published to MavenCentral during development for testing purpose and should **not** be used as it's unstable and incomplete.)
@@ -616,7 +616,7 @@ Attributes and usage are the same as Google's [SwipeRefreshLayout](https://devel
 #### Methods
 End the refresh status once the animation ends.
 ```java
-public seslSetRefreshOnce(boolean once)
+public void seslSetRefreshOnce(boolean once)
 ```
 
 ### Button
