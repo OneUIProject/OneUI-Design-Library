@@ -18,7 +18,7 @@
         <item name="colorPrimaryDark">@color/primary_dark_color</item>
         <item name="colorSecondary">@color/secondary_color</item>
 
-        <item name="roundedCornerColor">@color/sesl4_round_and_bgcolor</item>
+        <item name="roundedCornerColor">@color/sesl_round_and_bgcolor</item>
 
         <item name="android:textColorPrimary">@color/sesl_primary_text</item>
         <item name="android:textColorPrimaryInverse">@color/sesl_primary_text</item>
