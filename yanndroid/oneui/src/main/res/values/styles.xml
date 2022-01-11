@@ -389,7 +389,7 @@
         <item name="android:breakStrategy" tools:targetApi="m">simple</item>
         <item name="android:hyphenationFrequency" tools:targetApi="m">none</item>
         <item name="android:textCursorDrawable">@drawable/sesl_text_cursor</item>
-        <item name="fontFamily">sans-serif</item>
+        <item name="fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
 
