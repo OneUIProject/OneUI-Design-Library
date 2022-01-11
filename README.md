@@ -27,7 +27,9 @@ Huge thanks to [BlackMesa123](https://github.com/BlackMesa123) who has contribut
 
 ## Screenshots
 
-<img loading="lazy" src="readme-resources/screenshots/screenshot_1.png" width="150"/> <img loading="lazy" src="readme-resources/screenshots/screenshot_2.png" width="150"/> <img loading="lazy" src="readme-resources/screenshots/screenrecording.gif" width="150"/>
+<p align="center"><img loading="lazy" src="readme-resources/screenshots/screenshot_1.jpg" height="350"/> <img loading="lazy" src="readme-resources/screenshots/screenshot_2.jpg" height="350"/> <img loading="lazy" src="readme-resources/screenshots/screenshot_3.jpg" height="350"/> <img loading="lazy" src="readme-resources/screenshots/screenshot_4.jpg" height="350"/>
+
+[GIF version](https://github.com/Yanndroid/OneUI-Design-Library/blob/master/readme-resources/screenshots/screenrecording.gif)</p>
 
 ## Installation
 v2.0.0 and future versions are (and only will be) available on mavenCentral. For older ones see below. (v1.3.0 was published to MavenCentral during development for testing purpose and should **not** be used as it's unstable and incomplete.)
@@ -139,7 +141,6 @@ dependencies {
 ```
 
 </details>
-<br/>
 
 ## Issues
 
@@ -281,7 +282,7 @@ For further customization you can use ```android:layout``` to apply your own lay
 <br clear="left"/>
 
 #### Methods
-Return the toolbar, useful for ```setSupportActionBar()```.
+Return the Toolbar.
 ```java
 public MaterialToolbar getToolbar()
 ```
@@ -493,6 +494,10 @@ For further customization you can use ```android:layout``` to apply your own lay
 <br clear="left"/>
 
 #### Methods
+Return the [ToolbarLayout](#ToolbarLayout).
+```java
+public ToolbarLayout getToolbarLayout()
+```
 Return the [SwitchBar](#SwitchBar).
 ```java
 public SwitchBar getSwitchBar()
@@ -594,6 +599,10 @@ public void seslSetFillBottomColor(int color)
 Samsung also customized RecyclerView.ItemDecoration class by adding a call to **onDispatchDraw** method of the View. Overriding the ```seslOnDispatchDraw``` method lets you customize even more your list/grid view. You can find an example of it [here](https://github.com/Yanndroid/OneUI-Design-Library/blob/1e110958151a93647b71b80c68e54949a3a0691a/app/src/main/java/de/dlyt/yanndroid/oneuiexample/tabs/IconsTab.java#L298).
 
 ### SwipeRefreshLayout
+Samsung's SwipeRefreshLayout.
+
+<img loading="lazy" src="readme-resources/screenshots/swiperefreshlayout.jpg" width="300"/>
+
 It's almost the same as Google's one, only difference is a different "pull-down" animation. 
 ```xml
 <de.dlyt.yanndroid.oneui.layout.SwipeRefreshLayout
@@ -603,6 +612,12 @@ It's almost the same as Google's one, only difference is a different "pull-down"
 </de.dlyt.yanndroid.oneui.layout.SwipeRefreshLayout>
 ```
 Attributes and usage are the same as Google's [SwipeRefreshLayout](https://developer.android.com/reference/androidx/swiperefreshlayout/widget/SwipeRefreshLayout).
+
+#### Methods
+End the refresh status once the animation ends.
+```java
+public seslSetRefreshOnce(boolean once)
+```
 
 ### Button
 The Button has three styles which you can use, depending on your needs.
@@ -823,7 +838,7 @@ public void setTitle(String title)
 ### BottomNavigationView
 Samsung's BottomNavigationView.
 
-<img loading="lazy" src="readme-resources/screenshots/bottomnavigationview.png" width="300"/>
+<img loading="lazy" src="readme-resources/screenshots/bottomnavigationview.jpg" width="300"/>
 
 ```xml
 <de.dlyt.yanndroid.oneui.view.BottomNavigationView
@@ -836,7 +851,7 @@ Samsung's BottomNavigationView.
 If you want to set it up with a ViewPager you'll have to use the [ViewPager](#ViewPager) bundled in the library, the usage is the same as Google's [TabLayout](https://developer.android.com/reference/com/google/android/material/tabs/TabLayout), but you'll have to call ```updateWidget(Activity activity)``` after you configured it.
 
 #### Methods
-Add a custom ImageButton (like in Samsung's Gallery).
+Add a custom ImageButton like in Samsung's Gallery (as seen in screenshot).
 ```java
 public void addTabCustomButton(Drawable icon, CustomButtonClickListener listener)
 ```
@@ -1094,25 +1109,48 @@ Samsung's Radio Preferences used in Light/Dark mode Settings and Resolution Sett
 
 
 ### PopupMenu
-<img loading="lazy" src="readme-resources/screenshots/popupmenu.png" width="150"/>
+Create a PopupWindow Menu with it's anchor.
 
-Create a PopupMenu with it's anchor.
+<img loading="lazy" src="readme-resources/screenshots/popupmenu.jpg" width="150"/>
+
 ```java
 //de.dlyt.yanndroid.oneui.menu.PopupMenu
 PopupMenu popupMenu = new PopupMenu(view);
 ```
+
+#### Methods
 Inflate a menu resource or a Menu (de.dlyt.yanndroid.oneui.menu.Menu).
 ```java
 public void inflate(@MenuRes int menuRes)
+public void inflate(@MenuRes int menuRes, CharSequence title)
 public void inflate(Menu menu)
+public void inflate(Menu menu, CharSequence title)
 ```
-Get the menu.
+Get the inflated menu.
 ```java
 public Menu getMenu()
 ```
 Set the menu item click and update listener.
 ```java
 public void setPopupMenuListener(PopupMenuListener listener)
+```
+Show a divider between menu groups.
+```java
+public void setGroupDividerEnabled(boolean enabled)
+```
+Set a custom animation set.
+```xml
+<!-- styles.xml -->
+<style name="MenuPopupAnimStyle" parent="@android:style/Animation">
+    <item name="android:windowEnterAnimation">@anim/sesl_menu_popup_enter</item>
+    <item name="android:windowExitAnimation">@anim/sesl_menu_popup_exit</item>
+</style>
+
+<style name="BottomMenuPopupAnimStyle" parent="@android:style/Animation">
+...
+```
+```java
+public void setAnimationStyle(int animationStyle)
 ```
 Show and dismiss the popup.
 ```java
@@ -1127,7 +1165,7 @@ Samsung's Tooltip.
 
 <img loading="lazy" src="readme-resources/screenshots/tooltip.png" width="100"/>
 
-Usage is the same as [TooltipCompat](https://developer.android.com/reference/androidx/appcompat/widget/TooltipCompat) but with additional methods. Please note this won't show up on default views and has to be added manually instead of using ```view.setTooltipText(text)```:
+Usage is the same as [TooltipCompat](https://developer.android.com/reference/androidx/appcompat/widget/TooltipCompat) but with additional methods. Please note this won't show up on default views and has to be added manually. Instead of using ```view.setTooltipText(text)```, use:
 ```java
 Tooltip.setTooltipText(view, text);
 SeslViewReflector.semSetHoverPopupType(view, 1 /* SemHoverPopupWindow.TYPE_TOOLTIP */);
@@ -1168,7 +1206,7 @@ There are also a lot of the stock icons you can find in Samsung apps included in
 
 <img loading="lazy" src="readme-resources/screenshots/icons.png" width="350"/>
 
-*not all icons are shown here because there are too much by now(229). They are all listed with the file name in the icon tab of the sample app.
+*not all icons are shown here because there are too much by now (230). They are all listed with their name in the Icons tab of the sample app.
 
 ### Color theme
 The default color of the style is the same blue as Samsung (see [Screenshots](#Screenshots)). But like Samsung has different colors for different apps, you too can use other colors which will apply on the entire App and even on the [App Icon](#App-Icon). In this library there are three different ways to do that and all three can be used simultaneously:
