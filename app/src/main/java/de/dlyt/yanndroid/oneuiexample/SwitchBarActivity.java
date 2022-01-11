@@ -14,6 +14,8 @@ import de.dlyt.yanndroid.oneuiexample.base.BaseThemeActivity;
 public class SwitchBarActivity extends BaseThemeActivity implements SwitchBar.OnSwitchChangeListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mUseAltTheme = false;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_switchbar);
 

@@ -389,7 +389,7 @@
         <item name="android:breakStrategy" tools:targetApi="m">simple</item>
         <item name="android:hyphenationFrequency" tools:targetApi="m">none</item>
         <item name="android:textCursorDrawable">@drawable/sesl_text_cursor</item>
-        <item name="fontFamily">sans-serif</item>
+        <item name="fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
 
@@ -1088,7 +1088,8 @@
     </style>
 
     <style name="OneUI4.EditTextWidgetStyle" parent="@style/EditTextWidgetStyle">
-        <item name="android:textCursorDrawable">@drawable/sesl4_text_cursor</item>
+        <item name="android:textSize">@dimen/sesl4_edit_text_size</item>
+        <item name="android:textColor">@color/sesl4_edit_text_color</item>
     </style>
 
 

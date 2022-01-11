@@ -37,6 +37,7 @@
     <dimen name="sesl_list_item_padding_horizontal">12.0dip</dimen>
 
     <dimen name="sesl_edit_text_size">16.0sp</dimen>
+    <dimen name="sesl4_edit_text_size">17.0sp</dimen>
     <dimen name="sesl_edit_textfield_cursor_inset">0.0px</dimen>
     <dimen name="sesl_edit_textfield_cursor_width">2.0px</dimen>
 
@@ -210,8 +211,7 @@
     <dimen name="sesl_menu_item_badge_text_size">11.0dip</dimen>
     <dimen name="select_all_width">68.0dip</dimen>
     <dimen name="select_all_checkbox_size">32.0dip</dimen>
-    <dimen name="select_all_checkbox_margin_top">10.0dip</dimen>
-    <dimen name="select_all_checkbox_text_margin_bottom">2.0dip</dimen>
+    <dimen name="select_all_text_margin_top">-2.0dip</dimen>
     <dimen name="select_all_list_text_size">12.0dip</dimen>
     <dimen name="overflow_button_size">48.0dip</dimen>
     <dimen name="overflow_button_start_margin">-9.0dip</dimen>

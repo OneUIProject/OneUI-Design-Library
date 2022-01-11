@@ -15,6 +15,8 @@ public class SplashActivity extends BaseThemeActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mUseAltTheme = true;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
