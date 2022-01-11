@@ -29,7 +29,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -101,7 +100,7 @@ public class ToolbarLayout extends LinearLayout {
     //select mode
     private Menu selectModeBottomMenu;
     private boolean mSelectMode = false;
-    private RelativeLayout selectModeCheckboxContainer;
+    private LinearLayout selectModeCheckboxContainer;
     private CheckBox selectModeCheckbox;
     private OnMenuItemClickListener onSelectModeBottomMenuItemClickListener = item -> true;
 
@@ -198,6 +197,12 @@ public class ToolbarLayout extends LinearLayout {
 
         selectModeCheckboxContainer = findViewById(R.id.checkbox_withtext);
         selectModeCheckbox = findViewById(R.id.checkbox_all);
+        selectModeCheckboxContainer.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectModeCheckbox.setChecked(!selectModeCheckbox.isChecked());
+            }
+        });
 
         main_toolbar = findViewById(R.id.toolbar_layout_main_toolbar);
         search_toolbar = findViewById(R.id.toolbar_layout_search_toolbar);
@@ -529,6 +534,7 @@ public class ToolbarLayout extends LinearLayout {
         setNavigationButtonVisible(navigationButtonVisible);
         selectModeCheckboxContainer.setVisibility(View.GONE);
         setTitle(mTitleExpanded, mTitleCollapsed);
+        setSubtitle(mSubtitle);
         actionButtonContainer.setVisibility(VISIBLE);
 
         bottomContainer.setVisibility(VISIBLE);
@@ -537,11 +543,24 @@ public class ToolbarLayout extends LinearLayout {
 
     public void setSelectModeCount(int count) {
         String title = count > 0 ? getResources().getString(R.string.selected_check_info, count) : getResources().getString(R.string.settings_import_select_items);
-        if (mExpandable) collapsingToolbarLayout.setTitle(title);
+
+        if (mExpandable) {
+            collapsingToolbarLayout.setTitle(title);
+        }
         collapsedTitleView.setText(title);
 
-        if (selectModeBottomMenu != null)
+        if (mSubtitle != null && mSubtitle.length() != 0) {
+            if (mExpandable) {
+                collapsingToolbarLayout.setSubtitle(null);
+            }
+            collapsedSubTitleView.setText(null);
+
+            updateCollapsedSubtitleVisibility();
+        }
+
+        if (selectModeBottomMenu != null) {
             findViewById(R.id.toolbar_layout_footer_action_mode).setVisibility(count > 0 ? VISIBLE : GONE);
+        }
     }
 
     public void setSelectModeAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener) {
@@ -562,8 +581,20 @@ public class ToolbarLayout extends LinearLayout {
         setNavigationButtonVisible(false);
         onBackPressedCallback.setEnabled(true);
         if (mSelectMode) dismissSelectMode();
-        if (mExpandable)
+
+        if (mExpandable) {
             collapsingToolbarLayout.setTitle(getResources().getString(R.string.action_search));
+        }
+
+        if (mSubtitle != null && mSubtitle.length() != 0) {
+            if (mExpandable) {
+                collapsingToolbarLayout.setSubtitle(null);
+            }
+            collapsedSubTitleView.setText(null);
+
+            updateCollapsedSubtitleVisibility();
+        }
+
         main_toolbar.setVisibility(GONE);
         search_toolbar.setVisibility(VISIBLE);
         bottomContainer.setVisibility(GONE);
@@ -619,6 +650,7 @@ public class ToolbarLayout extends LinearLayout {
         bottomContainer.setVisibility(VISIBLE);
 
         setTitle(mTitleExpanded, mTitleCollapsed);
+        setSubtitle(mSubtitle);
     }
 
     public boolean isSearchMode() {

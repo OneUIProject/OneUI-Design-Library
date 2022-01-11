@@ -6,29 +6,33 @@
     android:gravity="center_vertical">
 
     <!-- action mode checkbox -->
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/checkbox_withtext"
         android:layout_width="@dimen/select_all_width"
         android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:clickable="true"
         android:visibility="gone">
 
         <CheckBox
             android:id="@+id/checkbox_all"
             android:layout_width="@dimen/select_all_checkbox_size"
             android:layout_height="@dimen/select_all_checkbox_size"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/select_all_checkbox_margin_top" />
+            android:focusable="false"
+            android:clickable="false"
+            android:duplicateParentState="true" />
 
         <TextView
             android:id="@+id/check_all_text"
             style="@style/MultiSelectionCheckboxTextStyle"
-            android:layout_width="@dimen/select_all_width"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/select_all_checkbox_text_margin_bottom"
-            android:text="@string/all_checkbox" />
-    </RelativeLayout>
+            android:layout_marginTop="@dimen/select_all_text_margin_top"
+            android:text="@string/all_checkbox"
+            android:duplicateParentState="true" />
+    </LinearLayout>
 
     <!-- custom navigation button -->
     <FrameLayout
