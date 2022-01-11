@@ -55,6 +55,9 @@
 
         <item name="roundedCornerColor">@color/sesl4_round_and_bgcolor</item>
 
+        <item name="android:textColorPrimary">@color/sesl4_primary_text</item>
+        <item name="android:textColorPrimaryInverse">@color/sesl4_primary_text</item>
+
         <item name="android:listSeparatorTextViewStyle">@style/OneUI4.ListSeparatorStyle</item>
 
         <item name="android:theme">@style/OneUI4StyleMain</item>

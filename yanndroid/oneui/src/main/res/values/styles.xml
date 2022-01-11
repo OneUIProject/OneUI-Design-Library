@@ -1088,7 +1088,8 @@
     </style>
 
     <style name="OneUI4.EditTextWidgetStyle" parent="@style/EditTextWidgetStyle">
-        <item name="android:textCursorDrawable">@drawable/sesl4_text_cursor</item>
+        <item name="android:textSize">@dimen/sesl4_edit_text_size</item>
+        <item name="android:textColor">@color/sesl4_edit_text_color</item>
     </style>
 
 

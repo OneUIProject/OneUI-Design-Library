@@ -3,6 +3,7 @@
 
     <!--Main-->
     <color name="sesl_primary_text_color">@color/sesl_white</color>
+    <color name="sesl4_primary_text_color">@color/sesl_white</color>
     <color name="sesl_secondary_text_color">#ff999999</color>
     <color name="sesl_highlighted_text_color">#ff66b2cc</color>
 
@@ -22,6 +23,7 @@
     <!-- <color name="sesl_list_ripple_color">@color/sesl_ripple_color</color> -->
 
     <color name="sesl_edit_text_color">@color/sesl_white</color>
+    <color name="sesl4_edit_text_color">@color/sesl_white</color>
     <color name="sesl_edit_text_color_disabled">#ff454545</color>
     <color name="sesl_edit_text_hint_color">#ff999999</color>
     <color name="sesl_edit_text_tint_color">@color/sesl_white</color>

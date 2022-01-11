@@ -7,6 +7,7 @@
     <color name="primary_dark_color">#ff0072de</color> <!--color_primary_dark-->
 
     <color name="sesl_primary_text_color">@color/sesl_black</color>
+    <color name="sesl4_primary_text_color">#ff010101</color>
     <color name="sesl_secondary_text_color">#ff8c8c8c</color>
     <color name="sesl_highlighted_text_color">#ffc4e9fc</color>
 
@@ -32,6 +33,7 @@
 
     <color name="sesl_edit_text_color_disabled">#ffbebebe</color>
     <color name="sesl_edit_text_color">@color/sesl_black</color>
+    <color name="sesl4_edit_text_color">#ff010101</color>
     <color name="sesl_edit_text_hint_color">#ff8c8c8c</color>
     <color name="sesl_edit_text_tint_color">@color/sesl_black</color>
     <color name="sesl_edit_text_tint_color_disabled">#ffbebebe</color>
