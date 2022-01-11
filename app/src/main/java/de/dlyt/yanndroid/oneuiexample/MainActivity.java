@@ -62,6 +62,8 @@ public class MainActivity extends BaseThemeActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mUseAltTheme = false;
+
         super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(R.layout.activity_main);
