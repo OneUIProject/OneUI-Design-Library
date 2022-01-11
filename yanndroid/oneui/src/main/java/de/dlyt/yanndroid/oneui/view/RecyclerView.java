@@ -6427,7 +6427,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
         if (this.mLayout instanceof SeslLinearLayoutManager) {
             this.mDrawRect = var1;
             if (!this.mDrawWhiteTheme) {
-                this.mRectPaint.setColor(this.getResources().getColor(R.color.sesl_round_and_bgcolor, null));
+                this.mRectPaint.setColor(this.getResources().getColor(mIsOneUI4 ? R.color.sesl4_round_and_bgcolor : R.color.sesl_round_and_bgcolor, null));
             }
 
             this.requestLayout();
