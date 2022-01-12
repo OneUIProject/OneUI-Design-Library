@@ -1,0 +1,64 @@
+name: CI for testing and merging Dependabot updates
+
+on:
+  pull_request:
+    branches: [master]
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  updateversion:
+    name: updateversion
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: increment last version digit
+        run: |
+          old=$(grep -P "(?<=VERSION_NAME=).*" gradle.properties")
+          lastnumber=$(echo $old | grep -Po "\d*$")
+          new=$(echo $old | grep -Po ".+?(?=$lastnumber)")
+          new+=$((lastnumber+1))
+          sed -i "s/${old}/${new}/" gradle.properties
+
+      - name: create commit
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Automated version incerment
+          file_pattern: gradle.properties
+
+  build:
+    name: build
+    needs: updateversion
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: java setup and gradle caching
+        uses: actions/setup-java@v2
+        with:
+          distribution: "zulu"
+          java-version: "11"
+          cache: "gradle"
+
+      - name: grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: assemble release
+        run: ./gradlew -p ./yanndroid/oneui assembleRelease
+
+  merge:
+    name: merge
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: merge dependabot pull_reuqest
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
