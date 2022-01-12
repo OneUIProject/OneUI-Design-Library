@@ -32,12 +32,11 @@ Huge thanks to [BlackMesa123](https://github.com/BlackMesa123) who has contribut
 [GIF version](https://github.com/Yanndroid/OneUI-Design-Library/blob/master/readme-resources/screenshots/screenrecording.gif)
 
 ## Installation
-v2.0.0 and future versions are (and only will be) available on mavenCentral. For older ones see below. (v1.3.0 was published to MavenCentral during development for testing purpose and should **not** be used as it's unstable and incomplete.)
 
 1. Add the dependency to build.gradle (Module: ...)
 ```gradle
 dependencies {
-    implementation 'io.github.yanndroid:oneui:2.2.0'
+    implementation 'io.github.yanndroid:oneui:2.2.1'
     ...
 }
 ```
@@ -74,71 +73,6 @@ res/values/styles.xml
 res/values-v25/styles.xml
 ```
 ...with ```Theme.DeviceDefault.NoActionBar```.
-
-</details>
-
-
-<details>
-<summary>Older versions</summary>
-
-### with [Jitpack](https://jitpack.io/#Yanndroid/SamsungOneUi):
-1. Add jitpack to build.gradle (Project: ...)
-```gradle
-allprojects {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-	}
-}
-```
-2. Add the dependency to build.gradle (Module: ...)
-```gradle
-dependencies {
-    implementation 'com.github.Yanndroid:OneUI-Design-Library:1.3.0'
-    ...
-}
-```
-3. Apply the main theme in AndroidManifest.xml
-```xml
-<application
-    ...
-    android:theme="@style/SamsungTheme"
-    >
-    ...
-</application>
-```
-
-
-### with Github Packages:
-1. Create a [new token](https://github.com/settings/tokens) with ```read:packages``` permission.
-2. Add the dependency to build.gradle (Module: ...)
-```gradle
-repositories {
-    maven {
-        url = uri("https://maven.pkg.github.com/Yanndroid/OneUI-Design-Library")
-            credentials {
-                username = "your username"
-                password = "your token"
-            }
-    }
-}
-
-
-dependencies {
-    implementation 'de.dlyt.yanndroid:oneui:1.3.0'
-    ...
-}
-```
-
-3. Apply the main theme in AndroidManifest.xml
-```xml
-<application
-    ...
-    android:theme="@style/SamsungTheme"
-    >
-    ...
-</application>
-```
 
 </details>
 
@@ -1323,6 +1257,15 @@ Starting with v2.1.0, the new OneUI 4 design is being added to this library and 
 - [ ] BottomSheet
 
 ## Changelog
+
+<details>
+<summary>2.2.1</summary>
+
+- OneUI4++ (views, colors, fonts, themes)
+- PopupMenu improvements
+- fixes & minor changes
+
+</details>
 
 <details>
 <summary>2.2.0</summary>
