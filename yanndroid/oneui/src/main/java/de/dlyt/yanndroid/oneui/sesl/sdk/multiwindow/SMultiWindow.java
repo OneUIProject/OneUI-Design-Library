@@ -78,9 +78,9 @@ public final class SMultiWindow implements SsdkInterface {
         try {
             if (!enableQueried) {
                 enableQueried = true;
-                Context context = mMultiWindowReflator.checkMethod("getApplication") ? (Context) mMultiWindowReflator.invoke("getApplication", null) : null;
+                Context context = mMultiWindowReflator.checkMethod("getApplication") ? (Context) mMultiWindowReflator.invoke("getApplication", (Object[]) null) : null;
                 if (context == null && mMultiWindowReflator.checkMethod("getSystemContext")) {
-                    context = (Context) mMultiWindowReflator.invoke("getSystemContext", null);
+                    context = (Context) mMultiWindowReflator.invoke("getSystemContext", (Object[]) null);
                 }
                 if (context != null && (packageManager = context.getPackageManager()) != null) {
                     isMultiWindowEnabled = packageManager.hasSystemFeature(SMultiWindowReflator.PackageManager.FEATURE_MULTIWINDOW);

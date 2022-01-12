@@ -37,12 +37,15 @@
     <dimen name="sesl_list_item_padding_horizontal">12.0dip</dimen>
 
     <dimen name="sesl_edit_text_size">16.0sp</dimen>
+    <dimen name="sesl4_edit_text_size">17.0sp</dimen>
     <dimen name="sesl_edit_textfield_cursor_inset">0.0px</dimen>
     <dimen name="sesl_edit_textfield_cursor_width">2.0px</dimen>
 
     <dimen name="sesl_list_primary_text_size">18.0sp</dimen>
+    <dimen name="sesl4_list_primary_text_size">17.0sp</dimen>
     <dimen name="sesl_list_secondary_text_size">13.0sp</dimen>
     <item name="sesl_text_size_subhead" type="dimen">@dimen/sesl_list_primary_text_size</item>
+    <item name="sesl4_text_size_subhead" type="dimen">@dimen/sesl4_list_primary_text_size</item>
     <item name="sesl_text_size_small" type="dimen">@dimen/sesl_list_secondary_text_size</item>
 
 
@@ -53,6 +56,7 @@
     <dimen name="sesl_menu_popup_corner_radius">24.0dip</dimen>
     <dimen name="sesl_menu_popup_elevation">8.0dip</dimen>
     <item name="sesl_menu_popup_scale_anim_pivot_x" type="dimen">100.0%</item>
+    <item name="sesl_menu_popup_scale_anim_pivot_y" type="dimen">100.0%</item>
     <dimen name="sesl_menu_popup_stroke_width">1.0px</dimen>
     <dimen name="sesl_menu_popup_top_margin">6.0dip</dimen>
     <dimen name="sesl_menu_popup_top_padding">6.0dip</dimen>
@@ -63,6 +67,17 @@
     <dimen name="sesl_popup_menu_item_min_width">168.0dip</dimen>
     <dimen name="sesl_popup_menu_item_start_padding">24.0dip</dimen>
     <dimen name="sesl_popup_menu_item_top_padding">13.0dip</dimen>
+
+    <dimen name="sesl_context_menu_title_bottom_padding">6.0dip</dimen>
+    <dimen name="sesl_context_menu_title_end_padding">24.0dip</dimen>
+    <dimen name="sesl_context_menu_title_start_padding">24.0dip</dimen>
+    <dimen name="sesl_context_menu_title_text_size">17.0sp</dimen>
+    <dimen name="sesl_context_menu_title_top_padding">14.0dip</dimen>
+
+    <dimen name="sesl_popup_menu_divider_bottom_margin">7.5dip</dimen>
+    <dimen name="sesl_popup_menu_divider_end_margin">12.0dip</dimen>
+    <dimen name="sesl_popup_menu_divider_start_margin">12.0dip</dimen>
+    <dimen name="sesl_popup_menu_divider_top_margin">7.5dip</dimen>
 
     <dimen name="sesl_checked_text_padding">18.0dip</dimen>
 
@@ -196,8 +211,7 @@
     <dimen name="sesl_menu_item_badge_text_size">11.0dip</dimen>
     <dimen name="select_all_width">68.0dip</dimen>
     <dimen name="select_all_checkbox_size">32.0dip</dimen>
-    <dimen name="select_all_checkbox_margin_top">10.0dip</dimen>
-    <dimen name="select_all_checkbox_text_margin_bottom">2.0dip</dimen>
+    <dimen name="select_all_text_margin_top">-2.0dip</dimen>
     <dimen name="select_all_list_text_size">12.0dip</dimen>
     <dimen name="overflow_button_size">48.0dip</dimen>
     <dimen name="overflow_button_start_margin">-9.0dip</dimen>
@@ -374,6 +388,11 @@
     <dimen name="sesl4_about_app_name_text_size">38.0sp</dimen>
     <dimen name="sesl4_about_secondary_text_size">14.0sp</dimen>
 
+    <dimen name="sesl4_menu_popup_corner_radius">26.0dip</dimen>
+    <dimen name="sesl4_menu_popup_stroke_width">2.0px</dimen>
+
+    <dimen name="sesl4_list_subheader_padding_top">13.0dip</dimen>
+    <dimen name="sesl4_list_subheader_text_size">13.0sp</dimen>
 
 
 </resources>

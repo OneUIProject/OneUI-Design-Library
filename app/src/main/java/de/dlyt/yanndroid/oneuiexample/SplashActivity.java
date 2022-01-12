@@ -6,18 +6,17 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.animation.Animation;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import de.dlyt.yanndroid.oneui.layout.SplashView;
-import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
+import de.dlyt.yanndroid.oneuiexample.base.BaseThemeActivity;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseThemeActivity {
 
     private boolean launchCanceled = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new ThemeUtil(this);
+        mUseAltTheme = true;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 

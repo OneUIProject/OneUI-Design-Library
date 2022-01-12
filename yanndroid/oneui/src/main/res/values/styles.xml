@@ -3,7 +3,6 @@
 
     <!--Main-->
     <style name="OneUI3StyleMain">
-        <item name="isOneUI4">false</item>
         <item name="colorAccent">?colorSecondary</item>
         <item name="colorBackgroundFloating">@color/sesl_background_floating</item>
         <item name="colorControlActivated">?colorSecondary</item>
@@ -22,6 +21,8 @@
         <item name="android:progressBarStyleInverse">@style/ProgressBarStyle</item>
         <item name="android:progressBarStyleSmallInverse">@style/ProgressBarStyle.Small</item>
         <item name="android:progressBarStyleLargeInverse">@style/ProgressBarStyle.Large</item>
+
+        <item name="android:colorEdgeEffect">?colorPrimary</item>
 
         <item name="checkboxStyle">@style/CheckBoxStyle</item>
         <item name="materialCardViewStyle">@style/CardViewStyle</item>
@@ -366,7 +367,7 @@
         <item name="android:textSize">@dimen/sesl_toolbar_title_text_size</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/sesl_action_bar_text_color_title</item>
-        <item name="fontFamily">sec-roboto-light</item>
+        <item name="fontFamily">@string/sesl_font_family_regular</item>
         <item name="textAllCaps">false</item>
     </style>
 
@@ -374,7 +375,7 @@
         <item name="android:textSize">@dimen/sesl_toolbar_subtitle_text_size</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/sesl_action_bar_text_color_subtitle</item>
-        <item name="fontFamily">sec-roboto-light</item>
+        <item name="fontFamily">@string/sesl_font_family_regular</item>
         <item name="textAllCaps">false</item>
     </style>
 
@@ -388,7 +389,7 @@
         <item name="android:breakStrategy" tools:targetApi="m">simple</item>
         <item name="android:hyphenationFrequency" tools:targetApi="m">none</item>
         <item name="android:textCursorDrawable">@drawable/sesl_text_cursor</item>
-        <item name="fontFamily">sans-serif</item>
+        <item name="fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
 
@@ -438,6 +439,11 @@
         <item name="android:windowExitAnimation">@anim/sesl_menu_popup_exit</item>
     </style>
 
+    <style name="BottomMenuPopupAnimStyle" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/sesl_bottom_menu_popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/sesl_bottom_menu_popup_exit</item>
+    </style>
+
 
     <!--Snackbar-->
     <style name="SnackBarStyle" parent="@android:style/Widget">
@@ -485,7 +491,7 @@
         <item name="android:textSize">@dimen/widget_related_card_text_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?colorPrimaryDark</item>
-        <item name="android:fontFamily">sec-roboto-light</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
 
@@ -570,7 +576,7 @@
         <item name="android:textColor">@color/item_color</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
-        <item name="android:fontFamily">sec-roboto-light</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
         <item name="android:textAlignment">center</item>
     </style>
 
@@ -614,6 +620,7 @@
 
     <!--Dialog-->
     <style name="DialogTheme" parent="Base.ThemeOverlay.AppCompat">
+        <item name="isOneUI4">false</item>
         <item name="android:colorBackground">@color/sesl_dialog_window_background_color_material
         </item>
         <item name="android:backgroundDimAmount">@integer/sesl_dialog_background_dim_amount</item>
@@ -838,7 +845,7 @@
         <item name="android:textColor">@color/sesl_list_subheader_text_color</item>
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:background">@color/background_color</item>
+        <item name="android:background">?roundedCornerColor</item>
         <item name="android:paddingTop">@dimen/sesl_list_subheader_padding_top</item>
         <item name="android:paddingBottom">@dimen/sesl_list_subheader_padding_bottom</item>
         <item name="android:layout_width">fill_parent</item>
@@ -892,8 +899,6 @@
 
 
     <style name="OneUI4StyleMain" parent="OneUI3StyleMain">
-        <item name="isOneUI4">true</item>
-
         <item name="progressNormalColor">@color/sesl4_progress_control_color_normal</item>
 
         <item name="android:progressBarStyle">@style/OneUI4.ProgressBarStyle</item>
@@ -905,21 +910,40 @@
         <item name="android:progressBarStyleSmallInverse">@style/OneUI4.ProgressBarStyle.Small</item>
         <item name="android:progressBarStyleLargeInverse">@style/OneUI4.ProgressBarStyle.Large</item>
 
+        <item name="android:colorEdgeEffect">@color/sesl_edge_effect_device_default</item>
+
+        <item name="colorControlHighlight">@color/sesl4_ripple_color</item>
+
         <item name="editTextBackground">@drawable/sesl4_edit_text_background</item>
         <item name="editTextStyle">@style/OneUI4.EditTextWidgetStyle</item>
 
+        <item name="dialogTheme">@style/OneUI4.DialogTheme</item>
         <item name="buttonBarNegativeButtonStyle">@style/OneUI4.DialogButtonStyle</item>
         <item name="buttonBarNeutralButtonStyle">@style/OneUI4.DialogButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/OneUI4.DialogButtonStyle</item>
 
+        <item name="textAppearanceListItem">@style/OneUI4.SubheadTextStyle</item>
+        <item name="textAppearanceListItemSmall">@style/OneUI4.SubheadTextStyle</item>
+
+        <item name="spinnerStyle">@style/OneUI4.SpinnerStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/OneUI4.SpinnerDropDownItemStyle</item>
+        <item name="spinnerDropDownItemStyle">@style/OneUI4.SpinnerDropDownItemStyle</item>
+
         <item name="seslSwitchBarStyle">@style/OneUI4.SeslSwitchBarStyle</item>
         <item name="switchStyle">@style/OneUI4.SwitchStyle</item>
 
+        <item name="listChoiceBackgroundIndicator">@drawable/sesl4_list_selector</item>
+
         <item name="actionBarSize">@dimen/sesl4_action_bar_default_height</item>
+        <item name="actionMenuTextColor">@color/sesl4_action_menu_text</item>
+        <item name="actionModeBackground">@drawable/sesl4_action_bar_background</item>
         <item name="appBarLayoutStyle">@style/OneUI4.AppBarLayoutStyle</item>
         <item name="collapsingToolbarLayoutStyle">@style/OneUI4.CollapsingToolbarLayoutStyle</item>
+        <item name="toolbarStyle">@style/OneUI4.ToolbarStyle</item>
         <item name="toolbarTitleStyle">@style/OneUI4.CollapsedActionBarTitleTextStyle</item>
         <item name="toolbarSubtitleStyle">@style/OneUI4.CollapsedActionBarSubtitleTextStyle</item>
+
+        <item name="goToTopStyle">@drawable/sesl4_list_go_to_top</item>
 
         <item name="bottomNaviViewStyle">@style/OneUI4.BaseTabLayoutStyle</item>
     </style>
@@ -1005,18 +1029,27 @@
     </style>
 
     <style name="OneUI4.CollapsingToolbarLayoutStyle" parent="@style/CollapsingToolbarLayoutStyle">
+        <item name="android:background">@color/sesl4_action_bar_background_color</item>
         <item name="extendTitleTextAppearance">@style/OneUI4.CollapsingToolbarExpandTitleStyle</item>
         <item name="extendSubTitleTextAppearance">@style/OneUI4.CollapsingToolbarExpandSubtitleStyle</item>
         <item name="collapseTitleTextAppearance">@style/OneUI4.CollapsedActionBarTitleTextStyle</item>
     </style>
 
+    <style name="OneUI4.ToolbarStyle" parent="@style/ToolbarStyle">
+        <item name="background">@color/sesl4_action_bar_background_color</item>
+        <item name="titleTextAppearance">@style/OneUI4.CollapsedActionBarTitleTextStyle</item>
+        <item name="subtitleTextAppearance">@style/OneUI4.CollapsedActionBarSubtitleTextStyle</item>
+    </style>
+
     <style name="OneUI4.CollapsedActionBarTitleTextStyle" parent="@style/CollapsedActionBarTitleTextStyle">
         <item name="android:textSize">@dimen/sesl4_toolbar_title_text_size</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/sesl4_action_bar_text_color_title</item>
     </style>
 
     <style name="OneUI4.CollapsedActionBarSubtitleTextStyle" parent="@style/CollapsedActionBarSubtitleTextStyle">
         <item name="android:textSize">@dimen/sesl4_toolbar_subtitle_text_size</item>
+        <item name="android:textColor">@color/sesl4_action_bar_text_color_subtitle</item>
     </style>
 
     <style name="OneUI4.CollapsingToolbarExpandTitleStyle" parent="@style/OneUI4.CollapsedActionBarTitleTextStyle">
@@ -1037,15 +1070,58 @@
     </style>
 
 
-    <!-- Dialog -->
+    <!--Dialog-->
+    <style name="OneUI4.DialogTheme" parent="@style/DialogTheme">
+        <item name="isOneUI4">true</item>
+        <item name="android:backgroundDimAmount">@integer/sesl4_dialog_background_dim_amount</item>
+        <item name="colorControlHighlight">@color/sesl4_ripple_color</item>
+    </style>
+
     <style name="OneUI4.DialogButtonStyle" parent="@style/DialogButtonStyle">
         <item name="android:textColor">@color/sesl_dialog_button_text_color</item>
     </style>
 
 
     <!-- TextAppearance -->
+    <style name="OneUI4.SubheadTextStyle" parent="@style/SubheadTextStyle">
+        <item name="android:textSize">@dimen/sesl4_text_size_subhead</item>
+    </style>
+
     <style name="OneUI4.EditTextWidgetStyle" parent="@style/EditTextWidgetStyle">
-        <item name="android:textCursorDrawable">@drawable/sesl4_text_cursor</item>
+        <item name="android:textSize">@dimen/sesl4_edit_text_size</item>
+        <item name="android:textColor">@color/sesl4_edit_text_color</item>
+    </style>
+
+
+    <!--Spinner-->
+    <style name="OneUI4.SpinnerStyle" parent="@style/SpinnerStyle">
+        <item name="android:popupBackground">@drawable/sesl4_menu_popup_background</item>
+    </style>
+
+    <style name="OneUI4.SpinnerDropDownItemStyle" parent="@style/SpinnerDropDownItemStyle">
+        <item name="android:textAppearance">@style/OneUI4.DropDownItemTextStyle</item>
+    </style>
+
+    <style name="OneUI4.DropDownItemTextStyle" parent="@style/DropDownItemTextStyle">
+        <item name="android:textSize">@dimen/sesl4_popup_menu_item_text_size</item>
+    </style>
+
+
+    <!-- SeslPreference -->
+    <style name="OneUI4.ListSeparatorStyle" parent="@style/ListSeparatorStyle">
+        <item name="android:textSize">@dimen/sesl4_list_subheader_text_size</item>
+        <item name="android:paddingTop">@dimen/sesl4_list_subheader_padding_top</item>
+    </style>
+
+
+    <!--ColorPicker-->
+    <style name="OneUI4.ColorPickerPopupDialog" parent="@style/OneUI4.DialogTheme">
+        <item name="android:windowAnimationStyle">@style/DialogAnimStyle</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowMinWidthMajor">99.90001%</item>
     </style>
 
 </resources>

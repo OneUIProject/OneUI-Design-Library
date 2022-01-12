@@ -20,6 +20,7 @@ import android.view.animation.Interpolator;
 import android.widget.EdgeEffect;
 
 import androidx.annotation.ColorInt;
+import androidx.core.view.ViewCompat;
 import androidx.reflect.view.SeslHapticFeedbackConstantsReflector;
 
 import de.dlyt.yanndroid.oneui.R;
@@ -61,7 +62,7 @@ public class SamsungEdgeEffect extends EdgeEffect {
     public static float sMaxAlpha;
     public float MAX_SCALE = 1.0f;
     public final Rect mBounds = new Rect();
-    public boolean mCanVerticalScroll = true;
+    public boolean mCanVerticalScroll = false;
     public float mDisplacement = 0.5f;
     public final DisplayMetrics mDisplayMetrics;
     public float mDuration;
@@ -113,7 +114,7 @@ public class SamsungEdgeEffect extends EdgeEffect {
         int color = obtainStyledAttributes.getColor(0, -10066330);
         obtainStyledAttributes.recycle();
         if (mIsOneUI4)
-            this.mPaint.setColor(color & 0x33000000);
+            this.mPaint.setColor(color & ViewCompat.MEASURED_SIZE_MASK);
         else
             mPaint.setColor((0xFFFFFF & color) | 0x33000000);
         this.mPaint.setStyle(Paint.Style.FILL);
@@ -337,7 +338,7 @@ public class SamsungEdgeEffect extends EdgeEffect {
 
     public void setHostView(View view, boolean z) {
         this.mHostView = view;
-        this.mCanVerticalScroll = z;
+        //this.mCanVerticalScroll = z;
     }
 
     public void setSize(int i, int i2) {

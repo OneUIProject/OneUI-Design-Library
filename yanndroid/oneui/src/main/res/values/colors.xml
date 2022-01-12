@@ -7,35 +7,40 @@
     <color name="primary_dark_color">#ff0072de</color> <!--color_primary_dark-->
 
     <color name="sesl_primary_text_color">@color/sesl_black</color>
+    <color name="sesl4_primary_text_color">#ff010101</color>
     <color name="sesl_secondary_text_color">#ff8c8c8c</color>
     <color name="sesl_highlighted_text_color">#ffc4e9fc</color>
 
 
     <color name="sesl_background_floating">@color/sesl_white</color>
     <color name="sesl_ripple_color">#1a000000</color>
+    <color name="sesl4_ripple_color">#0d000000</color>
     <color name="sesl_error_color">#fff4511e</color>
     <color name="sesl_control_color_normal">@color/control_color_normal</color>
 
     <color name="sesl_round_and_bgcolor">#F2F2F2</color>
+    <color name="sesl4_round_and_bgcolor">#F6F6F6</color>
 
     <color name="sesl_control_normal_color">#cc8f8f8f</color>
 
-    <color name="background_color">#fff2f2f2</color>
-    <color name="item_background_color">#ffffffff</color>
+    <color name="background_color">#fff6f6f6</color>
+    <color name="item_background_color">#fffcfcfc</color>
     <color name="item_color">@color/sesl_black</color>
 
     <color name="sesl_btn_default_text_color">@color/sesl_black</color>
 
-    <color name="sesl_list_ripple_color">@color/sesl_ripple_color</color>
+    <!-- <color name="sesl_list_ripple_color">@color/sesl_ripple_color</color> -->
 
     <color name="sesl_edit_text_color_disabled">#ffbebebe</color>
     <color name="sesl_edit_text_color">@color/sesl_black</color>
+    <color name="sesl4_edit_text_color">#ff010101</color>
     <color name="sesl_edit_text_hint_color">#ff8c8c8c</color>
     <color name="sesl_edit_text_tint_color">@color/sesl_black</color>
     <color name="sesl_edit_text_tint_color_disabled">#ffbebebe</color>
     <color name="sesl_edit_text_tint_color_unfocused">#ff8c8c8c</color>
 
     <color name="sesl_action_bar_text_color_menu">@color/sesl_black</color>
+    <color name="sesl4_action_bar_text_color_menu">#ff010101</color>
 
     <color name="sesl_menu_badge_background_color">#fff56a0d</color>
     <color name="sesl_menu_badge_text_color">@color/sesl_white</color>
@@ -123,6 +128,8 @@
     <!--Spinner-->
     <color name="sesl_menu_popup_background_color">#fffcfcfc</color>
     <color name="sesl_menu_popup_background_stroke_color">#fffcfcfc</color>
+    <color name="sesl4_menu_popup_background_color">#fffcfcfc</color>
+    <color name="sesl4_menu_popup_background_stroke_color">#fffcfcfc</color>
     <color name="sesl_popup_menu_item_text_color_checked">?colorPrimaryDark</color>
     <color name="sesl_spinner_dropdown_item_checkmark">?colorPrimaryDark</color>
     <color name="sesl_spinner_dropdown_item_text_color_disabled">#66000000</color>
@@ -131,6 +138,8 @@
     <color name="sesl_spinner_icon_color_disabled">#663b3b3b</color>
     <color name="sesl_spinner_item_text_color_disabled">#66252525</color>
     <color name="sesl_spinner_item_text_color_normal">@color/sesl_black</color>
+    <color name="sesl_popup_menu_divider_color">#80979797</color>
+
 
 
     <!--Others-->
@@ -144,6 +153,7 @@
     <color name="sesl_scrollbar_handle_tint">#ffdedede</color>
     <color name="sesl_list_subheader_text_color">#ff8c8c8c</color>
     <color name="about_info_button_tint">#ff454545</color>
+    <color name="sesl_edge_effect_device_default">#0d000000</color>
 
 
     <!--ColorPicker-->
@@ -155,9 +165,13 @@
     <color name="setting_ripple_color">#29000000</color>
     <color name="setting_brush_picker_layout_divider_shape_color">#ff979797</color>
     <color name="setting_color_picker_mode_bg_selected_color">#cc717171</color>
+    <color name="setting_color_picker_mode_oui4_bg_selected_color">#ffe6e6e6</color>
+    <color name="setting_color_picker_mode_bg_stroke_selected_color">#cce6e6e6</color>
     <color name="dialog_action_ripple">#1a000000</color>
     <color name="setting_color_picker_mode_text_selected_color">#ff252525</color>
     <color name="setting_color_picker_mode_text_unselected_color">#ff858585</color>
+    <color name="setting_color_picker_mode_text_tab_selected_color">#ff252525</color>
+    <color name="setting_color_picker_mode_text_tab_unselected_color">#ff858585</color>
     <color name="background_color_white">@color/base_background_color_white</color>
     <color name="base_background_color_white">#fffcfcfc</color>
 
@@ -167,8 +181,11 @@
 
     <!--AppBarLayout-->
     <color name="sesl_action_bar_background_color">#fff2f2f2</color>
+    <color name="sesl4_action_bar_background_color">#fff6f6f6</color>
     <color name="sesl_action_bar_text_color_title">#ff252525</color>
+    <color name="sesl4_action_bar_text_color_title">#ff010101</color>
     <color name="sesl_action_bar_text_color_subtitle">#ff636363</color>
+    <color name="sesl4_action_bar_text_color_subtitle">#ff636363</color>
     <color name="sesl_extended_appbar_subtitle">#ff636363</color>
 
     <color name="bottom_bar_item_image_color">#ff454545</color>
@@ -210,11 +227,12 @@
     <color name="sesl_dialog_button_text_color">#ff010101</color>
 
     <!--RecyclerView-->
+    <color name="sesl_fast_scrollbar_bg_color">#e64d4d4d</color>
     <color name="sesl_list_go_to_top_arrow_bottom">#404040</color>
     <color name="sesl_list_go_to_top_arrow_top">#888888</color>
     <color name="sesl_list_go_to_top_inner_round">#FCFCFC</color>
     <color name="sesl_list_go_to_top_outer_round">#33252525</color>
-    <color name="sesl_list_go_to_top_ripple">@color/sesl_ripple_color</color>
+    <!-- <color name="sesl_list_go_to_top_ripple">@color/sesl_ripple_color</color> -->
 
     <!--Preference-->
     <color name="sesl_switch_divider_color">#ffc4c4c4</color>

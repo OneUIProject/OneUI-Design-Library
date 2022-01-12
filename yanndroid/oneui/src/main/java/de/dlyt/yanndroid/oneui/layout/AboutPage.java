@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -107,7 +108,7 @@ public class AboutPage extends LinearLayout {
         });
 
         if (mIsOneUI4) {
-            app_name.setTypeface(Typeface.create("sec-roboto-regular", Typeface.NORMAL));
+            app_name.setTypeface(Typeface.create(getResources().getString(R.string.sesl_font_family_regular), Typeface.NORMAL));
             app_name.setTextSize(0, getResources().getDimension(R.dimen.sesl4_about_app_name_text_size));
             version.setTextSize(0, getResources().getDimension(R.dimen.sesl4_about_secondary_text_size));
             about_optional_text.setTextSize(0, getResources().getDimension(R.dimen.sesl4_about_secondary_text_size));
@@ -115,8 +116,10 @@ public class AboutPage extends LinearLayout {
         }
 
         try {
-            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            version.setText(context.getString(R.string.sesl_version) + " " + packageInfo.versionName);
+            if (!isInEditMode()) {
+                PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+                version.setText(context.getString(R.string.sesl_version) + " " + packageInfo.versionName);
+            }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

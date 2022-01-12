@@ -26,8 +26,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nothing"
-                android:textAlignment="viewStart"
-                android:textSize="18sp" />
+                android:textAlignment="viewStart" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="?android:textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nothing_summary" />
 
         </LinearLayout>
 

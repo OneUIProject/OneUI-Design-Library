@@ -2,4 +2,4 @@
 <View xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="80.0dip"
-    android:background="@color/background_color" />
+    android:background="?roundedCornerColor" />

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/color_picker_tabs"
+        android:layout_width="fill_parent"
+        android:layout_height="56.0dip"
+        android:layout_marginStart="24.0dip"
+        android:layout_marginTop="12.0dip"
+        android:layout_marginEnd="24.0dip"
+        android:orientation="horizontal">
+
+        <include layout="@layout/setting_color_picker_oui4_tab" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/color_pick_area"
+        android:layout_width="222.0dip"
+        android:layout_height="222.0dip"
+        android:layout_below="@+id/color_picker_tabs"
+        android:layout_marginStart="10.0dip"
+        android:layout_marginTop="-4.0dip"
+        android:layout_marginEnd="6.0dip"
+        android:orientation="horizontal" />
+
+    <de.dlyt.yanndroid.oneui.sesl.colorpicker.SpenColorValueSeekBar
+        android:id="@+id/color_picker_seek_bar"
+        android:layout_width="@dimen/setting_color_picker_seekbar_layout_width_land"
+        android:layout_height="@dimen/setting_color_picker_seekbar_layout_height_land"
+        android:layout_below="@+id/color_picker_tabs"
+        android:layout_marginTop="9.0dip"
+        android:layout_marginEnd="24.0dip"
+        android:layout_toEndOf="@+id/color_pick_area">
+
+        <RelativeLayout
+            android:id="@+id/seekbar_accessibility_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:focusable="false">
+
+            <TextView
+                android:id="@+id/color_value_seek_bar_text"
+                android:layout_width="40.0dip"
+                android:layout_height="24.0dip"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="12.0dip"
+                android:gravity="end|center"
+                android:text="100%"
+                android:textColor="@color/setting_color_picker_color_value_text"
+                android:textSize="14.0sp" />
+
+            <SeekBar
+                android:id="@+id/color_value_seek_bar"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/setting_color_picker_seekbar_height"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/color_value_seek_bar_text"
+                android:background="@drawable/spen_ripple_effect_drawable"
+                android:importantForAccessibility="no"
+                android:max="255"
+                android:maxHeight="@dimen/setting_color_picker_seekbar_height"
+                android:minHeight="@dimen/setting_color_picker_seekbar_height"
+                android:padding="0.0dip"
+                android:splitTrack="false"
+                android:thumb="@drawable/spen_color_picker_seekbar_point_circle"
+                android:thumbOffset="@dimen/color_picker_popup_seekbar_offset" />
+        </RelativeLayout>
+    </de.dlyt.yanndroid.oneui.sesl.colorpicker.SpenColorValueSeekBar>
+
+    <include
+        layout="@layout/setting_color_picker_rgb_group"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/color_picker_tabs"
+        android:layout_marginTop="76.0dip"
+        android:layout_marginEnd="20.0dip"
+        android:layout_toEndOf="@+id/color_pick_area" />
+
+    <View
+        android:id="@+id/recent_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="3.0dip"
+        android:layout_below="@+id/color_picker_tabs"
+        android:layout_marginTop="133.0dip"
+        android:layout_marginEnd="20.0dip"
+        android:layout_marginBottom="19.0dip"
+        android:layout_toEndOf="@+id/color_pick_area"
+        android:background="@drawable/spen_color_picker_recent_used_color_divider_shape" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/color_picker_recent_color_button_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="38.0dip"
+        android:layout_below="@+id/recent_divider"
+        android:layout_marginEnd="@dimen/setting_color_picker_recent_color_layout_side_margin"
+        android:layout_marginBottom="16.0dip"
+        android:layout_toEndOf="@+id/color_pick_area">
+
+        <View
+            android:id="@+id/recent_1"
+            android:layout_width="38.0dip"
+            android:layout_height="fill_parent"
+            android:background="@drawable/color_picker_recent_color_circle"
+            app:layout_constraintEnd_toStartOf="@+id/recent_2"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/recent_2"
+            android:layout_width="38.0dip"
+            android:layout_height="fill_parent"
+            android:background="@drawable/color_picker_recent_color_circle"
+            app:layout_constraintEnd_toStartOf="@+id/recent_3"
+            app:layout_constraintStart_toEndOf="@+id/recent_1"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/recent_3"
+            android:layout_width="38.0dip"
+            android:layout_height="fill_parent"
+            android:background="@drawable/color_picker_recent_color_circle"
+            app:layout_constraintEnd_toStartOf="@+id/recent_4"
+            app:layout_constraintStart_toEndOf="@+id/recent_2"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/recent_4"
+            android:layout_width="38.0dip"
+            android:layout_height="fill_parent"
+            android:background="@drawable/color_picker_recent_color_circle"
+            app:layout_constraintEnd_toStartOf="@+id/recent_5"
+            app:layout_constraintStart_toEndOf="@+id/recent_3"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/recent_5"
+            android:layout_width="38.0dip"
+            android:layout_height="fill_parent"
+            android:background="@drawable/color_picker_recent_color_circle"
+            app:layout_constraintEnd_toStartOf="@+id/recent_6"
+            app:layout_constraintStart_toEndOf="@+id/recent_4"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/recent_6"
+            android:layout_width="38.0dip"
+            android:layout_height="fill_parent"
+            android:background="@drawable/color_picker_recent_color_circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/recent_5"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

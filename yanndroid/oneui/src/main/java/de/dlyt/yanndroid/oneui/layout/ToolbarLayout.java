@@ -29,7 +29,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -101,7 +100,7 @@ public class ToolbarLayout extends LinearLayout {
     //select mode
     private Menu selectModeBottomMenu;
     private boolean mSelectMode = false;
-    private RelativeLayout selectModeCheckboxContainer;
+    private LinearLayout selectModeCheckboxContainer;
     private CheckBox selectModeCheckbox;
     private OnMenuItemClickListener onSelectModeBottomMenuItemClickListener = item -> true;
 
@@ -198,6 +197,12 @@ public class ToolbarLayout extends LinearLayout {
 
         selectModeCheckboxContainer = findViewById(R.id.checkbox_withtext);
         selectModeCheckbox = findViewById(R.id.checkbox_all);
+        selectModeCheckboxContainer.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectModeCheckbox.setChecked(!selectModeCheckbox.isChecked());
+            }
+        });
 
         main_toolbar = findViewById(R.id.toolbar_layout_main_toolbar);
         search_toolbar = findViewById(R.id.toolbar_layout_search_toolbar);
@@ -205,9 +210,6 @@ public class ToolbarLayout extends LinearLayout {
         search_action_button = findViewById(R.id.search_view_action_button);
         search_edittext = findViewById(R.id.toolbar_layout_search_field);
 
-        mActivity.setSupportActionBar(toolbar);
-        mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-        mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         setNavigationButtonIcon(mNavigationIcon);
         setTitle(mTitleExpanded);
         setSubtitle(mSubtitle);
@@ -225,10 +227,15 @@ public class ToolbarLayout extends LinearLayout {
                 if (mSearchMode) dismissSearchMode();
             }
         };
-        mActivity.getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
+
+        if (!isInEditMode()){
+            mActivity.setSupportActionBar(toolbar);
+            mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+            mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            mActivity.getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
+        }
 
         refreshLayout(getResources().getConfiguration());
-
     }
 
     void syncWithDrawer(DrawerLayout drawerLayout) {
@@ -288,6 +295,7 @@ public class ToolbarLayout extends LinearLayout {
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         refreshLayout(newConfig);
+        resetToolbarHeight();
     }
 
     private AppCompatActivity getActivity() {
@@ -306,7 +314,7 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     private int getToolbarTopPadding() {
-        return mIsOneUI4 ? getResources().getDimensionPixelSize(R.dimen.sesl4_action_bar_top_padding) : 0;
+        return mIsOneUI4 ? mContext.getResources().getDimensionPixelSize(R.dimen.sesl4_action_bar_top_padding) : 0;
     }
 
     private int getWindowHeight() {
@@ -327,7 +335,7 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     private void refreshLayout(Configuration newConfig) {
-        WindowManagerSupport.hideStatusBarForLandscape(mActivity, newConfig.orientation);
+        if (!isInEditMode()) WindowManagerSupport.hideStatusBarForLandscape(mActivity, newConfig.orientation);
 
         ViewSupport.updateListBothSideMargin(mActivity, mainContainer);
         ViewSupport.updateListBothSideMargin(mActivity, findViewById(R.id.toolbar_layout_bottom_corners));
@@ -370,7 +378,7 @@ public class ToolbarLayout extends LinearLayout {
             toolbar.setPaddingRelative(mSelectMode || mSearchMode || navigationButtonVisible ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), getToolbarTopPadding(), 0, 0);
 
             ViewGroup.LayoutParams lp = toolbar.getLayoutParams();
-            lp.height += getToolbarTopPadding();
+            lp.height = mContext.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_default_height : R.dimen.sesl_action_bar_default_height) + getToolbarTopPadding();
             toolbar.setLayoutParams(lp);
         } else
             Log.w(TAG + ".resetToolbarHeight", "toolbar is null.");
@@ -453,6 +461,8 @@ public class ToolbarLayout extends LinearLayout {
         if (mSearchMode) dismissSearchMode();
         setNavigationButtonVisible(false);
         selectModeCheckboxContainer.setVisibility(View.VISIBLE);
+        selectModeCheckbox.setChecked(false);
+        selectModeCheckbox.jumpDrawablesToCurrentState();
         setSelectModeCount(0);
         actionButtonContainer.setVisibility(GONE);
 
@@ -491,6 +501,7 @@ public class ToolbarLayout extends LinearLayout {
 
             PopupMenu overflowPopupMenu = new PopupMenu(moreButton);
             overflowPopupMenu.inflate(overflowMenu);
+            overflowPopupMenu.setAnimationStyle(R.style.BottomMenuPopupAnimStyle);
             overflowPopupMenu.setPopupMenuListener(new PopupMenu.PopupMenuListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
@@ -525,6 +536,7 @@ public class ToolbarLayout extends LinearLayout {
         setNavigationButtonVisible(navigationButtonVisible);
         selectModeCheckboxContainer.setVisibility(View.GONE);
         setTitle(mTitleExpanded, mTitleCollapsed);
+        setSubtitle(mSubtitle);
         actionButtonContainer.setVisibility(VISIBLE);
 
         bottomContainer.setVisibility(VISIBLE);
@@ -533,11 +545,24 @@ public class ToolbarLayout extends LinearLayout {
 
     public void setSelectModeCount(int count) {
         String title = count > 0 ? getResources().getString(R.string.selected_check_info, count) : getResources().getString(R.string.settings_import_select_items);
-        if (mExpandable) collapsingToolbarLayout.setTitle(title);
+
+        if (mExpandable) {
+            collapsingToolbarLayout.setTitle(title);
+        }
         collapsedTitleView.setText(title);
 
-        if (selectModeBottomMenu != null)
+        if (mSubtitle != null && mSubtitle.length() != 0) {
+            if (mExpandable) {
+                collapsingToolbarLayout.setSubtitle(null);
+            }
+            collapsedSubTitleView.setText(null);
+
+            updateCollapsedSubtitleVisibility();
+        }
+
+        if (selectModeBottomMenu != null) {
             findViewById(R.id.toolbar_layout_footer_action_mode).setVisibility(count > 0 ? VISIBLE : GONE);
+        }
     }
 
     public void setSelectModeAllCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener) {
@@ -558,8 +583,20 @@ public class ToolbarLayout extends LinearLayout {
         setNavigationButtonVisible(false);
         onBackPressedCallback.setEnabled(true);
         if (mSelectMode) dismissSelectMode();
-        if (mExpandable)
+
+        if (mExpandable) {
             collapsingToolbarLayout.setTitle(getResources().getString(R.string.action_search));
+        }
+
+        if (mSubtitle != null && mSubtitle.length() != 0) {
+            if (mExpandable) {
+                collapsingToolbarLayout.setSubtitle(null);
+            }
+            collapsedSubTitleView.setText(null);
+
+            updateCollapsedSubtitleVisibility();
+        }
+
         main_toolbar.setVisibility(GONE);
         search_toolbar.setVisibility(VISIBLE);
         bottomContainer.setVisibility(GONE);
@@ -615,6 +652,7 @@ public class ToolbarLayout extends LinearLayout {
         bottomContainer.setVisibility(VISIBLE);
 
         setTitle(mTitleExpanded, mTitleCollapsed);
+        setSubtitle(mSubtitle);
     }
 
     public boolean isSearchMode() {
@@ -818,7 +856,7 @@ public class ToolbarLayout extends LinearLayout {
 
             LinearLayout collapsedTitleContainer = findViewById(R.id.toolbar_layout_collapsed_title_container);
 
-            if (appBarLayout.getHeight() <= ((int) getResources().getDimension(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_height_with_padding))) {
+            if (appBarLayout.seslIsCollapsed()) {
                 collapsedTitleContainer.setAlpha(1.0f);
             } else {
                 float collapsedTitleAlpha = ((150.0f / alphaRange) * (((float) layoutPosition) - toolbarTitleAlphaStart));

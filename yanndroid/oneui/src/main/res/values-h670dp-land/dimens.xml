@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--#############-->
+    <!--#  OneUI  4 #-->
+    <!--#############-->
+
+    <item name="sesl4_appbar_height_proportion" type="dimen">0.38</item>
+</resources>

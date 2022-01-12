@@ -23,6 +23,8 @@ public class ProgressDialog extends AlertDialog {
     public static final int STYLE_HORIZONTAL = 1;
     public static final int STYLE_CIRCLE_ONLY = 2;
 
+    private boolean mIsOneUI4;
+
     private Context mContext;
 
     private ProgressBar mProgress;
@@ -50,12 +52,14 @@ public class ProgressDialog extends AlertDialog {
     public ProgressDialog(Context context) {
         super(context);
         mContext = context;
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
         initFormats();
     }
 
     public ProgressDialog(Context context, int theme) {
         super(context, theme);
         mContext = context;
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
         initFormats();
     }
 
@@ -162,7 +166,7 @@ public class ProgressDialog extends AlertDialog {
 
         if (mProgressStyle == STYLE_CIRCLE_ONLY) {
             int size = (int) ((70 * mContext.getResources().getDisplayMetrics().density));
-            getWindow().setBackgroundDrawableResource(R.drawable.progress_circle_dialog_bg);
+            getWindow().setBackgroundDrawableResource(mIsOneUI4 ? android.R.color.transparent : R.drawable.progress_circle_dialog_bg);
             getWindow().setLayout(size, size);
             getWindow().setGravity(Gravity.CENTER);
             setContentView(inflater.inflate(R.layout.sesl_progress_dialog_circle_only, null));

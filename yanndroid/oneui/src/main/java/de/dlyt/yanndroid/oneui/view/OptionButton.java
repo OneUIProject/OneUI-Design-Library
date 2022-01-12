@@ -14,6 +14,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
 import androidx.appcompat.util.SeslMisc;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.textview.MaterialTextView;
 
@@ -102,7 +103,7 @@ public class OptionButton extends LinearLayout {
     public void setButtonSelected(Boolean selected) {
         this.mSelected = selected;
         setTextColor(mSelected);
-        textView.setTypeface(null, mSelected ? Typeface.BOLD : Typeface.NORMAL);
+        textView.setTypeface(Typeface.create(getResources().getString(R.string.sesl_font_family_regular), mSelected ? Typeface.BOLD : Typeface.NORMAL));
     }
 
     public void toggleButtonSelected() {

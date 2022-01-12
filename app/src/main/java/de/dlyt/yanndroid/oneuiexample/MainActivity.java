@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.util.SeslMisc;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -39,14 +38,14 @@ import de.dlyt.yanndroid.oneui.utils.CustomButtonClickListener;
 import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
 import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
 import de.dlyt.yanndroid.oneui.view.Snackbar;
+import de.dlyt.yanndroid.oneuiexample.base.BaseThemeActivity;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseThemeActivity {
     private String[] mTabsTagName;
     private String[] mTabsTitleName;
     private String[] mTabsClassName;
 
-    private boolean mIsLightTheme;
     private String sharedPrefName;
 
     private Context mContext;
@@ -63,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new ThemeUtil(this);
+        mUseAltTheme = false;
+
         super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(R.layout.activity_main);
@@ -113,8 +113,6 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         ViewSupport.semSetRoundedCorners(getWindow().getDecorView(), 0);
 
-        mIsLightTheme = SeslMisc.isLightTheme(mContext);
-
         drawerLayout = findViewById(R.id.drawer_view);
         toolbarLayout = drawerLayout.getToolbarLayout();
         bnvLayout = findViewById(R.id.main_samsung_tabs);
@@ -148,48 +146,54 @@ public class MainActivity extends AppCompatActivity {
         });
 
         toolbarLayout.inflateToolbarMenu(R.menu.main);
+        toolbarLayout.getToolbarMenu().findItem(R.id.theme_toggle).setTitle(mUseOUI4Theme ? "Switch to OneUI 3 Theme" : "Switch to OneUI 4 Theme");
         toolbarLayout.setOnToolbarMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.search:
-                    toolbarLayout.setSearchModeListener(new ToolbarLayout.SearchModeListener() {
-                        @Override
-                        public void onSearchOpened(EditText search_edittext) {
-                        }
-
-                        @Override
-                        public void onSearchDismissed(EditText search_edittext) {
-                        }
-
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-                        }
-
-                        @Override
-                        public void onKeyboardSearchClick(CharSequence s) {
-                            Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onVoiceInputClick(Intent intent) {
-                            activityResultLauncher.launch(intent);
-                        }
-                    });
                     toolbarLayout.showSearchMode();
+                    item.setBadge(item.getBadge() + 1);
                     break;
                 case R.id.info:
                     startActivity(new Intent().setClass(mContext, AboutActivity.class));
+                    item.setBadge(item.getBadge() + 1);
+                    break;
+                case R.id.theme_toggle:
+                    switchOUITheme();
                     break;
             }
-            item.setBadge(item.getBadge() + 1);
+
             return true;
+        });
+        toolbarLayout.setSearchModeListener(new ToolbarLayout.SearchModeListener() {
+            @Override
+            public void onSearchOpened(EditText search_edittext) {
+            }
+
+            @Override
+            public void onSearchDismissed(EditText search_edittext) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void onKeyboardSearchClick(CharSequence s) {
+                Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onVoiceInputClick(Intent intent) {
+                activityResultLauncher.launch(intent);
+            }
         });
 
         //BottomNavigationLayout
@@ -379,7 +383,9 @@ public class MainActivity extends AppCompatActivity {
     private void popupView(View view) {
         if (bnvPopupMenu == null) {
             bnvPopupMenu = new PopupMenu(view);
+            bnvPopupMenu.setGroupDividerEnabled(true);
             bnvPopupMenu.inflate(R.menu.bnv_menu);
+            bnvPopupMenu.setAnimationStyle(R.style.BottomMenuPopupAnimStyle);
             bnvPopupMenu.setPopupMenuListener(new PopupMenu.PopupMenuListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {

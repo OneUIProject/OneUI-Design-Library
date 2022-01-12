@@ -18,7 +18,7 @@
             android:layout_height="wrap_content" />
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/ListSeparatorStyle"
+            style="?android:listSeparatorTextViewStyle"
             android:text="ProgressBar" />
 
 
@@ -77,7 +77,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/ListSeparatorStyle"
+            style="?android:listSeparatorTextViewStyle"
             android:text="SeekBar" />
 
         <com.google.android.material.card.MaterialCardView
@@ -117,7 +117,7 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/ListSeparatorStyle"
+            style="?android:listSeparatorTextViewStyle"
             android:text="Buttons" />
 
 
@@ -224,7 +224,7 @@
                     android:onClick="progressDialog"
                     app:counter="44"
                     app:counterEnabled="true"
-                    app:icon="@drawable/ic_samsung_info"
+                    app:icon="@drawable/ic_samsung_settings_3"
                     app:selected="true"
                     app:text="OptionButton" />
 
@@ -234,7 +234,7 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/ListSeparatorStyle"
+            style="?android:listSeparatorTextViewStyle"
             android:text="Others" />
 
 
@@ -266,7 +266,10 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="EditText" />
+                    android:layout_marginTop="14dp"
+                    android:hint="EditText"
+                    android:maxLines="1"
+                    android:inputType="text"/>
 
                 <androidx.appcompat.widget.SeslSpinner
                     android:id="@+id/spinner"
@@ -281,7 +284,7 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/ListSeparatorStyle"
+            style="?android:listSeparatorTextViewStyle"
             android:text="Color Pickers" />
 
 
@@ -317,7 +320,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
-                    android:background="@color/background_color"
+                    android:background="?roundedCornerColor"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -366,7 +369,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@color/background_color"
+                        android:background="?roundedCornerColor"
                         android:backgroundTint="@color/sesl_control_color_normal" />
 
                 </LinearLayout>
@@ -378,7 +381,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/sesl_list_subheader_min_height"
-            android:background="@color/background_color" />
+            android:background="?roundedCornerColor" />
 
     </LinearLayout>
 </de.dlyt.yanndroid.oneui.view.NestedScrollView>

@@ -35,7 +35,7 @@ import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
 
 public class DrawerLayout extends LinearLayout {
 
-
+    private boolean mIsOneUI4;
     public static final int N_BADGE = -1;
     private Context mContext;
     private AppCompatActivity mActivity;
@@ -57,6 +57,8 @@ public class DrawerLayout extends LinearLayout {
 
     public DrawerLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
 
         mContext = context;
         mActivity = getActivity();
@@ -90,57 +92,12 @@ public class DrawerLayout extends LinearLayout {
         drawerButton.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.drawer_icon_color)));
         setDrawerButtonIcon(mDrawerIcon);
 
-
-        onBackPressedCallback = new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                if (drawerLayout.isDrawerOpen(drawer)) {
-                    drawerLayout.closeDrawer(drawer, true);
-                    return;
-                }
-                this.setEnabled(false);
-                mActivity.onBackPressed();
-                this.setEnabled(true);
-            }
-        };
-        mActivity.getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
-
-        /*drawer logic*/
-        View translationView = findViewById(R.id.drawer_custom_translation);
-        if (translationView == null)
-            translationView = toolbarLayout;
-
-        View content = translationView;
-
         drawerLayout = findViewById(R.id.drawerLayout);
         drawer = findViewById(R.id.drawer);
 
         drawerLayout.setScrimColor(ContextCompat.getColor(getContext(), R.color.drawer_dim_color));
         drawerLayout.setDrawerElevation(0);
-
         setDrawerWidth();
-
-        Boolean isRtl = getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-        Window window = mActivity.getWindow();
-
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, drawerLayout, R.string.opened, R.string.closed) {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                super.onDrawerSlide(drawerView, slideOffset);
-                float slideX = drawerView.getWidth() * slideOffset;
-                if (isRtl) slideX *= -1;
-                content.setTranslationX(slideX);
-
-                float[] hsv = new float[3];
-                Color.colorToHSV(ContextCompat.getColor(getContext(), R.color.background_color), hsv);
-                hsv[2] *= 1f - (slideOffset * 0.2f);
-                window.setStatusBarColor(Color.HSVToColor(hsv));
-                window.setNavigationBarColor(Color.HSVToColor(hsv));
-
-            }
-        };
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        toolbarLayout.setNavigationButtonOnClickListener(v -> drawerLayout.openDrawer(drawer, true));
 
         drawer.setOutlineProvider(new ViewOutlineProvider() {
             @Override
@@ -151,6 +108,51 @@ public class DrawerLayout extends LinearLayout {
             }
         });
         drawer.setClipToOutline(true);
+
+        if (!isInEditMode()) {
+            onBackPressedCallback = new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    if (drawerLayout.isDrawerOpen(drawer)) {
+                        drawerLayout.closeDrawer(drawer, true);
+                        return;
+                    }
+                    this.setEnabled(false);
+                    mActivity.onBackPressed();
+                    this.setEnabled(true);
+                }
+            };
+            mActivity.getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
+
+            /*drawer logic*/
+            Boolean isRtl = getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+
+            View translationView = findViewById(R.id.drawer_custom_translation);
+            if (translationView == null) translationView = toolbarLayout;
+            View content = translationView;
+
+            Window window = mActivity.getWindow();
+
+            ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, drawerLayout, R.string.opened, R.string.closed) {
+                @Override
+                public void onDrawerSlide(View drawerView, float slideOffset) {
+                    super.onDrawerSlide(drawerView, slideOffset);
+                    float slideX = drawerView.getWidth() * slideOffset;
+                    if (isRtl) slideX *= -1;
+                    content.setTranslationX(slideX);
+
+                    float[] hsv = new float[3];
+                    Color.colorToHSV(ContextCompat.getColor(getContext(), mIsOneUI4 ? R.color.sesl4_round_and_bgcolor : R.color.sesl_round_and_bgcolor), hsv);
+                    hsv[2] *= 1f - (slideOffset * 0.2f);
+                    window.setStatusBarColor(Color.HSVToColor(hsv));
+                    window.setNavigationBarColor(Color.HSVToColor(hsv));
+
+                }
+            };
+            drawerLayout.addDrawerListener(actionBarDrawerToggle);
+            toolbarLayout.setNavigationButtonOnClickListener(v -> drawerLayout.openDrawer(drawer, true));
+
+        }
     }
 
     private void setDrawerWidth() {

@@ -2,8 +2,8 @@ package de.dlyt.yanndroid.oneui.menu;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.text.TextUtils;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +14,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.MenuRes;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 
 public class PopupMenu {
+    private boolean mIsOneUI4;
 
     private Context context;
     private View anchor;
@@ -35,12 +37,17 @@ public class PopupMenu {
     private LinearLayout layoutWithTitle;
     private CharSequence title;
 
+    private int mAnimationStyleRes = 0;
+    private boolean mGroupDividerEnabled;
+
+    private int lastGroupId = 0;
     private int xoff = 0;
     private int yoff = 0;
 
     public PopupMenu(View anchor) {
         this.context = anchor.getContext();
         this.anchor = anchor;
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
     }
 
     public interface PopupMenuListener {
@@ -81,21 +88,25 @@ public class PopupMenu {
         }
 
         itemViews = new ArrayList<>();
-        for (MenuItem menuItem : menu.menuItems)
-            itemViews.add(new PopupMenuItemView(context, menuItem));
+        for (MenuItem menuItem : menu.menuItems) {
+            itemViews.add(new PopupMenuItemView(context, menuItem, shouldShowGroupDivider(menuItem)));
+        }
 
         popupMenuAdapter = new PopupMenuAdapter();
         listView = new PopupListView(context);
         listView.setAdapter(popupMenuAdapter);
         listView.setMaxHeight(context.getResources().getDimensionPixelSize(R.dimen.sesl_menu_popup_max_height));
         listView.setDivider(null);
-        listView.setSelector(context.getResources().getDrawable(R.drawable.sesl_list_selector, context.getTheme()));
+        listView.setSelector(context.getResources().getDrawable(android.R.color.transparent));
         listView.setOnItemClickListener((parent, view, position, id) -> {
             MenuItem clickedMenuItem = menu.getItem(position);
             if (clickedMenuItem.isCheckable()) clickedMenuItem.toggleChecked();
             if (clickedMenuItem.hasSubMenu()) {
                 PopupMenu subPopupMenu = new PopupMenu(anchor);
                 subPopupMenu.inflate(clickedMenuItem.getSubMenu(), menu.getItem(position).getTitle());
+                if (mAnimationStyleRes != 0) {
+                    subPopupMenu.setAnimationStyle(mAnimationStyleRes);
+                }
                 subPopupMenu.setPopupMenuListener(new PopupMenuListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -126,8 +137,8 @@ public class PopupMenu {
 
         popupWindow.setWidth(getPopupMenuWidth());
         popupWindow.setHeight(getPopupMenuHeight());
-        popupWindow.setAnimationStyle(R.style.MenuPopupAnimStyle);
-        popupWindow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.sesl_menu_popup_background, context.getTheme()));
+        popupWindow.setAnimationStyle(mAnimationStyleRes == 0 ? R.style.MenuPopupAnimStyle : mAnimationStyleRes);
+        popupWindow.setBackgroundDrawable(context.getResources().getDrawable(mIsOneUI4 ? R.drawable.sesl4_menu_popup_background : R.drawable.sesl_menu_popup_background, context.getTheme()));
         popupWindow.setOutsideTouchable(true);
         popupWindow.setElevation(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) 12, context.getResources().getDisplayMetrics()));
         popupWindow.setFocusable(true);
@@ -153,18 +164,32 @@ public class PopupMenu {
 
     private TextView createTitleView() {
         TextView titleView = new TextView(context);
-        titleView.setPadding(context.getResources().getDimensionPixelSize(R.dimen.sesl_popup_menu_item_start_padding),
-                context.getResources().getDimensionPixelSize(R.dimen.sesl_popup_menu_item_top_padding),
-                context.getResources().getDimensionPixelSize(R.dimen.sesl_popup_menu_item_end_padding),
-                context.getResources().getDimensionPixelSize(R.dimen.sesl_menu_popup_bottom_padding));
-        titleView.setTextDirection(View.TEXT_DIRECTION_LOCALE);
+        titleView.setGravity(Gravity.CENTER_VERTICAL);
+        titleView.setPaddingRelative(context.getResources().getDimensionPixelSize(R.dimen.sesl_context_menu_title_start_padding),
+                context.getResources().getDimensionPixelSize(R.dimen.sesl_context_menu_title_top_padding),
+                context.getResources().getDimensionPixelSize(R.dimen.sesl_context_menu_title_end_padding),
+                context.getResources().getDimensionPixelSize(R.dimen.sesl_context_menu_title_bottom_padding));
         titleView.setTextColor(context.getResources().getColor(R.color.item_color));
-        titleView.setTypeface(Typeface.DEFAULT_BOLD);
-        titleView.setEllipsize(TextUtils.TruncateAt.END);
-        titleView.setMaxLines(1);
-        titleView.setTextSize(16);
+        titleView.setTypeface(Typeface.create(context.getResources().getString(R.string.sesl_font_family_regular), Typeface.BOLD));
+        titleView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+        titleView.setMaxLines(2);
+        titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimensionPixelSize(R.dimen.sesl_context_menu_title_text_size));
         titleView.setText(title);
         return titleView;
+    }
+
+    private boolean shouldShowGroupDivider(MenuItem menuItem) {
+        if (mGroupDividerEnabled) {
+            if (menuItem.getGroupId() == lastGroupId) {
+                return false;
+            } else {
+                boolean showDivider = lastGroupId != 0 || menuItem.getGroupId() != 0;
+                lastGroupId = menuItem.getGroupId();
+                return showDivider;
+            }
+        } else {
+            return false;
+        }
     }
 
     public int getPopupMenuWidth() {
@@ -206,6 +231,24 @@ public class PopupMenu {
         popupWindow.showAsDropDown(anchor, xoff, yoff);
         updatePopupSize();
         ((View) ReflectUtils.genericGetField(popupWindow, "mBackgroundView")).setClipToOutline(true);
+    }
+
+    public void setAnimationStyle(int animationStyle) {
+        mAnimationStyleRes = animationStyle;
+        if (popupWindow != null) {
+            popupWindow.setAnimationStyle(animationStyle);
+        }
+    }
+
+    public void setGroupDividerEnabled(boolean enabled) {
+        mGroupDividerEnabled = enabled;
+
+        if (itemViews != null) {
+            for (int i = 0; i < itemViews.size(); i++) {
+                PopupMenuItemView itemView = itemViews.get(i);
+                itemView.setGroupDividerEnabled(shouldShowGroupDivider(itemView.getMenuItem()));
+            }
+        }
     }
 
     public void dismiss() {

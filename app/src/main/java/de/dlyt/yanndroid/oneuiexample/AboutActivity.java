@@ -2,18 +2,17 @@ package de.dlyt.yanndroid.oneuiexample;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.button.MaterialButton;
 
 import de.dlyt.yanndroid.oneui.layout.AboutPage;
-import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
+import de.dlyt.yanndroid.oneuiexample.base.BaseThemeActivity;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BaseThemeActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new ThemeUtil(this);
+        mUseAltTheme = true;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 

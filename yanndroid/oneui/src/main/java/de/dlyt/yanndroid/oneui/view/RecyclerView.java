@@ -92,6 +92,7 @@ import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneui.sesl.utils.SamsungEdgeEffect;
 
 public class RecyclerView extends ViewGroup implements NestedScrollingChild2, ScrollingView {
+    private boolean mIsOneUI4;
     public static final int HORIZONTAL = 0;
     public static final int INVALID_TYPE = -1;
     public static final long NO_ID = -1L;
@@ -278,7 +279,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
     private boolean mFastScrollerEnabled;
     private RecyclerView.SeslFastScrollerEventListener mFastScrollerEventListener;
     private int mGoToTopBottomPadding;
-    private int mGoToTopElevation;
+    private float mGoToTopElevation;
     private ValueAnimator mGoToTopFadeInAnimator;
     private ValueAnimator mGoToTopFadeOutAnimator;
     private Drawable mGoToTopImage;
@@ -398,6 +399,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
     @SuppressLint("WrongConstant")
     public RecyclerView(Context var1, AttributeSet var2, int var3) {
         super(var1, var2, var3);
+        mIsOneUI4 = var1.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
         this.mSeslTouchSlop = 0;
         this.mSeslPagingTouchSlop = 0;
         this.mUsePagingTouchSlopForStylus = false;
@@ -824,7 +826,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
             this.mGoToTopImageLight = var8.getDrawable(var11.resourceId, null);
         }
 
-        this.mRectColor = var8.getColor(R.color.background_color, null);
+        this.mRectColor = var8.getColor(mIsOneUI4 ? R.color.sesl4_round_and_bgcolor : R.color.sesl_round_and_bgcolor, null);
 
         this.mRectPaint.setColor(this.mRectColor);
         this.mRectPaint.setStyle(Style.FILL_AND_STROKE);
@@ -6377,7 +6379,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
         this.mGoToTopBottomPadding = var3.getDimensionPixelSize(R.dimen.sesl_go_to_top_scrollable_view_gap);
         this.mGoToTopImmersiveBottomPadding = 0;
         this.mGoToTopSize = var3.getDimensionPixelSize(R.dimen.sesl_go_to_top_scrollable_view_size);
-        this.mGoToTopElevation = var3.getDimensionPixelSize(R.dimen.sesl_go_to_top_elevation);
+        this.mGoToTopElevation = var3.getDimension(R.dimen.sesl_go_to_top_elevation);
         this.mNavigationBarHeight = var3.getDimensionPixelSize(R.dimen.sesl_navigation_bar_height);
     }
 
@@ -6425,7 +6427,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
         if (this.mLayout instanceof SeslLinearLayoutManager) {
             this.mDrawRect = var1;
             if (!this.mDrawWhiteTheme) {
-                this.mRectPaint.setColor(this.getResources().getColor(R.color.sesl_round_and_bgcolor, null));
+                this.mRectPaint.setColor(this.getResources().getColor(mIsOneUI4 ? R.color.sesl4_round_and_bgcolor : R.color.sesl_round_and_bgcolor, null));
             }
 
             this.requestLayout();
@@ -6446,7 +6448,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
         if (var2) {
             var3 = this.mGoToTopImageLight;
         } else {
-            var3 = this.mContext.getResources().getDrawable(R.drawable.sesl_list_go_to_top, null);
+            var3 = this.mContext.getResources().getDrawable(mIsOneUI4 ? R.drawable.sesl4_list_go_to_top : R.drawable.sesl_list_go_to_top, null);
         }
 
         this.mGoToTopImage = var3;
@@ -6462,7 +6464,7 @@ public class RecyclerView extends ViewGroup implements NestedScrollingChild2, Sc
                     if (VERSION.SDK_INT >= 26) {
                         var3 = this.mContext.getResources().getDrawable(R.drawable.sesl_go_to_top_background, (Resources.Theme) null);
                         this.mGoToTopView.setBackground(var3);
-                        this.mGoToTopView.setElevation((float) this.mGoToTopElevation);
+                        this.mGoToTopView.setElevation(this.mGoToTopElevation);
                     }
 
                     this.mGoToTopView.setImageDrawable(this.mGoToTopImage);

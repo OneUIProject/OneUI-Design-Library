@@ -2,10 +2,4 @@
 <resources>
     <!--AppBarLayout-->
     <item name="sesl_appbar_height_proportion" type="dimen">0.39</item>
-
-    <!--#############-->
-    <!--#  OneUI  4 #-->
-    <!--#############-->
-
-    <item name="sesl4_appbar_height_proportion" type="dimen">0.39</item>
 </resources>

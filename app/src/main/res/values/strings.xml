@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">OneUI Sample</string>
     <string name="nothing"><![CDATA[>Nothing<]]></string>
+    <string name="nothing_summary">Swipe down and see the magic :D</string>
+
+    <string name="sesl_font_family_regular">sans-serif</string> <!--todo: remove for release-->
 </resources>
