@@ -1413,6 +1413,7 @@ Starting with v2.1.0, the new OneUI 4 design is being added to this library and 
 
 ## More info
 - [Official OneUI Design Guide](https://design.samsung.com/global/contents/one-ui/download/oneui_design_guide_eng.pdf)
+- [Optimizing for DeX](https://developer.samsung.com/samsung-dex/modify-optimizing.html)
 - [Samsung's EULA](https://www.samsung.com/sg/Legal/SamsungLegal-EULA/)
 
 ## Special thanks to:
