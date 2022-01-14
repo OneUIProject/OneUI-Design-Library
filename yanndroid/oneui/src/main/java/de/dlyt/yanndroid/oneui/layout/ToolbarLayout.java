@@ -556,8 +556,7 @@ public class ToolbarLayout extends LinearLayout {
                 collapsingToolbarLayout.setSubtitle(null);
             }
             collapsedSubTitleView.setText(null);
-
-            updateCollapsedSubtitleVisibility();
+            collapsedSubTitleView.setVisibility(GONE);
         }
 
         if (selectModeBottomMenu != null) {
@@ -593,8 +592,7 @@ public class ToolbarLayout extends LinearLayout {
                 collapsingToolbarLayout.setSubtitle(null);
             }
             collapsedSubTitleView.setText(null);
-
-            updateCollapsedSubtitleVisibility();
+            collapsedSubTitleView.setVisibility(GONE);
         }
 
         main_toolbar.setVisibility(GONE);
