@@ -62,8 +62,6 @@ public class ToolbarLayout extends LinearLayout {
     private boolean mIsOneUI4;
     public ViewGroup navigationBadgeBackground;
     public TextView navigationBadgeText;
-    public ViewGroup moreOverflowBadgeBackground;
-    public TextView moreOverflowBadgeText;
     private Context mContext;
     private AppCompatActivity mActivity;
     private NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
@@ -181,8 +179,7 @@ public class ToolbarLayout extends LinearLayout {
         if (mExpandable) {
             appBarLayout = findViewById(R.id.toolbar_layout_app_bar);
             collapsingToolbarLayout = findViewById(R.id.toolbar_layout_collapsing_toolbar_layout);
-
-            appBarLayout.setLiftableState(false);
+            appBarLayout.setExpanded(mExpanded, false);
         }
         toolbar = findViewById(R.id.toolbar_layout_toolbar);
 
