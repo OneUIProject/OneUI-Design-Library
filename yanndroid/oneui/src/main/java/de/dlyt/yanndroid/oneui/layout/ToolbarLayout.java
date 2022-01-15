@@ -62,8 +62,6 @@ public class ToolbarLayout extends LinearLayout {
     private boolean mIsOneUI4;
     public ViewGroup navigationBadgeBackground;
     public TextView navigationBadgeText;
-    public ViewGroup moreOverflowBadgeBackground;
-    public TextView moreOverflowBadgeText;
     private Context mContext;
     private AppCompatActivity mActivity;
     private NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
@@ -181,8 +179,7 @@ public class ToolbarLayout extends LinearLayout {
         if (mExpandable) {
             appBarLayout = findViewById(R.id.toolbar_layout_app_bar);
             collapsingToolbarLayout = findViewById(R.id.toolbar_layout_collapsing_toolbar_layout);
-
-            appBarLayout.setLiftableState(false);
+            appBarLayout.setExpanded(mExpanded, false);
         }
         toolbar = findViewById(R.id.toolbar_layout_toolbar);
 
@@ -341,36 +338,7 @@ public class ToolbarLayout extends LinearLayout {
         ViewSupport.updateListBothSideMargin(mActivity, findViewById(R.id.toolbar_layout_bottom_corners));
         ViewSupport.updateListBothSideMargin(mActivity, findViewById(R.id.toolbar_layout_footer_container));
 
-        if (mExpandable) resetAppBarHeight();
-
         updateCollapsedSubtitleVisibility();
-    }
-
-    private void resetAppBarHeight() {
-        if (appBarLayout != null) {
-            ViewGroup.LayoutParams params = appBarLayout.getLayoutParams();
-            int windowHeight = getWindowHeight();
-            int bottomPadding;
-
-            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                appBarLayout.setActivated(false);
-                bottomPadding = 0;
-                params.height = (int) getResources().getDimension(mIsOneUI4 ? R.dimen.sesl4_action_bar_default_height : R.dimen.sesl_action_bar_default_height);
-            } else {
-                appBarLayout.setActivated(true);
-                setExpanded(mExpanded, false);
-                bottomPadding = mIsOneUI4 ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_extended_appbar_bottom_padding);
-
-                TypedValue outValue = new TypedValue();
-                getResources().getValue(mIsOneUI4 ? R.dimen.sesl4_appbar_height_proportion : R.dimen.sesl_appbar_height_proportion, outValue, true);
-
-                params.height = (int) ((float) windowHeight * outValue.getFloat());
-            }
-
-            appBarLayout.setLayoutParams(params);
-            appBarLayout.setPadding(0, 0, 0, bottomPadding);
-        } else
-            Log.w(TAG + ".resetAppBarHeight", "appBarLayout is null.");
     }
 
     private void resetToolbarHeight() {

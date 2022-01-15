@@ -35,7 +35,7 @@
     <string name="pen_palette_color_custom">Colore personalizzato</string>
     <string name="sesl_version">Versione</string>
     <string name="pen_swatch_color_azure">Azzurro</string>
-    <string name="sesl_navigate_up">"Esplora verso l'alto"</string>
+    <string name="sesl_navigate_up">Menu precedente</string>
     <string name="pen_string_color_double_tap_to_apply">Toccate due volte per applicare.</string>
     <string name="pen_swatch_color_dark_magenta">Magenta scuro</string>
     <string name="pen_string_color">Colore</string>

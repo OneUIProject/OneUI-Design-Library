@@ -555,7 +555,7 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             this.setBackground(this.mBackground);
         } else {
             this.mBackground = null;
-            this.setBackgroundColor(this.getResources().getColor(mIsOneUI4 ? R.color.sesl4_action_bar_background_color : R.color.sesl_action_bar_background_color, getContext().getTheme()));
+            this.setBackgroundColor(this.getResources().getColor(mIsOneUI4 ? R.color.sesl4_action_bar_background_color : R.color.sesl_action_bar_background_color));
         }
 
         this.mBottomPadding = mIsOneUI4 ? 0 : this.getContext().getResources().getDimensionPixelSize(R.dimen.sesl_extended_appbar_bottom_padding);
@@ -1390,6 +1390,10 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
             return super.onTouchEvent(var1, var2, var3);
         }
 
+        public void setDragCallback(SamsungAppBarLayout.BaseBehavior.BaseDragCallback var1) {
+            this.onDragCallback = var1;
+        }
+
         public int setHeaderTopBottomOffset(CoordinatorLayout var1, T var2, int var3, int var4, int var5) {
             int var6 = this.getTopBottomOffsetForScrollingSibling();
             byte var7 = 0;
@@ -1681,6 +1685,9 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
 
         public Behavior(Context var1, AttributeSet var2) {
             super(var1, var2);
+        }
+
+        public static abstract class DragCallback extends BaseBehavior.BaseDragCallback<SamsungAppBarLayout> {
         }
     }
 
