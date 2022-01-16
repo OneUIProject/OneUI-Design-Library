@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="sesl_dialog_background_dim_amount" format="float" type="integer">0.8</item>
-    <item name="sesl4_dialog_background_dim_amount" format="float" type="integer">0.65</item>
-</resources>

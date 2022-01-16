@@ -31,11 +31,8 @@
         <item name="seslSwitchBarStyle">@style/SeslSwitchBarStyle</item>
         <item name="seekBarStyle">@style/SeekBarStyle</item>
 
-        <item name="android:listPreferredItemPaddingStart">
-            @dimen/sesl_list_item_padding_horizontal
-        </item>
-        <item name="android:listPreferredItemPaddingEnd">@dimen/sesl_list_item_padding_horizontal
-        </item>
+        <item name="android:listPreferredItemPaddingStart">@dimen/sesl_list_item_padding_horizontal</item>
+        <item name="android:listPreferredItemPaddingEnd">@dimen/sesl_list_item_padding_horizontal</item>
 
         <item name="android:textSelectHandle">@drawable/sesl_text_select_handle_middle</item>
         <item name="android:textSelectHandleLeft">@drawable/sesl_text_select_handle_left</item>
@@ -45,8 +42,7 @@
         <item name="textAppearanceListItem">@style/SubheadTextStyle</item>
         <item name="textAppearanceListItemSmall">@style/SubheadTextStyle</item>
         <item name="listPreferredItemHeight">@dimen/sesl_list_preferred_item_height</item>
-        <item name="listPreferredItemHeightSmall">@dimen/sesl_list_preferred_item_height_small
-        </item>
+        <item name="listPreferredItemHeightSmall">@dimen/sesl_list_preferred_item_height_small</item>
         <item name="listPreferredItemPaddingLeft">?android:listPreferredItemPaddingStart</item>
         <item name="listPreferredItemPaddingRight">?android:listPreferredItemPaddingEnd</item>
 
@@ -84,15 +80,6 @@
         <item name="bottomNaviViewStyle">@style/BaseTabLayoutStyle</item>
         <item name="tabLayoutStyle">@style/TabLayoutStyle</item>
 
-        <item name="dialogTheme">@style/DialogTheme</item>
-        <item name="dialogPreferredPadding">@dimen/sesl_dialog_padding</item>
-        <item name="alertDialogCenterButtons">false</item>
-        <item name="buttonBarButtonStyle">@style/ButtonBarButtonStyle</item>
-        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyle</item>
-        <item name="buttonBarNeutralButtonStyle">@style/DialogButtonStyle</item>
-        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyle</item>
-        <item name="buttonBarStyle">@style/ButtonBarStyle</item>
-
         <item name="preferenceTheme">@style/PreferenceThemeStyle</item>
 
         <item name="editTextBackground">@drawable/sesl_edit_text_background</item>
@@ -111,7 +98,6 @@
 
         <item name="android:scrollbarThumbHorizontal">@drawable/sesl_scrollbar_handle</item>
         <item name="android:scrollbarThumbVertical">@drawable/sesl_scrollbar_handle</item>
-
     </style>
 
 
@@ -276,7 +262,7 @@
 
 
     <!--Radio-->
-    <style name="RadioButtonStyle" parent="@style/Widget.AppCompat.CompoundButton.RadioButton">
+    <style name="RadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:background">@drawable/sesl_control_background</item>
         <item name="android:button">@drawable/sesl_btn_radio</item>
     </style>
@@ -311,7 +297,7 @@
         <item name="seslSwitchBarTextColor">@color/sesl_switchbar_off_text_color</item>
     </style>
 
-    <style name="SeslSwitchBarTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <style name="SeslSwitchBarTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">18.0sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?colorPrimaryDark</item>
@@ -394,7 +380,7 @@
 
 
     <!--Spinner-->
-    <style name="SpinnerStyle" parent="@style/Platform.Widget.AppCompat.Spinner">
+    <style name="SpinnerStyle" parent="Platform.Widget.AppCompat.Spinner">
         <item name="android:gravity">start|center</item>
         <item name="android:background">@drawable/sesl_spinner_background</item>
         <item name="android:clickable">true</item>
@@ -468,6 +454,9 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowMinWidthMajor">99.90001%</item>
+        <item name="android:windowMinWidthMinor">@dimen/sesl_dialog_min_width_minor</item>
+        <item name="windowMinWidthMajor">@dimen/sesl_dialog_min_width_major</item>
+        <item name="windowMinWidthMinor">@dimen/sesl_dialog_min_width_minor</item>
     </style>
 
     <style name="ColorPickerHexTitleStyle">
@@ -619,14 +608,13 @@
 
 
     <!--Dialog-->
-    <style name="DialogTheme" parent="Base.ThemeOverlay.AppCompat">
+    <style name="DialogTheme" parent="@style/Base.ThemeOverlay.AppCompat">
         <item name="isOneUI4">false</item>
-        <item name="android:colorBackground">@color/sesl_dialog_window_background_color_material
-        </item>
-        <item name="android:backgroundDimAmount">@integer/sesl_dialog_background_dim_amount</item>
+        <item name="android:colorBackground">@color/sesl_dialog_window_background_color_material</item>
+        <item name="android:backgroundDimAmount">0.35</item>
         <item name="android:disabledAlpha">0.4</item>
         <item name="android:textAppearance">@style/DialogTextStyle</item>
-        <item name="android:textAppearanceInverse">@style/DialogTextInverseStyle</item>
+        <item name="android:textAppearanceInverse">@style/TextAppearance.AppCompat.Inverse</item>
         <item name="android:windowBackground">@drawable/sesl_dialog_background</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
@@ -638,34 +626,29 @@
         <item name="android:windowSoftInputMode">adjustPan</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowActionBar">false</item>
-        <item name="android:windowCloseOnTouchOutside">
-            @bool/sesl_config_closeDialogWhenTouchOutside
-        </item>
-        <item name="android:listPreferredItemPaddingStart">@dimen/sesl_select_dialog_padding_start
-        </item>
-        <item name="android:listPreferredItemPaddingEnd">@dimen/sesl_select_dialog_padding_end
-        </item>
+        <item name="android:windowCloseOnTouchOutside">@bool/sesl_config_closeDialogWhenTouchOutside</item>
         <item name="android:windowElevation">@dimen/sesl_dialog_window_elevation</item>
         <item name="borderlessButtonStyle">@style/ButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarStyle">@style/ButtonBarStyle</item>
         <item name="colorControlHighlight">@color/sesl_ripple_color</item>
-        <item name="colorPickerEmptySlotColor">
-            @color/sesl_color_picker_used_color_item_empty_slot_color
-        </item>
-        <item name="colorPickerSelectedItemTextColor">
-            @color/sesl_color_picker_selected_color_item_text_color
-        </item>
-        <item name="colorPickerStrokeColor">@color/sesl_color_picker_stroke_color</item>
         <item name="dialogPreferredPadding">@dimen/sesl_dialog_padding</item>
-        <item name="listPreferredItemHeightSmall">@dimen/sesl_list_preferred_item_height_small
-        </item>
-        <item name="listPreferredItemPaddingLeft">@dimen/sesl_select_dialog_padding_start</item>
-        <item name="listPreferredItemPaddingRight">@dimen/sesl_select_dialog_padding_end</item>
+        <item name="listPreferredItemHeightSmall">@dimen/sesl_list_preferred_item_height_small</item>
+        <item name="listPreferredItemPaddingEnd">@dimen/sesl_select_dialog_padding_end</item>
+        <item name="listPreferredItemPaddingLeft">?listPreferredItemPaddingStart</item>
+        <item name="listPreferredItemPaddingRight">?listPreferredItemPaddingEnd</item>
+        <item name="listPreferredItemPaddingStart">@dimen/sesl_select_dialog_padding_start</item>
         <item name="textAppearanceListItem">@style/DialogTextListItemStyle</item>
         <item name="textAppearanceListItemSecondary">@style/DialogTextListItemSecondaryStyle</item>
         <item name="textAppearanceListItemSmall">@style/DialogTextListItemStyle</item>
         <item name="textColorAlertDialogListItem">@color/sesl_select_dialog_list_item_text</item>
-        <item name="windowActionBar">false</item>
+        <item name="windowActionBar">?android:windowActionBar</item>
         <item name="windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="@style/DialogTheme">
         <item name="android:windowMinWidthMajor">@dimen/sesl_dialog_min_width_major</item>
         <item name="android:windowMinWidthMinor">@dimen/sesl_dialog_min_width_minor</item>
         <item name="windowMinWidthMajor">@dimen/sesl_dialog_min_width_major</item>
@@ -689,13 +672,11 @@
 
     <style name="DialogTitleStyle" parent="@android:style/Widget">
         <item name="android:textAppearance">@style/DialogTitleTextStyle</item>
-        <item name="android:textSize">20.0sp</item>
         <item name="android:maxLines">1</item>
         <item name="android:scrollHorizontally">true</item>
-        <item name="android:textAlignment">viewStart</item>
     </style>
 
-    <style name="DialogTitleTextStyle" parent="TextAppearance.AppCompat">
+    <style name="DialogTitleTextStyle" parent="Base.TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/sesl_dialog_title_text_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/sesl_dialog_title_text_color</item>
@@ -708,13 +689,6 @@
         <item name="fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
-    <style name="DialogTextInverseStyle" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">?android:textColorPrimaryInverse</item>
-        <item name="android:textColorHighlight">?android:textColorHighlightInverse</item>
-        <item name="android:textColorHint">?android:textColorHintInverse</item>
-        <item name="android:textColorLink">?android:textColorLinkInverse</item>
-    </style>
-
     <style name="DialogTextListItemStyle" parent="@style/DialogTextStyle">
         <item name="android:textSize">@dimen/sesl_select_dialog_list_item_text_size</item>
         <item name="android:textColor">@color/sesl_select_dialog_list_item_text</item>
@@ -725,9 +699,7 @@
         <item name="android:textColor">@color/sesl_dialog_sub_text_color_material</item>
     </style>
 
-    <style name="ButtonBarStyle" parent="@android:style/Widget">
-        <item name="android:background">@null</item>
-    </style>
+    <style name="ButtonBarStyle" parent="@android:style/Widget.Material.Light.ButtonBar.AlertDialog" />
 
     <style name="ButtonBarButtonStyle" parent="@android:style/Widget.Material.Button.Borderless.Colored">
         <item name="android:minWidth">64.0dip</item>
@@ -743,8 +715,9 @@
         <item name="android:minWidth">@dimen/sesl_dialog_button_min_width</item>
         <item name="android:minHeight">@dimen/sesl_dialog_button_min_height</item>
         <item name="android:singleLine">true</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
         <item name="android:stateListAnimator">@drawable/sesl_dialog_button_disabled_anim</item>
-        <item name="fontFamily">@string/sesl_font_family_regular</item>
+        <item name="android:textAllCaps">false</item>
         <item name="textAllCaps">false</item>
     </style>
 
@@ -917,11 +890,6 @@
         <item name="editTextBackground">@drawable/sesl4_edit_text_background</item>
         <item name="editTextStyle">@style/OneUI4.EditTextWidgetStyle</item>
 
-        <item name="dialogTheme">@style/OneUI4.DialogTheme</item>
-        <item name="buttonBarNegativeButtonStyle">@style/OneUI4.DialogButtonStyle</item>
-        <item name="buttonBarNeutralButtonStyle">@style/OneUI4.DialogButtonStyle</item>
-        <item name="buttonBarPositiveButtonStyle">@style/OneUI4.DialogButtonStyle</item>
-
         <item name="textAppearanceListItem">@style/OneUI4.SubheadTextStyle</item>
         <item name="textAppearanceListItemSmall">@style/OneUI4.SubheadTextStyle</item>
 
@@ -1015,7 +983,7 @@
         <item name="seslSwitchBarTextColor">@color/sesl4_switchbar_off_text_color</item>
     </style>
 
-    <style name="OneUI4.SeslSwitchBarTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <style name="OneUI4.SeslSwitchBarTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">20.0sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?colorPrimaryDark</item>
@@ -1073,12 +1041,50 @@
     <!--Dialog-->
     <style name="OneUI4.DialogTheme" parent="@style/DialogTheme">
         <item name="isOneUI4">true</item>
-        <item name="android:backgroundDimAmount">@integer/sesl4_dialog_background_dim_amount</item>
+        <item name="android:backgroundDimAmount">0.18</item>
+        <item name="android:textAppearance">@style/OneUI4.DialogTextStyle</item>
+        <item name="android:windowTitleStyle">@style/OneUI4.DialogTitleStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/OneUI4.DialogButtonStyle</item>
         <item name="colorControlHighlight">@color/sesl4_ripple_color</item>
+        <item name="textAppearanceListItem">@style/OneUI4.DialogTextListItemStyle</item>
+        <item name="textAppearanceListItemSmall">@style/OneUI4.DialogTextListItemStyle</item>
+    </style>
+
+    <style name="OneUI4.AlertDialogTheme" parent="@style/OneUI4.DialogTheme">
+        <item name="android:windowMinWidthMajor">@dimen/sesl4_dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@dimen/sesl4_dialog_min_width_minor</item>
+        <item name="windowMinWidthMajor">@dimen/sesl4_dialog_min_width_major</item>
+        <item name="windowMinWidthMinor">@dimen/sesl4_dialog_min_width_minor</item>
+    </style>
+
+    <style name="OneUI4.AlertDialogStyle" parent="@style/AlertDialogStyle">
+        <item name="android:layout">@layout/sesl4_alert_dialog</item>
+        <item name="listLayout">@layout/sesl4_select_dialog</item>
+        <item name="progressLayout">@layout/sesl4_progress_dialog_circle</item>
+    </style>
+
+    <style name="OneUI4.DialogTitleStyle" parent="@style/DialogTitleStyle">
+        <item name="android:textAppearance">@style/OneUI4.DialogTitleTextStyle</item>
+    </style>
+
+    <style name="OneUI4.DialogTitleTextStyle" parent="@style/DialogTitleTextStyle">
+        <item name="android:textSize">@dimen/sesl4_dialog_title_text_size</item>
+    </style>
+
+    <style name="OneUI4.DialogTextStyle" parent="@style/DialogTextStyle">
+        <item name="android:textSize">@dimen/sesl4_dialog_body_text_size</item>
+    </style>
+
+    <style name="OneUI4.DialogTextListItemStyle" parent="@style/OneUI4.DialogTextStyle">
+        <item name="android:textSize">@dimen/sesl4_select_dialog_list_item_text_size</item>
+        <item name="android:textColor">@color/sesl_select_dialog_list_item_text</item>
     </style>
 
     <style name="OneUI4.DialogButtonStyle" parent="@style/DialogButtonStyle">
-        <item name="android:textColor">@color/sesl_dialog_button_text_color</item>
+        <item name="android:textSize">@dimen/sesl4_dialog_button_text_size</item>
+        <item name="android:textColor">@color/sesl4_dialog_button_text_color</item>
     </style>
 
 
@@ -1122,6 +1128,9 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowMinWidthMajor">99.90001%</item>
+        <item name="android:windowMinWidthMinor">@dimen/sesl4_dialog_min_width_minor</item>
+        <item name="windowMinWidthMajor">@dimen/sesl4_dialog_min_width_major</item>
+        <item name="windowMinWidthMinor">@dimen/sesl4_dialog_min_width_minor</item>
     </style>
 
 </resources>

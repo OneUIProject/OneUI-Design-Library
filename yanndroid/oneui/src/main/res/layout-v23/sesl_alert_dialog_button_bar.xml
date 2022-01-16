@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/buttonPanel" android:layout_width="fill_parent" android:layout_height="wrap_content" android:fillViewport="true" android:scrollIndicators="bottom|top" android:scrollbarAlwaysDrawVerticalTrack="true">
+    <de.dlyt.yanndroid.oneui.sesl.dialog.widget.ButtonBarLayout
+        android:id="@+id/buttonBarLayout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingStart="@dimen/sesl_dialog_button_bar_padding_horizontal" android:paddingEnd="@dimen/sesl_dialog_button_bar_padding_horizontal" android:paddingBottom="@dimen/sesl_dialog_button_bar_padding_bottom" android:orientation="horizontal" android:layoutDirection="locale" style="?buttonBarStyle">
+        <android.widget.Button
+            android:id="@android:id/button3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1.0" style="?buttonBarNeutralButtonStyle" />
+        <View
+            android:id="@+id/sem_divider2" android:layout_width="1.0dip" android:layout_height="16.0dip" android:layout_gravity="center_vertical" android:background="@color/sesl_dialog_divider_color_material" android:visibility="gone" />
+        <android.widget.Button
+            android:id="@android:id/button2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1.0" style="?buttonBarNegativeButtonStyle" />
+        <View
+            android:id="@+id/sem_divider1" android:layout_width="1.0dip" android:layout_height="16.0dip" android:layout_gravity="center_vertical" android:background="@color/sesl_dialog_divider_color_material" android:visibility="gone" />
+        <android.widget.Button
+            android:id="@android:id/button1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1.0" style="?buttonBarPositiveButtonStyle" />
+    </de.dlyt.yanndroid.oneui.sesl.dialog.widget.ButtonBarLayout>
+</ScrollView>

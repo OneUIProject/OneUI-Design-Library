@@ -307,6 +307,9 @@
         <attr name="paddingBottomNoButtons" format="dimension" />
         <attr name="paddingTopNoTitle" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="ButtonBarLayout">
+        <attr name="allowStacking" format="boolean" />
+    </declare-styleable>
 
     <declare-styleable name="RecyclerView">
         <attr name="layoutManager" format="string" />

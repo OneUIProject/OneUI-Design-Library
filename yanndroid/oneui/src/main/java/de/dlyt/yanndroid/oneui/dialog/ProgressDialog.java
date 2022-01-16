@@ -130,7 +130,7 @@ public class ProgressDialog extends AlertDialog {
             mProgressPercent = (TextView) view.findViewById(R.id.progress_percent);
             setView(view);
         } else {
-            View view = inflater.inflate(a.getResourceId(R.styleable.SamsungAlertDialog_progressLayout, R.layout.sesl_progress_dialog_circle), null);
+            View view = inflater.inflate(a.getResourceId(R.styleable.SamsungAlertDialog_progressLayout, mIsOneUI4 ? R.layout.sesl4_progress_dialog_circle : R.layout.sesl_progress_dialog_circle), null);
             mProgress = (ProgressBar) view.findViewById(R.id.progress);
             mMessageView = (TextView) view.findViewById(R.id.message);
             setView(view);

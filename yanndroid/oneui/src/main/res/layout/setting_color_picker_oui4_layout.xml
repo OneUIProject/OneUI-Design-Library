@@ -61,7 +61,7 @@
                             android:includeFontPadding="false"
                             android:singleLine="true"
                             android:text="@string/sesl_cancel"
-                            android:textColor="@color/sesl_dialog_button_text_color"
+                            android:textColor="@color/sesl4_dialog_button_text_color"
                             android:textSize="16.0sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
@@ -89,7 +89,7 @@
                             android:gravity="center"
                             android:includeFontPadding="false"
                             android:text="@string/sesl_done"
-                            android:textColor="@color/sesl_dialog_button_text_color"
+                            android:textColor="@color/sesl4_dialog_button_text_color"
                             android:textSize="16.0sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
