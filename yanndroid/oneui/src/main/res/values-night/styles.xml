@@ -55,4 +55,17 @@
         <item name="windowActionModeOverlay">true</item>
     </style>
 
+    <style name="OneUI4.DialogTheme" parent="@style/DialogTheme">
+        <item name="isOneUI4">true</item>
+        <item name="android:backgroundDimAmount">0.65</item>
+        <item name="android:textAppearance">@style/OneUI4.DialogTextStyle</item>
+        <item name="android:windowTitleStyle">@style/OneUI4.DialogTitleStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+        <item name="colorControlHighlight">@color/sesl4_ripple_color</item>
+        <item name="textAppearanceListItem">@style/OneUI4.DialogTextListItemStyle</item>
+        <item name="textAppearanceListItemSmall">@style/OneUI4.DialogTextListItemStyle</item>
+    </style>
+
 </resources>
