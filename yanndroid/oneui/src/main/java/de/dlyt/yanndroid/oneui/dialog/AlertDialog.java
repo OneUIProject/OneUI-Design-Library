@@ -295,8 +295,7 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
             return this;
         }
 
-        public Builder setMultiChoiceItems(@ArrayRes int itemsId, boolean[] checkedItems,
-                                           final OnMultiChoiceClickListener listener) {
+        public Builder setMultiChoiceItems(@ArrayRes int itemsId, boolean[] checkedItems, final OnMultiChoiceClickListener listener) {
             P.mItems = P.mContext.getResources().getTextArray(itemsId);
             P.mOnCheckboxClickListener = listener;
             P.mCheckedItems = checkedItems;
@@ -304,8 +303,7 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
             return this;
         }
 
-        public Builder setMultiChoiceItems(CharSequence[] items, boolean[] checkedItems,
-                                           final OnMultiChoiceClickListener listener) {
+        public Builder setMultiChoiceItems(CharSequence[] items, boolean[] checkedItems, final OnMultiChoiceClickListener listener) {
             P.mItems = items;
             P.mOnCheckboxClickListener = listener;
             P.mCheckedItems = checkedItems;

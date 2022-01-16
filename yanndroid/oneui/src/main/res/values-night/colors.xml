@@ -35,6 +35,10 @@
 
     <color name="sesl_swipe_refresh_background">#ff252525</color>
 
+    <color name="sesl_functional_green">#ff5ad69e</color>
+    <color name="sesl_functional_orange">#fff6874f</color>
+    <color name="sesl_functional_red">#fff76f68</color>
+
     <!--Sesl-->
     <color name="divider_color">#42fafafa</color>
 

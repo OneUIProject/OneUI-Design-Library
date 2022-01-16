@@ -47,6 +47,10 @@
 
     <color name="sesl_swipe_refresh_background">#fffafafa</color>
 
+    <color name="sesl_functional_green">#ff14a866</color>
+    <color name="sesl_functional_orange">#ffef5e16</color>
+    <color name="sesl_functional_red">#ffdb332a</color>
+
 
     <!--Colors-->
     <color name="red">#ffD50000</color>
@@ -208,6 +212,7 @@
     <!--Dialog-->
     <color name="sesl_dialog_body_text_color">#ff505050</color>
     <color name="sesl_dialog_button_text_color">#ff0074d4</color>
+    <color name="sesl_dialog_button_red_text">@color/sesl_functional_red</color>
     <color name="sesl4_dialog_button_text_color">#ff010101</color>
     <color name="sesl_dialog_divider_color_material">#ffe6e6e6</color>
     <color name="sesl_dialog_list_text_color">#ff252525</color>
