@@ -173,6 +173,9 @@ public class SamsungAlertController {
 
         a.recycle();
 
+        // for devices without SamsungBasicInteraction flag
+        window.setGravity(Gravity.BOTTOM);
+
         di.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
     }
 
