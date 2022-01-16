@@ -1,6 +1,7 @@
 package de.dlyt.yanndroid.oneuiexample;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -322,13 +323,16 @@ public class MainActivity extends BaseThemeActivity {
     }
 
     public void standardDialog(View view) {
-        new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Title")
                 .setMessage("Message")
                 .setNeutralButton("Maybe", null)
                 .setNegativeButton("No", null)
                 .setPositiveButton("Yes", null)
-                .show();
+                .create();
+        dialog.show();
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.sesl_functional_red));
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.sesl_functional_green));
     }
 
     public void singleChoiceDialog(View view) {
