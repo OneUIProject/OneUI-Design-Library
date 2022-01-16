@@ -385,7 +385,7 @@ public class DetailedColorPickerDialog extends Dialog {
         frameLayout.addView(this.mPickerLayout, new ViewGroup.LayoutParams(getPickerLayoutWidth(), -2));
         this.cancelTextView = this.mParentLayout.findViewById(R.id.color_picker_button_cancel);
         this.doneTextView = this.mParentLayout.findViewById(R.id.color_picker_button_done);
-        SpenSettingUtilText.applyUpToLargeLevel(this.mContext, 16.0f, this.cancelTextView, this.doneTextView);
+        SpenSettingUtilText.applyUpToLargeLevel(this.mContext, mIsOneUI4 ? 18.0f : 16.0f, this.cancelTextView, this.doneTextView);
         SpenShowButtonShapeText spenShowButtonShapeText = this.cancelTextView;
         spenShowButtonShapeText.setContentDescription(this.mContext.getResources().getString(R.string.sesl_cancel) + " " + this.mContext.getResources().getString(R.string.sesl_button));
         SpenShowButtonShapeText spenShowButtonShapeText2 = this.doneTextView;

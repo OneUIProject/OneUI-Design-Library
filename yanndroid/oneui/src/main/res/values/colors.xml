@@ -207,6 +207,8 @@
 
     <!--Dialog-->
     <color name="sesl_dialog_body_text_color">#ff505050</color>
+    <color name="sesl_dialog_button_text_color">#ff0074d4</color>
+    <color name="sesl4_dialog_button_text_color">#ff010101</color>
     <color name="sesl_dialog_divider_color_material">#ffe6e6e6</color>
     <color name="sesl_dialog_list_text_color">#ff252525</color>
     <color name="sesl_dialog_scrollbar_handle_tint_color_mtrl">#ffdedede</color>
@@ -223,8 +225,6 @@
     <color name="sesl_color_picker_stroke_color">#D4D4D4</color>
     <color name="sesl_color_picker_used_color_item_empty_slot_color">#E6E6E6</color>
     <color name="sesl_color_picker_used_color_text_color">#979797</color>
-
-    <color name="sesl_dialog_button_text_color">#ff010101</color>
 
     <!--RecyclerView-->
     <color name="sesl_fast_scrollbar_bg_color">#e64d4d4d</color>

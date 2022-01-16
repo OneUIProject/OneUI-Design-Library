@@ -22,14 +22,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
+import androidx.appcompat.R;
 import androidx.appcompat.app.AppCompatDialog;
 
-import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.sesl.dialog.SamsungAlertController;
 
 public class AlertDialog extends AppCompatDialog implements DialogInterface {
-    static final int LAYOUT_HINT_NONE = 0;
-    static final int LAYOUT_HINT_SIDE = 1;
+    public static final int LAYOUT_HINT_NONE = 0;
+    public static final int LAYOUT_HINT_SIDE = 1;
     final SamsungAlertController mAlert;
 
     protected AlertDialog(@NonNull Context context) {
@@ -48,8 +48,7 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
     }
 
     static int resolveDialogTheme(@NonNull Context context, @StyleRes int resid) {
-        // Check to see if this resourceId has a valid package ID.
-        if (((resid >>> 24) & 0x000000ff) >= 0x00000001) {   // start of real resource IDs.
+        if (((resid >>> 24) & 0x000000ff) >= 0x00000001) {
             return resid;
         } else {
             TypedValue outValue = new TypedValue();
@@ -101,7 +100,7 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
     }
 
     public void setButton(int whichButton, CharSequence text, Drawable icon, OnClickListener listener) {
-        mAlert.setButton(whichButton, text, listener, null, icon);
+        mAlert.setButton(whichButton, text, listener, null,  icon);
     }
 
     public void setIcon(int resId) {
@@ -296,7 +295,8 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
             return this;
         }
 
-        public Builder setMultiChoiceItems(@ArrayRes int itemsId, boolean[] checkedItems, final OnMultiChoiceClickListener listener) {
+        public Builder setMultiChoiceItems(@ArrayRes int itemsId, boolean[] checkedItems,
+                                           final OnMultiChoiceClickListener listener) {
             P.mItems = P.mContext.getResources().getTextArray(itemsId);
             P.mOnCheckboxClickListener = listener;
             P.mCheckedItems = checkedItems;
@@ -304,7 +304,8 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
             return this;
         }
 
-        public Builder setMultiChoiceItems(CharSequence[] items, boolean[] checkedItems, final OnMultiChoiceClickListener listener) {
+        public Builder setMultiChoiceItems(CharSequence[] items, boolean[] checkedItems,
+                                           final OnMultiChoiceClickListener listener) {
             P.mItems = items;
             P.mOnCheckboxClickListener = listener;
             P.mCheckedItems = checkedItems;
@@ -396,11 +397,8 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
             return this;
         }
 
-
         @NonNull
         public AlertDialog create() {
-            // We can't use Dialog's 3-arg constructor with the createThemeContextWrapper param,
-            // so we always have to re-set the theme
             final AlertDialog dialog = new AlertDialog(P.mContext, mTheme);
             P.apply(dialog.mAlert);
             dialog.setCancelable(P.mCancelable);

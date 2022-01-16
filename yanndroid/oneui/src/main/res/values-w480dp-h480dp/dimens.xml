@@ -2,4 +2,6 @@
 <resources>
     <item name="sesl_dialog_min_width_major" type="dimen">63.0%</item>
     <item name="sesl_dialog_min_width_minor" type="dimen">63.0%</item>
+    <item name="sesl4_dialog_min_width_major" type="dimen">63.0%</item>
+    <item name="sesl4_dialog_min_width_minor" type="dimen">63.0%</item>
 </resources>

@@ -25,8 +25,7 @@
         <item name="android:textColorSecondary">@color/sesl_secondary_text</item>
         <item name="android:textColorSecondaryInverse">@color/sesl_secondary_text</item>
         <item name="android:textColorHighlight">@color/sesl_highlighted_text_color</item>
-        <item name="android:textColorAlertDialogListItem">@color/sesl_select_dialog_list_item_text
-        </item>
+        <item name="android:textColorAlertDialogListItem">@color/sesl_select_dialog_list_item_text</item>
 
         <item name="android:listDivider">@drawable/sesl_list_divider</item>
 
@@ -34,8 +33,16 @@
         <item name="theme">@style/OneUI3StyleMain</item>
         <item name="toolbarTheme">@style/OneUI3StyleMain</item>
 
-        <item name="alertDialogTheme">@style/DialogTheme</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="alertDialogStyle">@style/AlertDialogStyle</item>
+        <item name="alertDialogCenterButtons">false</item>
+        <item name="buttonBarStyle">@style/ButtonBarStyle</item>
+        <item name="buttonBarButtonStyle">@style/ButtonBarButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyle</item>
+        <item name="dialogTheme">@style/DialogTheme</item>
+        <item name="dialogPreferredPadding">@dimen/sesl_dialog_padding</item>
     </style>
 
     <style name="OneUI3SplashTheme" parent="@style/OneUI3Theme">
@@ -64,7 +71,12 @@
         <item name="theme">@style/OneUI4StyleMain</item>
         <item name="toolbarTheme">@style/OneUI4StyleMain</item>
 
-        <item name="alertDialogTheme">@style/OneUI4.DialogTheme</item>
+        <item name="alertDialogTheme">@style/OneUI4.AlertDialogTheme</item>
+        <item name="alertDialogStyle">@style/OneUI4.AlertDialogStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+        <item name="dialogTheme">@style/OneUI4.DialogTheme</item>
     </style>
 
     <style name="OneUI4SplashTheme" parent="@style/OneUI4Theme">

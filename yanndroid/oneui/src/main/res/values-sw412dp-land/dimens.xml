@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sesl_dialog_body_text_padding_bottom">24.0dip</dimen>
+    <dimen name="sesl4_dialog_body_text_padding_bottom">26.0dip</dimen>
+    <dimen name="sesl_dialog_button_bar_padding_bottom">20.0dip</dimen>
+    <dimen name="sesl4_dialog_button_bar_padding_bottom">24.0dip</dimen>
+    <dimen name="sesl_dialog_title_padding_bottom">18.0dip</dimen>
+    <dimen name="sesl4_dialog_title_padding_bottom">4.0dip</dimen>
+    <dimen name="sesl_dialog_title_padding_top">24.0dip</dimen>
+    <dimen name="sesl_select_dialog_padding_bottom">24.0dip</dimen>
+</resources>

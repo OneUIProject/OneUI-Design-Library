@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/select_dialog_listview"
+    class="de.dlyt.yanndroid.oneui.sesl.dialog.SamsungAlertController$RecycleListView"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:cacheColorHint="@null"
+    android:divider="?android:listDividerAlertDialog"
+    android:overScrollMode="ifContentScrolls"
+    android:paddingStart="@dimen/sesl_select_dialog_padding_start"
+    android:paddingEnd="@dimen/sesl_select_dialog_padding_end"
+    android:paddingBottom="@dimen/sesl4_select_dialog_padding_bottom"
+    android:scrollbarStyle="outsideOverlay"
+    android:scrollbars="vertical"
+    android:textAlignment="viewStart"
+    app:paddingBottomNoButtons="@dimen/sesl_dialog_list_padding_bottom_no_buttons" />
