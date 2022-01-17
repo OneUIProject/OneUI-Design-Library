@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="rectangle"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <stroke android:width="@dimen/sesl_color_picker_oneui_3_current_view_stroke" android:color="@color/sesl_color_picker_stroke_color" />
+    <corners android:topRightRadius="@dimen/sesl_color_picker_oneui_3_current_view_radius" android:bottomRightRadius="@dimen/sesl_color_picker_oneui_3_current_view_radius" />
+    <size android:height="@dimen/sesl_color_picker_oneui_3_current_view_height" android:width="@dimen/sesl_color_picker_oneui_3_current_view_width" />
+</shape>

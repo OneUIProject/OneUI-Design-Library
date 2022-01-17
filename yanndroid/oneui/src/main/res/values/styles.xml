@@ -447,28 +447,35 @@
 
 
     <!--ColorPicker-->
-    <style name="ColorPickerPopupDialog" parent="@style/DialogTheme">
-        <item name="android:windowAnimationStyle">@style/DialogAnimStyle</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowMinWidthMajor">99.90001%</item>
-        <item name="android:windowMinWidthMinor">@dimen/sesl_dialog_min_width_minor</item>
-        <item name="windowMinWidthMajor">@dimen/sesl_dialog_min_width_major</item>
-        <item name="windowMinWidthMinor">@dimen/sesl_dialog_min_width_minor</item>
+    <style name="TabText">
+        <item name="android:textSize">@dimen/sesl_color_picker_tab_text_size</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
-    <style name="ColorPickerHexTitleStyle">
-        <item name="android:textSize">12.0sp</item>
-        <item name="android:textColor">#ff909090</item>
+    <style name="TabTextSelected">
+        <item name="android:textSize">@dimen/sesl_color_picker_tab_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
-    <style name="ColorPickerHexEditStyle">
-        <item name="android:textSize">14.0sp</item>
-        <item name="android:textColor">@color/setting_color_picker_mode_text_selected_color</item>
+    <style name="HexRGBTitleText">
+        <item name="android:textSize">@dimen/sesl_color_picker_oneui_3_selected_color_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/sesl_secondary_text_color</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
+    <style name="SeekbarProgressText">
+        <item name="android:textSize">@dimen/sesl_color_picker_edit_text_size</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
+    </style>
+
+    <style name="SeekbarTitleText">
+        <item name="android:textSize">@dimen/sesl_color_seekbar_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/sesl_secondary_text_color</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
+    </style>
 
     <!--Related Card-->
     <style name="RelatedButtonStyle">
@@ -1117,20 +1124,6 @@
     <style name="OneUI4.ListSeparatorStyle" parent="@style/ListSeparatorStyle">
         <item name="android:textSize">@dimen/sesl4_list_subheader_text_size</item>
         <item name="android:paddingTop">@dimen/sesl4_list_subheader_padding_top</item>
-    </style>
-
-
-    <!--ColorPicker-->
-    <style name="OneUI4.ColorPickerPopupDialog" parent="@style/OneUI4.DialogTheme">
-        <item name="android:windowAnimationStyle">@style/DialogAnimStyle</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowMinWidthMajor">99.90001%</item>
-        <item name="android:windowMinWidthMinor">@dimen/sesl4_dialog_min_width_minor</item>
-        <item name="windowMinWidthMajor">@dimen/sesl4_dialog_min_width_major</item>
-        <item name="windowMinWidthMinor">@dimen/sesl4_dialog_min_width_minor</item>
     </style>
 
 </resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sesl_color_picker_tab_layout" android:layout_width="fill_parent" android:layout_height="@dimen/sesl_color_picker_tab_layout_height" android:layout_marginHorizontal="@dimen/sesl_color_picker_oneui_3_dialog_extra_horizontal_margin" android:gravity="center" android:orientation="horizontal">
+    <TextView
+        android:id="@+id/sesl_color_picker_swatches_text_view" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" android:padding="10.0dip" android:gravity="center" android:text="@string/sesl_color_picker_swatches_text" style="@style/TabText" />
+    <TextView
+        android:id="@+id/sesl_color_picker_spectrum_text_view" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" android:padding="10.0dip" android:gravity="center" android:text="@string/sesl_color_picker_spectrum_text" style="@style/TabText" />
+</LinearLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/sesl_color_picker_oneui_3_used_color_group_margin" android:layout_marginBottom="@dimen/sesl_color_picker_oneui_3_used_color_group_margin" android:layout_gravity="center" android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/sesl_color_picker_used_color_item_list_layout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center_horizontal" android:orientation="horizontal">
+        <View
+            android:layout_width="@dimen/sesl_color_picker_oneui_3_used_color_item_size" android:layout_height="@dimen/sesl_color_picker_oneui_3_used_color_item_size" android:layout_marginEnd="@dimen/sesl_color_picker_oneui_3_used_color_item_gap_margin" />
+        <View
+            android:layout_width="@dimen/sesl_color_picker_oneui_3_used_color_item_size" android:layout_height="@dimen/sesl_color_picker_oneui_3_used_color_item_size" android:layout_marginEnd="@dimen/sesl_color_picker_oneui_3_used_color_item_gap_margin" />
+        <View
+            android:layout_width="@dimen/sesl_color_picker_oneui_3_used_color_item_size" android:layout_height="@dimen/sesl_color_picker_oneui_3_used_color_item_size" android:layout_marginEnd="@dimen/sesl_color_picker_oneui_3_used_color_item_gap_margin" />
+        <View
+            android:layout_width="@dimen/sesl_color_picker_oneui_3_used_color_item_size" android:layout_height="@dimen/sesl_color_picker_oneui_3_used_color_item_size" android:layout_marginEnd="@dimen/sesl_color_picker_oneui_3_used_color_item_gap_margin" />
+        <View
+            android:layout_width="@dimen/sesl_color_picker_oneui_3_used_color_item_size" android:layout_height="@dimen/sesl_color_picker_oneui_3_used_color_item_size" android:layout_marginEnd="@dimen/sesl_color_picker_oneui_3_used_color_item_gap_margin" />
+        <View
+            android:layout_width="@dimen/sesl_color_picker_oneui_3_used_color_item_size" android:layout_height="@dimen/sesl_color_picker_oneui_3_used_color_item_size" android:layout_marginEnd="@dimen/sesl_color_picker_oneui_3_used_color_item_gap_margin" />
+        <View
+            android:layout_width="@dimen/sesl_color_picker_oneui_3_used_color_item_size" android:layout_height="@dimen/sesl_color_picker_oneui_3_used_color_item_size" />
+    </LinearLayout>
+</LinearLayout>

@@ -20,8 +20,8 @@ import de.dlyt.yanndroid.oneui.dialog.DetailedColorPickerDialog;
 import de.dlyt.yanndroid.oneui.preference.internal.SeslPreferenceImageView;
 
 public class ColorPickerPreference extends Preference implements Preference.OnPreferenceClickListener,
-        ClassicColorPickerDialog.ColorPickerChangedListener,
-        DetailedColorPickerDialog.ColorPickerChangedListener {
+        ClassicColorPickerDialog.OnColorSetListener,
+        DetailedColorPickerDialog.OnColorSetListener {
     private static int CLASSIC = 0;
     private static int DETAILED = 1;
 
@@ -71,11 +71,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        if (mPickerType == CLASSIC)
-            onColorChanged(restoreValue ? getPersistedInt(mValue) : (Integer) defaultValue);
-        else {
-            onColorChanged(restoreValue ? getPersistedInt(mValue) : (Integer) defaultValue, null);
-        }
+        onColorSet(restoreValue ? getPersistedInt(mValue) : (Integer) defaultValue);
     }
 
     private void init(Context context, AttributeSet attrs) {
@@ -109,7 +105,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
     }
 
     @Override
-    public void onColorChanged(int color) {
+    public void onColorSet(int color) {
         if (isPersistent()) {
             persistInt(color);
         }
@@ -122,26 +118,6 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
         else
             mFirstColor = false;
         setPreviewColor();
-    }
-
-    @Override
-    public void onColorChanged(int color, float[] HSVcolor) {
-        if (isPersistent()) {
-            persistInt(color);
-        }
-        mValue = color;
-
-        callChangeListener(color);
-
-        if (!mFirstColor)
-            addRecentColor(color);
-        else
-            mFirstColor = false;
-        setPreviewColor();
-    }
-
-    @Override
-    public void onViewModeChanged(int i) {
     }
 
     @Override
@@ -161,12 +137,9 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
 
             mDialog = dialog;
         } else {
-            float[] fArr = new float[3];
-            Color.colorToHSV(mValue, fArr);
-            DetailedColorPickerDialog dialog = new DetailedColorPickerDialog(getContext(), 1, fArr);
-            dialog.setColorPickerChangeListener(this);
-            if (mAlphaSliderEnabled)
-                Log.e("ColorPickerPreference", "mAlphaSliderEnabled not supported with detailed mode");
+            DetailedColorPickerDialog dialog = new DetailedColorPickerDialog(getContext(), this, mValue, getRecentColors(), mAlphaSliderEnabled);
+            dialog.setNewColor(mValue);
+            dialog.setTransparencyControlEnabled(mAlphaSliderEnabled);
             if (state != null)
                 dialog.onRestoreInstanceState(state);
             dialog.show();
@@ -177,9 +150,6 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
 
     public void setAlphaSliderEnabled(boolean enable) {
         mAlphaSliderEnabled = enable;
-
-        if (mPickerType == DETAILED)
-            Log.e("ColorPickerPreference", "mAlphaSliderEnabled not supported with detailed mode");
     }
 
     private void addRecentColor(int color) {

@@ -288,9 +288,9 @@ public class MainActivity extends BaseThemeActivity {
 
         try {
             mClassicColorPickerDialog = new ClassicColorPickerDialog(this,
-                    new ClassicColorPickerDialog.ColorPickerChangedListener() {
+                    new ClassicColorPickerDialog.OnColorSetListener() {
                         @Override
-                        public void onColorChanged(int i) {
+                        public void onColorSet(int i) {
                             if (currentColor != i)
                                 ThemeUtil.setColor(MainActivity.this, Color.red(i), Color.green(i), Color.blue(i));
                         }
@@ -307,23 +307,22 @@ public class MainActivity extends BaseThemeActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("ThemeColor", Context.MODE_PRIVATE);
         String stringColor = sharedPreferences.getString("color", "0381fe");
 
-        float[] currentColor = new float[3];
-        Color.colorToHSV(Color.parseColor("#" + stringColor), currentColor);
+        int currentColor = Color.parseColor("#" + stringColor);
 
-        mDetailedColorPickerDialog = new DetailedColorPickerDialog(this, 2, currentColor);
-        mDetailedColorPickerDialog.setColorPickerChangeListener(new DetailedColorPickerDialog.ColorPickerChangedListener() {
-            @Override
-            public void onColorChanged(int i, float[] fArr) {
-                if (!(fArr[0] == currentColor[0] && fArr[1] == currentColor[1] && fArr[2] == currentColor[2]))
-                    ThemeUtil.setColor(MainActivity.this, fArr);
-            }
-
-            @Override
-            public void onViewModeChanged(int i) {
-
-            }
-        });
-        mDetailedColorPickerDialog.show();
+        try {
+            mDetailedColorPickerDialog = new DetailedColorPickerDialog(this,
+                    new DetailedColorPickerDialog.OnColorSetListener() {
+                        @Override
+                        public void onColorSet(int i) {
+                            if (currentColor != i)
+                                ThemeUtil.setColor(MainActivity.this, Color.red(i), Color.green(i), Color.blue(i));
+                        }
+                    },
+                    currentColor);
+            mDetailedColorPickerDialog.show();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 
     public void standardDialog(View view) {
