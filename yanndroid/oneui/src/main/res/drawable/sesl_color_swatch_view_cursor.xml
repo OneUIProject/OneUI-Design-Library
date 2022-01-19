@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <stroke
-        android:width="@dimen/sesl_color_picker_color_swatch_view_cursor_stroke_size"
-        android:color="@android:color/white" />
-    <corners android:radius="@dimen/sesl_color_picker_color_swatch_view_cursor_stroke_radius" />
+<shape android:shape="rectangle"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <stroke android:width="@dimen/sesl_color_picker_color_swatch_view_cursor_stroke_size" android:color="@color/sesl_color_picker_swatch_cursor_color" />
 </shape>

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<de.dlyt.yanndroid.oneui.sesl.colorpicker.detailed.SeslColorPicker xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sesl_color_picker_content_view" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" />

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="@dimen/sesl_color_picker_selected_color_layout_height" android:layout_marginTop="@dimen/sesl_color_picker_rgb_layout_margin" android:layout_marginStart="@dimen/sesl_color_picker_oneui_3_selected_color_extra_margin" android:layout_gravity="center">
+    <LinearLayout
+        android:layout_width="@dimen/sesl_color_picker_selected_current_width" android:layout_height="wrap_content" android:layout_gravity="center" android:gravity="center" android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/sesl_color_picker_current_color_view" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/sesl_color_picker_oneui_3_selected_color_item_current_left_view" />
+        <ImageView
+            android:id="@+id/sesl_color_picker_picked_color_view" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/sesl_color_picker_oneui_3_selected_color_item_current_right_view" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/sesl_color_picker_selected_color_hex_width" android:layout_height="wrap_content" android:layout_marginStart="@dimen/sesl_color_picker_selected_color_item_margin" android:layout_gravity="center_vertical" android:gravity="center" android:orientation="vertical">
+        <TextView
+            android:id="@+id/sesl_color_hex_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_title_text_height" android:gravity="center" android:text="@string/sesl_color_hex_text" style="@style/HexRGBTitleText" />
+        <EditText
+            android:id="@+id/sesl_color_hex_edit_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_value_text_height" android:minWidth="50.0dip" android:gravity="center" android:background="@null" android:singleLine="true" android:maxLength="6" android:digits="ABCDEFabcdef0123456789" android:privateImeOptions="disableSticker=true;disableGifKeyboard=true;disableEmoticonInput=true;disableDirectWriting=true;" android:imeOptions="actionNext" style="@style/SeekbarProgressText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/sesl_color_picker_selected_color_rgb_width" android:layout_height="wrap_content" android:layout_marginStart="@dimen/sesl_color_picker_selected_color_item_margin" android:layout_gravity="center_vertical" android:gravity="center" android:orientation="vertical">
+        <TextView
+            android:id="@+id/sesl_color_red_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_title_text_height" android:gravity="center" android:text="@string/sesl_color_red_text" style="@style/HexRGBTitleText" />
+        <EditText
+            android:id="@+id/sesl_color_red_edit_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_value_text_height" android:minWidth="30.0dip" android:gravity="center" android:background="@null" android:maxLength="3" android:inputType="number" android:imeOptions="actionNext" style="@style/SeekbarProgressText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/sesl_color_picker_selected_color_rgb_width" android:layout_height="wrap_content" android:layout_marginStart="@dimen/sesl_color_picker_selected_color_item_margin" android:layout_gravity="center_vertical" android:gravity="center" android:orientation="vertical">
+        <TextView
+            android:id="@+id/sesl_color_green_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_title_text_height" android:gravity="center" android:text="@string/sesl_color_green_text" style="@style/HexRGBTitleText" />
+        <EditText
+            android:id="@+id/sesl_color_green_edit_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_value_text_height" android:minWidth="30.0dip" android:gravity="center" android:background="@null" android:maxLength="3" android:inputType="number" android:imeOptions="actionNext" style="@style/SeekbarProgressText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/sesl_color_picker_selected_color_rgb_width" android:layout_height="wrap_content" android:layout_marginStart="@dimen/sesl_color_picker_selected_color_item_margin" android:layout_gravity="center_vertical" android:gravity="center" android:orientation="vertical">
+        <TextView
+            android:id="@+id/sesl_color_blue_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_title_text_height" android:gravity="center" android:text="@string/sesl_color_blue_text" style="@style/HexRGBTitleText" />
+        <EditText
+            android:id="@+id/sesl_color_blue_edit_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_value_text_height" android:minWidth="30.0dip" android:gravity="center" android:background="@null" android:maxLength="3" android:inputType="number" android:imeOptions="actionNext" style="@style/SeekbarProgressText" />
+    </LinearLayout>
+</LinearLayout>

@@ -97,16 +97,16 @@
         <ColorPickerPreference
             android:defaultValue="#085265"
             android:key="key4"
-            android:summary="pickerType classic; showAlphaSlider"
+            android:summary="pickerType classic"
             android:title="ColorPickerPreference"
-            app:pickerType="classic"
-            app:showAlphaSlider="true" />
+            app:pickerType="classic" />
         <ColorPickerPreference
             android:defaultValue="#FF2563"
             android:key="key5"
-            android:summary="pickerType detailed"
+            android:summary="pickerType detailed; showAlphaSlider"
             android:title="ColorPickerPreference"
-            app:pickerType="detailed" />
+            app:pickerType="detailed"
+            app:showAlphaSlider="true" />
     </PreferenceCategory>
 
     <PreferenceCategory android:key="spacing2" />

@@ -96,16 +96,12 @@
 
 
     <!--ColorPicker-->
-    <color name="setting_bg_color">#ff252525</color>
-    <color name="setting_pressed_color">#33ffffff</color>
-    <color name="setting_color_picker_adaptive_outline">#4dd9d9d9</color>
-    <color name="setting_color_picker_color_value_text">#fffafafa</color>
-    <color name="setting_ripple_color">#33ffffff</color>
-    <color name="setting_brush_picker_layout_divider_shape_color">#fffcfcfc</color>
-    <color name="setting_color_picker_mode_bg_selected_color">#99ffffff</color>
-    <color name="dialog_action_ripple">#33ffffff</color>
-    <color name="setting_color_picker_mode_text_selected_color">#fffcfcfc</color>
-    <color name="setting_color_picker_mode_text_unselected_color">#ff999999</color>
+    <color name="sesl_color_picker_selected_color_item_text_color">#ffb0b0b0</color>
+    <color name="sesl_color_picker_stroke_color">#ff000000</color>
+    <color name="sesl_color_picker_tab_selected_background">#1affffff</color>
+    <color name="sesl_color_picker_tab_selected">#ffe5e5e5</color>
+    <color name="sesl_color_picker_used_color_item_empty_slot_color">#ff3b3b3b</color>
+    <color name="sesl_color_picker_used_color_text_color">#42fafafa</color>
 
 
     <!--Tooltip-->
@@ -150,11 +146,6 @@
     <color name="sesl_dialog_sub_text_color_material">#ff666666</color>
     <color name="sesl_dialog_title_text_color">#fffafafa</color>
     <color name="sesl_dialog_window_background_color_material">#ff252525</color>
-
-    <color name="sesl_color_picker_selected_color_item_text_color">#B0B0B0</color>
-    <color name="sesl_color_picker_stroke_color">#000000</color>
-    <color name="sesl_color_picker_used_color_item_empty_slot_color">#3B3B3B</color>
-    <color name="sesl_color_picker_used_color_text_color">#42FAFAFA</color>
 
 
     <!--RecyclerView-->

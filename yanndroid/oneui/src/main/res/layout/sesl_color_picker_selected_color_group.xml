@@ -1,72 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/sesl_color_picker_selected_color_group_width"
-    android:layout_height="@dimen/sesl_color_picker_selected_color_group_height"
-    android:layout_gravity="center"
-    android:paddingTop="@dimen/sesl_color_picker_selected_color_group_background_padding_vertical"
-    android:paddingBottom="@dimen/sesl_color_picker_selected_color_group_background_padding_vertical">
-
+    android:layout_width="@dimen/sesl_color_picker_selected_color_group_width" android:layout_height="@dimen/sesl_color_picker_selected_color_group_height" android:paddingTop="@dimen/sesl_color_picker_selected_color_group_background_padding_vertical" android:paddingBottom="@dimen/sesl_color_picker_selected_color_group_background_padding_vertical" android:layout_gravity="center">
     <TextView
-        android:id="@+id/sesl_color_picker_current_color_text"
-        android:layout_width="@dimen/sesl_color_picker_selected_color_text_width"
-        android:layout_height="@dimen/sesl_color_picker_selected_color_text_height"
-        android:layout_marginRight="@dimen/sesl_color_picker_selected_color_text_margin"
-        android:layout_toStartOf="@id/sesl_color_picker_current_color_view"
-        android:fontFamily="@string/sesl_font_family_regular"
-        android:gravity="center"
-        android:importantForAccessibility="no"
-        android:text="@string/pen_string_color_current"
-        android:textSize="@dimen/sesl_color_picker_selected_color_text_size" />
-
+        android:id="@+id/sesl_color_picker_current_color_text" android:layout_width="@dimen/sesl_color_picker_selected_color_text_width" android:layout_height="@dimen/sesl_color_picker_selected_color_text_height" android:layout_marginRight="@dimen/sesl_color_picker_selected_color_text_margin" android:layout_toStartOf="@id/sesl_color_picker_current_color_view" android:gravity="center" android:text="@string/sesl_color_picker_current" android:textSize="@dimen/sesl_color_picker_selected_color_text_size" android:fontFamily="@string/sesl_font_family_regular" android:importantForAccessibility="no" />
     <ImageView
-        android:id="@+id/sesl_color_picker_current_color_view"
-        android:layout_width="@dimen/sesl_color_picker_selected_color_item_width"
-        android:layout_height="@dimen/sesl_color_picker_selected_color_item_height"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@id/pivot"
-        android:background="@drawable/sesl_color_picker_selected_color_item_current" />
+        android:id="@id/sesl_color_picker_current_color_view" android:layout_width="@dimen/sesl_color_picker_selected_color_item_width" android:layout_height="@dimen/sesl_color_picker_selected_color_item_height" android:layout_toStartOf="@id/pivot" android:layout_centerVertical="true" android:background="@drawable/sesl_color_picker_selected_color_item_current" />
+    <View
+        android:id="@+id/sesl_color_picker_current_color_focus" android:layout_width="@dimen/sesl_color_picker_selected_color_focus_width" android:layout_height="@dimen/sesl_color_picker_selected_color_focus_height" android:layout_toStartOf="@id/pivot" android:layout_centerHorizontal="true" android:focusable="true" android:importantForAccessibility="yes" />
 
     <View
-        android:id="@+id/sesl_color_picker_current_color_focus"
-        android:layout_width="@dimen/sesl_color_picker_selected_color_focus_width"
-        android:layout_height="@dimen/sesl_color_picker_selected_color_focus_height"
-        android:layout_centerHorizontal="true"
-        android:layout_toStartOf="@id/pivot"
-        android:focusable="true"
-        android:importantForAccessibility="yes" />
+        android:id="@+id/pivot" android:layout_width="0.0dip" android:layout_height="0.0dip" android:layout_centerHorizontal="true" />
 
     <View
-        android:id="@+id/pivot"
-        android:layout_width="0.0dip"
-        android:layout_height="0.0dip"
-        android:layout_centerHorizontal="true" />
-
-    <View
-        android:id="@+id/sesl_color_picker_picked_color_focus"
-        android:layout_width="@dimen/sesl_color_picker_selected_color_focus_width"
-        android:layout_height="@dimen/sesl_color_picker_selected_color_focus_height"
-        android:layout_centerHorizontal="true"
-        android:layout_toEndOf="@id/pivot"
-        android:focusable="true"
-        android:importantForAccessibility="yes" />
-
+        android:id="@+id/sesl_color_picker_picked_color_focus" android:layout_width="@dimen/sesl_color_picker_selected_color_focus_width" android:layout_height="@dimen/sesl_color_picker_selected_color_focus_height" android:layout_toEndOf="@id/pivot" android:layout_centerHorizontal="true" android:focusable="true" android:importantForAccessibility="yes" />
     <ImageView
-        android:id="@+id/sesl_color_picker_picked_color_view"
-        android:layout_width="@dimen/sesl_color_picker_selected_color_item_width"
-        android:layout_height="@dimen/sesl_color_picker_selected_color_item_height"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/pivot"
-        android:background="@drawable/sesl_color_picker_selected_color_item_new" />
-
+        android:id="@+id/sesl_color_picker_picked_color_view" android:layout_width="@dimen/sesl_color_picker_selected_color_item_width" android:layout_height="@dimen/sesl_color_picker_selected_color_item_height" android:layout_toEndOf="@id/pivot" android:layout_centerVertical="true" android:background="@drawable/sesl_color_picker_selected_color_item_new" />
     <TextView
-        android:id="@+id/sesl_color_picker_picked_color_text"
-        android:layout_width="@dimen/sesl_color_picker_selected_color_text_width"
-        android:layout_height="@dimen/sesl_color_picker_selected_color_text_height"
-        android:layout_marginLeft="@dimen/sesl_color_picker_selected_color_text_margin"
-        android:layout_toEndOf="@id/sesl_color_picker_picked_color_view"
-        android:fontFamily="@string/sesl_font_family_regular"
-        android:gravity="center"
-        android:importantForAccessibility="no"
-        android:text="@string/pen_string_color_new"
-        android:textSize="@dimen/sesl_color_picker_selected_color_text_size" />
+        android:id="@+id/sesl_color_picker_picked_color_text" android:layout_width="@dimen/sesl_color_picker_selected_color_text_width" android:layout_height="@dimen/sesl_color_picker_selected_color_text_height" android:layout_marginLeft="@dimen/sesl_color_picker_selected_color_text_margin" android:layout_toEndOf="@id/sesl_color_picker_picked_color_view" android:gravity="center" android:text="@string/sesl_color_picker_new" android:textSize="@dimen/sesl_color_picker_selected_color_text_size" android:fontFamily="@string/sesl_font_family_regular" android:importantForAccessibility="no" />
 </RelativeLayout>

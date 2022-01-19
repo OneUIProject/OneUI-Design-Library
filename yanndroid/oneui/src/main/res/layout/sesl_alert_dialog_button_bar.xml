@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:scrollbarAlwaysDrawVerticalTrack="true" android:id="@id/buttonPanel" android:layout_width="fill_parent" android:layout_height="wrap_content" android:fillViewport="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/buttonPanel" android:layout_width="fill_parent" android:layout_height="wrap_content" android:fillViewport="true" android:scrollbarAlwaysDrawVerticalTrack="true">
     <de.dlyt.yanndroid.oneui.sesl.dialog.widget.ButtonBarLayout
         android:id="@+id/buttonBarLayout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingStart="@dimen/sesl_dialog_button_bar_padding_horizontal" android:paddingEnd="@dimen/sesl_dialog_button_bar_padding_horizontal" android:paddingBottom="@dimen/sesl_dialog_button_bar_padding_bottom" android:orientation="horizontal" android:layoutDirection="locale" style="?buttonBarStyle">
         <android.widget.Button

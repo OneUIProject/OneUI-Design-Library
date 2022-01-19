@@ -7,89 +7,83 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.sesl.colorpicker.SeslColorPicker;
+import de.dlyt.yanndroid.oneui.sesl.colorpicker.classic.SeslColorPicker;
 
 public class ClassicColorPickerDialog extends AlertDialog implements DialogInterface.OnClickListener {
     private static final String TAG = "SeslColorPickerDialog";
     private final SeslColorPicker mColorPicker;
-    private final ClassicColorPickerDialog.ColorPickerChangedListener mColorPickerChangedListener;
     private Integer mCurrentColor;
+    private final OnColorSetListener mOnColorSetListener;
 
-    public ClassicColorPickerDialog(Context context, ClassicColorPickerDialog.ColorPickerChangedListener listener) {
-        super(context);
-        this.mCurrentColor = null;
-        Context var3 = this.getContext();
-        View var4 = LayoutInflater.from(var3).inflate(R.layout.sesl_color_picker_dialog, (ViewGroup) null);
-        this.setView(var4);
-        this.setButton(-1, var3.getString(R.string.sesl_done), this);
-        this.setButton(-2, var3.getString(android.R.string.cancel), this);
-        this.requestWindowFeature(1);
-        this.getWindow().setSoftInputMode(16);
-        this.mColorPickerChangedListener = listener;
-        this.mColorPicker = (SeslColorPicker) var4.findViewById(R.id.sesl_color_picker_content_view);
+    public ClassicColorPickerDialog(Context context, OnColorSetListener listener) {
+        super(context, resolveDialogTheme(context));
+        mCurrentColor = null;
+        View inflate = LayoutInflater.from(context).inflate(R.layout.sesl_color_picker_dialog, (ViewGroup) null);
+        setView(inflate);
+        setButton(-1, context.getString(R.string.sesl_picker_done), this);
+        setButton(-2, context.getString(R.string.sesl_picker_cancel), this);
+        requestWindowFeature(1);
+        getWindow().setSoftInputMode(16);
+        mOnColorSetListener = listener;
+        mColorPicker = (SeslColorPicker) inflate.findViewById(R.id.sesl_color_picker_content_view);
     }
 
-    public ClassicColorPickerDialog(Context context, ClassicColorPickerDialog.ColorPickerChangedListener listener, int currentColor) {
+    public ClassicColorPickerDialog(Context context, OnColorSetListener listener, int currentColor) {
         this(context, listener);
-        this.mColorPicker.getRecentColorInfo().setCurrentColor(currentColor);
-        this.mCurrentColor = currentColor;
+        this.mColorPicker.getRecentColorInfo().setCurrentColor(Integer.valueOf(currentColor));
+        this.mCurrentColor = Integer.valueOf(currentColor);
         this.mColorPicker.updateRecentColorLayout();
     }
 
-    public ClassicColorPickerDialog(Context context, ClassicColorPickerDialog.ColorPickerChangedListener listener, int currentColor, int[] recentColors) {
-        this(context, listener);
-        this.mColorPicker.getRecentColorInfo().initRecentColorInfo(recentColors);
-        this.mColorPicker.getRecentColorInfo().setCurrentColor(currentColor);
-        this.mCurrentColor = currentColor;
-        this.mColorPicker.updateRecentColorLayout();
-    }
-
-    public ClassicColorPickerDialog(Context context, ClassicColorPickerDialog.ColorPickerChangedListener listener, int[] recentColors) {
+    public ClassicColorPickerDialog(Context context, OnColorSetListener listener, int[] recentColors) {
         this(context, listener);
         this.mColorPicker.getRecentColorInfo().initRecentColorInfo(recentColors);
         this.mColorPicker.updateRecentColorLayout();
+    }
+
+    public ClassicColorPickerDialog(Context context, OnColorSetListener listener, int currentColor, int[] recentColors) {
+        this(context, listener);
+        this.mColorPicker.getRecentColorInfo().initRecentColorInfo(recentColors);
+        this.mColorPicker.getRecentColorInfo().setCurrentColor(Integer.valueOf(currentColor));
+        this.mCurrentColor = Integer.valueOf(currentColor);
+        this.mColorPicker.updateRecentColorLayout();
+    }
+
+    @Override
+    public void onClick(DialogInterface dialogInterface, int i) {
+        Integer num;
+        if (i == -1) {
+            this.mColorPicker.saveSelectedColor();
+            if (this.mOnColorSetListener == null) {
+                return;
+            }
+            if (this.mColorPicker.isUserInputValid() || (num = this.mCurrentColor) == null) {
+                this.mOnColorSetListener.onColorSet(this.mColorPicker.getRecentColorInfo().getSelectedColor().intValue());
+            } else {
+                this.mOnColorSetListener.onColorSet(num.intValue());
+            }
+        }
     }
 
     public SeslColorPicker getColorPicker() {
-        return this.mColorPicker;
+        return mColorPicker;
     }
 
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
+    public void setNewColor(int newColor) {
+        mColorPicker.getRecentColorInfo().setNewColor(newColor);
+        mColorPicker.updateRecentColorLayout();
     }
 
-    public void onClick(DialogInterface var1, int var2) {
-        if (var2 != -2 && var2 == -1) {
-            this.mColorPicker.saveSelectedColor();
-            if (this.mColorPickerChangedListener != null) {
-                if (!this.mColorPicker.isUserInputValid()) {
-                    Integer var3 = this.mCurrentColor;
-                    if (var3 != null) {
-                        this.mColorPickerChangedListener.onColorChanged(var3);
-                        return;
-                    }
-                }
-
-                this.mColorPickerChangedListener.onColorChanged(this.mColorPicker.getRecentColorInfo().getSelectedColor());
-            }
-        }
-
+    public void setTransparencyControlEnabled(boolean enabled) {
+        mColorPicker.setOpacityBarEnabled(enabled);
     }
 
-    public void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
+    private static int resolveDialogTheme(Context context) {
+        return context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false) ? R.style.OneUI4_DialogTheme : R.style.DialogTheme;
     }
 
-    public void setNewColor(Integer var1) {
-        this.mColorPicker.getRecentColorInfo().setNewColor(var1);
-        this.mColorPicker.updateRecentColorLayout();
-    }
 
-    public void setTransparencyControlEnabled(boolean var1) {
-        this.mColorPicker.setOpacityBarEnabled(var1);
-    }
-
-    public interface ColorPickerChangedListener {
-        void onColorChanged(int var1);
+    public interface OnColorSetListener {
+        void onColorSet(int newColor);
     }
 }
