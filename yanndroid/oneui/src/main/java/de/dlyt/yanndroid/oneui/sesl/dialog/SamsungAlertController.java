@@ -62,15 +62,21 @@ public class SamsungAlertController {
     private Drawable mButtonNegativeIcon;
     Message mButtonNegativeMessage;
     private CharSequence mButtonNegativeText;
+    private int mButtonNegativeColor;
+    private boolean mButtonNegativeProgress;
     Button mButtonNeutral;
     private Drawable mButtonNeutralIcon;
     Message mButtonNeutralMessage;
     private CharSequence mButtonNeutralText;
+    private int mButtonNeutralColor;
+    private boolean mButtonNeutralProgress;
     private int mButtonPanelSideLayout;
     Button mButtonPositive;
     private Drawable mButtonPositiveIcon;
     Message mButtonPositiveMessage;
     private CharSequence mButtonPositiveText;
+    private int mButtonPositiveColor;
+    private boolean mButtonPositiveProgress;
     private final Context mContext;
     private View mCustomTitleView;
     final AppCompatDialog mDialog;
@@ -119,7 +125,31 @@ public class SamsungAlertController {
                 m.sendToTarget();
             }
 
-            mHandler.obtainMessage(ButtonHandler.MSG_DISMISS_DIALOG, mDialog).sendToTarget();
+            if ((mButtonPositive.equals(v) && mButtonPositiveProgress)
+                    || (mButtonNegative.equals(v) && mButtonNegativeProgress)
+                    || (mButtonNeutral.equals(v) && mButtonNeutralProgress)) {
+                mDialog.setCancelable(false);
+                mDialog.setCanceledOnTouchOutside(false);
+                if (mButtonPositive != null) mButtonPositive.setEnabled(false);
+                if (mButtonNegative != null) mButtonNegative.setEnabled(false);
+                if (mButtonNeutral != null) mButtonNeutral.setEnabled(false);
+
+                ViewGroup buttonBar = (ViewGroup) v.getParent();
+                if (buttonBar != null) {
+                    int buttonIndex = buttonBar.indexOfChild(v);
+                    ViewGroup.LayoutParams lp = v.getLayoutParams();
+                    lp.height = mContext.getResources().getDimensionPixelSize(R.dimen.sesl_dialog_button_min_height);
+                    lp.width = mContext.getResources().getDimensionPixelSize(R.dimen.sesl_dialog_button_min_height);
+
+                    View inflate = LayoutInflater.from(mContext).inflate(R.layout.dialog_progress_bar, buttonBar, false);
+                    inflate.setLayoutParams(lp);
+
+                    buttonBar.removeView(v);
+                    buttonBar.addView(inflate, buttonIndex);
+                }
+            } else {
+                mHandler.obtainMessage(ButtonHandler.MSG_DISMISS_DIALOG, mDialog).sendToTarget();
+            }
         }
     };
 
@@ -261,7 +291,7 @@ public class SamsungAlertController {
         mButtonPanelLayoutHint = layoutHint;
     }
 
-    public void setButton(int whichButton, CharSequence text, DialogInterface.OnClickListener listener, Message msg, Drawable icon) {
+    public void setButton(int whichButton, CharSequence text, int color, boolean progress, DialogInterface.OnClickListener listener, Message msg, Drawable icon) {
         if (msg == null && listener != null) {
             msg = mHandler.obtainMessage(whichButton, listener);
         }
@@ -271,16 +301,22 @@ public class SamsungAlertController {
                 mButtonPositiveText = text;
                 mButtonPositiveMessage = msg;
                 mButtonPositiveIcon = icon;
+                mButtonPositiveColor = color;
+                mButtonPositiveProgress = progress;
                 break;
             case DialogInterface.BUTTON_NEGATIVE:
                 mButtonNegativeText = text;
                 mButtonNegativeMessage = msg;
                 mButtonNegativeIcon = icon;
+                mButtonNegativeColor = color;
+                mButtonNegativeProgress = progress;
                 break;
             case DialogInterface.BUTTON_NEUTRAL:
                 mButtonNeutralText = text;
                 mButtonNeutralMessage = msg;
                 mButtonNeutralIcon = icon;
+                mButtonNeutralColor = color;
+                mButtonNeutralProgress = progress;
                 break;
             default:
                 throw new IllegalArgumentException("Button does not exist");
@@ -772,6 +808,7 @@ public class SamsungAlertController {
             mButtonPositive.setVisibility(View.GONE);
         } else {
             mButtonPositive.setText(mButtonPositiveText);
+            if (mButtonPositiveColor != 0) mButtonPositive.setTextColor(mButtonPositiveColor);
             if (mButtonPositiveIcon != null) {
                 mButtonPositiveIcon.setBounds(0, 0, mButtonIconDimen, mButtonIconDimen);
                 mButtonPositive.setCompoundDrawables(mButtonPositiveIcon, null, null, null);
@@ -799,6 +836,7 @@ public class SamsungAlertController {
             mButtonNegative.setVisibility(View.GONE);
         } else {
             mButtonNegative.setText(mButtonNegativeText);
+            if (mButtonNegativeColor != 0) mButtonNegative.setTextColor(mButtonNegativeColor);
             if (mButtonNegativeIcon != null) {
                 mButtonNegativeIcon.setBounds(0, 0, mButtonIconDimen, mButtonIconDimen);
                 mButtonNegative.setCompoundDrawables(mButtonNegativeIcon, null, null, null);
@@ -826,6 +864,7 @@ public class SamsungAlertController {
             mButtonNeutral.setVisibility(View.GONE);
         } else {
             mButtonNeutral.setText(mButtonNeutralText);
+            if (mButtonNeutralColor != 0) mButtonNeutral.setTextColor(mButtonNeutralColor);
             if (mButtonNeutralIcon != null) {
                 mButtonNeutralIcon.setBounds(0, 0, mButtonIconDimen, mButtonIconDimen);
                 mButtonNeutral.setCompoundDrawables(mButtonNeutralIcon, null, null, null);
@@ -915,9 +954,13 @@ public class SamsungAlertController {
         public Drawable mNegativeButtonIcon;
         public DialogInterface.OnClickListener mNegativeButtonListener;
         public CharSequence mNegativeButtonText;
+        public int mNegativeButtonColor;
+        public boolean mNegativeButtonProgress;
         public Drawable mNeutralButtonIcon;
         public DialogInterface.OnClickListener mNeutralButtonListener;
         public CharSequence mNeutralButtonText;
+        public int mNeutralButtonColor;
+        public boolean mNeutralButtonProgress;
         public DialogInterface.OnCancelListener mOnCancelListener;
         public DialogInterface.OnMultiChoiceClickListener mOnCheckboxClickListener;
         public DialogInterface.OnClickListener mOnClickListener;
@@ -928,6 +971,8 @@ public class SamsungAlertController {
         public Drawable mPositiveButtonIcon;
         public DialogInterface.OnClickListener mPositiveButtonListener;
         public CharSequence mPositiveButtonText;
+        public int mPositiveButtonColor;
+        public boolean mPositiveButtonProgress;
         public CharSequence mTitle;
         public View mView;
         public int mViewLayoutResId;
@@ -973,13 +1018,13 @@ public class SamsungAlertController {
                 dialog.setMessage(mMessage);
             }
             if (mPositiveButtonText != null || mPositiveButtonIcon != null) {
-                dialog.setButton(DialogInterface.BUTTON_POSITIVE, mPositiveButtonText, mPositiveButtonListener, null, mPositiveButtonIcon);
+                dialog.setButton(DialogInterface.BUTTON_POSITIVE, mPositiveButtonText, mPositiveButtonColor, mPositiveButtonProgress, mPositiveButtonListener, null, mPositiveButtonIcon);
             }
             if (mNegativeButtonText != null || mNegativeButtonIcon != null) {
-                dialog.setButton(DialogInterface.BUTTON_NEGATIVE, mNegativeButtonText, mNegativeButtonListener, null, mNegativeButtonIcon);
+                dialog.setButton(DialogInterface.BUTTON_NEGATIVE, mNegativeButtonText, mNegativeButtonColor, mNegativeButtonProgress, mNegativeButtonListener, null, mNegativeButtonIcon);
             }
             if (mNeutralButtonText != null || mNeutralButtonIcon != null) {
-                dialog.setButton(DialogInterface.BUTTON_NEUTRAL, mNeutralButtonText, mNeutralButtonListener, null, mNeutralButtonIcon);
+                dialog.setButton(DialogInterface.BUTTON_NEUTRAL, mNeutralButtonText, mNeutralButtonColor, mNeutralButtonProgress, mNeutralButtonListener, null, mNeutralButtonIcon);
             }
             if ((mItems != null) || (mCursor != null) || (mAdapter != null)) {
                 createListView(dialog);
@@ -1048,7 +1093,7 @@ public class SamsungAlertController {
                 }
 
                 if (mCursor != null) {
-                    adapter = new SimpleCursorAdapter(mContext, layout, mCursor, new String[] { mLabelColumn }, new int[] { android.R.id.text1 });
+                    adapter = new SimpleCursorAdapter(mContext, layout, mCursor, new String[]{mLabelColumn}, new int[]{android.R.id.text1});
                 } else if (mAdapter != null) {
                     adapter = mAdapter;
                 } else {

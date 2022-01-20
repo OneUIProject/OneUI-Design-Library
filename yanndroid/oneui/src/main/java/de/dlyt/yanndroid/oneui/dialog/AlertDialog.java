@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 import androidx.annotation.ArrayRes;
 import androidx.annotation.AttrRes;
+import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -92,15 +93,15 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
     }
 
     public void setButton(int whichButton, CharSequence text, Message msg) {
-        mAlert.setButton(whichButton, text, null, msg, null);
+        mAlert.setButton(whichButton, text, 0, false, null, msg, null);
     }
 
     public void setButton(int whichButton, CharSequence text, OnClickListener listener) {
-        mAlert.setButton(whichButton, text, listener, null, null);
+        mAlert.setButton(whichButton, text, 0, false, listener, null, null);
     }
 
     public void setButton(int whichButton, CharSequence text, Drawable icon, OnClickListener listener) {
-        mAlert.setButton(whichButton, text, listener, null,  icon);
+        mAlert.setButton(whichButton, text, 0, false, listener, null, icon);
     }
 
     public void setIcon(int resId) {
@@ -200,14 +201,22 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
         }
 
         public Builder setPositiveButton(@StringRes int textId, final OnClickListener listener) {
-            P.mPositiveButtonText = P.mContext.getText(textId);
-            P.mPositiveButtonListener = listener;
-            return this;
+            return setPositiveButton(P.mContext.getText(textId), listener);
         }
 
         public Builder setPositiveButton(CharSequence text, final OnClickListener listener) {
             P.mPositiveButtonText = text;
             P.mPositiveButtonListener = listener;
+            return this;
+        }
+
+        public Builder setPositiveButtonColor(@ColorInt int color) {
+            P.mPositiveButtonColor = color;
+            return this;
+        }
+
+        public Builder setPositiveButtonProgress(boolean progress) {
+            P.mPositiveButtonProgress = progress;
             return this;
         }
 
@@ -217,14 +226,22 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
         }
 
         public Builder setNegativeButton(@StringRes int textId, final OnClickListener listener) {
-            P.mNegativeButtonText = P.mContext.getText(textId);
-            P.mNegativeButtonListener = listener;
-            return this;
+            return setNegativeButton(P.mContext.getText(textId), listener);
         }
 
         public Builder setNegativeButton(CharSequence text, final OnClickListener listener) {
             P.mNegativeButtonText = text;
             P.mNegativeButtonListener = listener;
+            return this;
+        }
+
+        public Builder setNegativeButtonColor(@ColorInt int color) {
+            P.mNegativeButtonColor = color;
+            return this;
+        }
+
+        public Builder setNegativeButtonProgress(boolean progress) {
+            P.mNegativeButtonProgress = progress;
             return this;
         }
 
@@ -234,14 +251,22 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
         }
 
         public Builder setNeutralButton(@StringRes int textId, final OnClickListener listener) {
-            P.mNeutralButtonText = P.mContext.getText(textId);
-            P.mNeutralButtonListener = listener;
-            return this;
+            return setNeutralButton(P.mContext.getText(textId), listener);
         }
 
         public Builder setNeutralButton(CharSequence text, final OnClickListener listener) {
             P.mNeutralButtonText = text;
             P.mNeutralButtonListener = listener;
+            return this;
+        }
+
+        public Builder setNeutralButtonColor(@ColorInt int color) {
+            P.mNeutralButtonColor = color;
+            return this;
+        }
+
+        public Builder setNeutralButtonProgress(boolean progress) {
+            P.mNeutralButtonProgress = progress;
             return this;
         }
 

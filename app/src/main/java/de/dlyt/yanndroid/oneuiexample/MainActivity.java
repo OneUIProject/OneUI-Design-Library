@@ -13,11 +13,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -39,7 +36,6 @@ import de.dlyt.yanndroid.oneui.menu.PopupMenu;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneui.utils.CustomButtonClickListener;
-import de.dlyt.yanndroid.oneui.utils.OnSingleClickListener;
 import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
 import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
 import de.dlyt.yanndroid.oneui.view.Snackbar;
@@ -330,54 +326,14 @@ public class MainActivity extends BaseThemeActivity {
                 .setTitle("Title")
                 .setMessage("Message")
                 .setNeutralButton("Maybe", null)
-                .setNegativeButton("No", null)
-                .setPositiveButton("Yes", null)
+                .setNegativeButton("No", (dialogInterface, i) -> new Handler().postDelayed(dialogInterface::dismiss, 700))
+                .setPositiveButton("Yes", (dialogInterface, i) -> new Handler().postDelayed(dialogInterface::dismiss, 700))
+                .setNegativeButtonColor(getResources().getColor(R.color.sesl_functional_red))
+                .setPositiveButtonColor(getResources().getColor(R.color.sesl_functional_green))
+                .setPositiveButtonProgress(true)
+                .setNegativeButtonProgress(true)
                 .create();
         dialog.show();
-
-
-        Button positiveBtn = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-        if (mUseOUI4Theme) {
-            Button negativeBtn = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
-            negativeBtn.setTextColor(getResources().getColor(R.color.sesl_functional_red));
-            positiveBtn.setTextColor(getResources().getColor(R.color.sesl_functional_green));
-        }
-        positiveBtn.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View view) {
-                showProgressBarInDialog(dialog);
-                new Handler().postDelayed(dialog::dismiss, 700);
-            }
-        });
-    }
-
-    private void showProgressBarInDialog(AlertDialog dialog) {
-        Button positiveBtn = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-        Button negativeBtn = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
-        Button neutralBtn = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
-
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
-        if (negativeBtn != null) negativeBtn.setEnabled(false);
-        if (neutralBtn != null) neutralBtn.setEnabled(false);
-        if (positiveBtn != null) {
-            positiveBtn.setEnabled(false);
-
-            ViewGroup buttonBar = (ViewGroup) positiveBtn.getParent();
-            if (buttonBar != null) {
-                int buttonIndex = buttonBar.indexOfChild(positiveBtn);
-
-                ViewGroup.LayoutParams lp = positiveBtn.getLayoutParams();
-                lp.height = getResources().getDimensionPixelSize(R.dimen.dialog_progress_bar_size);
-                lp.width = getResources().getDimensionPixelSize(R.dimen.dialog_progress_bar_size);
-
-                View inflate = LayoutInflater.from(this).inflate(R.layout.dialog_progress_bar, buttonBar, false);
-                inflate.setLayoutParams(lp);
-
-                buttonBar.removeView(positiveBtn);
-                buttonBar.addView(inflate, buttonIndex);
-            }
-        }
     }
 
     public void singleChoiceDialog(View view) {
@@ -410,7 +366,7 @@ public class MainActivity extends BaseThemeActivity {
         dialog.setCanceledOnTouchOutside(true);
         dialog.setTitle("Title");
         dialog.setMessage("ProgressDialog");
-        dialog.setButton(ProgressDialog.BUTTON_NEGATIVE, "Cancel", (dialog1, which) -> progressDialogCircleOnly(view));
+        dialog.setButton(ProgressDialog.BUTTON_NEGATIVE, "Cancel", (DialogInterface.OnClickListener) null);
         dialog.setOnCancelListener(dialog12 -> progressDialogCircleOnly(view));
         dialog.show();
     }
