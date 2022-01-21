@@ -49,6 +49,7 @@
         <item name="android:listDivider">@drawable/sesl_list_divider</item>
 
         <item name="spinnerStyle">@style/SpinnerStyle</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItemStyle</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemStyle</item>
         <item name="spinnerDropDownItemStyle">@style/SpinnerDropDownItemStyle</item>
         <item name="dropdownListPreferredItemHeight">@dimen/sesl_popup_menu_item_min_height</item>
@@ -394,9 +395,18 @@
         <item name="overlapAnchor">true</item>
     </style>
 
-    <style name="ListPopupAnimStyle" parent="@android:style/Animation">
-        <item name="android:windowEnterAnimation">@anim/sesl_list_popup_enter</item>
-        <item name="android:windowExitAnimation">@anim/sesl_list_popup_exit</item>
+    <style name="SpinnerItemStyle" parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="android:textAppearance">@style/SpinnerItemTextStyle</item>
+        <item name="android:paddingTop">@dimen/sesl_spinner_item_top_padding</item>
+        <item name="android:paddingBottom">@dimen/sesl_spinner_item_bottom_padding</item>
+        <item name="android:paddingStart">@dimen/sesl_spinner_item_start_padding</item>
+        <item name="android:paddingEnd">@dimen/sesl_spinner_item_end_padding</item>
+    </style>
+
+    <style name="SpinnerItemTextStyle" parent="@android:style/TextAppearance.Material.Widget.TextView.SpinnerItem">
+        <item name="android:textSize">@dimen/sesl_spinner_item_text_size</item>
+        <item name="android:textColor">@color/sesl_spinner_item_text</item>
+        <item name="fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
     <style name="SpinnerDropDownItemStyle" parent="@android:style/Widget.Material.DropDownItem.Spinner">
@@ -416,6 +426,11 @@
         <item name="android:textSize">@dimen/sesl_popup_menu_item_text_size</item>
         <item name="android:textColor">@color/sesl_spinner_dropdown_text_color</item>
         <item name="fontFamily">@string/sesl_font_family_regular</item>
+    </style>
+
+    <style name="ListPopupAnimStyle" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/sesl_list_popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/sesl_list_popup_exit</item>
     </style>
 
 

@@ -75,9 +75,7 @@ public class ReflectUtils {
     public static Object genericInvokeMethod(String className, String methodName, Object... params) {
         int paramCount = params.length;
         Method method;
-        // FIX (SeslOverScroller)
-        Object requiredObj = className.contains("SemPerfManager") ? false : null;
-        // FIX (SeslOverScroller)
+        Object requiredObj = null;
         Class<?> cl;
         Class<?>[] classArray = new Class<?>[paramCount];
 
@@ -101,9 +99,7 @@ public class ReflectUtils {
             method = cl.getDeclaredMethod(methodName, classArray);
             method.setAccessible(true);
             requiredObj = method.invoke(null, params);
-            // FIX (SeslOverScroller)
-            return className.contains("SemPerfManager") ? true : requiredObj;
-            // FIX (SeslOverScroller)
+            return requiredObj;
         } catch (NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
             Log.e("ReflectUtils.genericInvokeMethod", e.toString());
         }

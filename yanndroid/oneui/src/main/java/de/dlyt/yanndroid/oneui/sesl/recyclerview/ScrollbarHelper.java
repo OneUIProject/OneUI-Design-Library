@@ -44,4 +44,7 @@ class ScrollbarHelper {
         final int laidOutRange = Math.abs(lm.getPosition(startChild) - lm.getPosition(endChild)) + 1;
         return (int) ((float) laidOutArea / laidOutRange * state.getItemCount());
     }
+
+    private ScrollbarHelper() {
+    }
 }

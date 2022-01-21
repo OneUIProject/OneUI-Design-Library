@@ -2,59 +2,49 @@ package de.dlyt.yanndroid.oneui.sesl.recyclerview;
 
 import java.util.List;
 
-import de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslAdapterHelper.UpdateOp;
-
-import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslAdapterHelper.UpdateOp.ADD;
-import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslAdapterHelper.UpdateOp.MOVE;
-import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslAdapterHelper.UpdateOp.REMOVE;
-import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslAdapterHelper.UpdateOp.UPDATE;
-
-class SeslOpReorderer {
-
+class OpReorderer {
     final Callback mCallback;
 
-    SeslOpReorderer(Callback callback) {
+    OpReorderer(Callback callback) {
         mCallback = callback;
     }
 
-    void reorderOps(List<UpdateOp> ops) {
+    void reorderOps(List<AdapterHelper.UpdateOp> ops) {
         int badMove;
         while ((badMove = getLastMoveOutOfOrder(ops)) != -1) {
             swapMoveOp(ops, badMove, badMove + 1);
         }
     }
 
-    private void swapMoveOp(List<UpdateOp> list, int badMove, int next) {
-        final UpdateOp moveOp = list.get(badMove);
-        final UpdateOp nextOp = list.get(next);
+    private void swapMoveOp(List<AdapterHelper.UpdateOp> list, int badMove, int next) {
+        final AdapterHelper.UpdateOp moveOp = list.get(badMove);
+        final AdapterHelper.UpdateOp nextOp = list.get(next);
         switch (nextOp.cmd) {
-            case REMOVE:
+            case AdapterHelper.UpdateOp.REMOVE:
                 swapMoveRemove(list, badMove, moveOp, next, nextOp);
                 break;
-            case ADD:
+            case AdapterHelper.UpdateOp.ADD:
                 swapMoveAdd(list, badMove, moveOp, next, nextOp);
                 break;
-            case UPDATE:
+            case AdapterHelper.UpdateOp.UPDATE:
                 swapMoveUpdate(list, badMove, moveOp, next, nextOp);
                 break;
         }
     }
 
-    void swapMoveRemove(List<UpdateOp> list, int movePos, UpdateOp moveOp, int removePos, UpdateOp removeOp) {
-        UpdateOp extraRm = null;
+    void swapMoveRemove(List<AdapterHelper.UpdateOp> list, int movePos, AdapterHelper.UpdateOp moveOp, int removePos, AdapterHelper.UpdateOp removeOp) {
+        AdapterHelper.UpdateOp extraRm = null;
         boolean revertedMove = false;
         final boolean moveIsBackwards;
 
         if (moveOp.positionStart < moveOp.itemCount) {
             moveIsBackwards = false;
-            if (removeOp.positionStart == moveOp.positionStart
-                    && removeOp.itemCount == moveOp.itemCount - moveOp.positionStart) {
+            if (removeOp.positionStart == moveOp.positionStart && removeOp.itemCount == moveOp.itemCount - moveOp.positionStart) {
                 revertedMove = true;
             }
         } else {
             moveIsBackwards = true;
-            if (removeOp.positionStart == moveOp.itemCount + 1
-                    && removeOp.itemCount == moveOp.positionStart - moveOp.itemCount) {
+            if (removeOp.positionStart == moveOp.itemCount + 1 && removeOp.itemCount == moveOp.positionStart - moveOp.itemCount) {
                 revertedMove = true;
             }
         }
@@ -63,7 +53,7 @@ class SeslOpReorderer {
             removeOp.positionStart--;
         } else if (moveOp.itemCount < removeOp.positionStart + removeOp.itemCount) {
             removeOp.itemCount--;
-            moveOp.cmd = REMOVE;
+            moveOp.cmd = AdapterHelper.UpdateOp.REMOVE;
             moveOp.itemCount = 1;
             if (removeOp.itemCount == 0) {
                 list.remove(removePos);
@@ -76,7 +66,7 @@ class SeslOpReorderer {
             removeOp.positionStart++;
         } else if (moveOp.positionStart < removeOp.positionStart + removeOp.itemCount) {
             final int remaining = removeOp.positionStart + removeOp.itemCount - moveOp.positionStart;
-            extraRm = mCallback.obtainUpdateOp(REMOVE, moveOp.positionStart + 1, remaining, null);
+            extraRm = mCallback.obtainUpdateOp(AdapterHelper.UpdateOp.REMOVE, moveOp.positionStart + 1, remaining, null);
             removeOp.itemCount = moveOp.positionStart - removeOp.positionStart;
         }
 
@@ -130,7 +120,7 @@ class SeslOpReorderer {
         }
     }
 
-    private void swapMoveAdd(List<UpdateOp> list, int move, UpdateOp moveOp, int add, UpdateOp addOp) {
+    private void swapMoveAdd(List<AdapterHelper.UpdateOp> list, int move, AdapterHelper.UpdateOp moveOp, int add, AdapterHelper.UpdateOp addOp) {
         int offset = 0;
         if (moveOp.itemCount < addOp.positionStart) {
             offset--;
@@ -149,20 +139,20 @@ class SeslOpReorderer {
         list.set(add, moveOp);
     }
 
-    void swapMoveUpdate(List<UpdateOp> list, int move, UpdateOp moveOp, int update, UpdateOp updateOp) {
-        UpdateOp extraUp1 = null;
-        UpdateOp extraUp2 = null;
+    void swapMoveUpdate(List<AdapterHelper.UpdateOp> list, int move, AdapterHelper.UpdateOp moveOp, int update, AdapterHelper.UpdateOp updateOp) {
+        AdapterHelper.UpdateOp extraUp1 = null;
+        AdapterHelper.UpdateOp extraUp2 = null;
         if (moveOp.itemCount < updateOp.positionStart) {
             updateOp.positionStart--;
         } else if (moveOp.itemCount < updateOp.positionStart + updateOp.itemCount) {
             updateOp.itemCount--;
-            extraUp1 = mCallback.obtainUpdateOp(UPDATE, moveOp.positionStart, 1, updateOp.payload);
+            extraUp1 = mCallback.obtainUpdateOp(AdapterHelper.UpdateOp.UPDATE, moveOp.positionStart, 1, updateOp.payload);
         }
         if (moveOp.positionStart <= updateOp.positionStart) {
             updateOp.positionStart++;
         } else if (moveOp.positionStart < updateOp.positionStart + updateOp.itemCount) {
             final int remaining = updateOp.positionStart + updateOp.itemCount - moveOp.positionStart;
-            extraUp2 = mCallback.obtainUpdateOp(UPDATE, moveOp.positionStart + 1, remaining, updateOp.payload);
+            extraUp2 = mCallback.obtainUpdateOp(AdapterHelper.UpdateOp.UPDATE, moveOp.positionStart + 1, remaining, updateOp.payload);
             updateOp.itemCount -= remaining;
         }
         list.set(update, moveOp);
@@ -180,11 +170,11 @@ class SeslOpReorderer {
         }
     }
 
-    private int getLastMoveOutOfOrder(List<UpdateOp> list) {
+    private int getLastMoveOutOfOrder(List<AdapterHelper.UpdateOp> list) {
         boolean foundNonMove = false;
         for (int i = list.size() - 1; i >= 0; i--) {
-            final UpdateOp op1 = list.get(i);
-            if (op1.cmd == MOVE) {
+            final AdapterHelper.UpdateOp op1 = list.get(i);
+            if (op1.cmd == AdapterHelper.UpdateOp.MOVE) {
                 if (foundNonMove) {
                     return i;
                 }
@@ -195,10 +185,10 @@ class SeslOpReorderer {
         return -1;
     }
 
+
     interface Callback {
+        AdapterHelper.UpdateOp obtainUpdateOp(int cmd, int startPosition, int itemCount, Object payload);
 
-        UpdateOp obtainUpdateOp(int cmd, int startPosition, int itemCount, Object payload);
-
-        void recycleUpdateOp(UpdateOp op);
+        void recycleUpdateOp(AdapterHelper.UpdateOp op);
     }
 }

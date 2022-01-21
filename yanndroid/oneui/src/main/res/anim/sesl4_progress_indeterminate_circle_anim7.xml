@@ -6,16 +6,12 @@
             android:duration="500"
             android:interpolator="@interpolator/sine_in_out_70"
             android:propertyName="translateX"
-            android:repeatCount="infinite"
-            android:repeatMode="reverse"
             android:valueFrom="-35"
             android:valueTo="-15" />
         <objectAnimator
             android:duration="483"
             android:interpolator="@anim/sesl4_progress_indeterminate_circle_interpolator1"
             android:propertyName="translateX"
-            android:repeatCount="infinite"
-            android:repeatMode="reverse"
             android:valueFrom="-15"
             android:valueTo="-34.989353" />
     </set>

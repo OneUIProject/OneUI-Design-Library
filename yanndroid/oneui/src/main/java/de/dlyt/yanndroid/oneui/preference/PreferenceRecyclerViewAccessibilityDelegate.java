@@ -6,10 +6,10 @@ import android.view.View;
 import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
-import de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslRecyclerViewAccessibilityDelegate;
+import de.dlyt.yanndroid.oneui.sesl.recyclerview.RecyclerViewAccessibilityDelegate;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
-public class PreferenceRecyclerViewAccessibilityDelegate extends SeslRecyclerViewAccessibilityDelegate {
+public class PreferenceRecyclerViewAccessibilityDelegate extends RecyclerViewAccessibilityDelegate {
     final AccessibilityDelegateCompat mDefaultItemDelegate = super.getItemDelegate();
     final RecyclerView mRecyclerView;
     final AccessibilityDelegateCompat mItemDelegate = new AccessibilityDelegateCompat() {

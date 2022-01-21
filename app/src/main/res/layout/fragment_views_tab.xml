@@ -49,22 +49,22 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ProgressBar
+                    <de.dlyt.yanndroid.oneui.view.ProgressBar
                         style="?android:progressBarStyleLarge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <ProgressBar
+                    <de.dlyt.yanndroid.oneui.view.ProgressBar
                         style="?android:progressBarStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <ProgressBar
+                    <de.dlyt.yanndroid.oneui.view.ProgressBar
                         style="?android:progressBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <ProgressBar
+                    <de.dlyt.yanndroid.oneui.view.ProgressBar
                         style="?android:progressBarStyleSmallTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />

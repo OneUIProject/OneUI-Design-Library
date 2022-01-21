@@ -6,28 +6,67 @@ import android.view.View;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
 public abstract class OrientationHelper {
-    public static final int HORIZONTAL = 0;
-    public static final int VERTICAL = 1;
     private static final int INVALID_SIZE = Integer.MIN_VALUE;
     protected final RecyclerView.LayoutManager mLayoutManager;
-    final Rect mTmpRect;
-    private int mLastTotalSpace;
+    public static final int HORIZONTAL = RecyclerView.HORIZONTAL;
+    public static final int VERTICAL = RecyclerView.VERTICAL;
+    private int mLastTotalSpace = INVALID_SIZE;
+    final Rect mTmpRect = new Rect();
 
     private OrientationHelper(RecyclerView.LayoutManager layoutManager) {
-        mLastTotalSpace = Integer.MIN_VALUE;
-        mTmpRect = new Rect();
         mLayoutManager = layoutManager;
     }
 
-    public static OrientationHelper createOrientationHelper(RecyclerView.LayoutManager layoutManager, int orientation) {
+    public RecyclerView.LayoutManager getLayoutManager() {
+        return mLayoutManager;
+    }
+
+    public void onLayoutComplete() {
+        mLastTotalSpace = getTotalSpace();
+    }
+
+    public int getTotalSpaceChange() {
+        return INVALID_SIZE == mLastTotalSpace ? 0 : getTotalSpace() - mLastTotalSpace;
+    }
+
+    public abstract int getDecoratedStart(View view);
+
+    public abstract int getDecoratedEnd(View view);
+
+    public abstract int getTransformedEndWithDecoration(View view);
+
+    public abstract int getTransformedStartWithDecoration(View view);
+
+    public abstract int getDecoratedMeasurement(View view);
+
+    public abstract int getDecoratedMeasurementInOther(View view);
+
+    public abstract int getStartAfterPadding();
+
+    public abstract int getEndAfterPadding();
+
+    public abstract int getEnd();
+
+    public abstract void offsetChildren(int amount);
+
+    public abstract int getTotalSpace();
+
+    public abstract void offsetChild(View view, int offset);
+
+    public abstract int getEndPadding();
+
+    public abstract int getMode();
+
+    public abstract int getModeInOther();
+
+    public static OrientationHelper createOrientationHelper(RecyclerView.LayoutManager layoutManager, @RecyclerView.Orientation int orientation) {
         switch (orientation) {
             case HORIZONTAL:
                 return createHorizontalHelper(layoutManager);
             case VERTICAL:
                 return createVerticalHelper(layoutManager);
-            default:
-                throw new IllegalArgumentException("invalid orientation");
         }
+        throw new IllegalArgumentException("invalid orientation");
     }
 
     public static OrientationHelper createHorizontalHelper(RecyclerView.LayoutManager layoutManager) {
@@ -54,24 +93,26 @@ public abstract class OrientationHelper {
 
             @Override
             public int getDecoratedMeasurement(View view) {
-                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) view.getLayoutParams();
+                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) view.getLayoutParams();
                 return mLayoutManager.getDecoratedMeasuredWidth(view) + params.leftMargin + params.rightMargin;
             }
 
             @Override
             public int getDecoratedMeasurementInOther(View view) {
-                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) view.getLayoutParams();
+                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) view.getLayoutParams();
                 return mLayoutManager.getDecoratedMeasuredHeight(view) + params.topMargin + params.bottomMargin;
             }
 
             @Override
             public int getDecoratedEnd(View view) {
-                return mLayoutManager.getDecoratedRight(view) + ((RecyclerView.LayoutParams) view.getLayoutParams()).rightMargin;
+                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) view.getLayoutParams();
+                return mLayoutManager.getDecoratedRight(view) + params.rightMargin;
             }
 
             @Override
             public int getDecoratedStart(View view) {
-                return mLayoutManager.getDecoratedLeft(view) - ((RecyclerView.LayoutParams) view.getLayoutParams()).leftMargin;
+                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) view.getLayoutParams();
+                return mLayoutManager.getDecoratedLeft(view) - params.leftMargin;
             }
 
             @Override
@@ -88,7 +129,7 @@ public abstract class OrientationHelper {
 
             @Override
             public int getTotalSpace() {
-                return (mLayoutManager.getWidth() - mLayoutManager.getPaddingLeft()) - mLayoutManager.getPaddingRight();
+                return mLayoutManager.getWidth() - mLayoutManager.getPaddingLeft() - mLayoutManager.getPaddingRight();
             }
 
             @Override
@@ -137,24 +178,26 @@ public abstract class OrientationHelper {
 
             @Override
             public int getDecoratedMeasurement(View view) {
-                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) view.getLayoutParams();
+                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) view.getLayoutParams();
                 return mLayoutManager.getDecoratedMeasuredHeight(view) + params.topMargin + params.bottomMargin;
             }
 
             @Override
             public int getDecoratedMeasurementInOther(View view) {
-                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) view.getLayoutParams();
+                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) view.getLayoutParams();
                 return mLayoutManager.getDecoratedMeasuredWidth(view) + params.leftMargin + params.rightMargin;
             }
 
             @Override
             public int getDecoratedEnd(View view) {
-                return mLayoutManager.getDecoratedBottom(view) + ((RecyclerView.LayoutParams) view.getLayoutParams()).bottomMargin;
+                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) view.getLayoutParams();
+                return mLayoutManager.getDecoratedBottom(view) + params.bottomMargin;
             }
 
             @Override
             public int getDecoratedStart(View view) {
-                return mLayoutManager.getDecoratedTop(view) - ((RecyclerView.LayoutParams) view.getLayoutParams()).topMargin;
+                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) view.getLayoutParams();
+                return mLayoutManager.getDecoratedTop(view) - params.topMargin;
             }
 
             @Override
@@ -171,7 +214,7 @@ public abstract class OrientationHelper {
 
             @Override
             public int getTotalSpace() {
-                return (mLayoutManager.getHeight() - mLayoutManager.getPaddingTop()) - mLayoutManager.getPaddingBottom();
+                return mLayoutManager.getHeight() - mLayoutManager.getPaddingTop() - mLayoutManager.getPaddingBottom();
             }
 
             @Override
@@ -194,50 +237,5 @@ public abstract class OrientationHelper {
                 return mLayoutManager.getWidthMode();
             }
         };
-    }
-
-    public abstract int getDecoratedEnd(View view);
-
-    public abstract int getDecoratedMeasurement(View view);
-
-    public abstract int getDecoratedMeasurementInOther(View view);
-
-    public abstract int getDecoratedStart(View view);
-
-    public abstract int getEnd();
-
-    public abstract int getEndAfterPadding();
-
-    public abstract int getEndPadding();
-
-    public abstract int getMode();
-
-    public abstract int getModeInOther();
-
-    public abstract int getStartAfterPadding();
-
-    public abstract int getTotalSpace();
-
-    public abstract int getTransformedEndWithDecoration(View view);
-
-    public abstract int getTransformedStartWithDecoration(View view);
-
-    public abstract void offsetChild(View view, int i);
-
-    public abstract void offsetChildren(int i);
-
-    public RecyclerView.LayoutManager getLayoutManager() {
-        return mLayoutManager;
-    }
-
-    public void onLayoutComplete() {
-        mLastTotalSpace = getTotalSpace();
-    }
-
-    public int getTotalSpaceChange() {
-        if (Integer.MIN_VALUE == mLastTotalSpace) {
-            return 0;
-        }
-        return getTotalSpace() - mLastTotalSpace;
     }
 }

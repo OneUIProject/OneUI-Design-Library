@@ -10,31 +10,31 @@ import java.util.List;
 
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
-public class SeslAdapterHelper implements SeslOpReorderer.Callback {
+public final class AdapterHelper implements OpReorderer.Callback {
+    private static final boolean DEBUG = false;
     static final int POSITION_TYPE_INVISIBLE = 0;
     static final int POSITION_TYPE_NEW_OR_LAID_OUT = 1;
-    private static final boolean DEBUG = false;
     private static final String TAG = "AHT";
-    final ArrayList<UpdateOp> mPendingUpdates = new ArrayList<UpdateOp>();
-    final ArrayList<UpdateOp> mPostponedList = new ArrayList<UpdateOp>();
     final Callback mCallback;
     final boolean mDisableRecycler;
-    final SeslOpReorderer mOpReorderer;
-    Runnable mOnItemProcessedCallback;
-    private Pools.Pool<UpdateOp> mUpdateOpPool = new Pools.SimplePool<UpdateOp>(UpdateOp.POOL_SIZE);
     private int mExistingUpdateTypes = 0;
+    Runnable mOnItemProcessedCallback;
+    final OpReorderer mOpReorderer;
+    final ArrayList<UpdateOp> mPendingUpdates = new ArrayList<UpdateOp>();
+    final ArrayList<UpdateOp> mPostponedList = new ArrayList<UpdateOp>();
+    private Pools.Pool<UpdateOp> mUpdateOpPool = new Pools.SimplePool<UpdateOp>(UpdateOp.POOL_SIZE);
 
-    public SeslAdapterHelper(Callback callback) {
+    public AdapterHelper(Callback callback) {
         this(callback, false);
     }
 
-    public SeslAdapterHelper(Callback callback, boolean disableRecycler) {
+    public AdapterHelper(Callback callback, boolean disableRecycler) {
         mCallback = callback;
         mDisableRecycler = disableRecycler;
-        mOpReorderer = new SeslOpReorderer(this);
+        mOpReorderer = new OpReorderer(this);
     }
 
-    SeslAdapterHelper addUpdateOp(UpdateOp... ops) {
+    AdapterHelper addUpdateOp(UpdateOp... ops) {
         Collections.addAll(mPendingUpdates, ops);
         return this;
     }
@@ -135,8 +135,7 @@ public class SeslAdapterHelper implements SeslOpReorderer.Callback {
             RecyclerView.ViewHolder vh = mCallback.findViewHolder(position);
             if (vh != null || canFindInPreLayout(position)) {
                 if (type == POSITION_TYPE_INVISIBLE) {
-                    UpdateOp newOp = obtainUpdateOp(UpdateOp.UPDATE, tmpStart, tmpCount,
-                            op.payload);
+                    UpdateOp newOp = obtainUpdateOp(UpdateOp.UPDATE, tmpStart, tmpCount, op.payload);
                     dispatchAndUpdateViewHolders(newOp);
                     tmpCount = 0;
                     tmpStart = position;
@@ -144,8 +143,7 @@ public class SeslAdapterHelper implements SeslOpReorderer.Callback {
                 type = POSITION_TYPE_NEW_OR_LAID_OUT;
             } else {
                 if (type == POSITION_TYPE_NEW_OR_LAID_OUT) {
-                    UpdateOp newOp = obtainUpdateOp(UpdateOp.UPDATE, tmpStart, tmpCount,
-                            op.payload);
+                    UpdateOp newOp = obtainUpdateOp(UpdateOp.UPDATE, tmpStart, tmpCount, op.payload);
                     postponeAndUpdateViewHolders(newOp);
                     tmpCount = 0;
                     tmpStart = position;
@@ -257,8 +255,7 @@ public class SeslAdapterHelper implements SeslOpReorderer.Callback {
                 mCallback.markViewHoldersUpdated(offsetStart, op.itemCount, op.payload);
                 break;
             default:
-                throw new IllegalArgumentException("only remove and update ops can be dispatched"
-                        + " in first pass");
+                throw new IllegalArgumentException("only remove and update ops can be dispatched in first pass");
         }
     }
 
@@ -376,8 +373,7 @@ public class SeslAdapterHelper implements SeslOpReorderer.Callback {
                 mCallback.offsetPositionsForMove(op.positionStart, op.itemCount);
                 break;
             case UpdateOp.REMOVE:
-                mCallback.offsetPositionsForRemovingLaidOutOrNewView(op.positionStart,
-                        op.itemCount);
+                mCallback.offsetPositionsForRemovingLaidOutOrNewView(op.positionStart, op.itemCount);
                 break;
             case UpdateOp.UPDATE:
                 mCallback.markViewHoldersUpdated(op.positionStart, op.itemCount, op.payload);
@@ -399,7 +395,7 @@ public class SeslAdapterHelper implements SeslOpReorderer.Callback {
         return findPositionOffset(position, 0);
     }
 
-    public int findPositionOffset(int position, int firstPostponedItem) {
+    int findPositionOffset(int position, int firstPostponedItem) {
         int count = mPostponedList.size();
         for (int i = firstPostponedItem; i < count; ++i) {
             UpdateOp op = mPostponedList.get(i);
@@ -457,7 +453,7 @@ public class SeslAdapterHelper implements SeslOpReorderer.Callback {
 
     public boolean onItemRangeMoved(int from, int to, int itemCount) {
         if (from == to) {
-            return false;
+            return false; // no-op
         }
         if (itemCount != 1) {
             throw new IllegalArgumentException("Moving more than 1 item is not supported yet");
@@ -568,34 +564,17 @@ public class SeslAdapterHelper implements SeslOpReorderer.Callback {
         ops.clear();
     }
 
-    public interface Callback {
-        RecyclerView.ViewHolder findViewHolder(int position);
 
-        void offsetPositionsForRemovingInvisible(int positionStart, int itemCount);
-
-        void offsetPositionsForRemovingLaidOutOrNewView(int positionStart, int itemCount);
-
-        void markViewHoldersUpdated(int positionStart, int itemCount, Object payloads);
-
-        void onDispatchFirstPass(UpdateOp updateOp);
-
-        void onDispatchSecondPass(UpdateOp updateOp);
-
-        void offsetPositionsForAdd(int positionStart, int itemCount);
-
-        void offsetPositionsForMove(int from, int to);
-    }
-
-    public static class UpdateOp {
-        static final int ADD = 1;
-        static final int REMOVE = 1 << 1;
-        static final int UPDATE = 1 << 2;
-        static final int MOVE = 1 << 3;
+    public static final class UpdateOp {
+        public static final int ADD = 1;
+        public static final int MOVE = 8;
         static final int POOL_SIZE = 30;
+        public static final int REMOVE = 2;
+        public static final int UPDATE = 4;
         public int cmd;
-        public int positionStart;
-        public Object payload;
         public int itemCount;
+        public Object payload;
+        public int positionStart;
 
         UpdateOp(int cmd, int positionStart, int itemCount, Object payload) {
             this.cmd = cmd;
@@ -620,9 +599,7 @@ public class SeslAdapterHelper implements SeslOpReorderer.Callback {
 
         @Override
         public String toString() {
-            return Integer.toHexString(System.identityHashCode(this))
-                    + "[" + cmdToString() + ",s:" + positionStart + "c:" + itemCount
-                    + ",p:" + payload + "]";
+            return Integer.toHexString(System.identityHashCode(this)) + "[" + cmdToString() + ",s:" + positionStart + "c:" + itemCount + ",p:" + payload + "]";
         }
 
         @Override
@@ -630,7 +607,7 @@ public class SeslAdapterHelper implements SeslOpReorderer.Callback {
             if (this == o) {
                 return true;
             }
-            if (o == null || getClass() != o.getClass()) {
+            if (!(o instanceof UpdateOp)) {
                 return false;
             }
 
@@ -668,5 +645,23 @@ public class SeslAdapterHelper implements SeslOpReorderer.Callback {
             result = 31 * result + itemCount;
             return result;
         }
+    }
+
+    public interface Callback {
+        RecyclerView.ViewHolder findViewHolder(int position);
+
+        void offsetPositionsForRemovingInvisible(int positionStart, int itemCount);
+
+        void offsetPositionsForRemovingLaidOutOrNewView(int positionStart, int itemCount);
+
+        void markViewHoldersUpdated(int positionStart, int itemCount, Object payloads);
+
+        void onDispatchFirstPass(UpdateOp updateOp);
+
+        void onDispatchSecondPass(UpdateOp updateOp);
+
+        void offsetPositionsForAdd(int positionStart, int itemCount);
+
+        void offsetPositionsForMove(int from, int to);
     }
 }

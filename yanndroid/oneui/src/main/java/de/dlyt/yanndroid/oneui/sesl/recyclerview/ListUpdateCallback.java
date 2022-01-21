@@ -1,5 +1,7 @@
 package de.dlyt.yanndroid.oneui.sesl.recyclerview;
 
+import androidx.annotation.Nullable;
+
 public interface ListUpdateCallback {
     void onInserted(int position, int count);
 
@@ -7,5 +9,5 @@ public interface ListUpdateCallback {
 
     void onMoved(int fromPosition, int toPosition);
 
-    void onChanged(int position, int count, Object payload);
+    void onChanged(int position, int count, @Nullable Object payload);
 }

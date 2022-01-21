@@ -9,14 +9,14 @@ import java.util.List;
 
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
-public class SeslChildHelper {
+public class ChildHelper {
     private static final boolean DEBUG = false;
     private static final String TAG = "ChildrenHelper";
     final Callback mCallback;
     final Bucket mBucket;
     final List<View> mHiddenViews;
 
-    public SeslChildHelper(Callback callback) {
+    public ChildHelper(Callback callback) {
         mCallback = callback;
         mBucket = new Bucket();
         mHiddenViews = new ArrayList<View>();
@@ -136,8 +136,7 @@ public class SeslChildHelper {
         return null;
     }
 
-    public void attachViewToParent(View child, int index, ViewGroup.LayoutParams layoutParams,
-                                   boolean hidden) {
+    public void attachViewToParent(View child, int index, ViewGroup.LayoutParams layoutParams, boolean hidden) {
         final int offset;
         if (index < 0) {
             offset = mCallback.getChildCount();
@@ -150,7 +149,8 @@ public class SeslChildHelper {
         }
         mCallback.attachViewToParent(child, offset, layoutParams);
         if (DEBUG) {
-            Log.d(TAG, "attach view to parent index:" + index + ",off:" + offset + "," + "h:" + hidden + ", " + this);
+            Log.d(TAG, "attach view to parent index:" + index + ",off:" + offset + ","
+                    + "h:" + hidden + ", " + this);
         }
     }
 
@@ -237,7 +237,8 @@ public class SeslChildHelper {
         if (mBucket.get(index)) {
             mBucket.remove(index);
             if (!unhideViewInternal(view) && DEBUG) {
-                throw new IllegalStateException("removed a hidden view but it is not in hidden views list");
+                throw new IllegalStateException(
+                        "removed a hidden view but it is not in hidden views list");
             }
             mCallback.removeViewAt(index);
             return true;
@@ -245,30 +246,6 @@ public class SeslChildHelper {
         return false;
     }
 
-
-    public interface Callback {
-        int getChildCount();
-
-        void addView(View child, int index);
-
-        int indexOfChild(View view);
-
-        void removeViewAt(int index);
-
-        View getChildAt(int offset);
-
-        void removeAllViews();
-
-        RecyclerView.ViewHolder getChildViewHolder(View view);
-
-        void attachViewToParent(View child, int index, ViewGroup.LayoutParams layoutParams);
-
-        void detachViewFromParent(int offset);
-
-        void onEnteredHiddenState(View child);
-
-        void onLeftHiddenState(View child);
-    }
 
     static class Bucket {
         static final int BITS_PER_WORD = Long.SIZE;
@@ -326,7 +303,7 @@ public class SeslChildHelper {
                 final boolean lastBit = (mData & LAST_BIT) != 0;
                 long mask = (1L << index) - 1;
                 final long before = mData & mask;
-                final long after = ((mData & ~mask)) << 1;
+                final long after = (mData & ~mask) << 1;
                 mData = before | after;
                 if (value) {
                     set(index);
@@ -380,5 +357,29 @@ public class SeslChildHelper {
         public String toString() {
             return mNext == null ? Long.toBinaryString(mData) : mNext.toString() + "xx" + Long.toBinaryString(mData);
         }
+    }
+
+    public interface Callback {
+        int getChildCount();
+
+        void addView(View child, int index);
+
+        int indexOfChild(View view);
+
+        void removeViewAt(int index);
+
+        View getChildAt(int offset);
+
+        void removeAllViews();
+
+        RecyclerView.ViewHolder getChildViewHolder(View view);
+
+        void attachViewToParent(View child, int index, ViewGroup.LayoutParams layoutParams);
+
+        void detachViewFromParent(int offset);
+
+        void onEnteredHiddenState(View child);
+
+        void onLeftHiddenState(View child);
     }
 }

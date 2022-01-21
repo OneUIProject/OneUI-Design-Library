@@ -24,7 +24,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslLinearLayoutManager;
+import de.dlyt.yanndroid.oneui.sesl.recyclerview.LinearLayoutManager;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
 public abstract class PreferenceFragment extends Fragment implements PreferenceManager.OnPreferenceTreeClickListener, PreferenceManager.OnDisplayPreferenceDialogListener, PreferenceManager.OnNavigateToScreenListener, DialogPreference.TargetFragment {
@@ -188,7 +188,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
     }
 
     public RecyclerView.LayoutManager onCreateLayoutManager() {
-        return new SeslLinearLayoutManager(this.getContext());
+        return new LinearLayoutManager(this.getContext());
     }
 
     public abstract void onCreatePreferences(Bundle var1, String var2);
@@ -493,11 +493,11 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
 
         public final boolean canScrollUp(RecyclerView var1) {
             RecyclerView.LayoutManager var2 = var1.getLayoutManager();
-            boolean var3 = var2 instanceof SeslLinearLayoutManager;
+            boolean var3 = var2 instanceof LinearLayoutManager;
             boolean var4 = false;
             boolean var5 = var4;
             if (var3) {
-                if (((SeslLinearLayoutManager) var2).findFirstVisibleItemPosition() > 0) {
+                if (((LinearLayoutManager) var2).findFirstVisibleItemPosition() > 0) {
                     var5 = true;
                 } else {
                     var5 = false;

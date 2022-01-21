@@ -1,33 +1,35 @@
 package de.dlyt.yanndroid.oneui.sesl.recyclerview;
 
+import static de.dlyt.yanndroid.oneui.sesl.recyclerview.ViewInfoStore.InfoRecord.FLAG_APPEAR;
+import static de.dlyt.yanndroid.oneui.sesl.recyclerview.ViewInfoStore.InfoRecord.FLAG_APPEAR_AND_DISAPPEAR;
+import static de.dlyt.yanndroid.oneui.sesl.recyclerview.ViewInfoStore.InfoRecord.FLAG_APPEAR_PRE_AND_POST;
+import static de.dlyt.yanndroid.oneui.sesl.recyclerview.ViewInfoStore.InfoRecord.FLAG_DISAPPEARED;
+import static de.dlyt.yanndroid.oneui.sesl.recyclerview.ViewInfoStore.InfoRecord.FLAG_POST;
+import static de.dlyt.yanndroid.oneui.sesl.recyclerview.ViewInfoStore.InfoRecord.FLAG_PRE;
+import static de.dlyt.yanndroid.oneui.sesl.recyclerview.ViewInfoStore.InfoRecord.FLAG_PRE_AND_POST;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
-import androidx.collection.ArrayMap;
 import androidx.collection.LongSparseArray;
+import androidx.collection.SimpleArrayMap;
 import androidx.core.util.Pools;
 
-import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslViewInfoStore.InfoRecord.FLAG_APPEAR;
-import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslViewInfoStore.InfoRecord.FLAG_APPEAR_AND_DISAPPEAR;
-import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslViewInfoStore.InfoRecord.FLAG_APPEAR_PRE_AND_POST;
-import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslViewInfoStore.InfoRecord.FLAG_DISAPPEARED;
-import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslViewInfoStore.InfoRecord.FLAG_POST;
-import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslViewInfoStore.InfoRecord.FLAG_PRE;
-import static de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslViewInfoStore.InfoRecord.FLAG_PRE_AND_POST;
-import static de.dlyt.yanndroid.oneui.view.RecyclerView.ItemAnimator.ItemHolderInfo;
-import static de.dlyt.yanndroid.oneui.view.RecyclerView.ViewHolder;
+import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
-public class SeslViewInfoStore {
+public class ViewInfoStore {
     private static final boolean DEBUG = false;
     @VisibleForTesting
-    final ArrayMap<ViewHolder, InfoRecord> mLayoutHolderMap = new ArrayMap<>();
+    final SimpleArrayMap<RecyclerView.ViewHolder, InfoRecord> mLayoutHolderMap = new SimpleArrayMap<>();
     @VisibleForTesting
-    final LongSparseArray<ViewHolder> mOldChangedHolders = new LongSparseArray<>();
+    final LongSparseArray<RecyclerView.ViewHolder> mOldChangedHolders = new LongSparseArray<>();
 
     public void clear() {
         mLayoutHolderMap.clear();
         mOldChangedHolders.clear();
     }
 
-    public void addToPreLayout(ViewHolder holder, ItemHolderInfo info) {
+    public void addToPreLayout(RecyclerView.ViewHolder holder, RecyclerView.ItemAnimator.ItemHolderInfo info) {
         InfoRecord record = mLayoutHolderMap.get(holder);
         if (record == null) {
             record = InfoRecord.obtain();
@@ -37,20 +39,22 @@ public class SeslViewInfoStore {
         record.flags |= FLAG_PRE;
     }
 
-    public boolean isDisappearing(ViewHolder holder) {
+    public boolean isDisappearing(RecyclerView.ViewHolder holder) {
         final InfoRecord record = mLayoutHolderMap.get(holder);
         return record != null && ((record.flags & FLAG_DISAPPEARED) != 0);
     }
 
-    public ItemHolderInfo popFromPreLayout(ViewHolder vh) {
+    @Nullable
+    public RecyclerView.ItemAnimator.ItemHolderInfo popFromPreLayout(RecyclerView.ViewHolder vh) {
         return popFromLayoutStep(vh, FLAG_PRE);
     }
 
-    public ItemHolderInfo popFromPostLayout(ViewHolder vh) {
+    @Nullable
+    public RecyclerView.ItemAnimator.ItemHolderInfo popFromPostLayout(RecyclerView.ViewHolder vh) {
         return popFromLayoutStep(vh, FLAG_POST);
     }
 
-    private ItemHolderInfo popFromLayoutStep(ViewHolder vh, int flag) {
+    private RecyclerView.ItemAnimator.ItemHolderInfo popFromLayoutStep(RecyclerView.ViewHolder vh, int flag) {
         int index = mLayoutHolderMap.indexOfKey(vh);
         if (index < 0) {
             return null;
@@ -58,7 +62,7 @@ public class SeslViewInfoStore {
         final InfoRecord record = mLayoutHolderMap.valueAt(index);
         if (record != null && (record.flags & flag) != 0) {
             record.flags &= ~flag;
-            final ItemHolderInfo info;
+            final RecyclerView.ItemAnimator.ItemHolderInfo info;
             if (flag == FLAG_PRE) {
                 info = record.preInfo;
             } else if (flag == FLAG_POST) {
@@ -75,11 +79,11 @@ public class SeslViewInfoStore {
         return null;
     }
 
-    public void addToOldChangeHolders(long key, ViewHolder holder) {
+    public void addToOldChangeHolders(long key, RecyclerView.ViewHolder holder) {
         mOldChangedHolders.put(key, holder);
     }
 
-    public void addToAppearedInPreLayoutHolders(ViewHolder holder, ItemHolderInfo info) {
+    public void addToAppearedInPreLayoutHolders(RecyclerView.ViewHolder holder, RecyclerView.ItemAnimator.ItemHolderInfo info) {
         InfoRecord record = mLayoutHolderMap.get(holder);
         if (record == null) {
             record = InfoRecord.obtain();
@@ -89,16 +93,16 @@ public class SeslViewInfoStore {
         record.preInfo = info;
     }
 
-    public boolean isInPreLayout(ViewHolder viewHolder) {
+    public boolean isInPreLayout(RecyclerView.ViewHolder viewHolder) {
         final InfoRecord record = mLayoutHolderMap.get(viewHolder);
         return record != null && (record.flags & FLAG_PRE) != 0;
     }
 
-    public ViewHolder getFromOldChangeHolders(long key) {
+    public RecyclerView.ViewHolder getFromOldChangeHolders(long key) {
         return mOldChangedHolders.get(key);
     }
 
-    public void addToPostLayout(ViewHolder holder, ItemHolderInfo info) {
+    public void addToPostLayout(RecyclerView.ViewHolder holder, RecyclerView.ItemAnimator.ItemHolderInfo info) {
         InfoRecord record = mLayoutHolderMap.get(holder);
         if (record == null) {
             record = InfoRecord.obtain();
@@ -108,7 +112,7 @@ public class SeslViewInfoStore {
         record.flags |= FLAG_POST;
     }
 
-    public void addToDisappearedInLayout(ViewHolder holder) {
+    public void addToDisappearedInLayout(RecyclerView.ViewHolder holder) {
         InfoRecord record = mLayoutHolderMap.get(holder);
         if (record == null) {
             record = InfoRecord.obtain();
@@ -117,7 +121,7 @@ public class SeslViewInfoStore {
         record.flags |= FLAG_DISAPPEARED;
     }
 
-    public void removeFromDisappearedInLayout(ViewHolder holder) {
+    public void removeFromDisappearedInLayout(RecyclerView.ViewHolder holder) {
         InfoRecord record = mLayoutHolderMap.get(holder);
         if (record == null) {
             return;
@@ -127,7 +131,7 @@ public class SeslViewInfoStore {
 
     public void process(ProcessCallback callback) {
         for (int index = mLayoutHolderMap.size() - 1; index >= 0; index--) {
-            final ViewHolder viewHolder = mLayoutHolderMap.keyAt(index);
+            final RecyclerView.ViewHolder viewHolder = mLayoutHolderMap.keyAt(index);
             final InfoRecord record = mLayoutHolderMap.removeAt(index);
             if ((record.flags & FLAG_APPEAR_AND_DISAPPEAR) == FLAG_APPEAR_AND_DISAPPEAR) {
                 callback.unused(viewHolder);
@@ -153,7 +157,7 @@ public class SeslViewInfoStore {
         }
     }
 
-    public void removeViewHolder(ViewHolder holder) {
+    public void removeViewHolder(RecyclerView.ViewHolder holder) {
         for (int i = mOldChangedHolders.size() - 1; i >= 0; i--) {
             if (holder == mOldChangedHolders.valueAt(i)) {
                 mOldChangedHolders.removeAt(i);
@@ -170,18 +174,19 @@ public class SeslViewInfoStore {
         InfoRecord.drainCache();
     }
 
-    public void onViewDetached(ViewHolder viewHolder) {
+    public void onViewDetached(RecyclerView.ViewHolder viewHolder) {
         removeFromDisappearedInLayout(viewHolder);
     }
 
+
     public interface ProcessCallback {
-        void processDisappeared(ViewHolder viewHolder, ItemHolderInfo preInfo, ItemHolderInfo postInfo);
-
-        void processAppeared(ViewHolder viewHolder, ItemHolderInfo preInfo, ItemHolderInfo postInfo);
-
-        void processPersistent(ViewHolder viewHolder, ItemHolderInfo preInfo, ItemHolderInfo postInfo);
-
-        void unused(ViewHolder holder);
+        void processDisappeared(RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ItemAnimator.ItemHolderInfo preInfo, @Nullable RecyclerView.ItemAnimator.ItemHolderInfo postInfo);
+        
+        void processAppeared(RecyclerView.ViewHolder viewHolder, @Nullable RecyclerView.ItemAnimator.ItemHolderInfo preInfo, RecyclerView.ItemAnimator.ItemHolderInfo postInfo);
+        
+        void processPersistent(RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ItemAnimator.ItemHolderInfo preInfo, @NonNull RecyclerView.ItemAnimator.ItemHolderInfo postInfo);
+        
+        void unused(RecyclerView.ViewHolder holder);
     }
 
     static class InfoRecord {
@@ -192,10 +197,12 @@ public class SeslViewInfoStore {
         static final int FLAG_APPEAR_AND_DISAPPEAR = FLAG_APPEAR | FLAG_DISAPPEARED;
         static final int FLAG_PRE_AND_POST = FLAG_PRE | FLAG_POST;
         static final int FLAG_APPEAR_PRE_AND_POST = FLAG_APPEAR | FLAG_PRE | FLAG_POST;
-        static Pools.Pool<InfoRecord> sPool = new Pools.SimplePool<>(20);
         int flags;
-        ItemHolderInfo preInfo;
-        ItemHolderInfo postInfo;
+        @Nullable
+        RecyclerView.ItemAnimator.ItemHolderInfo preInfo;
+        @Nullable
+        RecyclerView.ItemAnimator.ItemHolderInfo postInfo;
+        static Pools.Pool<InfoRecord> sPool = new Pools.SimplePool<>(20);
 
         private InfoRecord() {
         }
@@ -213,7 +220,7 @@ public class SeslViewInfoStore {
         }
 
         static void drainCache() {
-            while (sPool.acquire() != null) ;
+            while (sPool.acquire() != null);
         }
     }
 }

@@ -10,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.drawable.Animatable;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ClipDrawable;
@@ -17,6 +18,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -47,9 +49,12 @@ import androidx.core.util.Pools;
 import androidx.core.view.ViewCompat;
 import androidx.reflect.graphics.drawable.SeslStateListDrawableReflector;
 import androidx.reflect.view.SeslViewReflector;
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import de.dlyt.yanndroid.oneui.R;
@@ -96,6 +101,7 @@ public class ProgressBar extends View {
     private AlphaAnimation mAnimation;
     private boolean mAttached;
     private int mBehavior;
+    private CircleAnimationCallback mCircleAnimationCallback;
     private Drawable mCurrentDrawable;
     private int mDuration;
     private boolean mHasAnimation;
@@ -257,6 +263,7 @@ public class ProgressBar extends View {
             ViewCompat.setImportantForAccessibility(this, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_YES);
         }
         this.mDensity = context.getResources().getDisplayMetrics().density;
+        this.mCircleAnimationCallback = new CircleAnimationCallback(this);
     }
 
     private static boolean needsTileify(Drawable drawable) {
@@ -504,6 +511,9 @@ public class ProgressBar extends View {
             if (this.mIndeterminateDrawable instanceof Animatable) {
                 this.mShouldStartAnimationDrawable = true;
                 this.mHasAnimation = false;
+                if (mIndeterminateDrawable instanceof AnimatedVectorDrawable) {
+                    AnimatedVectorDrawableCompat.registerAnimationCallback(mIndeterminateDrawable, mCircleAnimationCallback);
+                }
             } else {
                 this.mHasAnimation = true;
                 if (this.mInterpolator == null) {
@@ -536,6 +546,9 @@ public class ProgressBar extends View {
         Drawable drawable = this.mIndeterminateDrawable;
         if (drawable instanceof Animatable) {
             ((Animatable) drawable).stop();
+            if (drawable instanceof AnimatedVectorDrawable) {
+                AnimatedVectorDrawableCompat.unregisterAnimationCallback(drawable, mCircleAnimationCallback);
+            }
             this.mShouldStartAnimationDrawable = false;
         }
         postInvalidate();
@@ -1154,6 +1167,8 @@ public class ProgressBar extends View {
     public void onDetachedFromWindow() {
         if (this.mIndeterminate) {
             stopAnimation();
+        } else {
+            mCircleAnimationCallback = null;
         }
         RefreshProgressRunnable refreshProgressRunnable = this.mRefreshProgressRunnable;
         if (refreshProgressRunnable != null) {
@@ -1552,6 +1567,28 @@ public class ProgressBar extends View {
                 ProgressBar.this.mRefreshData.clear();
                 ProgressBar.this.mRefreshIsPosted = false;
             }
+        }
+    }
+
+    private static class CircleAnimationCallback extends Animatable2Compat.AnimationCallback {
+        final Handler mHandler = new Handler();
+        private WeakReference<ProgressBar> mProgressBar;
+
+        public CircleAnimationCallback(ProgressBar seslProgressBar) {
+            this.mProgressBar = new WeakReference<>(seslProgressBar);
+        }
+
+        @Override // android.graphics.drawable.Animatable2.AnimationCallback
+        public void onAnimationEnd(Drawable drawable) {
+            this.mHandler.post(new Runnable() { // from class: androidx.appcompat.widget.SeslProgressBar.CircleAnimationCallback.1
+                @Override // java.lang.Runnable
+                public void run() {
+                    ProgressBar seslProgressBar = (ProgressBar) CircleAnimationCallback.this.mProgressBar.get();
+                    if (seslProgressBar != null) {
+                        ((AnimatedVectorDrawable) seslProgressBar.mIndeterminateDrawable).start();
+                    }
+                }
+            });
         }
     }
 }
