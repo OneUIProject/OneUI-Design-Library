@@ -1,7 +1,9 @@
 package de.dlyt.yanndroid.oneui.sesl.recyclerview;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.core.os.TraceCompat;
 
 import java.util.ArrayList;
@@ -12,8 +14,13 @@ import java.util.concurrent.TimeUnit;
 
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
-public final class SeslGapWorker implements Runnable {
-    public static final ThreadLocal<SeslGapWorker> sGapWorker = new ThreadLocal<>();
+public final class GapWorker implements Runnable {
+    public static final ThreadLocal<GapWorker> sGapWorker = new ThreadLocal<>();
+    ArrayList<RecyclerView> mRecyclerViews = new ArrayList<>();
+    long mPostTimeNs;
+    public long mFrameIntervalNs;
+    private ArrayList<Task> mTasks = new ArrayList<>();
+
     static Comparator<Task> sTaskComparator = new Comparator<Task>() {
         @Override
         public int compare(Task lhs, Task rhs) {
@@ -34,26 +41,10 @@ public final class SeslGapWorker implements Runnable {
             return 0;
         }
     };
-    public long mFrameIntervalNs;
-    ArrayList<RecyclerView> mRecyclerViews = new ArrayList<>();
-    long mPostTimeNs;
-    private ArrayList<Task> mTasks = new ArrayList<>();
-
-    static boolean isPrefetchPositionAttached(RecyclerView view, int position) {
-        final int childCount = view.mChildHelper.getUnfilteredChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View attachedView = view.mChildHelper.getUnfilteredChildAt(i);
-            RecyclerView.ViewHolder holder = RecyclerView.getChildViewHolderInt(attachedView);
-            if (holder.mPosition == position && !holder.isInvalid()) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public void add(RecyclerView recyclerView) {
         if (RecyclerView.DEBUG && mRecyclerViews.contains(recyclerView)) {
-            throw new IllegalStateException("SeslRecyclerView already present in worker list!");
+            throw new IllegalStateException("RecyclerView already present in worker list!");
         }
         mRecyclerViews.add(recyclerView);
     }
@@ -61,7 +52,7 @@ public final class SeslGapWorker implements Runnable {
     public void remove(RecyclerView recyclerView) {
         boolean removeSuccess = mRecyclerViews.remove(recyclerView);
         if (RecyclerView.DEBUG && !removeSuccess) {
-            throw new IllegalStateException("SeslRecyclerView removal failed!");
+            throw new IllegalStateException("RecyclerView removal failed!");
         }
     }
 
@@ -123,6 +114,18 @@ public final class SeslGapWorker implements Runnable {
         Collections.sort(mTasks, sTaskComparator);
     }
 
+    static boolean isPrefetchPositionAttached(RecyclerView view, int position) {
+        final int childCount = view.mChildHelper.getUnfilteredChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View attachedView = view.mChildHelper.getUnfilteredChildAt(i);
+            RecyclerView.ViewHolder holder = RecyclerView.getChildViewHolderInt(attachedView);
+            if (holder.mPosition == position && !holder.isInvalid()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private RecyclerView.ViewHolder prefetchPositionWithDeadline(RecyclerView view, int position, long deadlineNs) {
         if (isPrefetchPositionAttached(view, position)) {
             return null;
@@ -147,7 +150,7 @@ public final class SeslGapWorker implements Runnable {
         return holder;
     }
 
-    private void prefetchInnerRecyclerViewWithDeadline(RecyclerView innerView, long deadlineNs) {
+    private void prefetchInnerRecyclerViewWithDeadline(@Nullable RecyclerView innerView, long deadlineNs) {
         if (innerView == null) {
             return;
         }
@@ -228,6 +231,7 @@ public final class SeslGapWorker implements Runnable {
         }
     }
 
+
     static class Task {
         public boolean immediate;
         public int viewVelocity;
@@ -244,11 +248,11 @@ public final class SeslGapWorker implements Runnable {
         }
     }
 
+    @SuppressLint("VisibleForTests")
     public static class LayoutPrefetchRegistryImpl implements RecyclerView.LayoutManager.LayoutPrefetchRegistry {
         int mPrefetchDx;
         int mPrefetchDy;
         int[] mPrefetchArray;
-
         int mCount;
 
         void setPrefetchVector(int dx, int dy) {

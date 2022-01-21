@@ -34,6 +34,11 @@
     <string name="retry">Retry</string>
     <string name="app_info">App info</string>
 
+    <string name="dragndroplist_drag_move">Now at position %d.</string>
+    <string name="dragndroplist_drag_release">Item dropped into position %d.</string>
+    <string name="dragndroplist_drag_start">Started dragging item at position %d.</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Item at position %d cannot be dragged.</string>
+
     <string name="sesl_toolbar_collapse_description">Collapse</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
     <string name="sesl_preferencecategory_added_title">Header</string>

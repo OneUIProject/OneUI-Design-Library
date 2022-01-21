@@ -9,6 +9,10 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.view.MotionEvent;
 
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.view.ViewCompat;
 
 import java.lang.annotation.Retention;
@@ -16,17 +20,32 @@ import java.lang.annotation.RetentionPolicy;
 
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
+@VisibleForTesting
 public class FastScroller extends RecyclerView.ItemDecoration implements RecyclerView.OnItemTouchListener {
+    @IntDef({STATE_HIDDEN, STATE_VISIBLE, STATE_DRAGGING})
+    @Retention(RetentionPolicy.SOURCE)
+    private @interface State { }
+
     private static final int STATE_HIDDEN = 0;
     private static final int STATE_VISIBLE = 1;
     private static final int STATE_DRAGGING = 2;
+
+    @IntDef({DRAG_X, DRAG_Y, DRAG_NONE})
+    @Retention(RetentionPolicy.SOURCE)
+    private @interface DragState{ }
     private static final int DRAG_NONE = 0;
     private static final int DRAG_X = 1;
     private static final int DRAG_Y = 2;
+
+    @IntDef({ANIMATION_STATE_OUT, ANIMATION_STATE_FADING_IN, ANIMATION_STATE_IN, ANIMATION_STATE_FADING_OUT})
+    @Retention(RetentionPolicy.SOURCE)
+    private @interface AnimationState { }
+
     private static final int ANIMATION_STATE_OUT = 0;
     private static final int ANIMATION_STATE_FADING_IN = 1;
     private static final int ANIMATION_STATE_IN = 2;
     private static final int ANIMATION_STATE_FADING_OUT = 3;
+
     private static final int SHOW_DURATION_MS = 500;
     private static final int HIDE_DELAY_AFTER_VISIBLE_MS = 1500;
     private static final int HIDE_DELAY_AFTER_DRAGGING_MS = 1200;
@@ -36,37 +55,43 @@ public class FastScroller extends RecyclerView.ItemDecoration implements Recycle
     private static final int[] EMPTY_STATE_SET = new int[]{};
     private final int mScrollbarMinimumRange;
     private final int mMargin;
-    private final StateListDrawable mVerticalThumbDrawable;
-    private final Drawable mVerticalTrackDrawable;
+    @SuppressWarnings("WeakerAccess")
+    final StateListDrawable mVerticalThumbDrawable;
+    @SuppressWarnings("WeakerAccess")
+    final Drawable mVerticalTrackDrawable;
     private final int mVerticalThumbWidth;
     private final int mVerticalTrackWidth;
     private final StateListDrawable mHorizontalThumbDrawable;
     private final Drawable mHorizontalTrackDrawable;
     private final int mHorizontalThumbHeight;
     private final int mHorizontalTrackHeight;
-    private final int[] mVerticalRange = new int[2];
-    private final int[] mHorizontalRange = new int[2];
-    private final ValueAnimator mShowHideAnimator = ValueAnimator.ofFloat(0, 1);
-    int mVerticalThumbHeight;
-    int mVerticalThumbCenterY;
-    float mVerticalDragY;
-    int mHorizontalThumbWidth;
-    int mHorizontalThumbCenterX;
-    float mHorizontalDragX;
+    @VisibleForTesting int mVerticalThumbHeight;
+    @VisibleForTesting int mVerticalThumbCenterY;
+    @VisibleForTesting float mVerticalDragY;
+    @VisibleForTesting int mHorizontalThumbWidth;
+    @VisibleForTesting int mHorizontalThumbCenterX;
+    @VisibleForTesting float mHorizontalDragX;
     private int mRecyclerViewWidth = 0;
     private int mRecyclerViewHeight = 0;
     private RecyclerView mRecyclerView;
     private boolean mNeedVerticalScrollbar = false;
     private boolean mNeedHorizontalScrollbar = false;
-    private int mState = STATE_HIDDEN;
-    private int mDragState = DRAG_NONE;
-    private int mAnimationState = ANIMATION_STATE_OUT;
+    @State private int mState = STATE_HIDDEN;
+    @DragState private int mDragState = DRAG_NONE;
+    private final int[] mVerticalRange = new int[2];
+    private final int[] mHorizontalRange = new int[2];
+    @SuppressWarnings("WeakerAccess")
+    final ValueAnimator mShowHideAnimator = ValueAnimator.ofFloat(0, 1);
+    @SuppressWarnings("WeakerAccess")
+    @AnimationState int mAnimationState = ANIMATION_STATE_OUT;
+
     private final Runnable mHideRunnable = new Runnable() {
         @Override
         public void run() {
             hide(HIDE_DURATION_MS);
         }
     };
+
     private final RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -94,7 +119,7 @@ public class FastScroller extends RecyclerView.ItemDecoration implements Recycle
         attachToRecyclerView(recyclerView);
     }
 
-    public void attachToRecyclerView(RecyclerView recyclerView) {
+    public void attachToRecyclerView(@Nullable RecyclerView recyclerView) {
         if (mRecyclerView == recyclerView) {
             return;
         }
@@ -120,11 +145,12 @@ public class FastScroller extends RecyclerView.ItemDecoration implements Recycle
         cancelHide();
     }
 
-    private void requestRedraw() {
+    @SuppressWarnings("WeakerAccess")
+    void requestRedraw() {
         mRecyclerView.invalidate();
     }
 
-    private void setState(@State int state) {
+    void setState(@State int state) {
         if (state == STATE_DRAGGING && mState != STATE_DRAGGING) {
             mVerticalThumbDrawable.setState(PRESSED_STATE_SET);
             cancelHide();
@@ -153,12 +179,8 @@ public class FastScroller extends RecyclerView.ItemDecoration implements Recycle
         return mState == STATE_DRAGGING;
     }
 
-    boolean isVisible() {
+    @VisibleForTesting boolean isVisible() {
         return mState == STATE_VISIBLE;
-    }
-
-    boolean isHidden() {
-        return mState == STATE_HIDDEN;
     }
 
     public void show() {
@@ -175,10 +197,7 @@ public class FastScroller extends RecyclerView.ItemDecoration implements Recycle
         }
     }
 
-    public void hide() {
-        hide(0);
-    }
-
+    @VisibleForTesting
     void hide(int duration) {
         switch (mAnimationState) {
             case ANIMATION_STATE_FADING_IN:
@@ -233,7 +252,7 @@ public class FastScroller extends RecyclerView.ItemDecoration implements Recycle
             canvas.translate(mVerticalThumbWidth, top);
             canvas.scale(-1, 1);
             mVerticalThumbDrawable.draw(canvas);
-            canvas.scale(1, 1);
+            canvas.scale(-1, 1);
             canvas.translate(-mVerticalThumbWidth, -top);
         } else {
             canvas.translate(left, 0);
@@ -293,13 +312,12 @@ public class FastScroller extends RecyclerView.ItemDecoration implements Recycle
     }
 
     @Override
-    public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent ev) {
+    public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent ev) {
         final boolean handled;
         if (mState == STATE_VISIBLE) {
             boolean insideVerticalThumb = isPointInsideVerticalThumb(ev.getX(), ev.getY());
             boolean insideHorizontalThumb = isPointInsideHorizontalThumb(ev.getX(), ev.getY());
-            if (ev.getAction() == MotionEvent.ACTION_DOWN
-                    && (insideVerticalThumb || insideHorizontalThumb)) {
+            if (ev.getAction() == MotionEvent.ACTION_DOWN && (insideVerticalThumb || insideHorizontalThumb)) {
                 if (insideHorizontalThumb) {
                     mDragState = DRAG_X;
                     mHorizontalDragX = (int) ev.getX();
@@ -322,7 +340,7 @@ public class FastScroller extends RecyclerView.ItemDecoration implements Recycle
     }
 
     @Override
-    public void onTouchEvent(RecyclerView recyclerView, MotionEvent me) {
+    public void onTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent me) {
         if (mState == STATE_HIDDEN) {
             return;
         }
@@ -357,8 +375,7 @@ public class FastScroller extends RecyclerView.ItemDecoration implements Recycle
     }
 
     @Override
-    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-    }
+    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) { }
 
     private void verticalScrollTo(float y) {
         final int[] scrollbarRange = getVerticalRange();
@@ -404,26 +421,32 @@ public class FastScroller extends RecyclerView.ItemDecoration implements Recycle
         }
     }
 
+    @VisibleForTesting
     boolean isPointInsideVerticalThumb(float x, float y) {
-        return (isLayoutRTL() ? x <= mVerticalThumbWidth / 2 : x >= mRecyclerViewWidth - mVerticalThumbWidth) && y >= mVerticalThumbCenterY - mVerticalThumbHeight / 2 && y <= mVerticalThumbCenterY + mVerticalThumbHeight / 2;
+        return (isLayoutRTL() ? x <= mVerticalThumbWidth : x >= mRecyclerViewWidth - mVerticalThumbWidth) && y >= mVerticalThumbCenterY - mVerticalThumbHeight / 2 && y <= mVerticalThumbCenterY + mVerticalThumbHeight / 2;
     }
 
+    @VisibleForTesting
     boolean isPointInsideHorizontalThumb(float x, float y) {
         return (y >= mRecyclerViewHeight - mHorizontalThumbHeight) && x >= mHorizontalThumbCenterX - mHorizontalThumbWidth / 2 && x <= mHorizontalThumbCenterX + mHorizontalThumbWidth / 2;
     }
 
+    @VisibleForTesting
     Drawable getHorizontalTrackDrawable() {
         return mHorizontalTrackDrawable;
     }
 
+    @VisibleForTesting
     Drawable getHorizontalThumbDrawable() {
         return mHorizontalThumbDrawable;
     }
 
+    @VisibleForTesting
     Drawable getVerticalTrackDrawable() {
         return mVerticalTrackDrawable;
     }
 
+    @VisibleForTesting
     Drawable getVerticalThumbDrawable() {
         return mVerticalThumbDrawable;
     }
@@ -440,20 +463,11 @@ public class FastScroller extends RecyclerView.ItemDecoration implements Recycle
         return mHorizontalRange;
     }
 
-    @Retention(RetentionPolicy.SOURCE)
-    private @interface State {
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    private @interface DragState {
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    private @interface AnimationState {
-    }
-
     private class AnimatorListener extends AnimatorListenerAdapter {
         private boolean mCanceled = false;
+
+        AnimatorListener() {
+        }
 
         @Override
         public void onAnimationEnd(Animator animation) {
@@ -477,6 +491,9 @@ public class FastScroller extends RecyclerView.ItemDecoration implements Recycle
     }
 
     private class AnimatorUpdater implements AnimatorUpdateListener {
+        AnimatorUpdater() {
+        }
+
         @Override
         public void onAnimationUpdate(ValueAnimator valueAnimator) {
             int alpha = (int) (SCROLLBAR_FULL_OPAQUE * ((float) valueAnimator.getAnimatedValue()));

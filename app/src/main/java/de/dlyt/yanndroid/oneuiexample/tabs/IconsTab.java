@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
-import de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslLinearLayoutManager;
+import de.dlyt.yanndroid.oneui.sesl.recyclerview.LinearLayoutManager;
 import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 import de.dlyt.yanndroid.oneui.view.TabLayout;
@@ -300,7 +300,7 @@ public class IconsTab extends Fragment {
         for (int i = 0; i < imageIDs.length; i++) selected.put(i, false);
 
         listView = mRootView.findViewById(R.id.images);
-        listView.setLayoutManager(new SeslLinearLayoutManager(mContext));
+        listView.setLayoutManager(new LinearLayoutManager(mContext));
         imageAdapter = new ImageAdapter();
         listView.setAdapter(imageAdapter);
 
@@ -528,30 +528,10 @@ public class IconsTab extends Fragment {
             mSeslRoundedCornerTop.drawRoundedCorner(canvas);
         }
 
-        private boolean canScrollUp(RecyclerView recyclerView) {
-            RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-            if (!(layoutManager instanceof SeslLinearLayoutManager)) {
-                return false;
-            }
-
-            boolean isntFirstItem = ((SeslLinearLayoutManager) layoutManager).findFirstVisibleItemPosition() > 0;
-            View childAt = recyclerView.getChildAt(0);
-
-            if (isntFirstItem || childAt == null) {
-                return isntFirstItem;
-            }
-            if (childAt.getTop() < recyclerView.getPaddingTop()) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
         public void setDivider(Drawable d) {
             mDivider = d;
             mDividerHeight = d.getIntrinsicHeight();
             listView.invalidateItemDecorations();
         }
-
     }
 }

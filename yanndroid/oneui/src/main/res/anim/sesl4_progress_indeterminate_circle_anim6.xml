@@ -6,7 +6,6 @@
             android:duration="983"
             android:interpolator="@anim/sesl4_progress_indeterminate_circle_interpolator2"
             android:propertyName="rotation"
-            android:repeatCount="infinite"
             android:valueFrom="0"
             android:valueTo="353.99997" />
     </set>

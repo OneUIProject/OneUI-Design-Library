@@ -14,18 +14,18 @@ import java.util.Arrays;
 
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
-public class GridLayoutManager extends SeslLinearLayoutManager {
-    public static final int DEFAULT_SPAN_COUNT = -1;
+public class GridLayoutManager extends LinearLayoutManager {
     private static final boolean DEBUG = false;
     private static final String TAG = "GridLayoutManager";
-    final SparseIntArray mPreLayoutSpanSizeCache = new SparseIntArray();
-    final SparseIntArray mPreLayoutSpanIndexCache = new SparseIntArray();
-    final Rect mDecorInsets = new Rect();
+    public static final int DEFAULT_SPAN_COUNT = -1;
     boolean mPendingSpanCountChange = false;
     int mSpanCount = DEFAULT_SPAN_COUNT;
-    int[] mCachedBorders;
+    int [] mCachedBorders;
     View[] mSet;
+    final SparseIntArray mPreLayoutSpanSizeCache = new SparseIntArray();
+    final SparseIntArray mPreLayoutSpanIndexCache = new SparseIntArray();
     SpanSizeLookup mSpanSizeLookup = new DefaultSpanSizeLookup();
+    final Rect mDecorInsets = new Rect();
     private boolean mUsingSpansToEstimateScrollBarDimensions;
 
     public GridLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -39,37 +39,15 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
         setSpanCount(spanCount);
     }
 
-    public GridLayoutManager(Context context, int spanCount, int orientation, boolean reverseLayout) {
+    public GridLayoutManager(Context context, int spanCount, @RecyclerView.Orientation int orientation, boolean reverseLayout) {
         super(context, orientation, reverseLayout);
         setSpanCount(spanCount);
-    }
-
-    static int[] calculateItemBorders(int[] cachedBorders, int spanCount, int totalSpace) {
-        if (cachedBorders == null || cachedBorders.length != spanCount + 1 || cachedBorders[cachedBorders.length - 1] != totalSpace) {
-            cachedBorders = new int[spanCount + 1];
-        }
-        cachedBorders[0] = 0;
-        int sizePerSpan = totalSpace / spanCount;
-        int sizePerSpanRemainder = totalSpace % spanCount;
-        int consumedPixels = 0;
-        int additionalSize = 0;
-        for (int i = 1; i <= spanCount; i++) {
-            int itemSize = sizePerSpan;
-            additionalSize += sizePerSpanRemainder;
-            if (additionalSize > 0 && (spanCount - additionalSize) < sizePerSpanRemainder) {
-                itemSize += 1;
-                additionalSize -= spanCount;
-            }
-            consumedPixels += itemSize;
-            cachedBorders[i] = consumedPixels;
-        }
-        return cachedBorders;
     }
 
     @Override
     public void setStackFromEnd(boolean stackFromEnd) {
         if (stackFromEnd) {
-            throw new UnsupportedOperationException("GridLayoutManager does not support stack from end." + " Consider using reverse layout");
+            throw new UnsupportedOperationException("GridLayoutManager does not support stack from end. Consider using reverse layout");
         }
         super.setStackFromEnd(false);
     }
@@ -110,7 +88,7 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
         if (mOrientation == HORIZONTAL) {
             info.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(glp.getSpanIndex(), glp.getSpanSize(), spanGroupIndex, 1, false, false));
         } else {
-            info.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(spanGroupIndex, 1, glp.getSpanIndex(), glp.getSpanSize(), false, false));
+            info.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(spanGroupIndex , 1, glp.getSpanIndex(), glp.getSpanSize(), false, false));
         }
     }
 
@@ -166,7 +144,8 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
     }
 
     @Override
-    public void onItemsUpdated(RecyclerView recyclerView, int positionStart, int itemCount, Object payload) {
+    public void onItemsUpdated(RecyclerView recyclerView, int positionStart, int itemCount,
+            Object payload) {
         mSpanSizeLookup.invalidateSpanIndexCache();
         mSpanSizeLookup.invalidateSpanGroupIndexCache();
     }
@@ -205,12 +184,12 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
         return lp instanceof LayoutParams;
     }
 
-    public SpanSizeLookup getSpanSizeLookup() {
-        return mSpanSizeLookup;
-    }
-
     public void setSpanSizeLookup(SpanSizeLookup spanSizeLookup) {
         mSpanSizeLookup = spanSizeLookup;
+    }
+
+    public SpanSizeLookup getSpanSizeLookup() {
+        return mSpanSizeLookup;
     }
 
     private void updateMeasurements() {
@@ -245,6 +224,28 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
 
     private void calculateItemBorders(int totalSpace) {
         mCachedBorders = calculateItemBorders(mCachedBorders, mSpanCount, totalSpace);
+    }
+
+    static int[] calculateItemBorders(int[] cachedBorders, int spanCount, int totalSpace) {
+        if (cachedBorders == null || cachedBorders.length != spanCount + 1 || cachedBorders[cachedBorders.length - 1] != totalSpace) {
+            cachedBorders = new int[spanCount + 1];
+        }
+        cachedBorders[0] = 0;
+        int sizePerSpan = totalSpace / spanCount;
+        int sizePerSpanRemainder = totalSpace % spanCount;
+        int consumedPixels = 0;
+        int additionalSize = 0;
+        for (int i = 1; i <= spanCount; i++) {
+            int itemSize = sizePerSpan;
+            additionalSize += sizePerSpanRemainder;
+            if (additionalSize > 0 && (spanCount - additionalSize) < sizePerSpanRemainder) {
+                itemSize += 1;
+                additionalSize -= spanCount;
+            }
+            consumedPixels += itemSize;
+            cachedBorders[i] = consumedPixels;
+        }
+        return cachedBorders;
     }
 
     int getSpaceForSpanRange(int startSpan, int spanSize) {
@@ -286,7 +287,7 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
     }
 
     private void ensureAnchorIsInCorrectSpan(RecyclerView.Recycler recycler, RecyclerView.State state, AnchorInfo anchorInfo, int itemDirection) {
-        final boolean layingOutInPrimaryDirection = itemDirection == SeslLinearLayoutManager.LayoutState.ITEM_DIRECTION_TAIL;
+        final boolean layingOutInPrimaryDirection = itemDirection == LayoutState.ITEM_DIRECTION_TAIL;
         int span = getSpanIndex(recycler, state, anchorInfo.mPosition);
         if (layingOutInPrimaryDirection) {
             while (span > 0 && anchorInfo.mPosition > 0) {
@@ -311,13 +312,25 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
     }
 
     @Override
-    View findReferenceChild(RecyclerView.Recycler recycler, RecyclerView.State state, int start, int end, int itemCount) {
+    View findReferenceChild(RecyclerView.Recycler recycler, RecyclerView.State state, boolean layoutFromEnd, boolean traverseChildrenInReverseOrder) {
+        int start = 0;
+        int end = getChildCount();
+        int diff = 1;
+        if (traverseChildrenInReverseOrder) {
+            start = getChildCount() - 1;
+            end = -1;
+            diff = -1;
+        }
+
+        int itemCount = state.getItemCount();
+
         ensureLayoutState();
         View invalidMatch = null;
         View outOfBoundsMatch = null;
+
         final int boundsStart = mOrientationHelper.getStartAfterPadding();
         final int boundsEnd = mOrientationHelper.getEndAfterPadding();
-        final int diff = end > start ? 1 : -1;
+
         for (int i = start; i != end; i += diff) {
             final View view = getChildAt(i);
             final int position = getPosition(view);
@@ -368,9 +381,9 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
         final int adapterPosition = recycler.convertPreLayoutPositionToPostLayout(pos);
         if (adapterPosition == -1) {
             if (DEBUG) {
-                throw new RuntimeException("Cannot find span index for pre layout position. It is" + " not cached, not in the adapter. Pos:" + pos);
+                throw new RuntimeException("Cannot find span index for pre layout position. It is not cached, not in the adapter. Pos:" + pos);
             }
-            Log.w(TAG, "Cannot find span size for pre layout position. It is" + " not cached, not in the adapter. Pos:" + pos);
+            Log.w(TAG, "Cannot find span size for pre layout position. It is not cached, not in the adapter. Pos:" + pos);
             return 0;
         }
         return mSpanSizeLookup.getCachedSpanIndex(adapterPosition, mSpanCount);
@@ -387,16 +400,16 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
         final int adapterPosition = recycler.convertPreLayoutPositionToPostLayout(pos);
         if (adapterPosition == -1) {
             if (DEBUG) {
-                throw new RuntimeException("Cannot find span size for pre layout position. It is" + " not cached, not in the adapter. Pos:" + pos);
+                throw new RuntimeException("Cannot find span size for pre layout position. It is not cached, not in the adapter. Pos:" + pos);
             }
-            Log.w(TAG, "Cannot find span size for pre layout position. It is" + " not cached, not in the adapter. Pos:" + pos);
+            Log.w(TAG, "Cannot find span size for pre layout position. It is not cached, not in the adapter. Pos:" + pos);
             return 1;
         }
         return mSpanSizeLookup.getSpanSize(adapterPosition);
     }
 
     @Override
-    void collectPrefetchPositionsForLayoutState(RecyclerView.State state, SeslLinearLayoutManager.LayoutState layoutState, LayoutPrefetchRegistry layoutPrefetchRegistry) {
+    void collectPrefetchPositionsForLayoutState(RecyclerView.State state, LayoutState layoutState, LayoutPrefetchRegistry layoutPrefetchRegistry) {
         int remainingSpan = mSpanCount;
         int count = 0;
         while (count < mSpanCount && layoutState.hasMore(state) && remainingSpan > 0) {
@@ -410,14 +423,14 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
     }
 
     @Override
-    void layoutChunk(RecyclerView.Recycler recycler, RecyclerView.State state, SeslLinearLayoutManager.LayoutState layoutState, LayoutChunkResult result) {
+    void layoutChunk(RecyclerView.Recycler recycler, RecyclerView.State state, LayoutState layoutState, LayoutChunkResult result) {
         final int otherDirSpecMode = mOrientationHelper.getModeInOther();
         final boolean flexibleInOtherDir = otherDirSpecMode != View.MeasureSpec.EXACTLY;
         final int currentOtherDirSize = getChildCount() > 0 ? mCachedBorders[mSpanCount] : 0;
         if (flexibleInOtherDir) {
-            updateMeasurements(); //  reset measurements
+            updateMeasurements();
         }
-        final boolean layingOutInPrimaryDirection = layoutState.mItemDirection == SeslLinearLayoutManager.LayoutState.ITEM_DIRECTION_TAIL;
+        final boolean layingOutInPrimaryDirection = layoutState.mItemDirection == LayoutState.ITEM_DIRECTION_TAIL;
         int count = 0;
         int remainingSpan = mSpanCount;
         if (!layingOutInPrimaryDirection) {
@@ -518,7 +531,7 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
 
         int left = 0, right = 0, top = 0, bottom = 0;
         if (mOrientation == VERTICAL) {
-            if (layoutState.mLayoutDirection == SeslLinearLayoutManager.LayoutState.LAYOUT_START) {
+            if (layoutState.mLayoutDirection == LayoutState.LAYOUT_START) {
                 bottom = layoutState.mOffset;
                 top = bottom - maxSize;
             } else {
@@ -526,7 +539,7 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
                 bottom = top + maxSize;
             }
         } else {
-            if (layoutState.mLayoutDirection == SeslLinearLayoutManager.LayoutState.LAYOUT_START) {
+            if (layoutState.mLayoutDirection == LayoutState.LAYOUT_START) {
                 right = layoutState.mOffset;
                 left = right - maxSize;
             } else {
@@ -649,7 +662,7 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
             return null;
         }
         final int layoutDir = convertFocusDirectionToLayoutDirection(direction);
-        final boolean ascend = (layoutDir == SeslLinearLayoutManager.LayoutState.LAYOUT_END) != mShouldReverseLayout;
+        final boolean ascend = (layoutDir == LayoutState.LAYOUT_END) != mShouldReverseLayout;
         final int start, inc, limit;
         if (ascend) {
             start = getChildCount() - 1;
@@ -769,12 +782,12 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
         }
     }
 
-    public boolean isUsingSpansToEstimateScrollbarDimensions() {
-        return mUsingSpansToEstimateScrollBarDimensions;
-    }
-
     public void setUsingSpansToEstimateScrollbarDimensions(boolean useSpansToEstimateScrollBarDimensions) {
         mUsingSpansToEstimateScrollBarDimensions = useSpansToEstimateScrollBarDimensions;
+    }
+
+    public boolean isUsingSpansToEstimateScrollbarDimensions() {
+        return mUsingSpansToEstimateScrollBarDimensions;
     }
 
     private int computeScrollRangeWithSpanInfo(RecyclerView.State state) {
@@ -793,8 +806,7 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
             return mSpanSizeLookup.getCachedSpanGroupIndex(state.getItemCount() - 1, mSpanCount) + 1;
         }
 
-        final int laidOutArea = mOrientationHelper.getDecoratedEnd(endChild)
-                - mOrientationHelper.getDecoratedStart(startChild);
+        final int laidOutArea = mOrientationHelper.getDecoratedEnd(endChild) - mOrientationHelper.getDecoratedStart(startChild);
 
         final int firstVisibleSpan = mSpanSizeLookup.getCachedSpanGroupIndex(getPosition(startChild), mSpanCount);
         final int lastVisibleSpan = mSpanSizeLookup.getCachedSpanGroupIndex(getPosition(endChild), mSpanCount);
@@ -837,33 +849,28 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
         return Math.round(spansBefore * avgSizePerSpan + (mOrientationHelper.getStartAfterPadding() - mOrientationHelper.getDecoratedStart(startChild)));
     }
 
+
     public abstract static class SpanSizeLookup {
         final SparseIntArray mSpanIndexCache = new SparseIntArray();
         final SparseIntArray mSpanGroupIndexCache = new SparseIntArray();
         private boolean mCacheSpanIndices = false;
         private boolean mCacheSpanGroupIndices = false;
 
-        static int findFirstKeyLessThan(SparseIntArray cache, int position) {
-            int lo = 0;
-            int hi = cache.size() - 1;
+        public abstract int getSpanSize(int position);
 
-            while (lo <= hi) {
-                final int mid = (lo + hi) >>> 1;
-                final int midVal = cache.keyAt(mid);
-                if (midVal < position) {
-                    lo = mid + 1;
-                } else {
-                    hi = mid - 1;
-                }
+        public void setSpanIndexCacheEnabled(boolean cacheSpanIndices) {
+            if (!cacheSpanIndices) {
+                mSpanGroupIndexCache.clear();
             }
-            int index = lo - 1;
-            if (index >= 0 && index < cache.size()) {
-                return cache.keyAt(index);
-            }
-            return -1;
+            mCacheSpanIndices = cacheSpanIndices;
         }
 
-        public abstract int getSpanSize(int position);
+        public void setSpanGroupIndexCacheEnabled(boolean cacheSpanGroupIndices)  {
+            if (!cacheSpanGroupIndices) {
+                mSpanGroupIndexCache.clear();
+            }
+            mCacheSpanGroupIndices = cacheSpanGroupIndices;
+        }
 
         public void invalidateSpanIndexCache() {
             mSpanIndexCache.clear();
@@ -877,22 +884,8 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
             return mCacheSpanIndices;
         }
 
-        public void setSpanIndexCacheEnabled(boolean cacheSpanIndices) {
-            if (!cacheSpanIndices) {
-                mSpanGroupIndexCache.clear();
-            }
-            mCacheSpanIndices = cacheSpanIndices;
-        }
-
         public boolean isSpanGroupIndexCacheEnabled() {
             return mCacheSpanGroupIndices;
-        }
-
-        public void setSpanGroupIndexCacheEnabled(boolean cacheSpanGroupIndices) {
-            if (!cacheSpanGroupIndices) {
-                mSpanGroupIndexCache.clear();
-            }
-            mCacheSpanGroupIndices = cacheSpanGroupIndices;
         }
 
         int getCachedSpanIndex(int position, int spanCount) {
@@ -950,6 +943,26 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
             return 0;
         }
 
+        static int findFirstKeyLessThan(SparseIntArray cache, int position) {
+            int lo = 0;
+            int hi = cache.size() - 1;
+
+            while (lo <= hi) {
+                final int mid = (lo + hi) >>> 1;
+                final int midVal = cache.keyAt(mid);
+                if (midVal < position) {
+                    lo = mid + 1;
+                } else {
+                    hi = mid - 1;
+                }
+            }
+            int index = lo - 1;
+            if (index >= 0 && index < cache.size()) {
+                return cache.keyAt(index);
+            }
+            return -1;
+        }
+
         public int getSpanGroupIndex(int adapterPosition, int spanCount) {
             int span = 0;
             int group = 0;
@@ -999,9 +1012,7 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
 
     public static class LayoutParams extends RecyclerView.LayoutParams {
         public static final int INVALID_SPAN_ID = -1;
-
         int mSpanIndex = INVALID_SPAN_ID;
-
         int mSpanSize = 0;
 
         public LayoutParams(Context c, AttributeSet attrs) {
@@ -1032,4 +1043,5 @@ public class GridLayoutManager extends SeslLinearLayoutManager {
             return mSpanSize;
         }
     }
+
 }

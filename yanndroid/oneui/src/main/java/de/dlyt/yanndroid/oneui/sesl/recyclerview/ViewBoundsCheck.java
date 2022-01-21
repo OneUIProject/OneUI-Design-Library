@@ -2,35 +2,42 @@ package de.dlyt.yanndroid.oneui.sesl.recyclerview;
 
 import android.view.View;
 
+import androidx.annotation.IntDef;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-public class SeslViewBoundsCheck {
-    static final int CVE_PVE_POS = 12;
-    static final int CVE_PVS_POS = 8;
-    static final int CVS_PVE_POS = 4;
+public class ViewBoundsCheck {
+    static final int GT = 1 << 0;
+    static final int EQ = 1 << 1;
+    static final int LT = 1 << 2;
     static final int CVS_PVS_POS = 0;
-    static final int EQ = 2;
-    static final int FLAG_CVE_EQ_PVE = 8192;
-    static final int FLAG_CVE_EQ_PVS = 512;
-    static final int FLAG_CVE_GT_PVE = 4096;
-    static final int FLAG_CVE_GT_PVS = 256;
-    static final int FLAG_CVE_LT_PVE = 16384;
-    static final int FLAG_CVE_LT_PVS = 1024;
-    static final int FLAG_CVS_EQ_PVE = 32;
-    static final int FLAG_CVS_EQ_PVS = 2;
-    static final int FLAG_CVS_GT_PVE = 16;
-    static final int FLAG_CVS_GT_PVS = 1;
-    static final int FLAG_CVS_LT_PVE = 64;
-    static final int FLAG_CVS_LT_PVS = 4;
-    static final int GT = 1;
-    static final int LT = 4;
-    static final int MASK = 7;
+    public static final int FLAG_CVS_GT_PVS = GT << CVS_PVS_POS;
+    public static final int FLAG_CVS_EQ_PVS = EQ << CVS_PVS_POS;
+    static final int FLAG_CVS_LT_PVS = LT << CVS_PVS_POS;
+    static final int CVS_PVE_POS = 4;
+    static final int FLAG_CVS_GT_PVE = GT << CVS_PVE_POS;
+    static final int FLAG_CVS_EQ_PVE = EQ << CVS_PVE_POS;
+    static final int FLAG_CVS_LT_PVE = LT << CVS_PVE_POS;
+    static final int CVE_PVS_POS = 8;
+    static final int FLAG_CVE_GT_PVS = GT << CVE_PVS_POS;
+    static final int FLAG_CVE_EQ_PVS = EQ << CVE_PVS_POS;
+    static final int FLAG_CVE_LT_PVS = LT << CVE_PVS_POS;
+    static final int CVE_PVE_POS = 12;
+    static final int FLAG_CVE_GT_PVE = GT << CVE_PVE_POS;
+    public static final int FLAG_CVE_EQ_PVE = EQ << CVE_PVE_POS;
+    public static final int FLAG_CVE_LT_PVE = LT << CVE_PVE_POS;
+    static final int MASK = GT | EQ | LT;
     final Callback mCallback;
-    BoundFlags mBoundFlags = new BoundFlags();
+    BoundFlags mBoundFlags;
 
-    public SeslViewBoundsCheck(Callback callback) {
+    @IntDef(flag = true, value = {FLAG_CVS_GT_PVS, FLAG_CVS_EQ_PVS, FLAG_CVS_LT_PVS, FLAG_CVS_GT_PVE, FLAG_CVS_EQ_PVE, FLAG_CVS_LT_PVE, FLAG_CVE_GT_PVS, FLAG_CVE_EQ_PVS, FLAG_CVE_LT_PVS, FLAG_CVE_GT_PVE, FLAG_CVE_EQ_PVE, FLAG_CVE_LT_PVE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ViewBounds {}
+
+    public ViewBoundsCheck(Callback callback) {
         mCallback = callback;
+        mBoundFlags = new BoundFlags();
     }
 
     View findOneViewWithinBoundFlags(int fromIndex, int toIndex, @ViewBounds int preferredBoundFlags, @ViewBounds int acceptableBoundFlags) {
@@ -71,27 +78,6 @@ public class SeslViewBoundsCheck {
         return false;
     }
 
-    ;
-
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface ViewBounds {
-    }
-
-    public interface Callback {
-        int getChildCount();
-
-        View getParent();
-
-        View getChildAt(int index);
-
-        int getParentStart();
-
-        int getParentEnd();
-
-        int getChildStart(View view);
-
-        int getChildEnd(View view);
-    }
 
     static class BoundFlags {
         int mBoundFlags = 0;
@@ -102,10 +88,6 @@ public class SeslViewBoundsCheck {
             mRvEnd = rvEnd;
             mChildStart = childStart;
             mChildEnd = childEnd;
-        }
-
-        void setFlags(@ViewBounds int flags, int mask) {
-            mBoundFlags = (mBoundFlags & ~mask) | (flags & mask);
         }
 
         void addFlags(@ViewBounds int flags) {
@@ -152,5 +134,17 @@ public class SeslViewBoundsCheck {
             }
             return true;
         }
+    };
+
+    public interface Callback {
+        View getChildAt(int index);
+
+        int getParentStart();
+
+        int getParentEnd();
+
+        int getChildStart(View view);
+
+        int getChildEnd(View view);
     }
 }

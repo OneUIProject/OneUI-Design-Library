@@ -7,9 +7,7 @@ public class BatchingListUpdateCallback implements ListUpdateCallback {
     private static final int TYPE_ADD = 1;
     private static final int TYPE_REMOVE = 2;
     private static final int TYPE_CHANGE = 3;
-
     final ListUpdateCallback mWrapped;
-
     int mLastEventType = TYPE_NONE;
     int mLastEventPosition = -1;
     int mLastEventCount = -1;
@@ -66,7 +64,7 @@ public class BatchingListUpdateCallback implements ListUpdateCallback {
 
     @Override
     public void onMoved(int fromPosition, int toPosition) {
-        dispatchLastEvent(); // moves are not merged
+        dispatchLastEvent();
         mWrapped.onMoved(fromPosition, toPosition);
     }
 

@@ -1,11 +1,14 @@
 package de.dlyt.yanndroid.oneui.sesl.recyclerview;
 
+import androidx.annotation.NonNull;
+
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
-public class AdapterListUpdateCallback implements ListUpdateCallback {
+public final class AdapterListUpdateCallback implements ListUpdateCallback {
+    @NonNull
     private final RecyclerView.Adapter mAdapter;
 
-    public AdapterListUpdateCallback(RecyclerView.Adapter adapter) {
+    public AdapterListUpdateCallback(@NonNull RecyclerView.Adapter adapter) {
         mAdapter = adapter;
     }
 

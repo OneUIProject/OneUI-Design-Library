@@ -82,6 +82,12 @@
     <dimen name="sesl_popup_menu_divider_start_margin">12.0dip</dimen>
     <dimen name="sesl_popup_menu_divider_top_margin">7.5dip</dimen>
 
+    <dimen name="sesl_spinner_item_bottom_padding">4.0dip</dimen>
+    <dimen name="sesl_spinner_item_end_padding">6.0dip</dimen>
+    <dimen name="sesl_spinner_item_start_padding">13.0dip</dimen>
+    <dimen name="sesl_spinner_item_text_size">17.0sp</dimen>
+    <dimen name="sesl_spinner_item_top_padding">4.0dip</dimen>
+
     <dimen name="sesl_checked_text_padding">18.0dip</dimen>
 
 
@@ -339,16 +345,22 @@
     <dimen name="sesl_select_dialog_padding_top">18.0dip</dimen>
 
     <!--RecyclerView-->
-    <dimen name="sesl_round_stroke_height">1.0px</dimen>
     <dimen name="sesl_go_to_top_elevation">8.0dip</dimen>
     <dimen name="sesl_go_to_top_scrollable_view_gap">20.0dip</dimen>
     <dimen name="sesl_go_to_top_scrollable_view_size">40.0dip</dimen>
     <dimen name="sesl_fast_scroll_additional_touch_area">11.0dip</dimen>
     <dimen name="sesl_fast_scroll_preview_margin_end">24.0dip</dimen>
     <dimen name="sesl_fast_scroll_thumb_margin_end">8.0dip</dimen>
-    <dimen name="sesl_fast_scroller_additional_bottom_padding">18.0dip</dimen>
+    <dimen name="sesl_fast_scroller_additional_bottom_padding">14.0dip</dimen>
     <dimen name="sesl_fast_scroller_touch_target_min_size">48.0dip</dimen>
     <dimen name="sesl_fast_scroller_track_padding">6.0dip</dimen>
+    <dimen name="sesl_index_tip_height">29.0dip</dimen>
+    <dimen name="sesl_index_tip_margin_top">6.0dip</dimen>
+    <dimen name="sesl_index_tip_max_width">150.0dip</dimen>
+    <dimen name="sesl_index_tip_min_width">25.0dip</dimen>
+    <dimen name="sesl_index_tip_padding">14.0dip</dimen>
+    <dimen name="sesl_index_tip_radius">15.0dip</dimen>
+    <dimen name="sesl_index_tip_text_size">13.0sp</dimen>
 
     <!--Preference-->
     <dimen name="sesl_list_subheader_min_height">20.0dip</dimen>
