@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.oneui.layout;
+package de.dlyt.yanndroid.oneui.sesl.coordinatorlayout;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -49,17 +49,16 @@ import java.util.List;
 import java.util.Map;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.sesl.utils.ABLBehavior;
 
-public class CoordinatorLayout extends ViewGroup implements NestedScrollingParent2, NestedScrollingParent3 {
+public class SamsungCoordinatorLayout extends ViewGroup implements NestedScrollingParent2, NestedScrollingParent3 {
     public static final Class<?>[] CONSTRUCTOR_PARAMS;
     public static final Comparator<View> TOP_SORTED_CHILDREN_COMPARATOR;
     public static final String WIDGET_PACKAGE_NAME;
-    public static final ThreadLocal<Map<String, Constructor<CoordinatorLayout.Behavior>>> sConstructors;
+    public static final ThreadLocal<Map<String, Constructor<SamsungCoordinatorLayout.Behavior>>> sConstructors;
     public static final Pools.Pool<Rect> sRectPool;
 
     static {
-        Package var0 = CoordinatorLayout.class.getPackage();
+        Package var0 = SamsungCoordinatorLayout.class.getPackage();
         String var1;
         if (var0 != null) {
             var1 = var0.getName();
@@ -69,7 +68,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
 
         WIDGET_PACKAGE_NAME = var1;
         if (Build.VERSION.SDK_INT >= 21) {
-            TOP_SORTED_CHILDREN_COMPARATOR = new CoordinatorLayout.ViewElevationComparator();
+            TOP_SORTED_CHILDREN_COMPARATOR = new SamsungCoordinatorLayout.ViewElevationComparator();
         } else {
             TOP_SORTED_CHILDREN_COMPARATOR = null;
         }
@@ -97,20 +96,20 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     public boolean mNeedsPreDrawListener;
     public View mNestedScrollingTarget;
     public OnHierarchyChangeListener mOnHierarchyChangeListener;
-    public CoordinatorLayout.OnPreDrawListener mOnPreDrawListener;
+    public SamsungCoordinatorLayout.OnPreDrawListener mOnPreDrawListener;
     public Paint mScrimPaint;
     public Drawable mStatusBarBackground;
 
-    public CoordinatorLayout(Context var1) {
+    public SamsungCoordinatorLayout(Context var1) {
         this(var1, (AttributeSet) null);
     }
 
-    public CoordinatorLayout(Context var1, AttributeSet var2) {
+    public SamsungCoordinatorLayout(Context var1, AttributeSet var2) {
         this(var1, var2, R.attr.coordinatorLayoutStyle);
     }
 
     @SuppressLint("RestrictedApi")
-    public CoordinatorLayout(Context var1, AttributeSet var2, int var3) {
+    public SamsungCoordinatorLayout(Context var1, AttributeSet var2, int var3) {
         super(var1, var2, var3);
         this.mDependencySortedChildren = new ArrayList();
         this.mChildDag = new DirectedAcyclicGraph();
@@ -143,7 +142,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         this.mStatusBarBackground = var9.getDrawable(R.styleable.SamsungCoordinatorLayout_statusBarBackground);
         var9.recycle();
         this.setupForInsets();
-        super.setOnHierarchyChangeListener(new CoordinatorLayout.HierarchyChangeListener());
+        super.setOnHierarchyChangeListener(new SamsungCoordinatorLayout.HierarchyChangeListener());
     }
 
     public static Rect acquireTempRect() {
@@ -235,7 +234,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     public void addPreDrawListener() {
         if (this.mIsAttachedToWindow) {
             if (this.mOnPreDrawListener == null) {
-                this.mOnPreDrawListener = new CoordinatorLayout.OnPreDrawListener();
+                this.mOnPreDrawListener = new SamsungCoordinatorLayout.OnPreDrawListener();
             }
 
             this.getViewTreeObserver().addOnPreDrawListener(this.mOnPreDrawListener);
@@ -246,7 +245,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
 
     public boolean checkLayoutParams(android.view.ViewGroup.LayoutParams var1) {
         boolean var2;
-        if (var1 instanceof CoordinatorLayout.LayoutParams && super.checkLayoutParams(var1)) {
+        if (var1 instanceof SamsungCoordinatorLayout.LayoutParams && super.checkLayoutParams(var1)) {
             var2 = true;
         } else {
             var2 = false;
@@ -255,7 +254,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         return var2;
     }
 
-    public final void constrainChildRect(CoordinatorLayout.LayoutParams var1, Rect var2, int var3, int var4) {
+    public final void constrainChildRect(SamsungCoordinatorLayout.LayoutParams var1, Rect var2, int var3, int var4) {
         int var5 = this.getWidth();
         int var6 = this.getHeight();
         var5 = Math.max(this.getPaddingLeft() + var1.leftMargin, Math.min(var2.left, var5 - this.getPaddingRight() - var3 - var1.rightMargin));
@@ -280,7 +279,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
                 View var5 = this.getChildAt(var2);
                 var4 = var1;
                 if (ViewCompat.getFitsSystemWindows(var5)) {
-                    CoordinatorLayout.Behavior var6 = ((CoordinatorLayout.LayoutParams) var5.getLayoutParams()).getBehavior();
+                    SamsungCoordinatorLayout.Behavior var6 = ((SamsungCoordinatorLayout.LayoutParams) var5.getLayoutParams()).getBehavior();
                     var4 = var1;
                     if (var6 != null) {
                         var1 = var6.onApplyWindowInsets(this, var5, var1);
@@ -305,7 +304,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         if (var2 != null && !var2.isEmpty()) {
             for (int var3 = 0; var3 < var2.size(); ++var3) {
                 View var4 = (View) var2.get(var3);
-                CoordinatorLayout.Behavior var5 = ((CoordinatorLayout.LayoutParams) var4.getLayoutParams()).getBehavior();
+                SamsungCoordinatorLayout.Behavior var5 = ((SamsungCoordinatorLayout.LayoutParams) var4.getLayoutParams()).getBehavior();
                 if (var5 != null) {
                     var5.onDependentViewChanged(this, var4, var1);
                 }
@@ -317,8 +316,8 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     public boolean dispatchGenericMotionEvent(MotionEvent var1) {
         for (int var2 = this.getChildCount() - 1; var2 >= 0; --var2) {
             View var3 = this.getChildAt(var2);
-            if (var3 instanceof ABLBehavior) {
-                ABLBehavior var4 = (ABLBehavior) var3;
+            if (var3 instanceof AppBarLayoutBehavior) {
+                AppBarLayoutBehavior var4 = (AppBarLayoutBehavior) var3;
                 if (var1.getAction() == 8) {
                     if (this.mLastNestedScrollingChild != null) {
                         if (var1.getAxisValue(9) < 0.0F) {
@@ -345,8 +344,8 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
 
             for (int var3 = 0; var3 < var2; ++var3) {
                 View var4 = this.getChildAt(var3);
-                if (var4 instanceof ABLBehavior) {
-                    ABLBehavior var5 = (ABLBehavior) var4;
+                if (var4 instanceof AppBarLayoutBehavior) {
+                    AppBarLayoutBehavior var5 = (AppBarLayoutBehavior) var4;
                     if (!var5.seslIsCollapsed()) {
                         var5.seslSetExpanded(false);
                         break;
@@ -359,8 +358,8 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public boolean drawChild(Canvas var1, View var2, long var3) {
-        CoordinatorLayout.LayoutParams var5 = (CoordinatorLayout.LayoutParams) var2.getLayoutParams();
-        CoordinatorLayout.Behavior var6 = var5.mBehavior;
+        SamsungCoordinatorLayout.LayoutParams var5 = (SamsungCoordinatorLayout.LayoutParams) var2.getLayoutParams();
+        SamsungCoordinatorLayout.Behavior var6 = var5.mBehavior;
         if (var6 != null) {
             float var7 = var6.getScrimOpacity(this, var2);
             if (var7 > 0.0F) {
@@ -432,19 +431,19 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
 
     }
 
-    public CoordinatorLayout.LayoutParams generateDefaultLayoutParams() {
-        return new CoordinatorLayout.LayoutParams(-2, -2);
+    public SamsungCoordinatorLayout.LayoutParams generateDefaultLayoutParams() {
+        return new SamsungCoordinatorLayout.LayoutParams(-2, -2);
     }
 
-    public CoordinatorLayout.LayoutParams generateLayoutParams(AttributeSet var1) {
-        return new CoordinatorLayout.LayoutParams(this.getContext(), var1);
+    public SamsungCoordinatorLayout.LayoutParams generateLayoutParams(AttributeSet var1) {
+        return new SamsungCoordinatorLayout.LayoutParams(this.getContext(), var1);
     }
 
-    public CoordinatorLayout.LayoutParams generateLayoutParams(android.view.ViewGroup.LayoutParams var1) {
-        if (var1 instanceof CoordinatorLayout.LayoutParams) {
-            return new CoordinatorLayout.LayoutParams((CoordinatorLayout.LayoutParams) var1);
+    public SamsungCoordinatorLayout.LayoutParams generateLayoutParams(android.view.ViewGroup.LayoutParams var1) {
+        if (var1 instanceof SamsungCoordinatorLayout.LayoutParams) {
+            return new SamsungCoordinatorLayout.LayoutParams((SamsungCoordinatorLayout.LayoutParams) var1);
         } else {
-            return var1 instanceof MarginLayoutParams ? new CoordinatorLayout.LayoutParams((MarginLayoutParams) var1) : new CoordinatorLayout.LayoutParams(var1);
+            return var1 instanceof MarginLayoutParams ? new SamsungCoordinatorLayout.LayoutParams((MarginLayoutParams) var1) : new SamsungCoordinatorLayout.LayoutParams(var1);
         }
     }
 
@@ -492,14 +491,14 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public void getDesiredAnchoredChildRect(View var1, int var2, Rect var3, Rect var4) {
-        CoordinatorLayout.LayoutParams var5 = (CoordinatorLayout.LayoutParams) var1.getLayoutParams();
+        SamsungCoordinatorLayout.LayoutParams var5 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
         int var6 = var1.getMeasuredWidth();
         int var7 = var1.getMeasuredHeight();
         this.getDesiredAnchoredChildRectWithoutConstraints(var1, var2, var3, var4, var5, var6, var7);
         this.constrainChildRect(var5, var4, var6, var7);
     }
 
-    public final void getDesiredAnchoredChildRectWithoutConstraints(View var1, int var2, Rect var3, Rect var4, CoordinatorLayout.LayoutParams var5, int var6, int var7) {
+    public final void getDesiredAnchoredChildRectWithoutConstraints(View var1, int var2, Rect var3, Rect var4, SamsungCoordinatorLayout.LayoutParams var5, int var6, int var7) {
         int var8 = GravityCompat.getAbsoluteGravity(resolveAnchoredChildGravity(var5.gravity), var2);
         int var9 = GravityCompat.getAbsoluteGravity(resolveGravity(var5.anchorGravity), var2);
         int var10 = var8 & 7;
@@ -572,7 +571,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public void getLastChildRect(View var1, Rect var2) {
-        var2.set(((CoordinatorLayout.LayoutParams) var1.getLayoutParams()).getLastChildRect());
+        var2.set(((SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams()).getLastChildRect());
     }
 
     public final WindowInsetsCompat getLastWindowInsets() {
@@ -583,11 +582,11 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         return this.mNestedScrollingParentHelper.getNestedScrollAxes();
     }
 
-    public CoordinatorLayout.LayoutParams getResolvedLayoutParams(View var1) {
-        CoordinatorLayout.LayoutParams var2 = (CoordinatorLayout.LayoutParams) var1.getLayoutParams();
+    public SamsungCoordinatorLayout.LayoutParams getResolvedLayoutParams(View var1) {
+        SamsungCoordinatorLayout.LayoutParams var2 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
         if (!var2.mBehaviorResolved) {
-            if (var1 instanceof CoordinatorLayout.AttachedBehavior) {
-                CoordinatorLayout.Behavior var6 = ((CoordinatorLayout.AttachedBehavior) var1).getBehavior();
+            if (var1 instanceof SamsungCoordinatorLayout.AttachedBehavior) {
+                SamsungCoordinatorLayout.Behavior var6 = ((SamsungCoordinatorLayout.AttachedBehavior) var1).getBehavior();
                 if (var6 == null) {
                     Log.e("CoordinatorLayout", "Attached behavior class is null");
                 }
@@ -597,10 +596,10 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
             } else {
                 Class var3 = var1.getClass();
 
-                CoordinatorLayout.DefaultBehavior var4;
-                CoordinatorLayout.DefaultBehavior var7;
+                SamsungCoordinatorLayout.DefaultBehavior var4;
+                SamsungCoordinatorLayout.DefaultBehavior var7;
                 for (var7 = null; var3 != null; var7 = var4) {
-                    var4 = (CoordinatorLayout.DefaultBehavior) var3.getAnnotation(CoordinatorLayout.DefaultBehavior.class);
+                    var4 = (SamsungCoordinatorLayout.DefaultBehavior) var3.getAnnotation(SamsungCoordinatorLayout.DefaultBehavior.class);
                     var7 = var4;
                     if (var4 != null) {
                         break;
@@ -611,7 +610,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
 
                 if (var7 != null) {
                     try {
-                        var2.setBehavior((CoordinatorLayout.Behavior) var7.value().getDeclaredConstructor().newInstance());
+                        var2.setBehavior((SamsungCoordinatorLayout.Behavior) var7.value().getDeclaredConstructor().newInstance());
                     } catch (Exception var5) {
                         StringBuilder var8 = new StringBuilder();
                         var8.append("Default behavior class ");
@@ -720,7 +719,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public final void layoutChild(View var1, int var2) {
-        CoordinatorLayout.LayoutParams var3 = (CoordinatorLayout.LayoutParams) var1.getLayoutParams();
+        SamsungCoordinatorLayout.LayoutParams var3 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
         Rect var4 = acquireTempRect();
         var4.set(this.getPaddingLeft() + var3.leftMargin, this.getPaddingTop() + var3.topMargin, this.getWidth() - this.getPaddingRight() - var3.rightMargin, this.getHeight() - this.getPaddingBottom() - var3.bottomMargin);
         if (this.mLastInsets != null && ViewCompat.getFitsSystemWindows(this) && !ViewCompat.getFitsSystemWindows(var1)) {
@@ -753,7 +752,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public final void layoutChildWithKeyline(View var1, int var2, int var3) {
-        CoordinatorLayout.LayoutParams var4 = (CoordinatorLayout.LayoutParams) var1.getLayoutParams();
+        SamsungCoordinatorLayout.LayoutParams var4 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
         int var5 = GravityCompat.getAbsoluteGravity(resolveKeylineGravity(var4.gravity), var3);
         int var6 = var5 & 7;
         int var7 = var5 & 112;
@@ -792,8 +791,8 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     public final void offsetChildByInset(View var1, Rect var2, int var3) {
         if (ViewCompat.isLaidOut(var1)) {
             if (var1.getWidth() > 0 && var1.getHeight() > 0) {
-                CoordinatorLayout.LayoutParams var4 = (CoordinatorLayout.LayoutParams) var1.getLayoutParams();
-                CoordinatorLayout.Behavior var5 = var4.getBehavior();
+                SamsungCoordinatorLayout.LayoutParams var4 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
+                SamsungCoordinatorLayout.Behavior var5 = var4.getBehavior();
                 Rect var6 = acquireTempRect();
                 Rect var7 = acquireTempRect();
                 var7.set(var1.getLeft(), var1.getTop(), var1.getRight(), var1.getBottom());
@@ -888,7 +887,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public void offsetChildToAnchor(View var1, int var2) {
-        CoordinatorLayout.LayoutParams var3 = (CoordinatorLayout.LayoutParams) var1.getLayoutParams();
+        SamsungCoordinatorLayout.LayoutParams var3 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
         if (var3.mAnchorView != null) {
             Rect var4;
             Rect var5;
@@ -929,7 +928,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
             }
 
             if (var11) {
-                CoordinatorLayout.Behavior var10 = var3.getBehavior();
+                SamsungCoordinatorLayout.Behavior var10 = var3.getBehavior();
                 if (var10 != null) {
                     var10.onDependentViewChanged(this, var1, var3.mAnchorView);
                 }
@@ -947,7 +946,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         this.resetTouchBehaviors(false);
         if (this.mNeedsPreDrawListener) {
             if (this.mOnPreDrawListener == null) {
-                this.mOnPreDrawListener = new CoordinatorLayout.OnPreDrawListener();
+                this.mOnPreDrawListener = new SamsungCoordinatorLayout.OnPreDrawListener();
             }
 
             this.getViewTreeObserver().addOnPreDrawListener(this.mOnPreDrawListener);
@@ -969,7 +968,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
 
         for (int var7 = 0; var7 < var3; ++var7) {
             View var8 = (View) this.mDependencySortedChildren.get(var7);
-            CoordinatorLayout.LayoutParams var9 = (CoordinatorLayout.LayoutParams) var8.getLayoutParams();
+            SamsungCoordinatorLayout.LayoutParams var9 = (SamsungCoordinatorLayout.LayoutParams) var8.getLayoutParams();
             if (var1 != 0 || var8.getVisibility() != View.GONE) {
                 int var10;
                 for (var10 = 0; var10 < var7; ++var10) {
@@ -1016,8 +1015,8 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
 
                 for (var10 = var7 + 1; var10 < var3; ++var10) {
                     View var15 = (View) this.mDependencySortedChildren.get(var10);
-                    CoordinatorLayout.LayoutParams var13 = (CoordinatorLayout.LayoutParams) var15.getLayoutParams();
-                    CoordinatorLayout.Behavior var16 = var13.getBehavior();
+                    SamsungCoordinatorLayout.LayoutParams var13 = (SamsungCoordinatorLayout.LayoutParams) var15.getLayoutParams();
+                    SamsungCoordinatorLayout.Behavior var16 = var13.getBehavior();
                     if (var16 != null && var16.layoutDependsOn(this, var15, var8)) {
                         if (var1 == 0 && var13.getChangedAfterNestedScroll()) {
                             var13.resetChangedAfterNestedScroll();
@@ -1100,7 +1099,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         for (var2 = 0; var2 < var3; ++var2) {
             View var6 = (View) this.mDependencySortedChildren.get(var2);
             if (var6.getVisibility() != View.GONE) {
-                CoordinatorLayout.Behavior var7 = ((CoordinatorLayout.LayoutParams) var6.getLayoutParams()).getBehavior();
+                SamsungCoordinatorLayout.Behavior var7 = ((SamsungCoordinatorLayout.LayoutParams) var6.getLayoutParams()).getBehavior();
                 if (var7 == null || !var7.onLayoutChild(this, var6, var4)) {
                     this.onLayoutChild(var6, var4);
                 }
@@ -1110,7 +1109,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public void onLayoutChild(View var1, int var2) {
-        CoordinatorLayout.LayoutParams var3 = (CoordinatorLayout.LayoutParams) var1.getLayoutParams();
+        SamsungCoordinatorLayout.LayoutParams var3 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
         if (!var3.checkAnchorChanged()) {
             View var4 = var3.mAnchorView;
             if (var4 != null) {
@@ -1163,12 +1162,12 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         for (int var18 = 0; var18 < var16; ++var18) {
             View var19 = (View) this.mDependencySortedChildren.get(var18);
             if (var19.getVisibility() != View.GONE) {
-                CoordinatorLayout.LayoutParams var20;
+                SamsungCoordinatorLayout.LayoutParams var20;
                 int var21;
                 int var22;
                 label73:
                 {
-                    var20 = (CoordinatorLayout.LayoutParams) var19.getLayoutParams();
+                    var20 = (SamsungCoordinatorLayout.LayoutParams) var19.getLayoutParams();
                     var21 = var20.keyline;
                     if (var21 >= 0 && var9 != 0) {
                         var22 = this.getKeyline(var21);
@@ -1200,7 +1199,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
                     var14 = var2;
                 }
 
-                CoordinatorLayout.Behavior var26 = var20.getBehavior();
+                SamsungCoordinatorLayout.Behavior var26 = var20.getBehavior();
                 if (var26 == null || !var26.onMeasureChild(this, var19, var22, var21, var14, 0)) {
                     this.onMeasureChild(var19, var22, var21, var14, 0);
                 }
@@ -1280,12 +1279,12 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
                 var9 = var11;
                 var8 = var10;
             } else {
-                CoordinatorLayout.LayoutParams var14 = (CoordinatorLayout.LayoutParams) var13.getLayoutParams();
+                SamsungCoordinatorLayout.LayoutParams var14 = (SamsungCoordinatorLayout.LayoutParams) var13.getLayoutParams();
                 if (!var14.isNestedScrollAccepted(var5)) {
                     var9 = var11;
                     var8 = var10;
                 } else {
-                    CoordinatorLayout.Behavior var16 = var14.getBehavior();
+                    SamsungCoordinatorLayout.Behavior var16 = var14.getBehavior();
                     var9 = var11;
                     var8 = var10;
                     if (var16 != null) {
@@ -1349,12 +1348,12 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
                 var11 = var13;
                 var10 = var12;
             } else {
-                CoordinatorLayout.LayoutParams var16 = (CoordinatorLayout.LayoutParams) var15.getLayoutParams();
+                SamsungCoordinatorLayout.LayoutParams var16 = (SamsungCoordinatorLayout.LayoutParams) var15.getLayoutParams();
                 if (!var16.isNestedScrollAccepted(var6)) {
                     var11 = var13;
                     var10 = var12;
                 } else {
-                    CoordinatorLayout.Behavior var17 = var16.getBehavior();
+                    SamsungCoordinatorLayout.Behavior var17 = var16.getBehavior();
                     var11 = var13;
                     var10 = var12;
                     if (var17 != null) {
@@ -1407,9 +1406,9 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
 
         for (int var6 = 0; var6 < var5; ++var6) {
             View var7 = this.getChildAt(var6);
-            CoordinatorLayout.LayoutParams var8 = (CoordinatorLayout.LayoutParams) var7.getLayoutParams();
+            SamsungCoordinatorLayout.LayoutParams var8 = (SamsungCoordinatorLayout.LayoutParams) var7.getLayoutParams();
             if (var8.isNestedScrollAccepted(var4)) {
-                CoordinatorLayout.Behavior var9 = var8.getBehavior();
+                SamsungCoordinatorLayout.Behavior var9 = var8.getBehavior();
                 if (var9 != null) {
                     var9.onNestedScrollAccepted(this, var7, var1, var2, var3, var4);
                 }
@@ -1419,10 +1418,10 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public void onRestoreInstanceState(Parcelable var1) {
-        if (!(var1 instanceof CoordinatorLayout.SavedState)) {
+        if (!(var1 instanceof SamsungCoordinatorLayout.SavedState)) {
             super.onRestoreInstanceState(var1);
         } else {
-            CoordinatorLayout.SavedState var8 = (CoordinatorLayout.SavedState) var1;
+            SamsungCoordinatorLayout.SavedState var8 = (SamsungCoordinatorLayout.SavedState) var1;
             super.onRestoreInstanceState(var8.getSuperState());
             SparseArray var9 = var8.behaviorStates;
             int var2 = 0;
@@ -1430,7 +1429,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
             for (int var3 = this.getChildCount(); var2 < var3; ++var2) {
                 View var4 = this.getChildAt(var2);
                 int var5 = var4.getId();
-                CoordinatorLayout.Behavior var6 = this.getResolvedLayoutParams(var4).getBehavior();
+                SamsungCoordinatorLayout.Behavior var6 = this.getResolvedLayoutParams(var4).getBehavior();
                 if (var5 != -1 && var6 != null) {
                     Parcelable var7 = (Parcelable) var9.get(var5);
                     if (var7 != null) {
@@ -1443,14 +1442,14 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public Parcelable onSaveInstanceState() {
-        CoordinatorLayout.SavedState var1 = new CoordinatorLayout.SavedState(super.onSaveInstanceState());
+        SamsungCoordinatorLayout.SavedState var1 = new SamsungCoordinatorLayout.SavedState(super.onSaveInstanceState());
         SparseArray var2 = new SparseArray();
         int var3 = this.getChildCount();
 
         for (int var4 = 0; var4 < var3; ++var4) {
             View var5 = this.getChildAt(var4);
             int var6 = var5.getId();
-            CoordinatorLayout.Behavior var7 = ((CoordinatorLayout.LayoutParams) var5.getLayoutParams()).getBehavior();
+            SamsungCoordinatorLayout.Behavior var7 = ((SamsungCoordinatorLayout.LayoutParams) var5.getLayoutParams()).getBehavior();
             if (var6 != -1 && var7 != null) {
                 Parcelable var8 = var7.onSaveInstanceState(this, var5);
                 if (var8 != null) {
@@ -1501,9 +1500,9 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
 
         for (int var4 = 0; var4 < var3; ++var4) {
             View var5 = this.getChildAt(var4);
-            CoordinatorLayout.LayoutParams var6 = (CoordinatorLayout.LayoutParams) var5.getLayoutParams();
+            SamsungCoordinatorLayout.LayoutParams var6 = (SamsungCoordinatorLayout.LayoutParams) var5.getLayoutParams();
             if (var6.isNestedScrollAccepted(var2)) {
-                CoordinatorLayout.Behavior var7 = var6.getBehavior();
+                SamsungCoordinatorLayout.Behavior var7 = var6.getBehavior();
                 if (var7 != null) {
                     var7.onStopNestedScroll(this, var5, var1, var2);
                 }
@@ -1607,7 +1606,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
 
         for (int var2 = 0; var2 < var1; ++var2) {
             View var3 = this.getChildAt(var2);
-            CoordinatorLayout.LayoutParams var4 = this.getResolvedLayoutParams(var3);
+            SamsungCoordinatorLayout.LayoutParams var4 = this.getResolvedLayoutParams(var3);
             var4.findAnchorView(this, var3);
             this.mChildDag.addNode(var3);
 
@@ -1630,7 +1629,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public void recordLastChildRect(View var1, Rect var2) {
-        ((CoordinatorLayout.LayoutParams) var1.getLayoutParams()).setLastChildRect(var2);
+        ((SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams()).setLastChildRect(var2);
     }
 
     public void removePreDrawListener() {
@@ -1642,7 +1641,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public boolean requestChildRectangleOnScreen(View var1, Rect var2, boolean var3) {
-        CoordinatorLayout.Behavior var4 = ((CoordinatorLayout.LayoutParams) var1.getLayoutParams()).getBehavior();
+        SamsungCoordinatorLayout.Behavior var4 = ((SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams()).getBehavior();
         return var4 != null && var4.onRequestChildRectangleOnScreen(this, var1, var2, var3) ? true : super.requestChildRectangleOnScreen(var1, var2, var3);
     }
 
@@ -1661,7 +1660,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         int var3;
         for (var3 = 0; var3 < var2; ++var3) {
             View var4 = this.getChildAt(var3);
-            CoordinatorLayout.Behavior var5 = ((CoordinatorLayout.LayoutParams) var4.getLayoutParams()).getBehavior();
+            SamsungCoordinatorLayout.Behavior var5 = ((SamsungCoordinatorLayout.LayoutParams) var4.getLayoutParams()).getBehavior();
             if (var5 != null) {
                 long var6 = SystemClock.uptimeMillis();
                 MotionEvent var8 = MotionEvent.obtain(var6, var6, 3, 0.0F, 0.0F, 0);
@@ -1676,7 +1675,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         }
 
         for (var3 = 0; var3 < var2; ++var3) {
-            ((CoordinatorLayout.LayoutParams) this.getChildAt(var3).getLayoutParams()).resetTouchBehaviorTracking();
+            ((SamsungCoordinatorLayout.LayoutParams) this.getChildAt(var3).getLayoutParams()).resetTouchBehaviorTracking();
         }
 
         this.mBehaviorTouchView = null;
@@ -1689,7 +1688,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public final void setInsetOffsetX(View var1, int var2) {
-        CoordinatorLayout.LayoutParams var3 = (CoordinatorLayout.LayoutParams) var1.getLayoutParams();
+        SamsungCoordinatorLayout.LayoutParams var3 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
         int var4 = var3.mInsetOffsetX;
         if (var4 != var2) {
             ViewCompat.offsetLeftAndRight(var1, var2 - var4);
@@ -1699,7 +1698,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public final void setInsetOffsetY(View var1, int var2) {
-        CoordinatorLayout.LayoutParams var3 = (CoordinatorLayout.LayoutParams) var1.getLayoutParams();
+        SamsungCoordinatorLayout.LayoutParams var3 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
         int var4 = var3.mInsetOffsetY;
         if (var4 != var2) {
             ViewCompat.offsetTopAndBottom(var1, var2 - var4);
@@ -1776,7 +1775,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
                 if (this.mApplyWindowInsetsListener == null) {
                     this.mApplyWindowInsetsListener = new androidx.core.view.OnApplyWindowInsetsListener() {
                         public WindowInsetsCompat onApplyWindowInsets(View var1, WindowInsetsCompat var2) {
-                            return CoordinatorLayout.this.setWindowInsets(var2);
+                            return SamsungCoordinatorLayout.this.setWindowInsets(var2);
                         }
                     };
                 }
@@ -1802,13 +1801,13 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public interface AttachedBehavior {
-        CoordinatorLayout.Behavior getBehavior();
+        SamsungCoordinatorLayout.Behavior getBehavior();
     }
 
     @Deprecated
     @Retention(RetentionPolicy.RUNTIME)
     public @interface DefaultBehavior {
-        Class<? extends CoordinatorLayout.Behavior> value();
+        Class<? extends SamsungCoordinatorLayout.Behavior> value();
     }
 
     public abstract static class Behavior<V extends View> {
@@ -1818,7 +1817,11 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         public Behavior(Context var1, AttributeSet var2) {
         }
 
-        public boolean blocksInteractionBelow(CoordinatorLayout var1, V var2) {
+        protected boolean dispatchGenericMotionEvent(MotionEvent motionEvent) {
+            return false;
+        }
+
+        public boolean blocksInteractionBelow(SamsungCoordinatorLayout var1, V var2) {
             boolean var3;
             if (this.getScrimOpacity(var1, var2) > 0.0F) {
                 var3 = true;
@@ -1829,64 +1832,64 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
             return var3;
         }
 
-        public boolean getInsetDodgeRect(CoordinatorLayout var1, V var2, Rect var3) {
+        public boolean getInsetDodgeRect(SamsungCoordinatorLayout var1, V var2, Rect var3) {
             return false;
         }
 
-        public int getScrimColor(CoordinatorLayout var1, V var2) {
+        public int getScrimColor(SamsungCoordinatorLayout var1, V var2) {
             return -16777216;
         }
 
-        public float getScrimOpacity(CoordinatorLayout var1, V var2) {
+        public float getScrimOpacity(SamsungCoordinatorLayout var1, V var2) {
             return 0.0F;
         }
 
-        public boolean layoutDependsOn(CoordinatorLayout var1, V var2, View var3) {
+        public boolean layoutDependsOn(SamsungCoordinatorLayout var1, V var2, View var3) {
             return false;
         }
 
-        public WindowInsetsCompat onApplyWindowInsets(CoordinatorLayout var1, V var2, WindowInsetsCompat var3) {
+        public WindowInsetsCompat onApplyWindowInsets(SamsungCoordinatorLayout var1, V var2, WindowInsetsCompat var3) {
             return var3;
         }
 
-        public void onAttachedToLayoutParams(CoordinatorLayout.LayoutParams var1) {
+        public void onAttachedToLayoutParams(SamsungCoordinatorLayout.LayoutParams var1) {
         }
 
-        public boolean onDependentViewChanged(CoordinatorLayout var1, V var2, View var3) {
+        public boolean onDependentViewChanged(SamsungCoordinatorLayout var1, V var2, View var3) {
             return false;
         }
 
-        public void onDependentViewRemoved(CoordinatorLayout var1, V var2, View var3) {
+        public void onDependentViewRemoved(SamsungCoordinatorLayout var1, V var2, View var3) {
         }
 
         public void onDetachedFromLayoutParams() {
         }
 
-        public boolean onInterceptTouchEvent(CoordinatorLayout var1, V var2, MotionEvent var3) {
+        public boolean onInterceptTouchEvent(SamsungCoordinatorLayout var1, V var2, MotionEvent var3) {
             return false;
         }
 
-        public boolean onLayoutChild(CoordinatorLayout var1, V var2, int var3) {
+        public boolean onLayoutChild(SamsungCoordinatorLayout var1, V var2, int var3) {
             return false;
         }
 
-        public boolean onMeasureChild(CoordinatorLayout var1, V var2, int var3, int var4, int var5, int var6) {
+        public boolean onMeasureChild(SamsungCoordinatorLayout var1, V var2, int var3, int var4, int var5, int var6) {
             return false;
         }
 
-        public boolean onNestedFling(CoordinatorLayout var1, V var2, View var3, float var4, float var5, boolean var6) {
+        public boolean onNestedFling(SamsungCoordinatorLayout var1, V var2, View var3, float var4, float var5, boolean var6) {
             return false;
         }
 
-        public boolean onNestedPreFling(CoordinatorLayout var1, V var2, View var3, float var4, float var5) {
+        public boolean onNestedPreFling(SamsungCoordinatorLayout var1, V var2, View var3, float var4, float var5) {
             return false;
         }
 
         @Deprecated
-        public void onNestedPreScroll(CoordinatorLayout var1, V var2, View var3, int var4, int var5, int[] var6) {
+        public void onNestedPreScroll(SamsungCoordinatorLayout var1, V var2, View var3, int var4, int var5, int[] var6) {
         }
 
-        public void onNestedPreScroll(CoordinatorLayout var1, V var2, View var3, int var4, int var5, int[] var6, int var7) {
+        public void onNestedPreScroll(SamsungCoordinatorLayout var1, V var2, View var3, int var4, int var5, int[] var6, int var7) {
             if (var7 == 0) {
                 this.onNestedPreScroll(var1, var2, var3, var4, var5, var6);
             }
@@ -1894,66 +1897,66 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         }
 
         @Deprecated
-        public void onNestedScroll(CoordinatorLayout var1, V var2, View var3, int var4, int var5, int var6, int var7) {
+        public void onNestedScroll(SamsungCoordinatorLayout var1, V var2, View var3, int var4, int var5, int var6, int var7) {
         }
 
         @Deprecated
-        public void onNestedScroll(CoordinatorLayout var1, V var2, View var3, int var4, int var5, int var6, int var7, int var8) {
+        public void onNestedScroll(SamsungCoordinatorLayout var1, V var2, View var3, int var4, int var5, int var6, int var7, int var8) {
             if (var8 == 0) {
                 this.onNestedScroll(var1, var2, var3, var4, var5, var6, var7);
             }
 
         }
 
-        public void onNestedScroll(CoordinatorLayout var1, V var2, View var3, int var4, int var5, int var6, int var7, int var8, int[] var9) {
+        public void onNestedScroll(SamsungCoordinatorLayout var1, V var2, View var3, int var4, int var5, int var6, int var7, int var8, int[] var9) {
             var9[0] += var6;
             var9[1] += var7;
             this.onNestedScroll(var1, var2, var3, var4, var5, var6, var7, var8);
         }
 
         @Deprecated
-        public void onNestedScrollAccepted(CoordinatorLayout var1, V var2, View var3, View var4, int var5) {
+        public void onNestedScrollAccepted(SamsungCoordinatorLayout var1, V var2, View var3, View var4, int var5) {
         }
 
-        public void onNestedScrollAccepted(CoordinatorLayout var1, V var2, View var3, View var4, int var5, int var6) {
+        public void onNestedScrollAccepted(SamsungCoordinatorLayout var1, V var2, View var3, View var4, int var5, int var6) {
             if (var6 == 0) {
                 this.onNestedScrollAccepted(var1, var2, var3, var4, var5);
             }
 
         }
 
-        public boolean onRequestChildRectangleOnScreen(CoordinatorLayout var1, V var2, Rect var3, boolean var4) {
+        public boolean onRequestChildRectangleOnScreen(SamsungCoordinatorLayout var1, V var2, Rect var3, boolean var4) {
             return false;
         }
 
-        public void onRestoreInstanceState(CoordinatorLayout var1, V var2, Parcelable var3) {
+        public void onRestoreInstanceState(SamsungCoordinatorLayout var1, V var2, Parcelable var3) {
         }
 
-        public Parcelable onSaveInstanceState(CoordinatorLayout var1, V var2) {
+        public Parcelable onSaveInstanceState(SamsungCoordinatorLayout var1, V var2) {
             return BaseSavedState.EMPTY_STATE;
         }
 
         @Deprecated
-        public boolean onStartNestedScroll(CoordinatorLayout var1, V var2, View var3, View var4, int var5) {
+        public boolean onStartNestedScroll(SamsungCoordinatorLayout var1, V var2, View var3, View var4, int var5) {
             return false;
         }
 
-        public boolean onStartNestedScroll(CoordinatorLayout var1, V var2, View var3, View var4, int var5, int var6) {
+        public boolean onStartNestedScroll(SamsungCoordinatorLayout var1, V var2, View var3, View var4, int var5, int var6) {
             return var6 == 0 ? this.onStartNestedScroll(var1, var2, var3, var4, var5) : false;
         }
 
         @Deprecated
-        public void onStopNestedScroll(CoordinatorLayout var1, V var2, View var3) {
+        public void onStopNestedScroll(SamsungCoordinatorLayout var1, V var2, View var3) {
         }
 
-        public void onStopNestedScroll(CoordinatorLayout var1, V var2, View var3, int var4) {
+        public void onStopNestedScroll(SamsungCoordinatorLayout var1, V var2, View var3, int var4) {
             if (var4 == 0) {
                 this.onStopNestedScroll(var1, var2, var3);
             }
 
         }
 
-        public boolean onTouchEvent(CoordinatorLayout var1, V var2, MotionEvent var3) {
+        public boolean onTouchEvent(SamsungCoordinatorLayout var1, V var2, MotionEvent var3) {
             return false;
         }
     }
@@ -1968,7 +1971,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         public View mAnchorDirectChild;
         public int mAnchorId = -1;
         public View mAnchorView;
-        public CoordinatorLayout.Behavior mBehavior;
+        public SamsungCoordinatorLayout.Behavior mBehavior;
         public boolean mBehaviorResolved = false;
         public Object mBehaviorTag;
         public boolean mDidAcceptNestedScrollNonTouch;
@@ -1993,11 +1996,11 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
             this.dodgeInsetEdges = var3.getInt(R.styleable.SamsungCoordinatorLayout_Layout_layout_dodgeInsetEdges, 0);
             this.mBehaviorResolved = var3.hasValue(R.styleable.SamsungCoordinatorLayout_Layout_layout_behavior);
             if (this.mBehaviorResolved) {
-                this.mBehavior = CoordinatorLayout.parseBehavior(var1, var2, var3.getString(R.styleable.SamsungCoordinatorLayout_Layout_layout_behavior));
+                this.mBehavior = SamsungCoordinatorLayout.parseBehavior(var1, var2, var3.getString(R.styleable.SamsungCoordinatorLayout_Layout_layout_behavior));
             }
 
             var3.recycle();
-            CoordinatorLayout.Behavior var4 = this.mBehavior;
+            SamsungCoordinatorLayout.Behavior var4 = this.mBehavior;
             if (var4 != null) {
                 var4.onAttachedToLayoutParams(this);
             }
@@ -2012,7 +2015,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
             super(var1);
         }
 
-        public LayoutParams(CoordinatorLayout.LayoutParams var1) {
+        public LayoutParams(SamsungCoordinatorLayout.LayoutParams var1) {
             super(var1);
         }
 
@@ -2027,10 +2030,10 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
             return var1;
         }
 
-        public boolean dependsOn(CoordinatorLayout var1, View var2, View var3) {
+        public boolean dependsOn(SamsungCoordinatorLayout var1, View var2, View var3) {
             boolean var5;
             if (var3 != this.mAnchorDirectChild && !this.shouldDodge(var3, ViewCompat.getLayoutDirection(var1))) {
-                CoordinatorLayout.Behavior var4 = this.mBehavior;
+                SamsungCoordinatorLayout.Behavior var4 = this.mBehavior;
                 if (var4 == null || !var4.layoutDependsOn(var1, var2, var3)) {
                     var5 = false;
                     return var5;
@@ -2049,7 +2052,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
             return this.mDidBlockInteraction;
         }
 
-        public View findAnchorView(CoordinatorLayout var1, View var2) {
+        public View findAnchorView(SamsungCoordinatorLayout var1, View var2) {
             if (this.mAnchorId == -1) {
                 this.mAnchorDirectChild = null;
                 this.mAnchorView = null;
@@ -2067,12 +2070,12 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
             return this.mAnchorId;
         }
 
-        public CoordinatorLayout.Behavior getBehavior() {
+        public SamsungCoordinatorLayout.Behavior getBehavior() {
             return this.mBehavior;
         }
 
-        public void setBehavior(CoordinatorLayout.Behavior var1) {
-            CoordinatorLayout.Behavior var2 = this.mBehavior;
+        public void setBehavior(SamsungCoordinatorLayout.Behavior var1) {
+            SamsungCoordinatorLayout.Behavior var2 = this.mBehavior;
             if (var2 != var1) {
                 if (var2 != null) {
                     var2.onDetachedFromLayoutParams();
@@ -2104,12 +2107,12 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
             this.mLastChildRect.set(var1);
         }
 
-        public boolean isBlockingInteractionBelow(CoordinatorLayout var1, View var2) {
+        public boolean isBlockingInteractionBelow(SamsungCoordinatorLayout var1, View var2) {
             boolean var3 = this.mDidBlockInteraction;
             if (var3) {
                 return true;
             } else {
-                CoordinatorLayout.Behavior var4 = this.mBehavior;
+                SamsungCoordinatorLayout.Behavior var4 = this.mBehavior;
                 boolean var5;
                 if (var4 != null) {
                     var5 = var4.blocksInteractionBelow(var1, var2);
@@ -2143,7 +2146,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
             this.mDidBlockInteraction = false;
         }
 
-        public final void resolveAnchorView(View var1, CoordinatorLayout var2) {
+        public final void resolveAnchorView(View var1, SamsungCoordinatorLayout var2) {
             this.mAnchorView = var2.findViewById(this.mAnchorId);
             View var3 = this.mAnchorView;
             if (var3 == null) {
@@ -2198,7 +2201,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         }
 
         public final boolean shouldDodge(View var1, int var2) {
-            int var3 = GravityCompat.getAbsoluteGravity(((CoordinatorLayout.LayoutParams) var1.getLayoutParams()).insetEdge, var2);
+            int var3 = GravityCompat.getAbsoluteGravity(((SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams()).insetEdge, var2);
             boolean var4;
             if (var3 != 0 && (GravityCompat.getAbsoluteGravity(this.dodgeInsetEdges, var2) & var3) == var3) {
                 var4 = true;
@@ -2209,7 +2212,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
             return var4;
         }
 
-        public final boolean verifyAnchorView(View var1, CoordinatorLayout var2) {
+        public final boolean verifyAnchorView(View var1, SamsungCoordinatorLayout var2) {
             if (this.mAnchorView.getId() != this.mAnchorId) {
                 return false;
             } else {
@@ -2234,17 +2237,17 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
     }
 
     protected static class SavedState extends AbsSavedState {
-        public static final Creator<CoordinatorLayout.SavedState> CREATOR = new ClassLoaderCreator<CoordinatorLayout.SavedState>() {
-            public CoordinatorLayout.SavedState createFromParcel(Parcel var1) {
-                return new CoordinatorLayout.SavedState(var1, (ClassLoader) null);
+        public static final Creator<SamsungCoordinatorLayout.SavedState> CREATOR = new ClassLoaderCreator<SamsungCoordinatorLayout.SavedState>() {
+            public SamsungCoordinatorLayout.SavedState createFromParcel(Parcel var1) {
+                return new SamsungCoordinatorLayout.SavedState(var1, (ClassLoader) null);
             }
 
-            public CoordinatorLayout.SavedState createFromParcel(Parcel var1, ClassLoader var2) {
-                return new CoordinatorLayout.SavedState(var1, var2);
+            public SamsungCoordinatorLayout.SavedState createFromParcel(Parcel var1, ClassLoader var2) {
+                return new SamsungCoordinatorLayout.SavedState(var1, var2);
             }
 
-            public CoordinatorLayout.SavedState[] newArray(int var1) {
-                return new CoordinatorLayout.SavedState[var1];
+            public SamsungCoordinatorLayout.SavedState[] newArray(int var1) {
+                return new SamsungCoordinatorLayout.SavedState[var1];
             }
         };
         public SparseArray<Parcelable> behaviorStates;
@@ -2312,7 +2315,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         }
 
         public void onChildViewAdded(View var1, View var2) {
-            OnHierarchyChangeListener var3 = CoordinatorLayout.this.mOnHierarchyChangeListener;
+            OnHierarchyChangeListener var3 = SamsungCoordinatorLayout.this.mOnHierarchyChangeListener;
             if (var3 != null) {
                 var3.onChildViewAdded(var1, var2);
             }
@@ -2320,8 +2323,8 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         }
 
         public void onChildViewRemoved(View var1, View var2) {
-            CoordinatorLayout.this.onChildViewsChanged(2);
-            OnHierarchyChangeListener var3 = CoordinatorLayout.this.mOnHierarchyChangeListener;
+            SamsungCoordinatorLayout.this.onChildViewsChanged(2);
+            OnHierarchyChangeListener var3 = SamsungCoordinatorLayout.this.mOnHierarchyChangeListener;
             if (var3 != null) {
                 var3.onChildViewRemoved(var1, var2);
             }
@@ -2334,7 +2337,7 @@ public class CoordinatorLayout extends ViewGroup implements NestedScrollingParen
         }
 
         public boolean onPreDraw() {
-            CoordinatorLayout.this.onChildViewsChanged(0);
+            SamsungCoordinatorLayout.this.onChildViewsChanged(0);
             return true;
         }
     }

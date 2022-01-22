@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.view.SwitchBar;
+import de.dlyt.yanndroid.oneui.widget.SwitchBar;
 
 public class SwitchBarLayout extends LinearLayout {
 

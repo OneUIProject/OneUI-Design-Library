@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.view.SeekBar;
+import de.dlyt.yanndroid.oneui.widget.SeekBar;
 
 public class SeekBarPreference extends Preference {
     private static final String TAG = "SeekBarPreference";

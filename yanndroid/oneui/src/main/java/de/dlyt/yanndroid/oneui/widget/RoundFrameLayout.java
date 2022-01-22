@@ -1,28 +1,29 @@
-package de.dlyt.yanndroid.oneui.view;
+package de.dlyt.yanndroid.oneui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.widget.FrameLayout;
 
 import androidx.appcompat.util.SeslRoundedCorner;
 
 import de.dlyt.yanndroid.oneui.R;
 
-public class RoundNestedScrollView extends NestedScrollView {
+public class RoundFrameLayout extends FrameLayout {
     SeslRoundedCorner mSeslRoundedCorner;
     private Context mContext;
 
-    public RoundNestedScrollView(Context context) {
+    public RoundFrameLayout(Context context) {
         super(context);
     }
 
-    public RoundNestedScrollView(Context context, AttributeSet attrs) {
+    public RoundFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         mContext = context;
 
-        TypedArray obtainStyledAttributes = mContext.obtainStyledAttributes(attrs, R.styleable.RoundNestedScrollView);
+        TypedArray obtainStyledAttributes = mContext.obtainStyledAttributes(attrs, R.styleable.RoundFrameLayout);
 
         int roundedCorners = obtainStyledAttributes.getInt(R.styleable.RoundFrameLayout_roundedCorners, 15);
 
@@ -32,7 +33,7 @@ public class RoundNestedScrollView extends NestedScrollView {
         obtainStyledAttributes.recycle();
     }
 
-    public RoundNestedScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RoundFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

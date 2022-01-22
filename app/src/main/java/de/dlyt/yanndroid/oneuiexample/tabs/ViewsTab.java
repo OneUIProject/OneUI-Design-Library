@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.dlyt.yanndroid.oneui.view.SeekBar;
-import de.dlyt.yanndroid.oneui.view.SwitchBar;
+import de.dlyt.yanndroid.oneui.widget.SeekBar;
+import de.dlyt.yanndroid.oneui.widget.SwitchBar;
 import de.dlyt.yanndroid.oneuiexample.R;
 
 public class ViewsTab extends Fragment {

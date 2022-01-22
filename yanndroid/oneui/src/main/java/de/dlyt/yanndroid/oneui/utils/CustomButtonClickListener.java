@@ -3,7 +3,7 @@ package de.dlyt.yanndroid.oneui.utils;
 import android.view.MotionEvent;
 import android.view.View;
 
-import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
+import de.dlyt.yanndroid.oneui.widget.BottomNavigationView;
 
 public abstract class CustomButtonClickListener implements View.OnTouchListener {
     private BottomNavigationView mBnv;

@@ -6,7 +6,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.view.SeekBar;
+import de.dlyt.yanndroid.oneui.widget.SeekBar;
 
 class SeslOpacitySeekBar extends SeekBar {
     private static final int SEEKBAR_MAX_VALUE = 255;

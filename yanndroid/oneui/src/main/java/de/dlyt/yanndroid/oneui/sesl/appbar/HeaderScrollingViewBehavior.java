@@ -3,8 +3,12 @@ package de.dlyt.yanndroid.oneui.sesl.appbar;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.math.MathUtils;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
@@ -12,134 +16,117 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.List;
 
-import de.dlyt.yanndroid.oneui.layout.CoordinatorLayout;
+import de.dlyt.yanndroid.oneui.sesl.coordinatorlayout.SamsungCoordinatorLayout;
 
-public abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<View> {
-    public final Rect tempRect1 = new Rect();
-    public final Rect tempRect2 = new Rect();
-    public int overlayTop;
-    public int verticalLayoutGap = 0;
+abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<View> {
+    final Rect tempRect1 = new Rect();
+    final Rect tempRect2 = new Rect();
+    private int verticalLayoutGap = 0;
+    private int overlayTop;
 
-    public HeaderScrollingViewBehavior() {
+    public HeaderScrollingViewBehavior() {}
+
+    public HeaderScrollingViewBehavior(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
-    public HeaderScrollingViewBehavior(Context var1, AttributeSet var2) {
-        super(var1, var2);
-    }
-
-    public static int resolveGravity(int var0) {
-        int var1 = var0;
-        if (var0 == 0) {
-            var1 = 8388659;
-        }
-
-        return var1;
-    }
-
-    public abstract View findFirstDependency(List<View> var1);
-
-    public final int getOverlapPixelsForOffset(View var1) {
-        int var2 = this.overlayTop;
-        int var3 = 0;
-        if (var2 != 0) {
-            float var4 = this.getOverlapRatioForOffset(var1);
-            var3 = this.overlayTop;
-            var3 = MathUtils.clamp((int) (var4 * (float) var3), 0, var3);
-        }
-
-        return var3;
-    }
-
-    public abstract float getOverlapRatioForOffset(View var1);
-
-    public final int getOverlayTop() {
-        return this.overlayTop;
-    }
-
-    public final void setOverlayTop(int var1) {
-        this.overlayTop = var1;
-    }
-
-    public int getScrollRange(View var1) {
-        return var1.getMeasuredHeight();
-    }
-
-    public final int getVerticalLayoutGap() {
-        return this.verticalLayoutGap;
-    }
-
-    public void layoutChild(CoordinatorLayout var1, View var2, int var3) {
-        View var4 = this.findFirstDependency(var1.getDependencies(var2));
-        if (var4 != null) {
-            CoordinatorLayout.LayoutParams var5 = (CoordinatorLayout.LayoutParams) var2.getLayoutParams();
-            Rect var6 = this.tempRect1;
-            var6.set(var1.getPaddingLeft() + var5.leftMargin, var4.getBottom() + var5.topMargin, var1.getWidth() - var1.getPaddingRight() - var5.rightMargin, var1.getHeight() + var4.getBottom() - var1.getPaddingBottom() - var5.bottomMargin);
-            WindowInsetsCompat var7 = var1.getLastWindowInsets();
-            if (var7 != null && ViewCompat.getFitsSystemWindows(var1) && !ViewCompat.getFitsSystemWindows(var2)) {
-                var6.left += var7.getSystemWindowInsetLeft();
-                var6.right -= var7.getSystemWindowInsetRight();
-            }
-
-            Rect var8 = this.tempRect2;
-            GravityCompat.apply(resolveGravity(var5.gravity), var2.getMeasuredWidth(), var2.getMeasuredHeight(), var6, var8, var3);
-            var3 = this.getOverlapPixelsForOffset(var4);
-            var2.layout(var8.left, var8.top - var3, var8.right, var8.bottom - var3);
-            this.verticalLayoutGap = var8.top - var4.getBottom();
-        } else {
-            super.layoutChild(var1, var2, var3);
-            this.verticalLayoutGap = 0;
-        }
-
-    }
-
-    public boolean onMeasureChild(CoordinatorLayout var1, View var2, int var3, int var4, int var5, int var6) {
-        int var7 = var2.getLayoutParams().height;
-        byte var8 = 0;
-        if (var7 == -1 || var7 == -2) {
-            View var9 = this.findFirstDependency(var1.getDependencies(var2));
-            if (var9 != null) {
-                if (ViewCompat.getFitsSystemWindows(var9) && !ViewCompat.getFitsSystemWindows(var2)) {
-                    ViewCompat.setFitsSystemWindows(var2, true);
-                    if (ViewCompat.getFitsSystemWindows(var2)) {
-                        var2.requestLayout();
-                        return true;
+    @Override
+    public boolean onMeasureChild(@NonNull SamsungCoordinatorLayout parent, @NonNull View child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
+        final int childLpHeight = child.getLayoutParams().height;
+        if (childLpHeight == ViewGroup.LayoutParams.MATCH_PARENT || childLpHeight == ViewGroup.LayoutParams.WRAP_CONTENT) {
+            final List<View> dependencies = parent.getDependencies(child);
+            final View header = findFirstDependency(dependencies);
+            if (header != null) {
+                int availableHeight = View.MeasureSpec.getSize(parentHeightMeasureSpec);
+                if (availableHeight > 0) {
+                    if (ViewCompat.getFitsSystemWindows(header)) {
+                        final WindowInsetsCompat parentInsets = parent.getLastWindowInsets();
+                        if (parentInsets != null) {
+                            availableHeight += parentInsets.getSystemWindowInsetTop() + parentInsets.getSystemWindowInsetBottom();
+                        }
                     }
-                }
-
-                int var10 = View.MeasureSpec.getSize(var5);
-                var5 = var10;
-                if (var10 == 0) {
-                    var5 = var1.getHeight();
-                }
-
-                var5 += this.getScrollRange(var9);
-                var10 = var9.getMeasuredHeight();
-                if (this.shouldHeaderOverlapScrollingChild()) {
-                    var2.setTranslationY((float) (-var10));
                 } else {
-                    var5 -= var10;
+                    availableHeight = parent.getHeight();
                 }
 
-                if (var5 < 0) {
-                    var5 = var8;
-                }
-
-                int var11;
-                if (var7 == -1) {
-                    var11 = 1073741824;
+                int height = availableHeight + getScrollRange(header);
+                int headerHeight = header.getMeasuredHeight();
+                if (shouldHeaderOverlapScrollingChild()) {
+                    child.setTranslationY(-headerHeight);
                 } else {
-                    var11 = -2147483648;
+                    height -= headerHeight;
                 }
+                final int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(height, childLpHeight == ViewGroup.LayoutParams.MATCH_PARENT ? View.MeasureSpec.EXACTLY : View.MeasureSpec.AT_MOST);
 
-                var1.onMeasureChild(var2, var3, var4, View.MeasureSpec.makeMeasureSpec(var5, var11), var6);
+                parent.onMeasureChild(child, parentWidthMeasureSpec, widthUsed, heightMeasureSpec, heightUsed);
+
                 return true;
             }
         }
-
         return false;
     }
 
-    public boolean shouldHeaderOverlapScrollingChild() {
+    @Override
+    protected void layoutChild(@NonNull final SamsungCoordinatorLayout parent, @NonNull final View child, final int layoutDirection) {
+        final List<View> dependencies = parent.getDependencies(child);
+        final View header = findFirstDependency(dependencies);
+
+        if (header != null) {
+            final SamsungCoordinatorLayout.LayoutParams lp = (SamsungCoordinatorLayout.LayoutParams) child.getLayoutParams();
+            final Rect available = tempRect1;
+            available.set(parent.getPaddingLeft() + lp.leftMargin, header.getBottom() + lp.topMargin, parent.getWidth() - parent.getPaddingRight() - lp.rightMargin, parent.getHeight() + header.getBottom() - parent.getPaddingBottom() - lp.bottomMargin);
+
+            final WindowInsetsCompat parentInsets = parent.getLastWindowInsets();
+            if (parentInsets != null && ViewCompat.getFitsSystemWindows(parent) && !ViewCompat.getFitsSystemWindows(child)) {
+                available.left += parentInsets.getSystemWindowInsetLeft();
+                available.right -= parentInsets.getSystemWindowInsetRight();
+            }
+
+            final Rect out = tempRect2;
+            GravityCompat.apply(resolveGravity(lp.gravity), child.getMeasuredWidth(), child.getMeasuredHeight(), available, out, layoutDirection);
+
+            final int overlap = getOverlapPixelsForOffset(header);
+
+            child.layout(out.left, out.top - overlap, out.right, out.bottom - overlap);
+            verticalLayoutGap = out.top - header.getBottom();
+        } else {
+            super.layoutChild(parent, child, layoutDirection);
+            verticalLayoutGap = 0;
+        }
+    }
+
+    protected boolean shouldHeaderOverlapScrollingChild() {
         return false;
+    }
+
+    float getOverlapRatioForOffset(final View header) {
+        return 1f;
+    }
+
+    final int getOverlapPixelsForOffset(final View header) {
+        return overlayTop == 0 ? 0 : MathUtils.clamp((int) (getOverlapRatioForOffset(header) * overlayTop), 0, overlayTop);
+    }
+
+    private static int resolveGravity(int gravity) {
+        return gravity == Gravity.NO_GRAVITY ? GravityCompat.START | Gravity.TOP : gravity;
+    }
+
+    @Nullable
+    abstract View findFirstDependency(List<View> views);
+
+    int getScrollRange(@NonNull View v) {
+        return v.getMeasuredHeight();
+    }
+
+    final int getVerticalLayoutGap() {
+        return verticalLayoutGap;
+    }
+
+    public final void setOverlayTop(int overlayTop) {
+        this.overlayTop = overlayTop;
+    }
+
+    public final int getOverlayTop() {
+        return overlayTop;
     }
 }

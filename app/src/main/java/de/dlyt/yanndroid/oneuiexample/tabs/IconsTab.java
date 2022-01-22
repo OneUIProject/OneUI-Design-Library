@@ -25,9 +25,9 @@ import java.util.HashMap;
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneui.sesl.recyclerview.LinearLayoutManager;
-import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
+import de.dlyt.yanndroid.oneui.widget.BottomNavigationView;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
-import de.dlyt.yanndroid.oneui.view.TabLayout;
+import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneui.view.ViewPager;
 import de.dlyt.yanndroid.oneuiexample.R;
 

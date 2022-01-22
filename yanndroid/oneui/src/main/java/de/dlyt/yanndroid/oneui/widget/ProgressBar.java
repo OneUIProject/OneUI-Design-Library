@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.oneui.view;
+package de.dlyt.yanndroid.oneui.widget;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;

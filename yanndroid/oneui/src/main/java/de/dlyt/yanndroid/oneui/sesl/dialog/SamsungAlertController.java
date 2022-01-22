@@ -51,7 +51,7 @@ import java.lang.ref.WeakReference;
 
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
-import de.dlyt.yanndroid.oneui.view.NestedScrollView;
+import de.dlyt.yanndroid.oneui.widget.NestedScrollView;
 
 public class SamsungAlertController {
     private boolean mIsOneUI4;

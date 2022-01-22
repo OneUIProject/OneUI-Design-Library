@@ -62,7 +62,7 @@
             android:textSize="16.0sp"
             android:textStyle="normal" />
 
-        <ProgressBar
+        <de.dlyt.yanndroid.oneui.widget.ProgressBar
             android:id="@+id/loading_bar"
             style="?android:progressBarStyle"
             android:layout_width="50dp"

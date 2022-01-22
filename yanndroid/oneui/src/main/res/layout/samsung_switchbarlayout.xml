@@ -18,7 +18,7 @@
             android:background="?roundedCornerColor"
             android:orientation="vertical">
 
-            <de.dlyt.yanndroid.oneui.view.SwitchBar
+            <de.dlyt.yanndroid.oneui.widget.SwitchBar
                 android:id="@+id/switchbar_switchbarlayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/sesl_switchbar_height"
