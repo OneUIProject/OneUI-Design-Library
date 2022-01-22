@@ -364,7 +364,7 @@ public final class SeslImmersiveScrollBehavior extends SamsungAppBarLayout.Behav
 
     @SuppressLint("LongLogTag")
     private boolean canImmersiveScroll() {
-        if (mAppBarLayout != null && Build.VERSION.SDK_INT >= 30 && !isDexEnabled() && !useCustomAnimationCallback) {
+        if (mAppBarLayout != null && !isDexEnabled() && !useCustomAnimationCallback) {
             if (mAppBarLayout.getIsMouse()) {
                 prepareImmersiveScroll(false, false);
                 return false;
@@ -669,7 +669,7 @@ public final class SeslImmersiveScrollBehavior extends SamsungAppBarLayout.Behav
                 mBottomArea.setTranslationY(0.0f);;
             }
         } else {
-            this.mContentView.setPadding(0, 0, 0, 0);
+            mContentView.setPadding(0, 0, 0, 0);
             ViewCompat.setWindowInsetsAnimationCallback(mContentView, mWindowAnimationCallback);
         }
     }
@@ -1009,9 +1009,9 @@ public final class SeslImmersiveScrollBehavior extends SamsungAppBarLayout.Behav
         mOffsetAnimator.setInterpolator(new PathInterpolator(0.17f, 0.17f, 0.2f, 1.0f));
         mOffsetAnimator.setStartDelay(0);
 
-        float appBarHeightSum = ((float) (-this.mAppBarLayout.getHeight())) + this.mAppBarLayout.seslGetCollapsedHeight();
+        float appBarHeightSum = ((float) (-mAppBarLayout.getHeight())) + mAppBarLayout.seslGetCollapsedHeight();
         int[] iArr = new int[2];
-        iArr[0] = this.mNeedRestoreAnim ? -mAppBarLayout.getHeight() : (int) appBarHeightSum;
+        iArr[0] = mNeedRestoreAnim ? -mAppBarLayout.getHeight() : (int) appBarHeightSum;
         iArr[1] = (int) appBarHeightSum;
         mOffsetAnimator.setIntValues(iArr);
         mOffsetAnimator.start();
