@@ -1007,10 +1007,6 @@ public class SamsungAppBarLayout extends LinearLayout implements SamsungCoordina
   }
 
   private SeslImmersiveScrollBehavior getImmBehavior() {
-    if (Build.VERSION.SDK_INT < 30) {
-      return null;
-    }
-
     ViewGroup.LayoutParams lp = getLayoutParams();
     if (lp instanceof SamsungCoordinatorLayout.LayoutParams) {
       SamsungCoordinatorLayout.Behavior behavior = ((SamsungCoordinatorLayout.LayoutParams) lp).getBehavior();
@@ -1028,7 +1024,7 @@ public class SamsungAppBarLayout extends LinearLayout implements SamsungCoordina
 
   public void seslSetWindowInsetsAnimationCallback(Object callback) {
     SeslImmersiveScrollBehavior behavior = getImmBehavior();
-    if (Build.VERSION.SDK_INT >= 30 && behavior != null) {
+    if (behavior != null) {
       if (callback == null) {
         behavior.setWindowInsetsAnimationCallback(this, null);
       }
@@ -1117,18 +1113,16 @@ public class SamsungAppBarLayout extends LinearLayout implements SamsungCoordina
     }
 
     mRestoreAnim = byUser;
-    if (Build.VERSION.SDK_INT >= 30) {
-      internalActivateImmersiveScroll(activate, true);
+    internalActivateImmersiveScroll(activate, true);
 
-      boolean z = true;
-      SeslImmersiveScrollBehavior behavior = getImmBehavior();
-      if (behavior != null) {
-        z = behavior.dispatchImmersiveScrollEnable();
-      }
+    boolean z = true;
+    SeslImmersiveScrollBehavior behavior = getImmBehavior();
+    if (behavior != null) {
+      z = behavior.dispatchImmersiveScrollEnable();
+    }
 
-      if (z || !activate) {
-        setCanScroll(activate);
-      }
+    if (z || !activate) {
+      setCanScroll(activate);
     }
   }
 
@@ -1324,9 +1318,7 @@ public class SamsungAppBarLayout extends LinearLayout implements SamsungCoordina
       setLayoutParams(lp);
       logStr += ", [3]updateInternalHeight: lp.height : " + lp.height + ", mHeightProportion : " + mHeightProportion;
     }
-    if (Build.VERSION.SDK_INT >= 30) {
-      logStr += " , mIsImmersiveScroll : " + mIsActivatedImmersiveScroll + " , mIsSetByUser : " + mIsActivatedByUser;
-    }
+    logStr += " , mIsImmersiveScroll : " + mIsActivatedImmersiveScroll + " , mIsSetByUser : " + mIsActivatedByUser;
     Log.i(TAG, logStr);
   }
 
@@ -1784,11 +1776,9 @@ public class SamsungAppBarLayout extends LinearLayout implements SamsungCoordina
     }
 
     private int getImmPendingActionOffset(SamsungAppBarLayout appBarLayout) {
-      if (Build.VERSION.SDK_INT >= 30) {
-        Behavior behavior = (Behavior) ((SamsungCoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams()).getBehavior();
-        if (appBarLayout.getCanScroll() && (behavior instanceof SeslImmersiveScrollBehavior)) {
-          return ((int) appBarLayout.seslGetCollapsedHeight()) + appBarLayout.seslGetTCScrollRange();
-        }
+      Behavior behavior = (Behavior) ((SamsungCoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams()).getBehavior();
+      if (appBarLayout.getCanScroll() && (behavior instanceof SeslImmersiveScrollBehavior)) {
+        return ((int) appBarLayout.seslGetCollapsedHeight()) + appBarLayout.seslGetTCScrollRange();
       }
       return 0;
     }
