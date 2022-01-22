@@ -20,7 +20,7 @@
             android:textAlignment="viewStart"
             android:textAppearance="@style/OneUI4.SeslSwitchBarTextStyle" />
 
-        <de.dlyt.yanndroid.oneui.view.ProgressBar
+        <de.dlyt.yanndroid.oneui.widget.ProgressBar
             android:id="@id/sesl_switchbar_progress"
             style="?android:progressBarStyleSmall"
             android:layout_width="wrap_content"

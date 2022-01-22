@@ -46,7 +46,6 @@ import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
 public class SeslRecyclerViewFastScroller {
-    private boolean mIsOneUI4;
     private static final int DURATION_CROSS_FADE = 0;
     private static final int DURATION_FADE_IN = 167;
     private static final int DURATION_FADE_OUT = 150;
@@ -204,7 +203,6 @@ public class SeslRecyclerViewFastScroller {
         mOldChildCount = recyclerView.getChildCount();
 
         mContext = recyclerView.getContext();
-        mIsOneUI4 = mContext.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
         mScaledTouchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
         mScrollBarStyle = recyclerView.getScrollBarStyle();
 
@@ -275,7 +273,7 @@ public class SeslRecyclerViewFastScroller {
         mThumbBackgroundColor = mContext.getResources().getColor(R.color.sesl_fast_scrollbar_bg_color);
         mTrackImage.setImageDrawable(mTrackDrawable);
         if (mThumbDrawable != null) {
-            DrawableCompat.setTint(mThumbDrawable, mIsOneUI4 ? mThumbBackgroundColor : mColorPrimary);
+            DrawableCompat.setTint(mThumbDrawable, mThumbBackgroundColor);
         }
         mThumbImage.setImageDrawable(mThumbDrawable);
         mThumbImage.setMinimumWidth(mThumbMinWidth);
@@ -700,7 +698,7 @@ public class SeslRecyclerViewFastScroller {
                 break;
             case STATE_VISIBLE:
                 if (mThumbDrawable != null) {
-                    DrawableCompat.setTint(mThumbDrawable, mIsOneUI4 ? mThumbBackgroundColor : mColorPrimary);
+                    DrawableCompat.setTint(mThumbDrawable, mThumbBackgroundColor);
                 }
                 transitionToVisible();
                 break;

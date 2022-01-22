@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import de.dlyt.yanndroid.oneui.view.TabLayout;
+import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneui.view.ViewPager;
 import de.dlyt.yanndroid.oneuiexample.R;
 import de.dlyt.yanndroid.oneuiexample.base.BaseThemeActivity;

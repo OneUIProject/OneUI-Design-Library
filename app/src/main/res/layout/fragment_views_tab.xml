@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.dlyt.yanndroid.oneui.view.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<de.dlyt.yanndroid.oneui.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <de.dlyt.yanndroid.oneui.view.SwitchBar
+        <de.dlyt.yanndroid.oneui.widget.SwitchBar
             android:id="@+id/switchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -49,22 +49,22 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <de.dlyt.yanndroid.oneui.view.ProgressBar
+                    <de.dlyt.yanndroid.oneui.widget.ProgressBar
                         style="?android:progressBarStyleLarge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <de.dlyt.yanndroid.oneui.view.ProgressBar
+                    <de.dlyt.yanndroid.oneui.widget.ProgressBar
                         style="?android:progressBarStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <de.dlyt.yanndroid.oneui.view.ProgressBar
+                    <de.dlyt.yanndroid.oneui.widget.ProgressBar
                         style="?android:progressBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <de.dlyt.yanndroid.oneui.view.ProgressBar
+                    <de.dlyt.yanndroid.oneui.widget.ProgressBar
                         style="?android:progressBarStyleSmallTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -91,21 +91,21 @@
                 android:layout_marginVertical="10dp"
                 android:orientation="vertical">
 
-                <de.dlyt.yanndroid.oneui.view.SeekBar
+                <de.dlyt.yanndroid.oneui.widget.SeekBar
                     android:id="@+id/seekbar1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
                     app:seslSeekBarMode="expand" />
 
-                <de.dlyt.yanndroid.oneui.view.SeekBar
+                <de.dlyt.yanndroid.oneui.widget.SeekBar
                     android:id="@+id/seekbar2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
                     app:seslSeekBarMode="standard" />
 
-                <de.dlyt.yanndroid.oneui.view.SeekBar
+                <de.dlyt.yanndroid.oneui.widget.SeekBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
@@ -132,7 +132,7 @@
                 android:layout_marginVertical="10dp"
                 android:orientation="vertical">
 
-                <de.dlyt.yanndroid.oneui.view.Switch
+                <de.dlyt.yanndroid.oneui.widget.Switch
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
@@ -217,7 +217,7 @@
                 </LinearLayout>
 
 
-                <de.dlyt.yanndroid.oneui.view.OptionButton
+                <de.dlyt.yanndroid.oneui.widget.OptionButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12.0dip"
@@ -384,4 +384,4 @@
             android:background="?roundedCornerColor" />
 
     </LinearLayout>
-</de.dlyt.yanndroid.oneui.view.NestedScrollView>
+</de.dlyt.yanndroid.oneui.widget.NestedScrollView>

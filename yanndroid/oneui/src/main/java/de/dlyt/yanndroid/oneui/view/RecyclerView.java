@@ -1007,7 +1007,6 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
             @Override
             public void offsetPositionsForMove(int from, int to) {
                 offsetPositionRecordsForMove(from, to);
-                // should we create mItemsMoved ?
                 mItemsAddedOrRemoved = true;
             }
         });
@@ -6220,11 +6219,6 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
             return mRecyclerView != null && mRecyclerView.hasFocus();
         }
 
-        /**
-         * Returns the item View which has or contains focus.
-         *
-         * @return A direct child of RecyclerView which has focus or contains the focused child.
-         */
         @Nullable
         public View getFocusedChild() {
             if (mRecyclerView == null) {
@@ -7259,9 +7253,6 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
             parent.setChildImportantForAccessibilityInternal(this, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS);
         }
 
-        /**
-         * Called when the child view leaves the hidden state
-         */
         void onLeftHiddenState(RecyclerView parent) {
             parent.setChildImportantForAccessibilityInternal(this, mWasImportantForAccessibilityBeforeHidden);
             mWasImportantForAccessibilityBeforeHidden = ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_AUTO;
@@ -8023,7 +8014,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
         @Override
         public void onAnimationFinished(ViewHolder item) {
             item.setIsRecyclable(true);
-            if (item.mShadowedHolder != null && item.mShadowingHolder == null) { // old vh
+            if (item.mShadowedHolder != null && item.mShadowingHolder == null) {
                 item.mShadowedHolder = null;
             }
             item.mShadowingHolder = null;
@@ -8269,7 +8260,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
             } else if (mIsSetOnlyRemoveAnim) {
                 mLastItemAddRemoveAnim = ValueAnimator.ofInt(mLastItemAnimTop, view.getBottom());
             }
-            mLastItemAddRemoveAnim.setDuration(330L);
+            mLastItemAddRemoveAnim.setDuration(LASTITEM_ADD_REMOVE_DURATION);
             mLastItemAddRemoveAnim.addListener(mAnimListener);
             mLastItemAddRemoveAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
@@ -8424,9 +8415,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
                                     }
 
                                     return super.dispatchTouchEvent(var1);
-                                case 212:
+                                case MOTION_EVENT_ACTION_PEN_UP:
                                     break label162;
-                                case 213:
+                                case MOTION_EVENT_ACTION_PEN_MOVE:
                                     this.multiSelection(var3, var4, var7, var5, false);
                                     return super.dispatchTouchEvent(var1);
                                 default:
@@ -8877,7 +8868,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
     }
 
     public int seslGetGoToTopBottomPadding() {
-        return this.mGoToTopBottomPadding;
+        return mGoToTopBottomPadding;
     }
 
     public void seslSetGoToTopBottomPadding(int bottom) {

@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import de.dlyt.yanndroid.oneui.layout.CoordinatorLayout;
+import de.dlyt.yanndroid.oneui.sesl.coordinatorlayout.SamsungCoordinatorLayout;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 
 public class ViewSupport {
@@ -22,8 +22,8 @@ public class ViewSupport {
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) layoutParams;
             lp.setMargins(margin, 0, margin, 0);
             viewGroup.setLayoutParams(lp);
-        } else if (layoutParams instanceof CoordinatorLayout.LayoutParams) {
-            CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) layoutParams;
+        } else if (layoutParams instanceof SamsungCoordinatorLayout.LayoutParams) {
+            SamsungCoordinatorLayout.LayoutParams lp = (SamsungCoordinatorLayout.LayoutParams) layoutParams;
             lp.setMargins(margin, 0, margin, 0);
             viewGroup.setLayoutParams(lp);
         }

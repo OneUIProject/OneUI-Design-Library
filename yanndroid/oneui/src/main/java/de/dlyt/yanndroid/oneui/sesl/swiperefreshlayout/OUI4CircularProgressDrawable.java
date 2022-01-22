@@ -12,10 +12,8 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Animatable2;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.TypedValue;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
@@ -25,6 +23,8 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.core.util.Preconditions;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -181,9 +181,7 @@ public class OUI4CircularProgressDrawable extends Drawable implements Animatable
     @Override
     public void stop() {
         ((AnimatedVectorDrawable) mDotAnimation).stop();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ((AnimatedVectorDrawable) mDotAnimation).clearAnimationCallbacks();
-        }
+        AnimatedVectorDrawableCompat.clearAnimationCallbacks(mDotAnimation);
         mDotAnimation.setAlpha(0);
         mFourDot.setPosition(0.0f);
         mFourDot.setIsRunning(false);
@@ -262,18 +260,16 @@ public class OUI4CircularProgressDrawable extends Drawable implements Animatable
 
     private void startDotAnimation() {
         ((AnimatedVectorDrawable) mDotAnimation).start();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ((AnimatedVectorDrawable) mDotAnimation).registerAnimationCallback(new Animatable2.AnimationCallback() {
-                @Override
-                public void onAnimationEnd(Drawable drawable) {
-                    if (mAnimationEndCallback != null) {
-                        mAnimationEndCallback.OnAnimationEnd();
-                    }
-                    ((AnimatedVectorDrawable) mDotAnimation).start();
-                    invalidateSelf();
+        AnimatedVectorDrawableCompat.registerAnimationCallback(mDotAnimation, new Animatable2Compat.AnimationCallback() {
+            @Override
+            public void onAnimationEnd(Drawable drawable) {
+                if (mAnimationEndCallback != null) {
+                    mAnimationEndCallback.OnAnimationEnd();
                 }
-            });
-        }
+                ((AnimatedVectorDrawable) mDotAnimation).start();
+                invalidateSelf();
+            }
+        });
     }
 
     public void setOnAnimationEndCallback(OnAnimationEndCallback callback) {

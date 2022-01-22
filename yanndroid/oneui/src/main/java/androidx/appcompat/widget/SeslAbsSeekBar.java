@@ -43,7 +43,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.view.ProgressBar;
+import de.dlyt.yanndroid.oneui.widget.ProgressBar;
 
 public abstract class SeslAbsSeekBar extends ProgressBar {
     public static final boolean IS_BASE_SDK_VERSION;

@@ -4,65 +4,90 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import de.dlyt.yanndroid.oneui.layout.CoordinatorLayout;
+import androidx.annotation.NonNull;
 
-public class ViewOffsetBehavior<V extends View> extends CoordinatorLayout.Behavior<V> {
-    public int tempLeftRightOffset = 0;
-    public int tempTopBottomOffset = 0;
-    public ViewOffsetHelper viewOffsetHelper;
+import de.dlyt.yanndroid.oneui.sesl.coordinatorlayout.SamsungCoordinatorLayout;
 
-    public ViewOffsetBehavior() {
+class ViewOffsetBehavior<V extends View> extends SamsungCoordinatorLayout.Behavior<V> {
+    private ViewOffsetHelper viewOffsetHelper;
+    private int tempTopBottomOffset = 0;
+    private int tempLeftRightOffset = 0;
+
+    public ViewOffsetBehavior() {}
+
+    public ViewOffsetBehavior(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
-    public ViewOffsetBehavior(Context var1, AttributeSet var2) {
-        super(var1, var2);
-    }
+    @Override
+    public boolean onLayoutChild(@NonNull SamsungCoordinatorLayout parent, @NonNull V child, int layoutDirection) {
+        layoutChild(parent, child, layoutDirection);
 
-    public int getTopAndBottomOffset() {
-        ViewOffsetHelper var1 = this.viewOffsetHelper;
-        int var2;
-        if (var1 != null) {
-            var2 = var1.getTopAndBottomOffset();
-        } else {
-            var2 = 0;
+        if (viewOffsetHelper == null) {
+            viewOffsetHelper = new ViewOffsetHelper(child);
         }
+        viewOffsetHelper.onViewLayout();
+        viewOffsetHelper.applyOffsets();
 
-        return var2;
-    }
-
-    public void layoutChild(CoordinatorLayout var1, V var2, int var3) {
-        var1.onLayoutChild(var2, var3);
-    }
-
-    public boolean onLayoutChild(CoordinatorLayout var1, V var2, int var3) {
-        this.layoutChild(var1, var2, var3);
-        if (this.viewOffsetHelper == null) {
-            this.viewOffsetHelper = new ViewOffsetHelper(var2);
+        if (tempTopBottomOffset != 0) {
+            viewOffsetHelper.setTopAndBottomOffset(tempTopBottomOffset);
+            tempTopBottomOffset = 0;
         }
-
-        this.viewOffsetHelper.onViewLayout();
-        var3 = this.tempTopBottomOffset;
-        if (var3 != 0) {
-            this.viewOffsetHelper.setTopAndBottomOffset(var3);
-            this.tempTopBottomOffset = 0;
-        }
-
-        var3 = this.tempLeftRightOffset;
-        if (var3 != 0) {
-            this.viewOffsetHelper.setLeftAndRightOffset(var3);
-            this.tempLeftRightOffset = 0;
+        if (tempLeftRightOffset != 0) {
+            viewOffsetHelper.setLeftAndRightOffset(tempLeftRightOffset);
+            tempLeftRightOffset = 0;
         }
 
         return true;
     }
 
-    public boolean setTopAndBottomOffset(int var1) {
-        ViewOffsetHelper var2 = this.viewOffsetHelper;
-        if (var2 != null) {
-            return var2.setTopAndBottomOffset(var1);
+    protected void layoutChild(@NonNull SamsungCoordinatorLayout parent, @NonNull V child, int layoutDirection) {
+        parent.onLayoutChild(child, layoutDirection);
+    }
+
+    public boolean setTopAndBottomOffset(int offset) {
+        if (viewOffsetHelper != null) {
+            return viewOffsetHelper.setTopAndBottomOffset(offset);
         } else {
-            this.tempTopBottomOffset = var1;
-            return false;
+            tempTopBottomOffset = offset;
         }
+        return false;
+    }
+
+    public boolean setLeftAndRightOffset(int offset) {
+        if (viewOffsetHelper != null) {
+            return viewOffsetHelper.setLeftAndRightOffset(offset);
+        } else {
+            tempLeftRightOffset = offset;
+        }
+        return false;
+    }
+
+    public int getTopAndBottomOffset() {
+        return viewOffsetHelper != null ? viewOffsetHelper.getTopAndBottomOffset() : 0;
+    }
+
+    public int getLeftAndRightOffset() {
+        return viewOffsetHelper != null ? viewOffsetHelper.getLeftAndRightOffset() : 0;
+    }
+
+    public void setVerticalOffsetEnabled(boolean verticalOffsetEnabled) {
+        if (viewOffsetHelper != null) {
+            viewOffsetHelper.setVerticalOffsetEnabled(verticalOffsetEnabled);
+        }
+    }
+
+    public boolean isVerticalOffsetEnabled() {
+        return viewOffsetHelper != null && viewOffsetHelper.isVerticalOffsetEnabled();
+    }
+
+    public void setHorizontalOffsetEnabled(boolean horizontalOffsetEnabled) {
+        if (viewOffsetHelper != null) {
+            viewOffsetHelper.setHorizontalOffsetEnabled(horizontalOffsetEnabled);
+        }
+    }
+
+    public boolean isHorizontalOffsetEnabled() {
+        return viewOffsetHelper != null && viewOffsetHelper.isHorizontalOffsetEnabled();
     }
 }

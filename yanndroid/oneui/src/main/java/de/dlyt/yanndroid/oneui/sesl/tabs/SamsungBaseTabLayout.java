@@ -68,7 +68,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.view.TabItem;
 
 @SeslViewPager.DecorView
 public class SamsungBaseTabLayout extends HorizontalScrollView {

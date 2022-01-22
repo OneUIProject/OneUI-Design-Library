@@ -1,31 +1,31 @@
-package de.dlyt.yanndroid.oneui.layout;
+package de.dlyt.yanndroid.oneui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.util.SeslRoundedCorner;
 
 import de.dlyt.yanndroid.oneui.R;
 
-public class RoundFrameLayout extends FrameLayout {
+public class RoundLinearLayout extends LinearLayout {
     SeslRoundedCorner mSeslRoundedCorner;
     private Context mContext;
 
-    public RoundFrameLayout(Context context) {
+    public RoundLinearLayout(Context context) {
         super(context);
     }
 
-    public RoundFrameLayout(Context context, AttributeSet attrs) {
+    public RoundLinearLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         mContext = context;
 
-        TypedArray obtainStyledAttributes = mContext.obtainStyledAttributes(attrs, R.styleable.RoundFrameLayout);
+        TypedArray obtainStyledAttributes = mContext.obtainStyledAttributes(attrs, R.styleable.RoundLinearLayout);
 
-        int roundedCorners = obtainStyledAttributes.getInt(R.styleable.RoundFrameLayout_roundedCorners, 15);
+        int roundedCorners = obtainStyledAttributes.getInt(R.styleable.RoundLinearLayout_roundedCorners, 15);
 
         mSeslRoundedCorner = new SeslRoundedCorner(mContext);
         mSeslRoundedCorner.setRoundedCorners(roundedCorners);
@@ -33,7 +33,7 @@ public class RoundFrameLayout extends FrameLayout {
         obtainStyledAttributes.recycle();
     }
 
-    public RoundFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RoundLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -42,5 +42,4 @@ public class RoundFrameLayout extends FrameLayout {
         super.dispatchDraw(canvas);
         mSeslRoundedCorner.drawRoundedCorner(canvas);
     }
-
 }

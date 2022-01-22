@@ -596,6 +596,34 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
         }
     }
 
+    // kang
+    public int seslGetMinimumHeightWithoutMargin() {
+        ViewGroup var1 = this.mToolbar;
+        int var4;
+        if (var1 != null) {
+            View var2 = this.mToolbarDirectChild;
+            Object var3 = var1;
+            if (var2 != null) {
+                if (var2 == this) {
+                    var3 = var1;
+                } else {
+                    var3 = var2;
+                }
+            }
+
+            android.view.ViewGroup.LayoutParams var5 = ((View)var3).getLayoutParams();
+            if (var5 instanceof MarginLayoutParams) {
+                MarginLayoutParams var6 = (MarginLayoutParams)var5;
+                var4 = var6.topMargin + var6.bottomMargin;
+                return ViewCompat.getMinimumHeight(this) - var4;
+            }
+        }
+
+        var4 = 0;
+        return ViewCompat.getMinimumHeight(this) - var4;
+    }
+    // kang
+
     public void seslSetCustomTitleView(View v, LayoutParams lp) {
         mIsCollapsingToolbarTitleCustom = lp.seslIsTitleCustom();
 

@@ -222,6 +222,7 @@
     <!--AppBarLayout-->
     <item name="sesl_appbar_height_proportion" type="dimen">0.0</item>
     <dimen name="sesl_extended_appbar_bottom_padding">0.0dip</dimen>
+    <dimen name="sesl_appbar_elevation">0.0dip</dimen>
     <dimen name="sesl_appbar_extended_title_padding">24.0dip</dimen>
     <dimen name="sesl_toolbar_subtitle_text_size">15.0dip</dimen>
     <dimen name="sesl_action_bar_default_height">56.0dip</dimen>

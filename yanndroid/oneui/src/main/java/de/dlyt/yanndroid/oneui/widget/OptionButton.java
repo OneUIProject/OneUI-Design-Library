@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.oneui.view;
+package de.dlyt.yanndroid.oneui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

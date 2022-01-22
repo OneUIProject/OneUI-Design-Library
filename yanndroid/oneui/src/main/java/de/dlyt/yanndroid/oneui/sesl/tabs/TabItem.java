@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.oneui.view;
+package de.dlyt.yanndroid.oneui.sesl.tabs;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

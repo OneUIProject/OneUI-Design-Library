@@ -7,7 +7,7 @@
     android:background="?android:windowBackground"
     android:orientation="vertical">
 
-    <de.dlyt.yanndroid.oneui.layout.CoordinatorLayout
+    <de.dlyt.yanndroid.oneui.sesl.coordinatorlayout.SamsungCoordinatorLayout
         android:id="@+id/toolbar_layout_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -46,7 +46,7 @@
             </de.dlyt.yanndroid.oneui.sesl.appbar.SamsungCollapsingToolbarLayout>
         </de.dlyt.yanndroid.oneui.sesl.appbar.SamsungAppBarLayout>
 
-        <de.dlyt.yanndroid.oneui.layout.RoundLinearLayout
+        <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
             android:id="@+id/toolbar_layout_main_container"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -54,14 +54,14 @@
             app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior"
             app:roundedCorners="top_left|top_right" />
 
-        <de.dlyt.yanndroid.oneui.layout.RoundLinearLayout
+        <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
             android:id="@+id/toolbar_layout_bottom_corners"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/rounded_corner_size"
             android:layout_gravity="bottom"
             app:roundedCorners="bottom_left|bottom_right" />
 
-    </de.dlyt.yanndroid.oneui.layout.CoordinatorLayout>
+    </de.dlyt.yanndroid.oneui.sesl.coordinatorlayout.SamsungCoordinatorLayout>
 
     <!--footer-->
     <include layout="@layout/samsung_toolbarlayout_footer" />

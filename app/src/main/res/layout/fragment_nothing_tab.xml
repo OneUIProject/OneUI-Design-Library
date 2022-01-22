@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.dlyt.yanndroid.oneui.layout.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<de.dlyt.yanndroid.oneui.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/item_background_color">
 
-    <de.dlyt.yanndroid.oneui.view.NestedScrollView
+    <de.dlyt.yanndroid.oneui.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -36,6 +36,6 @@
 
         </LinearLayout>
 
-    </de.dlyt.yanndroid.oneui.view.NestedScrollView>
+    </de.dlyt.yanndroid.oneui.widget.NestedScrollView>
 
-</de.dlyt.yanndroid.oneui.layout.SwipeRefreshLayout>
+</de.dlyt.yanndroid.oneui.widget.SwipeRefreshLayout>

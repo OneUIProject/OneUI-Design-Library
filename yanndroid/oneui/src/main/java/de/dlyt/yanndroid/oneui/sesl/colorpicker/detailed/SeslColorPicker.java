@@ -14,7 +14,6 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -33,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.view.SeekBar;
+import de.dlyt.yanndroid.oneui.widget.SeekBar;
 
 public class SeslColorPicker extends LinearLayout implements View.OnClickListener {
     private static final int CURRENT_COLOR_VIEW = 0;

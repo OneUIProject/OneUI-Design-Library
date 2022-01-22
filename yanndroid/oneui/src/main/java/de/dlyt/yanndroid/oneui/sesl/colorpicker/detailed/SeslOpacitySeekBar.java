@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import androidx.core.view.ViewCompat;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.view.SeekBar;
+import de.dlyt.yanndroid.oneui.widget.SeekBar;
 
 @SuppressLint("AppCompatCustomView")
 class SeslOpacitySeekBar extends SeekBar {

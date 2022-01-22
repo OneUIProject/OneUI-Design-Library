@@ -192,16 +192,18 @@
         <attr name="layout_dodgeInsetEdges" />
     </declare-styleable>
     <declare-styleable name="SamsungAppBarLayout">
-        <attr name="elevation" />
-        <attr name="android:background" />
+        <attr name="elevation"/>
+        <attr name="android:background"/>
         <attr name="expanded" />
-        <attr name="android:keyboardNavigationCluster" />
-        <attr name="android:touchscreenBlocksFocus" />
-        <attr name="liftOnScroll" format="boolean" />
-        <attr name="liftOnScrollTargetViewId" format="reference" />
-        <attr name="statusBarForeground" format="color" />
-        <attr name="sesl_layout_heightPercent" format="float" />
-        <attr name="android:paddingBottom" />
+        <attr name="android:keyboardNavigationCluster"/>
+        <attr name="android:touchscreenBlocksFocus"/>
+        <attr name="liftOnScroll" format="boolean"/>
+        <attr name="liftOnScrollTargetViewId" format="reference"/>
+        <attr name="statusBarForeground" format="color"/>
+        <attr name="seslUseCustomHeight" format="boolean"/>
+        <attr name="seslUseCustomPadding" format="boolean"/>
+        <attr name="seslHeightProportion" format="float"/>
+        <attr name="android:paddingBottom"/>
     </declare-styleable>
     <declare-styleable name="SamsungAppBarLayout_Layout">
         <attr name="layout_scrollFlags" />

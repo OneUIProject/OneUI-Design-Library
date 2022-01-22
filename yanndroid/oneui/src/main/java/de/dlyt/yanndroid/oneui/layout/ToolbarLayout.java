@@ -55,6 +55,7 @@ import de.dlyt.yanndroid.oneui.sesl.appbar.SamsungCollapsingToolbarLayout;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.support.WindowManagerSupport;
 import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
+import de.dlyt.yanndroid.oneui.widget.RoundLinearLayout;
 
 public class ToolbarLayout extends LinearLayout {
     public static final int N_BADGE = -1;
@@ -405,7 +406,7 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     public boolean isExpanded() {
-        return mExpandable ? !appBarLayout.isCollapsed() : false;
+        return mExpandable ? !appBarLayout.seslIsCollapsed() : false;
     }
 
     public void setCustomTitleView(View view) {
