@@ -337,7 +337,7 @@ public class SamsungAppBarLayout extends LinearLayout implements SamsungCoordina
       mImmOffsetListener = new ArrayList();
     }
     if (listener != null && !mImmOffsetListener.contains(listener)) {
-      this.mImmOffsetListener.add(listener);
+      mImmOffsetListener.add(listener);
     }
   }
 
@@ -762,7 +762,7 @@ public class SamsungAppBarLayout extends LinearLayout implements SamsungCoordina
         if (mAppbarState.getState() != SESL_STATE_HIDE) {
           mAppbarState.onStateChanged(SESL_STATE_HIDE);
         }
-      } else if (this.mAppbarState.getState() != SESL_STATE_COLLAPSED) {
+      } else if (mAppbarState.getState() != SESL_STATE_COLLAPSED) {
         mAppbarState.onStateChanged(SESL_STATE_COLLAPSED);
       }
     } else if (Math.abs(offset) >= height) {
@@ -1102,7 +1102,7 @@ public class SamsungAppBarLayout extends LinearLayout implements SamsungCoordina
       return;
     }
     if (!activate || behavior.isAppBarHide()) {
-      behavior.seslRestoreTopAndBottom(this.mRestoreAnim);
+      behavior.seslRestoreTopAndBottom(mRestoreAnim);
     }
   }
 
@@ -1152,7 +1152,7 @@ public class SamsungAppBarLayout extends LinearLayout implements SamsungCoordina
 
   protected void setCanScroll(boolean canScroll) {
     if (mIsCanScroll != canScroll) {
-      this.mIsCanScroll = canScroll;
+      mIsCanScroll = canScroll;
       invalidateScrollRanges();
       requestLayout();
     }
