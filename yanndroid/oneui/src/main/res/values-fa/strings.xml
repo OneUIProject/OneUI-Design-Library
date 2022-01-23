@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">بیشتر</string>
     <string name="sesl_button">دکمه</string>
+    <string name="sesl_index_section">نمایه قسمت</string>
     <string name="sesl_color_picker_black">سیاه</string>
     <string name="new_version_is_available">نگارش تازه‌ای در دسترس است.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">ج</string>
+    <string name="dragndroplist_drag_move">اکنون در وضعیت %d است</string>
     <string name="sesl_color_picker_light_spring_green">سبز بهاری روشن</string>
     <string name="sesl_color_picker_option">گزینه</string>
     <string name="sesl_color_picker_recently_used_colors">رنگ‌های اخیراً استفاده شده</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">روشن</string>
     <string name="sesl_color_picker_dark_magenta">زرشکی تیره</string>
     <string name="sesl_color_picker_yellow">زرد</string>
+    <string name="sesl_searchview_description_voice">جستجوی صوتی</string>
     <string name="app_info">اطلاعات برنامه</string>
     <string name="selected_check_info">‎%d انتخاب شد</string>
     <string name="sesl_color_picker_gray">خاکستری</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">نگارش</string>
     <string name="sesl_color_picker_dark_orange">نارنجی تیره</string>
     <string name="sesl_navigate_up">پیمایش به بالا</string>
+    <string name="dragndroplist_drag_release">مورد در وضعیت ‎%d رها شد.</string>
     <string name="sesl_color_picker_spring_green">سبز بهاری</string>
     <string name="sesl_color_picker_light_cyan">سبزآبی روشن</string>
     <string name="sesl_color_picker_color_one">رنگ یک</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">قرمز تیره</string>
     <string name="sesl_picker_cancel">لغو</string>
     <string name="sesl_color_picker_light_violet">بنفش روشن</string>
+    <string name="sesl_index_assistant_text">برای پیمایش کردن، با دو انگشت به بالا یا پایین بکشید.</string>
     <string name="sesl_color_picker_green">سبز</string>
     <string name="action_settings">تنظیمات</string>
     <string name="sesl_color_picker_dark_yellow">زرد تیره</string>
     <string name="sesl_color_picker_dark_spring_green">سبز بهاری تیره</string>
     <string name="sesl_color_picker_double_tap_to_select">برای انتخاب، دو بار ضربه بزنید.</string>
+    <string name="sesl_index_scrollbar">نوار پیمایش</string>
+    <string name="sesl_searchview_description_clear">پاک کردن فیلد جستجو</string>
     <string name="sesl_toolbar_collapse_description">جمع‌شدن</string>
     <string name="sesl_color_picker_light_yellow">زرد روشن</string>
     <string name="sesl_cancel">انصراف</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">قرمز روشن</string>
     <string name="sesl_color_picker_color_five">رنگ پنج</string>
     <string name="sesl_color_picker_light_azure">نیلی روشن</string>
+    <string name="sesl_index_selected">انتخاب شد</string>
     <string name="sesl_color_picker_brightness">روشنایی</string>
     <string name="all_checkbox">همه</string>
     <string name="sesl_color_picker_blue">آبی</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">رنگ سه</string>
     <string name="sesl_color_hex_text">شش‌ضلعی</string>
     <string name="sesl_color_picker_color_four">رنگ چهار</string>
+    <string name="dragndroplist_item_cannot_be_dragged">کشیدن موردی که در وضعیت ‎%d قرار دارد ممکن نیست.</string>
     <string name="sesl_color_picker_spectrum_text">طیف</string>
+    <string name="dragndroplist_drag_start">مورد به وضعیت ‎%d کشیده می‌شود.</string>
     <string name="sesl_color_picker_light_blue">آبی روشن</string>
     <string name="sesl_more_options">گزینه‌های بیشتر</string>
     <string name="sesl_off_text">خاموش</string>

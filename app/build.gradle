@@ -28,7 +28,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    project.gradle.addBuildListener(new BuildListener() {
+    /*project.gradle.addBuildListener(new BuildListener() {
         @Override
         void settingsEvaluated(Settings settings) {}
 
@@ -46,7 +46,7 @@ android {
             File stringFile = new File("${projectDir}/src/main/res/values/strings.xml")
             stringFile.write(stringFile.getText('UTF-8').replace("<string name=\"sesl_font_family_regular\" translatable=\"false\">sec-roboto-light</string>", "<string name=\"sesl_font_family_regular\" translatable=\"false\">sans-serif</string>"), 'UTF-8')
         }
-    })
+    })*/
 }
 
 dependencies {

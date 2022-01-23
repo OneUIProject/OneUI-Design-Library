@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Meira</string>
     <string name="sesl_button">Hnappur</string>
+    <string name="sesl_index_section">Atriðisorðaskrá fyrir hluta</string>
     <string name="sesl_color_picker_black">Svartur</string>
     <string name="new_version_is_available">Ný útgáfa er í boði.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">Nú í stöðunni %d</string>
     <string name="sesl_color_picker_light_spring_green">Ljósvorgrænn</string>
     <string name="sesl_color_picker_option">Valkostur</string>
     <string name="sesl_color_picker_recently_used_colors">Nýlega notaðir litir</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Kveikt</string>
     <string name="sesl_color_picker_dark_magenta">Dökkblárauður</string>
     <string name="sesl_color_picker_yellow">Gulur</string>
+    <string name="sesl_searchview_description_voice">Raddleit</string>
     <string name="app_info">Upplýsingar um forrit</string>
     <string name="selected_check_info">%d valin</string>
     <string name="sesl_color_picker_gray">Grár</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Útgáfa</string>
     <string name="sesl_color_picker_dark_orange">Dökkappelsínugulur</string>
     <string name="sesl_navigate_up">Fara upp</string>
+    <string name="dragndroplist_drag_release">Atriði sleppt í stöðu %d.</string>
     <string name="sesl_color_picker_spring_green">Vorgrænn</string>
     <string name="sesl_color_picker_light_cyan">Ljósblágrænn</string>
     <string name="sesl_color_picker_color_one">Litur eitt</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Dökkrauður</string>
     <string name="sesl_picker_cancel">Hætta við</string>
     <string name="sesl_color_picker_light_violet">Ljósfjólublár</string>
+    <string name="sesl_index_assistant_text">Strjúktu upp eða niður með tveimur fingrum til að fletta.</string>
     <string name="sesl_color_picker_green">Grænn</string>
     <string name="action_settings">Stillingar</string>
     <string name="sesl_color_picker_dark_yellow">Dökkgulur</string>
     <string name="sesl_color_picker_dark_spring_green">Dökkvorgrænn</string>
     <string name="sesl_color_picker_double_tap_to_select">Pikkaðu tvisvar til að velja.</string>
+    <string name="sesl_index_scrollbar">Flettistika</string>
+    <string name="sesl_searchview_description_clear">Hreinsa leitarreit</string>
     <string name="sesl_toolbar_collapse_description">Fella saman</string>
     <string name="sesl_color_picker_light_yellow">Ljósgulur</string>
     <string name="sesl_cancel">Hætta við</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Ljósrauður</string>
     <string name="sesl_color_picker_color_five">Litur fimm</string>
     <string name="sesl_color_picker_light_azure">Ljósheiðblár</string>
+    <string name="sesl_index_selected">Valið</string>
     <string name="sesl_color_picker_brightness">Birtustig</string>
     <string name="all_checkbox">Allt</string>
     <string name="sesl_color_picker_blue">Blár</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Litur þrjú</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Litur fjögur</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Ekki er hægt að draga atriði í stöðu %d.</string>
     <string name="sesl_color_picker_spectrum_text">Litróf</string>
+    <string name="dragndroplist_drag_start">Byrjaði að draga atriði í stöðu %d.</string>
     <string name="sesl_color_picker_light_blue">Ljósblár</string>
     <string name="sesl_more_options">Fleiri valkostir</string>
     <string name="sesl_off_text">Slökkt</string>

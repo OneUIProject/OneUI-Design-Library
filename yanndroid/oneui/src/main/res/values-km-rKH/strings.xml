@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">ច្រើន​ទៀត</string>
     <string name="sesl_button">ប៊ូតុង</string>
+    <string name="sesl_index_section">ផ្នែក​លិបិក្រម</string>
     <string name="sesl_color_picker_black">ខ្មៅ</string>
     <string name="new_version_is_available">មាន​កំណែ​ថ្មី។</string>
     <string name="sesl_action_menu_overflow_badge_text_n">ថ្មី</string>
+    <string name="dragndroplist_drag_move">ឥឡូវ​នៅ​ទីតាំង %d</string>
     <string name="sesl_color_picker_light_spring_green">បៃតង​ខ្ចី​ស្រាល</string>
     <string name="sesl_color_picker_option">ជម្រើស</string>
     <string name="sesl_color_picker_recently_used_colors">ពណ៌​ដែល​បាន​ប្រើ​ថ្មីៗ</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">បើក</string>
     <string name="sesl_color_picker_dark_magenta">ក្រហម​ស្វាយ​ចាស់</string>
     <string name="sesl_color_picker_yellow">លឿង</string>
+    <string name="sesl_searchview_description_voice">ការស្វែងរក​ដោយ​សំឡេង</string>
     <string name="app_info">ព័ត៌មាន​កម្មវិធី</string>
     <string name="selected_check_info">បាន​ជ្រើស %d</string>
     <string name="sesl_color_picker_gray">ប្រផេះ</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">កំណែ</string>
     <string name="sesl_color_picker_dark_orange">ទឹកក្រូច​ងងឹត</string>
     <string name="sesl_navigate_up">រុករក​ទៅ​លើ</string>
+    <string name="dragndroplist_drag_release">បាន​ទម្លាក់​ធាតុ​ទៅក្នុង​ទីតាំង %d។</string>
     <string name="sesl_color_picker_spring_green">បៃតង​ខ្ចី</string>
     <string name="sesl_color_picker_light_cyan">បៃតង​ខៀវ​ស្រាល</string>
     <string name="sesl_color_picker_color_one">ពណ៌​មួយ</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">ក្រហម​ចាស់</string>
     <string name="sesl_picker_cancel">បោះបង់</string>
     <string name="sesl_color_picker_light_violet">ស្វាយ​ស្រាល</string>
+    <string name="sesl_index_assistant_text">ប្រើ​ម្រាមដៃ​ពីរ​អូស​ឡើង​ឬ​ចុះ ដើម្បី​រំកិល។</string>
     <string name="sesl_color_picker_green">បៃតង</string>
     <string name="action_settings">ការកំណត់</string>
     <string name="sesl_color_picker_dark_yellow">លឿង​ចាស់</string>
     <string name="sesl_color_picker_dark_spring_green">បៃតង​ខ្ចី​ចាស់</string>
     <string name="sesl_color_picker_double_tap_to_select">ប៉ះ​ពីរដង ដើម្បី​ជ្រើស។</string>
+    <string name="sesl_index_scrollbar">របារ​រំកិល</string>
+    <string name="sesl_searchview_description_clear">ជម្រះ​វាល​ស្វែងរក</string>
     <string name="sesl_toolbar_collapse_description">វេញ</string>
     <string name="sesl_color_picker_light_yellow">លឿង​ស្រាល</string>
     <string name="sesl_cancel">បោះបង់</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">ក្រហម​ស្រាល</string>
     <string name="sesl_color_picker_color_five">ពណ៌​ប្រាំ</string>
     <string name="sesl_color_picker_light_azure">ខៀវ​ផ្ទៃមេឃ​ភ្លឺ​ស្រាល</string>
+    <string name="sesl_index_selected">បាន​ជ្រើស</string>
     <string name="sesl_color_picker_brightness">ពន្លឺ</string>
     <string name="all_checkbox">ទាំងអស់</string>
     <string name="sesl_color_picker_blue">ខៀវ</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">ពណ៌​បី</string>
     <string name="sesl_color_hex_text">ឆពណ៌</string>
     <string name="sesl_color_picker_color_four">ពណ៌​បួន</string>
+    <string name="dragndroplist_item_cannot_be_dragged">ធាតុ​នៅ​ទីតាំង %d មិន​អាច​អូស​បាន​ទេ។</string>
     <string name="sesl_color_picker_spectrum_text">វិសាលគម</string>
+    <string name="dragndroplist_drag_start">បាន​ចាប់ផ្ដើម​អូស​ធាតុ​នៅ​ទីតាំង %d។</string>
     <string name="sesl_color_picker_light_blue">ខៀវ​ស្រាល</string>
     <string name="sesl_more_options">ជម្រើស​ច្រើនទៀត</string>
     <string name="sesl_off_text">បិទ</string>

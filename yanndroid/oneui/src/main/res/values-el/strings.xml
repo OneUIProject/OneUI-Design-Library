@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Περισσότερα</string>
     <string name="sesl_button">Κουμπί</string>
+    <string name="sesl_index_section">Δείκτης ενότητας</string>
     <string name="sesl_color_picker_black">Μαύρο</string>
     <string name="new_version_is_available">Υπάρχει διαθέσιμη νέα έκδοση.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">Ν</string>
+    <string name="dragndroplist_drag_move">Τώρα στη θέση %d</string>
     <string name="sesl_color_picker_light_spring_green">Ανοιχτό φωτεινό πράσινο</string>
     <string name="sesl_color_picker_option">Επιλογή</string>
     <string name="sesl_color_picker_recently_used_colors">Χρώματα που χρησιμοποιήθηκαν πρόσφατα</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Ενεργό</string>
     <string name="sesl_color_picker_dark_magenta">Σκούρο ματζέντα</string>
     <string name="sesl_color_picker_yellow">Κίτρινο</string>
+    <string name="sesl_searchview_description_voice">Φωνητική αναζήτηση</string>
     <string name="app_info">Πληροφορίες εφαρμογής</string>
     <string name="selected_check_info">Επιλέχθηκαν %d</string>
     <string name="sesl_color_picker_gray">Γκρι</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Έκδοση</string>
     <string name="sesl_color_picker_dark_orange">Σκούρο πορτοκαλί</string>
     <string name="sesl_navigate_up">Περιήγηση επάνω</string>
+    <string name="dragndroplist_drag_release">Έγινε απόθεση του στοιχείου στη θέση %d.</string>
     <string name="sesl_color_picker_spring_green">Φωτεινό πράσινο</string>
     <string name="sesl_color_picker_light_cyan">Γαλαζοπράσινο</string>
     <string name="sesl_color_picker_color_one">Χρώμα ένα</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Σκούρο κόκκινο</string>
     <string name="sesl_picker_cancel">Άκυρο</string>
     <string name="sesl_color_picker_light_violet">Ανοιχτό βιολετί</string>
+    <string name="sesl_index_assistant_text">Κάντε σάρωση προς τα επάνω ή προς τα κάτω με δύο δάχτυλα για κύλιση.</string>
     <string name="sesl_color_picker_green">Πράσινο</string>
     <string name="action_settings">Ρυθμίσεις</string>
     <string name="sesl_color_picker_dark_yellow">Σκούρο κίτρινο</string>
     <string name="sesl_color_picker_dark_spring_green">Σκούρο φωτεινό πράσινο</string>
     <string name="sesl_color_picker_double_tap_to_select">Πατήστε δύο φορές για επιλογή.</string>
+    <string name="sesl_index_scrollbar">Γραμμή κύλισης</string>
+    <string name="sesl_searchview_description_clear">Εκκαθάριση πεδίου αναζήτησης</string>
     <string name="sesl_toolbar_collapse_description">Σύμπτυξη</string>
     <string name="sesl_color_picker_light_yellow">Ανοιχτό κίτρινο</string>
     <string name="sesl_cancel">Άκυρο</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Φωτεινό κόκκινο</string>
     <string name="sesl_color_picker_color_five">Χρώμα πέντε</string>
     <string name="sesl_color_picker_light_azure">Ανοιχτό κυανό</string>
+    <string name="sesl_index_selected">Επιλέχθηκε</string>
     <string name="sesl_color_picker_brightness">Φωτεινότητα</string>
     <string name="all_checkbox">Όλα</string>
     <string name="sesl_color_picker_blue">Μπλε</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Χρώμα τρία</string>
     <string name="sesl_color_hex_text">Δεκαεξαδικό</string>
     <string name="sesl_color_picker_color_four">Χρώμα τέσσερα</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Δεν είναι δυνατή η μεταφορά του στοιχείου στη θέση %d.</string>
     <string name="sesl_color_picker_spectrum_text">Φάσμα</string>
+    <string name="dragndroplist_drag_start">Ξεκίνησε η μεταφορά του στοιχείου στη θέση %d.</string>
     <string name="sesl_color_picker_light_blue">Ανοιχτό μπλε</string>
     <string name="sesl_more_options">Περισσότερες επιλογές</string>
     <string name="sesl_off_text">Ανενεργό</string>

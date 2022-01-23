@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Ավելին</string>
     <string name="sesl_button">Կոճակ</string>
+    <string name="sesl_index_section">Բաժինների ցուցիչ</string>
     <string name="sesl_color_picker_black">Սև</string>
     <string name="new_version_is_available">Նոր վարկած է մատչելի:</string>
     <string name="sesl_action_menu_overflow_badge_text_n">Ն</string>
+    <string name="dragndroplist_drag_move">Ներկա դիրքը՝ %d</string>
     <string name="sesl_color_picker_light_spring_green">Բաց գարնանային կանաչ</string>
     <string name="sesl_color_picker_option">Ընտրանք</string>
     <string name="sesl_color_picker_recently_used_colors">Վերջերս օգտագործված գույներ</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Միացած</string>
     <string name="sesl_color_picker_dark_magenta">Մուգ մաջենտա</string>
     <string name="sesl_color_picker_yellow">Դեղին</string>
+    <string name="sesl_searchview_description_voice">Ձայնով որոնում</string>
     <string name="app_info">Ծրագրի տեղեկություններ</string>
     <string name="selected_check_info">%d ընտրված</string>
     <string name="sesl_color_picker_gray">Գորշ</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Տարբերակ</string>
     <string name="sesl_color_picker_dark_orange">Մուգ նարնջագույն</string>
     <string name="sesl_navigate_up">Նավարկել վեր</string>
+    <string name="dragndroplist_drag_release">Միույթը գցված է %d դիրքում։</string>
     <string name="sesl_color_picker_spring_green">Գարնանային կանաչ</string>
     <string name="sesl_color_picker_light_cyan">Բաց երկնագույն</string>
     <string name="sesl_color_picker_color_one">Գույն մեկ</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Մուգ կարմիր</string>
     <string name="sesl_picker_cancel">Չեղարկել</string>
     <string name="sesl_color_picker_light_violet">Բաց մանուշակագույն</string>
+    <string name="sesl_index_assistant_text">Անցավազքի համար երկու մատը սահեցրեք վերև կամ ներքև:</string>
     <string name="sesl_color_picker_green">Կանաչ</string>
     <string name="action_settings">Դրվածքներ</string>
     <string name="sesl_color_picker_dark_yellow">Մուգ դեղին</string>
     <string name="sesl_color_picker_dark_spring_green">Մուգ գարնանային կանաչ</string>
     <string name="sesl_color_picker_double_tap_to_select">Կրկնակի թակեք ընտրելու համար:</string>
+    <string name="sesl_index_scrollbar">Ոլորագոտի</string>
+    <string name="sesl_searchview_description_clear">Մաքրել որոնման դաշտը</string>
     <string name="sesl_toolbar_collapse_description">Կոծկել</string>
     <string name="sesl_color_picker_light_yellow">Բաց դեղին</string>
     <string name="sesl_cancel">Դադարեցնել</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Բաց կարմիր</string>
     <string name="sesl_color_picker_color_five">Գույն հինգ</string>
     <string name="sesl_color_picker_light_azure">Բաց երկնակապույտ</string>
+    <string name="sesl_index_selected">Ընտրված</string>
     <string name="sesl_color_picker_brightness">Պայծառություն</string>
     <string name="all_checkbox">Բոլոր</string>
     <string name="sesl_color_picker_blue">Կապույտ</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Գույն երեք</string>
     <string name="sesl_color_hex_text">Տասնվեցական</string>
     <string name="sesl_color_picker_color_four">Գույն չորս</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d դիրքի միույթը անհնար է քաշել։</string>
     <string name="sesl_color_picker_spectrum_text">Սպեկտր</string>
+    <string name="dragndroplist_drag_start">Սկսված է միույթի քաշումը %d դիրք։</string>
     <string name="sesl_color_picker_light_blue">Բաց կապույտ</string>
     <string name="sesl_more_options">Այլ ընտրանքներ</string>
     <string name="sesl_off_text">Անջտված է</string>

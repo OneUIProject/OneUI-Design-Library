@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Lisää</string>
     <string name="sesl_button">Painike</string>
+    <string name="sesl_index_section">Osion hakemisto</string>
     <string name="sesl_color_picker_black">Musta</string>
     <string name="new_version_is_available">Uusi versio saatavilla</string>
     <string name="sesl_action_menu_overflow_badge_text_n">U</string>
+    <string name="dragndroplist_drag_move">Nyt sijainnissa %d</string>
     <string name="sesl_color_picker_light_spring_green">Vaalea keväänvihreä</string>
     <string name="sesl_color_picker_option">Asetus</string>
     <string name="sesl_color_picker_recently_used_colors">Viimeksi käytetyt värit</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Päällä</string>
     <string name="sesl_color_picker_dark_magenta">Tumma magenta</string>
     <string name="sesl_color_picker_yellow">Keltainen</string>
+    <string name="sesl_searchview_description_voice">Puhehaku</string>
     <string name="app_info">Sovelluksen tiedot</string>
     <string name="selected_check_info">%d valittu</string>
     <string name="sesl_color_picker_gray">Harmaa</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Versio</string>
     <string name="sesl_color_picker_dark_orange">Tummanoranssi</string>
     <string name="sesl_navigate_up">Siirry ylös kohteeseen</string>
+    <string name="dragndroplist_drag_release">Kohde pudotettu sijaintiin %d.</string>
     <string name="sesl_color_picker_spring_green">Keväänvihreä</string>
     <string name="sesl_color_picker_light_cyan">Vaalea syaani</string>
     <string name="sesl_color_picker_color_one">Väri yksi</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Tummanpunainen</string>
     <string name="sesl_picker_cancel">Peruuta</string>
     <string name="sesl_color_picker_light_violet">Vaalea violetti</string>
+    <string name="sesl_index_assistant_text">Vieritä pyyhkäisemällä kahdella sormella ylös- tai alaspäin.</string>
     <string name="sesl_color_picker_green">Vihreä</string>
     <string name="action_settings">Asetukset</string>
     <string name="sesl_color_picker_dark_yellow">Tummankeltainen</string>
     <string name="sesl_color_picker_dark_spring_green">Tumma keväänvihreä</string>
     <string name="sesl_color_picker_double_tap_to_select">Valitse kaksoisnapauttamalla.</string>
+    <string name="sesl_index_scrollbar">Vierityspalkki</string>
+    <string name="sesl_searchview_description_clear">Tyhjennä hakukenttä</string>
     <string name="sesl_toolbar_collapse_description">Kutista</string>
     <string name="sesl_color_picker_light_yellow">Vaaleankeltainen</string>
     <string name="sesl_cancel">Peruuta</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Vaalea punainen</string>
     <string name="sesl_color_picker_color_five">Väri viisi</string>
     <string name="sesl_color_picker_light_azure">Vaalea asuurinsininen</string>
+    <string name="sesl_index_selected">Valittu</string>
     <string name="sesl_color_picker_brightness">Kirkkaus</string>
     <string name="all_checkbox">Kaikki</string>
     <string name="sesl_color_picker_blue">Sininen</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Väri kolme</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Väri neljä</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Sijainnissa %d olevaa kohdetta ei voi vetää.</string>
     <string name="sesl_color_picker_spectrum_text">Spektri</string>
+    <string name="dragndroplist_drag_start">Sijainnissa %d olevan kohteen vetäminen on aloitettu.</string>
     <string name="sesl_color_picker_light_blue">Vaaleansininen</string>
     <string name="sesl_more_options">Lisää vaihtoehtoja</string>
     <string name="sesl_off_text">Pois päältä</string>

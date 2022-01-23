@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Lainnya</string>
     <string name="sesl_button">Tombol</string>
+    <string name="sesl_index_section">Indeks bagian</string>
     <string name="sesl_color_picker_black">Hitam</string>
     <string name="new_version_is_available">Versi baru tersedia.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">B</string>
+    <string name="dragndroplist_drag_move">Sekarang di posisi %d</string>
     <string name="sesl_color_picker_light_spring_green">Hijau musim semi muda</string>
     <string name="sesl_color_picker_option">Opsi</string>
     <string name="sesl_color_picker_recently_used_colors">Warna yang baru digunakan</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Aktif</string>
     <string name="sesl_color_picker_dark_magenta">Magenta tua</string>
     <string name="sesl_color_picker_yellow">Kuning</string>
+    <string name="sesl_searchview_description_voice">Pencarian dengan suara</string>
     <string name="app_info">Info aplikasi</string>
     <string name="selected_check_info">%d dipilih</string>
     <string name="sesl_color_picker_gray">Abu-abu</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Versi</string>
     <string name="sesl_color_picker_dark_orange">Oranye tua</string>
     <string name="sesl_navigate_up">Navigasi ke atas</string>
+    <string name="dragndroplist_drag_release">Item diletakkan ke posisi %d.</string>
     <string name="sesl_color_picker_spring_green">Hijau musim semi</string>
     <string name="sesl_color_picker_light_cyan">Cyan muda</string>
     <string name="sesl_color_picker_color_one">Warna satu</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Merah tua</string>
     <string name="sesl_picker_cancel">Batal</string>
     <string name="sesl_color_picker_light_violet">Violet muda</string>
+    <string name="sesl_index_assistant_text">Usap ke atas atau ke bawah dengan dua jari untuk menggulir.</string>
     <string name="sesl_color_picker_green">Hijau</string>
     <string name="action_settings">Pengaturan</string>
     <string name="sesl_color_picker_dark_yellow">Kuning tua</string>
     <string name="sesl_color_picker_dark_spring_green">Hijau musim semi tua</string>
     <string name="sesl_color_picker_double_tap_to_select">Ketuk dua kali untuk memilih.</string>
+    <string name="sesl_index_scrollbar">Bilah gulir</string>
+    <string name="sesl_searchview_description_clear">Hapus bidang pencarian</string>
     <string name="sesl_toolbar_collapse_description">Ciutkan</string>
     <string name="sesl_color_picker_light_yellow">Kuning muda</string>
     <string name="sesl_cancel">Batal</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Merah terang</string>
     <string name="sesl_color_picker_color_five">Warna lima</string>
     <string name="sesl_color_picker_light_azure">Azure muda</string>
+    <string name="sesl_index_selected">Dipilih</string>
     <string name="sesl_color_picker_brightness">Kecerahan</string>
     <string name="all_checkbox">Semua</string>
     <string name="sesl_color_picker_blue">Biru</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Warna tiga</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Warna empat</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Item pada posisi %d tidak bisa diseret.</string>
     <string name="sesl_color_picker_spectrum_text">Spektrum</string>
+    <string name="dragndroplist_drag_start">Mulai menyeret item pada posisi %d.</string>
     <string name="sesl_color_picker_light_blue">Biru muda</string>
     <string name="sesl_more_options">Opsi lainnya</string>
     <string name="sesl_off_text">Tdk aktif</string>

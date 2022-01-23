@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Daha çox</string>
     <string name="sesl_button">Düymə</string>
+    <string name="sesl_index_section">Bölmə indeksi</string>
     <string name="sesl_color_picker_black">Qara</string>
     <string name="new_version_is_available">Yeni versiya movcuddur.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">Yn</string>
+    <string name="dragndroplist_drag_move">İndi %d mövqeyindədir</string>
     <string name="sesl_color_picker_light_spring_green">Açıq yaşıl</string>
     <string name="sesl_color_picker_option">Seçim</string>
     <string name="sesl_color_picker_recently_used_colors">Son istifadə edilən rənglər</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Qoş</string>
     <string name="sesl_color_picker_dark_magenta">Tünd yaşımtıl</string>
     <string name="sesl_color_picker_yellow">Sarı</string>
+    <string name="sesl_searchview_description_voice">Səs axtarışı</string>
     <string name="app_info">Proqram məlumatı</string>
     <string name="selected_check_info">%d seçilmişdir</string>
     <string name="sesl_color_picker_gray">Boz</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Versiya</string>
     <string name="sesl_color_picker_dark_orange">Tünd narıncı</string>
     <string name="sesl_navigate_up">Yuxarı keç</string>
+    <string name="dragndroplist_drag_release">Element %d mövqeyinə gətirilmişdir.</string>
     <string name="sesl_color_picker_spring_green">Yaşıl</string>
     <string name="sesl_color_picker_light_cyan">Açıq yaşımtıl</string>
     <string name="sesl_color_picker_color_one">Rəng bir</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Tünd al qırmızı</string>
     <string name="sesl_picker_cancel">Ləğv et</string>
     <string name="sesl_color_picker_light_violet">Açıq bənövşəyi</string>
+    <string name="sesl_index_assistant_text">Sürüşdürmək üçün iki barmağınızla yuxarı və ya aşağı sürüşdürün.</string>
     <string name="sesl_color_picker_green">Yaşıl</string>
     <string name="action_settings">Parametrlər</string>
     <string name="sesl_color_picker_dark_yellow">Tünd sarı</string>
     <string name="sesl_color_picker_dark_spring_green">Tünd yaşıl</string>
     <string name="sesl_color_picker_double_tap_to_select">Seçmək üçün iki dəfə vur.</string>
+    <string name="sesl_index_scrollbar">Sürüşdürmə paneli</string>
+    <string name="sesl_searchview_description_clear">Axtarış sahəsini sil</string>
     <string name="sesl_toolbar_collapse_description">Yığ</string>
     <string name="sesl_color_picker_light_yellow">Açıq sarı</string>
     <string name="sesl_cancel">Ləğv et</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Açıq qırmızı</string>
     <string name="sesl_color_picker_color_five">Rəng beş</string>
     <string name="sesl_color_picker_light_azure">Açıq mavi</string>
+    <string name="sesl_index_selected">Seçilmiş</string>
     <string name="sesl_color_picker_brightness">Parlaqlıq</string>
     <string name="all_checkbox">Hamısı</string>
     <string name="sesl_color_picker_blue">Mavi</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Rəng üç</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Rəng dörd</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d mövqedəki element dartıla bilməz.</string>
     <string name="sesl_color_picker_spectrum_text">Spektr</string>
+    <string name="dragndroplist_drag_start">%d mövqeyindəki elementi dartmağa başlayır.</string>
     <string name="sesl_color_picker_light_blue">Açıq mavi</string>
     <string name="sesl_more_options">Daha çox seçim</string>
     <string name="sesl_off_text">Söndür</string>

@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Tuilleadh</string>
     <string name="sesl_button">Cnaipe</string>
+    <string name="sesl_index_section">Innéacs rannóige</string>
     <string name="sesl_color_picker_black">Dubh</string>
     <string name="new_version_is_available">Tá leagan nua ar fáil</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">Ag suíomh %d anois</string>
     <string name="sesl_color_picker_light_spring_green">Glas éadrom an earraigh</string>
     <string name="sesl_color_picker_option">Rogha</string>
     <string name="sesl_color_picker_recently_used_colors">Dathanna a úsáideadh le déanaí</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Air</string>
     <string name="sesl_color_picker_dark_magenta">Dúmhaigeanta</string>
     <string name="sesl_color_picker_yellow">Buí</string>
+    <string name="sesl_searchview_description_voice">Cuardach gutha</string>
     <string name="app_info">Faisnéis feidhmchláir</string>
     <string name="selected_check_info">%d roghnaithe</string>
     <string name="sesl_color_picker_gray">Liath</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Leagan</string>
     <string name="sesl_color_picker_dark_orange">Flannbhuí dorcha</string>
     <string name="sesl_navigate_up">Déan nascleanúint thuas</string>
+    <string name="dragndroplist_drag_release">Mír scaoilte isteach i suí %d.</string>
     <string name="sesl_color_picker_spring_green">Glas an earraigh</string>
     <string name="sesl_color_picker_light_cyan">Cian éadrom</string>
     <string name="sesl_color_picker_color_one">Dath a haon</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Dúdhearg</string>
     <string name="sesl_picker_cancel">Cuir ar ceal</string>
     <string name="sesl_color_picker_light_violet">Vialait éadrom</string>
+    <string name="sesl_index_assistant_text">Svaidhpeáil suas nó síos le dhá mhéar le scrollú.</string>
     <string name="sesl_color_picker_green">Glas</string>
     <string name="action_settings">Socruithe</string>
     <string name="sesl_color_picker_dark_yellow">Dúbhuí</string>
     <string name="sesl_color_picker_dark_spring_green">Dúghlas an earraigh</string>
     <string name="sesl_color_picker_double_tap_to_select">Déthapáil le roghnú.</string>
+    <string name="sesl_index_scrollbar">Scrollbharra</string>
+    <string name="sesl_searchview_description_clear">Glan an réimse cuardaigh</string>
     <string name="sesl_toolbar_collapse_description">Leacaigh</string>
     <string name="sesl_color_picker_light_yellow">Buí éadrom</string>
     <string name="sesl_cancel">C. ar ceal</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Dearg éadrom</string>
     <string name="sesl_color_picker_color_five">Dath a cúig</string>
     <string name="sesl_color_picker_light_azure">Gormghlas éadrom</string>
+    <string name="sesl_index_selected">Roghnaithe</string>
     <string name="sesl_color_picker_brightness">Gile</string>
     <string name="all_checkbox">Gach</string>
     <string name="sesl_color_picker_blue">Gorm</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Dath a trí</string>
     <string name="sesl_color_hex_text">Heics</string>
     <string name="sesl_color_picker_color_four">Dath a ceathair</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Ní féidir mír i suí %d a tharraingt.</string>
     <string name="sesl_color_picker_spectrum_text">Speictream</string>
+    <string name="dragndroplist_drag_start">Tarraingt míre tosaithe ag suí %d.</string>
     <string name="sesl_color_picker_light_blue">Gorm éadrom</string>
     <string name="sesl_more_options">Roghanna eile</string>
     <string name="sesl_off_text">As</string>

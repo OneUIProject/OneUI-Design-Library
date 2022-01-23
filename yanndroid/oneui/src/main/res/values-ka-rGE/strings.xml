@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">სხვა</string>
     <string name="sesl_button">ღილაკი</string>
+    <string name="sesl_index_section">სექციის ინდექსი</string>
     <string name="sesl_color_picker_black">შავი</string>
     <string name="new_version_is_available">გამოვიდა ახალი ვერსია.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">ა</string>
+    <string name="dragndroplist_drag_move">ახლა მისი პოზიციაა %d</string>
     <string name="sesl_color_picker_light_spring_green">გაზაფხულის ღია მწვანე</string>
     <string name="sesl_color_picker_option">ვარიანტი</string>
     <string name="sesl_color_picker_recently_used_colors">ბოლოდროს გამოყენებული ფერები</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">ჩართ.</string>
     <string name="sesl_color_picker_dark_magenta">მუქი მეწამული</string>
     <string name="sesl_color_picker_yellow">ყვითელი</string>
+    <string name="sesl_searchview_description_voice">ძებნა ხმით</string>
     <string name="app_info">აპლიკაციის ინფორმაცია</string>
     <string name="selected_check_info">%d არჩეულია</string>
     <string name="sesl_color_picker_gray">ნაცრისფერი</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">ვერსია</string>
     <string name="sesl_color_picker_dark_orange">მუქი ნარინჯისფერი</string>
     <string name="sesl_navigate_up">ნავიგაცია ზემოთ</string>
+    <string name="dragndroplist_drag_release">ელემენტი გადასულია პოზიცია %d-ში.</string>
     <string name="sesl_color_picker_spring_green">გაზაფხულის მწვანე</string>
     <string name="sesl_color_picker_light_cyan">ღია ფირუზისფერი</string>
     <string name="sesl_color_picker_color_one">ფერი ერთი</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">მუქი წითელი</string>
     <string name="sesl_picker_cancel">გაუქმება</string>
     <string name="sesl_color_picker_light_violet">ღია იისფერი</string>
+    <string name="sesl_index_assistant_text">გადასახვევად გადაუსვით ორი თითი ზემოთ ან ქვემოთ.</string>
     <string name="sesl_color_picker_green">მწვანე</string>
     <string name="action_settings">პარამეტრები</string>
     <string name="sesl_color_picker_dark_yellow">მუქი ყვითელი</string>
     <string name="sesl_color_picker_dark_spring_green">გაზაფხულის მუქი მწვანე</string>
     <string name="sesl_color_picker_double_tap_to_select">შესარჩევად შეეხეთ ორჯერ.</string>
+    <string name="sesl_index_scrollbar">გადასახვევი ზოლი</string>
+    <string name="sesl_searchview_description_clear">საძიებო ველის გასუფთავება</string>
     <string name="sesl_toolbar_collapse_description">აკეცვა</string>
     <string name="sesl_color_picker_light_yellow">ღია ყვითელი</string>
     <string name="sesl_cancel">გაუქმება</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">ღია წითელი</string>
     <string name="sesl_color_picker_color_five">ფერი ხუთი</string>
     <string name="sesl_color_picker_light_azure">ღია ლაჟვარდისფერი</string>
+    <string name="sesl_index_selected">არჩეულია</string>
     <string name="sesl_color_picker_brightness">განათებულობა</string>
     <string name="all_checkbox">ყველა</string>
     <string name="sesl_color_picker_blue">ლურჯი</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">ფერი სამი</string>
     <string name="sesl_color_hex_text">ფერის ამრჩევი</string>
     <string name="sesl_color_picker_color_four">ფერი ოთხი</string>
+    <string name="dragndroplist_item_cannot_be_dragged">პოზიცია %d-ში მყოფი ელემენტის გადატანა შეუძლებელია.</string>
     <string name="sesl_color_picker_spectrum_text">სპექტრი</string>
+    <string name="dragndroplist_drag_start">დაწყებულია ელემენტის გადატანა პოზიცია %d-ში.</string>
     <string name="sesl_color_picker_light_blue">ღია ცისფერი</string>
     <string name="sesl_more_options">სხვა ოფციები</string>
     <string name="sesl_off_text">გამორთ.</string>

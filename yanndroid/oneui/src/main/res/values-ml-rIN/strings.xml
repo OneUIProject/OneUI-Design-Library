@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">കൂടുതല്‍</string>
     <string name="sesl_button">ബട്ടണ്‍</string>
+    <string name="sesl_index_section">വിഭാഗ സൂചിക</string>
     <string name="sesl_color_picker_black">കറുപ്പ്</string>
     <string name="new_version_is_available">ഒരു പുതിയ പതിപ്പ് ലഭ്യമാണ്.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">ഇപ്പോൾ %d സ്ഥാനത്ത്</string>
     <string name="sesl_color_picker_light_spring_green">ലൈറ്റ് സ്പ്രിംഗ് ഗ്രീൻ</string>
     <string name="sesl_color_picker_option">ഐച്ഛികം</string>
     <string name="sesl_color_picker_recently_used_colors">സമീപകാലത്ത് ഉപയോഗിച്ച നിറങ്ങൾ</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">ഓണ്‍</string>
     <string name="sesl_color_picker_dark_magenta">ഡാർക്ക് മജന്ത</string>
     <string name="sesl_color_picker_yellow">മഞ്ഞ</string>
+    <string name="sesl_searchview_description_voice">വോയ്സ് തിരയല്‍</string>
     <string name="app_info">ആപ്ലിക്കേഷൻ വിവരം</string>
     <string name="selected_check_info">%d തിരഞ്ഞെടുത്തു</string>
     <string name="sesl_color_picker_gray">ചാരനിറം</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">പതിപ്പ്</string>
     <string name="sesl_color_picker_dark_orange">ഡാർക്ക് ഓറഞ്ച്</string>
     <string name="sesl_navigate_up">മുകളിലേക്ക് നാവിഗേറ്റ് ചെയ്യുക</string>
+    <string name="dragndroplist_drag_release">ഇനത്തെ സ്ഥാനം %d-ലേക്ക് ഇട്ടു.</string>
     <string name="sesl_color_picker_spring_green">സ്പ്രിംഗ് ഗ്രീൻ</string>
     <string name="sesl_color_picker_light_cyan">ലൈറ്റ് സയൻ</string>
     <string name="sesl_color_picker_color_one">ഒന്നാമത്തെ നിറം</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">കടുംചുവപ്പ്</string>
     <string name="sesl_picker_cancel">റദ്ദാക്കുക</string>
     <string name="sesl_color_picker_light_violet">ലൈറ്റ് വയലറ്റ്</string>
+    <string name="sesl_index_assistant_text">സ്ക്രോൾ ചെയ്യുന്നതിന് രണ്ട് വിരലുകളുപയോഗിച്ച് മേലേയ്ക്കോ താഴേയ്ക്കോ സ്വൈപ് ചെയ്യുക.</string>
     <string name="sesl_color_picker_green">പച്ച</string>
     <string name="action_settings">ക്രമീകരണങ്ങൾ</string>
     <string name="sesl_color_picker_dark_yellow">ഇരുണ്ട മഞ്ഞ</string>
     <string name="sesl_color_picker_dark_spring_green">ഡാർക്ക് സ്പ്രിംഗ് ഗ്രീൻ</string>
     <string name="sesl_color_picker_double_tap_to_select">തിരഞ്ഞെടുക്കുന്നതിന് രണ്ടുതവണ സ്പർശിക്കുക.</string>
+    <string name="sesl_index_scrollbar">സ്ക്രോൾ ബാർ</string>
+    <string name="sesl_searchview_description_clear">തിരയൽ ഫീൽഡ് മായ്ക്കുക</string>
     <string name="sesl_toolbar_collapse_description">ചുരുക്കുക</string>
     <string name="sesl_color_picker_light_yellow">ലൈറ്റ് യെല്ലോ</string>
     <string name="sesl_cancel">റദ്ദാക്കുക</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">ഇളം ചുവപ്പ്</string>
     <string name="sesl_color_picker_color_five">അഞ്ചാമത്തെ നിറം</string>
     <string name="sesl_color_picker_light_azure">ലൈറ്റ് ആഷർ</string>
+    <string name="sesl_index_selected">തിരഞ്ഞെടുത്തു</string>
     <string name="sesl_color_picker_brightness">തെളിച്ചം</string>
     <string name="all_checkbox">എല്ലാം</string>
     <string name="sesl_color_picker_blue">നീല</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">മൂന്നാമത്തെ നിറം</string>
     <string name="sesl_color_hex_text">ഹെക്സ്</string>
     <string name="sesl_color_picker_color_four">നാലാമത്തെ നിറം</string>
+    <string name="dragndroplist_item_cannot_be_dragged">സ്ഥാനം %d-ലെ ഇനത്തെ ഇഴയ്ക്കാനാവില്ല.</string>
     <string name="sesl_color_picker_spectrum_text">സ്പെക്ട്രം</string>
+    <string name="dragndroplist_drag_start">സ്ഥാനം %d-ലെ ഇനത്തെ ഇഴയ്ക്കാനാരംഭിച്ചു.</string>
     <string name="sesl_color_picker_light_blue">ഇളം നീല</string>
     <string name="sesl_more_options">കൂടുതൽ ഐച്ഛികങ്ങൾ</string>
     <string name="sesl_off_text">ഓഫ്</string>

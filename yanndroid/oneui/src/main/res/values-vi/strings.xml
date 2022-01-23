@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">N.hơn</string>
     <string name="sesl_button">Phím</string>
+    <string name="sesl_index_section">Chỉ mục phần</string>
     <string name="sesl_color_picker_black">Đen</string>
     <string name="new_version_is_available">Đã có phiên bản mới.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">M</string>
+    <string name="dragndroplist_drag_move">Hiện đang ở vị trí %d</string>
     <string name="sesl_color_picker_light_spring_green">Xanh lá mạ nhạt</string>
     <string name="sesl_color_picker_option">Tùy chọn</string>
     <string name="sesl_color_picker_recently_used_colors">Màu đã dùng gần đây</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Bật</string>
     <string name="sesl_color_picker_dark_magenta">Đỏ tươi thẫm</string>
     <string name="sesl_color_picker_yellow">Vàng</string>
+    <string name="sesl_searchview_description_voice">Tìm kiếm bằng giọng nói</string>
     <string name="app_info">Thông tin ứng dụng</string>
     <string name="selected_check_info">Đã chọn %d</string>
     <string name="sesl_color_picker_gray">Xám</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Phiên bản</string>
     <string name="sesl_color_picker_dark_orange">Cam đậm</string>
     <string name="sesl_navigate_up">Di chuyển lên</string>
+    <string name="dragndroplist_drag_release">Đã thả mục vào vị trí %d.</string>
     <string name="sesl_color_picker_spring_green">Xanh lá mạ</string>
     <string name="sesl_color_picker_light_cyan">Xanh nhạt</string>
     <string name="sesl_color_picker_color_one">Màu số 1</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Đỏ đậm</string>
     <string name="sesl_picker_cancel">Thoát</string>
     <string name="sesl_color_picker_light_violet">Tím nhạt</string>
+    <string name="sesl_index_assistant_text">Vuốt lên hoặc xuống bằng hai ngón tay để cuộn.</string>
     <string name="sesl_color_picker_green">Xanh lá</string>
     <string name="action_settings">Cài đặt</string>
     <string name="sesl_color_picker_dark_yellow">Vàng đậm</string>
     <string name="sesl_color_picker_dark_spring_green">Xanh lá mạ đậm</string>
     <string name="sesl_color_picker_double_tap_to_select">Chạm hai lần để chọn.</string>
+    <string name="sesl_index_scrollbar">Thanh cuộn</string>
+    <string name="sesl_searchview_description_clear">Xóa mục tìm kiếm</string>
     <string name="sesl_toolbar_collapse_description">Thu gọn</string>
     <string name="sesl_color_picker_light_yellow">Vàng nhạt</string>
     <string name="sesl_cancel">Hủy</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Đỏ nhạt</string>
     <string name="sesl_color_picker_color_five">Màu số 5</string>
     <string name="sesl_color_picker_light_azure">Xanh da trời nhạt</string>
+    <string name="sesl_index_selected">Đã chọn</string>
     <string name="sesl_color_picker_brightness">Độ sáng</string>
     <string name="all_checkbox">Tất cả</string>
     <string name="sesl_color_picker_blue">Xanh dương</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Màu số 3</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Màu số 4</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Không thể kéo mục tại vị trí %d.</string>
     <string name="sesl_color_picker_spectrum_text">Quang phổ</string>
+    <string name="dragndroplist_drag_start">Đã bắt đầu kéo mục tại vị trí %d.</string>
     <string name="sesl_color_picker_light_blue">Xanh dương nhạt</string>
     <string name="sesl_more_options">Tùy chọn khác</string>
     <string name="sesl_off_text">Tắt</string>

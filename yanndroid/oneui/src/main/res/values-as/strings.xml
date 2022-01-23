@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">অধিক</string>
     <string name="sesl_button">বুটাম</string>
+    <string name="sesl_index_section">শাখাৰ ইনডেক্স</string>
     <string name="sesl_color_picker_black">"ক'লা"</string>
     <string name="new_version_is_available">এটা নতুন সংস্কৰণ উপলভ্য৷</string>
     <string name="sesl_action_menu_overflow_badge_text_n">ন</string>
+    <string name="dragndroplist_drag_move">এতিয়া স্থান %d-ত আছে</string>
     <string name="sesl_color_picker_light_spring_green">লাইট স্প্ৰিং গ্ৰীণ</string>
     <string name="sesl_color_picker_option">বিকল্প</string>
     <string name="sesl_color_picker_recently_used_colors">শেহতীয়াকৈ ব্যৱহৃত ৰং</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">অন</string>
     <string name="sesl_color_picker_dark_magenta">ডাৰ্ক মেজেণ্টা</string>
     <string name="sesl_color_picker_yellow">হালধীয়া</string>
+    <string name="sesl_searchview_description_voice">মাত অনুসন্ধান</string>
     <string name="app_info">এপ্প্‌ তথ্য</string>
     <string name="selected_check_info">%d টা চয়নিত</string>
     <string name="sesl_color_picker_gray">ধূষৰ ৰং</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">সংস্কৰণ</string>
     <string name="sesl_color_picker_dark_orange">গাঢ় কমলা</string>
     <string name="sesl_navigate_up">ওপৰলৈ নেভিগেট কৰক</string>
+    <string name="dragndroplist_drag_release">অৱস্থান %d-ত আইটেম ৰখা হৈছে৷</string>
     <string name="sesl_color_picker_spring_green">স্প্ৰিং গ্ৰীণ</string>
     <string name="sesl_color_picker_light_cyan">লাইট চিয়ান</string>
     <string name="sesl_color_picker_color_one">প্ৰথম ৰং</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">গাঢ় ৰঙা</string>
     <string name="sesl_picker_cancel">বাতিল কৰক</string>
     <string name="sesl_color_picker_light_violet">পাতল বেঙুনীয়া</string>
+    <string name="sesl_index_assistant_text">"স্ক্ৰ'ল কৰিবলৈ দুটা আঙুলিৰে ওপৰলৈ বা তললৈ ছোৱাইপ কৰক।"</string>
     <string name="sesl_color_picker_green">সেউজীয়া</string>
     <string name="action_settings">ছেটিংছ</string>
     <string name="sesl_color_picker_dark_yellow">গাঢ় হালধীয়া</string>
     <string name="sesl_color_picker_dark_spring_green">ডাৰ্ক স্প্ৰিং গ্ৰীণ</string>
     <string name="sesl_color_picker_double_tap_to_select">চয়ন কৰিবলৈ দুবাৰ টিপক।</string>
+    <string name="sesl_index_scrollbar">"স্ক্ৰ'ল বাৰ"</string>
+    <string name="sesl_searchview_description_clear">অনুসন্ধান ফিল্ড পৰিষ্কাৰ কৰক</string>
     <string name="sesl_toolbar_collapse_description">সংক্ষিপ্ত কৰক</string>
     <string name="sesl_color_picker_light_yellow">পাতল হালধীয়া</string>
     <string name="sesl_cancel">বাতিল কৰক</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">পাতল ৰঙা</string>
     <string name="sesl_color_picker_color_five">পঞ্চম ৰং</string>
     <string name="sesl_color_picker_light_azure">পাতল আকাশী নীলা</string>
+    <string name="sesl_index_selected">চয়নিত</string>
     <string name="sesl_color_picker_brightness">উজ্জ্বলতা</string>
     <string name="all_checkbox">সকলো</string>
     <string name="sesl_color_picker_blue">নীলা</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">তৃতীয় ৰং</string>
     <string name="sesl_color_hex_text">হেক্স</string>
     <string name="sesl_color_picker_color_four">চতুৰ্থ ৰং</string>
+    <string name="dragndroplist_item_cannot_be_dragged">অৱস্থান %d-ৰ থকা আইটেম টানি আনিব নোৱাৰে৷</string>
     <string name="sesl_color_picker_spectrum_text">স্পেকট্ৰাম</string>
+    <string name="dragndroplist_drag_start">অৱস্থান %d-ত আইটেম টানি অনা আৰম্ভ কৰিছে৷</string>
     <string name="sesl_color_picker_light_blue">পাতল নীলা</string>
     <string name="sesl_more_options">অধিক বিকল্প</string>
     <string name="sesl_off_text">অফ</string>

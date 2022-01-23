@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Wiyncy</string>
     <string name="sesl_button">Knefel</string>
+    <string name="sesl_index_section">Indeks sekcji</string>
     <string name="sesl_color_picker_black">Czorno</string>
     <string name="new_version_is_available">Nowŏ wersyjŏ je dostympnŏ.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">Teraz na pozycji %d</string>
     <string name="sesl_color_picker_light_spring_green">Jasna wiosenna zieleń</string>
     <string name="sesl_color_picker_option">Ôpcyjo</string>
     <string name="sesl_color_picker_recently_used_colors">Niydŏwno używane farby</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Wł.</string>
     <string name="sesl_color_picker_dark_magenta">Ciemny amarantowy</string>
     <string name="sesl_color_picker_yellow">Żōłto</string>
+    <string name="sesl_searchview_description_voice">Szukaniy głosym</string>
     <string name="app_info">Informacyje ô aplikacyji</string>
     <string name="selected_check_info">%d ôbrane</string>
     <string name="sesl_color_picker_gray">Siwo</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Wersyjŏ</string>
     <string name="sesl_color_picker_dark_orange">Ćmawoapluzinowy</string>
     <string name="sesl_navigate_up">Nawiguj ku wiyrchu</string>
+    <string name="dragndroplist_drag_release">Ôstawiŏnŏ elemynt w położyniu %d.</string>
     <string name="sesl_color_picker_spring_green">Wiosenna zieleń</string>
     <string name="sesl_color_picker_light_cyan">Jasny cyjan</string>
     <string name="sesl_color_picker_color_one">Farba piyrszo</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Ciemnoczerwony</string>
     <string name="sesl_picker_cancel">Pociep</string>
     <string name="sesl_color_picker_light_violet">Jasnofioletowy</string>
+    <string name="sesl_index_assistant_text">Przeciągnij w górę lub w dół dwoma palcami, aby przewinąć.</string>
     <string name="sesl_color_picker_green">Zielōno</string>
     <string name="action_settings">Sztalowanie</string>
     <string name="sesl_color_picker_dark_yellow">Ciemnożółty</string>
     <string name="sesl_color_picker_dark_spring_green">Ciemna wiosenna zieleń</string>
     <string name="sesl_color_picker_double_tap_to_select">Tyknij dwa razy, coby ôbrać.</string>
+    <string name="sesl_index_scrollbar">Pasek przewijania</string>
+    <string name="sesl_searchview_description_clear">Wypucuj plac sznupanio</string>
     <string name="sesl_toolbar_collapse_description">Swiń</string>
     <string name="sesl_color_picker_light_yellow">Jasnożółty</string>
     <string name="sesl_cancel">Pociep</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Jasnoczerwony</string>
     <string name="sesl_color_picker_color_five">Farba piōnto</string>
     <string name="sesl_color_picker_light_azure">Jasnolazurowy</string>
+    <string name="sesl_index_selected">Ôbrano</string>
     <string name="sesl_color_picker_brightness">Widnoś</string>
     <string name="all_checkbox">Wszyjske</string>
     <string name="sesl_color_picker_blue">Modro</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Farba trzecio</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Farba sztworto</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Niy idzie przeciōngnōnć elemyntu kery je w położyniu %d.</string>
     <string name="sesl_color_picker_spectrum_text">Spektrum</string>
+    <string name="dragndroplist_drag_start">Zaczyntŏ przeciōnganie elemyntu kery je w położyniu %d.</string>
     <string name="sesl_color_picker_light_blue">Bladomodry</string>
     <string name="sesl_more_options">Wiyncyj ôpcyji</string>
     <string name="sesl_off_text">Wył.</string>

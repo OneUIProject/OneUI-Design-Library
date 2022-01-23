@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">เพิ่ม​เติม</string>
     <string name="sesl_button">ปุ่ม</string>
+    <string name="sesl_index_section">ดัชนีส่วน</string>
     <string name="sesl_color_picker_black">สีดำ</string>
     <string name="new_version_is_available">เวอร์ชั่นใหม่พร้อมใช้งาน</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">อยู่ที่ตำแหน่ง %d</string>
     <string name="sesl_color_picker_light_spring_green">สีเขียวใบไม้ผลิอ่อน</string>
     <string name="sesl_color_picker_option">ตัวเลือก</string>
     <string name="sesl_color_picker_recently_used_colors">สีที่ใช้ล่าสุด</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">เปิด</string>
     <string name="sesl_color_picker_dark_magenta">สีม่วงแดงเข้ม</string>
     <string name="sesl_color_picker_yellow">สีเหลือง</string>
+    <string name="sesl_searchview_description_voice">ค้น​หา​ด้วยเสียง</string>
     <string name="app_info">ข้อมูลแอพ</string>
     <string name="selected_check_info">%d ถูกเลือกแล้ว</string>
     <string name="sesl_color_picker_gray">สีเทา</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">เวอร์ชั่น</string>
     <string name="sesl_color_picker_dark_orange">สีส้มเข้ม</string>
     <string name="sesl_navigate_up">หา​ตำแหน่ง​ขึ้น</string>
+    <string name="dragndroplist_drag_release">วางรายการลงในตำแหน่ง %d แล้ว</string>
     <string name="sesl_color_picker_spring_green">สีเขียวใบไม้ผลิ</string>
     <string name="sesl_color_picker_light_cyan">สีฟ้าอ่อน</string>
     <string name="sesl_color_picker_color_one">สีหมายเลขหนึ่ง</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">สีแดงเข้ม</string>
     <string name="sesl_picker_cancel">ยกเลิก</string>
     <string name="sesl_color_picker_light_violet">สีม่วงอ่อน</string>
+    <string name="sesl_index_assistant_text">ปัดขึ้นหรือลงด้วยสองนิ้วเพื่อเลื่อน</string>
     <string name="sesl_color_picker_green">สีเขียว</string>
     <string name="action_settings">การตั้งค่า</string>
     <string name="sesl_color_picker_dark_yellow">สีเหลืองเข้ม</string>
     <string name="sesl_color_picker_dark_spring_green">สีเขียวใบไม้ผลิเข้ม</string>
     <string name="sesl_color_picker_double_tap_to_select">แตะสองครั้งเพื่อเลือก</string>
+    <string name="sesl_index_scrollbar">แถบเลื่อน</string>
+    <string name="sesl_searchview_description_clear">ล้างฟิลด์ค้นหา</string>
     <string name="sesl_toolbar_collapse_description">ย่อ</string>
     <string name="sesl_color_picker_light_yellow">สีเหลืองอ่อน</string>
     <string name="sesl_cancel">ยกเลิก</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">สีแดงอ่อน</string>
     <string name="sesl_color_picker_color_five">สีหมายเลขห้า</string>
     <string name="sesl_color_picker_light_azure">สีฟ้าท้องฟ้าอ่อน</string>
+    <string name="sesl_index_selected">เลือกไว้</string>
     <string name="sesl_color_picker_brightness">ความสว่าง</string>
     <string name="all_checkbox">ทั้งหมด</string>
     <string name="sesl_color_picker_blue">สีน้ำเงิน</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">สีหมายเลขสาม</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">สีหมายเลขสี่</string>
+    <string name="dragndroplist_item_cannot_be_dragged">ไม่สามารถลากรายการที่ตำแหน่ง %d ได้</string>
     <string name="sesl_color_picker_spectrum_text">สเปกตรัม</string>
+    <string name="dragndroplist_drag_start">เริ่มลากรายการที่ตำแหน่ง %d</string>
     <string name="sesl_color_picker_light_blue">สีฟ้าอ่อน</string>
     <string name="sesl_more_options">ตัวเลือกเพิ่มเติม</string>
     <string name="sesl_off_text">ปิด</string>

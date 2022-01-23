@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">மேலும்</string>
     <string name="sesl_button">பொத்தான்</string>
+    <string name="sesl_index_section">பிரிவு உள்ளடக்கம்</string>
     <string name="sesl_color_picker_black">கருப்பு</string>
     <string name="new_version_is_available">புதிய பதிப்பு கிடைக்கிறது.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">இப்போது %d-இல் நிலைப்படுத்தவும்</string>
     <string name="sesl_color_picker_light_spring_green">வெளிர் ஆலிவ் பச்சை</string>
     <string name="sesl_color_picker_option">தெரிவு</string>
     <string name="sesl_color_picker_recently_used_colors">சமீபத்தில் பயன்படுத்தப்பட்ட நிறங்கள்</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">ஆன்</string>
     <string name="sesl_color_picker_dark_magenta">அடர் மெஜண்டா</string>
     <string name="sesl_color_picker_yellow">மஞ்சள்</string>
+    <string name="sesl_searchview_description_voice">குரல் தேடல்</string>
     <string name="app_info">பயன்பாட்டு விவரம்</string>
     <string name="selected_check_info">%d தேர்வு</string>
     <string name="sesl_color_picker_gray">சாம்பல்</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">வெளியீடு</string>
     <string name="sesl_color_picker_dark_orange">அடர் ஆரஞ்ச் நிறம்</string>
     <string name="sesl_navigate_up">மேலே நகர்த்தவும்</string>
+    <string name="dragndroplist_drag_release">உருப்படியானது %d நிலையில் ட்ராப் செய்யப்பட்டது.</string>
     <string name="sesl_color_picker_spring_green">ஸ்பிரிங் பச்சை</string>
     <string name="sesl_color_picker_light_cyan">வெளிர் சியான்</string>
     <string name="sesl_color_picker_color_one">ஒன்றாவது நிறம்</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">அடர் சிவப்பு</string>
     <string name="sesl_picker_cancel">ரத்து</string>
     <string name="sesl_color_picker_light_violet">வெளிர் ஊதா</string>
+    <string name="sesl_index_assistant_text">ஸ்க்ரால் செய்ய, இரு விரல்களால் மேல்நோக்கி அல்லது கீழ்நோக்கி ஸ்வைப் செய்யவும்.</string>
     <string name="sesl_color_picker_green">பச்சை</string>
     <string name="action_settings">அமைவுகள்</string>
     <string name="sesl_color_picker_dark_yellow">கரும் மஞ்சள்</string>
     <string name="sesl_color_picker_dark_spring_green">அடர் பச்சை</string>
     <string name="sesl_color_picker_double_tap_to_select">தேர்வுசெய்ய இருமுறை டேப் செய்யவும்.</string>
+    <string name="sesl_index_scrollbar">ஸ்க்ரால் பட்டை</string>
+    <string name="sesl_searchview_description_clear">தேடுபுலத்தை அழிக்கவும்</string>
     <string name="sesl_toolbar_collapse_description">சுருக்கவும்</string>
     <string name="sesl_color_picker_light_yellow">வெளிர் மஞ்சள்</string>
     <string name="sesl_cancel">ரத்துசெய்க</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">இளஞ்சிவப்பு</string>
     <string name="sesl_color_picker_color_five">ஐந்தாவது நிறம்</string>
     <string name="sesl_color_picker_light_azure">வெளிர் அசூர்</string>
+    <string name="sesl_index_selected">தேர்வுசெய்யப்பட்டது</string>
     <string name="sesl_color_picker_brightness">ஒளிர்வு</string>
     <string name="all_checkbox">எல்லாம்</string>
     <string name="sesl_color_picker_blue">நீலம்</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">மூன்றாவது நிறம்</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">நான்காவது நிறம்</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d நிலையிலுள்ள உருப்படியை ட்ராக் செய்ய .</string>
     <string name="sesl_color_picker_spectrum_text">ஸ்பெக்ட்ரம்</string>
+    <string name="dragndroplist_drag_start">%d நிலையில் உருப்படியை ட்ராக் செய்ய துவங்கியது.</string>
     <string name="sesl_color_picker_light_blue">வெளிர் நீல நிறம்</string>
     <string name="sesl_more_options">மேலும் தெரிவுகள்</string>
     <string name="sesl_off_text">ஆஃப்</string>

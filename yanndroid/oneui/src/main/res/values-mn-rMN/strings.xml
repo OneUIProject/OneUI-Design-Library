@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Бусад</string>
     <string name="sesl_button">Товч</string>
+    <string name="sesl_index_section">Бүлгийн индекс</string>
     <string name="sesl_color_picker_black">Хар</string>
     <string name="new_version_is_available">Шинэ хувилбар боломжтой байна</string>
     <string name="sesl_action_menu_overflow_badge_text_n">Ш</string>
+    <string name="dragndroplist_drag_move">Одоо %d байрлалд</string>
     <string name="sesl_color_picker_light_spring_green">Цайвар хаврын ногоон</string>
     <string name="sesl_color_picker_option">Сонголт</string>
     <string name="sesl_color_picker_recently_used_colors">Сүүлд ашигласан өнгө</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Идэвхтэй</string>
     <string name="sesl_color_picker_dark_magenta">Хар ягаан</string>
     <string name="sesl_color_picker_yellow">Шар</string>
+    <string name="sesl_searchview_description_voice">Дуу хоолойгоор хайх</string>
     <string name="app_info">Хэрэглүүрийн мэдээлэл</string>
     <string name="selected_check_info">%d сонгосон</string>
     <string name="sesl_color_picker_gray">Саарал</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Хувилбар</string>
     <string name="sesl_color_picker_dark_orange">Бараан улбар</string>
     <string name="sesl_navigate_up">Удирдаж дээшлүүлэх</string>
+    <string name="dragndroplist_drag_release">Зүйлийг байршил %d-д тавьсан.</string>
     <string name="sesl_color_picker_spring_green">Хаврын ногоон</string>
     <string name="sesl_color_picker_light_cyan">Цайвар шар хөх</string>
     <string name="sesl_color_picker_color_one">Өнгө нэг</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Хар улаан</string>
     <string name="sesl_picker_cancel">Цуцлах</string>
     <string name="sesl_color_picker_light_violet">Цайвар хөх ягаан</string>
+    <string name="sesl_index_assistant_text">Гүйлгэхийн тулд хоёр хуруугаараа дээш эсвэл доош шударна уу.</string>
     <string name="sesl_color_picker_green">Ногоон</string>
     <string name="action_settings">Тохиргоо</string>
     <string name="sesl_color_picker_dark_yellow">Бараан шар</string>
     <string name="sesl_color_picker_dark_spring_green">Бараан хаврын ногоон</string>
     <string name="sesl_color_picker_double_tap_to_select">Давхар товшоод сонго.</string>
+    <string name="sesl_index_scrollbar">Гүйлгэх мөр</string>
+    <string name="sesl_searchview_description_clear">Хайлтын талбарыг цэвэрлэх</string>
     <string name="sesl_toolbar_collapse_description">Хураах</string>
     <string name="sesl_color_picker_light_yellow">Цайвар шар</string>
     <string name="sesl_cancel">Цуцлах</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Цайвар улаан</string>
     <string name="sesl_color_picker_color_five">Өнгө тав</string>
     <string name="sesl_color_picker_light_azure">Цайвар хөх</string>
+    <string name="sesl_index_selected">Сонгосон</string>
     <string name="sesl_color_picker_brightness">Цайралт</string>
     <string name="all_checkbox">Бүгд</string>
     <string name="sesl_color_picker_blue">Хөх</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Өнгө гурав</string>
     <string name="sesl_color_hex_text">Өнгө сонгогч</string>
     <string name="sesl_color_picker_color_four">Өнгө дөрөв</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Байршил %d дахь зүйлийг чирэх боломжгүй.</string>
     <string name="sesl_color_picker_spectrum_text">Спектр</string>
+    <string name="dragndroplist_drag_start">Зүйлийг байршил %d-д чирж эхэллээ.</string>
     <string name="sesl_color_picker_light_blue">Цэнхэр</string>
     <string name="sesl_more_options">Өөр сонголтууд</string>
     <string name="sesl_off_text">Идэвхгүй</string>

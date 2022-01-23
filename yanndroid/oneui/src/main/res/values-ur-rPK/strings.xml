@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">مزید</string>
     <string name="sesl_button">بٹن</string>
+    <string name="sesl_index_section">سیکشن انڈیکس</string>
     <string name="sesl_color_picker_black">سیاہ</string>
     <string name="new_version_is_available">نیا ورژن دستیاب ہے</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">اب %d پوزیشن پر ہے</string>
     <string name="sesl_color_picker_light_spring_green">ہلکا ہرا بھرا سبزہ</string>
     <string name="sesl_color_picker_option">اختیار</string>
     <string name="sesl_color_picker_recently_used_colors">حالیہ استعمال کردہ رنگیں</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">آن</string>
     <string name="sesl_color_picker_dark_magenta">گہرا میرون</string>
     <string name="sesl_color_picker_yellow">پیلا</string>
+    <string name="sesl_searchview_description_voice">آواز کے ذریعے تلاش</string>
     <string name="app_info">ایپلیکیشن کی معلومات</string>
     <string name="selected_check_info">%d منتخب</string>
     <string name="sesl_color_picker_gray">سرمئی</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">ورژن</string>
     <string name="sesl_color_picker_dark_orange">گہرا نارنگی</string>
     <string name="sesl_navigate_up">اوپر کی طرف نیویگیٹ کریں</string>
+    <string name="dragndroplist_drag_release">آئٹم کو پوزیشن %d پر ڈالا گیا۔</string>
     <string name="sesl_color_picker_spring_green">ہرا بھرا سبز</string>
     <string name="sesl_color_picker_light_cyan">ہلکا ازرق</string>
     <string name="sesl_color_picker_color_one">پہلا رنگ</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">گہرا لال</string>
     <string name="sesl_picker_cancel">منسوخ</string>
     <string name="sesl_color_picker_light_violet">ہلکا بنفشہ</string>
+    <string name="sesl_index_assistant_text">اسکرول کرنے کیلئے دو انگلیوں کی مدد سے اوپر یا نیچے سوائپ کریں۔</string>
     <string name="sesl_color_picker_green">سبز</string>
     <string name="action_settings">سیٹنگز</string>
     <string name="sesl_color_picker_dark_yellow">گاڑھا پیلا</string>
     <string name="sesl_color_picker_dark_spring_green">گہرا ہرا بھرا سبزہ</string>
     <string name="sesl_color_picker_double_tap_to_select">منتخب کرنے کیلئے دوہری تھپکی دیں۔</string>
+    <string name="sesl_index_scrollbar">اسکرول بار</string>
+    <string name="sesl_searchview_description_clear">تلاش فیلڈ صاف کریں</string>
     <string name="sesl_toolbar_collapse_description">ڈھیر کریں</string>
     <string name="sesl_color_picker_light_yellow">ہلکا پیلا</string>
     <string name="sesl_cancel">منسوخ کریں</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">ہلکا لال</string>
     <string name="sesl_color_picker_color_five">پانچواں رنگ</string>
     <string name="sesl_color_picker_light_azure">ہلکا نیلگوں</string>
+    <string name="sesl_index_selected">منتخب شدہ</string>
     <string name="sesl_color_picker_brightness">اجلا پن</string>
     <string name="all_checkbox">تمام</string>
     <string name="sesl_color_picker_blue">نیلا</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">تیسرا رنگ</string>
     <string name="sesl_color_hex_text">ہیکس</string>
     <string name="sesl_color_picker_color_four">چوتھا رنگ</string>
+    <string name="dragndroplist_item_cannot_be_dragged">آئٹم پوزیشن %d کو گھسیٹا نہیں جاسکتا۔</string>
     <string name="sesl_color_picker_spectrum_text">اسپیکٹرم</string>
+    <string name="dragndroplist_drag_start">پوزیشن %d سے کارڈ کو گھسیٹنا شروع کیا۔</string>
     <string name="sesl_color_picker_light_blue">ہلکا نیلا</string>
     <string name="sesl_more_options">مزيد اختیارات</string>
     <string name="sesl_off_text">آف</string>

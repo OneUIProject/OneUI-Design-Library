@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Опции</string>
     <string name="sesl_button">Кнопка</string>
+    <string name="sesl_index_section">Указатель раздела</string>
     <string name="sesl_color_picker_black">Черный</string>
     <string name="new_version_is_available">Доступна новая версия.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">Н</string>
+    <string name="dragndroplist_drag_move">Перемещено на позицию %d</string>
     <string name="sesl_color_picker_light_spring_green">Светлый оттенок весеннего зеленого</string>
     <string name="sesl_color_picker_option">Вариант</string>
     <string name="sesl_color_picker_recently_used_colors">Недавно использовавшиеся цвета</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Включено</string>
     <string name="sesl_color_picker_dark_magenta">Темно-пурпурный</string>
     <string name="sesl_color_picker_yellow">Желтый</string>
+    <string name="sesl_searchview_description_voice">Голосовой поиск</string>
     <string name="app_info">Информация о приложении</string>
     <string name="selected_check_info">Выбрано: %d</string>
     <string name="sesl_color_picker_gray">Серый</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Версия</string>
     <string name="sesl_color_picker_dark_orange">Темно-оранжевый</string>
     <string name="sesl_navigate_up">Переход вверх</string>
+    <string name="dragndroplist_drag_release">Элемент перетащен в позицию %d.</string>
     <string name="sesl_color_picker_spring_green">Весенний зеленый</string>
     <string name="sesl_color_picker_light_cyan">Светло-голубой</string>
     <string name="sesl_color_picker_color_one">Первый цвет</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Темно-красный</string>
     <string name="sesl_picker_cancel">Отмена</string>
     <string name="sesl_color_picker_light_violet">Светло-фиолетовый</string>
+    <string name="sesl_index_assistant_text">Чтобы прокрутить экран, проведите двумя пальцами вверх или вниз.</string>
     <string name="sesl_color_picker_green">Зеленый</string>
     <string name="action_settings">Настройки</string>
     <string name="sesl_color_picker_dark_yellow">Темно-желтый</string>
     <string name="sesl_color_picker_dark_spring_green">Темный оттенок весеннего зеленого</string>
     <string name="sesl_color_picker_double_tap_to_select">Дважды коснитесь, чтобы выбрать.</string>
+    <string name="sesl_index_scrollbar">Полоса прокрутки</string>
+    <string name="sesl_searchview_description_clear">Очистить поле поиска</string>
     <string name="sesl_toolbar_collapse_description">Свернуть</string>
     <string name="sesl_color_picker_light_yellow">Светло-желтый</string>
     <string name="sesl_cancel">Отмена</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Светло-красный</string>
     <string name="sesl_color_picker_color_five">Пятый цвет</string>
     <string name="sesl_color_picker_light_azure">Светло-лазурный</string>
+    <string name="sesl_index_selected">Выбрано</string>
     <string name="sesl_color_picker_brightness">Яркость</string>
     <string name="all_checkbox">Все</string>
     <string name="sesl_color_picker_blue">Синий</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Третий цвет</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Четвертый цвет</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Перетащить элемент из позиции %d невозможно.</string>
     <string name="sesl_color_picker_spectrum_text">Цветовой спектр</string>
+    <string name="dragndroplist_drag_start">Началось перетаскивание элемента в позицию %d.</string>
     <string name="sesl_color_picker_light_blue">Светло-синий</string>
     <string name="sesl_more_options">Другие параметры</string>
     <string name="sesl_off_text">Выключено</string>

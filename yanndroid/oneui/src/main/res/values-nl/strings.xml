@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Meer</string>
     <string name="sesl_button">Knop</string>
+    <string name="sesl_index_section">Sectie-index</string>
     <string name="sesl_color_picker_black">Zwart</string>
     <string name="new_version_is_available">Er is een nieuwe versie beschikbaar.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">Nu op positie %d</string>
     <string name="sesl_color_picker_light_spring_green">Lichtlentegroen</string>
     <string name="sesl_color_picker_option">Optie</string>
     <string name="sesl_color_picker_recently_used_colors">Recent gebruikte kleuren</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Aan</string>
     <string name="sesl_color_picker_dark_magenta">Donkermagenta</string>
     <string name="sesl_color_picker_yellow">Geel</string>
+    <string name="sesl_searchview_description_voice">Gesproken zoekopdracht</string>
     <string name="app_info">App-info</string>
     <string name="selected_check_info">%d geselecteerd</string>
     <string name="sesl_color_picker_gray">Grijs</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Versie</string>
     <string name="sesl_color_picker_dark_orange">Donkeroranje</string>
     <string name="sesl_navigate_up">Omhoog navigeren</string>
+    <string name="dragndroplist_drag_release">Item neergezet op positie %d.</string>
     <string name="sesl_color_picker_spring_green">Lentegroen</string>
     <string name="sesl_color_picker_light_cyan">Lichtcyaan</string>
     <string name="sesl_color_picker_color_one">Kleur één</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Donkerrood</string>
     <string name="sesl_picker_cancel">Annuleren</string>
     <string name="sesl_color_picker_light_violet">Lichtpaars</string>
+    <string name="sesl_index_assistant_text">Veeg omhoog of omlaag met twee vingers om te scrollen.</string>
     <string name="sesl_color_picker_green">Groen</string>
     <string name="action_settings">Instellingen</string>
     <string name="sesl_color_picker_dark_yellow">Donkergeel</string>
     <string name="sesl_color_picker_dark_spring_green">Donkerlentegroen</string>
     <string name="sesl_color_picker_double_tap_to_select">Tik twee keer om te selecteren.</string>
+    <string name="sesl_index_scrollbar">Schuifbalk</string>
+    <string name="sesl_searchview_description_clear">Zoekveld wissen</string>
     <string name="sesl_toolbar_collapse_description">Samenvouwen</string>
     <string name="sesl_color_picker_light_yellow">Lichtgeel</string>
     <string name="sesl_cancel">Annuleren</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Lichtrood</string>
     <string name="sesl_color_picker_color_five">Kleur vijf</string>
     <string name="sesl_color_picker_light_azure">Lichtazuur</string>
+    <string name="sesl_index_selected">Geselecteerd</string>
     <string name="sesl_color_picker_brightness">Helderheid</string>
     <string name="all_checkbox">Alle</string>
     <string name="sesl_color_picker_blue">Blauw</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Kleur drie</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Kleur vier</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Item op positie %d kan niet worden gesleept.</string>
     <string name="sesl_color_picker_spectrum_text">Spectrum</string>
+    <string name="dragndroplist_drag_start">Begonnen met item naar positie %d slepen.</string>
     <string name="sesl_color_picker_light_blue">Lichtblauw</string>
     <string name="sesl_more_options">Meer opties</string>
     <string name="sesl_off_text">Uit</string>

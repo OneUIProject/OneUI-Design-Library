@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Повеќе</string>
     <string name="sesl_button">Копче</string>
+    <string name="sesl_index_section">Индекс на дел</string>
     <string name="sesl_color_picker_black">Црна</string>
     <string name="new_version_is_available">Достапна е нова верзија.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">Н</string>
+    <string name="dragndroplist_drag_move">Сега го положбата %d</string>
     <string name="sesl_color_picker_light_spring_green">Светла пролетно зелена</string>
     <string name="sesl_color_picker_option">Опција</string>
     <string name="sesl_color_picker_recently_used_colors">Последно користени бои</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Вклучено</string>
     <string name="sesl_color_picker_dark_magenta">Темна магента</string>
     <string name="sesl_color_picker_yellow">Жолта</string>
+    <string name="sesl_searchview_description_voice">Говорно пребарување</string>
     <string name="app_info">Информации за апликација</string>
     <string name="selected_check_info">%d избрани</string>
     <string name="sesl_color_picker_gray">Сиво</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Верзија</string>
     <string name="sesl_color_picker_dark_orange">Темно портокалова</string>
     <string name="sesl_navigate_up">Навигација нагоре</string>
+    <string name="dragndroplist_drag_release">Ставката е одвлечена на положба %d.</string>
     <string name="sesl_color_picker_spring_green">Пролетно зелена</string>
     <string name="sesl_color_picker_light_cyan">Светло тиркизна</string>
     <string name="sesl_color_picker_color_one">Првата боја</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Темно црвена</string>
     <string name="sesl_picker_cancel">Откажи</string>
     <string name="sesl_color_picker_light_violet">Светло виолетова</string>
+    <string name="sesl_index_assistant_text">Поминете нагоре или надолу со два прста за да листате.</string>
     <string name="sesl_color_picker_green">Зелено</string>
     <string name="action_settings">Поставувања</string>
     <string name="sesl_color_picker_dark_yellow">Темно жолта</string>
     <string name="sesl_color_picker_dark_spring_green">Темна пролетно зелена</string>
     <string name="sesl_color_picker_double_tap_to_select">Допрете двапати за да изберете.</string>
+    <string name="sesl_index_scrollbar">Лента за листање</string>
+    <string name="sesl_searchview_description_clear">Избриши поле за пребарување</string>
     <string name="sesl_toolbar_collapse_description">Собери</string>
     <string name="sesl_color_picker_light_yellow">Светло жолта</string>
     <string name="sesl_cancel">Откажи</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Светло црвена</string>
     <string name="sesl_color_picker_color_five">Петата боја</string>
     <string name="sesl_color_picker_light_azure">Светло азурно</string>
+    <string name="sesl_index_selected">Избрано</string>
     <string name="sesl_color_picker_brightness">Осветленост</string>
     <string name="all_checkbox">Сите</string>
     <string name="sesl_color_picker_blue">Сина</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Третата боја</string>
     <string name="sesl_color_hex_text">Хекс</string>
     <string name="sesl_color_picker_color_four">Четвртата боја</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Ставката на положба %d не може да се одвлече.</string>
     <string name="sesl_color_picker_spectrum_text">Спектар</string>
+    <string name="dragndroplist_drag_start">Почна да се влече ставката на положба %d.</string>
     <string name="sesl_color_picker_light_blue">Светло сина</string>
     <string name="sesl_more_options">Повеќе опции</string>
     <string name="sesl_off_text">Исклучено</string>

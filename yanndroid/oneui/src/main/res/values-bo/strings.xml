@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">དེ་ལས་མང་བ།</string>
     <string name="sesl_button">མཐེབ་གནོན།</string>
+    <string name="sesl_index_section">章节索引</string>
     <string name="sesl_color_picker_black">ནག་པོ།</string>
     <string name="new_version_is_available">པར་གཞི་གསར་པ་སྤྱོད་མི་ཐུབ།</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">现在位于位置 %d</string>
     <string name="sesl_color_picker_light_spring_green">ལྗང་སེར།</string>
     <string name="sesl_color_picker_option">གདམ་འཐུ</string>
     <string name="sesl_color_picker_recently_used_colors">ཉེ་དུས་བེད་སྤྱོད་བྱེད་པའི་ཚོན་མདོག</string>
@@ -20,11 +22,13 @@
     <string name="sesl_on_text">ཁ་ཕྱེ།</string>
     <string name="sesl_color_picker_dark_magenta">དམར་རྐྱང་།</string>
     <string name="sesl_color_picker_yellow">སེར་པོ།</string>
+    <string name="sesl_searchview_description_voice">སྐད་སྒྲ་འཚོལ་བསྡུ།</string>
     <string name="app_info">ཉེར་སྤྱོད་བྱ་རིམ་ཆ་འཕྲིན།</string>
     <string name="selected_check_info">གྲངས་%dའདེམས་ཟིན།</string>
     <string name="sesl_color_picker_gray">གནག་པོ</string>
     <string name="sesl_done">ལས་ཟིན།</string>
     <string name="action_search">འཚོལ་བཤེར།</string>
+    <string name="sec_relative_description">བྱེད་ནུས་གཞན་པ་འཚོལ་བ་ཡིན་ནམ།</string>
     <string name="network_connect_is_not_stable">སྦྲེལ་མཐུད་བྱེད་མི་ཐུབ།ཁྱེད་ཀྱིས་དྲ་རྒྱའི་སྦྲེལ་མཐུད་ལ་ལྟ་རྟོག་བྱས་ནས་སླར་ཚོད་ལྟ་བྱེད་རོགས།</string>
     <string name="sesl_color_picker_magenta">དམར་སྨུག</string>
     <string name="sesl_color_picker_slider">འདྲུད་མདའ།</string>
@@ -34,6 +38,7 @@
     <string name="sesl_version">པར་གཞི།</string>
     <string name="sesl_color_picker_dark_orange">སེར་ནག</string>
     <string name="sesl_navigate_up">གོང་ལ་ཕྱོགས་སྟོན།</string>
+    <string name="dragndroplist_drag_release">སྡེ་ཚན་གནས་ %d. ལ་བཞག་སོང་།</string>
     <string name="sesl_color_picker_spring_green">དཔྱིད་ལྗང་།</string>
     <string name="sesl_color_picker_light_cyan">ལྗང་སྲབ།</string>
     <string name="sesl_color_picker_color_one">མཚོན་གཅིག</string>
@@ -50,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">དམར་ནག</string>
     <string name="sesl_picker_cancel">རྩིས་མེད།</string>
     <string name="sesl_color_picker_light_violet">སྨུག་སྲབ།</string>
+    <string name="sesl_index_assistant_text">用两根手指向上或向下滑动来滚动。</string>
     <string name="sesl_color_picker_green">ལྗང་གུ</string>
     <string name="action_settings">སྒྲིག་འགོད།</string>
     <string name="sesl_color_picker_dark_yellow">སེར་སྟུག</string>
     <string name="sesl_color_picker_dark_spring_green">རྩ་ལྗང་མདོག</string>
     <string name="sesl_color_picker_double_tap_to_select">ཉིས་བརྡེབས་བྱས་ནས་འདེམས་པ།</string>
+    <string name="sesl_index_scrollbar">滚动条</string>
+    <string name="sesl_searchview_description_clear">འཚོལ་བཤེར་སྡེ་གཙང་སེལ་བྱེད།</string>
     <string name="sesl_toolbar_collapse_description">སྐུམ།</string>
     <string name="sesl_color_picker_light_yellow">སེར་སྲབ།</string>
     <string name="sesl_cancel">རྩིས་མེད།</string>
@@ -70,6 +78,7 @@
     <string name="sesl_color_picker_light_red">དམར་སྐྱ།</string>
     <string name="sesl_color_picker_color_five">མཚོན་ལྔ</string>
     <string name="sesl_color_picker_light_azure">མཐིང་སྐྱ།</string>
+    <string name="sesl_index_selected">འདེམས་ཟིན།</string>
     <string name="sesl_color_picker_brightness">གསལ་ཚད།</string>
     <string name="all_checkbox">ཚང་མ།</string>
     <string name="sesl_color_picker_blue">སྔོན་པོ།</string>
@@ -79,7 +88,9 @@
     <string name="sesl_color_picker_color_three">མཚོན་གསུམ</string>
     <string name="sesl_color_hex_text">十六进制</string>
     <string name="sesl_color_picker_color_four">མཚོན་བཞི</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d ལ་ཡོད་པའི་སྡེ་ཚན་འཐེན་འགུལ་བྱེད་མི་ཐུབ།</string>
     <string name="sesl_color_picker_spectrum_text">光谱</string>
+    <string name="dragndroplist_drag_start">གནས་ %d ལ་སྡེ་ཚན་སྤོ་འགོ་བཙུགས་སོང་།</string>
     <string name="sesl_color_picker_light_blue">སྔོ་སྐྱ།</string>
     <string name="sesl_more_options">དེ་བས་མང་བའི་འདེམས་ག།</string>
     <string name="sesl_off_text">ཁ་རྒྱག</string>

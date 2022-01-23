@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Higit pa</string>
     <string name="sesl_button">Button</string>
+    <string name="sesl_index_section">Index ng seksiyon</string>
     <string name="sesl_color_picker_black">Itim</string>
     <string name="new_version_is_available">May available na bagong bersiyon.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">Nasa posisyon na %d ngayon</string>
     <string name="sesl_color_picker_light_spring_green">Light spring green</string>
     <string name="sesl_color_picker_option">Opsiyon</string>
     <string name="sesl_color_picker_recently_used_colors">Mga kulay na ginamit kamakailan</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Naka-on</string>
     <string name="sesl_color_picker_dark_magenta">Dark magenta</string>
     <string name="sesl_color_picker_yellow">Dilaw</string>
+    <string name="sesl_searchview_description_voice">Paghahanap gamit ang boses</string>
     <string name="app_info">Info ng app</string>
     <string name="selected_check_info">%d ang napili</string>
     <string name="sesl_color_picker_gray">Gray</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Bersiyon</string>
     <string name="sesl_color_picker_dark_orange">Dark orange</string>
     <string name="sesl_navigate_up">Mag-navigate pataas</string>
+    <string name="dragndroplist_drag_release">Na-drop ang item sa posisyon %d.</string>
     <string name="sesl_color_picker_spring_green">Spring green</string>
     <string name="sesl_color_picker_light_cyan">Light cyan</string>
     <string name="sesl_color_picker_color_one">Color one</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Dark red</string>
     <string name="sesl_picker_cancel">Ikansela</string>
     <string name="sesl_color_picker_light_violet">Light violet</string>
+    <string name="sesl_index_assistant_text">Mag-swipe pataas o pababa gamit ang dalawang daliri para mag-scroll.</string>
     <string name="sesl_color_picker_green">Berde</string>
     <string name="action_settings">Mga Setting</string>
     <string name="sesl_color_picker_dark_yellow">Madilim na dilaw</string>
     <string name="sesl_color_picker_dark_spring_green">Dark spring green</string>
     <string name="sesl_color_picker_double_tap_to_select">I-double tap para piliin.</string>
+    <string name="sesl_index_scrollbar">Scroll bar</string>
+    <string name="sesl_searchview_description_clear">I-clear ang field ng paghahanap</string>
     <string name="sesl_toolbar_collapse_description">I-collapse</string>
     <string name="sesl_color_picker_light_yellow">Mapusyaw na dilaw</string>
     <string name="sesl_cancel">Kanselahin</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Light red</string>
     <string name="sesl_color_picker_color_five">Color five</string>
     <string name="sesl_color_picker_light_azure">Light azure</string>
+    <string name="sesl_index_selected">Pinili</string>
     <string name="sesl_color_picker_brightness">Liwanag</string>
     <string name="all_checkbox">Lahat</string>
     <string name="sesl_color_picker_blue">Blue</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Color three</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Color four</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Hindi mada-drag ang item sa posisyon %d.</string>
     <string name="sesl_color_picker_spectrum_text">Spectrum</string>
+    <string name="dragndroplist_drag_start">Sinimulan ang pag-drag ng item sa posisyon %d.</string>
     <string name="sesl_color_picker_light_blue">Light blue</string>
     <string name="sesl_more_options">Karagdagang mga opsiyon</string>
     <string name="sesl_off_text">Naka-off</string>

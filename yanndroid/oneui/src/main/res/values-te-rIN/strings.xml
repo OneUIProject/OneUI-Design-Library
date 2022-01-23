@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">మరిన్ని</string>
     <string name="sesl_button">బటన్</string>
+    <string name="sesl_index_section">విభాగం సూచిక</string>
     <string name="sesl_color_picker_black">నలుపు రంగు</string>
     <string name="new_version_is_available">కొత్త సంస్కరణ అందుబాటులో ఉంది.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">ఇప్పుడు స్థితి %dలో ఉన్నారు</string>
     <string name="sesl_color_picker_light_spring_green">లేత వసంత ఆకుపచ్చ</string>
     <string name="sesl_color_picker_option">ఎంపిక</string>
     <string name="sesl_color_picker_recently_used_colors">ఇటీవలి ఉపయోగించిన రంగులు</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">ఆన్</string>
     <string name="sesl_color_picker_dark_magenta">ముదురు మెజెంతా</string>
     <string name="sesl_color_picker_yellow">పసుపు రంగు</string>
+    <string name="sesl_searchview_description_voice">వాయిస్ శోధన</string>
     <string name="app_info">అప్లికేషన్ సమాచారం</string>
     <string name="selected_check_info">%d ఎంచుకోబడ్డారు</string>
     <string name="sesl_color_picker_gray">బూడిద రంగు</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">వెర్షన్</string>
     <string name="sesl_color_picker_dark_orange">ముదురు ఆరెంజ్ రంగు</string>
     <string name="sesl_navigate_up">పైకి నావిగేట్ చేయి</string>
+    <string name="dragndroplist_drag_release">అంశం %d స్థానంలో పడిపోయింది.</string>
     <string name="sesl_color_picker_spring_green">వసంత ఆకుపచ్చ</string>
     <string name="sesl_color_picker_light_cyan">లేత నీలం</string>
     <string name="sesl_color_picker_color_one">ఒకటవ రంగు</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">ముదురు ఎరుపు</string>
     <string name="sesl_picker_cancel">రద్దు</string>
     <string name="sesl_color_picker_light_violet">లేత ఊదా రంగు</string>
+    <string name="sesl_index_assistant_text">స్క్రోల్ చేయడానికి రెండు వేళ్లతో ఎగువకు లేదా దిగువకు స్వైప్ చేయండి.</string>
     <string name="sesl_color_picker_green">ఆకుపచ్చ రంగు</string>
     <string name="action_settings">సెట్టింగ్‌లు</string>
     <string name="sesl_color_picker_dark_yellow">ముదురు పసుపు రంగు</string>
     <string name="sesl_color_picker_dark_spring_green">ముదురు వసంత ఆకుపచ్చ</string>
     <string name="sesl_color_picker_double_tap_to_select">ఎంచుకోవడానికి రెండుసార్లు ట్యాప్ చేయండి.</string>
+    <string name="sesl_index_scrollbar">స్క్రోల్ బార్</string>
+    <string name="sesl_searchview_description_clear">శోధన ఫీల్డ్‌ని క్లియర్ చేయి</string>
     <string name="sesl_toolbar_collapse_description">కుదించు</string>
     <string name="sesl_color_picker_light_yellow">లేత పసుపు రంగు</string>
     <string name="sesl_cancel">రద్దు చేయి</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">లేత ఎరుపు</string>
     <string name="sesl_color_picker_color_five">ఐదవ రంగు</string>
     <string name="sesl_color_picker_light_azure">లేత ఆకాశ నీలం</string>
+    <string name="sesl_index_selected">ఎంచుకోబడింది</string>
     <string name="sesl_color_picker_brightness">ప్రకాశవంతం</string>
     <string name="all_checkbox">అన్నీ</string>
     <string name="sesl_color_picker_blue">నీలి రంగు</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">మూడవ రంగు</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">నాలుగవ రంగు</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d స్థానంలోని అంశాన్ని లాగలేరు.</string>
     <string name="sesl_color_picker_spectrum_text">స్పెక్ట్రమ్‌</string>
+    <string name="dragndroplist_drag_start">%d స్థానంలోని ఐటెమ్ లాగడం ప్రారంభించారు.</string>
     <string name="sesl_color_picker_light_blue">లేత నీలం రంగు</string>
     <string name="sesl_more_options">మరిన్ని ఎంపికలు</string>
     <string name="sesl_off_text">ఆఫ్</string>

@@ -234,6 +234,13 @@
     <color name="sesl_list_go_to_top_outer_round">#33252525</color>
     <!-- <color name="sesl_list_go_to_top_ripple">@color/sesl_ripple_color</color> -->
 
+    <!--Indexbar-->
+    <color name="sesl_index_bar_background_tint_color_dark">#993a3a3a</color>
+    <color name="sesl_index_bar_background_tint_color_light">#80e6e6e6</color>
+    <color name="sesl_index_bar_text_color_dark">#ff9c9c9c</color>
+    <color name="sesl_index_bar_text_color_light">#ff686868</color>
+    <color name="sesl_index_scroll_preview_text_color_light">@color/sesl_white</color>
+
     <!--Preference-->
     <color name="sesl_switch_divider_color">#ffc4c4c4</color>
     <color name="sesl_list_divider_color">#ffe6e6e6</color>

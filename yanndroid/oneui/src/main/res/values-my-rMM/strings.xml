@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">နောက်ထပ်</string>
     <string name="sesl_button">ခလုတ်</string>
+    <string name="sesl_index_section">အပိုင်း အညွှန်း</string>
     <string name="sesl_color_picker_black">အနက်</string>
     <string name="new_version_is_available">ဗားရှင်း အသစ်တစ်ခု ရနိုင်သည်။</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">ယခု အနေအထား %d တွင်ရှိသည်</string>
     <string name="sesl_color_picker_light_spring_green">သစ်ရွက်စိမ်းနုရောင်</string>
     <string name="sesl_color_picker_option">ရွေးစရာ</string>
     <string name="sesl_color_picker_recently_used_colors">လတ်တလော သုံးထားသော အရောင်များ</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">ဖွင့်</string>
     <string name="sesl_color_picker_dark_magenta">ပန်းခရမ်းရင့်ရောင်</string>
     <string name="sesl_color_picker_yellow">အဝါ</string>
+    <string name="sesl_searchview_description_voice">အသံဖြင့် ရှာဖွေခြင်း</string>
     <string name="app_info">အက်ပ် အချက်အလက်</string>
     <string name="selected_check_info">%d ကို ရွေးထားပါသည်</string>
     <string name="sesl_color_picker_gray">မီးခိုးရောင်</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">ဗားရှင်း</string>
     <string name="sesl_color_picker_dark_orange">လိမ္မော်ရင့်</string>
     <string name="sesl_navigate_up">အပေါ်ကို မောင်းသွားပါ</string>
+    <string name="dragndroplist_drag_release">%d တည်နေရာ အတွင်းသို့ ဆွဲယူထည့်ထားသော အရာ။</string>
     <string name="sesl_color_picker_spring_green">စိမ်းနုရောင်</string>
     <string name="sesl_color_picker_light_cyan">အပြာနုရောင်</string>
     <string name="sesl_color_picker_color_one">အရောင် တစ်</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">အနီရင့်</string>
     <string name="sesl_picker_cancel">ပယ်ဖျက်ပါ</string>
     <string name="sesl_color_picker_light_violet">ခရမ်းနုရောင်</string>
+    <string name="sesl_index_assistant_text">လှိမ့်ဆွဲရန် လက်နှစ်ချောင်းဖြင့် အပေါ် (သို့) အောက်သို့ ပွတ်ဆွဲပါ။</string>
     <string name="sesl_color_picker_green">အစိမ်း</string>
     <string name="action_settings">သတ်မှတ်ချက်များ</string>
     <string name="sesl_color_picker_dark_yellow">အဝါရင့်ရောင်</string>
     <string name="sesl_color_picker_dark_spring_green">အရွက်စိမ်းရင့်ရောင်</string>
     <string name="sesl_color_picker_double_tap_to_select">ရွေးရန် နှစ်ခါနှိပ်ပါ။</string>
+    <string name="sesl_index_scrollbar">လှိမ့်ဘား</string>
+    <string name="sesl_searchview_description_clear">ရှာဖွေနေရာ ရှင်းပါ</string>
     <string name="sesl_toolbar_collapse_description">ခေါက်သိမ်းပါ</string>
     <string name="sesl_color_picker_light_yellow">အဝါနု</string>
     <string name="sesl_cancel">ပယ်ဖျက်ပါ</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">အနီနု</string>
     <string name="sesl_color_picker_color_five">အရောင် ငါး</string>
     <string name="sesl_color_picker_light_azure">မိုးပြာနုရောင်</string>
+    <string name="sesl_index_selected">ရွေးထားသည်</string>
     <string name="sesl_color_picker_brightness">အလင်းတောက်ပမှု</string>
     <string name="all_checkbox">အားလုံး</string>
     <string name="sesl_color_picker_blue">အပြာ</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">အရောင် သုံး</string>
     <string name="sesl_color_hex_text">ဟက်စ်</string>
     <string name="sesl_color_picker_color_four">အရောင် လေး</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d တည်နေရာတွင် ရှိနေသော အရာများကို ဆွဲယူလို့ မရပါ။</string>
     <string name="sesl_color_picker_spectrum_text">ရောင်စဉ်</string>
+    <string name="dragndroplist_drag_start">%d တည်နေရာမှာ အရာပစ္စည်းအား ဆွဲယူခြင်းကို စတင်ခဲ့ပြီးပြီ။</string>
     <string name="sesl_color_picker_light_blue">အပြာနု</string>
     <string name="sesl_more_options">နောက်ထပ် ရွေးစရာများ</string>
     <string name="sesl_off_text">ပိတ်</string>

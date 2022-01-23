@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">තවත්</string>
     <string name="sesl_button">බොත්තම</string>
+    <string name="sesl_index_section">අංශ දර්ශකය</string>
     <string name="sesl_color_picker_black">කළු</string>
     <string name="new_version_is_available">නව අනුවාදයක් තිබේ.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">න</string>
+    <string name="dragndroplist_drag_move">දැන් %d පිහිටුමේ ඇත</string>
     <string name="sesl_color_picker_light_spring_green">ලා වසන්ත කොළ</string>
     <string name="sesl_color_picker_option">විකල්පය</string>
     <string name="sesl_color_picker_recently_used_colors">මෑත දී භාවිත වර්ණ</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">සක්‍රියයි</string>
     <string name="sesl_color_picker_dark_magenta">දම්පාට තද රත</string>
     <string name="sesl_color_picker_yellow">කහ</string>
+    <string name="sesl_searchview_description_voice">කටහඬින් සෙවුම</string>
     <string name="app_info">යෙදුම් තතු</string>
     <string name="selected_check_info">%d ක් තෝරා ඇත</string>
     <string name="sesl_color_picker_gray">අළු</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">අනුවාදය</string>
     <string name="sesl_color_picker_dark_orange">තද තැඹිලි</string>
     <string name="sesl_navigate_up">ඉහළට යාත්‍රා කරන්න</string>
+    <string name="dragndroplist_drag_release">පිහිටීම %d තුළට අයිතමය අදින ලදී.</string>
     <string name="sesl_color_picker_spring_green">වසන්ත කොළ</string>
     <string name="sesl_color_picker_light_cyan">ලා මයුර නිල්</string>
     <string name="sesl_color_picker_color_one">පළවැනි වර්ණය</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">තද රතු</string>
     <string name="sesl_picker_cancel">අව. කර.</string>
     <string name="sesl_color_picker_light_violet">ලා ජම්බූල</string>
+    <string name="sesl_index_assistant_text">අනුචලනයට ඇඟිලි දෙකක් සමග ඉහළට හෝ පහළට ස්වයිප් කරන්න.</string>
     <string name="sesl_color_picker_green">කොළ</string>
     <string name="action_settings">සැකසුම්</string>
     <string name="sesl_color_picker_dark_yellow">තද කහ</string>
     <string name="sesl_color_picker_dark_spring_green">තද වසන්ත කොළ</string>
     <string name="sesl_color_picker_double_tap_to_select">තේරීමට දෙවරක් තට්ටු කරන්න.</string>
+    <string name="sesl_index_scrollbar">අනුචලන තීරුව</string>
+    <string name="sesl_searchview_description_clear">සෙවුම් ක්ෂේත්‍රය හිස් කරන්න</string>
     <string name="sesl_toolbar_collapse_description">හකුළන්න</string>
     <string name="sesl_color_picker_light_yellow">ලා කහ</string>
     <string name="sesl_cancel">අවලංගු කර.</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">ලා රතු</string>
     <string name="sesl_color_picker_color_five">පස්වැනි වර්ණය</string>
     <string name="sesl_color_picker_light_azure">ලා ඝන නිල්</string>
+    <string name="sesl_index_selected">තේරිණි</string>
     <string name="sesl_color_picker_brightness">දීප්තතාව</string>
     <string name="all_checkbox">සියල්ල</string>
     <string name="sesl_color_picker_blue">නිල්</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">තුන්වැනි වර්ණය</string>
     <string name="sesl_color_hex_text">ෂඩ්</string>
     <string name="sesl_color_picker_color_four">සිව්වැනි වර්ණය</string>
+    <string name="dragndroplist_item_cannot_be_dragged">පිහිටීම් %d අයිතමය ඇදිය නොහැක.</string>
     <string name="sesl_color_picker_spectrum_text">වර්ණාවලිය</string>
+    <string name="dragndroplist_drag_start">පිහිටීම් %d අසල අයිතමය ඇදීම අරඹන ලදී.</string>
     <string name="sesl_color_picker_light_blue">ලා නිල්</string>
     <string name="sesl_more_options">තවත් විකල්ප</string>
     <string name="sesl_off_text">අක්‍රියයි</string>

@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Дагы</string>
     <string name="sesl_button">Баскыч</string>
+    <string name="sesl_index_section">Бөлүм индекси</string>
     <string name="sesl_color_picker_black">Кара</string>
     <string name="new_version_is_available">Жаңы версия байкалат</string>
     <string name="sesl_action_menu_overflow_badge_text_n">Ж</string>
+    <string name="dragndroplist_drag_move">Эми %d абалында</string>
     <string name="sesl_color_picker_light_spring_green">Жазгы ачык жашыл</string>
     <string name="sesl_color_picker_option">Тандоо</string>
     <string name="sesl_color_picker_recently_used_colors">Акыркы колдонулган түстөр</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Күйүк</string>
     <string name="sesl_color_picker_dark_magenta">Кочкул маджента</string>
     <string name="sesl_color_picker_yellow">Сары</string>
+    <string name="sesl_searchview_description_voice">Үн издөө</string>
     <string name="app_info">Колдонмо маалыматы</string>
     <string name="selected_check_info">%d тандалды</string>
     <string name="sesl_color_picker_gray">Боз</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Нуска</string>
     <string name="sesl_color_picker_dark_orange">Коңур кызгылт-сары</string>
     <string name="sesl_navigate_up">Өйдөгө жылуу</string>
+    <string name="dragndroplist_drag_release">Нерсе %d турагына ташталды.</string>
     <string name="sesl_color_picker_spring_green">Жазгы жашыл</string>
     <string name="sesl_color_picker_light_cyan">Ачык циан</string>
     <string name="sesl_color_picker_color_one">Биринчи түс</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Кочкул кызыл</string>
     <string name="sesl_picker_cancel">Артка</string>
     <string name="sesl_color_picker_light_violet">Ачык сыя көк</string>
+    <string name="sesl_index_assistant_text">Жылдыруу үчүн эки бармагыңыз менен өйдө же ылдый жылдырыңыз.</string>
     <string name="sesl_color_picker_green">Жашыл</string>
     <string name="action_settings">Орнотуулар</string>
     <string name="sesl_color_picker_dark_yellow">Кочкул сары</string>
     <string name="sesl_color_picker_dark_spring_green">Жазгы кочкул жашыл</string>
     <string name="sesl_color_picker_double_tap_to_select">Тандоо үчүн, эки жолу басыңыз.</string>
+    <string name="sesl_index_scrollbar">Айландыруу тилкеси</string>
+    <string name="sesl_searchview_description_clear">Издөө талаасын тазалоо</string>
     <string name="sesl_toolbar_collapse_description">Жыюу</string>
     <string name="sesl_color_picker_light_yellow">Ачык сары</string>
     <string name="sesl_cancel">Токтотуу</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Ачык кызыл</string>
     <string name="sesl_color_picker_color_five">Бешинчи түс</string>
     <string name="sesl_color_picker_light_azure">Ачык көгүш</string>
+    <string name="sesl_index_selected">Тандалды</string>
     <string name="sesl_color_picker_brightness">Жарыктык</string>
     <string name="all_checkbox">Баары</string>
     <string name="sesl_color_picker_blue">Көк</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Үчүнчү түс</string>
     <string name="sesl_color_hex_text">Он алтылык</string>
     <string name="sesl_color_picker_color_four">Төртүнчү түс</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d туракты алган нерсени сүйрөөгө болбойт.</string>
     <string name="sesl_color_picker_spectrum_text">Спектр</string>
+    <string name="dragndroplist_drag_start">Нерсе сүйрөөнү %d турагынан баштоо.</string>
     <string name="sesl_color_picker_light_blue">Ачык көк</string>
     <string name="sesl_more_options">Дагы тандоолор</string>
     <string name="sesl_off_text">Өчүрүү</string>

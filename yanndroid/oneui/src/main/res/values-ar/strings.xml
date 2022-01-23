@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">المزيد</string>
     <string name="sesl_button">زر</string>
+    <string name="sesl_index_section">فهرس القسم</string>
     <string name="sesl_color_picker_black">أسود</string>
     <string name="new_version_is_available">يتوفر إصدار جديد.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">ج</string>
+    <string name="dragndroplist_drag_move">الآن في الموضع %d</string>
     <string name="sesl_color_picker_light_spring_green">أخضر ربيعي فاتح</string>
     <string name="sesl_color_picker_option">الخيار</string>
     <string name="sesl_color_picker_recently_used_colors">الألوان المستخدمة مؤخراً</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">مفعل</string>
     <string name="sesl_color_picker_dark_magenta">أرجواني داكن</string>
     <string name="sesl_color_picker_yellow">أصفر</string>
+    <string name="sesl_searchview_description_voice">البحث الصوتي</string>
     <string name="app_info">معلومات التطبيق</string>
     <string name="selected_check_info">تم تحديد %d</string>
     <string name="sesl_color_picker_gray">رمادي</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">النسخة</string>
     <string name="sesl_color_picker_dark_orange">برتقالي داكن</string>
     <string name="sesl_navigate_up">الرجوع للخلف</string>
+    <string name="dragndroplist_drag_release">تم إسقاط العنصر في الموضع %d.</string>
     <string name="sesl_color_picker_spring_green">أخضر ربيعي</string>
     <string name="sesl_color_picker_light_cyan">أزرق سماوي فاتح</string>
     <string name="sesl_color_picker_color_one">اللون الأول</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">أحمر داكن</string>
     <string name="sesl_picker_cancel">إلغاء</string>
     <string name="sesl_color_picker_light_violet">بنفسجي فاتح</string>
+    <string name="sesl_index_assistant_text">اسحب نحو الأعلى أو نحو الأسفل بإصبعين للتمرير.</string>
     <string name="sesl_color_picker_green">أخضر</string>
     <string name="action_settings">الضبط</string>
     <string name="sesl_color_picker_dark_yellow">أصفر داكن</string>
     <string name="sesl_color_picker_dark_spring_green">أخضر ربيعي داكن</string>
     <string name="sesl_color_picker_double_tap_to_select">انقر نقراً مزدوجاً للتحديد.</string>
+    <string name="sesl_index_scrollbar">شريط التمرير</string>
+    <string name="sesl_searchview_description_clear">مسح حقل البحث</string>
     <string name="sesl_toolbar_collapse_description">طي</string>
     <string name="sesl_color_picker_light_yellow">أصفر فاتح</string>
     <string name="sesl_cancel">إلغاء</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">أحمر فاتح</string>
     <string name="sesl_color_picker_color_five">اللون الخامس</string>
     <string name="sesl_color_picker_light_azure">لازوردي فاتح</string>
+    <string name="sesl_index_selected">تم التحديد</string>
     <string name="sesl_color_picker_brightness">السطوع</string>
     <string name="all_checkbox">الكل</string>
     <string name="sesl_color_picker_blue">أزرق</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">اللون الثالث</string>
     <string name="sesl_color_hex_text">سداسي</string>
     <string name="sesl_color_picker_color_four">اللون الرابع</string>
+    <string name="dragndroplist_item_cannot_be_dragged">يتعذر سحب العنصر الموجود في الموضع %d.</string>
     <string name="sesl_color_picker_spectrum_text">طيف</string>
+    <string name="dragndroplist_drag_start">بدء سحب العنصر من الموضع %d.</string>
     <string name="sesl_color_picker_light_blue">أزرق فاتح</string>
     <string name="sesl_more_options">مزيد من الخيارات</string>
     <string name="sesl_off_text">غير مفعل</string>

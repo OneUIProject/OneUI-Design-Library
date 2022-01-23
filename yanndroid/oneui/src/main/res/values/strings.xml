@@ -106,4 +106,9 @@
     <string name="sesl_picker_cancel">Cancel</string>
     <string name="sesl_picker_done">Done</string>
 
+    <string name="sesl_index_assistant_text">Swipe up or down with two finger to adjust</string>
+    <string name="sesl_index_scrollbar">Scroll bar</string>
+    <string name="sesl_index_section">Section index</string>
+    <string name="sesl_index_selected">selected</string>
+
 </resources>

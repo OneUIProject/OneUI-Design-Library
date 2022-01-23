@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Mere</string>
     <string name="sesl_button">Tast</string>
+    <string name="sesl_index_section">Sektionsindeks</string>
     <string name="sesl_color_picker_black">Sort</string>
     <string name="new_version_is_available">En ny version er tilgængelig.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">Nu på positionen %d</string>
     <string name="sesl_color_picker_light_spring_green">Lys forårsgrøn</string>
     <string name="sesl_color_picker_option">Indstilling</string>
     <string name="sesl_color_picker_recently_used_colors">Senest brugte farver</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Til</string>
     <string name="sesl_color_picker_dark_magenta">Mørk magenta</string>
     <string name="sesl_color_picker_yellow">Gul</string>
+    <string name="sesl_searchview_description_voice">Stemmesøgning</string>
     <string name="app_info">Appoplysninger</string>
     <string name="selected_check_info">%d valgt</string>
     <string name="sesl_color_picker_gray">Grå</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Version</string>
     <string name="sesl_color_picker_dark_orange">Mørk orange</string>
     <string name="sesl_navigate_up">Naviger op</string>
+    <string name="dragndroplist_drag_release">Element sluppet i position %d.</string>
     <string name="sesl_color_picker_spring_green">Forårsgrøn</string>
     <string name="sesl_color_picker_light_cyan">Lys cyan</string>
     <string name="sesl_color_picker_color_one">Farve et</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Mørkerød</string>
     <string name="sesl_picker_cancel">Annuller</string>
     <string name="sesl_color_picker_light_violet">Lys violet</string>
+    <string name="sesl_index_assistant_text">Stryg op eller ned med to fingre for at rulle.</string>
     <string name="sesl_color_picker_green">Grøn</string>
     <string name="action_settings">Indstillinger</string>
     <string name="sesl_color_picker_dark_yellow">Mørk gul</string>
     <string name="sesl_color_picker_dark_spring_green">Mørk forårsgrøn</string>
     <string name="sesl_color_picker_double_tap_to_select">Dobbelttryk for at vælge.</string>
+    <string name="sesl_index_scrollbar">Rullepanel</string>
+    <string name="sesl_searchview_description_clear">Ryd søgefelt</string>
     <string name="sesl_toolbar_collapse_description">Skjul</string>
     <string name="sesl_color_picker_light_yellow">Lys gul</string>
     <string name="sesl_cancel">Annuller</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Lys rød</string>
     <string name="sesl_color_picker_color_five">Farve fem</string>
     <string name="sesl_color_picker_light_azure">Lys azurblå</string>
+    <string name="sesl_index_selected">Valgt</string>
     <string name="sesl_color_picker_brightness">Lysstyrke</string>
     <string name="all_checkbox">Alt</string>
     <string name="sesl_color_picker_blue">Blå</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Farve tre</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Farve fire</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Element i position %d kan ikke trækkes.</string>
     <string name="sesl_color_picker_spectrum_text">Spektrum</string>
+    <string name="dragndroplist_drag_start">Er begyndt at trække element i position %d.</string>
     <string name="sesl_color_picker_light_blue">Lys blå</string>
     <string name="sesl_more_options">Flere indstillinger</string>
     <string name="sesl_off_text">Fra</string>

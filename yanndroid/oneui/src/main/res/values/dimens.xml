@@ -363,6 +363,27 @@
     <dimen name="sesl_index_tip_radius">15.0dip</dimen>
     <dimen name="sesl_index_tip_text_size">13.0sp</dimen>
 
+    <!--Indexbar-->
+    <dimen name="sesl_index_scroll_preview_margin_center">86.0dip</dimen>
+    <dimen name="sesl_index_scroll_preview_radius">35.0dip</dimen>
+    <dimen name="sesl_index_scroll_preview_text_size">41.0dip</dimen>
+    <dimen name="sesl_index_scroll_preview_text_width_limit">60.0dip</dimen>
+    <dimen name="sesl_index_scroll_preview_ypos_limit">18.0dip</dimen>
+    <dimen name="sesl_indexbar_additional_touch_boundary">8.0dip</dimen>
+    <dimen name="sesl_indexbar_content_min_height">17.0dip</dimen>
+    <dimen name="sesl_indexbar_content_padding">4.0dip</dimen>
+    <dimen name="sesl_indexbar_dot_radius">0.75dip</dimen>
+    <dimen name="sesl_indexbar_margin_bottom">18.0dip</dimen>
+    <dimen name="sesl_indexbar_margin_horizontal">8.0dip</dimen>
+    <dimen name="sesl_indexbar_margin_top">36.0dip</dimen>
+    <dimen name="sesl_indexbar_simple_index_width">30.0dip</dimen>
+    <dimen name="sesl_indexbar_text_size">11.0dip</dimen>
+    <dimen name="sesl_indexbar_textmode_width">22.0dip</dimen>
+    <dimen name="sesl_indexbar_thumb_additional_height">2.0dip</dimen>
+    <dimen name="sesl_indexbar_thumb_horizontal_padding">2.0dip</dimen>
+    <dimen name="sesl_indexbar_thumb_vertical_padding">3.0dip</dimen>
+    <dimen name="sesl_indexbar_width">15.0dip</dimen>
+
     <!--Preference-->
     <dimen name="sesl_list_subheader_min_height">20.0dip</dimen>
     <dimen name="sesl_list_image_end_padding">10.0dip</dimen>

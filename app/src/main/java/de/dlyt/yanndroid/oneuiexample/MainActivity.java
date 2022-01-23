@@ -12,10 +12,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -37,8 +35,8 @@ import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneui.utils.CustomButtonClickListener;
 import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
-import de.dlyt.yanndroid.oneui.widget.BottomNavigationView;
 import de.dlyt.yanndroid.oneui.view.Snackbar;
+import de.dlyt.yanndroid.oneui.widget.BottomNavigationView;
 import de.dlyt.yanndroid.oneuiexample.base.BaseThemeActivity;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
 
@@ -166,26 +164,6 @@ public class MainActivity extends BaseThemeActivity {
             return true;
         });
         toolbarLayout.setSearchModeListener(new ToolbarLayout.SearchModeListener() {
-            @Override
-            public void onSearchOpened(EditText search_edittext) {
-            }
-
-            @Override
-            public void onSearchDismissed(EditText search_edittext) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
             @Override
             public void onKeyboardSearchClick(CharSequence s) {
                 Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();

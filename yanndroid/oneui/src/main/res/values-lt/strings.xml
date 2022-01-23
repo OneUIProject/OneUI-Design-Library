@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Daugiau</string>
     <string name="sesl_button">Mygtukas</string>
+    <string name="sesl_index_section">Skyrių rodyklė</string>
     <string name="sesl_color_picker_black">Juoda</string>
     <string name="new_version_is_available">Yra nauja versija.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">Dabartinė padėtis %d</string>
     <string name="sesl_color_picker_light_spring_green">Šviesi pavasario žalia</string>
     <string name="sesl_color_picker_option">Parinktis</string>
     <string name="sesl_color_picker_recently_used_colors">Neseniai naudotos spalvos</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Įjungta</string>
     <string name="sesl_color_picker_dark_magenta">Tamsiai rožinė</string>
     <string name="sesl_color_picker_yellow">Geltona</string>
+    <string name="sesl_searchview_description_voice">Paieška balsu</string>
     <string name="app_info">Programos informacija</string>
     <string name="selected_check_info">Pasirinkta: %d</string>
     <string name="sesl_color_picker_gray">Nespalvota nuotrauka</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Versija</string>
     <string name="sesl_color_picker_dark_orange">Tamsiai oranžinė</string>
     <string name="sesl_navigate_up">Pereiti aukštyn</string>
+    <string name="dragndroplist_drag_release">Elementas nuvilktas į %d padėtį.</string>
     <string name="sesl_color_picker_spring_green">Pavasario žalia</string>
     <string name="sesl_color_picker_light_cyan">Žalsvai mėlyna</string>
     <string name="sesl_color_picker_color_one">Pirma spalva</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Rusvai raudona</string>
     <string name="sesl_picker_cancel">Atšaukti</string>
     <string name="sesl_color_picker_light_violet">Šviesiai violetinė</string>
+    <string name="sesl_index_assistant_text">Slinkite braukdami dviem pirštais aukštyn ar žemyn.</string>
     <string name="sesl_color_picker_green">Žalia</string>
     <string name="action_settings">Nustatymai</string>
     <string name="sesl_color_picker_dark_yellow">Tamsiai geltona</string>
     <string name="sesl_color_picker_dark_spring_green">Tamsi pavasario žalia</string>
     <string name="sesl_color_picker_double_tap_to_select">Bakstelėkite dukart ir pasirinkite.</string>
+    <string name="sesl_index_scrollbar">Slinkimo juosta</string>
+    <string name="sesl_searchview_description_clear">Išvalyti paieškos laukelį</string>
     <string name="sesl_toolbar_collapse_description">Sutraukti</string>
     <string name="sesl_color_picker_light_yellow">Šviesiai geltona</string>
     <string name="sesl_cancel">Atšaukti</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Šviesiai raudona</string>
     <string name="sesl_color_picker_color_five">Penkta spalva</string>
     <string name="sesl_color_picker_light_azure">Šviesiai žydra</string>
+    <string name="sesl_index_selected">Pasirinkta</string>
     <string name="sesl_color_picker_brightness">Šviesumas</string>
     <string name="all_checkbox">Visi</string>
     <string name="sesl_color_picker_blue">Mėlyna</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Trečia spalva</string>
     <string name="sesl_color_hex_text">Kerai</string>
     <string name="sesl_color_picker_color_four">Ketvirta spalva</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d padėtyje esančio elemento vilkti negalima.</string>
     <string name="sesl_color_picker_spectrum_text">Spektras</string>
+    <string name="dragndroplist_drag_start">Elementas pradėtas vilkti %d padėtyje.</string>
     <string name="sesl_color_picker_light_blue">Šviesiai mėlyna</string>
     <string name="sesl_more_options">Daugiau parinkčių</string>
     <string name="sesl_off_text">Išjungta</string>

@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Ko‘proq</string>
     <string name="sesl_button">Tugma</string>
+    <string name="sesl_index_section">Boʻlim indeksi</string>
     <string name="sesl_color_picker_black">Qora</string>
     <string name="new_version_is_available">Yangi versiya mavjud.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">Y</string>
+    <string name="dragndroplist_drag_move">Hozir %d holatda</string>
     <string name="sesl_color_picker_light_spring_green">Och bahoriy yashil</string>
     <string name="sesl_color_picker_option">Opsiya</string>
     <string name="sesl_color_picker_recently_used_colors">Oxirgi ishlatilgan ranglar</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Yoq.</string>
     <string name="sesl_color_picker_dark_magenta">To‘q qirmizi</string>
     <string name="sesl_color_picker_yellow">Sariq</string>
+    <string name="sesl_searchview_description_voice">Ovozli qidirish</string>
     <string name="app_info">Ilova ma’lumoti</string>
     <string name="selected_check_info">%d tanlandi</string>
     <string name="sesl_color_picker_gray">Kul rang</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Versiya</string>
     <string name="sesl_color_picker_dark_orange">To‘q apelsin rang</string>
     <string name="sesl_navigate_up">Yuqoriga navigatsiyalash</string>
+    <string name="dragndroplist_drag_release">Element %d holatga olib borib qo‘yildi.</string>
     <string name="sesl_color_picker_spring_green">Bahoriy yashil</string>
     <string name="sesl_color_picker_light_cyan">Och moviy</string>
     <string name="sesl_color_picker_color_one">Birinchi rang</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">To‘q qizil</string>
     <string name="sesl_picker_cancel">Bekor qilish</string>
     <string name="sesl_color_picker_light_violet">Och binafsha</string>
+    <string name="sesl_index_assistant_text">Aylantirish uchun ikkita barmoq bilan yuqoriga yoki pastga suring.</string>
     <string name="sesl_color_picker_green">Yashil</string>
     <string name="action_settings">Parametrlar</string>
     <string name="sesl_color_picker_dark_yellow">To‘q sariq</string>
     <string name="sesl_color_picker_dark_spring_green">To‘q bahoriy yashil</string>
     <string name="sesl_color_picker_double_tap_to_select">Tanlash uchun ikki marta teging.</string>
+    <string name="sesl_index_scrollbar">Aylantirish satri</string>
+    <string name="sesl_searchview_description_clear">Qidirish maydonini tozalash</string>
     <string name="sesl_toolbar_collapse_description">O‘rash</string>
     <string name="sesl_color_picker_light_yellow">Och sariq</string>
     <string name="sesl_cancel">Bekor qil</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Och qizil</string>
     <string name="sesl_color_picker_color_five">Beshinchi rang</string>
     <string name="sesl_color_picker_light_azure">Och lojuvard</string>
+    <string name="sesl_index_selected">Tanlangan</string>
     <string name="sesl_color_picker_brightness">Yorqinlik</string>
     <string name="all_checkbox">Barchasi</string>
     <string name="sesl_color_picker_blue">Ko‘k</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Uchinchi rang</string>
     <string name="sesl_color_hex_text">Oltiburchak</string>
     <string name="sesl_color_picker_color_four">To‘rtinchi rang</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d holatidagi elementni tortib o‘tkazib bo‘lmaydi.</string>
     <string name="sesl_color_picker_spectrum_text">Spektrum</string>
+    <string name="dragndroplist_drag_start">Elementni %d holatiga tortib o‘tkazish boshlandi.</string>
     <string name="sesl_color_picker_light_blue">Och ko‘k</string>
     <string name="sesl_more_options">Qo‘shimcha opsiyalar</string>
     <string name="sesl_off_text">O‘chir-gan</string>

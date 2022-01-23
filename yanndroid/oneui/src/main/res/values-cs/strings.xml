@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Další</string>
     <string name="sesl_button">Tlačítko</string>
+    <string name="sesl_index_section">Sekce rejstříku</string>
     <string name="sesl_color_picker_black">Černá</string>
     <string name="new_version_is_available">K dispozici je nová verze.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">Nyní je na pozici %d</string>
     <string name="sesl_color_picker_light_spring_green">Světlá jarní zelená</string>
     <string name="sesl_color_picker_option">Možnost</string>
     <string name="sesl_color_picker_recently_used_colors">Naposledy použité barvy</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Zapnuto</string>
     <string name="sesl_color_picker_dark_magenta">Tmavě purpurová</string>
     <string name="sesl_color_picker_yellow">Žlutá</string>
+    <string name="sesl_searchview_description_voice">Hledání hlasem</string>
     <string name="app_info">Informace o aplikaci</string>
     <string name="selected_check_info">Vybráno %d</string>
     <string name="sesl_color_picker_gray">Šedá</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Verze</string>
     <string name="sesl_color_picker_dark_orange">Tmavě oranžová</string>
     <string name="sesl_navigate_up">Navigovat nahoru</string>
+    <string name="dragndroplist_drag_release">Položka byla přetažena na pozici %d.</string>
     <string name="sesl_color_picker_spring_green">Jarní zelená</string>
     <string name="sesl_color_picker_light_cyan">Světle modrozelená</string>
     <string name="sesl_color_picker_color_one">Barva jedna</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Tmavě červená</string>
     <string name="sesl_picker_cancel">Zrušit</string>
     <string name="sesl_color_picker_light_violet">Světle fialová</string>
+    <string name="sesl_index_assistant_text">Potažením nahoru nebo dolů dvěma prsty posunete.</string>
     <string name="sesl_color_picker_green">Zelená</string>
     <string name="action_settings">Nastavení</string>
     <string name="sesl_color_picker_dark_yellow">Tmavě žlutá</string>
     <string name="sesl_color_picker_dark_spring_green">Tmavá jarní zelená</string>
     <string name="sesl_color_picker_double_tap_to_select">Poklepáním vyberete.</string>
+    <string name="sesl_index_scrollbar">Posuvník</string>
+    <string name="sesl_searchview_description_clear">Vymazat pole Hledat</string>
     <string name="sesl_toolbar_collapse_description">Sbalit</string>
     <string name="sesl_color_picker_light_yellow">Světle žlutá</string>
     <string name="sesl_cancel">Zrušit</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Světle červená</string>
     <string name="sesl_color_picker_color_five">Barva pět</string>
     <string name="sesl_color_picker_light_azure">Světle azurová</string>
+    <string name="sesl_index_selected">Vybráno</string>
     <string name="sesl_color_picker_brightness">Jas</string>
     <string name="all_checkbox">Vše</string>
     <string name="sesl_color_picker_blue">Modrá</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Barva tři</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Barva čtyři</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Položku na pozici %d není možné přetáhnout.</string>
     <string name="sesl_color_picker_spectrum_text">Spektrum</string>
+    <string name="dragndroplist_drag_start">Bylo zahájeno přetažení položky na pozici %d.</string>
     <string name="sesl_color_picker_light_blue">Světle modrá</string>
     <string name="sesl_more_options">Další možnosti</string>
     <string name="sesl_off_text">Vypnuto</string>

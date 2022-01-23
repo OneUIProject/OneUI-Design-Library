@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Бештар</string>
     <string name="sesl_button">Тугма</string>
+    <string name="sesl_index_section">Мундариҷаи қисмат</string>
     <string name="sesl_color_picker_black">Сиёҳ</string>
     <string name="new_version_is_available">Версияи нав дастрас аст</string>
     <string name="sesl_action_menu_overflow_badge_text_n">Н</string>
+    <string name="dragndroplist_drag_move">Ҳоло дар мавқеи %d</string>
     <string name="sesl_color_picker_light_spring_green">Сабзи баланди кушод</string>
     <string name="sesl_color_picker_option">Имкон</string>
     <string name="sesl_color_picker_recently_used_colors">Рангҳои ба наздикӣ истифодашуда</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Фурӯзон</string>
     <string name="sesl_color_picker_dark_magenta">Рӯянранги тира</string>
     <string name="sesl_color_picker_yellow">Зард</string>
+    <string name="sesl_searchview_description_voice">Ҷустуҷӯи овозӣ</string>
     <string name="app_info">Маълумот оиди барнома</string>
     <string name="selected_check_info">%d интихоб шудаанд</string>
     <string name="sesl_color_picker_gray">Хокистариранг</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Версия</string>
     <string name="sesl_color_picker_dark_orange">Норанҷии тира</string>
     <string name="sesl_navigate_up">Паймоиш ба боло</string>
+    <string name="dragndroplist_drag_release">Объект ба навбати%d партофта шуд.</string>
     <string name="sesl_color_picker_spring_green">Сабзи дурахшон</string>
     <string name="sesl_color_picker_light_cyan">Обиранги кушод</string>
     <string name="sesl_color_picker_color_one">Ранги як</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Сурхи тира</string>
     <string name="sesl_picker_cancel">Бекор кардан</string>
     <string name="sesl_color_picker_light_violet">Бунафшранги кушод</string>
+    <string name="sesl_index_assistant_text">Барои варақ задан, бо ду ангушт ба боло ё поён бимолед.</string>
     <string name="sesl_color_picker_green">Сабз</string>
     <string name="action_settings">Танзимот</string>
     <string name="sesl_color_picker_dark_yellow">Зарди тира</string>
     <string name="sesl_color_picker_dark_spring_green">Сабзи баланди тира</string>
     <string name="sesl_color_picker_double_tap_to_select">Барои интихоб ду бор зарба занед.</string>
+    <string name="sesl_index_scrollbar">Навори ҳаракат</string>
+    <string name="sesl_searchview_description_clear">Майдони ҷустуҷӯро тоза кардан</string>
     <string name="sesl_toolbar_collapse_description">Печонидан</string>
     <string name="sesl_color_picker_light_yellow">Зарди кушод</string>
     <string name="sesl_cancel">Бекор к-н</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Сурхи кушод</string>
     <string name="sesl_color_picker_color_five">Ранги панҷ</string>
     <string name="sesl_color_picker_light_azure">Лоҷвардии кушод</string>
+    <string name="sesl_index_selected">Интихоб шуд</string>
     <string name="sesl_color_picker_brightness">Равшанӣ</string>
     <string name="all_checkbox">Ҳама</string>
     <string name="sesl_color_picker_blue">Кабуд</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Ранги се</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Ранги чор</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Объект дар навбати %d кашонида шуда наметавонад.</string>
     <string name="sesl_color_picker_spectrum_text">Спектр</string>
+    <string name="dragndroplist_drag_start">Объект дар навбати %d кашонида мешавад.</string>
     <string name="sesl_color_picker_light_blue">Кабуди кушод</string>
     <string name="sesl_more_options">Имконоти бештар</string>
     <string name="sesl_off_text">Хомӯш</string>

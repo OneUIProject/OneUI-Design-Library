@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Més</string>
     <string name="sesl_button">Botó</string>
+    <string name="sesl_index_section">Índex de seccions</string>
     <string name="sesl_color_picker_black">Negre</string>
     <string name="new_version_is_available">Hi ha una nova versió disponible</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">Ara a la posició %d</string>
     <string name="sesl_color_picker_light_spring_green">Verd primavera clar</string>
     <string name="sesl_color_picker_option">Opció</string>
     <string name="sesl_color_picker_recently_used_colors">Colors utilitzats fa poc</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Activat</string>
     <string name="sesl_color_picker_dark_magenta">Magenta fosc</string>
     <string name="sesl_color_picker_yellow">Groc</string>
+    <string name="sesl_searchview_description_voice">Cerca de veu</string>
     <string name="app_info">"Informació de l'aplicació"</string>
     <string name="selected_check_info">%d seleccionats</string>
     <string name="sesl_color_picker_gray">Gris</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Versió</string>
     <string name="sesl_color_picker_dark_orange">Taronja fosc</string>
     <string name="sesl_navigate_up">Navegar amunt</string>
+    <string name="dragndroplist_drag_release">Element arrossegat a la posició %d.</string>
     <string name="sesl_color_picker_spring_green">Verd primavera</string>
     <string name="sesl_color_picker_light_cyan">Cian clar</string>
     <string name="sesl_color_picker_color_one">Primer color</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Vermell fosc</string>
     <string name="sesl_picker_cancel">Cancel·lar</string>
     <string name="sesl_color_picker_light_violet">Violeta clar</string>
+    <string name="sesl_index_assistant_text">Llisca cap amunt o cap avall amb dos dits per desplaçar-te.</string>
     <string name="sesl_color_picker_green">Verd</string>
     <string name="action_settings">Ajustaments</string>
     <string name="sesl_color_picker_dark_yellow">Groc fosc</string>
     <string name="sesl_color_picker_dark_spring_green">Verd primavera fosc</string>
     <string name="sesl_color_picker_double_tap_to_select">Toca dos cops per seleccionar.</string>
+    <string name="sesl_index_scrollbar">Barra de desplaçament</string>
+    <string name="sesl_searchview_description_clear">Esborrar el camp de cerca</string>
     <string name="sesl_toolbar_collapse_description">Contreure</string>
     <string name="sesl_color_picker_light_yellow">Groc clar</string>
     <string name="sesl_cancel">Cancel·lar</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Vermell clar</string>
     <string name="sesl_color_picker_color_five">Cinquè color</string>
     <string name="sesl_color_picker_light_azure">Celeste clar</string>
+    <string name="sesl_index_selected">Seleccionat</string>
     <string name="sesl_color_picker_brightness">Brillantor</string>
     <string name="all_checkbox">Tot</string>
     <string name="sesl_color_picker_blue">Blau</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Tercer color</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Quart color</string>
+    <string name="dragndroplist_item_cannot_be_dragged">"L'element de la posició %d no es pot arrossegar."</string>
     <string name="sesl_color_picker_spectrum_text">Espectre</string>
+    <string name="dragndroplist_drag_start">"S'ha començat a arrossegar l'element de la posició %d."</string>
     <string name="sesl_color_picker_light_blue">Blau clar</string>
     <string name="sesl_more_options">Més opcions</string>
     <string name="sesl_off_text">Desactivat</string>

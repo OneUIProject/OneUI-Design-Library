@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Egyebek</string>
     <string name="sesl_button">Gomb</string>
+    <string name="sesl_index_section">Szakasz indexe</string>
     <string name="sesl_color_picker_black">Fekete</string>
     <string name="new_version_is_available">Új verzió érhető el.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">Új</string>
+    <string name="dragndroplist_drag_move">Jelenlegi helye: %d</string>
     <string name="sesl_color_picker_light_spring_green">Világos tavaszi zöld</string>
     <string name="sesl_color_picker_option">Beállítás</string>
     <string name="sesl_color_picker_recently_used_colors">Legutóbb használt színek</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Be</string>
     <string name="sesl_color_picker_dark_magenta">Sötétbíbor</string>
     <string name="sesl_color_picker_yellow">Sárga</string>
+    <string name="sesl_searchview_description_voice">Hangos keresés</string>
     <string name="app_info">Alkalmazásinfó</string>
     <string name="selected_check_info">%d kijelölve</string>
     <string name="sesl_color_picker_gray">Szürke</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Verzió</string>
     <string name="sesl_color_picker_dark_orange">Sötét narancssárga</string>
     <string name="sesl_navigate_up">Navigálás felfelé</string>
+    <string name="dragndroplist_drag_release">Tétel a %d. helyre húzva.</string>
     <string name="sesl_color_picker_spring_green">Tavaszi zöld</string>
     <string name="sesl_color_picker_light_cyan">Világos ciánkék</string>
     <string name="sesl_color_picker_color_one">Első szín</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Sötétpiros</string>
     <string name="sesl_picker_cancel">Mégse</string>
     <string name="sesl_color_picker_light_violet">Világosibolya</string>
+    <string name="sesl_index_assistant_text">A görgetéshez húzza felfelé vagy lefelé két ujját.</string>
     <string name="sesl_color_picker_green">Zöld</string>
     <string name="action_settings">Beállítások</string>
     <string name="sesl_color_picker_dark_yellow">Sötétsárga</string>
     <string name="sesl_color_picker_dark_spring_green">Sötét tavaszi zöld</string>
     <string name="sesl_color_picker_double_tap_to_select">Érintse meg kétszer a kijelöléshez.</string>
+    <string name="sesl_index_scrollbar">Görgetősáv</string>
+    <string name="sesl_searchview_description_clear">Keresőmező törlése</string>
     <string name="sesl_toolbar_collapse_description">Összecsukás</string>
     <string name="sesl_color_picker_light_yellow">Világossárga</string>
     <string name="sesl_cancel">Mégse</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Világospiros</string>
     <string name="sesl_color_picker_color_five">Ötödik szín</string>
     <string name="sesl_color_picker_light_azure">Világos azúrkék</string>
+    <string name="sesl_index_selected">Kijelölve</string>
     <string name="sesl_color_picker_brightness">Világosság</string>
     <string name="all_checkbox">Mind</string>
     <string name="sesl_color_picker_blue">Kék</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Harmadik szín</string>
     <string name="sesl_color_hex_text">Hexadecimális</string>
     <string name="sesl_color_picker_color_four">Negyedik szín</string>
+    <string name="dragndroplist_item_cannot_be_dragged">A %d. helyen található tétel nem húzható át.</string>
     <string name="sesl_color_picker_spectrum_text">Spektrum</string>
+    <string name="dragndroplist_drag_start">%d. helyen található tétel húzása megkezdve.</string>
     <string name="sesl_color_picker_light_blue">Világoskék</string>
     <string name="sesl_more_options">Egyéb opciók</string>
     <string name="sesl_off_text">Ki</string>

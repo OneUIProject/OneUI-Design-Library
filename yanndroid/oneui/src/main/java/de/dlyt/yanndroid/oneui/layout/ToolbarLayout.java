@@ -110,12 +110,12 @@ public class ToolbarLayout extends LinearLayout {
     private ToolbarImageButton search_navButton;
     private ToolbarImageButton search_action_button;
     private EditText search_edittext;
-    private SearchModeListener searchModeListener = new SearchModeListener() {
-        @Override
+    private SearchModeListener searchModeListener;
+
+    public static class SearchModeListener {
         public void onSearchOpened(EditText search_edittext) {
         }
 
-        @Override
         public void onSearchDismissed(EditText search_edittext) {
         }
 
@@ -131,25 +131,8 @@ public class ToolbarLayout extends LinearLayout {
         public void onKeyboardSearchClick(CharSequence s) {
         }
 
-        @Override
         public void onVoiceInputClick(Intent intent) {
         }
-    };
-
-    public interface SearchModeListener {
-        void onSearchOpened(EditText search_edittext);
-
-        void onSearchDismissed(EditText search_edittext);
-
-        void beforeTextChanged(CharSequence s, int start, int count, int after);
-
-        void onTextChanged(CharSequence s, int start, int before, int count);
-
-        void afterTextChanged(Editable s);
-
-        void onKeyboardSearchClick(CharSequence s);
-
-        void onVoiceInputClick(Intent intent);
     }
 
     public ToolbarLayout(Context context, @Nullable AttributeSet attrs) {
@@ -226,7 +209,7 @@ public class ToolbarLayout extends LinearLayout {
             }
         };
 
-        if (!isInEditMode()){
+        if (!isInEditMode()) {
             mActivity.setSupportActionBar(toolbar);
             mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
             mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -333,7 +316,8 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     private void refreshLayout(Configuration newConfig) {
-        if (!isInEditMode()) WindowManagerSupport.hideStatusBarForLandscape(mActivity, newConfig.orientation);
+        if (!isInEditMode())
+            WindowManagerSupport.hideStatusBarForLandscape(mActivity, newConfig.orientation);
 
         ViewSupport.updateListBothSideMargin(mActivity, mainContainer);
         ViewSupport.updateListBothSideMargin(mActivity, findViewById(R.id.toolbar_layout_bottom_corners));
@@ -575,31 +559,34 @@ public class ToolbarLayout extends LinearLayout {
         search_edittext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                searchModeListener.beforeTextChanged(s, start, count, after);
+                if (searchModeListener != null)
+                    searchModeListener.beforeTextChanged(s, start, count, after);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 setSearchModeActionButton(s.length() == 0);
-                searchModeListener.onTextChanged(s, start, before, count);
+                if (searchModeListener != null)
+                    searchModeListener.onTextChanged(s, start, before, count);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                searchModeListener.afterTextChanged(s);
+                if (searchModeListener != null) searchModeListener.afterTextChanged(s);
             }
         });
         search_edittext.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 setEditTextFocus(false);
-                searchModeListener.onKeyboardSearchClick(search_edittext.getEditableText());
+                if (searchModeListener != null)
+                    searchModeListener.onKeyboardSearchClick(search_edittext.getEditableText());
                 return true;
             }
             return false;
         });
         setEditTextFocus(true);
 
-        searchModeListener.onSearchOpened(search_edittext);
+        if (searchModeListener != null) searchModeListener.onSearchOpened(search_edittext);
     }
 
     public void setSearchModeListener(SearchModeListener listener) {
@@ -607,7 +594,7 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     public void dismissSearchMode() {
-        searchModeListener.onSearchDismissed(search_edittext);
+        if (searchModeListener != null) searchModeListener.onSearchDismissed(search_edittext);
 
         mSearchMode = false;
         lockDrawerIfAvailable(false);
@@ -660,7 +647,8 @@ public class ToolbarLayout extends LinearLayout {
 
             search_action_button.setImageResource(R.drawable.ic_samsung_voice_2);
             search_action_button.setTooltipText(getResources().getString(R.string.sesl_searchview_description_voice));
-            search_action_button.setOnClickListener(v -> searchModeListener.onVoiceInputClick(intent));
+            if (searchModeListener != null)
+                search_action_button.setOnClickListener(v -> searchModeListener.onVoiceInputClick(intent));
         } else {
             search_action_button.setVisibility(VISIBLE);
             search_action_button.setImageResource(R.drawable.ic_samsung_close);
@@ -744,7 +732,7 @@ public class ToolbarLayout extends LinearLayout {
         return toolbarMenu != null ? toolbarMenu : (toolbarMenu = new Menu());
     }
 
-    public void inflateToolbarMenu(@MenuRes int menuRes){
+    public void inflateToolbarMenu(@MenuRes int menuRes) {
         inflateToolbarMenu(new Menu(menuRes, mContext));
     }
 

@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Başgalar</string>
     <string name="sesl_button">Düwme</string>
+    <string name="sesl_index_section">Bölüm indeksi</string>
     <string name="sesl_color_picker_black">Gara</string>
     <string name="new_version_is_available">Täze wersiýa elýeterli</string>
     <string name="sesl_action_menu_overflow_badge_text_n">T</string>
+    <string name="dragndroplist_drag_move">Häzir %d orunda</string>
     <string name="sesl_color_picker_light_spring_green">Açyk ýiti ýaşyl</string>
     <string name="sesl_color_picker_option">Opsiýa</string>
     <string name="sesl_color_picker_recently_used_colors">Soňky ulanylan reňkler</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Aç</string>
     <string name="sesl_color_picker_dark_magenta">Goýy gyrmyzy</string>
     <string name="sesl_color_picker_yellow">Sary</string>
+    <string name="sesl_searchview_description_voice">Ses gözleme</string>
     <string name="app_info">Programma maglumaty</string>
     <string name="selected_check_info">%d saýlandy</string>
     <string name="sesl_color_picker_gray">Çal</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Wersiýa</string>
     <string name="sesl_color_picker_dark_orange">Goýy mämişi</string>
     <string name="sesl_navigate_up">Ýokary hereket et</string>
+    <string name="dragndroplist_drag_release">Madda %d orna oklandy.</string>
     <string name="sesl_color_picker_spring_green">Ýiti ýaşyl</string>
     <string name="sesl_color_picker_light_cyan">Açyk gök-ýaşyl</string>
     <string name="sesl_color_picker_color_one">Reňk bir</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Goýy gyzyl</string>
     <string name="sesl_picker_cancel">Ýatyr</string>
     <string name="sesl_color_picker_light_violet">Açyk melewşe</string>
+    <string name="sesl_index_assistant_text">Süýşürmek üçin, iki barmak bilen ýokaryk ýa-da aşak syryň.</string>
     <string name="sesl_color_picker_green">Ýaşyl</string>
     <string name="action_settings">Sazlamalar</string>
     <string name="sesl_color_picker_dark_yellow">Goýy sary</string>
     <string name="sesl_color_picker_dark_spring_green">Goýy ýiti ýaşyl</string>
     <string name="sesl_color_picker_double_tap_to_select">Saýlamak üçin, iki gezek basyň.</string>
+    <string name="sesl_index_scrollbar">Süýşüriş paneli</string>
+    <string name="sesl_searchview_description_clear">Gözleg zolagy öçür</string>
     <string name="sesl_toolbar_collapse_description">Düýrlemek</string>
     <string name="sesl_color_picker_light_yellow">Açyk sary</string>
     <string name="sesl_cancel">Ýatyr</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Açyk gyzyl</string>
     <string name="sesl_color_picker_color_five">Reňk bäş</string>
     <string name="sesl_color_picker_light_azure">Açyk gök</string>
+    <string name="sesl_index_selected">Saýlanyldy</string>
     <string name="sesl_color_picker_brightness">Ýagtylyk</string>
     <string name="all_checkbox">Ähli</string>
     <string name="sesl_color_picker_blue">Gök</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Reňk üç</string>
     <string name="sesl_color_hex_text">Heks</string>
     <string name="sesl_color_picker_color_four">Reňk dört</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d orundaky maddany tutup süýşürip bolmaýar.</string>
     <string name="sesl_color_picker_spectrum_text">Spektr</string>
+    <string name="dragndroplist_drag_start">%d orundaky maddanyň süýşürilmegi başlandy.</string>
     <string name="sesl_color_picker_light_blue">Açyk gök</string>
     <string name="sesl_more_options">Goşmaça opsiýalar</string>
     <string name="sesl_off_text">Ýapyk</string>

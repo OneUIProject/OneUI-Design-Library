@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">更多</string>
     <string name="sesl_button">按鈕</string>
+    <string name="sesl_index_section">區段索引</string>
     <string name="sesl_color_picker_black">黑色</string>
     <string name="new_version_is_available">已有新版本可用。</string>
     <string name="sesl_action_menu_overflow_badge_text_n">新</string>
+    <string name="dragndroplist_drag_move">目前位置為 %d</string>
     <string name="sesl_color_picker_light_spring_green">淺春綠色</string>
     <string name="sesl_color_picker_option">選項</string>
     <string name="sesl_color_picker_recently_used_colors">最近使用的顏色</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">開</string>
     <string name="sesl_color_picker_dark_magenta">深紫紅色</string>
     <string name="sesl_color_picker_yellow">黃色</string>
+    <string name="sesl_searchview_description_voice">語音搜尋</string>
     <string name="app_info">應用程式資訊</string>
     <string name="selected_check_info">已選擇 %d 個</string>
     <string name="sesl_color_picker_gray">灰色</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">版本</string>
     <string name="sesl_color_picker_dark_orange">深橙色</string>
     <string name="sesl_navigate_up">往上瀏覽</string>
+    <string name="dragndroplist_drag_release">項目已拖放至位置 %d。</string>
     <string name="sesl_color_picker_spring_green">春綠色</string>
     <string name="sesl_color_picker_light_cyan">淺青綠</string>
     <string name="sesl_color_picker_color_one">顏色一</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">深紅色</string>
     <string name="sesl_picker_cancel">取消</string>
     <string name="sesl_color_picker_light_violet">淺紫色</string>
+    <string name="sesl_index_assistant_text">以兩指向上或向下滑動以捲動。</string>
     <string name="sesl_color_picker_green">綠色</string>
     <string name="action_settings">設定</string>
     <string name="sesl_color_picker_dark_yellow">深黃色</string>
     <string name="sesl_color_picker_dark_spring_green">深春綠色</string>
     <string name="sesl_color_picker_double_tap_to_select">輕觸兩下以選擇。</string>
+    <string name="sesl_index_scrollbar">捲動列</string>
+    <string name="sesl_searchview_description_clear">清除搜尋欄位</string>
     <string name="sesl_toolbar_collapse_description">收起</string>
     <string name="sesl_color_picker_light_yellow">淡黃色</string>
     <string name="sesl_cancel">取消</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">淺紅色</string>
     <string name="sesl_color_picker_color_five">顏色五</string>
     <string name="sesl_color_picker_light_azure">淺藍色</string>
+    <string name="sesl_index_selected">已選擇</string>
     <string name="sesl_color_picker_brightness">亮度</string>
     <string name="all_checkbox">全部</string>
     <string name="sesl_color_picker_blue">藍色</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">顏色三</string>
     <string name="sesl_color_hex_text">十六進製</string>
     <string name="sesl_color_picker_color_four">顏色四</string>
+    <string name="dragndroplist_item_cannot_be_dragged">無法拖曳位於 %d 的項目。</string>
     <string name="sesl_color_picker_spectrum_text">光譜</string>
+    <string name="dragndroplist_drag_start">已開始拖曳位於 %d 的項目。</string>
     <string name="sesl_color_picker_light_blue">淺藍色</string>
     <string name="sesl_more_options">更多選項</string>
     <string name="sesl_off_text">關</string>

@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">더보기</string>
     <string name="sesl_button">버튼</string>
+    <string name="sesl_index_section">섹션 구분 인덱스</string>
     <string name="sesl_color_picker_black">검은색</string>
     <string name="new_version_is_available">최신 버전을 확인하세요.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">현재 %d번째에 있음</string>
     <string name="sesl_color_picker_light_spring_green">연한 황록색</string>
     <string name="sesl_color_picker_option">옵션</string>
     <string name="sesl_color_picker_recently_used_colors">최근에 사용한 색상</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">사용 중</string>
     <string name="sesl_color_picker_dark_magenta">진한 자홍색</string>
     <string name="sesl_color_picker_yellow">노란색</string>
+    <string name="sesl_searchview_description_voice">음성 검색</string>
     <string name="app_info">애플리케이션 정보</string>
     <string name="selected_check_info">%d개 선택됨</string>
     <string name="sesl_color_picker_gray">회색</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">버전</string>
     <string name="sesl_color_picker_dark_orange">진한 주황색</string>
     <string name="sesl_navigate_up">상위 메뉴로 이동</string>
+    <string name="dragndroplist_drag_release">항목을 %d번 위치로 이동했습니다.</string>
     <string name="sesl_color_picker_spring_green">황록색</string>
     <string name="sesl_color_picker_light_cyan">연한 청록색</string>
     <string name="sesl_color_picker_color_one">색상 일</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">진한 빨간색</string>
     <string name="sesl_picker_cancel">취소</string>
     <string name="sesl_color_picker_light_violet">연한 보라색</string>
+    <string name="sesl_index_assistant_text">스크롤하려면 두 손가락으로 위아래로 미세요.</string>
     <string name="sesl_color_picker_green">초록색</string>
     <string name="action_settings">설정</string>
     <string name="sesl_color_picker_dark_yellow">진한 노란색</string>
     <string name="sesl_color_picker_dark_spring_green">진한 황록색</string>
     <string name="sesl_color_picker_double_tap_to_select">선택하려면 두 번 누르세요.</string>
+    <string name="sesl_index_scrollbar">스크롤바</string>
+    <string name="sesl_searchview_description_clear">검색창 지우기</string>
     <string name="sesl_toolbar_collapse_description">접기</string>
     <string name="sesl_color_picker_light_yellow">연한 노란색</string>
     <string name="sesl_cancel">취소</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">연한 빨간색</string>
     <string name="sesl_color_picker_color_five">색상 오</string>
     <string name="sesl_color_picker_light_azure">연한 푸른색</string>
+    <string name="sesl_index_selected">선택됨</string>
     <string name="sesl_color_picker_brightness">명도</string>
     <string name="all_checkbox">전체</string>
     <string name="sesl_color_picker_blue">파란색</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">색상 삼</string>
     <string name="sesl_color_hex_text">헥스</string>
     <string name="sesl_color_picker_color_four">색상 사</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d번 위치에 있는 항목은 이동할 수 없습니다.</string>
     <string name="sesl_color_picker_spectrum_text">사용자 지정</string>
+    <string name="dragndroplist_drag_start">%d 위치에 있는 항목을 이동하기 시작했습니다.</string>
     <string name="sesl_color_picker_light_blue">하늘색</string>
     <string name="sesl_more_options">옵션 더보기</string>
     <string name="sesl_off_text">사용 안 함</string>

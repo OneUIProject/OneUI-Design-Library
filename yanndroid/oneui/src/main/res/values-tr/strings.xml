@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Daha fazla</string>
     <string name="sesl_button">Düğme</string>
+    <string name="sesl_index_section">Bölüm indeksi</string>
     <string name="sesl_color_picker_black">Siyah</string>
     <string name="new_version_is_available">Yeni bir sürüm mevcut.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">Y</string>
+    <string name="dragndroplist_drag_move">Şu anda %d konumunda</string>
     <string name="sesl_color_picker_light_spring_green">Açık bahar yeşili</string>
     <string name="sesl_color_picker_option">Seçenek</string>
     <string name="sesl_color_picker_recently_used_colors">Son kullanılan renkler</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Açık</string>
     <string name="sesl_color_picker_dark_magenta">Koyu macenta</string>
     <string name="sesl_color_picker_yellow">Sarı</string>
+    <string name="sesl_searchview_description_voice">Sesli arama</string>
     <string name="app_info">Uygulama bilgileri</string>
     <string name="selected_check_info">%d seçildi</string>
     <string name="sesl_color_picker_gray">Gri</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Sürüm</string>
     <string name="sesl_color_picker_dark_orange">Koyu turuncu</string>
     <string name="sesl_navigate_up">Yukarı gezinir</string>
+    <string name="dragndroplist_drag_release">Öge %d pozisyonuna bırakıldı.</string>
     <string name="sesl_color_picker_spring_green">Bahar yeşili</string>
     <string name="sesl_color_picker_light_cyan">Açık camgöbeği</string>
     <string name="sesl_color_picker_color_one">Renk bir</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Koyu kırmızı</string>
     <string name="sesl_picker_cancel">İptal</string>
     <string name="sesl_color_picker_light_violet">Açık eflatun</string>
+    <string name="sesl_index_assistant_text">Kaydırmak için iki parmağınızla yukarı veya aşağı kaydırın.</string>
     <string name="sesl_color_picker_green">Yeşil</string>
     <string name="action_settings">Ayarlar</string>
     <string name="sesl_color_picker_dark_yellow">Koyu sarı</string>
     <string name="sesl_color_picker_dark_spring_green">Koyu bahar yeşili</string>
     <string name="sesl_color_picker_double_tap_to_select">Seçmek için çift dokunun.</string>
+    <string name="sesl_index_scrollbar">Kaydırma çubuğu</string>
+    <string name="sesl_searchview_description_clear">Arama alanını temizle</string>
     <string name="sesl_toolbar_collapse_description">Daralt</string>
     <string name="sesl_color_picker_light_yellow">Açık sarı</string>
     <string name="sesl_cancel">İptal et</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Açık kırmızı</string>
     <string name="sesl_color_picker_color_five">Renk beş</string>
     <string name="sesl_color_picker_light_azure">Açık gök mavisi</string>
+    <string name="sesl_index_selected">Seçildi</string>
     <string name="sesl_color_picker_brightness">Parlaklık</string>
     <string name="all_checkbox">Tümü</string>
     <string name="sesl_color_picker_blue">Mavi</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Renk üç</string>
     <string name="sesl_color_hex_text">Altıgen</string>
     <string name="sesl_color_picker_color_four">Renk dört</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d pozisyonundaki öge sürüklenemez.</string>
     <string name="sesl_color_picker_spectrum_text">Spektrum</string>
+    <string name="dragndroplist_drag_start">%d pozisyonunda öge sürükleme başladı.</string>
     <string name="sesl_color_picker_light_blue">Açık mavi</string>
     <string name="sesl_more_options">Diğer seçenekler</string>
     <string name="sesl_off_text">Kapalı</string>

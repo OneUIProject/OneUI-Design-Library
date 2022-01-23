@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">تېخىمۇ كۆپ</string>
     <string name="sesl_button">كۇنۇپكا</string>
+    <string name="sesl_index_section">章节索引</string>
     <string name="sesl_color_picker_black">قارا</string>
     <string name="new_version_is_available">يېڭى نەشرى چىقتى.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">ي</string>
+    <string name="dragndroplist_drag_move">现在位于位置 %d</string>
     <string name="sesl_color_picker_light_spring_green">ئاچ كۆكلەم يېشىل</string>
     <string name="sesl_color_picker_option">تاللانما</string>
     <string name="sesl_color_picker_recently_used_colors">最近使用的颜色</string>
@@ -20,11 +22,13 @@
     <string name="sesl_on_text">ئوچۇق</string>
     <string name="sesl_color_picker_dark_magenta">توق قىزغۇچ</string>
     <string name="sesl_color_picker_yellow">سېرىق</string>
+    <string name="sesl_searchview_description_voice">ئاۋازلىق ئىزدەش</string>
     <string name="app_info">ئەپ ئۇچۇرى</string>
     <string name="selected_check_info">%d تاللىنىش</string>
     <string name="sesl_color_picker_gray">بوز</string>
     <string name="sesl_done">تامام</string>
     <string name="action_search">ئىزدەش</string>
+    <string name="sec_relative_description">باشقا ئىقتىدار كېرەكمۇ ؟</string>
     <string name="network_connect_is_not_stable">ئۇلانمىدى. تور ئۇلىنىشىنى تەكشۈرۈپ، قايتا سىناڭ.</string>
     <string name="sesl_color_picker_magenta">ئاچ قىزىل</string>
     <string name="sesl_color_picker_slider">سىيرىگۈچ</string>
@@ -34,6 +38,7 @@
     <string name="sesl_version">نەشر</string>
     <string name="sesl_color_picker_dark_orange">توق قىزغۇچ</string>
     <string name="sesl_navigate_up">يۇقىرىغا يۆنەلدۈر</string>
+    <string name="dragndroplist_drag_release">بۇيۇم %d ئورۇنغا تاشلاندى.</string>
     <string name="sesl_color_picker_spring_green">كۆكلەم يېشىل</string>
     <string name="sesl_color_picker_light_cyan">ئاچ كۆكۈچ</string>
     <string name="sesl_color_picker_color_one">بىرىنچى رەڭ</string>
@@ -50,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">توق قىزىل</string>
     <string name="sesl_picker_cancel">ياق</string>
     <string name="sesl_color_picker_light_violet">ئاچ سۆسۈن</string>
+    <string name="sesl_index_assistant_text">用两根手指向上或向下滑动来滚动。</string>
     <string name="sesl_color_picker_green">يېشىل</string>
     <string name="action_settings">تەڭشەك</string>
     <string name="sesl_color_picker_dark_yellow">توق سېرىق</string>
     <string name="sesl_color_picker_dark_spring_green">توق كۆكلەم يېشىل</string>
     <string name="sesl_color_picker_double_tap_to_select">قوش بېسىپ تاللاڭ.</string>
+    <string name="sesl_index_scrollbar">滚动条</string>
+    <string name="sesl_searchview_description_clear">ئىزدەش رامكىسىنى تازىلاش</string>
     <string name="sesl_toolbar_collapse_description">يىغىش</string>
     <string name="sesl_color_picker_light_yellow">ئاچ سېرىق</string>
     <string name="sesl_cancel">ياق</string>
@@ -70,6 +78,7 @@
     <string name="sesl_color_picker_light_red">ئاچ قىزىل</string>
     <string name="sesl_color_picker_color_five">بەشىنچى رەڭ</string>
     <string name="sesl_color_picker_light_azure">ئاچ ئاسمان كۆك</string>
+    <string name="sesl_index_selected">تاللاندى</string>
     <string name="sesl_color_picker_brightness">يورۇقلۇق</string>
     <string name="all_checkbox">بارلىق</string>
     <string name="sesl_color_picker_blue">كۆك</string>
@@ -79,7 +88,9 @@
     <string name="sesl_color_picker_color_three">ئۈچىنچى رەڭ</string>
     <string name="sesl_color_hex_text">十六进制</string>
     <string name="sesl_color_picker_color_four">تۆتىنچى رەڭ</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d ئورۇندىكى بۇيۇمنى سۆرىگىلى بولمايدۇ.</string>
     <string name="sesl_color_picker_spectrum_text">光谱</string>
+    <string name="dragndroplist_drag_start">%d ئورۇندىكى بۇيۇمنى سۆرەشكە باشلىدى.</string>
     <string name="sesl_color_picker_light_blue">ئاچ كۆك</string>
     <string name="sesl_more_options">باشقا تاللانمىلار</string>
     <string name="sesl_off_text">ئېتىك</string>

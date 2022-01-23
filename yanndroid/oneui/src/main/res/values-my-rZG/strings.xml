@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">ေနာက္ထပ္</string>
     <string name="sesl_button">ခလုတ္</string>
+    <string name="sesl_index_section">အပိုင္း အညႊန္း</string>
     <string name="sesl_color_picker_black">အနက္</string>
     <string name="new_version_is_available">ဗားရွင္း အသစ္တစ္ခု ရႏိုင္သည္။</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">ယခု အေနအထား %d တြင္ရွိသည္</string>
     <string name="sesl_color_picker_light_spring_green">သစ္ရြက္စိမ္းႏုေရာင္</string>
     <string name="sesl_color_picker_option">ေရြးစရာ</string>
     <string name="sesl_color_picker_recently_used_colors">လတ္တေလာ သံုးထားေသာ အေရာင္မ်ား</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">ဖြင့္</string>
     <string name="sesl_color_picker_dark_magenta">ပန္းခရမ္းရင့္ေရာင္</string>
     <string name="sesl_color_picker_yellow">အဝါ</string>
+    <string name="sesl_searchview_description_voice">အသံျဖင့္ ရွာေဖြျခင္း</string>
     <string name="app_info">အက္ပ္ အခ်က္အလက္</string>
     <string name="selected_check_info">%d ကို ေရြးထားပါသည္</string>
     <string name="sesl_color_picker_gray">မီးခုိးေရာင္</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">ဗားရွင္း</string>
     <string name="sesl_color_picker_dark_orange">လိေမၼာ္ရင့္</string>
     <string name="sesl_navigate_up">အေပၚကို ေမာင္းသြားပါ</string>
+    <string name="dragndroplist_drag_release">%d တည္ေနရာ အတြင္းသို႔ ဆြဲယူထည့္ထားေသာ အရာ။</string>
     <string name="sesl_color_picker_spring_green">စိမ္းႏုေရာင္</string>
     <string name="sesl_color_picker_light_cyan">အျပာႏုေရာင္</string>
     <string name="sesl_color_picker_color_one">အေရာင္ တစ္</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">အနီရင့္</string>
     <string name="sesl_picker_cancel">ပယ္ဖ်က္</string>
     <string name="sesl_color_picker_light_violet">ခရမ္းႏုေရာင္</string>
+    <string name="sesl_index_assistant_text">လွိမ့္ဆြဲရန္ လက္ႏွစ္ေခ်ာင္းျဖင့္ အေပၚ (သို႔) ေအာက္သို႔ ပြတ္ဆြဲပါ။</string>
     <string name="sesl_color_picker_green">အစိမ္း</string>
     <string name="action_settings">သတ္မွတ္ခ်က္မ်ား</string>
     <string name="sesl_color_picker_dark_yellow">အဝါရင့္ေရာင္</string>
     <string name="sesl_color_picker_dark_spring_green">အရြက္စိမ္းရင့္ေရာင္</string>
     <string name="sesl_color_picker_double_tap_to_select">ေ႐ြးရန္ ႏွစ္ခါႏွိပ္ပါ။</string>
+    <string name="sesl_index_scrollbar">လွိမ့္ဘား</string>
+    <string name="sesl_searchview_description_clear">ရွာေဖြေနရာ ရွင္းပါ</string>
     <string name="sesl_toolbar_collapse_description">ေခါက္သိမ္းပါ</string>
     <string name="sesl_color_picker_light_yellow">အဝါႏု</string>
     <string name="sesl_cancel">ပယ္ဖ်က္ပါ</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">အနီႏု</string>
     <string name="sesl_color_picker_color_five">အေရာင္ ငါး</string>
     <string name="sesl_color_picker_light_azure">မိုးျပာႏုေရာင္</string>
+    <string name="sesl_index_selected">ေ႐ြးထားသည္</string>
     <string name="sesl_color_picker_brightness">အလင္းေတာက္ပမႈ</string>
     <string name="all_checkbox">အားလုံး</string>
     <string name="sesl_color_picker_blue">အျပာ</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">အေရာင္ သံုး</string>
     <string name="sesl_color_hex_text">ဟက္စ္</string>
     <string name="sesl_color_picker_color_four">အေရာင္ ေလး</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d တည္ေနရာတြင္ ရွိေနေသာ အရာမ်ားကို ဆြဲယူလို႔ မရပါ။</string>
     <string name="sesl_color_picker_spectrum_text">ေရာင္စဥ္</string>
+    <string name="dragndroplist_drag_start">%d တည္ေနရာမွာ အရာပစၥည္းအား ဆြဲယူျခင္းကို စတင္ခဲ့ၿပီးၿပီ။</string>
     <string name="sesl_color_picker_light_blue">အျပာႏု</string>
     <string name="sesl_more_options">ေနာက္ထပ္ ေရြးစရာမ်ား</string>
     <string name="sesl_off_text">ပိတ္</string>

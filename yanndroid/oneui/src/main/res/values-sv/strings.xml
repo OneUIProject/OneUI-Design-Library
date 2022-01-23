@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Mer</string>
     <string name="sesl_button">Knapp</string>
+    <string name="sesl_index_section">Avsnittsindex</string>
     <string name="sesl_color_picker_black">Svart</string>
     <string name="new_version_is_available">En ny version är tillgänglig.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">Nu i position %d</string>
     <string name="sesl_color_picker_light_spring_green">Vårljusgrönt</string>
     <string name="sesl_color_picker_option">Alternativ</string>
     <string name="sesl_color_picker_recently_used_colors">Nyligen använda färger</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">På</string>
     <string name="sesl_color_picker_dark_magenta">Mörk magenta</string>
     <string name="sesl_color_picker_yellow">Gult</string>
+    <string name="sesl_searchview_description_voice">Röstsökning</string>
     <string name="app_info">Appinfo</string>
     <string name="selected_check_info">%d valda</string>
     <string name="sesl_color_picker_gray">Grå</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Version</string>
     <string name="sesl_color_picker_dark_orange">Mörkt orange</string>
     <string name="sesl_navigate_up">Navigera upp</string>
+    <string name="dragndroplist_drag_release">Objekt släppt till läge %d.</string>
     <string name="sesl_color_picker_spring_green">Vårgrönt</string>
     <string name="sesl_color_picker_light_cyan">Ljust cyan</string>
     <string name="sesl_color_picker_color_one">Färg ett</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Mörkrött</string>
     <string name="sesl_picker_cancel">Avbryt</string>
     <string name="sesl_color_picker_light_violet">Ljust violett</string>
+    <string name="sesl_index_assistant_text">Bläddra genom att svepa uppåt eller nedåt med två fingrar.</string>
     <string name="sesl_color_picker_green">Grönt</string>
     <string name="action_settings">Inställningar</string>
     <string name="sesl_color_picker_dark_yellow">Mörkgul</string>
     <string name="sesl_color_picker_dark_spring_green">Vårmörkgrönt</string>
     <string name="sesl_color_picker_double_tap_to_select">Dubbeltryck för att välja.</string>
+    <string name="sesl_index_scrollbar">Rullningslist</string>
+    <string name="sesl_searchview_description_clear">Rensa sökfältet</string>
     <string name="sesl_toolbar_collapse_description">Dölj</string>
     <string name="sesl_color_picker_light_yellow">Ljusgul</string>
     <string name="sesl_cancel">Avbryt</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Ljusrött</string>
     <string name="sesl_color_picker_color_five">Färg fem</string>
     <string name="sesl_color_picker_light_azure">Ljusazurblått</string>
+    <string name="sesl_index_selected">Valt</string>
     <string name="sesl_color_picker_brightness">Ljusstyrka</string>
     <string name="all_checkbox">Allt</string>
     <string name="sesl_color_picker_blue">Blått</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Färg tre</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Färg fyra</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Objekt i läge %d kan inte dras.</string>
     <string name="sesl_color_picker_spectrum_text">Spektrum</string>
+    <string name="dragndroplist_drag_start">Började dra objekt i läge %d.</string>
     <string name="sesl_color_picker_light_blue">Ljust blått</string>
     <string name="sesl_more_options">Fler alternativ</string>
     <string name="sesl_off_text">Av</string>

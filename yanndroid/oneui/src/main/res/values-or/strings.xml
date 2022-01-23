@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">ଅଧିକ</string>
     <string name="sesl_button">ବଟନ୍</string>
+    <string name="sesl_index_section">ବିଭାଗ ଇଣ୍ତେକ୍ସ</string>
     <string name="sesl_color_picker_black">କଳା</string>
     <string name="new_version_is_available">ଏକ ନୂତନ ସଂସ୍କରଣ ଉପଲବ୍ଧ ଅଛି।</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">ବର୍ତ୍ତମାନ %d ସ୍ଥିତିରେ</string>
     <string name="sesl_color_picker_light_spring_green">ହାଲୁକା ଅଲିଭ୍ ଗ୍ରୀନ୍</string>
     <string name="sesl_color_picker_option">ବିକଳ୍ପ</string>
     <string name="sesl_color_picker_recently_used_colors">ସାମ୍ପ୍ରତିକ ଭାବେ ବ୍ୟବହାର ହୋଇଥିବା ରଙ୍ଗଗୁଡିକ</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">ଅନ୍</string>
     <string name="sesl_color_picker_dark_magenta">ଗାଢ ମ୍ୟାଗ୍ନେଟା</string>
     <string name="sesl_color_picker_yellow">ହଳଦିଆ</string>
+    <string name="sesl_searchview_description_voice">ଭଏସ୍ ସନ୍ଧାନ</string>
     <string name="app_info">ଆପ୍ଲିକେସନ୍‌ ସୂଚନା</string>
     <string name="selected_check_info">%dଟି ଚୟନିତ</string>
     <string name="sesl_color_picker_gray">ଧୂସର</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">ସଂସ୍କରଣ</string>
     <string name="sesl_color_picker_dark_orange">ଗାଢ କମଳା</string>
     <string name="sesl_navigate_up">ଉପରକୁ ନେଭିଗେଟ୍ କରନ୍ତୁ</string>
+    <string name="dragndroplist_drag_release">ଆଇଟମକୁ ସ୍ଥିତି %dରେ ଡ୍ରପ୍ କରାଯାଇଛି।</string>
     <string name="sesl_color_picker_spring_green">ସ୍ପ୍ରିଙ୍ଗ୍ ଗ୍ରୀନ୍</string>
     <string name="sesl_color_picker_light_cyan">ହାଲୁକା କାୟନ୍</string>
     <string name="sesl_color_picker_color_one">ରଙ୍ଗ ଏକ</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">ଗାଢ ଲାଲ୍</string>
     <string name="sesl_picker_cancel">ବାତିଲ୍</string>
     <string name="sesl_color_picker_light_violet">ହାଲୁକା ଭାଓଲେଟ୍</string>
+    <string name="sesl_index_assistant_text">ସ୍କ୍ରଲ୍ କରିବାକୁ ଦୁଇ ଆଙ୍ଗୁଠିରେ ଉପର କିମ୍ବା ତଳକୁ ସ୍ୱାଇପ୍ କରନ୍ତୁ।</string>
     <string name="sesl_color_picker_green">ସବୁଜ</string>
     <string name="action_settings">ସେଟିଂସ୍</string>
     <string name="sesl_color_picker_dark_yellow">ଗାଢ ହଳଦିଆ</string>
     <string name="sesl_color_picker_dark_spring_green">ଗାଢ ସ୍ପ୍ରିଙ୍ଗ ଗ୍ରୀନ୍</string>
     <string name="sesl_color_picker_double_tap_to_select">ଚୟନ କରିବାକୁ ଦୁଇଥର ଟ୍ୟାପ୍ କରନ୍ତୁ।</string>
+    <string name="sesl_index_scrollbar">ସ୍କ୍ରଲ୍ ବାର୍</string>
+    <string name="sesl_searchview_description_clear">ସନ୍ଧାନ କ୍ଷେତ୍ର ଖାଲି କରନ୍ତୁ</string>
     <string name="sesl_toolbar_collapse_description">କୋଲାପ୍ସ</string>
     <string name="sesl_color_picker_light_yellow">ହାଲୁକା ହଳଦିଆ</string>
     <string name="sesl_cancel">ବାତିଲ୍</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">ହାଲୁକା ଲାଲ୍</string>
     <string name="sesl_color_picker_color_five">ରଙ୍ଗ ପାଞ୍ଚ</string>
     <string name="sesl_color_picker_light_azure">ହାଲୁକା ଆଜୁରେ</string>
+    <string name="sesl_index_selected">ଚୟନିତ</string>
     <string name="sesl_color_picker_brightness">ଔଜଲ୍ୟତା</string>
     <string name="all_checkbox">ସମସ୍ତ</string>
     <string name="sesl_color_picker_blue">ନୀଳ</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">ରଙ୍ଗ ତିନି</string>
     <string name="sesl_color_hex_text">ହେକ୍ସ</string>
     <string name="sesl_color_picker_color_four">ରଙ୍ଗ ଚାରି</string>
+    <string name="dragndroplist_item_cannot_be_dragged">ସ୍ଥିତି %dରେ ରହିଥିବା ଆଇଟମ୍ ଡ୍ରାଗ୍ କରାଯାଇ ପାରିବ ନାହିଁ।</string>
     <string name="sesl_color_picker_spectrum_text">ସ୍ପେକ୍ଟ୍ରମ୍</string>
+    <string name="dragndroplist_drag_start">ସ୍ଥିତି %dରୁ ଆଇଟମ୍ ଡ୍ରାଗ୍ କରିବା ଆରମ୍ଭ ହୋଇଛି।</string>
     <string name="sesl_color_picker_light_blue">ହାଲୁକା ନୀଳ</string>
     <string name="sesl_more_options">ଅଧିକ ବିକଳ୍ପ</string>
     <string name="sesl_off_text">ଅଫ୍</string>

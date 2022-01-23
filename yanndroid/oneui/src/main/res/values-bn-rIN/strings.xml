@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">আরও</string>
     <string name="sesl_button">বোতাম</string>
+    <string name="sesl_index_section">বিভাগ সূচক</string>
     <string name="sesl_color_picker_black">কালো</string>
     <string name="new_version_is_available">একটি নতুন সংস্করণ সুলভ।</string>
     <string name="sesl_action_menu_overflow_badge_text_n">ন</string>
+    <string name="dragndroplist_drag_move">এখন অবস্থান %d-এ রয়েছে</string>
     <string name="sesl_color_picker_light_spring_green">হালকা স্প্রিং সবুজ</string>
     <string name="sesl_color_picker_option">বিকল্প</string>
     <string name="sesl_color_picker_recently_used_colors">সম্প্রতি ব্যবহৃত রঙগুলি</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">চালু</string>
     <string name="sesl_color_picker_dark_magenta">গাঢ় ম্যাজেন্টা</string>
     <string name="sesl_color_picker_yellow">হলুদ</string>
+    <string name="sesl_searchview_description_voice">ভয়েস অনুসন্ধান</string>
     <string name="app_info">অ্যাপের তথ্য</string>
     <string name="selected_check_info">%dটি নির্বাচিত</string>
     <string name="sesl_color_picker_gray">ধূসর</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">সংস্করণ</string>
     <string name="sesl_color_picker_dark_orange">গাঢ় কমলা</string>
     <string name="sesl_navigate_up">উপরে নেভিগেট করুন</string>
+    <string name="dragndroplist_drag_release">%d অবস্থানে আইটেম ছাড়া হয়েছে।</string>
     <string name="sesl_color_picker_spring_green">স্প্রিং সবুজ</string>
     <string name="sesl_color_picker_light_cyan">হালকা সবজে নীল</string>
     <string name="sesl_color_picker_color_one">এক নম্বরের রঙ</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">গাঢ় লাল</string>
     <string name="sesl_picker_cancel">বাতিল</string>
     <string name="sesl_color_picker_light_violet">হালকা বেগুনী</string>
+    <string name="sesl_index_assistant_text">স্ক্রোল করতে দুটি আঙুল দিয়ে উপরে বা নীচে সোয়াইপ করুন।</string>
     <string name="sesl_color_picker_green">সবুজ</string>
     <string name="action_settings">সেটিংস</string>
     <string name="sesl_color_picker_dark_yellow">গাঢ় হলুদ</string>
     <string name="sesl_color_picker_dark_spring_green">গাঢ় স্প্রিং সবুজ</string>
     <string name="sesl_color_picker_double_tap_to_select">নির্বাচন করতে দুবার ট্যাপ করুন।</string>
+    <string name="sesl_index_scrollbar">স্ক্রোল বার</string>
+    <string name="sesl_searchview_description_clear">অনুসন্ধান ক্ষেত্র পরিষ্কার করুন</string>
     <string name="sesl_toolbar_collapse_description">সঙ্কোচন করুন</string>
     <string name="sesl_color_picker_light_yellow">হালকা হলুদ</string>
     <string name="sesl_cancel">বাতিল</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">হালকা লাল</string>
     <string name="sesl_color_picker_color_five">পাঁচ নম্বরের রঙ</string>
     <string name="sesl_color_picker_light_azure">হালকা অ্যাজিওর</string>
+    <string name="sesl_index_selected">নির্বাচিত</string>
     <string name="sesl_color_picker_brightness">উজ্জ্বলতা</string>
     <string name="all_checkbox">সমস্ত</string>
     <string name="sesl_color_picker_blue">নীল</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">তিন নম্বরের রঙ</string>
     <string name="sesl_color_hex_text">হেক্স</string>
     <string name="sesl_color_picker_color_four">চার নম্বরের রঙ</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d অবস্থানে আইটেম টেনে আনা যাবে না।</string>
     <string name="sesl_color_picker_spectrum_text">স্পেকট্রাম</string>
+    <string name="dragndroplist_drag_start">%d অবস্থানে আইটেম টানা শুরু হয়েছে।</string>
     <string name="sesl_color_picker_light_blue">হালকা নীল</string>
     <string name="sesl_more_options">আরও বিকল্প</string>
     <string name="sesl_off_text">বন্ধ</string>

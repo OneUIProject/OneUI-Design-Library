@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Gehiago</string>
     <string name="sesl_button">Botoia</string>
+    <string name="sesl_index_section">Sailaren aurkibidea</string>
     <string name="sesl_color_picker_black">Beltza</string>
     <string name="new_version_is_available">Bertsio berria dago erabilgarri</string>
     <string name="sesl_action_menu_overflow_badge_text_n">B</string>
+    <string name="dragndroplist_drag_move">Oraingo posizioa %d</string>
     <string name="sesl_color_picker_light_spring_green">Udaberriko berde argia</string>
     <string name="sesl_color_picker_option">Aukera</string>
     <string name="sesl_color_picker_recently_used_colors">Berriki erabilitako koloreak</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Aktibatu</string>
     <string name="sesl_color_picker_dark_magenta">Magenta iluna</string>
     <string name="sesl_color_picker_yellow">Horia</string>
+    <string name="sesl_searchview_description_voice">Ahots bilaketa</string>
     <string name="app_info">Aplikazioaren informazioa</string>
     <string name="selected_check_info">%d hautatuta</string>
     <string name="sesl_color_picker_gray">Grisa</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Bertsioa</string>
     <string name="sesl_color_picker_dark_orange">Laranja iluna</string>
     <string name="sesl_navigate_up">Nabigatu</string>
+    <string name="dragndroplist_drag_release">Elementua %d posizioan utzi da.</string>
     <string name="sesl_color_picker_spring_green">Udaberriko berdea</string>
     <string name="sesl_color_picker_light_cyan">Zian argia</string>
     <string name="sesl_color_picker_color_one">Lehenengo kolorea</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Gorri iluna</string>
     <string name="sesl_picker_cancel">Ezeztatu</string>
     <string name="sesl_color_picker_light_violet">Bioleta argia</string>
+    <string name="sesl_index_assistant_text">Korritzeko, irristatu pantaila gora edo behera bi hatzekin.</string>
     <string name="sesl_color_picker_green">Berdea</string>
     <string name="action_settings">Ezarpenak</string>
     <string name="sesl_color_picker_dark_yellow">Hori iluna</string>
     <string name="sesl_color_picker_dark_spring_green">Udaberriko berde iluna</string>
     <string name="sesl_color_picker_double_tap_to_select">Ukitu bi aldiz hautatzeko.</string>
+    <string name="sesl_index_scrollbar">Korritze barra</string>
+    <string name="sesl_searchview_description_clear">Garbitu bilaketa eremua</string>
     <string name="sesl_toolbar_collapse_description">Tolestu</string>
     <string name="sesl_color_picker_light_yellow">Hori argia</string>
     <string name="sesl_cancel">Utzi</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Gorri argia</string>
     <string name="sesl_color_picker_color_five">Bosgarren kolorea</string>
     <string name="sesl_color_picker_light_azure">Zeru urdin argia</string>
+    <string name="sesl_index_selected">Hautatuta</string>
     <string name="sesl_color_picker_brightness">Argitasuna</string>
     <string name="all_checkbox">Guztiak</string>
     <string name="sesl_color_picker_blue">Urdina</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Hirugarren kolorea</string>
     <string name="sesl_color_hex_text">Hexadezimala</string>
     <string name="sesl_color_picker_color_four">Laugarren kolorea</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d posizioko elementua ezin da arrastatu.</string>
     <string name="sesl_color_picker_spectrum_text">Espektroa</string>
+    <string name="dragndroplist_drag_start">Elementua %d posiziora arrastatzen hasi da.</string>
     <string name="sesl_color_picker_light_blue">Urdin argia</string>
     <string name="sesl_more_options">Aukera gehiago</string>
     <string name="sesl_off_text">Desaktibatuta</string>

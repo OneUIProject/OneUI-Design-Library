@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Още</string>
     <string name="sesl_button">Бутон</string>
+    <string name="sesl_index_section">Указател на разделите</string>
     <string name="sesl_color_picker_black">Черен</string>
     <string name="new_version_is_available">Достъпна е нова версия.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">Н</string>
+    <string name="dragndroplist_drag_move">Сега на позиция %d</string>
     <string name="sesl_color_picker_light_spring_green">Светло пролетно зелено</string>
     <string name="sesl_color_picker_option">Опция</string>
     <string name="sesl_color_picker_recently_used_colors">Наскоро използвани цветове</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Включено</string>
     <string name="sesl_color_picker_dark_magenta">Тъмно пурпурно</string>
     <string name="sesl_color_picker_yellow">Жълт</string>
+    <string name="sesl_searchview_description_voice">Гласово търсене</string>
     <string name="app_info">Информация за приложение</string>
     <string name="selected_check_info">%d избрани</string>
     <string name="sesl_color_picker_gray">Сиво</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Версия</string>
     <string name="sesl_color_picker_dark_orange">Тъмнооранжево</string>
     <string name="sesl_navigate_up">Навигация нагоре</string>
+    <string name="dragndroplist_drag_release">Елементът е пуснат на позиция %d.</string>
     <string name="sesl_color_picker_spring_green">Пролетно зелено</string>
     <string name="sesl_color_picker_light_cyan">Светъл циан</string>
     <string name="sesl_color_picker_color_one">Цвят едно</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Тъмночервено</string>
     <string name="sesl_picker_cancel">Отмени</string>
     <string name="sesl_color_picker_light_violet">Светло виолетово</string>
+    <string name="sesl_index_assistant_text">Плъзнете нагоре или надолу с два пръста, за да превъртите.</string>
     <string name="sesl_color_picker_green">Зелен</string>
     <string name="action_settings">Настройки</string>
     <string name="sesl_color_picker_dark_yellow">Тъмножълто</string>
     <string name="sesl_color_picker_dark_spring_green">Тъмно пролетно зелено</string>
     <string name="sesl_color_picker_double_tap_to_select">Докоснете двукратно за избор.</string>
+    <string name="sesl_index_scrollbar">Лента за превъртане</string>
+    <string name="sesl_searchview_description_clear">Изчистване на полето за търсене</string>
     <string name="sesl_toolbar_collapse_description">Свиване</string>
     <string name="sesl_color_picker_light_yellow">Светложълто</string>
     <string name="sesl_cancel">Отказ</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Светлочервено</string>
     <string name="sesl_color_picker_color_five">Цвят пет</string>
     <string name="sesl_color_picker_light_azure">Светло небесносиньо</string>
+    <string name="sesl_index_selected">Избрано</string>
     <string name="sesl_color_picker_brightness">Яркост</string>
     <string name="all_checkbox">Всички</string>
     <string name="sesl_color_picker_blue">Син</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Цвят три</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Цвят четири</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Елементът на позиция %d не може да бъде плъзган.</string>
     <string name="sesl_color_picker_spectrum_text">Спектър</string>
+    <string name="dragndroplist_drag_start">Започна плъзгането на елемента на позиция %d.</string>
     <string name="sesl_color_picker_light_blue">Светлосиньо</string>
     <string name="sesl_more_options">Още опции</string>
     <string name="sesl_off_text">Изключи</string>

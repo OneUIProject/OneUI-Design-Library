@@ -20,15 +20,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.util.SeslRoundedCorner;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneui.sesl.recyclerview.LinearLayoutManager;
-import de.dlyt.yanndroid.oneui.widget.BottomNavigationView;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
-import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneui.view.ViewPager;
+import de.dlyt.yanndroid.oneui.widget.BottomNavigationView;
+import de.dlyt.yanndroid.oneui.widget.IndexScrollView;
+import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneuiexample.R;
 
 public class IconsTab extends Fragment {
@@ -309,10 +312,15 @@ public class IconsTab extends Fragment {
         decoration.setDivider(mContext.getDrawable(divider.resourceId));
 
         listView.setItemAnimator(null);
-        listView.seslSetFastScrollerEnabled(true);
         listView.seslSetFillBottomEnabled(true);
         listView.seslSetGoToTopEnabled(true);
         listView.seslSetLastRoundedCorner(false);
+
+        IndexScrollView indexScrollView = mRootView.findViewById(R.id.indexScrollView);
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < imageIDs.length - 1; i++)
+            list.add(getResources().getResourceEntryName(imageIDs[i]).substring(11));
+        indexScrollView.syncWithRecyclerView(listView, list, true);
 
         onBackPressedCallback = new OnBackPressedCallback(false) {
             @Override

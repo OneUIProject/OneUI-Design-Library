@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Veel</string>
     <string name="sesl_button">Nupp</string>
+    <string name="sesl_index_section">Jaotise indeks</string>
     <string name="sesl_color_picker_black">Must</string>
     <string name="new_version_is_available">Uus versioon on saadaval.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">U</string>
+    <string name="dragndroplist_drag_move">Nüüd kohas %d</string>
     <string name="sesl_color_picker_light_spring_green">Hele kevadroheline</string>
     <string name="sesl_color_picker_option">Valik</string>
     <string name="sesl_color_picker_recently_used_colors">Hiljuti kasutatud värvid</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Sees</string>
     <string name="sesl_color_picker_dark_magenta">Tume magenta</string>
     <string name="sesl_color_picker_yellow">Kollane</string>
+    <string name="sesl_searchview_description_voice">Häälotsing</string>
     <string name="app_info">Rakenduse teave</string>
     <string name="selected_check_info">%d on valitud</string>
     <string name="sesl_color_picker_gray">Hall</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Versioon</string>
     <string name="sesl_color_picker_dark_orange">Tumeoranž</string>
     <string name="sesl_navigate_up">Navigeeri üles</string>
+    <string name="dragndroplist_drag_release">Üksus on lohistatud asukohta %d.</string>
     <string name="sesl_color_picker_spring_green">Kevadroheline</string>
     <string name="sesl_color_picker_light_cyan">Hele tsüaan</string>
     <string name="sesl_color_picker_color_one">Värv üks</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Tumepunane</string>
     <string name="sesl_picker_cancel">Tühista</string>
     <string name="sesl_color_picker_light_violet">Helevioletne</string>
+    <string name="sesl_index_assistant_text">Libistage kerimiseks kahe sõrmega üles või alla.</string>
     <string name="sesl_color_picker_green">Roheline</string>
     <string name="action_settings">Seaded</string>
     <string name="sesl_color_picker_dark_yellow">Tumekollane</string>
     <string name="sesl_color_picker_dark_spring_green">Tume kevadroheline</string>
     <string name="sesl_color_picker_double_tap_to_select">Topelttoksake valimiseks.</string>
+    <string name="sesl_index_scrollbar">Kerimisriba</string>
+    <string name="sesl_searchview_description_clear">Tühjenda otsinguväli</string>
     <string name="sesl_toolbar_collapse_description">Ahenda</string>
     <string name="sesl_color_picker_light_yellow">Helekollane</string>
     <string name="sesl_cancel">Tühista</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Helepunane</string>
     <string name="sesl_color_picker_color_five">Värv viis</string>
     <string name="sesl_color_picker_light_azure">Hele taevasinine</string>
+    <string name="sesl_index_selected">Valitud</string>
     <string name="sesl_color_picker_brightness">Heledus</string>
     <string name="all_checkbox">Kõik</string>
     <string name="sesl_color_picker_blue">Sinine</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Värv kolm</string>
     <string name="sesl_color_hex_text">HEX</string>
     <string name="sesl_color_picker_color_four">Värv neli</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Üksust asukohas %d ei saa lohistada.</string>
     <string name="sesl_color_picker_spectrum_text">Spekter</string>
+    <string name="dragndroplist_drag_start">Alustati üksuse lohistamist asukohas %d.</string>
     <string name="sesl_color_picker_light_blue">Helesinine</string>
     <string name="sesl_more_options">Veel valikuid</string>
     <string name="sesl_off_text">Väljas</string>

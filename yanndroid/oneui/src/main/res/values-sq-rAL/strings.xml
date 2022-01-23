@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Më tej</string>
     <string name="sesl_button">Buton</string>
+    <string name="sesl_index_section">Indeksi i seksionit</string>
     <string name="sesl_color_picker_black">E zezë</string>
     <string name="new_version_is_available">Ka një version të ri në dispozicion.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">+</string>
+    <string name="dragndroplist_drag_move">Tani në pozicionin %d</string>
     <string name="sesl_color_picker_light_spring_green">E gjelbër pranverë e çelët</string>
     <string name="sesl_color_picker_option">Opsion</string>
     <string name="sesl_color_picker_recently_used_colors">Ngjyrat përdorur së fundi</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Aktiv</string>
     <string name="sesl_color_picker_dark_magenta">Maxhenta e errët</string>
     <string name="sesl_color_picker_yellow">E verdhë</string>
+    <string name="sesl_searchview_description_voice">Kërkimi me zë</string>
     <string name="app_info">Info për app-et</string>
     <string name="selected_check_info">%d përzgjedhur</string>
     <string name="sesl_color_picker_gray">Gri</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Versioni</string>
     <string name="sesl_color_picker_dark_orange">Portokall i errët</string>
     <string name="sesl_navigate_up">Navigo lart</string>
+    <string name="dragndroplist_drag_release">Objekti u lëshua në pozicionin %d.</string>
     <string name="sesl_color_picker_spring_green">E gjelbër pranverë</string>
     <string name="sesl_color_picker_light_cyan">Cian i çelët</string>
     <string name="sesl_color_picker_color_one">Ngjyra një</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">E kuqe e errët</string>
     <string name="sesl_picker_cancel">Anullo</string>
     <string name="sesl_color_picker_light_violet">Vjollcë e çelët</string>
+    <string name="sesl_index_assistant_text">Rrëshqit lart ose poshtë me dy gishta për të lundruar.</string>
     <string name="sesl_color_picker_green">E gjelbër</string>
     <string name="action_settings">Cilësimet</string>
     <string name="sesl_color_picker_dark_yellow">E verdhë e errët</string>
     <string name="sesl_color_picker_dark_spring_green">E gjelbër pranverë e errët</string>
     <string name="sesl_color_picker_double_tap_to_select">Dy-trokit për të përzgjedhur.</string>
+    <string name="sesl_index_scrollbar">Shiriti i lundrimit</string>
+    <string name="sesl_searchview_description_clear">Pastro fushën e kërkimit</string>
     <string name="sesl_toolbar_collapse_description">Palos</string>
     <string name="sesl_color_picker_light_yellow">E verdhë e hapur</string>
     <string name="sesl_cancel">Anulo</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">E kuqe e çelët</string>
     <string name="sesl_color_picker_color_five">Ngjyra pesë</string>
     <string name="sesl_color_picker_light_azure">E kaltërremë e çelët</string>
+    <string name="sesl_index_selected">Përzgjedhur</string>
     <string name="sesl_color_picker_brightness">Ndriçimi</string>
     <string name="all_checkbox">Të gjitha</string>
     <string name="sesl_color_picker_blue">E kaltër</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Ngjyra tre</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Ngjyra katër</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Objekti në pozicionin %d nuk mund të zvarritet.</string>
     <string name="sesl_color_picker_spectrum_text">Spektri</string>
+    <string name="dragndroplist_drag_start">Fillova të zvarrit objektin në pozicionin %d.</string>
     <string name="sesl_color_picker_light_blue">E kaltër e çelët</string>
     <string name="sesl_more_options">Opsione të tjera</string>
     <string name="sesl_off_text">Fikur</string>

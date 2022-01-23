@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Mai multe</string>
     <string name="sesl_button">Buton</string>
+    <string name="sesl_index_section">Index secțiune</string>
     <string name="sesl_color_picker_black">Negru</string>
     <string name="new_version_is_available">Este disponibilă o versiune nouă.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">Fixat acum la poziția %d</string>
     <string name="sesl_color_picker_light_spring_green">Verde crud deschis</string>
     <string name="sesl_color_picker_option">Opțiune</string>
     <string name="sesl_color_picker_recently_used_colors">Culori utilizate recent</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Activat</string>
     <string name="sesl_color_picker_dark_magenta">Magenta închisă</string>
     <string name="sesl_color_picker_yellow">Galben</string>
+    <string name="sesl_searchview_description_voice">Căutare vocală</string>
     <string name="app_info">Informații despre aplicație</string>
     <string name="selected_check_info">%d selectate</string>
     <string name="sesl_color_picker_gray">Gri</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Versiune</string>
     <string name="sesl_color_picker_dark_orange">Portocaliu închis</string>
     <string name="sesl_navigate_up">Navigare în sus</string>
+    <string name="dragndroplist_drag_release">Elementul a fost fixat la poziția %d.</string>
     <string name="sesl_color_picker_spring_green">Verde crud</string>
     <string name="sesl_color_picker_light_cyan">Cyan deschis</string>
     <string name="sesl_color_picker_color_one">Prima culoare</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Roșu închis</string>
     <string name="sesl_picker_cancel">Anulare</string>
     <string name="sesl_color_picker_light_violet">Violet deschis</string>
+    <string name="sesl_index_assistant_text">Glisați în sus sau în jos folosind două degetele pentru a derula.</string>
     <string name="sesl_color_picker_green">Verde</string>
     <string name="action_settings">Setări</string>
     <string name="sesl_color_picker_dark_yellow">Galben închis</string>
     <string name="sesl_color_picker_dark_spring_green">Verde crud închis</string>
     <string name="sesl_color_picker_double_tap_to_select">Atingeți de două ori pentru a selecta.</string>
+    <string name="sesl_index_scrollbar">Bară de defilare</string>
+    <string name="sesl_searchview_description_clear">Golire câmp de căutare</string>
     <string name="sesl_toolbar_collapse_description">Restrângere</string>
     <string name="sesl_color_picker_light_yellow">Galben deschis</string>
     <string name="sesl_cancel">Anulare</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Roșu deschis</string>
     <string name="sesl_color_picker_color_five">A cincea culoare</string>
     <string name="sesl_color_picker_light_azure">Azuriu deschis</string>
+    <string name="sesl_index_selected">Selectat</string>
     <string name="sesl_color_picker_brightness">Luminozitate</string>
     <string name="all_checkbox">Toate</string>
     <string name="sesl_color_picker_blue">Albastru</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">A treia culoare</string>
     <string name="sesl_color_hex_text">Hexazecimal</string>
     <string name="sesl_color_picker_color_four">A patra culoare</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Elementul de la poziția %d nu poate fi glisat.</string>
     <string name="sesl_color_picker_spectrum_text">Spectru</string>
+    <string name="dragndroplist_drag_start">A început glisarea elementului la poziția %d.</string>
     <string name="sesl_color_picker_light_blue">Albastru deschis</string>
     <string name="sesl_more_options">Alte opțiuni</string>
     <string name="sesl_off_text">Oprit</string>

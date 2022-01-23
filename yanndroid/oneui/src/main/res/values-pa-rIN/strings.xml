@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">ਹੋਰ</string>
     <string name="sesl_button">ਬਟਨ</string>
+    <string name="sesl_index_section">ਸੈਕਸ਼ਨ ਇੰਡੈਕਸ</string>
     <string name="sesl_color_picker_black">ਕਾਲਾ</string>
     <string name="new_version_is_available">ਇੱਕ ਨਵਾਂ ਸੰਸਕਰਣ ਉਪਲਬਧ ਹੈ।</string>
     <string name="sesl_action_menu_overflow_badge_text_n">ਨਵ.</string>
+    <string name="dragndroplist_drag_move">ਹੁਣ %d ਸਥਿਤੀ ਤੇ</string>
     <string name="sesl_color_picker_light_spring_green">ਹਲਕਾ ਸਪਰਿੰਗ ਹਰਾ</string>
     <string name="sesl_color_picker_option">ਵਿਕਲਪ</string>
     <string name="sesl_color_picker_recently_used_colors">ਹਾਲ ਹੀ ਵਿੱਚ ਵਰਤੇ ਗਏ ਰੰਗ</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">ਚਾਲੂ</string>
     <string name="sesl_color_picker_dark_magenta">ਗੂੜ੍ਹਾ ਨਾਭੀ</string>
     <string name="sesl_color_picker_yellow">ਪੀਲਾ</string>
+    <string name="sesl_searchview_description_voice">ਵਾੱਇਸ ਖੋਜ</string>
     <string name="app_info">ਐਪ ਜਾਣਕਾਰੀ</string>
     <string name="selected_check_info">%d ਚੁਣੇ ਗਏ</string>
     <string name="sesl_color_picker_gray">ਸਲੇਟੀ</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">ਸੰਸਕਰਣ</string>
     <string name="sesl_color_picker_dark_orange">ਗੂੜ੍ਹਾ ਨਾਰੰਗੀ</string>
     <string name="sesl_navigate_up">ਉੱਪਰ ਨੈਵੀਗੇਟ ਕਰੋ।</string>
+    <string name="dragndroplist_drag_release">ਸਥਾਨ %d ਤੇ ਆਈਟਮ ਡ੍ਰੌਪ ਕੀਤੀ ਗਈ।</string>
     <string name="sesl_color_picker_spring_green">ਸਪਰਿੰਗ ਹਰਾ</string>
     <string name="sesl_color_picker_light_cyan">ਹਲਕਾ ਸਿਆਨ</string>
     <string name="sesl_color_picker_color_one">ਪਹਿਲਾ ਰੰਗ</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">ਗੂੜਾ ਲਾਲ</string>
     <string name="sesl_picker_cancel">ਰੱਦ ਕਰੋ</string>
     <string name="sesl_color_picker_light_violet">ਹਲਕਾ ਜਾਮਣੀ</string>
+    <string name="sesl_index_assistant_text">ਸਕ੍ਰੌਲ ਕਰਨ ਲਈ ਦੋ ਉਂਗਲਾਂ ਨਾਲ ਉੱਪਰ ਜਾਂ ਹੇਠਾਂ ਵੱਲ ਸਵਾਈਪ ਕਰੋ।</string>
     <string name="sesl_color_picker_green">ਹਰਾ</string>
     <string name="action_settings">ਸੈੱਟਿੰਗਸ</string>
     <string name="sesl_color_picker_dark_yellow">ਗੂੜ੍ਹਾ ਪੀਲਾ</string>
     <string name="sesl_color_picker_dark_spring_green">ਗੂੜ੍ਹਾ ਸਪਰਿੰਗ ਹਰਾ</string>
     <string name="sesl_color_picker_double_tap_to_select">ਚੁਣਨ ਲਈ ਦੋ ਵਾਰ ਟੈਪ ਕਰੋ।</string>
+    <string name="sesl_index_scrollbar">ਸਕ੍ਰੌਲ ਬਾਰ</string>
+    <string name="sesl_searchview_description_clear">ਖੋਜ ਖੇਤਰ ਸਾਫ਼ ਕਰੋ</string>
     <string name="sesl_toolbar_collapse_description">ਸੰਕੁਚਿਤ ਕਰੋ</string>
     <string name="sesl_color_picker_light_yellow">ਫਿੱਕਾ ਪੀਲਾ</string>
     <string name="sesl_cancel">ਰੱਦ ਕਰੋ</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">ਹਲਕਾ ਲਾਲ</string>
     <string name="sesl_color_picker_color_five">ਪੰਜਵਾਂ ਰੰਗ</string>
     <string name="sesl_color_picker_light_azure">ਹਲਕਾ ਅਜ਼ੂਰ</string>
+    <string name="sesl_index_selected">ਚੁਣਿਆ ਗਿਆ</string>
     <string name="sesl_color_picker_brightness">ਚਮਕ</string>
     <string name="all_checkbox">ਸਭ</string>
     <string name="sesl_color_picker_blue">ਨੀਲਾ</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">ਤੀਜਾ ਰੰਗ</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">ਚੌਥਾ ਰੰਗ</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d ਸਥਾਨ ਤੇ ਆਈਟਮ ਡ੍ਰੈਗ ਨਹੀਂ ਹੋ ਸਕਦੀ ਹੈ।</string>
     <string name="sesl_color_picker_spectrum_text">ਸਪੈਕਟ੍ਰਮ</string>
+    <string name="dragndroplist_drag_start">ਸਥਾਨ %d ਤੋਂ ਆਈਟਮ ਨੂੰ ਡ੍ਰੈਗ ਕਰਨਾ ਅਰੰਭ ਕੀਤਾ ਗਿਆ।</string>
     <string name="sesl_color_picker_light_blue">ਹਲਕਾ ਨੀਲਾ</string>
     <string name="sesl_more_options">ਹੋਰ ਵਿਕਲਪ</string>
     <string name="sesl_off_text">ਬੰਦ</string>

@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">ເພີ່ມເຕີມ</string>
     <string name="sesl_button">ປຸ່ມ</string>
+    <string name="sesl_index_section">ດັດຊະນີພາກສ່ວນ</string>
     <string name="sesl_color_picker_black">ສີດໍາ</string>
     <string name="new_version_is_available">ມີເວີເຊິນໃໝ່ໃຫ້ຢູ່.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">ຕອນນີ້ຢູ່ທີ່ຕຳແໜ່ງ %d</string>
     <string name="sesl_color_picker_light_spring_green">ສີຂຽວອ່ອນລະດູບານໃໝ່</string>
     <string name="sesl_color_picker_option">ຕົວເລືອກ</string>
     <string name="sesl_color_picker_recently_used_colors">ສີທີ່ໃຊ້ຫຼ້າສຸດ</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">ເປີດ</string>
     <string name="sesl_color_picker_dark_magenta">ສີມ້ວງແກບແດງແກ່</string>
     <string name="sesl_color_picker_yellow">ສີເຫຼືອງ</string>
+    <string name="sesl_searchview_description_voice">ຄົ້ນຫາດ້ວຍສຽງ</string>
     <string name="app_info">ຂໍ້ມູນແອັບ</string>
     <string name="selected_check_info">ເລືອກ %d ແລ້ວ</string>
     <string name="sesl_color_picker_gray">ສີຂີ້ເທົາ</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">ລຸ້ນ</string>
     <string name="sesl_color_picker_dark_orange">ສີສົ້ມແກ່</string>
     <string name="sesl_navigate_up">ເລື່ອນຂຶ້ນ</string>
+    <string name="dragndroplist_drag_release">ລາຍການຕົກລົງໄປສູ່ຕໍາແໜ່ງ %d.</string>
     <string name="sesl_color_picker_spring_green">ສີຂຽວລະດູບານໃໝ່</string>
     <string name="sesl_color_picker_light_cyan">ສີຂຽວແກບຟ້າອ່ອນ</string>
     <string name="sesl_color_picker_color_one">ສີໜຶ່ງ</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">ສີແດງແກ່</string>
     <string name="sesl_picker_cancel">ຍົກເລີກ</string>
     <string name="sesl_color_picker_light_violet">ສີມ້ວງອ່ອນ</string>
+    <string name="sesl_index_assistant_text">ຮູດຂຶ້ນເທິງ ຫຼື ລົງລຸ່ມດ້ວຍມືສອງນິ້ວເພື່ອເລື່ອນ.</string>
     <string name="sesl_color_picker_green">ສີຂຽວ</string>
     <string name="action_settings">ການຕັ້ງຄ່າ</string>
     <string name="sesl_color_picker_dark_yellow">ສີເຫຼືອງແກ່</string>
     <string name="sesl_color_picker_dark_spring_green">ສີຂຽວແກ່ລະດູບານໃໝ່</string>
     <string name="sesl_color_picker_double_tap_to_select">ແຕະສອງຄັ້ງເພື່ອເລືອກ.</string>
+    <string name="sesl_index_scrollbar">ແຖບເລື່ອນ</string>
+    <string name="sesl_searchview_description_clear">ລຶບຊ່ອງຊອກຫາ</string>
     <string name="sesl_toolbar_collapse_description">ຫຍໍ້ລົງ</string>
     <string name="sesl_color_picker_light_yellow">ສີເຫຼືອງອ່ອນ</string>
     <string name="sesl_cancel">ຍົກ​ເລີກ</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">ສີແດງອ່ອນ</string>
     <string name="sesl_color_picker_color_five">ສີຫ້າ</string>
     <string name="sesl_color_picker_light_azure">ສີຟ້າອ່ອນ</string>
+    <string name="sesl_index_selected">ເລືອກແລ້ວ</string>
     <string name="sesl_color_picker_brightness">ຄວາມແຈ້ງ</string>
     <string name="all_checkbox">ທັງໝົດ</string>
     <string name="sesl_color_picker_blue">ສີຟ້າ</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">ສີສາມ</string>
     <string name="sesl_color_hex_text">ຫົກຫຼ່ຽມ</string>
     <string name="sesl_color_picker_color_four">ສີສີ່</string>
+    <string name="dragndroplist_item_cannot_be_dragged">ລາຍການຢູ່ທີ່ຕໍາແໜ່ງ %d ບໍ່ສາມາດລາກໄປໄດ້.</string>
     <string name="sesl_color_picker_spectrum_text">ແຖບສີ</string>
+    <string name="dragndroplist_drag_start">ເລີ່ມຕົ້ນລາກລາຍການຢູ່ທີ່ຕໍາແໜ່ງ %d ແລ້ວ.</string>
     <string name="sesl_color_picker_light_blue">ສີຟ້າແຈ້ງ</string>
     <string name="sesl_more_options">ຕົວເລືອກເພີ່ມເຕີມ</string>
     <string name="sesl_off_text">ປິດ</string>

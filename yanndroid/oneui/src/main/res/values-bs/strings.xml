@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Još</string>
     <string name="sesl_button">Tipka</string>
+    <string name="sesl_index_section">Indeks sekcije</string>
     <string name="sesl_color_picker_black">Crna</string>
     <string name="new_version_is_available">Nova verzija je dostupna.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">Sada na poziciji %d</string>
     <string name="sesl_color_picker_light_spring_green">Svijetla proljetno zelena</string>
     <string name="sesl_color_picker_option">Opcija</string>
     <string name="sesl_color_picker_recently_used_colors">Nedavno korištene boje</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Uključeno</string>
     <string name="sesl_color_picker_dark_magenta">Tamna magenta</string>
     <string name="sesl_color_picker_yellow">Žuta</string>
+    <string name="sesl_searchview_description_voice">Glasovno pretraživanje</string>
     <string name="app_info">Informacije o aplikaciji</string>
     <string name="selected_check_info">Izabrano: %d</string>
     <string name="sesl_color_picker_gray">Siva</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Verzija</string>
     <string name="sesl_color_picker_dark_orange">Tamnonarandžasta</string>
     <string name="sesl_navigate_up">Kreći se prema gore</string>
+    <string name="dragndroplist_drag_release">Stavka je ispuštena na poziciju %d.</string>
     <string name="sesl_color_picker_spring_green">Proljetno zelena</string>
     <string name="sesl_color_picker_light_cyan">Svijetlo cijan</string>
     <string name="sesl_color_picker_color_one">Boja jedan</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Tamnocrvena</string>
     <string name="sesl_picker_cancel">Otkaži</string>
     <string name="sesl_color_picker_light_violet">Svijetloljubičasta</string>
+    <string name="sesl_index_assistant_text">Prevucite gore ili dolje sa dva prsta za klizanje.</string>
     <string name="sesl_color_picker_green">Zelena</string>
     <string name="action_settings">Postavke</string>
     <string name="sesl_color_picker_dark_yellow">Tamno žuta</string>
     <string name="sesl_color_picker_dark_spring_green">Tamna proljetno zelena</string>
     <string name="sesl_color_picker_double_tap_to_select">Dvaput dodirnite za izbor.</string>
+    <string name="sesl_index_scrollbar">Traka za pomjeranje</string>
+    <string name="sesl_searchview_description_clear">Obriši polje pretrage</string>
     <string name="sesl_toolbar_collapse_description">Suzi</string>
     <string name="sesl_color_picker_light_yellow">Svijetložuta</string>
     <string name="sesl_cancel">Otkaži</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Svijetlocrvena</string>
     <string name="sesl_color_picker_color_five">Boja pet</string>
     <string name="sesl_color_picker_light_azure">Svijetla azurno plava</string>
+    <string name="sesl_index_selected">Izabrano</string>
     <string name="sesl_color_picker_brightness">Osvjetljenje</string>
     <string name="all_checkbox">Sve</string>
     <string name="sesl_color_picker_blue">Plava</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Boja tri</string>
     <string name="sesl_color_hex_text">Šesterougaoni</string>
     <string name="sesl_color_picker_color_four">Boja četiri</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Stavka na poziciji %d se ne može prevući.</string>
     <string name="sesl_color_picker_spectrum_text">Spektar</string>
+    <string name="dragndroplist_drag_start">Započeto je prevlačenje stavke na poziciju %d.</string>
     <string name="sesl_color_picker_light_blue">Svijetloplava</string>
     <string name="sesl_more_options">Dodatne opcije</string>
     <string name="sesl_off_text">Isključeno</string>

@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">Więcej</string>
     <string name="sesl_button">Przycisk</string>
+    <string name="sesl_index_section">Indeks sekcji</string>
     <string name="sesl_color_picker_black">Czarny</string>
     <string name="new_version_is_available">Dostępna jest nowa wersja.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">Teraz na pozycji %d</string>
     <string name="sesl_color_picker_light_spring_green">Jasna wiosenna zieleń</string>
     <string name="sesl_color_picker_option">Opcja</string>
     <string name="sesl_color_picker_recently_used_colors">Ostatnio używane kolory</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">Włączony</string>
     <string name="sesl_color_picker_dark_magenta">Ciemny amarantowy</string>
     <string name="sesl_color_picker_yellow">Żółty</string>
+    <string name="sesl_searchview_description_voice">Wyszukiwanie głosowe</string>
     <string name="app_info">Informacje o aplikacji</string>
     <string name="selected_check_info">Wybranych: %d</string>
     <string name="sesl_color_picker_gray">Szary</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">Wersja</string>
     <string name="sesl_color_picker_dark_orange">Ciemnopomarańczowy</string>
     <string name="sesl_navigate_up">Nawiguj w górę</string>
+    <string name="dragndroplist_drag_release">Upuszczono element w położenie %d.</string>
     <string name="sesl_color_picker_spring_green">Wiosenna zieleń</string>
     <string name="sesl_color_picker_light_cyan">Jasny cyjan</string>
     <string name="sesl_color_picker_color_one">Kolor pierwszy</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">Ciemnoczerwony</string>
     <string name="sesl_picker_cancel">Anuluj</string>
     <string name="sesl_color_picker_light_violet">Jasnofioletowy</string>
+    <string name="sesl_index_assistant_text">Przeciągnij w górę lub w dół dwoma palcami, aby przewinąć.</string>
     <string name="sesl_color_picker_green">Zielony</string>
     <string name="action_settings">Ustawienia</string>
     <string name="sesl_color_picker_dark_yellow">Ciemnożółty</string>
     <string name="sesl_color_picker_dark_spring_green">Ciemna wiosenna zieleń</string>
     <string name="sesl_color_picker_double_tap_to_select">Dotknij dwukrotnie, aby wybrać.</string>
+    <string name="sesl_index_scrollbar">Pasek przewijania</string>
+    <string name="sesl_searchview_description_clear">Wyczyść pole wyszukiwania</string>
     <string name="sesl_toolbar_collapse_description">Zwiń</string>
     <string name="sesl_color_picker_light_yellow">Jasnożółty</string>
     <string name="sesl_cancel">Anuluj</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">Jasnoczerwony</string>
     <string name="sesl_color_picker_color_five">Kolor piąty</string>
     <string name="sesl_color_picker_light_azure">Jasnolazurowy</string>
+    <string name="sesl_index_selected">Wybrano</string>
     <string name="sesl_color_picker_brightness">Jasność</string>
     <string name="all_checkbox">Wszystkie</string>
     <string name="sesl_color_picker_blue">Niebieski</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">Kolor trzeci</string>
     <string name="sesl_color_hex_text">Hex</string>
     <string name="sesl_color_picker_color_four">Kolor czwarty</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Nie można przeciągnąć elementu znajdującego się w położeniu %d.</string>
     <string name="sesl_color_picker_spectrum_text">Spektrum</string>
+    <string name="dragndroplist_drag_start">Rozpoczęto przeciąganie elementu znajdującego się w położeniu %d.</string>
     <string name="sesl_color_picker_light_blue">Jasnoniebieski</string>
     <string name="sesl_more_options">Więcej opcji</string>
     <string name="sesl_off_text">Wyłączony</string>

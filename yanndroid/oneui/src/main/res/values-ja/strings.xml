@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">その他</string>
     <string name="sesl_button">ボタン</string>
+    <string name="sesl_index_section">セクションインデックス</string>
     <string name="sesl_color_picker_black">ブラック</string>
     <string name="new_version_is_available">新しいバージョンが利用可能です。</string>
     <string name="sesl_action_menu_overflow_badge_text_n">新</string>
+    <string name="dragndroplist_drag_move">現在の位置%d</string>
     <string name="sesl_color_picker_light_spring_green">ライトスプリンググリーン</string>
     <string name="sesl_color_picker_option">オプション</string>
     <string name="sesl_color_picker_recently_used_colors">最近使用した色</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">ON</string>
     <string name="sesl_color_picker_dark_magenta">ダークマゼンタ</string>
     <string name="sesl_color_picker_yellow">黄色</string>
+    <string name="sesl_searchview_description_voice">音声検索</string>
     <string name="app_info">アプリ情報</string>
     <string name="selected_check_info">%d件選択</string>
     <string name="sesl_color_picker_gray">グレー</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">バージョン</string>
     <string name="sesl_color_picker_dark_orange">ダークオレンジ</string>
     <string name="sesl_navigate_up">上位階層に移動</string>
+    <string name="dragndroplist_drag_release">アイテムをポジション%dにドロップしました。</string>
     <string name="sesl_color_picker_spring_green">スプリンググリーン</string>
     <string name="sesl_color_picker_light_cyan">ライトシアン</string>
     <string name="sesl_color_picker_color_one">色1</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">ダークレッド</string>
     <string name="sesl_picker_cancel">キャンセル</string>
     <string name="sesl_color_picker_light_violet">ライトバイオレット</string>
+    <string name="sesl_index_assistant_text">スクロールするには、2本の指で上下にスワイプしてください。</string>
     <string name="sesl_color_picker_green">緑</string>
     <string name="action_settings">設定</string>
     <string name="sesl_color_picker_dark_yellow">ダークイエロー</string>
     <string name="sesl_color_picker_dark_spring_green">ダークスプリンググリーン</string>
     <string name="sesl_color_picker_double_tap_to_select">選択するには、ダブルタップしてください。</string>
+    <string name="sesl_index_scrollbar">スクロールバー</string>
+    <string name="sesl_searchview_description_clear">検索欄の入力内容を消去</string>
     <string name="sesl_toolbar_collapse_description">折りたたむ</string>
     <string name="sesl_color_picker_light_yellow">ライトイエロー</string>
     <string name="sesl_cancel">キャンセル</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">ライトレッド</string>
     <string name="sesl_color_picker_color_five">色5</string>
     <string name="sesl_color_picker_light_azure">ライトアザー</string>
+    <string name="sesl_index_selected">選択中</string>
     <string name="sesl_color_picker_brightness">明るさ</string>
     <string name="all_checkbox">全て</string>
     <string name="sesl_color_picker_blue">ブルー</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">色3</string>
     <string name="sesl_color_hex_text">16進数</string>
     <string name="sesl_color_picker_color_four">色4</string>
+    <string name="dragndroplist_item_cannot_be_dragged">ポジション%dのアイテムをドラッグすることはできません。</string>
     <string name="sesl_color_picker_spectrum_text">スペクトル</string>
+    <string name="dragndroplist_drag_start">ポジション%dのアイテムのドラッグを開始しました。</string>
     <string name="sesl_color_picker_light_blue">ライトブルー</string>
     <string name="sesl_more_options">他のオプション</string>
     <string name="sesl_off_text">OFF</string>

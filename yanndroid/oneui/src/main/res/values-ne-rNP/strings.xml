@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">थप</string>
     <string name="sesl_button">बटन</string>
+    <string name="sesl_index_section">खण्डको सूची</string>
     <string name="sesl_color_picker_black">कालो</string>
     <string name="new_version_is_available">नयाँ संस्करण उपलब्ध छ।</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
+    <string name="dragndroplist_drag_move">अहिले %d स्थानमा छ</string>
     <string name="sesl_color_picker_light_spring_green">हल्का ओलिभ हरियो</string>
     <string name="sesl_color_picker_option">विकल्प</string>
     <string name="sesl_color_picker_recently_used_colors">हालै प्रयोग गरिएका रङहरू</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">अन</string>
     <string name="sesl_color_picker_dark_magenta">गाढा म्याजेन्टा</string>
     <string name="sesl_color_picker_yellow">पहेंलो</string>
+    <string name="sesl_searchview_description_voice">भ्वाइस खोज</string>
     <string name="app_info">एप बारे जानकारी</string>
     <string name="selected_check_info">%d चयन गरिएको छ</string>
     <string name="sesl_color_picker_gray">खैरो</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">संस्‍करण</string>
     <string name="sesl_color_picker_dark_orange">गाढा सुन्तला रंग</string>
     <string name="sesl_navigate_up">माथि न्याभिगेट गर्नुहोस्</string>
+    <string name="dragndroplist_drag_release">वस्तुलाई %d मा झारिएको छ।</string>
     <string name="sesl_color_picker_spring_green">उज्यालो खाले हरियो</string>
     <string name="sesl_color_picker_light_cyan">हल्का स्यान</string>
     <string name="sesl_color_picker_color_one">रंग एक</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">गाढा रातो</string>
     <string name="sesl_picker_cancel">रद्द</string>
     <string name="sesl_color_picker_light_violet">हल्का बैजनी</string>
+    <string name="sesl_index_assistant_text">स्क्रोल गर्न दुई औँलाले माथि वा तलतिर स्वाइप गर्नुहोस्।</string>
     <string name="sesl_color_picker_green">हरियो</string>
     <string name="action_settings">सेटिङहरू</string>
     <string name="sesl_color_picker_dark_yellow">गाढा पहेंलो</string>
     <string name="sesl_color_picker_dark_spring_green">गाढा प्राकृतिक हरियो</string>
     <string name="sesl_color_picker_double_tap_to_select">चयन गर्न दुईपटक ट्याप गर्नुहोस्।</string>
+    <string name="sesl_index_scrollbar">स्क्रोल बार</string>
+    <string name="sesl_searchview_description_clear">खोजको क्षेत्र खाली गर्नुहोस्</string>
     <string name="sesl_toolbar_collapse_description">संक्षिप्त गर्नुहोस्</string>
     <string name="sesl_color_picker_light_yellow">हल्का पहेँलो</string>
     <string name="sesl_cancel">रद्द गर्नुहोस्</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">हल्का रातो</string>
     <string name="sesl_color_picker_color_five">रंग पाँच</string>
     <string name="sesl_color_picker_light_azure">हल्का आकाशे नीलो</string>
+    <string name="sesl_index_selected">चयन गरिएको</string>
     <string name="sesl_color_picker_brightness">चम्किलोपना</string>
     <string name="all_checkbox">सबै</string>
     <string name="sesl_color_picker_blue">नीलो</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">रंग तीन</string>
     <string name="sesl_color_hex_text">हेक्स</string>
     <string name="sesl_color_picker_color_four">रंग चार</string>
+    <string name="dragndroplist_item_cannot_be_dragged">स्थिति %d मा रहेको वस्तुलाई तान्न सकिँदैन।</string>
     <string name="sesl_color_picker_spectrum_text">स्पेक्ट्रम</string>
+    <string name="dragndroplist_drag_start">वस्तुलाई स्थिति %d मा तान्न सुरू गरिएको छ।</string>
     <string name="sesl_color_picker_light_blue">हल्का नीलो</string>
     <string name="sesl_more_options">थप विकल्पहरू</string>
     <string name="sesl_off_text">अफ</string>

@@ -2,9 +2,11 @@
 <resources>
     <string name="sesl_more_item_label">अधिक</string>
     <string name="sesl_button">बटण</string>
+    <string name="sesl_index_section">विभाग निर्देशांक</string>
     <string name="sesl_color_picker_black">काळा</string>
     <string name="new_version_is_available">नवी आवृत्ती उपलब्‍ध आहे.</string>
     <string name="sesl_action_menu_overflow_badge_text_n">नव.</string>
+    <string name="dragndroplist_drag_move">आता स्थिती %d वर</string>
     <string name="sesl_color_picker_light_spring_green">फिकट स्प्रिंग ग्रीन रंग</string>
     <string name="sesl_color_picker_option">पर्याय</string>
     <string name="sesl_color_picker_recently_used_colors">अलीकडे वापरलेले रंग</string>
@@ -20,6 +22,7 @@
     <string name="sesl_on_text">चालू</string>
     <string name="sesl_color_picker_dark_magenta">गडद मॅजेंटा रंग</string>
     <string name="sesl_color_picker_yellow">पिवळा</string>
+    <string name="sesl_searchview_description_voice">आवाज शोध</string>
     <string name="app_info">अनुप्रयोग माहिती</string>
     <string name="selected_check_info">%d निवडलेले</string>
     <string name="sesl_color_picker_gray">करडा</string>
@@ -35,6 +38,7 @@
     <string name="sesl_version">आवृत्ती</string>
     <string name="sesl_color_picker_dark_orange">गडद नारिंगी</string>
     <string name="sesl_navigate_up">वरती नेव्हिगेट करा</string>
+    <string name="dragndroplist_drag_release">%d जागेवर आयटेम्स ड्रॉप केले.</string>
     <string name="sesl_color_picker_spring_green">स्प्रिंग ग्रीन रंग</string>
     <string name="sesl_color_picker_light_cyan">फिकट हिरवा-निळा रंग</string>
     <string name="sesl_color_picker_color_one">एक रंग</string>
@@ -51,11 +55,14 @@
     <string name="sesl_color_picker_dark_red">गडद लाल रंग</string>
     <string name="sesl_picker_cancel">रद्द</string>
     <string name="sesl_color_picker_light_violet">फिकट जांभळा रंग</string>
+    <string name="sesl_index_assistant_text">स्क्रोल करण्यासाठी दोन बोटांनी वर किंवा खाली स्वाइप करा.</string>
     <string name="sesl_color_picker_green">हिरवा</string>
     <string name="action_settings">सेटिंग्स</string>
     <string name="sesl_color_picker_dark_yellow">गडद पिवळा</string>
     <string name="sesl_color_picker_dark_spring_green">गडद स्प्रिंग ग्रीन रंग</string>
     <string name="sesl_color_picker_double_tap_to_select">निवडण्‍या साठी दोनदा टॅप करा.</string>
+    <string name="sesl_index_scrollbar">स्‍क्रोल बार</string>
+    <string name="sesl_searchview_description_clear">शोध क्षेत्र साफ करा</string>
     <string name="sesl_toolbar_collapse_description">संक्षिप्त करा</string>
     <string name="sesl_color_picker_light_yellow">फिकट पिवळा</string>
     <string name="sesl_cancel">रद्द करा</string>
@@ -71,6 +78,7 @@
     <string name="sesl_color_picker_light_red">फिकट लाल रंग</string>
     <string name="sesl_color_picker_color_five">पाच रंग</string>
     <string name="sesl_color_picker_light_azure">फिकट ॲझ्यूअर रंग</string>
+    <string name="sesl_index_selected">निवडले</string>
     <string name="sesl_color_picker_brightness">चमक</string>
     <string name="all_checkbox">सर्व</string>
     <string name="sesl_color_picker_blue">निळा</string>
@@ -80,7 +88,9 @@
     <string name="sesl_color_picker_color_three">तीन रंग</string>
     <string name="sesl_color_hex_text">हेक्स</string>
     <string name="sesl_color_picker_color_four">चार रंग</string>
+    <string name="dragndroplist_item_cannot_be_dragged">%d जागेवरील आयटेम्स ड्रॅग केले जाऊ शकत नाहीत.</string>
     <string name="sesl_color_picker_spectrum_text">स्पेक्ट्रम</string>
+    <string name="dragndroplist_drag_start">%d जागेवर आयटेम ड्रॅग करणे सुरू करा.</string>
     <string name="sesl_color_picker_light_blue">फिकट निळा</string>
     <string name="sesl_more_options">अधिक पर्याय</string>
     <string name="sesl_off_text">बंद</string>
