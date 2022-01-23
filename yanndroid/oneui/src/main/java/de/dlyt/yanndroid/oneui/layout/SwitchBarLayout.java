@@ -31,7 +31,7 @@ public class SwitchBarLayout extends LinearLayout {
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SwitchBarLayout, 0, 0);
 
         try {
-            mLayout = attr.getResourceId(R.styleable.SwitchBarLayout_android_layout, R.layout.samsung_switchbarlayout);
+            mLayout = attr.getResourceId(R.styleable.SwitchBarLayout_android_layout, R.layout.oui_switchbarlayout);
             mToolbarTitle = attr.getString(R.styleable.SwitchBarLayout_toolbar_title);
             mToolbarSubtitle = attr.getString(R.styleable.SwitchBarLayout_toolbar_subtitle);
             mToolbarExpanded = attr.getBoolean(R.styleable.SwitchBarLayout_toolbar_expanded, false);

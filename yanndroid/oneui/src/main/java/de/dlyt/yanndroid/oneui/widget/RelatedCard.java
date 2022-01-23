@@ -29,7 +29,7 @@ public class RelatedCard extends LinearLayout {
             attr.recycle();
         }
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.samsung_related_card, this, true);
+        inflater.inflate(R.layout.oui_related_card, this, true);
 
         mRelatedCardTitle = findViewById(R.id.related_card_title);
         mRelatedCardContainer = findViewById(R.id.related_card_container);

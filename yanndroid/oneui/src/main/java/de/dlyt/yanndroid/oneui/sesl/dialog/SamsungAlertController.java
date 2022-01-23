@@ -141,7 +141,7 @@ public class SamsungAlertController {
                     lp.height = mContext.getResources().getDimensionPixelSize(R.dimen.sesl_dialog_button_min_height);
                     lp.width = mContext.getResources().getDimensionPixelSize(R.dimen.sesl_dialog_button_min_height);
 
-                    View inflate = LayoutInflater.from(mContext).inflate(R.layout.dialog_progress_bar, buttonBar, false);
+                    View inflate = LayoutInflater.from(mContext).inflate(R.layout.oui_dialog_progress_bar, buttonBar, false);
                     inflate.setLayoutParams(lp);
 
                     buttonBar.removeView(v);

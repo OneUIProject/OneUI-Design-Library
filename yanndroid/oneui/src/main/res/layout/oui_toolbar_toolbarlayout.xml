@@ -15,10 +15,10 @@
         app:popupTheme="?toolbarTheme">
 
         <!--main toolbar-->
-        <include layout="@layout/samsung_toolbarlayout_main_toolbar" />
+        <include layout="@layout/oui_toolbarlayout_main_toolbar" />
 
         <!--search toolbar-->
-        <include layout="@layout/samsung_toolbarlayout_search_toolbar" />
+        <include layout="@layout/oui_toolbarlayout_search_toolbar" />
 
     </com.google.android.material.appbar.MaterialToolbar>
 
@@ -32,6 +32,6 @@
         app:roundedCorners="all" />
 
     <!--footer-->
-    <include layout="@layout/samsung_toolbarlayout_footer" />
+    <include layout="@layout/oui_toolbarlayout_footer" />
 
 </LinearLayout>

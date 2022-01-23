@@ -50,7 +50,7 @@ public class Snackbar extends BaseTransientBottomBar<Snackbar> {
     public static Snackbar make(@NonNull View view, @NonNull CharSequence charSequence, int i) {
         ViewGroup findSuitableParent = findSuitableParent(view);
         if (findSuitableParent != null) {
-            SnackbarContentLayout snackbarContentLayout = (SnackbarContentLayout) LayoutInflater.from(findSuitableParent.getContext()).inflate(R.layout.design_layout_snackbar_include, findSuitableParent, false);
+            SnackbarContentLayout snackbarContentLayout = (SnackbarContentLayout) LayoutInflater.from(findSuitableParent.getContext()).inflate(R.layout.oui_design_layout_snackbar_include, findSuitableParent, false);
             Snackbar snackbar = new Snackbar(findSuitableParent, snackbarContentLayout, snackbarContentLayout);
             snackbar.setText(charSequence);
             snackbar.setDuration(i);
