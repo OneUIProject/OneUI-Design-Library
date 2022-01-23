@@ -39,7 +39,7 @@ public class PreferencesRelatedCard extends LinearLayout {
     }
 
     private void init() {
-        mParentView = LayoutInflater.from(mContext).inflate(R.layout.samsung_related_card_preference, this);
+        mParentView = LayoutInflater.from(mContext).inflate(R.layout.oui_related_card_preference, this);
         mParentView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mCardTitleText = mParentView.findViewById(R.id.related_card_title);
         mCardContainer = mParentView.findViewById(R.id.related_card_container);
@@ -56,7 +56,7 @@ public class PreferencesRelatedCard extends LinearLayout {
     public PreferencesRelatedCard addButton(CharSequence titleText, View.OnClickListener ocl) {
         TextView textView = new TextView(new ContextThemeWrapper(mContext, R.style.RelatedButtonStyle));
         textView.setFocusable(true);
-        textView.setBackgroundResource(R.drawable.related_button_ripple_background);
+        textView.setBackgroundResource(R.drawable.oui_related_button_ripple_background);
         textView.setText(titleText);
         textView.setOnClickListener(ocl);
         mCardContainer.addView(textView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));

@@ -45,7 +45,7 @@ class PopupMenuItemView extends LinearLayout {
         mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.menu_item_popup_item, this, true);
+        inflater.inflate(R.layout.oui_menu_item_popup_item, this, true);
 
         containerView = findViewById(R.id.menu_item_container);
         menuDivider = findViewById(R.id.menu_group_divider);

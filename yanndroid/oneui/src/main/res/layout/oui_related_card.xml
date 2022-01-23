@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/related_card_background"
+    android:background="@drawable/oui_related_card_background"
     android:orientation="vertical"
     android:paddingTop="@dimen/widget_related_card_view_margin_top_bottom"
     android:paddingEnd="@dimen/widget_related_card_view_margin_start_end"

@@ -73,7 +73,7 @@ public class SwitchBar extends LinearLayout implements CompoundButton.OnCheckedC
         this.mSessionDesc = null;
 
         TypedArray isOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4});
-        LayoutInflater.from(context).inflate(isOneUI4.getBoolean(0, false) ? R.layout.samsung4_switchbar : R.layout.samsung_switchbar, this);
+        LayoutInflater.from(context).inflate(isOneUI4.getBoolean(0, false) ? R.layout.oui4_switchbar : R.layout.oui_switchbar, this);
         isOneUI4.recycle();
 
         Resources resources = getResources();

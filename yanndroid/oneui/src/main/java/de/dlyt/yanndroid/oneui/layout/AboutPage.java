@@ -62,7 +62,7 @@ public class AboutPage extends LinearLayout {
         }
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.samsung_about_screen, this, true);
+        inflater.inflate(R.layout.oui_about_screen, this, true);
 
         toolbarLayout = findViewById(R.id.toolbar_layout);
         about_content = findViewById(R.id.about_content);
@@ -86,7 +86,7 @@ public class AboutPage extends LinearLayout {
             }
         });
 
-        toolbarLayout.inflateToolbarMenu(R.menu.about_page);
+        toolbarLayout.inflateToolbarMenu(R.menu.oui_about_page);
         if (mIsOneUI4) {
             toolbarLayout.getToolbarMenu().findItem(R.id.app_info).setIcon(getResources().getDrawable(R.drawable.ic_samsung_info_2, context.getTheme()));
         }

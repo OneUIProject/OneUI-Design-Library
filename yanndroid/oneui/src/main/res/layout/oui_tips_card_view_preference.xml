@@ -43,7 +43,7 @@
             android:layout_height="22.0dip"
             android:layout_alignParentEnd="true"
             android:background="?android:selectableItemBackgroundBorderless"
-            android:src="@drawable/tips_card_view_cancel_button"
+            android:src="@drawable/oui_tips_card_view_cancel_button"
             android:tint="@color/tips_card_view_item_color" />
     </RelativeLayout>
 </RelativeLayout>

@@ -44,7 +44,7 @@ public class TooltipPopup {
             mContext = context;
         }
 
-        mContentView = LayoutInflater.from(mContext).inflate(R.layout.samsung_tooltip, null);
+        mContentView = LayoutInflater.from(mContext).inflate(R.layout.oui_tooltip, null);
         mMessageView = (TextView) mContentView.findViewById(R.id.message);
         mContentView.setOnTouchListener(new View.OnTouchListener() {
             @Override

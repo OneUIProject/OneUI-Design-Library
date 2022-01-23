@@ -66,7 +66,7 @@ public class DrawerLayout extends LinearLayout {
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DrawerLayout, 0, 0);
 
         try {
-            mLayout = attr.getResourceId(R.styleable.DrawerLayout_android_layout, R.layout.samsung_drawerlayout);
+            mLayout = attr.getResourceId(R.styleable.DrawerLayout_android_layout, R.layout.oui_drawerlayout);
             mToolbarTitle = attr.getString(R.styleable.DrawerLayout_toolbar_title);
             mToolbarSubtitle = attr.getString(R.styleable.DrawerLayout_toolbar_subtitle);
             mDrawerIcon = attr.getDrawable(R.styleable.DrawerLayout_drawer_icon);
@@ -224,7 +224,7 @@ public class DrawerLayout extends LinearLayout {
 
     public void setDrawerButtonBadge(int count) {
         if (drawerIconBadgeBackground == null) {
-            drawerIconBadgeBackground = (ViewGroup) ((LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.navigation_button_badge_layout, drawerButtonContainer, false);
+            drawerIconBadgeBackground = (ViewGroup) ((LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.oui_navigation_button_badge_layout, drawerButtonContainer, false);
             drawerIconBadgeText = (TextView) drawerIconBadgeBackground.getChildAt(0);
             drawerIconBadgeText.setTextSize(0, (float) ((int) getResources().getDimension(R.dimen.sesl_menu_item_badge_text_size)));
             drawerButtonContainer.addView(drawerIconBadgeBackground);

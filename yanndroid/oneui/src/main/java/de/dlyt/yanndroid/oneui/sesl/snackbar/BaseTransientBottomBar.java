@@ -153,7 +153,7 @@ public abstract class BaseTransientBottomBar<B extends BaseTransientBottomBar<B>
             this.contentViewCallback = contentViewCallback2;
             this.context = viewGroup.getContext();
             ThemeEnforcement.checkAppCompatTheme(this.context);
-            this.view = (SnackbarBaseLayout) LayoutInflater.from(this.context).inflate(R.layout.design_layout_snackbar, this.targetParent, false);
+            this.view = (SnackbarBaseLayout) LayoutInflater.from(this.context).inflate(R.layout.oui_design_layout_snackbar, this.targetParent, false);
             if (this.view.getBackground() == null) {
                 ViewCompat.setBackground(this.view, createThemedBackground());
             }

@@ -166,7 +166,7 @@ public class ProgressDialog extends AlertDialog {
 
         if (mProgressStyle == STYLE_CIRCLE_ONLY) {
             int size = (int) ((70 * mContext.getResources().getDisplayMetrics().density));
-            getWindow().setBackgroundDrawableResource(mIsOneUI4 ? android.R.color.transparent : R.drawable.progress_circle_dialog_bg);
+            getWindow().setBackgroundDrawableResource(mIsOneUI4 ? android.R.color.transparent : R.drawable.oui_progress_circle_dialog_bg);
             getWindow().setLayout(size, size);
             getWindow().setGravity(Gravity.CENTER);
             setContentView(inflater.inflate(R.layout.sesl_progress_dialog_circle_only, null));

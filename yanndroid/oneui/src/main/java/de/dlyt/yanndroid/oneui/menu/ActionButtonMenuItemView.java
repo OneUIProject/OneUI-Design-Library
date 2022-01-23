@@ -53,7 +53,7 @@ public class ActionButtonMenuItemView extends LinearLayout {
 
     private void initView() {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.menu_item_action_button, this, true);
+        inflater.inflate(R.layout.oui_menu_item_action_button, this, true);
         iconView = findViewById(R.id.menu_item_icon);
         badgeView = findViewById(R.id.menu_item_badge);
         titleView = findViewById(R.id.menu_item_title);

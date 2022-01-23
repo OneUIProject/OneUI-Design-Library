@@ -14,7 +14,6 @@ import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
 import androidx.appcompat.util.SeslMisc;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.textview.MaterialTextView;
 
@@ -58,7 +57,7 @@ public class OptionButton extends LinearLayout {
         mOffTextColor = ContextCompat.getColor(getContext(), R.color.sesl_switchbar_off_text_color);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.samsung_drawer_optionbutton, this, true);
+        inflater.inflate(R.layout.oui_drawer_optionbutton, this, true);
 
         optionbutton = findViewById(R.id.optionbutton);
         textView = findViewById(R.id.optionbutton_text);

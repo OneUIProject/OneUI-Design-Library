@@ -5,7 +5,7 @@
     <style name="RelatedButtonStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/related_button_ripple_background</item>
+        <item name="android:background">@drawable/oui_related_button_ripple_background</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:textSize">@dimen/widget_related_card_text_size</item>

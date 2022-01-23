@@ -148,7 +148,7 @@ public class ToolbarLayout extends LinearLayout {
         try {
             mExpandable = attr.getBoolean(R.styleable.ToolBarLayout_expandable, true);
             mExpanded = attr.getBoolean(R.styleable.ToolBarLayout_expanded, true);
-            mLayout = attr.getResourceId(R.styleable.ToolBarLayout_android_layout, mExpandable ? R.layout.samsung_appbar_toolbarlayout : R.layout.samsung_toolbar_toolbarlayout);
+            mLayout = attr.getResourceId(R.styleable.ToolBarLayout_android_layout, mExpandable ? R.layout.oui_appbar_toolbarlayout : R.layout.oui_toolbar_toolbarlayout);
             mTitleExpanded = attr.getString(R.styleable.ToolBarLayout_title);
             mSubtitle = attr.getString(R.styleable.ToolBarLayout_subtitle);
             mNavigationIcon = attr.getDrawable(R.styleable.ToolBarLayout_navigationIcon);
@@ -694,7 +694,7 @@ public class ToolbarLayout extends LinearLayout {
 
     public void setNavigationButtonBadge(int count) {
         if (navigationBadgeBackground == null) {
-            navigationBadgeBackground = (ViewGroup) ((LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.navigation_button_badge_layout, navigationButtonContainer, false);
+            navigationBadgeBackground = (ViewGroup) ((LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.oui_navigation_button_badge_layout, navigationButtonContainer, false);
             navigationBadgeText = (TextView) navigationBadgeBackground.getChildAt(0);
             navigationBadgeText.setTextSize(0, (float) ((int) getResources().getDimension(R.dimen.sesl_menu_item_badge_text_size)));
             navigationButtonContainer.addView(navigationBadgeBackground);
