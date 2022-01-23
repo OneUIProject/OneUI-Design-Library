@@ -43,7 +43,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
-import com.google.android.material.R;
 import com.google.android.material.behavior.SwipeDismissBehavior;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.internal.ThemeEnforcement;
@@ -54,6 +53,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.android.material.theme.overlay.MaterialThemeOverlay.wrap;
+
+import de.dlyt.yanndroid.oneui.R;
 
 public abstract class BaseTransientBottomBar<B extends BaseTransientBottomBar<B>> {
     public static final int ANIMATION_MODE_FADE = 1;

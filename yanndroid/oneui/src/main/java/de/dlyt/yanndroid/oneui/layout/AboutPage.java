@@ -7,6 +7,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -77,6 +78,10 @@ public class AboutPage extends LinearLayout {
         setOptionalText(optional_text);
         setUpdateState(update_state);
 
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            toolbarLayout.findViewById(R.id.toolbar_layout_app_bar).setBackgroundColor(getResources().getColor(R.color.splash_background));
+            toolbarLayout.findViewById(R.id.toolbar_layout_collapsing_toolbar_layout).setBackgroundColor(getResources().getColor(R.color.splash_background));
+        }
         toolbarLayout.setNavigationButtonIcon(getResources().getDrawable(R.drawable.ic_samsung_back, context.getTheme()));
         toolbarLayout.setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigate_up));
         toolbarLayout.setNavigationButtonOnClickListener(new OnClickListener() {
