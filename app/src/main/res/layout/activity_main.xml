@@ -21,13 +21,4 @@
 
     <include layout="@layout/content_drawer" />
 
-    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_location="root"
-        app:srcCompat="@drawable/ic_samsung_favorite_on" />-->
-
 </de.dlyt.yanndroid.oneui.layout.DrawerLayout>

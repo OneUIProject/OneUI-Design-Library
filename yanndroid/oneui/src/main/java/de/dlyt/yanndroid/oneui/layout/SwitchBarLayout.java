@@ -9,18 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.widget.SwitchBar;
 
-public class SwitchBarLayout extends ToolbarLayoutWrapper {
+public class SwitchBarLayout extends LinearLayout {
 
     private int mLayout;
     private String mToolbarTitle;
     private String mToolbarSubtitle;
     private Boolean mToolbarExpanded;
+    private ToolbarLayout toolbarLayout;
     private SwitchBar switchBar;
     private FrameLayout mainContainer;
 
@@ -40,13 +42,13 @@ public class SwitchBarLayout extends ToolbarLayoutWrapper {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(mLayout, this, true);
 
-        setToolbarLayout(findViewById(R.id.toolbar_switchbarlayout));
+        toolbarLayout = findViewById(R.id.toolbar_switchbarlayout);
 
-        setTitle(mToolbarTitle);
-        setSubtitle(mToolbarSubtitle);
-        setExpanded(mToolbarExpanded, false);
-        setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigate_up));
-        setNavigationButtonOnClickListener(v -> getActivity().onBackPressed());
+        toolbarLayout.setTitle(mToolbarTitle);
+        toolbarLayout.setSubtitle(mToolbarSubtitle);
+        toolbarLayout.setExpanded(mToolbarExpanded, false);
+        toolbarLayout.setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigate_up));
+        toolbarLayout.setNavigationButtonOnClickListener(v -> getActivity().onBackPressed());
 
         switchBar = findViewById(R.id.switchbar_switchbarlayout);
 
@@ -55,6 +57,26 @@ public class SwitchBarLayout extends ToolbarLayoutWrapper {
 
     public SwitchBar getSwitchBar() {
         return switchBar;
+    }
+
+    public ToolbarLayout getToolbarLayout() {
+        return toolbarLayout;
+    }
+
+    public void setToolbarTitle(CharSequence title) {
+        toolbarLayout.setTitle(title);
+    }
+
+    public void setToolbarTitle(CharSequence expandedTitle, CharSequence collapsedTitle) {
+        toolbarLayout.setTitle(expandedTitle, collapsedTitle);
+    }
+
+    public void setToolbarSubtitle(String subtitle) {
+        toolbarLayout.setSubtitle(subtitle);
+    }
+
+    public void setToolbarExpanded(boolean expanded, boolean animate) {
+        toolbarLayout.setExpanded(expanded, animate);
     }
 
     @Override

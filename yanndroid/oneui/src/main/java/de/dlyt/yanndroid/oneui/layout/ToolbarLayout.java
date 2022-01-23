@@ -52,18 +52,17 @@ import de.dlyt.yanndroid.oneui.menu.MenuItem;
 import de.dlyt.yanndroid.oneui.menu.PopupMenu;
 import de.dlyt.yanndroid.oneui.sesl.appbar.SamsungAppBarLayout;
 import de.dlyt.yanndroid.oneui.sesl.appbar.SamsungCollapsingToolbarLayout;
-import de.dlyt.yanndroid.oneui.sesl.coordinatorlayout.SamsungCoordinatorLayout;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.support.WindowManagerSupport;
 import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
 import de.dlyt.yanndroid.oneui.widget.RoundLinearLayout;
 
-public class ToolbarLayout extends SamsungCoordinatorLayout {
+public class ToolbarLayout extends LinearLayout {
     public static final int N_BADGE = -1;
     private static String TAG = "ToolbarLayout";
     private boolean mIsOneUI4;
-    private ViewGroup navigationBadgeBackground;
-    private TextView navigationBadgeText;
+    public ViewGroup navigationBadgeBackground;
+    public TextView navigationBadgeText;
     private Context mContext;
     private AppCompatActivity mActivity;
     private NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
@@ -74,7 +73,7 @@ public class ToolbarLayout extends SamsungCoordinatorLayout {
     private CharSequence mSubtitle;
     private Boolean mExpandable;
     private Boolean mExpanded;
-    private SamsungCoordinatorLayout root_layout;
+    private LinearLayout root_layout;
     private SamsungAppBarLayout appBarLayout;
     private SamsungCollapsingToolbarLayout collapsingToolbarLayout;
     private MaterialToolbar toolbar;
@@ -160,7 +159,7 @@ public class ToolbarLayout extends SamsungCoordinatorLayout {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(mLayout, this, true);
 
-        root_layout = findViewById(R.id.toolbar_layout_coordinator_layout);
+        root_layout = findViewById(R.id.toolbar_layout_root);
         if (mExpandable) {
             appBarLayout = findViewById(R.id.toolbar_layout_app_bar);
             collapsingToolbarLayout = findViewById(R.id.toolbar_layout_collapsing_toolbar_layout);
@@ -239,25 +238,26 @@ public class ToolbarLayout extends SamsungCoordinatorLayout {
         if (mainContainer == null || bottomContainer == null) {
             super.addView(child, index, params);
         } else {
-            switch (((ToolbarLayout.Drawer_Toolbar_LayoutParams) params).layout_location) {
+            ToolbarLayout.Drawer_Toolbar_LayoutParams lp = (ToolbarLayout.Drawer_Toolbar_LayoutParams) params;
+            switch (lp.layout_location) {
                 case 0:
-                    mainContainer.addView(child, params);
+                    mainContainer.addView(child, index, params);
                     break;
                 case 1:
                     setCustomTitleView(child, new SamsungCollapsingToolbarLayout.LayoutParams(params));
                     break;
                 case 2:
-                    bottomContainer.addView(child, params);
+                    bottomContainer.addView(child, index, params);
                     break;
                 case 3:
-                    root_layout.addView(child, params);
+                    root_layout.addView(child, index, params);
                     break;
             }
         }
     }
 
     @Override
-    public LayoutParams generateDefaultLayoutParams() {
+    protected LayoutParams generateDefaultLayoutParams() {
         return new Drawer_Toolbar_LayoutParams(getContext(), null);
     }
 
@@ -405,11 +405,11 @@ public class ToolbarLayout extends SamsungCoordinatorLayout {
         collapsingToolbarLayout.seslSetCustomTitleView(view, params);
     }
 
-    public void setImmersiveScroll(boolean activate) {
+    public void setImmersiveScroll(boolean activate){
         appBarLayout.seslSetImmersiveScroll(activate);
     }
 
-    public boolean isImmersiveScroll() {
+    public boolean isImmersiveScroll(){
         return appBarLayout.seslGetImmersiveScroll();
     }
 
