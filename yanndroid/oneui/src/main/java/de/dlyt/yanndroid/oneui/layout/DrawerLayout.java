@@ -260,6 +260,14 @@ public class DrawerLayout extends LinearLayout {
 
     }
 
+    public void setImmersiveScroll(boolean activate) {
+        toolbarLayout.setImmersiveScroll(activate);
+    }
+
+    public boolean isImmersiveScroll() {
+        return toolbarLayout.isImmersiveScroll();
+    }
+
     //
     // others
     //

@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.oneui.widget;
+package de.dlyt.yanndroid.oneui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

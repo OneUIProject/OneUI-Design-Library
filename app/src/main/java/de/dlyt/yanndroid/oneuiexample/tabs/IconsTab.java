@@ -30,7 +30,7 @@ import de.dlyt.yanndroid.oneui.sesl.recyclerview.LinearLayoutManager;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 import de.dlyt.yanndroid.oneui.view.ViewPager;
 import de.dlyt.yanndroid.oneui.widget.BottomNavigationView;
-import de.dlyt.yanndroid.oneui.widget.IndexScrollView;
+import de.dlyt.yanndroid.oneui.view.IndexScrollView;
 import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneuiexample.R;
 

@@ -405,6 +405,14 @@ public class ToolbarLayout extends LinearLayout {
         collapsingToolbarLayout.seslSetCustomTitleView(view, params);
     }
 
+    public void setImmersiveScroll(boolean activate){
+        appBarLayout.seslSetImmersiveScroll(activate);
+    }
+
+    public boolean isImmersiveScroll(){
+        return appBarLayout.seslGetImmersiveScroll();
+    }
+
     //
     // Select Mode methods
     //
