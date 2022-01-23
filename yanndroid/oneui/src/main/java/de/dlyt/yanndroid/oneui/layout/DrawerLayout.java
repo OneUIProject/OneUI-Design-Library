@@ -33,7 +33,7 @@ import java.util.Locale;
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
 
-public class DrawerLayout extends LinearLayout {
+public class DrawerLayout extends ToolbarLayoutWrapper {
 
     private boolean mIsOneUI4;
     public static final int N_BADGE = -1;
@@ -63,6 +63,7 @@ public class DrawerLayout extends LinearLayout {
         mContext = context;
         mActivity = getActivity();
 
+
         TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DrawerLayout, 0, 0);
 
         try {
@@ -80,12 +81,13 @@ public class DrawerLayout extends LinearLayout {
 
         drawer_container = findViewById(R.id.drawer_container);
         toolbarLayout = findViewById(R.id.drawer_toolbarlayout);
+        setToolbarLayout(toolbarLayout);
 
         toolbarLayout.syncWithDrawer(this);
-        toolbarLayout.setTitle(mToolbarTitle);
-        toolbarLayout.setSubtitle(mToolbarSubtitle);
-        toolbarLayout.setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigation_drawer));
-        toolbarLayout.setExpanded(mToolbarExpanded, false);
+        setTitle(mToolbarTitle);
+        setSubtitle(mToolbarSubtitle);
+        setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigation_drawer));
+        setExpanded(mToolbarExpanded, false);
         drawerButtonContainer = findViewById(R.id.drawer_layout_drawerButton_container);
         drawerButton = findViewById(R.id.drawer_layout_drawerButton);
 
@@ -150,7 +152,7 @@ public class DrawerLayout extends LinearLayout {
                 }
             };
             drawerLayout.addDrawerListener(actionBarDrawerToggle);
-            toolbarLayout.setNavigationButtonOnClickListener(v -> drawerLayout.openDrawer(drawer, true));
+            setNavigationButtonOnClickListener(v -> drawerLayout.openDrawer(drawer, true));
 
         }
     }
@@ -183,10 +185,6 @@ public class DrawerLayout extends LinearLayout {
     //
     // Drawer methods
     //
-    public ToolbarLayout getToolbarLayout() {
-        return toolbarLayout;
-    }
-
     public void setDrawerButtonOnClickListener(OnClickListener listener) {
         drawerButton.setOnClickListener(listener);
     }
@@ -195,24 +193,8 @@ public class DrawerLayout extends LinearLayout {
         drawerButton.setTooltipText(tooltipText);
     }
 
-    public void setToolbarTitle(CharSequence title) {
-        toolbarLayout.setTitle(title);
-    }
-
-    public void setToolbarTitle(CharSequence expandedTitle, CharSequence collapsedTitle) {
-        toolbarLayout.setTitle(expandedTitle, collapsedTitle);
-    }
-
-    public void setToolbarSubtitle(String subtitle) {
-        toolbarLayout.setSubtitle(subtitle);
-    }
-
-    public void setToolbarExpanded(boolean expanded, boolean animate) {
-        toolbarLayout.setExpanded(expanded, animate);
-    }
-
     public void setButtonBadges(int navigationIcon, int drawerIcon) {
-        toolbarLayout.setNavigationButtonBadge(navigationIcon);
+        setNavigationButtonBadge(navigationIcon);
         setDrawerButtonBadge(drawerIcon);
     }
 
@@ -260,14 +242,6 @@ public class DrawerLayout extends LinearLayout {
 
     }
 
-    public void setImmersiveScroll(boolean activate) {
-        toolbarLayout.setImmersiveScroll(activate);
-    }
-
-    public boolean isImmersiveScroll() {
-        return toolbarLayout.isImmersiveScroll();
-    }
-
     //
     // others
     //
@@ -287,23 +261,22 @@ public class DrawerLayout extends LinearLayout {
         if (toolbarLayout == null || drawer_container == null) {
             super.addView(child, index, params);
         } else {
-            ToolbarLayout.Drawer_Toolbar_LayoutParams lp = (ToolbarLayout.Drawer_Toolbar_LayoutParams) params;
-            switch (lp.layout_location) {
+            switch (((ToolbarLayout.Drawer_Toolbar_LayoutParams) params).layout_location) {
                 case 0:
                 case 1:
                 case 2:
                 case 3:
-                    toolbarLayout.addView(child, index, params);
+                    toolbarLayout.addView(child, params);
                     break;
                 case 4:
-                    drawer_container.addView(child, index, params);
+                    drawer_container.addView(child, params);
                     break;
             }
         }
     }
 
     @Override
-    protected LayoutParams generateDefaultLayoutParams() {
+    public LayoutParams generateDefaultLayoutParams() {
         return new ToolbarLayout.Drawer_Toolbar_LayoutParams(getContext(), null);
     }
 

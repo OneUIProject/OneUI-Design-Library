@@ -53,7 +53,6 @@ public class MainActivity extends BaseThemeActivity {
     private TabsManager mTabsManager;
 
     private DrawerLayout drawerLayout;
-    private ToolbarLayout toolbarLayout;
     private BottomNavigationView bnvLayout;
     private PopupMenu bnvPopupMenu;
 
@@ -67,7 +66,7 @@ public class MainActivity extends BaseThemeActivity {
         mContext = this;
         setContentView(R.layout.activity_main);
 
-        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> toolbarLayout.onSearchModeVoiceInputResult(result));
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> drawerLayout.onSearchModeVoiceInputResult(result));
 
         init();
     }
@@ -113,7 +112,6 @@ public class MainActivity extends BaseThemeActivity {
         ViewSupport.semSetRoundedCorners(getWindow().getDecorView(), 0);
 
         drawerLayout = findViewById(R.id.drawer_view);
-        toolbarLayout = drawerLayout.getToolbarLayout();
         bnvLayout = findViewById(R.id.main_samsung_tabs);
 
         sharedPrefName = "mainactivity_tabs";
@@ -131,7 +129,7 @@ public class MainActivity extends BaseThemeActivity {
         drawerLayout.setDrawerButtonTooltip(getText(R.string.app_info));
         drawerLayout.setButtonBadges(ToolbarLayout.N_BADGE, DrawerLayout.N_BADGE);
 
-        toolbarLayout.getAppBarLayout().addOnOffsetChangedListener((layout, verticalOffset) -> {
+        drawerLayout.getAppBarLayout().addOnOffsetChangedListener((layout, verticalOffset) -> {
             int totalScrollRange = layout.getTotalScrollRange();
             int inputMethodWindowVisibleHeight = (int) ReflectUtils.genericInvokeMethod(InputMethodManager.class, mContext.getSystemService(INPUT_METHOD_SERVICE), "getInputMethodWindowVisibleHeight");
             LinearLayout nothingLayout = findViewById(R.id.nothing_layout);
@@ -144,12 +142,12 @@ public class MainActivity extends BaseThemeActivity {
             }
         });
 
-        toolbarLayout.inflateToolbarMenu(R.menu.main);
-        toolbarLayout.getToolbarMenu().findItem(R.id.theme_toggle).setTitle(mUseOUI4Theme ? "Switch to OneUI 3 Theme" : "Switch to OneUI 4 Theme");
-        toolbarLayout.setOnToolbarMenuItemClickListener(item -> {
+        drawerLayout.inflateToolbarMenu(R.menu.main);
+        drawerLayout.getToolbarMenu().findItem(R.id.theme_toggle).setTitle(mUseOUI4Theme ? "Switch to OneUI 3 Theme" : "Switch to OneUI 4 Theme");
+        drawerLayout.setOnToolbarMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.search:
-                    toolbarLayout.showSearchMode();
+                    drawerLayout.showSearchMode();
                     item.setBadge(item.getBadge() + 1);
                     break;
                 case R.id.info:
@@ -163,7 +161,7 @@ public class MainActivity extends BaseThemeActivity {
 
             return true;
         });
-        toolbarLayout.setSearchModeListener(new ToolbarLayout.SearchModeListener() {
+        drawerLayout.setSearchModeListener(new ToolbarLayout.SearchModeListener() {
             @Override
             public void onKeyboardSearchClick(CharSequence s) {
                 Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
@@ -215,15 +213,17 @@ public class MainActivity extends BaseThemeActivity {
 
                 if (tabPosition == 0) {
                     // MainActivityFirstFragment
-                    toolbarLayout.setSubtitle("Design");
-                    toolbarLayout.setNavigationButtonVisible(true);
-                    toolbarLayout.getToolbarMenu().findItem(R.id.search).setVisible(true);
+                    drawerLayout.setSubtitle("Design");
+                    drawerLayout.setNavigationButtonVisible(true);
+                    drawerLayout.getToolbarMenu().findItem(R.id.search).setVisible(true);
+                    drawerLayout.setImmersiveScroll(false);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.findViewById(R.id.drawerLayout)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
                 } else {
                     // MainActivitySecondFragment
-                    toolbarLayout.setSubtitle("Preferences");
-                    toolbarLayout.setNavigationButtonVisible(false);
-                    toolbarLayout.getToolbarMenu().findItem(R.id.search).setVisible(false);
+                    drawerLayout.setSubtitle("Preferences");
+                    drawerLayout.setNavigationButtonVisible(false);
+                    drawerLayout.getToolbarMenu().findItem(R.id.search).setVisible(false);
+                    drawerLayout.setImmersiveScroll(true);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.findViewById(R.id.drawerLayout)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 }
 
