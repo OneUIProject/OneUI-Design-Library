@@ -6,7 +6,7 @@
     android:animateLayoutChanges="true"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/toolbar_layout_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

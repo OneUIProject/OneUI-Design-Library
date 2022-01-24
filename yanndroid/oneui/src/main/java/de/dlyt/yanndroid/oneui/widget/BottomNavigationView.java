@@ -9,7 +9,6 @@ import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Display;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -90,7 +89,7 @@ public class BottomNavigationView extends SamsungBaseTabLayout implements View.O
 
             if (tab.getIsCustomButtonView()) {
                 width = tab.getIcon().getIntrinsicWidth();
-                tabView.setBackground(getContext().getDrawable(R.drawable.bottomnavview_button_background));
+                tabView.setBackground(getContext().getDrawable(R.drawable.oui_bottomnavview_button_background));
             } else
                 width = getTabTextWidth(tab.seslGetTextView());
 

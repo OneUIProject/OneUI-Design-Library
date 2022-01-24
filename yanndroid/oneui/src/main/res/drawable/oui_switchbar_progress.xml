@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/switchbar_progress_vector_drawable">
+    android:drawable="@drawable/oui_switchbar_progress_vector_drawable">
     <target
         android:name="progressBase1"
         android:animation="@anim/sesl_progress_indeterminate_base" />

@@ -28,7 +28,7 @@
             android:layout_height="25.0dip"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="@dimen/sesl_switchbar_progress_margin_right"
-            android:indeterminateDrawable="@drawable/switchbar_progress"
+            android:indeterminateDrawable="@drawable/oui_switchbar_progress"
             android:visibility="gone" />
 
         <androidx.appcompat.widget.SeslToggleSwitch

@@ -86,8 +86,8 @@ abstract class HeaderBehavior<V extends View> extends ViewOffsetBehavior<V> {
 
     @Override
     public boolean onTouchEvent(@NonNull SamsungCoordinatorLayout parent, @NonNull V child, @NonNull MotionEvent ev) {
-        boolean consumeUp = false;
         mLastTouchEvent = ev.getAction();
+
         switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_MOVE:
                 final int activePointerIndex = ev.findPointerIndex(activePointerId);
@@ -108,7 +108,6 @@ abstract class HeaderBehavior<V extends View> extends ViewOffsetBehavior<V> {
             case MotionEvent.ACTION_UP:
                 if (mHasNoSnapFlag) {
                     if (velocityTracker != null) {
-                        consumeUp = true;
                         velocityTracker.addMovement(ev);
                         velocityTracker.computeCurrentVelocity(1000);
                         float yvel = velocityTracker.getYVelocity(activePointerId);
@@ -130,7 +129,7 @@ abstract class HeaderBehavior<V extends View> extends ViewOffsetBehavior<V> {
             velocityTracker.addMovement(ev);
         }
 
-        return isBeingDragged || consumeUp;
+        return isBeingDragged;
     }
 
     int setHeaderTopBottomOffset(SamsungCoordinatorLayout parent, V header, int newOffset) {

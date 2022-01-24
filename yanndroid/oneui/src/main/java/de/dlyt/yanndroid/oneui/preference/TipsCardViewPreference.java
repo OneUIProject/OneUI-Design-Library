@@ -27,7 +27,7 @@ public class TipsCardViewPreference extends Preference {
         super(context, attrs, defStyleAttr);
         mContext = context;
         setSelectable(false);
-        setLayoutResource(R.layout.tips_card_view_preference);
+        setLayoutResource(R.layout.oui_tips_card_view_preference);
         mTextColor = ContextCompat.getColor(context, R.color.tips_card_view_item_color);
     }
 

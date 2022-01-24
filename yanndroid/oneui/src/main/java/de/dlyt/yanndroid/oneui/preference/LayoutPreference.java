@@ -116,7 +116,7 @@ public class LayoutPreference extends Preference {
     }
 
     private void setView(View view) {
-        setLayoutResource(R.layout.layout_preference);
+        setLayoutResource(R.layout.oui_layout_preference);
 
         ViewGroup allDetails = view.findViewById(R.id.all_details);
         if (allDetails != null) {

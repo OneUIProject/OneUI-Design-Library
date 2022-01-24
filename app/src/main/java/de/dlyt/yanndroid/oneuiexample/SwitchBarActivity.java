@@ -3,9 +3,11 @@ package de.dlyt.yanndroid.oneuiexample;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import de.dlyt.yanndroid.oneui.layout.SwitchBarLayout;
+import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneui.widget.Switch;
 import de.dlyt.yanndroid.oneui.widget.SwitchBar;
 import de.dlyt.yanndroid.oneuiexample.base.BaseThemeActivity;
@@ -20,6 +22,8 @@ public class SwitchBarActivity extends BaseThemeActivity implements SwitchBar.On
 
         SwitchBarLayout switchBarLayout = findViewById(R.id.switchbarlayout_switchbaractivity);
 
+        switchBarLayout.setNavigationButtonTooltip(getString(R.string.sesl_navigate_up));
+        switchBarLayout.setNavigationButtonOnClickListener(view -> onBackPressed());
         switchBarLayout.inflateToolbarMenu(R.menu.switchpreferencescreen_menu);
         switchBarLayout.setOnToolbarMenuItemClickListener(item -> {
             Toast.makeText(this, "Item clicked", Toast.LENGTH_SHORT).show();

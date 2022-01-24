@@ -1,8 +1,6 @@
 package de.dlyt.yanndroid.oneui.layout;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -15,65 +13,60 @@ import androidx.annotation.Nullable;
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.widget.SwitchBar;
 
-public class SwitchBarLayout extends ToolbarLayoutWrapper {
-
-    private int mLayout;
-    private String mToolbarTitle;
-    private String mToolbarSubtitle;
-    private Boolean mToolbarExpanded;
+public class SwitchBarLayout extends ToolbarLayout {
+    private static final String TAG = "SwitchBarLayout";
     private SwitchBar switchBar;
-    private FrameLayout mainContainer;
+    private FrameLayout content;
 
     public SwitchBarLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SwitchBarLayout, 0, 0);
+
+        LayoutInflater.from(mContext).inflate(R.layout.oui_toolbarlayout_switchbar, mainContainer, true);
+        switchBar = findViewById(R.id.switchbar_switchbarlayout);
+        content = findViewById(R.id.switchbarlayout_container);
+    }
+
+    //
+    // Layout methods
+    //
+    @Override
+    protected void initLayoutAttrs(@Nullable AttributeSet attrs) {
+        TypedArray attr = mContext.getTheme().obtainStyledAttributes(attrs, R.styleable.SwitchBarLayout, 0, 0);
 
         try {
-            mLayout = attr.getResourceId(R.styleable.SwitchBarLayout_android_layout, R.layout.samsung_switchbarlayout);
-            mToolbarTitle = attr.getString(R.styleable.SwitchBarLayout_toolbar_title);
-            mToolbarSubtitle = attr.getString(R.styleable.SwitchBarLayout_toolbar_subtitle);
-            mToolbarExpanded = attr.getBoolean(R.styleable.SwitchBarLayout_toolbar_expanded, false);
+            mLayout = attr.getResourceId(R.styleable.SwitchBarLayout_android_layout, R.layout.oui_toolbarlayout_appbar);
+            mExpandable = attr.getBoolean(R.styleable.SwitchBarLayout_toolbar_expandable, true);
+            mExpanded = attr.getBoolean(R.styleable.SwitchBarLayout_toolbar_expanded, mExpandable);
+            mNavigationIcon = attr.getDrawable(R.styleable.SwitchBarLayout_toolbar_navigationIcon);
+            mTitle = attr.getString(R.styleable.SwitchBarLayout_toolbar_title);
+            mSubtitle = attr.getString(R.styleable.SwitchBarLayout_toolbar_subtitle);
         } finally {
             attr.recycle();
         }
-
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(mLayout, this, true);
-
-        setToolbarLayout(findViewById(R.id.toolbar_switchbarlayout));
-
-        setTitle(mToolbarTitle);
-        setSubtitle(mToolbarSubtitle);
-        setExpanded(mToolbarExpanded, false);
-        setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigate_up));
-        setNavigationButtonOnClickListener(v -> getActivity().onBackPressed());
-
-        switchBar = findViewById(R.id.switchbar_switchbarlayout);
-
-        mainContainer = findViewById(R.id.switchbar_container);
-    }
-
-    public SwitchBar getSwitchBar() {
-        return switchBar;
     }
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
-        if (mainContainer == null) {
+        if (content == null) {
             super.addView(child, index, params);
         } else {
-            mainContainer.addView(child, index, params);
+            Drawer_Toolbar_LayoutParams lp = (Drawer_Toolbar_LayoutParams) params;
+            switch (lp.layout_location) {
+                default:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    super.addView(child, index, params);
+                    break;
+                case 0:
+                    content.addView(child, index, params);
+                    break;
+            }
         }
     }
 
-    private Activity getActivity() {
-        Context context = getContext();
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (Activity) context;
-            }
-            context = ((ContextWrapper) context).getBaseContext();
-        }
-        return null;
+    public SwitchBar getSwitchBar() {
+        return switchBar;
     }
 }

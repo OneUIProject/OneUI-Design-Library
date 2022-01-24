@@ -25,11 +25,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
+import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneui.sesl.recyclerview.LinearLayoutManager;
-import de.dlyt.yanndroid.oneui.view.IndexScrollView;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 import de.dlyt.yanndroid.oneui.view.ViewPager;
 import de.dlyt.yanndroid.oneui.widget.BottomNavigationView;
+import de.dlyt.yanndroid.oneui.view.IndexScrollView;
 import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneuiexample.R;
 
@@ -332,7 +333,7 @@ public class IconsTab extends Fragment {
 
 
     public void setSelecting(boolean enabled) {
-        DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawer_view);
+        DrawerLayout drawerLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view));
         TabLayout tabLayout = getActivity().findViewById(R.id.tabLayout);
         BottomNavigationView bnv = getActivity().findViewById(R.id.main_samsung_tabs);
         ViewPager viewPager = getActivity().findViewById(R.id.viewPager);
@@ -382,7 +383,7 @@ public class IconsTab extends Fragment {
         checkAllListening = false;
         int count = 0;
         for (Boolean b : selected.values()) if (b) count++;
-        DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawer_view);
+        DrawerLayout drawerLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view));
         drawerLayout.setSelectModeAllChecked(count == imageAdapter.getItemCount() - 1);
         drawerLayout.setSelectModeCount(count);
         checkAllListening = true;

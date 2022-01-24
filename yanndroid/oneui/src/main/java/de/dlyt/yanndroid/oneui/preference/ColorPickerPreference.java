@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -75,7 +74,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
     }
 
     private void init(Context context, AttributeSet attrs) {
-        setWidgetLayoutResource(R.layout.color_picker_preference_widget);
+        setWidgetLayoutResource(R.layout.oui_color_picker_preference_widget);
 
         setOnPreferenceClickListener(this);
 
@@ -98,7 +97,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
             return;
         }
 
-        GradientDrawable drawable = (GradientDrawable) getContext().getDrawable(R.drawable.color_picker_preference_preview).mutate();
+        GradientDrawable drawable = (GradientDrawable) getContext().getDrawable(R.drawable.oui_color_picker_preference_preview).mutate();
         drawable.setColor(mValue);
 
         mPreview.setBackground(drawable);
