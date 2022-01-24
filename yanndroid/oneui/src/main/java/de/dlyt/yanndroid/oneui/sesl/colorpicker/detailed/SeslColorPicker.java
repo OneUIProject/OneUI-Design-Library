@@ -244,17 +244,6 @@ public class SeslColorPicker extends LinearLayout implements View.OnClickListene
                 }
             }
         });
-        mColorPickerOpacityEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    mColorPickerHexEditText.requestFocus();
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
     }
 
     @Override
@@ -716,7 +705,7 @@ public class SeslColorPicker extends LinearLayout implements View.OnClickListene
             if (mOpacitySeekBar != null) {
                 mOpacitySeekBar.changeColorBase(color, mPickedColor.getAlpha());
                 mColorPickerOpacityEditText.setText("" + String.format(Locale.getDefault(), "%d", Integer.valueOf(mOpacitySeekBar.getProgress())));
-                mColorPickerOpacityEditText.setSelection(String.valueOf(mOpacitySeekBar.getProgress()).length());
+                mColorPickerOpacityEditText.setSelection(mColorPickerOpacityEditText.getText().length());
             }
 
             if (mSelectedColorBackground != null) {

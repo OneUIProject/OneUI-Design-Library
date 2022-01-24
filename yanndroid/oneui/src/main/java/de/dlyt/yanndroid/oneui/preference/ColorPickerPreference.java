@@ -28,7 +28,6 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
     Dialog mDialog;
     SeslPreferenceImageView mPreview;
     private int mValue = Color.BLACK;
-    private boolean mFirstColor = true;
     private ArrayList<Integer> mUsedColors = new ArrayList();
 
     private boolean mAlphaSliderEnabled = false;
@@ -111,11 +110,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
         mValue = color;
 
         callChangeListener(color);
-
-        if (!mFirstColor)
-            addRecentColor(color);
-        else
-            mFirstColor = false;
+        addRecentColor(color);
         setPreviewColor();
     }
 
@@ -135,7 +130,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
             dialog.show();
 
             mDialog = dialog;
-        } else {
+        } else if (mPickerType == DETAILED) {
             DetailedColorPickerDialog dialog = new DetailedColorPickerDialog(getContext(), this, mValue, getRecentColors(), mAlphaSliderEnabled);
             dialog.setNewColor(mValue);
             dialog.setTransparencyControlEnabled(mAlphaSliderEnabled);
@@ -149,6 +144,10 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
 
     public void setAlphaSliderEnabled(boolean enable) {
         mAlphaSliderEnabled = enable;
+    }
+
+    public void setPickerType(int type) {
+        mPickerType = type;
     }
 
     private void addRecentColor(int color) {

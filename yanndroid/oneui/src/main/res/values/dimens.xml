@@ -128,8 +128,8 @@
     <dimen name="sesl_color_picker_oneui_3_color_swatch_view_width">292.0dip</dimen>
     <dimen name="sesl_color_picker_oneui_3_color_swatch_view_width_background">295.0dip</dimen>
     <dimen name="sesl_color_picker_oneui_3_current_view_height">36.0dip</dimen>
-    <dimen name="sesl_color_picker_oneui_3_current_view_radius">10.0dip</dimen>
-    <dimen name="sesl_color_picker_oneui_3_current_view_stroke">1.0px</dimen>
+    <dimen name="sesl_color_picker_oneui_3_current_view_radius">14.0dip</dimen>
+    <dimen name="sesl_color_picker_oneui_3_current_view_stroke">0.0px</dimen>
     <dimen name="sesl_color_picker_oneui_3_current_view_width">28.0dip</dimen>
     <dimen name="sesl_color_picker_oneui_3_dialog_bottom_margin">3.0dip</dimen>
     <dimen name="sesl_color_picker_oneui_3_dialog_extra_bottom_margin">1.0dip</dimen>
