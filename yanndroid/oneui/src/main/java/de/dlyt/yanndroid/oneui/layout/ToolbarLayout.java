@@ -57,7 +57,7 @@ import de.dlyt.yanndroid.oneui.sesl.support.WindowManagerSupport;
 import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
 import de.dlyt.yanndroid.oneui.widget.RoundFrameLayout;
 
-public class ToolbarLayout extends SamsungCoordinatorLayout {
+public class ToolbarLayout extends LinearLayout {
     private static final String TAG = "ToolbarLayout";
     public static final int N_BADGE = -1;
     protected AppCompatActivity mActivity;
@@ -156,7 +156,7 @@ public class ToolbarLayout extends SamsungCoordinatorLayout {
         TypedValue bgColor = new TypedValue();
         context.getTheme().resolveAttribute(android.R.attr.windowBackground, bgColor, true);
 
-        //setOrientation(VERTICAL);
+        setOrientation(VERTICAL);
         if (bgColor.resourceId > 0) {
             setBackgroundColor(getResources().getColor(bgColor.resourceId));
         } else {
@@ -266,7 +266,7 @@ public class ToolbarLayout extends SamsungCoordinatorLayout {
                     bottomContainer.addView(child, params);
                     break;
                 case 3:
-                    root_layout.addView(child, params);
+                    root_layout.addView(child, CLLPWrapper((LayoutParams) params));
                     break;
             }
         }
@@ -835,6 +835,18 @@ public class ToolbarLayout extends SamsungCoordinatorLayout {
                 a.recycle();
             }
         }
+    }
+
+    private SamsungCoordinatorLayout.LayoutParams CLLPWrapper(LinearLayout.LayoutParams oldLp) {
+        SamsungCoordinatorLayout.LayoutParams newLp = new SamsungCoordinatorLayout.LayoutParams(oldLp);
+        newLp.width = oldLp.width;
+        newLp.height = oldLp.height;
+        newLp.leftMargin = oldLp.leftMargin;
+        newLp.topMargin = oldLp.topMargin;
+        newLp.rightMargin = oldLp.rightMargin;
+        newLp.bottomMargin = oldLp.bottomMargin;
+        newLp.gravity = oldLp.gravity;
+        return newLp;
     }
 
     private class AppBarOffsetListener implements SamsungAppBarLayout.OnOffsetChangedListener {

@@ -7,7 +7,6 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -77,7 +76,7 @@ public class AboutPage extends LinearLayout {
 
         setOptionalText(optional_text);
         setUpdateState(update_state);
-        
+
         toolbarLayout.findViewById(R.id.toolbar_layout_app_bar).setBackgroundColor(getResources().getColor(R.color.splash_background));
         toolbarLayout.findViewById(R.id.toolbar_layout_collapsing_toolbar_layout).setBackgroundColor(getResources().getColor(R.color.splash_background));
 
@@ -189,6 +188,10 @@ public class AboutPage extends LinearLayout {
         optional_text = text;
         about_optional_text.setText(text);
         about_optional_text.setVisibility(text == null || text.isEmpty() ? GONE : VISIBLE);
+    }
+
+    public void setToolbarExpandable(boolean expandable) {
+        toolbarLayout.setExpandable(expandable);
     }
 
     @Override
