@@ -77,19 +77,20 @@
 
     <declare-styleable name="DrawerLayout">
         <attr name="android:layout" />
+        <attr name="toolbar_expandable" format="boolean" />
+        <attr name="toolbar_expanded" format="boolean" />
         <attr name="toolbar_title" format="string" />
         <attr name="toolbar_subtitle" format="string" />
-        <attr name="toolbar_expanded" format="boolean" />
         <attr name="drawer_icon" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ToolBarLayout">
         <attr name="android:layout" />
-        <attr name="title" format="string" />
-        <attr name="subtitle" format="string" />
         <attr name="expandable" format="boolean" />
         <attr name="expanded" format="boolean" />
         <attr name="navigationIcon" format="reference" />
+        <attr name="title" format="string" />
+        <attr name="subtitle" format="string" />
     </declare-styleable>
 
     <declare-styleable name="Drawer_ToolBar_LayoutLocation">
@@ -104,9 +105,11 @@
 
     <declare-styleable name="SwitchBarLayout">
         <attr name="android:layout" />
+        <attr name="toolbar_expandable" />
+        <attr name="toolbar_expanded" />
+        <attr name="toolbar_navigationIcon" format="reference" />
         <attr name="toolbar_title" />
         <attr name="toolbar_subtitle" />
-        <attr name="toolbar_expanded" />
     </declare-styleable>
 
     <declare-styleable name="AboutPage">

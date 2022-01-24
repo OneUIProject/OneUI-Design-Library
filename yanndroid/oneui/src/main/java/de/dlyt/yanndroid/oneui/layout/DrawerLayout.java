@@ -1,7 +1,6 @@
 package de.dlyt.yanndroid.oneui.layout;
 
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -10,6 +9,7 @@ import android.graphics.Outline;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +24,8 @@ import android.widget.TextView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -33,59 +33,77 @@ import java.util.Locale;
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
 
-public class DrawerLayout extends LinearLayout {
-
-    private boolean mIsOneUI4;
-    public static final int N_BADGE = -1;
-    private Context mContext;
-    private AppCompatActivity mActivity;
-    private int mLayout;
-    private String mToolbarTitle;
-    private String mToolbarSubtitle;
-    private Boolean mToolbarExpanded;
+public class DrawerLayout extends ToolbarLayout implements ToolbarLayout.ToolbarLayoutListener {
+    private static final String TAG = "DrawerLayout";
+    private NumberFormat mNumberFormat = NumberFormat.getInstance(Locale.getDefault());
+    private OnBackPressedCallback mOnBackPressedCallback;
     private Drawable mDrawerIcon;
+    private androidx.drawerlayout.widget.DrawerLayout drawerLayout;
+    private LinearLayout toolbarLayoutContainer;
     private FrameLayout drawerButtonContainer;
     private ToolbarImageButton drawerButton;
     private ViewGroup drawerIconBadgeBackground;
     private TextView drawerIconBadgeText;
-    private NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-    private ToolbarLayout toolbarLayout;
     private LinearLayout drawer_container;
-    private androidx.drawerlayout.widget.DrawerLayout drawerLayout;
     private View drawer;
-    private OnBackPressedCallback onBackPressedCallback;
-
+    
     public DrawerLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
+        mToolbarLayoutListener = this;
 
-        mContext = context;
-        mActivity = getActivity();
+        initDrawer();
 
-        TypedArray attr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DrawerLayout, 0, 0);
+        if (!isInEditMode()) {
+            mOnBackPressedCallback = new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    if (drawerLayout.isDrawerOpen(drawer)) {
+                        drawerLayout.closeDrawer(drawer, true);
+                        return;
+                    }
+                    this.setEnabled(false);
+                    mActivity.onBackPressed();
+                    this.setEnabled(true);
+                }
+            };
+            mActivity.getOnBackPressedDispatcher().addCallback(mOnBackPressedCallback);
+        }
+    }
+
+    @Override
+    protected void initLayoutAttrs(@Nullable AttributeSet attrs) {
+        TypedArray attr = mContext.getTheme().obtainStyledAttributes(attrs, R.styleable.DrawerLayout, 0, 0);
 
         try {
-            mLayout = attr.getResourceId(R.styleable.DrawerLayout_android_layout, R.layout.oui_drawerlayout);
-            mToolbarTitle = attr.getString(R.styleable.DrawerLayout_toolbar_title);
-            mToolbarSubtitle = attr.getString(R.styleable.DrawerLayout_toolbar_subtitle);
+            mLayout = attr.getResourceId(R.styleable.DrawerLayout_android_layout, R.layout.oui_toolbarlayout_appbar);
+            mExpandable = attr.getBoolean(R.styleable.DrawerLayout_toolbar_expandable, true);
+            mExpanded = attr.getBoolean(R.styleable.DrawerLayout_toolbar_expanded, mExpandable);
+            mTitle = attr.getString(R.styleable.DrawerLayout_toolbar_title);
+            mSubtitle = attr.getString(R.styleable.DrawerLayout_toolbar_subtitle);
             mDrawerIcon = attr.getDrawable(R.styleable.DrawerLayout_drawer_icon);
-            mToolbarExpanded = attr.getBoolean(R.styleable.DrawerLayout_toolbar_expanded, true);
         } finally {
             attr.recycle();
         }
+    }
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(mLayout, this, true);
+    @Override
+    protected void inflateChilds() {
+        LayoutInflater inflater = LayoutInflater.from(mContext);
 
+        if (mLayout != R.layout.oui_drawerlayout) {
+            Log.w(TAG, "Inflating custom DrawerLayout");
+        }
+
+        inflater.inflate(R.layout.oui_drawerlayout, this, true);
+    }
+
+    private void initDrawer() {
         drawer_container = findViewById(R.id.drawer_container);
-        toolbarLayout = findViewById(R.id.drawer_toolbarlayout);
 
-        toolbarLayout.syncWithDrawer(this);
-        toolbarLayout.setTitle(mToolbarTitle);
-        toolbarLayout.setSubtitle(mToolbarSubtitle);
-        toolbarLayout.setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigation_drawer));
-        toolbarLayout.setExpanded(mToolbarExpanded, false);
+        setNavigationButtonIcon(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.ic_samsung_drawer, mContext.getTheme()));
+        setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigation_drawer));
+
         drawerButtonContainer = findViewById(R.id.drawer_layout_drawerButton_container);
         drawerButton = findViewById(R.id.drawer_layout_drawerButton);
 
@@ -93,6 +111,7 @@ public class DrawerLayout extends LinearLayout {
         setDrawerButtonIcon(mDrawerIcon);
 
         drawerLayout = findViewById(R.id.drawerLayout);
+        toolbarLayoutContainer = findViewById(R.id.toolbarlayout_container);
         drawer = findViewById(R.id.drawer);
 
         drawerLayout.setScrimColor(ContextCompat.getColor(getContext(), R.color.drawer_dim_color));
@@ -110,25 +129,11 @@ public class DrawerLayout extends LinearLayout {
         drawer.setClipToOutline(true);
 
         if (!isInEditMode()) {
-            onBackPressedCallback = new OnBackPressedCallback(true) {
-                @Override
-                public void handleOnBackPressed() {
-                    if (drawerLayout.isDrawerOpen(drawer)) {
-                        drawerLayout.closeDrawer(drawer, true);
-                        return;
-                    }
-                    this.setEnabled(false);
-                    mActivity.onBackPressed();
-                    this.setEnabled(true);
-                }
-            };
-            mActivity.getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
-
             /*drawer logic*/
             Boolean isRtl = getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
 
             View translationView = findViewById(R.id.drawer_custom_translation);
-            if (translationView == null) translationView = toolbarLayout;
+            if (translationView == null) translationView = toolbarLayoutContainer;
             View content = translationView;
 
             Window window = mActivity.getWindow();
@@ -150,8 +155,44 @@ public class DrawerLayout extends LinearLayout {
                 }
             };
             drawerLayout.addDrawerListener(actionBarDrawerToggle);
-            toolbarLayout.setNavigationButtonOnClickListener(v -> drawerLayout.openDrawer(drawer, true));
+            setNavigationButtonOnClickListener(v -> drawerLayout.openDrawer(drawer, true));
+        }
+    }
 
+    @Override
+    public void addView(View child, int index, ViewGroup.LayoutParams params) {
+        if (toolbarLayoutContainer == null || drawer_container == null) {
+            super.addView(child, index, params);
+        } else {
+            Drawer_Toolbar_LayoutParams lp = (Drawer_Toolbar_LayoutParams) params;
+            switch (lp.layout_location) {
+                default:
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                    super.addView(child, index, params);
+                    break;
+                case 4:
+                    drawer_container.addView(child, index, params);
+                    break;
+            }
+        }
+    }
+
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setDrawerWidth();
+    }
+
+    private void lockDrawerIfAvailable(boolean lock) {
+        if (drawerLayout != null) {
+            if (lock) {
+                drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            } else {
+                drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
+            }
         }
     }
 
@@ -181,45 +222,48 @@ public class DrawerLayout extends LinearLayout {
     }
 
     //
-    // Drawer methods
+    // Listener
     //
-    public ToolbarLayout getToolbarLayout() {
-        return toolbarLayout;
+    @Override
+    public void onShowSelectMode() {
+        lockDrawerIfAvailable(true);
     }
 
-    public void setDrawerButtonOnClickListener(OnClickListener listener) {
-        drawerButton.setOnClickListener(listener);
+    @Override
+    public void onDismissSelectMode() {
+        lockDrawerIfAvailable(false);
+    }
+
+    @Override
+    public void onShowSearchMode() {
+        lockDrawerIfAvailable(true);
+    }
+
+    @Override
+    public void onDismissSearchMode() {
+        lockDrawerIfAvailable(false);
+    }
+
+    //
+    // Drawer methods
+    //
+    public void setDrawerButtonIcon(Drawable drawerIcon) {
+        mDrawerIcon = drawerIcon;
+        drawerButton.setImageDrawable(mDrawerIcon);
+        drawerButtonContainer.setVisibility(drawerIcon != null ? View.VISIBLE : View.GONE);
     }
 
     public void setDrawerButtonTooltip(CharSequence tooltipText) {
         drawerButton.setTooltipText(tooltipText);
     }
 
-    public void setToolbarTitle(CharSequence title) {
-        toolbarLayout.setTitle(title);
-    }
-
-    public void setToolbarTitle(CharSequence expandedTitle, CharSequence collapsedTitle) {
-        toolbarLayout.setTitle(expandedTitle, collapsedTitle);
-    }
-
-    public void setToolbarSubtitle(String subtitle) {
-        toolbarLayout.setSubtitle(subtitle);
-    }
-
-    public void setToolbarExpanded(boolean expanded, boolean animate) {
-        toolbarLayout.setExpanded(expanded, animate);
+    public void setDrawerButtonOnClickListener(OnClickListener listener) {
+        drawerButton.setOnClickListener(listener);
     }
 
     public void setButtonBadges(int navigationIcon, int drawerIcon) {
-        toolbarLayout.setNavigationButtonBadge(navigationIcon);
+        setNavigationButtonBadge(navigationIcon);
         setDrawerButtonBadge(drawerIcon);
-    }
-
-    public void setDrawerButtonIcon(Drawable drawerIcon) {
-        mDrawerIcon = drawerIcon;
-        drawerButton.setImageDrawable(mDrawerIcon);
-        drawerButtonContainer.setVisibility(drawerIcon != null ? View.VISIBLE : View.GONE);
     }
 
     public void setDrawerButtonBadge(int count) {
@@ -234,7 +278,7 @@ public class DrawerLayout extends LinearLayout {
                 if (count > 99) {
                     count = 99;
                 }
-                String countString = numberFormat.format((long) count);
+                String countString = mNumberFormat.format((long) count);
                 drawerIconBadgeText.setText(countString);
                 int width = (int) (getResources().getDimension(R.dimen.sesl_badge_default_width) + (float) countString.length() * getResources().getDimension(R.dimen.sesl_badge_additional_width));
                 ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) drawerIconBadgeBackground.getLayoutParams();
@@ -258,63 +302,5 @@ public class DrawerLayout extends LinearLayout {
             drawerLayout.closeDrawer(drawer, animate);
         }
 
-    }
-
-    public void setImmersiveScroll(boolean activate) {
-        toolbarLayout.setImmersiveScroll(activate);
-    }
-
-    public boolean isImmersiveScroll() {
-        return toolbarLayout.isImmersiveScroll();
-    }
-
-    //
-    // others
-    //
-    private AppCompatActivity getActivity() {
-        Context context = getContext();
-        while (context instanceof ContextWrapper) {
-            if (context instanceof AppCompatActivity) {
-                return (AppCompatActivity) context;
-            }
-            context = ((ContextWrapper) context).getBaseContext();
-        }
-        return null;
-    }
-
-    @Override
-    public void addView(View child, int index, ViewGroup.LayoutParams params) {
-        if (toolbarLayout == null || drawer_container == null) {
-            super.addView(child, index, params);
-        } else {
-            ToolbarLayout.Drawer_Toolbar_LayoutParams lp = (ToolbarLayout.Drawer_Toolbar_LayoutParams) params;
-            switch (lp.layout_location) {
-                case 0:
-                case 1:
-                case 2:
-                case 3:
-                    toolbarLayout.addView(child, index, params);
-                    break;
-                case 4:
-                    drawer_container.addView(child, index, params);
-                    break;
-            }
-        }
-    }
-
-    @Override
-    protected LayoutParams generateDefaultLayoutParams() {
-        return new ToolbarLayout.Drawer_Toolbar_LayoutParams(getContext(), null);
-    }
-
-    @Override
-    public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new ToolbarLayout.Drawer_Toolbar_LayoutParams(getContext(), attrs);
-    }
-
-    @Override
-    protected void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        setDrawerWidth();
     }
 }

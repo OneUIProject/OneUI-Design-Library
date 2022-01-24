@@ -9,7 +9,6 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
@@ -21,7 +20,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
@@ -36,6 +34,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.annotation.MenuRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textview.MaterialTextView;
@@ -55,37 +54,38 @@ import de.dlyt.yanndroid.oneui.sesl.appbar.SamsungCollapsingToolbarLayout;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.support.WindowManagerSupport;
 import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
+import de.dlyt.yanndroid.oneui.widget.RoundFrameLayout;
 import de.dlyt.yanndroid.oneui.widget.RoundLinearLayout;
 
 public class ToolbarLayout extends LinearLayout {
+    private static final String TAG = "ToolbarLayout";
     public static final int N_BADGE = -1;
-    private static String TAG = "ToolbarLayout";
-    private boolean mIsOneUI4;
-    public ViewGroup navigationBadgeBackground;
-    public TextView navigationBadgeText;
-    private Context mContext;
-    private AppCompatActivity mActivity;
-    private NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
-    private Drawable mNavigationIcon;
-    private int mLayout;
+    protected AppCompatActivity mActivity;
+    protected Context mContext;
+    protected boolean mIsOneUI4;
+    private NumberFormat mNumberFormat = NumberFormat.getInstance(Locale.getDefault());
+    private OnBackPressedCallback mOnBackPressedCallback;
+    protected ToolbarLayoutListener mToolbarLayoutListener;
+    protected int mLayout;
+    protected boolean mExpandable;
+    protected boolean mExpanded;
+    private boolean mNavigationButtonVisible;
+    protected Drawable mNavigationIcon;
+    protected CharSequence mTitle;
     private CharSequence mTitleExpanded;
     private CharSequence mTitleCollapsed;
-    private CharSequence mSubtitle;
-    private Boolean mExpandable;
-    private Boolean mExpanded;
-    private LinearLayout root_layout;
+    protected CharSequence mSubtitle;
     private SamsungAppBarLayout appBarLayout;
     private SamsungCollapsingToolbarLayout collapsingToolbarLayout;
     private MaterialToolbar toolbar;
     private FrameLayout navigationButtonContainer;
     private ToolbarImageButton navigationButton;
+    private ViewGroup navigationBadgeBackground;
+    private TextView navigationBadgeText;
     private MaterialTextView collapsedTitleView;
     private MaterialTextView collapsedSubTitleView;
-    private RoundLinearLayout mainContainer;
-    private LinearLayout bottomContainer;
-    private OnBackPressedCallback onBackPressedCallback;
-    private DrawerLayout drawerLayout;
-    private boolean navigationButtonVisible;
+    protected RoundFrameLayout mainContainer;
+    private FrameLayout bottomContainer;
 
     public interface OnMenuItemClickListener {
         boolean onMenuItemClick(MenuItem item);
@@ -111,6 +111,16 @@ public class ToolbarLayout extends LinearLayout {
     private ToolbarImageButton search_action_button;
     private EditText search_edittext;
     private SearchModeListener searchModeListener;
+
+    interface ToolbarLayoutListener {
+        void onShowSelectMode();
+
+        void onDismissSelectMode();
+
+        void onShowSearchMode();
+
+        void onDismissSearchMode();
+    }
 
     public static class SearchModeListener {
         public void onSearchOpened(EditText search_edittext) {
@@ -138,71 +148,26 @@ public class ToolbarLayout extends LinearLayout {
     public ToolbarLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        mContext = context;
         mActivity = getActivity();
-
+        mContext = context;
         mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
 
-        TypedArray attr = mContext.getTheme().obtainStyledAttributes(attrs, R.styleable.ToolBarLayout, 0, 0);
+        TypedValue bgColor = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.windowBackground, bgColor, true);
 
-        try {
-            mExpandable = attr.getBoolean(R.styleable.ToolBarLayout_expandable, true);
-            mExpanded = attr.getBoolean(R.styleable.ToolBarLayout_expanded, true);
-            mLayout = attr.getResourceId(R.styleable.ToolBarLayout_android_layout, mExpandable ? R.layout.oui_appbar_toolbarlayout : R.layout.oui_toolbar_toolbarlayout);
-            mTitleExpanded = attr.getString(R.styleable.ToolBarLayout_title);
-            mSubtitle = attr.getString(R.styleable.ToolBarLayout_subtitle);
-            mNavigationIcon = attr.getDrawable(R.styleable.ToolBarLayout_navigationIcon);
-        } finally {
-            attr.recycle();
-        }
-
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(mLayout, this, true);
-
-        root_layout = findViewById(R.id.toolbar_layout_root);
-        if (mExpandable) {
-            appBarLayout = findViewById(R.id.toolbar_layout_app_bar);
-            collapsingToolbarLayout = findViewById(R.id.toolbar_layout_collapsing_toolbar_layout);
-            appBarLayout.setExpanded(mExpanded, false);
-        }
-        toolbar = findViewById(R.id.toolbar_layout_toolbar);
-
-        navigationButtonContainer = findViewById(R.id.toolbar_layout_navigationButton_container);
-        navigationButton = findViewById(R.id.toolbar_layout_navigationButton);
-        collapsedTitleView = findViewById(R.id.toolbar_layout_collapsed_title);
-        collapsedSubTitleView = findViewById(R.id.toolbar_layout_collapsed_subtitle);
-        actionButtonContainer = findViewById(R.id.toolbar_layout_action_menu_item_container);
-
-        mainContainer = findViewById(R.id.toolbar_layout_main_container);
-        bottomContainer = findViewById(R.id.toolbar_layout_footer);
-
-        selectModeCheckboxContainer = findViewById(R.id.checkbox_withtext);
-        selectModeCheckbox = findViewById(R.id.checkbox_all);
-        selectModeCheckboxContainer.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectModeCheckbox.setChecked(!selectModeCheckbox.isChecked());
-            }
-        });
-
-        main_toolbar = findViewById(R.id.toolbar_layout_main_toolbar);
-        search_toolbar = findViewById(R.id.toolbar_layout_search_toolbar);
-        search_navButton = findViewById(R.id.toolbar_layout_search_navigationButton);
-        search_action_button = findViewById(R.id.search_view_action_button);
-        search_edittext = findViewById(R.id.toolbar_layout_search_field);
-
-        setNavigationButtonIcon(mNavigationIcon);
-        setTitle(mTitleExpanded);
-        setSubtitle(mSubtitle);
-
-        if (mExpandable) {
-            appBarLayout.addOnOffsetChangedListener(new AppBarOffsetListener());
+        setOrientation(VERTICAL);
+        if (bgColor.resourceId > 0) {
+            setBackgroundColor(getResources().getColor(bgColor.resourceId));
         } else {
-            findViewById(R.id.toolbar_layout_collapsed_title_container).setAlpha(1.0f);
+            setBackgroundColor(bgColor.data);
         }
+
+        initLayoutAttrs(attrs);
+        inflateChilds();
+        initAppBar();
 
         /*back logic*/
-        onBackPressedCallback = new OnBackPressedCallback(false) {
+        mOnBackPressedCallback = new OnBackPressedCallback(false) {
             @Override
             public void handleOnBackPressed() {
                 if (mSearchMode) dismissSearchMode();
@@ -210,27 +175,76 @@ public class ToolbarLayout extends LinearLayout {
         };
 
         if (!isInEditMode()) {
-            mActivity.setSupportActionBar(toolbar);
-            mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-            mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            mActivity.getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
+            mActivity.getOnBackPressedDispatcher().addCallback(mOnBackPressedCallback);
         }
 
         refreshLayout(getResources().getConfiguration());
     }
 
-    void syncWithDrawer(DrawerLayout drawerLayout) {
-        this.drawerLayout = drawerLayout;
+    //
+    // Layout methods
+    //
+    protected void initLayoutAttrs(@Nullable AttributeSet attrs) {
+        TypedArray attr = mContext.getTheme().obtainStyledAttributes(attrs, R.styleable.ToolBarLayout, 0, 0);
+
+        try {
+            mLayout = attr.getResourceId(R.styleable.ToolBarLayout_android_layout, R.layout.oui_toolbarlayout_appbar);
+            mExpandable = attr.getBoolean(R.styleable.ToolBarLayout_expandable, true);
+            mExpanded = attr.getBoolean(R.styleable.ToolBarLayout_expanded, mExpandable);
+            mNavigationIcon = attr.getDrawable(R.styleable.ToolBarLayout_navigationIcon);
+            mTitle = attr.getString(R.styleable.ToolBarLayout_title);
+            mSubtitle = attr.getString(R.styleable.ToolBarLayout_subtitle);
+        } finally {
+            attr.recycle();
+        }
     }
 
-    private void lockDrawerIfAvailable(boolean lock) {
-        if (drawerLayout != null) {
-            if (lock) {
-                ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.findViewById(R.id.drawerLayout)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-            } else {
-                ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.findViewById(R.id.drawerLayout)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
-            }
+    protected void inflateChilds() {
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+
+        if (mLayout != R.layout.oui_toolbarlayout_appbar) {
+            Log.w(TAG, "Inflating custom " + TAG);
         }
+
+        inflater.inflate(mLayout, this, true);
+        addView(inflater.inflate(R.layout.oui_toolbarlayout_footer, this, false));
+    }
+
+    private void initAppBar() {
+        appBarLayout = findViewById(R.id.toolbar_layout_app_bar);
+        collapsingToolbarLayout = findViewById(R.id.toolbar_layout_collapsing_toolbar_layout);
+        toolbar = findViewById(R.id.toolbar_layout_toolbar);
+
+        main_toolbar = findViewById(R.id.toolbar_layout_main_toolbar);
+        search_toolbar = findViewById(R.id.toolbar_layout_search_toolbar);
+        search_navButton = findViewById(R.id.toolbar_layout_search_navigationButton);
+        search_action_button = findViewById(R.id.search_view_action_button);
+        search_edittext = findViewById(R.id.toolbar_layout_search_field);
+
+        selectModeCheckboxContainer = findViewById(R.id.checkbox_withtext);
+        selectModeCheckbox = findViewById(R.id.checkbox_all);
+        selectModeCheckboxContainer.setOnClickListener(view -> selectModeCheckbox.setChecked(!selectModeCheckbox.isChecked()));
+
+        navigationButtonContainer = findViewById(R.id.toolbar_layout_navigationButton_container);
+        navigationButton = findViewById(R.id.toolbar_layout_navigationButton);
+        collapsedTitleView = findViewById(R.id.toolbar_layout_collapsed_title);
+        collapsedSubTitleView = findViewById(R.id.toolbar_layout_collapsed_subtitle);
+        actionButtonContainer = findViewById(R.id.toolbar_layout_action_menu_item_container);
+
+        if (!isInEditMode()) {
+            mActivity.setSupportActionBar(toolbar);
+            mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+            mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+
+        appBarLayout.addOnOffsetChangedListener(new AppBarOffsetListener());
+
+        setNavigationButtonIcon(mNavigationIcon);
+        setTitle(mTitle);
+        setSubtitle(mSubtitle);
+
+        mainContainer = findViewById(R.id.toolbar_layout_main_container);
+        bottomContainer = findViewById(R.id.toolbar_layout_footer);
     }
 
     @Override
@@ -249,8 +263,9 @@ public class ToolbarLayout extends LinearLayout {
                 case 2:
                     bottomContainer.addView(child, index, params);
                     break;
+                default:
                 case 3:
-                    root_layout.addView(child, index, params);
+                    super.addView(child, index, params);
                     break;
             }
         }
@@ -269,6 +284,7 @@ public class ToolbarLayout extends LinearLayout {
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
+        resetAppBar(getResources().getConfiguration());
         resetToolbarHeight();
     }
 
@@ -276,6 +292,7 @@ public class ToolbarLayout extends LinearLayout {
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         refreshLayout(newConfig);
+        resetAppBar(newConfig);
         resetToolbarHeight();
     }
 
@@ -290,29 +307,8 @@ public class ToolbarLayout extends LinearLayout {
         return null;
     }
 
-    private float getDIPForPX(int i) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) i, getResources().getDisplayMetrics());
-    }
-
     private int getToolbarTopPadding() {
         return mIsOneUI4 ? mContext.getResources().getDimensionPixelSize(R.dimen.sesl4_action_bar_top_padding) : 0;
-    }
-
-    private int getWindowHeight() {
-        try {
-            WindowManager windowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
-
-            if (windowManager == null) {
-                return 0;
-            }
-
-            Point point = new Point();
-            windowManager.getDefaultDisplay().getSize(point);
-            return point.y;
-        } catch (Exception unused) {
-            Log.e(TAG + ".getWindowHeight", "Cannot get window height");
-            return 0;
-        }
     }
 
     private void refreshLayout(Configuration newConfig) {
@@ -320,15 +316,35 @@ public class ToolbarLayout extends LinearLayout {
             WindowManagerSupport.hideStatusBarForLandscape(mActivity, newConfig.orientation);
 
         ViewSupport.updateListBothSideMargin(mActivity, mainContainer);
-        ViewSupport.updateListBothSideMargin(mActivity, findViewById(R.id.toolbar_layout_bottom_corners));
         ViewSupport.updateListBothSideMargin(mActivity, findViewById(R.id.toolbar_layout_footer_container));
+
+        setExpanded(newConfig.orientation != Configuration.ORIENTATION_LANDSCAPE & mExpanded);
 
         updateCollapsedSubtitleVisibility();
     }
 
+    @SuppressLint("LongLogTag")
+    private void resetAppBar(Configuration newConfig) {
+        if (appBarLayout != null) {
+            boolean isLandscape = newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE;
+
+            if (mExpandable) {
+                appBarLayout.setEnabled(true);
+                appBarLayout.seslSetCustomHeightProportion(false, 0);
+            } else {
+                appBarLayout.setEnabled(false);
+                appBarLayout.seslSetCustomHeight(mContext.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_height_with_padding));
+            }
+
+            updateCollapsedSubtitleVisibility();
+        } else
+            Log.w(TAG + ".resetAppBar", "appBarLayout is null.");
+    }
+
+    @SuppressLint("LongLogTag")
     private void resetToolbarHeight() {
         if (toolbar != null) {
-            toolbar.setPaddingRelative(mSelectMode || mSearchMode || navigationButtonVisible ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), getToolbarTopPadding(), 0, 0);
+            toolbar.setPaddingRelative(mSelectMode || mSearchMode || mNavigationButtonVisible ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), getToolbarTopPadding(), 0, 0);
 
             ViewGroup.LayoutParams lp = toolbar.getLayoutParams();
             lp.height = mContext.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_default_height : R.dimen.sesl_action_bar_default_height) + getToolbarTopPadding();
@@ -381,6 +397,21 @@ public class ToolbarLayout extends LinearLayout {
         }
     }
 
+    public void setExpandable(boolean expandable) {
+        if (mExpandable != expandable) {
+            mExpandable = expandable;
+            resetAppBar(getResources().getConfiguration());
+        }
+    }
+
+    public boolean isExpandable() {
+        return mExpandable;
+    }
+
+    public void setExpanded(boolean expanded) {
+        setExpanded(expanded, ViewCompat.isLaidOut(appBarLayout));
+    }
+
     public void setExpanded(boolean expanded, boolean animate) {
         if (mExpandable) {
             mExpanded = expanded;
@@ -390,7 +421,7 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     public boolean isExpanded() {
-        return mExpandable ? !appBarLayout.seslIsCollapsed() : false;
+        return mExpandable && !appBarLayout.seslIsCollapsed();
     }
 
     public void setCustomTitleView(View view) {
@@ -405,20 +436,12 @@ public class ToolbarLayout extends LinearLayout {
         collapsingToolbarLayout.seslSetCustomTitleView(view, params);
     }
 
-    public void setImmersiveScroll(boolean activate){
-        appBarLayout.seslSetImmersiveScroll(activate);
-    }
-
-    public boolean isImmersiveScroll(){
-        return appBarLayout.seslGetImmersiveScroll();
-    }
-
     //
     // Select Mode methods
     //
     public void showSelectMode() {
         mSelectMode = true;
-        lockDrawerIfAvailable(true);
+        if (mToolbarLayoutListener != null) mToolbarLayoutListener.onShowSelectMode();
         if (mSearchMode) dismissSearchMode();
         setNavigationButtonVisible(false);
         selectModeCheckboxContainer.setVisibility(View.VISIBLE);
@@ -493,8 +516,8 @@ public class ToolbarLayout extends LinearLayout {
 
     public void dismissSelectMode() {
         mSelectMode = false;
-        lockDrawerIfAvailable(false);
-        setNavigationButtonVisible(navigationButtonVisible);
+        if (mToolbarLayoutListener != null) mToolbarLayoutListener.onDismissSelectMode();
+        setNavigationButtonVisible(mNavigationButtonVisible);
         selectModeCheckboxContainer.setVisibility(View.GONE);
         setTitle(mTitleExpanded, mTitleCollapsed);
         setSubtitle(mSubtitle);
@@ -533,25 +556,20 @@ public class ToolbarLayout extends LinearLayout {
         selectModeCheckbox.setChecked(checked);
     }
 
-
     //
     // Search Mode methods
     //
     public void showSearchMode() {
         mSearchMode = true;
-        lockDrawerIfAvailable(true);
+        if (mToolbarLayoutListener != null) mToolbarLayoutListener.onShowSearchMode();
         setNavigationButtonVisible(false);
-        onBackPressedCallback.setEnabled(true);
+        mOnBackPressedCallback.setEnabled(true);
         if (mSelectMode) dismissSelectMode();
 
-        if (mExpandable) {
-            collapsingToolbarLayout.setTitle(getResources().getString(R.string.action_search));
-        }
+        if (mExpandable) collapsingToolbarLayout.setTitle(getResources().getString(R.string.action_search));
 
         if (mSubtitle != null && mSubtitle.length() != 0) {
-            if (mExpandable) {
-                collapsingToolbarLayout.setSubtitle(null);
-            }
+            if (mExpandable) collapsingToolbarLayout.setSubtitle(null);
             collapsedSubTitleView.setText(null);
             collapsedSubTitleView.setVisibility(GONE);
         }
@@ -562,7 +580,7 @@ public class ToolbarLayout extends LinearLayout {
         setSearchModeActionButton(true);
         search_navButton.setTooltipText(getResources().getString(R.string.sesl_navigate_up));
         search_navButton.setOnClickListener(v -> dismissSearchMode());
-        setExpanded(false, true);
+        if (mExpandable) setExpanded(false, true);
 
         search_edittext.addTextChangedListener(new TextWatcher() {
             @Override
@@ -605,9 +623,9 @@ public class ToolbarLayout extends LinearLayout {
         if (searchModeListener != null) searchModeListener.onSearchDismissed(search_edittext);
 
         mSearchMode = false;
-        lockDrawerIfAvailable(false);
-        setNavigationButtonVisible(navigationButtonVisible);
-        onBackPressedCallback.setEnabled(false);
+        if (mToolbarLayoutListener != null) mToolbarLayoutListener.onDismissSearchMode();
+        setNavigationButtonVisible(mNavigationButtonVisible);
+        mOnBackPressedCallback.setEnabled(false);
         setEditTextFocus(false);
         main_toolbar.setVisibility(VISIBLE);
         search_toolbar.setVisibility(GONE);
@@ -676,7 +694,6 @@ public class ToolbarLayout extends LinearLayout {
         }
     }
 
-
     //
     // Navigation Button methods
     //
@@ -688,7 +705,7 @@ public class ToolbarLayout extends LinearLayout {
 
     public void setNavigationButtonVisible(boolean visible) {
         navigationButtonContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
-        if (!(mSelectMode || mSearchMode)) navigationButtonVisible = visible;
+        if (!(mSelectMode || mSearchMode)) mNavigationButtonVisible = visible;
         toolbar.setPaddingRelative(mSelectMode || mSearchMode || visible ? 0 : getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_content_inset), getToolbarTopPadding(), 0, 0);
     }
 
@@ -704,7 +721,7 @@ public class ToolbarLayout extends LinearLayout {
                 if (count > 99) {
                     count = 99;
                 }
-                String countString = numberFormat.format((long) count);
+                String countString = mNumberFormat.format((long) count);
                 navigationBadgeText.setText(countString);
                 int width = (int) (getResources().getDimension(R.dimen.sesl_badge_default_width) + (float) countString.length() * getResources().getDimension(R.dimen.sesl_badge_additional_width));
                 ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) navigationBadgeBackground.getLayoutParams();
@@ -796,8 +813,7 @@ public class ToolbarLayout extends LinearLayout {
     // others
     //
     public static class Drawer_Toolbar_LayoutParams extends LayoutParams {
-
-        public Integer layout_location;
+        public int layout_location;
 
         public Drawer_Toolbar_LayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
@@ -806,6 +822,10 @@ public class ToolbarLayout extends LinearLayout {
                 layout_location = a.getInteger(R.styleable.Drawer_ToolBar_LayoutLocation_layout_location, 0);
                 a.recycle();
             }
+        }
+
+        public Drawer_Toolbar_LayoutParams(int width, int height) {
+            super(width, height);
         }
     }
 
