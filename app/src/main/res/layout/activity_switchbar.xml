@@ -4,9 +4,9 @@
     android:id="@+id/switchbarlayout_switchbaractivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:toolbar_expanded="false"
-    app:toolbar_navigationIcon="@drawable/ic_samsung_back"
-    app:toolbar_title="SwitchBarLayout">
+    app:expanded="false"
+    app:navigationIcon="@drawable/ic_samsung_back"
+    app:title="SwitchBarLayout">
 
     <de.dlyt.yanndroid.oneui.widget.RoundNestedScrollView
         android:layout_width="match_parent"

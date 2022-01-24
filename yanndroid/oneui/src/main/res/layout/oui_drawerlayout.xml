@@ -11,10 +11,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/oui_toolbarlayout_appbar"/>
-        <include
-            layout="@layout/oui_toolbarlayout_footer"/>
+        <include layout="@layout/oui_toolbarlayout_appbar" />
+
+        <include layout="@layout/oui_toolbarlayout_footer" />
 
     </LinearLayout>
 
@@ -30,45 +29,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:gravity="end|center_vertical"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end|center_vertical"
-                android:orientation="horizontal">
+            <FrameLayout
+                android:id="@+id/drawer_layout_drawerButton_container"
+                android:layout_width="48dp"
+                android:layout_height="56dp"
+                android:layout_marginVertical="8dp"
+                android:layout_marginEnd="18dp">
 
-                <FrameLayout
-                    android:id="@+id/drawer_layout_drawerButton_container"
+                <de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton
+                    android:id="@+id/drawer_layout_drawerButton"
                     android:layout_width="48dp"
-                    android:layout_height="56dp"
-                    android:layout_marginVertical="8dp"
-                    android:layout_marginEnd="18dp">
-
-                    <de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton
-                        android:id="@+id/drawer_layout_drawerButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/sesl_action_bar_item_background"
-                        android:scaleType="center" />
-                </FrameLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/drawer_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <!--drawer content-->
-
-            </LinearLayout>
-
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/sesl_action_bar_item_background"
+                    android:scaleType="center" />
+            </FrameLayout>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/drawer_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--drawer content-->
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

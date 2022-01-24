@@ -51,11 +51,11 @@ import de.dlyt.yanndroid.oneui.menu.MenuItem;
 import de.dlyt.yanndroid.oneui.menu.PopupMenu;
 import de.dlyt.yanndroid.oneui.sesl.appbar.SamsungAppBarLayout;
 import de.dlyt.yanndroid.oneui.sesl.appbar.SamsungCollapsingToolbarLayout;
+import de.dlyt.yanndroid.oneui.sesl.coordinatorlayout.SamsungCoordinatorLayout;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.support.WindowManagerSupport;
 import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
 import de.dlyt.yanndroid.oneui.widget.RoundFrameLayout;
-import de.dlyt.yanndroid.oneui.widget.RoundLinearLayout;
 
 public class ToolbarLayout extends LinearLayout {
     private static final String TAG = "ToolbarLayout";
@@ -86,6 +86,7 @@ public class ToolbarLayout extends LinearLayout {
     private MaterialTextView collapsedSubTitleView;
     protected RoundFrameLayout mainContainer;
     private FrameLayout bottomContainer;
+    private SamsungCoordinatorLayout root_layout;
 
     public interface OnMenuItemClickListener {
         boolean onMenuItemClick(MenuItem item);
@@ -163,7 +164,7 @@ public class ToolbarLayout extends LinearLayout {
         }
 
         initLayoutAttrs(attrs);
-        inflateChilds();
+        inflateChildren();
         initAppBar();
 
         /*back logic*/
@@ -199,7 +200,7 @@ public class ToolbarLayout extends LinearLayout {
         }
     }
 
-    protected void inflateChilds() {
+    protected void inflateChildren() {
         LayoutInflater inflater = LayoutInflater.from(mContext);
 
         if (mLayout != R.layout.oui_toolbarlayout_appbar) {
@@ -211,6 +212,7 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     private void initAppBar() {
+        root_layout = findViewById(R.id.toolbar_layout_coordinator_layout);
         appBarLayout = findViewById(R.id.toolbar_layout_app_bar);
         collapsingToolbarLayout = findViewById(R.id.toolbar_layout_collapsing_toolbar_layout);
         toolbar = findViewById(R.id.toolbar_layout_toolbar);
@@ -252,33 +254,32 @@ public class ToolbarLayout extends LinearLayout {
         if (mainContainer == null || bottomContainer == null) {
             super.addView(child, index, params);
         } else {
-            ToolbarLayout.Drawer_Toolbar_LayoutParams lp = (ToolbarLayout.Drawer_Toolbar_LayoutParams) params;
-            switch (lp.layout_location) {
+            switch (((ToolbarLayoutParams) params).layout_location) {
+                default:
                 case 0:
-                    mainContainer.addView(child, index, params);
+                    mainContainer.addView(child, params);
                     break;
                 case 1:
                     setCustomTitleView(child, new SamsungCollapsingToolbarLayout.LayoutParams(params));
                     break;
                 case 2:
-                    bottomContainer.addView(child, index, params);
+                    bottomContainer.addView(child, params);
                     break;
-                default:
                 case 3:
-                    super.addView(child, index, params);
+                    root_layout.addView(child, params);
                     break;
             }
         }
     }
 
     @Override
-    protected LayoutParams generateDefaultLayoutParams() {
-        return new Drawer_Toolbar_LayoutParams(getContext(), null);
+    public LayoutParams generateDefaultLayoutParams() {
+        return new ToolbarLayoutParams(getContext(), null);
     }
 
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new Drawer_Toolbar_LayoutParams(getContext(), attrs);
+        return new ToolbarLayoutParams(getContext(), attrs);
     }
 
     @Override
@@ -316,6 +317,7 @@ public class ToolbarLayout extends LinearLayout {
             WindowManagerSupport.hideStatusBarForLandscape(mActivity, newConfig.orientation);
 
         ViewSupport.updateListBothSideMargin(mActivity, mainContainer);
+        ViewSupport.updateListBothSideMargin(mActivity, findViewById(R.id.toolbar_layout_bottom_corners));
         ViewSupport.updateListBothSideMargin(mActivity, findViewById(R.id.toolbar_layout_footer_container));
 
         setExpanded(newConfig.orientation != Configuration.ORIENTATION_LANDSCAPE & mExpanded);
@@ -412,6 +414,7 @@ public class ToolbarLayout extends LinearLayout {
         setExpanded(expanded, ViewCompat.isLaidOut(appBarLayout));
     }
 
+    @SuppressLint("LongLogTag")
     public void setExpanded(boolean expanded, boolean animate) {
         if (mExpandable) {
             mExpanded = expanded;
@@ -434,6 +437,14 @@ public class ToolbarLayout extends LinearLayout {
         }
         params.seslSetIsTitleCustom(true);
         collapsingToolbarLayout.seslSetCustomTitleView(view, params);
+    }
+
+    public void setImmersiveScroll(boolean activate) {
+        appBarLayout.seslSetImmersiveScroll(activate);
+    }
+
+    public boolean isImmersiveScroll() {
+        return appBarLayout.seslGetImmersiveScroll();
     }
 
     //
@@ -566,7 +577,8 @@ public class ToolbarLayout extends LinearLayout {
         mOnBackPressedCallback.setEnabled(true);
         if (mSelectMode) dismissSelectMode();
 
-        if (mExpandable) collapsingToolbarLayout.setTitle(getResources().getString(R.string.action_search));
+        if (mExpandable)
+            collapsingToolbarLayout.setTitle(getResources().getString(R.string.action_search));
 
         if (mSubtitle != null && mSubtitle.length() != 0) {
             if (mExpandable) collapsingToolbarLayout.setSubtitle(null);
@@ -812,20 +824,16 @@ public class ToolbarLayout extends LinearLayout {
     //
     // others
     //
-    public static class Drawer_Toolbar_LayoutParams extends LayoutParams {
+    public static class ToolbarLayoutParams extends LayoutParams {
         public int layout_location;
 
-        public Drawer_Toolbar_LayoutParams(Context c, AttributeSet attrs) {
+        public ToolbarLayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
             if (c != null && attrs != null) {
-                TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.Drawer_ToolBar_LayoutLocation);
-                layout_location = a.getInteger(R.styleable.Drawer_ToolBar_LayoutLocation_layout_location, 0);
+                TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.ToolbarLayoutParams);
+                layout_location = a.getInteger(R.styleable.ToolbarLayoutParams_layout_location, 0);
                 a.recycle();
             }
-        }
-
-        public Drawer_Toolbar_LayoutParams(int width, int height) {
-            super(width, height);
         }
     }
 

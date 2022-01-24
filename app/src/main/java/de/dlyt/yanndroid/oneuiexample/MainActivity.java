@@ -128,7 +128,6 @@ public class MainActivity extends BaseThemeActivity {
         drawerLayout.setDrawerButtonOnClickListener(v -> startActivity(new Intent().setClass(mContext, AboutActivity.class)));
         drawerLayout.setDrawerButtonTooltip(getText(R.string.app_info));
         drawerLayout.setButtonBadges(ToolbarLayout.N_BADGE, DrawerLayout.N_BADGE);
-
         drawerLayout.getAppBarLayout().addOnOffsetChangedListener((layout, verticalOffset) -> {
             int totalScrollRange = layout.getTotalScrollRange();
             int inputMethodWindowVisibleHeight = (int) ReflectUtils.genericInvokeMethod(InputMethodManager.class, mContext.getSystemService(INPUT_METHOD_SERVICE), "getInputMethodWindowVisibleHeight");
@@ -216,12 +215,14 @@ public class MainActivity extends BaseThemeActivity {
                     drawerLayout.setSubtitle("Design");
                     drawerLayout.setNavigationButtonVisible(true);
                     drawerLayout.getToolbarMenu().findItem(R.id.search).setVisible(true);
+                    drawerLayout.setImmersiveScroll(false);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.findViewById(R.id.drawerLayout)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
                 } else {
                     // MainActivitySecondFragment
                     drawerLayout.setSubtitle("Preferences");
                     drawerLayout.setNavigationButtonVisible(false);
                     drawerLayout.getToolbarMenu().findItem(R.id.search).setVisible(false);
+                    drawerLayout.setImmersiveScroll(true);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.findViewById(R.id.drawerLayout)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 }
 

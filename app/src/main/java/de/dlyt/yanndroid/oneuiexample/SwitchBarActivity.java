@@ -21,7 +21,6 @@ public class SwitchBarActivity extends BaseThemeActivity implements SwitchBar.On
         setContentView(R.layout.activity_switchbar);
 
         SwitchBarLayout switchBarLayout = findViewById(R.id.switchbarlayout_switchbaractivity);
-
         switchBarLayout.setNavigationButtonTooltip(getString(R.string.sesl_navigate_up));
         switchBarLayout.setNavigationButtonOnClickListener(view -> onBackPressed());
         switchBarLayout.inflateToolbarMenu(R.menu.switchpreferencescreen_menu);

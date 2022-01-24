@@ -45,6 +45,13 @@
         android:layout_height="fill_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior"
-        app:roundedCorners="all" />
+        app:roundedCorners="top_left|top_right" />
+
+    <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
+        android:id="@+id/toolbar_layout_bottom_corners"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/rounded_corner_size"
+        android:layout_gravity="bottom"
+        app:roundedCorners="bottom_left|bottom_right" />
 
 </de.dlyt.yanndroid.oneui.sesl.coordinatorlayout.SamsungCoordinatorLayout>

@@ -4,7 +4,7 @@
     android:id="@+id/toolbar_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    app:expanded="false"
+    app:expandable="false"
     app:title="">
 
     <de.dlyt.yanndroid.oneui.widget.NestedScrollView

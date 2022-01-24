@@ -33,7 +33,7 @@
         android:background="@null"
         android:ellipsize="end"
         android:hint="@string/action_search"
-        android:imeOptions="actionSearch"
+        android:imeOptions="actionSearch|flagNoExtractUi"
         android:inputType="textAutoComplete|textNoSuggestions"
         android:maxLength="1000"
         android:maxLines="1"

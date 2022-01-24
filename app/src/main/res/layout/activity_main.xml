@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:drawer_icon="@drawable/ic_samsung_info_2"
-    app:toolbar_title="@string/app_name">
+    app:title="@string/app_name">
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -20,5 +20,14 @@
         app:layout_location="footer" />
 
     <include layout="@layout/content_drawer" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_location="main_content"
+        app:srcCompat="@drawable/ic_samsung_favorite_on" />
 
 </de.dlyt.yanndroid.oneui.layout.DrawerLayout>

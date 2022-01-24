@@ -46,7 +46,7 @@ public class DrawerLayout extends ToolbarLayout implements ToolbarLayout.Toolbar
     private TextView drawerIconBadgeText;
     private LinearLayout drawer_container;
     private View drawer;
-    
+
     public DrawerLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
@@ -73,14 +73,11 @@ public class DrawerLayout extends ToolbarLayout implements ToolbarLayout.Toolbar
 
     @Override
     protected void initLayoutAttrs(@Nullable AttributeSet attrs) {
-        TypedArray attr = mContext.getTheme().obtainStyledAttributes(attrs, R.styleable.DrawerLayout, 0, 0);
+        super.initLayoutAttrs(attrs);
 
+        TypedArray attr = mContext.getTheme().obtainStyledAttributes(attrs, R.styleable.DrawerLayout, 0, 0);
         try {
             mLayout = attr.getResourceId(R.styleable.DrawerLayout_android_layout, R.layout.oui_toolbarlayout_appbar);
-            mExpandable = attr.getBoolean(R.styleable.DrawerLayout_toolbar_expandable, true);
-            mExpanded = attr.getBoolean(R.styleable.DrawerLayout_toolbar_expanded, mExpandable);
-            mTitle = attr.getString(R.styleable.DrawerLayout_toolbar_title);
-            mSubtitle = attr.getString(R.styleable.DrawerLayout_toolbar_subtitle);
             mDrawerIcon = attr.getDrawable(R.styleable.DrawerLayout_drawer_icon);
         } finally {
             attr.recycle();
@@ -88,7 +85,7 @@ public class DrawerLayout extends ToolbarLayout implements ToolbarLayout.Toolbar
     }
 
     @Override
-    protected void inflateChilds() {
+    protected void inflateChildren() {
         LayoutInflater inflater = LayoutInflater.from(mContext);
 
         if (mLayout != R.layout.oui_drawerlayout) {
@@ -164,18 +161,10 @@ public class DrawerLayout extends ToolbarLayout implements ToolbarLayout.Toolbar
         if (toolbarLayoutContainer == null || drawer_container == null) {
             super.addView(child, index, params);
         } else {
-            Drawer_Toolbar_LayoutParams lp = (Drawer_Toolbar_LayoutParams) params;
-            switch (lp.layout_location) {
-                default:
-                case 0:
-                case 1:
-                case 2:
-                case 3:
-                    super.addView(child, index, params);
-                    break;
-                case 4:
-                    drawer_container.addView(child, index, params);
-                    break;
+            if (((ToolbarLayoutParams) params).layout_location == 4) {
+                drawer_container.addView(child, params);
+            } else {
+                super.addView(child, index, params);
             }
         }
     }
