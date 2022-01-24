@@ -14,7 +14,7 @@
         <TextView
             android:id="@+id/sesl_color_hex_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_title_text_height" android:gravity="center" android:text="@string/sesl_color_hex_text" style="@style/HexRGBTitleText" />
         <EditText
-            android:id="@+id/sesl_color_hex_edit_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_value_text_height" android:minWidth="50.0dip" android:gravity="center" android:background="@null" android:singleLine="true" android:maxLength="6" android:digits="ABCDEFabcdef0123456789" android:privateImeOptions="disableSticker=true;disableGifKeyboard=true;disableEmoticonInput=true;disableDirectWriting=true;" android:imeOptions="actionNext" style="@style/SeekbarProgressText" />
+            android:id="@+id/sesl_color_hex_edit_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_value_text_height" android:minWidth="50.0dip" android:gravity="center" android:background="@null" android:singleLine="true" android:maxLength="6" android:digits="ABCDEFabcdef0123456789" android:privateImeOptions="disableSticker=true;disableGifKeyboard=true;disableEmoticonInput=true;disableDirectWriting=true;" android:selectAllOnFocus="true" style="@style/SeekbarProgressText" />
     </LinearLayout>
 
     <LinearLayout
@@ -22,7 +22,7 @@
         <TextView
             android:id="@+id/sesl_color_red_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_title_text_height" android:gravity="center" android:text="@string/sesl_color_red_text" style="@style/HexRGBTitleText" />
         <EditText
-            android:id="@+id/sesl_color_red_edit_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_value_text_height" android:minWidth="30.0dip" android:gravity="center" android:background="@null" android:maxLength="3" android:inputType="number" android:imeOptions="actionNext" style="@style/SeekbarProgressText" />
+            android:id="@+id/sesl_color_red_edit_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_value_text_height" android:minWidth="30.0dip" android:gravity="center" android:background="@null" android:maxLength="3" android:inputType="number" android:selectAllOnFocus="true" style="@style/SeekbarProgressText" />
     </LinearLayout>
 
     <LinearLayout
@@ -30,7 +30,7 @@
         <TextView
             android:id="@+id/sesl_color_green_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_title_text_height" android:gravity="center" android:text="@string/sesl_color_green_text" style="@style/HexRGBTitleText" />
         <EditText
-            android:id="@+id/sesl_color_green_edit_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_value_text_height" android:minWidth="30.0dip" android:gravity="center" android:background="@null" android:maxLength="3" android:inputType="number" android:imeOptions="actionNext" style="@style/SeekbarProgressText" />
+            android:id="@+id/sesl_color_green_edit_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_value_text_height" android:minWidth="30.0dip" android:gravity="center" android:background="@null" android:maxLength="3" android:inputType="number" android:selectAllOnFocus="true" style="@style/SeekbarProgressText" />
     </LinearLayout>
 
     <LinearLayout
@@ -38,6 +38,6 @@
         <TextView
             android:id="@+id/sesl_color_blue_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_title_text_height" android:gravity="center" android:text="@string/sesl_color_blue_text" style="@style/HexRGBTitleText" />
         <EditText
-            android:id="@+id/sesl_color_blue_edit_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_value_text_height" android:minWidth="30.0dip" android:gravity="center" android:background="@null" android:maxLength="3" android:inputType="number" android:imeOptions="actionNext" style="@style/SeekbarProgressText" />
+            android:id="@+id/sesl_color_blue_edit_text" android:layout_width="wrap_content" android:layout_height="@dimen/sesl_color_picker_selected_color_value_text_height" android:minWidth="30.0dip" android:gravity="center" android:background="@null" android:maxLength="3" android:inputType="number" android:selectAllOnFocus="true" style="@style/SeekbarProgressText" />
     </LinearLayout>
 </LinearLayout>
