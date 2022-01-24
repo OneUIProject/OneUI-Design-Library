@@ -57,7 +57,7 @@ import de.dlyt.yanndroid.oneui.sesl.support.WindowManagerSupport;
 import de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton;
 import de.dlyt.yanndroid.oneui.widget.RoundFrameLayout;
 
-public class ToolbarLayout extends LinearLayout {
+public class ToolbarLayout extends SamsungCoordinatorLayout {
     private static final String TAG = "ToolbarLayout";
     public static final int N_BADGE = -1;
     protected AppCompatActivity mActivity;
@@ -156,7 +156,7 @@ public class ToolbarLayout extends LinearLayout {
         TypedValue bgColor = new TypedValue();
         context.getTheme().resolveAttribute(android.R.attr.windowBackground, bgColor, true);
 
-        setOrientation(VERTICAL);
+        //setOrientation(VERTICAL);
         if (bgColor.resourceId > 0) {
             setBackgroundColor(getResources().getColor(bgColor.resourceId));
         } else {
