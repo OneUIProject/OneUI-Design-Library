@@ -1249,7 +1249,7 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
                         mTitleLayout.setPadding(0, 0, 0, statusBarHeight / 2);
                     }
                 } else {
-                    //mExtendedTitle.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.sesl_appbar_extended_title_text_view_height)));
+                    mExtendedTitle.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.sesl_appbar_extended_title_text_view_height)));
                     TextViewCompat.setAutoSizeTextTypeWithDefaults(mExtendedTitle, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
                     TextViewCompat.setAutoSizeTextTypeUniformWithPresetSizes(mExtendedTitle, new int[]{38, 32, 26}, TypedValue.COMPLEX_UNIT_DIP);
                 }
