@@ -524,9 +524,9 @@
     <style name="CollapsingToolbarLayoutStyle" parent="@android:style/Widget">
         <item name="android:background">@color/sesl_action_bar_background_color</item>
         <item name="android:minHeight">?actionBarSize</item>
-        <item name="extendTitleTextAppearance">@style/CollapsingToolbarExpandTitleStyle</item>
-        <item name="extendSubTitleTextAppearance">@style/CollapsingToolbarExpandSubtitleStyle</item>
-        <item name="collapseTitleTextAppearance">@style/CollapsedActionBarTitleTextStyle</item>
+        <item name="extendedTitleTextAppearance">@style/CollapsingToolbarExpandTitleStyle</item>
+        <item name="extendedSubtitleTextAppearance">@style/CollapsingToolbarExpandSubtitleStyle</item>
+        <item name="collapsedTitleTextAppearance">@style/CollapsedActionBarTitleTextStyle</item>
         <item name="statusBarScrim">?colorPrimaryDark</item>
     </style>
 
@@ -579,6 +579,7 @@
     </style>
 
     <style name="CollapsingToolbarExpandSubtitleStyle" parent="@style/CollapsedActionBarSubtitleTextStyle">
+        <item name="android:textSize">@dimen/sesl_appbar_extended_subtitle_text_size</item>
         <item name="android:textColor">@color/sesl_extended_appbar_subtitle</item>
     </style>
 
@@ -1020,9 +1021,9 @@
 
     <style name="OneUI4.CollapsingToolbarLayoutStyle" parent="@style/CollapsingToolbarLayoutStyle">
         <item name="android:background">@color/sesl4_action_bar_background_color</item>
-        <item name="extendTitleTextAppearance">@style/OneUI4.CollapsingToolbarExpandTitleStyle</item>
-        <item name="extendSubTitleTextAppearance">@style/OneUI4.CollapsingToolbarExpandSubtitleStyle</item>
-        <item name="collapseTitleTextAppearance">@style/OneUI4.CollapsedActionBarTitleTextStyle</item>
+        <item name="extendedTitleTextAppearance">@style/OneUI4.CollapsingToolbarExpandTitleStyle</item>
+        <item name="extendedSubtitleTextAppearance">@style/OneUI4.CollapsingToolbarExpandSubtitleStyle</item>
+        <item name="collapsedTitleTextAppearance">@style/OneUI4.CollapsedActionBarTitleTextStyle</item>
     </style>
 
     <style name="OneUI4.ToolbarStyle" parent="@style/ToolbarStyle">
@@ -1048,8 +1049,8 @@
     </style>
 
     <style name="OneUI4.CollapsingToolbarExpandSubtitleStyle" parent="@style/OneUI4.CollapsedActionBarSubtitleTextStyle">
+        <item name="android:textSize">@dimen/sesl_appbar_extended_subtitle_text_size</item>
         <item name="android:textColor">@color/sesl_extended_appbar_subtitle</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
 
