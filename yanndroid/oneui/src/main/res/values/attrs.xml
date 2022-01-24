@@ -16,8 +16,6 @@
 
     <attr name="useDisabledAlpha" format="boolean" />
 
-    <attr name="layout_isTitleCustom" format="boolean" />
-
     <attr name="bottomNaviViewStyle" format="reference" />
     <attr name="tabLayoutStyle" format="reference" />
 
@@ -200,32 +198,33 @@
         <attr name="layout_scrollInterpolator" format="reference" />
     </declare-styleable>
     <declare-styleable name="SamsungCollapsingToolbarLayout">
-        <attr name="expandedTitleMargin" format="dimension" />
-        <attr name="expandedTitleMarginStart" format="dimension" />
-        <attr name="expandedTitleMarginTop" format="dimension" />
-        <attr name="expandedTitleMarginEnd" format="dimension" />
-        <attr name="expandedTitleMarginBottom" format="dimension" />
-        <attr name="expandedTitleTextAppearance" format="reference" />
-        <attr name="extendTitleEnabled" format="boolean" />
-        <attr name="extendTitleTextAppearance" format="reference" />
-        <attr name="extendSubTitleTextAppearance" format="reference" />
-        <attr name="collapseTitleTextAppearance" format="reference" />
-        <attr name="collapsedTitleTextAppearance" format="reference" />
-        <attr name="contentScrim" format="color" />
-        <attr name="statusBarScrim" format="color" />
-        <attr name="toolbarId" format="reference" />
-        <attr name="scrimVisibleHeightTrigger" format="dimension" />
-        <attr name="scrimAnimationDuration" format="integer" />
+        <attr name="expandedTitleMargin" />
+        <attr name="expandedTitleMarginStart" />
+        <attr name="expandedTitleMarginTop" />
+        <attr name="expandedTitleMarginEnd" />
+        <attr name="expandedTitleMarginBottom" />
+        <attr name="expandedTitleTextAppearance" />
+        <attr name="extendedTitleEnabled" format="boolean" />
+        <attr name="extendedTitleTextAppearance" format="reference" />
+        <attr name="extendedSubtitleTextAppearance" format="reference" />
+        <attr name="collapsedTitleTextAppearance" />
+        <attr name="contentScrim" />
+        <attr name="statusBarScrim" />
+        <attr name="toolbarId" />
+        <attr name="scrimVisibleHeightTrigger" />
+        <attr name="scrimAnimationDuration" />
         <attr name="collapsedTitleGravity" />
         <attr name="expandedTitleGravity" />
-        <attr name="titleEnabled" format="boolean" />
+        <attr name="titleEnabled" />
         <attr name="title" />
+        <attr name="titleCollapseMode" />
         <attr name="subtitle" />
+        <attr name="maxLines" />
     </declare-styleable>
     <declare-styleable name="SamsungCollapsingToolbarLayout_Layout">
         <attr name="layout_collapseMode" />
         <attr name="layout_collapseParallaxMultiplier" format="float" />
-        <attr name="layout_isTitleCustom" />
+        <attr name="isCustomTitle" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="SamsungTabLayout">

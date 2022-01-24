@@ -328,8 +328,6 @@ public class ToolbarLayout extends LinearLayout {
     @SuppressLint("LongLogTag")
     private void resetAppBar(Configuration newConfig) {
         if (appBarLayout != null) {
-            boolean isLandscape = newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE;
-
             if (mExpandable) {
                 appBarLayout.setEnabled(true);
                 appBarLayout.seslSetCustomHeightProportion(false, 0);
@@ -382,7 +380,7 @@ public class ToolbarLayout extends LinearLayout {
     public void setSubtitle(CharSequence subtitle) {
         mSubtitle = subtitle;
         if (mExpandable) {
-            collapsingToolbarLayout.setSubtitle(subtitle);
+            collapsingToolbarLayout.seslSetSubtitle(subtitle);
         }
         collapsedSubTitleView.setText(subtitle);
 
@@ -393,6 +391,7 @@ public class ToolbarLayout extends LinearLayout {
         TypedValue outValue = new TypedValue();
         getResources().getValue(mIsOneUI4 ? R.dimen.sesl4_appbar_height_proportion : R.dimen.sesl_appbar_height_proportion, outValue, true);
         if (!mExpandable || outValue.getFloat() == 0.0) {
+            appBarLayout.setExpanded(false);
             collapsedSubTitleView.setVisibility((mSubtitle != null && mSubtitle.length() != 0) ? VISIBLE : GONE);
         } else {
             collapsedSubTitleView.setVisibility(GONE);
@@ -548,7 +547,7 @@ public class ToolbarLayout extends LinearLayout {
 
         if (mSubtitle != null && mSubtitle.length() != 0) {
             if (mExpandable) {
-                collapsingToolbarLayout.setSubtitle(null);
+                collapsingToolbarLayout.seslSetSubtitle(null);
             }
             collapsedSubTitleView.setText(null);
             collapsedSubTitleView.setVisibility(GONE);
@@ -581,7 +580,7 @@ public class ToolbarLayout extends LinearLayout {
             collapsingToolbarLayout.setTitle(getResources().getString(R.string.action_search));
 
         if (mSubtitle != null && mSubtitle.length() != 0) {
-            if (mExpandable) collapsingToolbarLayout.setSubtitle(null);
+            if (mExpandable) collapsingToolbarLayout.seslSetSubtitle(null);
             collapsedSubTitleView.setText(null);
             collapsedSubTitleView.setVisibility(GONE);
         }
