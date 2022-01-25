@@ -217,7 +217,7 @@ public class SeslColorPicker extends LinearLayout implements View.OnClickListene
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int i = Integer.parseInt(s.toString());
+                int i = s.toString().isEmpty() ? 0 : Integer.parseInt(s.toString());
                 if (mOpacitySeekBar != null && s.toString().trim().length() > 0 && i <= 100) {
                     mColorPickerOpacityEditText.setTag(0);
                     mOpacitySeekBar.setProgress((i * 255) / 100);
@@ -232,6 +232,7 @@ public class SeslColorPicker extends LinearLayout implements View.OnClickListene
                     }
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
+                    mColorPickerOpacityEditText.setText("0");
                 }
                 mColorPickerOpacityEditText.setSelection(mColorPickerOpacityEditText.getText().length());
             }
@@ -358,6 +359,7 @@ public class SeslColorPicker extends LinearLayout implements View.OnClickListene
                         }
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
+                        mColorPickerSaturationEditText.setText("0");
                     }
                     mColorPickerSaturationEditText.setSelection(mColorPickerSaturationEditText.getText().length());
                 }
