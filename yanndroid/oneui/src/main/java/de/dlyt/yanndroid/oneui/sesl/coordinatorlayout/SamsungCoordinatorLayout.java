@@ -1,10 +1,10 @@
 package de.dlyt.yanndroid.oneui.sesl.coordinatorlayout;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Region;
@@ -18,23 +18,34 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.ViewTreeObserver;
 
-import androidx.coordinatorlayout.widget.DirectedAcyclicGraph;
-import androidx.coordinatorlayout.widget.ViewGroupUtils;
+import androidx.annotation.AttrRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.FloatRange;
+import androidx.annotation.IdRes;
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.util.ObjectsCompat;
 import androidx.core.util.Pools;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.NestedScrollingParent;
 import androidx.core.view.NestedScrollingParent2;
 import androidx.core.view.NestedScrollingParent3;
 import androidx.core.view.NestedScrollingParentHelper;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewCompat.NestedScrollType;
+import androidx.core.view.ViewCompat.ScrollAxis;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.customview.view.AbsSavedState;
 
@@ -51,122 +62,487 @@ import java.util.Map;
 import de.dlyt.yanndroid.oneui.R;
 
 public class SamsungCoordinatorLayout extends ViewGroup implements NestedScrollingParent2, NestedScrollingParent3 {
-    public static final Class<?>[] CONSTRUCTOR_PARAMS;
-    public static final Comparator<View> TOP_SORTED_CHILDREN_COMPARATOR;
-    public static final String WIDGET_PACKAGE_NAME;
-    public static final ThreadLocal<Map<String, Constructor<SamsungCoordinatorLayout.Behavior>>> sConstructors;
-    public static final Pools.Pool<Rect> sRectPool;
+    static final Class<?>[] CONSTRUCTOR_PARAMS = new Class[]{Context.class, AttributeSet.class};
+    static final int EVENT_NESTED_SCROLL = 1;
+    static final int EVENT_PRE_DRAW = 0;
+    static final int EVENT_VIEW_REMOVED = 2;
+    static final String TAG = "CoordinatorLayout";
+    static final Comparator<View> TOP_SORTED_CHILDREN_COMPARATOR;
+    private static final int TYPE_ON_INTERCEPT = 0;
+    private static final int TYPE_ON_TOUCH = 1;
+    static final String WIDGET_PACKAGE_NAME;
+    static final ThreadLocal<Map<String, Constructor<Behavior>>> sConstructors = new ThreadLocal<>();
+    private static final Pools.Pool<Rect> sRectPool = new Pools.SynchronizedPool(12);
+    private androidx.core.view.OnApplyWindowInsetsListener mApplyWindowInsetsListener;
+    private final int[] mBehaviorConsumed = new int[2];
+    private View mBehaviorTouchView;
+    private final DirectedAcyclicGraph<View> mChildDag = new DirectedAcyclicGraph<>();
+    private final List<View> mDependencySortedChildren = new ArrayList();
+    private boolean mDisallowInterceptReset;
+    private boolean mDrawStatusBarBackground;
+    private boolean mEnableAutoCollapsingKeyEvent = true;
+    private boolean mIsAttachedToWindow;
+    private int[] mKeylines;
+    private WindowInsetsCompat mLastInsets;
+    private View mLastNestedScrollingChild;
+    private boolean mNeedsPreDrawListener;
+    private final NestedScrollingParentHelper mNestedScrollingParentHelper = new NestedScrollingParentHelper(this);
+    private View mNestedScrollingTarget;
+    private final int[] mNestedScrollingV2ConsumedCompat = new int[2];
+    ViewGroup.OnHierarchyChangeListener mOnHierarchyChangeListener;
+    private OnPreDrawListener mOnPreDrawListener;
+    private Paint mScrimPaint;
+    private Drawable mStatusBarBackground;
+    private final List<View> mTempDependenciesList = new ArrayList();
+    private final List<View> mTempList1 = new ArrayList();
+    private boolean mToolIsMouse;
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({EVENT_PRE_DRAW, EVENT_NESTED_SCROLL, EVENT_VIEW_REMOVED})
+    public @interface DispatchChangeEvent {}
 
     static {
-        Package var0 = SamsungCoordinatorLayout.class.getPackage();
-        String var1;
-        if (var0 != null) {
-            var1 = var0.getName();
-        } else {
-            var1 = null;
-        }
+        final Package pkg = SamsungCoordinatorLayout.class.getPackage();
+        WIDGET_PACKAGE_NAME = pkg != null ? pkg.getName() : null;
+    }
 
-        WIDGET_PACKAGE_NAME = var1;
+    static {
         if (Build.VERSION.SDK_INT >= 21) {
-            TOP_SORTED_CHILDREN_COMPARATOR = new SamsungCoordinatorLayout.ViewElevationComparator();
+            TOP_SORTED_CHILDREN_COMPARATOR = new ViewElevationComparator();
         } else {
             TOP_SORTED_CHILDREN_COMPARATOR = null;
         }
-
-        CONSTRUCTOR_PARAMS = new Class[]{Context.class, AttributeSet.class};
-        sConstructors = new ThreadLocal();
-        sRectPool = new Pools.SynchronizedPool(12);
     }
 
-    public final int[] mBehaviorConsumed;
-    public final DirectedAcyclicGraph<View> mChildDag;
-    public final List<View> mDependencySortedChildren;
-    public final NestedScrollingParentHelper mNestedScrollingParentHelper;
-    public final int[] mNestedScrollingV2ConsumedCompat;
-    public final List<View> mTempDependenciesList;
-    public final List<View> mTempList1;
-    public androidx.core.view.OnApplyWindowInsetsListener mApplyWindowInsetsListener;
-    public View mBehaviorTouchView;
-    public boolean mDisallowInterceptReset;
-    public boolean mDrawStatusBarBackground;
-    public boolean mIsAttachedToWindow;
-    public int[] mKeylines;
-    public WindowInsetsCompat mLastInsets;
-    public View mLastNestedScrollingChild;
-    public boolean mNeedsPreDrawListener;
-    public View mNestedScrollingTarget;
-    public OnHierarchyChangeListener mOnHierarchyChangeListener;
-    public SamsungCoordinatorLayout.OnPreDrawListener mOnPreDrawListener;
-    public Paint mScrimPaint;
-    public Drawable mStatusBarBackground;
-
-    public SamsungCoordinatorLayout(Context var1) {
-        this(var1, (AttributeSet) null);
+    @NonNull
+    private static Rect acquireTempRect() {
+        Rect rect = sRectPool.acquire();
+        if (rect == null) {
+            rect = new Rect();
+        }
+        return rect;
     }
 
-    public SamsungCoordinatorLayout(Context var1, AttributeSet var2) {
-        this(var1, var2, R.attr.coordinatorLayoutStyle);
+    private static void releaseTempRect(@NonNull Rect rect) {
+        rect.setEmpty();
+        sRectPool.release(rect);
     }
 
-    @SuppressLint("RestrictedApi")
-    public SamsungCoordinatorLayout(Context var1, AttributeSet var2, int var3) {
-        super(var1, var2, var3);
-        this.mDependencySortedChildren = new ArrayList();
-        this.mChildDag = new DirectedAcyclicGraph();
-        this.mTempList1 = new ArrayList();
-        this.mTempDependenciesList = new ArrayList();
-        this.mBehaviorConsumed = new int[2];
-        this.mNestedScrollingV2ConsumedCompat = new int[2];
-        this.mNestedScrollingParentHelper = new NestedScrollingParentHelper(this);
-        byte var4 = 0;
-        TypedArray var9;
-        if (var3 == 0) {
-            var9 = var1.obtainStyledAttributes(var2, R.styleable.SamsungCoordinatorLayout, 0, R.style.Widget_Support_CoordinatorLayout);
+    public SamsungCoordinatorLayout(@NonNull Context context) {
+        this(context, null);
+    }
+
+    public SamsungCoordinatorLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, R.attr.coordinatorLayoutStyle);
+    }
+
+    public SamsungCoordinatorLayout(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+
+        final TypedArray a = (defStyleAttr == 0) ? context.obtainStyledAttributes(attrs, R.styleable.SamsungCoordinatorLayout, 0, R.style.Widget_Support_CoordinatorLayout) : context.obtainStyledAttributes(attrs, R.styleable.SamsungCoordinatorLayout, defStyleAttr, 0);
+        if (defStyleAttr == 0) {
+            ViewCompat.saveAttributeDataForStyleable(this, context, R.styleable.SamsungCoordinatorLayout, attrs, a, 0, R.style.Widget_Support_CoordinatorLayout);
         } else {
-            var9 = var1.obtainStyledAttributes(var2, R.styleable.SamsungCoordinatorLayout, var3, 0);
+            ViewCompat.saveAttributeDataForStyleable(this, context, R.styleable.SamsungCoordinatorLayout, attrs, a, defStyleAttr, 0);
         }
 
-        var3 = var9.getResourceId(R.styleable.SamsungCoordinatorLayout_keylines, 0);
-        if (var3 != 0) {
-            Resources var7 = var1.getResources();
-            this.mKeylines = var7.getIntArray(var3);
-            float var5 = var7.getDisplayMetrics().density;
-            int var6 = this.mKeylines.length;
+        final int keylineArrayRes = a.getResourceId(R.styleable.SamsungCoordinatorLayout_keylines, 0);
+        if (keylineArrayRes != 0) {
+            final Resources res = context.getResources();
+            mKeylines = res.getIntArray(keylineArrayRes);
+            final float density = res.getDisplayMetrics().density;
+            final int count = mKeylines.length;
+            for (int i = 0; i < count; i++) {
+                mKeylines[i] = (int) (mKeylines[i] * density);
+            }
+        }
+        mStatusBarBackground = a.getDrawable(R.styleable.SamsungCoordinatorLayout_statusBarBackground);
+        a.recycle();
 
-            for (var3 = var4; var3 < var6; ++var3) {
-                int[] var8 = this.mKeylines;
-                var8[var3] = (int) ((float) var8[var3] * var5);
+        setupForInsets();
+        super.setOnHierarchyChangeListener(new HierarchyChangeListener());
+
+        if (ViewCompat.getImportantForAccessibility(this) == ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_AUTO) {
+            ViewCompat.setImportantForAccessibility(this, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_YES);
+        }
+    }
+
+    @Override
+    public void setOnHierarchyChangeListener(OnHierarchyChangeListener onHierarchyChangeListener) {
+        mOnHierarchyChangeListener = onHierarchyChangeListener;
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        resetTouchBehaviors(false);
+        if (mNeedsPreDrawListener) {
+            if (mOnPreDrawListener == null) {
+                mOnPreDrawListener = new OnPreDrawListener();
+            }
+            final ViewTreeObserver vto = getViewTreeObserver();
+            vto.addOnPreDrawListener(mOnPreDrawListener);
+        }
+        if (mLastInsets == null && ViewCompat.getFitsSystemWindows(this)) {
+            ViewCompat.requestApplyInsets(this);
+        }
+        mIsAttachedToWindow = true;
+    }
+
+    public void seslSetNestedScrollingChild(View view) {
+        mLastNestedScrollingChild = view;
+    }
+
+    @Override
+    public boolean dispatchGenericMotionEvent(MotionEvent ev) {
+        for (int i = getChildCount() - 1; i >= 0; i--) {
+            final View child = getChildAt(i);
+
+            final Behavior behavior = ((LayoutParams) child.getLayoutParams()).getBehavior();
+            if (behavior != null) {
+                behavior.dispatchGenericMotionEvent(ev);
+            }
+
+            if (child instanceof AppBarLayoutBehavior) {
+                final AppBarLayoutBehavior ablBehavior = (AppBarLayoutBehavior) child;
+
+                final boolean isMouseEvent = isMouseEvent(ev);
+                if (mToolIsMouse != isMouseEvent) {
+                    mToolIsMouse = isMouseEvent;
+                    ablBehavior.seslSetIsMouse(isMouseEvent);
+                }
+
+                if (ev.getAction() == MotionEvent.ACTION_SCROLL) {
+                    if (mLastNestedScrollingChild != null) {
+                        if (ev.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0F) {
+                            ablBehavior.seslSetExpanded(false);
+                        } else if (ev.getAxisValue(MotionEvent.AXIS_VSCROLL) > 0.0F && !mLastNestedScrollingChild.canScrollVertically(-1)) {
+                            ablBehavior.seslSetExpanded(true);
+                        }
+                    } else if (ev.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0F) {
+                        ablBehavior.seslSetExpanded(false);
+                    } else if (ev.getAxisValue(MotionEvent.AXIS_VSCROLL) > 0.0F) {
+                        ablBehavior.seslSetExpanded(true);
+                    }
+                }
+                break;
             }
         }
 
-        this.mStatusBarBackground = var9.getDrawable(R.styleable.SamsungCoordinatorLayout_statusBarBackground);
-        var9.recycle();
-        this.setupForInsets();
-        super.setOnHierarchyChangeListener(new SamsungCoordinatorLayout.HierarchyChangeListener());
+        return super.dispatchGenericMotionEvent(ev);
     }
 
-    public static Rect acquireTempRect() {
-        Rect var0 = (Rect) sRectPool.acquire();
-        Rect var1 = var0;
-        if (var0 == null) {
-            var1 = new Rect();
+    private boolean isMouseEvent(MotionEvent ev) {
+        return ev.getToolType(0) == MotionEvent.TOOL_TYPE_MOUSE;
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (mEnableAutoCollapsingKeyEvent) {
+            if (event.getKeyCode() == KeyEvent.KEYCODE_TAB || event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP || event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN || event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT || event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                for (int i = 0; i < getChildCount(); i++) {
+                    final View child = getChildAt(i);
+
+                    if (child instanceof AppBarLayoutBehavior) {
+                        AppBarLayoutBehavior behavior = (AppBarLayoutBehavior) child;
+                        if (!behavior.seslIsCollapsed()) {
+                            behavior.seslSetExpanded(false);
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
-        return var1;
+        return super.dispatchKeyEvent(event);
     }
 
-    public static int clamp(int var0, int var1, int var2) {
-        if (var0 < var1) {
-            return var1;
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        resetTouchBehaviors(false);
+        if (mNeedsPreDrawListener && mOnPreDrawListener != null) {
+            final ViewTreeObserver vto = getViewTreeObserver();
+            vto.removeOnPreDrawListener(mOnPreDrawListener);
+        }
+        if (mNestedScrollingTarget != null) {
+            mLastNestedScrollingChild = mNestedScrollingTarget;
+            onStopNestedScroll(mNestedScrollingTarget);
+        }
+        mIsAttachedToWindow = false;
+    }
+
+    public void setStatusBarBackground(@Nullable final Drawable bg) {
+        if (mStatusBarBackground != bg) {
+            if (mStatusBarBackground != null) {
+                mStatusBarBackground.setCallback(null);
+            }
+            mStatusBarBackground = bg != null ? bg.mutate() : null;
+            if (mStatusBarBackground != null) {
+                if (mStatusBarBackground.isStateful()) {
+                    mStatusBarBackground.setState(getDrawableState());
+                }
+                DrawableCompat.setLayoutDirection(mStatusBarBackground, ViewCompat.getLayoutDirection(this));
+                mStatusBarBackground.setVisible(getVisibility() == VISIBLE, false);
+                mStatusBarBackground.setCallback(this);
+            }
+            ViewCompat.postInvalidateOnAnimation(this);
+        }
+    }
+
+    @Nullable
+    public Drawable getStatusBarBackground() {
+        return mStatusBarBackground;
+    }
+
+    @Override
+    protected void drawableStateChanged() {
+        super.drawableStateChanged();
+
+        final int[] state = getDrawableState();
+        boolean changed = false;
+
+        Drawable d = mStatusBarBackground;
+        if (d != null && d.isStateful()) {
+            changed |= d.setState(state);
+        }
+
+        if (changed) {
+            invalidate();
+        }
+    }
+
+    @Override
+    protected boolean verifyDrawable(Drawable who) {
+        return super.verifyDrawable(who) || who == mStatusBarBackground;
+    }
+
+    @Override
+    public void setVisibility(int visibility) {
+        super.setVisibility(visibility);
+
+        final boolean visible = visibility == VISIBLE;
+        if (mStatusBarBackground != null && mStatusBarBackground.isVisible() != visible) {
+            mStatusBarBackground.setVisible(visible, false);
+        }
+    }
+
+    public void setStatusBarBackgroundResource(@DrawableRes int resId) {
+        setStatusBarBackground(resId != 0 ? ContextCompat.getDrawable(getContext(), resId) : null);
+    }
+
+    public void setStatusBarBackgroundColor(@ColorInt int color) {
+        setStatusBarBackground(new ColorDrawable(color));
+    }
+
+    final WindowInsetsCompat setWindowInsets(WindowInsetsCompat insets) {
+        if (!ObjectsCompat.equals(mLastInsets, insets)) {
+            mLastInsets = insets;
+            mDrawStatusBarBackground = insets != null && insets.getSystemWindowInsetTop() > 0;
+            setWillNotDraw(!mDrawStatusBarBackground && getBackground() == null);
+
+            insets = dispatchApplyWindowInsetsToBehaviors(insets);
+            requestLayout();
+        }
+        return insets;
+    }
+
+    public final WindowInsetsCompat getLastWindowInsets() {
+        return mLastInsets;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void resetTouchBehaviors(boolean intercept) {
+        final int childCount = getChildCount();
+
+        for (int i = 0; i < childCount; i++) {
+            final View child = getChildAt(i);
+            final Behavior behavior = ((LayoutParams) child.getLayoutParams()).getBehavior();
+
+            if (behavior != null) {
+                final long now = SystemClock.uptimeMillis();
+                final MotionEvent ev = MotionEvent.obtain(now, now, MotionEvent.ACTION_CANCEL, 0.0f, 0.0f, 0);
+                if (intercept) {
+                    behavior.onInterceptTouchEvent(this, child, ev);
+                } else {
+                    behavior.onTouchEvent(this, child, ev);
+                }
+                ev.recycle();
+            }
+        }
+
+        for (int i = 0; i < childCount; i++) {
+            final View child = getChildAt(i);
+            final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            lp.resetTouchBehaviorTracking();
+        }
+
+        mBehaviorTouchView = null;
+        mDisallowInterceptReset = false;
+    }
+
+    private void getTopSortedChildren(List<View> out) {
+        out.clear();
+
+        final boolean useCustomOrder = isChildrenDrawingOrderEnabled();
+        final int childCount = getChildCount();
+        for (int i = childCount - 1; i >= 0; i--) {
+            final int childIndex = useCustomOrder ? getChildDrawingOrder(childCount, i) : i;
+            final View child = getChildAt(childIndex);
+            out.add(child);
+        }
+
+        if (TOP_SORTED_CHILDREN_COMPARATOR != null) {
+            Collections.sort(out, TOP_SORTED_CHILDREN_COMPARATOR);
+        }
+    }
+
+    //kang
+    @SuppressWarnings("unchecked")
+    private boolean performIntercept(final MotionEvent ev, final int type) {
+        int actionMasked = ev.getActionMasked();
+        List<View> list = this.mTempList1;
+        getTopSortedChildren(list);
+        int size = list.size();
+        MotionEvent motionEvent2 = null;
+        boolean z = false;
+        boolean z2 = false;
+        for (int i2 = 0; i2 < size; i2++) {
+            View view = list.get(i2);
+            LayoutParams layoutParams = (LayoutParams) view.getLayoutParams();
+            Behavior behavior = layoutParams.getBehavior();
+            if (!(z || z2) || actionMasked == 0) {
+                if (!z && behavior != null) {
+                    if (type == 0) {
+                        z = behavior.onInterceptTouchEvent(this, view, ev);
+                    } else if (type == 1) {
+                        z = behavior.onTouchEvent(this, view, ev);
+                    }
+                    if (z) {
+                        this.mBehaviorTouchView = view;
+                    }
+                }
+                boolean didBlockInteraction = layoutParams.didBlockInteraction();
+                boolean isBlockingInteractionBelow = layoutParams.isBlockingInteractionBelow(this, view);
+                z2 = isBlockingInteractionBelow && !didBlockInteraction;
+                if (isBlockingInteractionBelow && !z2) {
+                    break;
+                }
+            } else if (behavior != null) {
+                if (motionEvent2 == null) {
+                    long uptimeMillis = SystemClock.uptimeMillis();
+                    motionEvent2 = MotionEvent.obtain(uptimeMillis, uptimeMillis, 3, 0.0f, 0.0f, 0);
+                }
+                if (type == 0) {
+                    behavior.onInterceptTouchEvent(this, view, motionEvent2);
+                } else if (type == 1) {
+                    behavior.onTouchEvent(this, view, motionEvent2);
+                }
+            }
+        }
+        list.clear();
+        return z;
+    }
+    //kang
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        final int action = ev.getActionMasked();
+
+        if (action == MotionEvent.ACTION_DOWN) {
+            for (int i = getChildCount() - 1; i >= 0; i--) {
+                final View child = getChildAt(i);
+
+                if (child instanceof AppBarLayoutBehavior) {
+                    AppBarLayoutBehavior behavior = (AppBarLayoutBehavior) child;
+
+                    final boolean isMouseEvent = isMouseEvent(ev);
+                    if (mToolIsMouse != isMouseEvent) {
+                        mToolIsMouse = isMouseEvent;
+                        behavior.seslSetIsMouse(isMouseEvent);
+                    }
+                }
+            }
+
+            resetTouchBehaviors(true);
+        }
+
+        final boolean intercepted = performIntercept(ev, TYPE_ON_INTERCEPT);
+
+        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
+            resetTouchBehaviors(true);
+        }
+
+        return intercepted;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean onTouchEvent(MotionEvent ev) {
+        boolean handled = false;
+        boolean cancelSuper = false;
+        MotionEvent cancelEvent = null;
+
+        final int action = ev.getActionMasked();
+
+        if (mBehaviorTouchView != null) {
+            final LayoutParams lp = (LayoutParams) mBehaviorTouchView.getLayoutParams();
+            final Behavior b = lp.getBehavior();
+            if (b != null) {
+                handled = b.onTouchEvent(this, mBehaviorTouchView, ev);
+            }
         } else {
-            return var0 > var2 ? var2 : var0;
+            handled = performIntercept(ev, TYPE_ON_TOUCH);
+            cancelSuper = action != MotionEvent.ACTION_DOWN && handled;
+        }
+
+        if (mBehaviorTouchView == null || action == MotionEvent.ACTION_CANCEL) {
+            handled |= super.onTouchEvent(ev);
+        } else if (cancelSuper) {
+            final long now = SystemClock.uptimeMillis();
+            cancelEvent = MotionEvent.obtain(now, now, MotionEvent.ACTION_CANCEL, 0.0f, 0.0f, 0);
+            super.onTouchEvent(cancelEvent);
+        }
+
+        if (cancelEvent != null) {
+            cancelEvent.recycle();
+        }
+
+        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
+            resetTouchBehaviors(false);
+        }
+
+        return handled;
+    }
+
+    @Override
+    public void requestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+        super.requestDisallowInterceptTouchEvent(disallowIntercept);
+        if (disallowIntercept && !mDisallowInterceptReset) {
+            resetTouchBehaviors(false);
+            mDisallowInterceptReset = true;
         }
     }
 
-    public static Behavior parseBehavior(Context context, AttributeSet attrs, String name) {
+    private int getKeyline(int index) {
+        if (mKeylines == null) {
+            Log.e(TAG, "No keylines defined for " + this + " - attempted index lookup " + index);
+            return 0;
+        }
+
+        if (index < 0 || index >= mKeylines.length) {
+            Log.e(TAG, "Keyline index " + index + " out of range for " + this);
+            return 0;
+        }
+
+        return mKeylines[index];
+    }
+
+    @SuppressWarnings("unchecked")
+    static Behavior parseBehavior(Context context, AttributeSet attrs, String name) {
         if (TextUtils.isEmpty(name)) {
             return null;
         }
+
         final String fullName;
         if (name.startsWith(".")) {
             fullName = context.getPackageName() + name;
@@ -175,6 +551,7 @@ public class SamsungCoordinatorLayout extends ViewGroup implements NestedScrolli
         } else {
             fullName = !TextUtils.isEmpty(WIDGET_PACKAGE_NAME) ? (WIDGET_PACKAGE_NAME + '.' + name) : name;
         }
+
         try {
             Map<String, Constructor<Behavior>> constructors = sConstructors.get();
             if (constructors == null) {
@@ -194,1281 +571,829 @@ public class SamsungCoordinatorLayout extends ViewGroup implements NestedScrolli
         }
     }
 
-    public static void releaseTempRect(Rect var0) {
-        var0.setEmpty();
-        sRectPool.release(var0);
-    }
-
-    public static int resolveAnchoredChildGravity(int var0) {
-        int var1 = var0;
-        if (var0 == 0) {
-            var1 = 17;
-        }
-
-        return var1;
-    }
-
-    public static int resolveGravity(int var0) {
-        int var1 = var0;
-        if ((var0 & 7) == 0) {
-            var1 = var0 | 8388611;
-        }
-
-        var0 = var1;
-        if ((var1 & 112) == 0) {
-            var0 = var1 | 48;
-        }
-
-        return var0;
-    }
-
-    public static int resolveKeylineGravity(int var0) {
-        int var1 = var0;
-        if (var0 == 0) {
-            var1 = 8388661;
-        }
-
-        return var1;
-    }
-
-    public void addPreDrawListener() {
-        if (this.mIsAttachedToWindow) {
-            if (this.mOnPreDrawListener == null) {
-                this.mOnPreDrawListener = new SamsungCoordinatorLayout.OnPreDrawListener();
-            }
-
-            this.getViewTreeObserver().addOnPreDrawListener(this.mOnPreDrawListener);
-        }
-
-        this.mNeedsPreDrawListener = true;
-    }
-
-    public boolean checkLayoutParams(android.view.ViewGroup.LayoutParams var1) {
-        boolean var2;
-        if (var1 instanceof SamsungCoordinatorLayout.LayoutParams && super.checkLayoutParams(var1)) {
-            var2 = true;
-        } else {
-            var2 = false;
-        }
-
-        return var2;
-    }
-
-    public final void constrainChildRect(SamsungCoordinatorLayout.LayoutParams var1, Rect var2, int var3, int var4) {
-        int var5 = this.getWidth();
-        int var6 = this.getHeight();
-        var5 = Math.max(this.getPaddingLeft() + var1.leftMargin, Math.min(var2.left, var5 - this.getPaddingRight() - var3 - var1.rightMargin));
-        var6 = Math.max(this.getPaddingTop() + var1.topMargin, Math.min(var2.top, var6 - this.getPaddingBottom() - var4 - var1.bottomMargin));
-        var2.set(var5, var6, var3 + var5, var4 + var6);
-    }
-
-    public final WindowInsetsCompat dispatchApplyWindowInsetsToBehaviors(WindowInsetsCompat var1) {
-        if (var1.isConsumed()) {
-            return var1;
-        } else {
-            int var2 = 0;
-            int var3 = this.getChildCount();
-
-            WindowInsetsCompat var4;
-            while (true) {
-                var4 = var1;
-                if (var2 >= var3) {
-                    break;
+    LayoutParams getResolvedLayoutParams(View child) {
+        final LayoutParams result = (LayoutParams) child.getLayoutParams();
+        if (!result.mBehaviorResolved) {
+            if (child instanceof AttachedBehavior) {
+                Behavior attachedBehavior = ((AttachedBehavior) child).getBehavior();
+                if (attachedBehavior == null) {
+                    Log.e(TAG, "Attached behavior class is null");
                 }
-
-                View var5 = this.getChildAt(var2);
-                var4 = var1;
-                if (ViewCompat.getFitsSystemWindows(var5)) {
-                    SamsungCoordinatorLayout.Behavior var6 = ((SamsungCoordinatorLayout.LayoutParams) var5.getLayoutParams()).getBehavior();
-                    var4 = var1;
-                    if (var6 != null) {
-                        var1 = var6.onApplyWindowInsets(this, var5, var1);
-                        var4 = var1;
-                        if (var1.isConsumed()) {
-                            var4 = var1;
-                            break;
-                        }
-                    }
-                }
-
-                ++var2;
-                var1 = var4;
-            }
-
-            return var4;
-        }
-    }
-
-    public void dispatchDependentViewsChanged(View var1) {
-        @SuppressLint("RestrictedApi") List var2 = this.mChildDag.getIncomingEdges(var1);
-        if (var2 != null && !var2.isEmpty()) {
-            for (int var3 = 0; var3 < var2.size(); ++var3) {
-                View var4 = (View) var2.get(var3);
-                SamsungCoordinatorLayout.Behavior var5 = ((SamsungCoordinatorLayout.LayoutParams) var4.getLayoutParams()).getBehavior();
-                if (var5 != null) {
-                    var5.onDependentViewChanged(this, var4, var1);
-                }
-            }
-        }
-
-    }
-
-    public boolean dispatchGenericMotionEvent(MotionEvent var1) {
-        for (int var2 = this.getChildCount() - 1; var2 >= 0; --var2) {
-            View var3 = this.getChildAt(var2);
-            if (var3 instanceof AppBarLayoutBehavior) {
-                AppBarLayoutBehavior var4 = (AppBarLayoutBehavior) var3;
-                if (var1.getAction() == 8) {
-                    if (this.mLastNestedScrollingChild != null) {
-                        if (var1.getAxisValue(9) < 0.0F) {
-                            var4.seslSetExpanded(false);
-                        } else if (var1.getAxisValue(9) > 0.0F && !this.mLastNestedScrollingChild.canScrollVertically(-1)) {
-                            var4.seslSetExpanded(true);
-                        }
-                    } else if (var1.getAxisValue(9) < 0.0F) {
-                        var4.seslSetExpanded(false);
-                    } else if (var1.getAxisValue(9) > 0.0F) {
-                        var4.seslSetExpanded(true);
-                    }
-                }
-                break;
-            }
-        }
-
-        return super.dispatchGenericMotionEvent(var1);
-    }
-
-    public boolean dispatchKeyEvent(KeyEvent var1) {
-        if (var1.getKeyCode() == 61 || var1.getKeyCode() == 19 || var1.getKeyCode() == 20 || var1.getKeyCode() == 21 || var1.getKeyCode() == 22) {
-            int var2 = this.getChildCount();
-
-            for (int var3 = 0; var3 < var2; ++var3) {
-                View var4 = this.getChildAt(var3);
-                if (var4 instanceof AppBarLayoutBehavior) {
-                    AppBarLayoutBehavior var5 = (AppBarLayoutBehavior) var4;
-                    if (!var5.seslIsCollapsed()) {
-                        var5.seslSetExpanded(false);
-                        break;
-                    }
-                }
-            }
-        }
-
-        return super.dispatchKeyEvent(var1);
-    }
-
-    public boolean drawChild(Canvas var1, View var2, long var3) {
-        SamsungCoordinatorLayout.LayoutParams var5 = (SamsungCoordinatorLayout.LayoutParams) var2.getLayoutParams();
-        SamsungCoordinatorLayout.Behavior var6 = var5.mBehavior;
-        if (var6 != null) {
-            float var7 = var6.getScrimOpacity(this, var2);
-            if (var7 > 0.0F) {
-                if (this.mScrimPaint == null) {
-                    this.mScrimPaint = new Paint();
-                }
-
-                this.mScrimPaint.setColor(var5.mBehavior.getScrimColor(this, var2));
-                this.mScrimPaint.setAlpha(clamp(Math.round(var7 * 255.0F), 0, 255));
-                int var8 = var1.save();
-                if (var2.isOpaque()) {
-                    var1.clipRect((float) var2.getLeft(), (float) var2.getTop(), (float) var2.getRight(), (float) var2.getBottom(), Region.Op.DIFFERENCE);
-                }
-
-                var1.drawRect((float) this.getPaddingLeft(), (float) this.getPaddingTop(), (float) (this.getWidth() - this.getPaddingRight()), (float) (this.getHeight() - this.getPaddingBottom()), this.mScrimPaint);
-                var1.restoreToCount(var8);
-            }
-        }
-
-        return super.drawChild(var1, var2, var3);
-    }
-
-    public void drawableStateChanged() {
-        super.drawableStateChanged();
-        int[] var1 = this.getDrawableState();
-        Drawable var2 = this.mStatusBarBackground;
-        boolean var3 = false;
-        boolean var4 = var3;
-        if (var2 != null) {
-            var4 = var3;
-            if (var2.isStateful()) {
-                var4 = false | var2.setState(var1);
-            }
-        }
-
-        if (var4) {
-            this.invalidate();
-        }
-
-    }
-
-    public void ensurePreDrawListener() {
-        int var1 = this.getChildCount();
-        boolean var2 = false;
-        int var3 = 0;
-
-        boolean var4;
-        while (true) {
-            var4 = var2;
-            if (var3 >= var1) {
-                break;
-            }
-
-            if (this.hasDependencies(this.getChildAt(var3))) {
-                var4 = true;
-                break;
-            }
-
-            ++var3;
-        }
-
-        if (var4 != this.mNeedsPreDrawListener) {
-            if (var4) {
-                this.addPreDrawListener();
+                result.setBehavior(attachedBehavior);
+                result.mBehaviorResolved = true;
             } else {
-                this.removePreDrawListener();
-            }
-        }
-
-    }
-
-    public SamsungCoordinatorLayout.LayoutParams generateDefaultLayoutParams() {
-        return new SamsungCoordinatorLayout.LayoutParams(-2, -2);
-    }
-
-    public SamsungCoordinatorLayout.LayoutParams generateLayoutParams(AttributeSet var1) {
-        return new SamsungCoordinatorLayout.LayoutParams(this.getContext(), var1);
-    }
-
-    public SamsungCoordinatorLayout.LayoutParams generateLayoutParams(android.view.ViewGroup.LayoutParams var1) {
-        if (var1 instanceof SamsungCoordinatorLayout.LayoutParams) {
-            return new SamsungCoordinatorLayout.LayoutParams((SamsungCoordinatorLayout.LayoutParams) var1);
-        } else {
-            return var1 instanceof MarginLayoutParams ? new SamsungCoordinatorLayout.LayoutParams((MarginLayoutParams) var1) : new SamsungCoordinatorLayout.LayoutParams(var1);
-        }
-    }
-
-    public void getChildRect(View var1, boolean var2, Rect var3) {
-        if (!var1.isLayoutRequested() && var1.getVisibility() != View.GONE) {
-            if (var2) {
-                this.getDescendantRect(var1, var3);
-            } else {
-                var3.set(var1.getLeft(), var1.getTop(), var1.getRight(), var1.getBottom());
-            }
-
-        } else {
-            var3.setEmpty();
-        }
-    }
-
-    public List<View> getDependencies(View var1) {
-        @SuppressLint("RestrictedApi") List var2 = this.mChildDag.getOutgoingEdges(var1);
-        this.mTempDependenciesList.clear();
-        if (var2 != null) {
-            this.mTempDependenciesList.addAll(var2);
-        }
-
-        return this.mTempDependenciesList;
-    }
-
-    public final List<View> getDependencySortedChildren() {
-        this.prepareChildren();
-        return Collections.unmodifiableList(this.mDependencySortedChildren);
-    }
-
-    public List<View> getDependents(View var1) {
-        @SuppressLint("RestrictedApi") List var2 = this.mChildDag.getIncomingEdges(var1);
-        this.mTempDependenciesList.clear();
-        if (var2 != null) {
-            this.mTempDependenciesList.addAll(var2);
-        }
-
-        return this.mTempDependenciesList;
-    }
-
-    @SuppressLint("RestrictedApi")
-    public void getDescendantRect(View var1, Rect var2) {
-        ViewGroupUtils.getDescendantRect(this, var1, var2);
-    }
-
-    public void getDesiredAnchoredChildRect(View var1, int var2, Rect var3, Rect var4) {
-        SamsungCoordinatorLayout.LayoutParams var5 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
-        int var6 = var1.getMeasuredWidth();
-        int var7 = var1.getMeasuredHeight();
-        this.getDesiredAnchoredChildRectWithoutConstraints(var1, var2, var3, var4, var5, var6, var7);
-        this.constrainChildRect(var5, var4, var6, var7);
-    }
-
-    public final void getDesiredAnchoredChildRectWithoutConstraints(View var1, int var2, Rect var3, Rect var4, SamsungCoordinatorLayout.LayoutParams var5, int var6, int var7) {
-        int var8 = GravityCompat.getAbsoluteGravity(resolveAnchoredChildGravity(var5.gravity), var2);
-        int var9 = GravityCompat.getAbsoluteGravity(resolveGravity(var5.anchorGravity), var2);
-        int var10 = var8 & 7;
-        int var11 = var8 & 112;
-        var2 = var9 & 7;
-        var9 &= 112;
-        if (var2 != 1) {
-            if (var2 != 5) {
-                var2 = var3.left;
-            } else {
-                var2 = var3.right;
-            }
-        } else {
-            var2 = var3.left + var3.width() / 2;
-        }
-
-        if (var9 != 16) {
-            if (var9 != 80) {
-                var9 = var3.top;
-            } else {
-                var9 = var3.bottom;
-            }
-        } else {
-            var9 = var3.top + var3.height() / 2;
-        }
-
-        if (var10 != 1) {
-            var8 = var2;
-            if (var10 != 5) {
-                var8 = var2 - var6;
-            }
-        } else {
-            var8 = var2 - var6 / 2;
-        }
-
-        if (var11 != 16) {
-            var2 = var9;
-            if (var11 != 80) {
-                var2 = var9 - var7;
-            }
-        } else {
-            var2 = var9 - var7 / 2;
-        }
-
-        var4.set(var8, var2, var6 + var8, var7 + var2);
-    }
-
-    public final int getKeyline(int var1) {
-        int[] var2 = this.mKeylines;
-        StringBuilder var3;
-        if (var2 == null) {
-            var3 = new StringBuilder();
-            var3.append("No keylines defined for ");
-            var3.append(this);
-            var3.append(" - attempted index lookup ");
-            var3.append(var1);
-            Log.e("CoordinatorLayout", var3.toString());
-            return 0;
-        } else if (var1 >= 0 && var1 < var2.length) {
-            return var2[var1];
-        } else {
-            var3 = new StringBuilder();
-            var3.append("Keyline index ");
-            var3.append(var1);
-            var3.append(" out of range for ");
-            var3.append(this);
-            Log.e("CoordinatorLayout", var3.toString());
-            return 0;
-        }
-    }
-
-    public void getLastChildRect(View var1, Rect var2) {
-        var2.set(((SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams()).getLastChildRect());
-    }
-
-    public final WindowInsetsCompat getLastWindowInsets() {
-        return this.mLastInsets;
-    }
-
-    public int getNestedScrollAxes() {
-        return this.mNestedScrollingParentHelper.getNestedScrollAxes();
-    }
-
-    public SamsungCoordinatorLayout.LayoutParams getResolvedLayoutParams(View var1) {
-        SamsungCoordinatorLayout.LayoutParams var2 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
-        if (!var2.mBehaviorResolved) {
-            if (var1 instanceof SamsungCoordinatorLayout.AttachedBehavior) {
-                SamsungCoordinatorLayout.Behavior var6 = ((SamsungCoordinatorLayout.AttachedBehavior) var1).getBehavior();
-                if (var6 == null) {
-                    Log.e("CoordinatorLayout", "Attached behavior class is null");
+                Class<?> childClass = child.getClass();
+                DefaultBehavior defaultBehavior = null;
+                while (childClass != null && (defaultBehavior = childClass.getAnnotation(DefaultBehavior.class)) == null) {
+                    childClass = childClass.getSuperclass();
                 }
-
-                var2.setBehavior(var6);
-                var2.mBehaviorResolved = true;
-            } else {
-                Class var3 = var1.getClass();
-
-                SamsungCoordinatorLayout.DefaultBehavior var4;
-                SamsungCoordinatorLayout.DefaultBehavior var7;
-                for (var7 = null; var3 != null; var7 = var4) {
-                    var4 = (SamsungCoordinatorLayout.DefaultBehavior) var3.getAnnotation(SamsungCoordinatorLayout.DefaultBehavior.class);
-                    var7 = var4;
-                    if (var4 != null) {
-                        break;
-                    }
-
-                    var3 = var3.getSuperclass();
-                }
-
-                if (var7 != null) {
+                if (defaultBehavior != null) {
                     try {
-                        var2.setBehavior((SamsungCoordinatorLayout.Behavior) var7.value().getDeclaredConstructor().newInstance());
-                    } catch (Exception var5) {
-                        StringBuilder var8 = new StringBuilder();
-                        var8.append("Default behavior class ");
-                        var8.append(var7.value().getName());
-                        var8.append(" could not be instantiated. Did you forget a default constructor?");
-                        Log.e("CoordinatorLayout", var8.toString(), var5);
+                        result.setBehavior(defaultBehavior.value().getDeclaredConstructor().newInstance());
+                    } catch (Exception e) {
+                        Log.e(TAG, "Default behavior class " + defaultBehavior.value().getName() + " could not be instantiated. Did you forget a default constructor?", e);
                     }
                 }
-
-                var2.mBehaviorResolved = true;
+                result.mBehaviorResolved = true;
             }
         }
-
-        return var2;
+        return result;
     }
 
-    public Drawable getStatusBarBackground() {
-        return this.mStatusBarBackground;
-    }
+    private void prepareChildren() {
+        mDependencySortedChildren.clear();
+        mChildDag.clear();
 
-    public void setStatusBarBackground(Drawable var1) {
-        Drawable var2 = this.mStatusBarBackground;
-        if (var2 != var1) {
-            Drawable var3 = null;
-            if (var2 != null) {
-                var2.setCallback((Drawable.Callback) null);
-            }
+        for (int i = 0, count = getChildCount(); i < count; i++) {
+            final View view = getChildAt(i);
 
-            if (var1 != null) {
-                var3 = var1.mutate();
-            }
+            final LayoutParams lp = getResolvedLayoutParams(view);
+            lp.findAnchorView(this, view);
 
-            this.mStatusBarBackground = var3;
-            var1 = this.mStatusBarBackground;
-            if (var1 != null) {
-                if (var1.isStateful()) {
-                    this.mStatusBarBackground.setState(this.getDrawableState());
+            mChildDag.addNode(view);
+
+            for (int j = 0; j < count; j++) {
+                if (j == i) {
+                    continue;
                 }
-
-                DrawableCompat.setLayoutDirection(this.mStatusBarBackground, ViewCompat.getLayoutDirection(this));
-                var1 = this.mStatusBarBackground;
-                boolean var4;
-                if (this.getVisibility() == View.VISIBLE) {
-                    var4 = true;
-                } else {
-                    var4 = false;
+                final View other = getChildAt(j);
+                if (lp.dependsOn(this, view, other)) {
+                    if (!mChildDag.contains(other)) {
+                        mChildDag.addNode(other);
+                    }
+                    mChildDag.addEdge(other, view);
                 }
+            }
+        }
 
-                var1.setVisible(var4, false);
-                this.mStatusBarBackground.setCallback(this);
+        mDependencySortedChildren.addAll(mChildDag.getSortedList());
+        Collections.reverse(mDependencySortedChildren);
+    }
+
+    void getDescendantRect(View descendant, Rect out) {
+        ViewGroupUtils.getDescendantRect(this, descendant, out);
+    }
+
+    @Override
+    protected int getSuggestedMinimumWidth() {
+        return Math.max(super.getSuggestedMinimumWidth(), getPaddingLeft() + getPaddingRight());
+    }
+
+    @Override
+    protected int getSuggestedMinimumHeight() {
+        return Math.max(super.getSuggestedMinimumHeight(), getPaddingTop() + getPaddingBottom());
+    }
+
+    public void onMeasureChild(View child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
+        measureChildWithMargins(child, parentWidthMeasureSpec, widthUsed, parentHeightMeasureSpec, heightUsed);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        prepareChildren();
+        ensurePreDrawListener();
+
+        final int paddingLeft = getPaddingLeft();
+        final int paddingTop = getPaddingTop();
+        final int paddingRight = getPaddingRight();
+        final int paddingBottom = getPaddingBottom();
+        final int layoutDirection = ViewCompat.getLayoutDirection(this);
+        final boolean isRtl = layoutDirection == ViewCompat.LAYOUT_DIRECTION_RTL;
+        final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        final int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        final int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+        final int widthPadding = paddingLeft + paddingRight;
+        final int heightPadding = paddingTop + paddingBottom;
+        int widthUsed = getSuggestedMinimumWidth();
+        int heightUsed = getSuggestedMinimumHeight();
+        int childState = 0;
+
+        final boolean applyInsets = mLastInsets != null && ViewCompat.getFitsSystemWindows(this);
+
+        final int childCount = mDependencySortedChildren.size();
+        for (int i = 0; i < childCount; i++) {
+            final View child = mDependencySortedChildren.get(i);
+            if (child.getVisibility() == GONE) {
+                continue;
             }
 
-            ViewCompat.postInvalidateOnAnimation(this);
-        }
+            final LayoutParams lp = (LayoutParams) child.getLayoutParams();
 
-    }
-
-    public int getSuggestedMinimumHeight() {
-        return Math.max(super.getSuggestedMinimumHeight(), this.getPaddingTop() + this.getPaddingBottom());
-    }
-
-    public int getSuggestedMinimumWidth() {
-        return Math.max(super.getSuggestedMinimumWidth(), this.getPaddingLeft() + this.getPaddingRight());
-    }
-
-    public final void getTopSortedChildren(List<View> var1) {
-        var1.clear();
-        boolean var2 = this.isChildrenDrawingOrderEnabled();
-        int var3 = this.getChildCount();
-
-        for (int var4 = var3 - 1; var4 >= 0; --var4) {
-            int var5;
-            if (var2) {
-                var5 = this.getChildDrawingOrder(var3, var4);
-            } else {
-                var5 = var4;
+            int keylineWidthUsed = 0;
+            if (lp.keyline >= 0 && widthMode != MeasureSpec.UNSPECIFIED) {
+                final int keylinePos = getKeyline(lp.keyline);
+                final int keylineGravity = GravityCompat.getAbsoluteGravity(resolveKeylineGravity(lp.gravity), layoutDirection) & Gravity.HORIZONTAL_GRAVITY_MASK;
+                if ((keylineGravity == Gravity.LEFT && !isRtl) || (keylineGravity == Gravity.RIGHT && isRtl)) {
+                    keylineWidthUsed = Math.max(0, widthSize - paddingRight - keylinePos);
+                } else if ((keylineGravity == Gravity.RIGHT && !isRtl) || (keylineGravity == Gravity.LEFT && isRtl)) {
+                    keylineWidthUsed = Math.max(0, keylinePos - paddingLeft);
+                }
             }
 
-            var1.add(this.getChildAt(var5));
-        }
+            int childWidthMeasureSpec = widthMeasureSpec;
+            int childHeightMeasureSpec = heightMeasureSpec;
+            if (applyInsets && !ViewCompat.getFitsSystemWindows(child)) {
+                final int horizInsets = mLastInsets.getSystemWindowInsetLeft() + mLastInsets.getSystemWindowInsetRight();
+                final int vertInsets = mLastInsets.getSystemWindowInsetTop() + mLastInsets.getSystemWindowInsetBottom();
 
-        Comparator var6 = TOP_SORTED_CHILDREN_COMPARATOR;
-        if (var6 != null) {
-            Collections.sort(var1, var6);
-        }
-
-    }
-
-    @SuppressLint("RestrictedApi")
-    public final boolean hasDependencies(View var1) {
-        return this.mChildDag.hasOutgoingEdges(var1);
-    }
-
-    public boolean isPointInChildBounds(View var1, int var2, int var3) {
-        Rect var4 = acquireTempRect();
-        this.getDescendantRect(var1, var4);
-
-        boolean var5;
-        try {
-            var5 = var4.contains(var2, var3);
-        } finally {
-            releaseTempRect(var4);
-        }
-
-        return var5;
-    }
-
-    public final void layoutChild(View var1, int var2) {
-        SamsungCoordinatorLayout.LayoutParams var3 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
-        Rect var4 = acquireTempRect();
-        var4.set(this.getPaddingLeft() + var3.leftMargin, this.getPaddingTop() + var3.topMargin, this.getWidth() - this.getPaddingRight() - var3.rightMargin, this.getHeight() - this.getPaddingBottom() - var3.bottomMargin);
-        if (this.mLastInsets != null && ViewCompat.getFitsSystemWindows(this) && !ViewCompat.getFitsSystemWindows(var1)) {
-            var4.left += this.mLastInsets.getSystemWindowInsetLeft();
-            var4.top += this.mLastInsets.getSystemWindowInsetTop();
-            var4.right -= this.mLastInsets.getSystemWindowInsetRight();
-            var4.bottom -= this.mLastInsets.getSystemWindowInsetBottom();
-        }
-
-        Rect var5 = acquireTempRect();
-        GravityCompat.apply(resolveGravity(var3.gravity), var1.getMeasuredWidth(), var1.getMeasuredHeight(), var4, var5, var2);
-        var1.layout(var5.left, var5.top, var5.right, var5.bottom);
-        releaseTempRect(var4);
-        releaseTempRect(var5);
-    }
-
-    public final void layoutChildWithAnchor(View var1, View var2, int var3) {
-        Rect var4 = acquireTempRect();
-        Rect var5 = acquireTempRect();
-
-        try {
-            this.getDescendantRect(var2, var4);
-            this.getDesiredAnchoredChildRect(var1, var3, var4, var5);
-            var1.layout(var5.left, var5.top, var5.right, var5.bottom);
-        } finally {
-            releaseTempRect(var4);
-            releaseTempRect(var5);
-        }
-
-    }
-
-    public final void layoutChildWithKeyline(View var1, int var2, int var3) {
-        SamsungCoordinatorLayout.LayoutParams var4 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
-        int var5 = GravityCompat.getAbsoluteGravity(resolveKeylineGravity(var4.gravity), var3);
-        int var6 = var5 & 7;
-        int var7 = var5 & 112;
-        int var8 = this.getWidth();
-        int var9 = this.getHeight();
-        int var10 = var1.getMeasuredWidth();
-        int var11 = var1.getMeasuredHeight();
-        var5 = var2;
-        if (var3 == 1) {
-            var5 = var8 - var2;
-        }
-
-        var2 = this.getKeyline(var5) - var10;
-        var3 = 0;
-        if (var6 != 1) {
-            if (var6 == 5) {
-                var2 += var10;
+                childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(widthSize - horizInsets, widthMode);
+                childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize - vertInsets, heightMode);
             }
+
+            final Behavior b = lp.getBehavior();
+            if (b == null || !b.onMeasureChild(this, child, childWidthMeasureSpec, keylineWidthUsed, childHeightMeasureSpec, 0)) {
+                onMeasureChild(child, childWidthMeasureSpec, keylineWidthUsed, childHeightMeasureSpec, 0);
+            }
+
+            widthUsed = Math.max(widthUsed, widthPadding + child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin);
+
+            heightUsed = Math.max(heightUsed, heightPadding + child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin);
+            childState = View.combineMeasuredStates(childState, child.getMeasuredState());
+        }
+
+        final int width = View.resolveSizeAndState(widthUsed, widthMeasureSpec, childState & View.MEASURED_STATE_MASK);
+        final int height = View.resolveSizeAndState(heightUsed, heightMeasureSpec, childState << View.MEASURED_HEIGHT_STATE_SHIFT);
+        setMeasuredDimension(width, height);
+    }
+
+    @SuppressWarnings("unchecked")
+    private WindowInsetsCompat dispatchApplyWindowInsetsToBehaviors(WindowInsetsCompat insets) {
+        if (insets.isConsumed()) {
+            return insets;
+        }
+
+        for (int i = 0, z = getChildCount(); i < z; i++) {
+            final View child = getChildAt(i);
+            if (ViewCompat.getFitsSystemWindows(child)) {
+                final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+                final Behavior b = lp.getBehavior();
+
+                if (b != null) {
+                    insets = b.onApplyWindowInsets(this, child, insets);
+                    if (insets.isConsumed()) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return insets;
+    }
+
+    public void onLayoutChild(@NonNull View child, int layoutDirection) {
+        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        if (lp.checkAnchorChanged()) {
+            throw new IllegalStateException("An anchor may not be changed after CoordinatorLayout measurement begins before layout is complete.");
+        }
+        if (lp.mAnchorView != null) {
+            layoutChildWithAnchor(child, lp.mAnchorView, layoutDirection);
+        } else if (lp.keyline >= 0) {
+            layoutChildWithKeyline(child, lp.keyline, layoutDirection);
         } else {
-            var2 += var10 / 2;
+            layoutChild(child, layoutDirection);
         }
+    }
 
-        if (var7 != 16) {
-            if (var7 == 80) {
-                var3 = var11 + 0;
+    @Override
+    @SuppressWarnings("unchecked")
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        final int layoutDirection = ViewCompat.getLayoutDirection(this);
+        final int childCount = mDependencySortedChildren.size();
+        for (int i = 0; i < childCount; i++) {
+            final View child = mDependencySortedChildren.get(i);
+            if (child.getVisibility() == GONE) {
+                continue;
             }
+
+            final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            final Behavior behavior = lp.getBehavior();
+
+            if (behavior == null || !behavior.onLayoutChild(this, child, layoutDirection)) {
+                onLayoutChild(child, layoutDirection);
+            }
+        }
+    }
+
+    @Override
+    public void onDraw(Canvas c) {
+        super.onDraw(c);
+        if (mDrawStatusBarBackground && mStatusBarBackground != null) {
+            final int inset = mLastInsets != null ? mLastInsets.getSystemWindowInsetTop() : 0;
+            if (inset > 0) {
+                mStatusBarBackground.setBounds(0, 0, getWidth(), inset);
+                mStatusBarBackground.draw(c);
+            }
+        }
+    }
+
+    @Override
+    public void setFitsSystemWindows(boolean fitSystemWindows) {
+        super.setFitsSystemWindows(fitSystemWindows);
+        setupForInsets();
+    }
+
+    void recordLastChildRect(View child, Rect r) {
+        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        lp.setLastChildRect(r);
+    }
+
+    void getLastChildRect(View child, Rect out) {
+        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        out.set(lp.getLastChildRect());
+    }
+
+    void getChildRect(View child, boolean transform, Rect out) {
+        if (child.isLayoutRequested() || child.getVisibility() == View.GONE) {
+            out.setEmpty();
+            return;
+        }
+        if (transform) {
+            getDescendantRect(child, out);
         } else {
-            var3 = 0 + var11 / 2;
-        }
-
-        var2 = Math.max(this.getPaddingLeft() + var4.leftMargin, Math.min(var2, var8 - this.getPaddingRight() - var10 - var4.rightMargin));
-        var3 = Math.max(this.getPaddingTop() + var4.topMargin, Math.min(var3, var9 - this.getPaddingBottom() - var11 - var4.bottomMargin));
-        var1.layout(var2, var3, var10 + var2, var11 + var3);
-    }
-
-    public final void offsetChildByInset(View var1, Rect var2, int var3) {
-        if (ViewCompat.isLaidOut(var1)) {
-            if (var1.getWidth() > 0 && var1.getHeight() > 0) {
-                SamsungCoordinatorLayout.LayoutParams var4 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
-                SamsungCoordinatorLayout.Behavior var5 = var4.getBehavior();
-                Rect var6 = acquireTempRect();
-                Rect var7 = acquireTempRect();
-                var7.set(var1.getLeft(), var1.getTop(), var1.getRight(), var1.getBottom());
-                if (var5 != null && var5.getInsetDodgeRect(this, var1, var6)) {
-                    if (!var7.contains(var6)) {
-                        StringBuilder var12 = new StringBuilder();
-                        var12.append("Rect should be within the child's bounds. Rect:");
-                        var12.append(var6.toShortString());
-                        var12.append(" | Bounds:");
-                        var12.append(var7.toShortString());
-                        throw new IllegalArgumentException(var12.toString());
-                    }
-                } else {
-                    var6.set(var7);
-                }
-
-                releaseTempRect(var7);
-                if (var6.isEmpty()) {
-                    releaseTempRect(var6);
-                    return;
-                }
-
-                int var8;
-                int var9;
-                boolean var13;
-                label58:
-                {
-                    var8 = GravityCompat.getAbsoluteGravity(var4.dodgeInsetEdges, var3);
-                    if ((var8 & 48) == 48) {
-                        var3 = var6.top - var4.topMargin - var4.mInsetOffsetY;
-                        var9 = var2.top;
-                        if (var3 < var9) {
-                            this.setInsetOffsetY(var1, var9 - var3);
-                            var13 = true;
-                            break label58;
-                        }
-                    }
-
-                    var13 = false;
-                }
-
-                boolean var14 = var13;
-                int var11;
-                if ((var8 & 80) == 80) {
-                    int var10 = this.getHeight() - var6.bottom - var4.bottomMargin + var4.mInsetOffsetY;
-                    var11 = var2.bottom;
-                    var14 = var13;
-                    if (var10 < var11) {
-                        this.setInsetOffsetY(var1, var10 - var11);
-                        var14 = true;
-                    }
-                }
-
-                if (!var14) {
-                    this.setInsetOffsetY(var1, 0);
-                }
-
-                label50:
-                {
-                    if ((var8 & 3) == 3) {
-                        var3 = var6.left - var4.leftMargin - var4.mInsetOffsetX;
-                        var9 = var2.left;
-                        if (var3 < var9) {
-                            this.setInsetOffsetX(var1, var9 - var3);
-                            var13 = true;
-                            break label50;
-                        }
-                    }
-
-                    var13 = false;
-                }
-
-                var14 = var13;
-                if ((var8 & 5) == 5) {
-                    var8 = this.getWidth() - var6.right - var4.rightMargin + var4.mInsetOffsetX;
-                    var11 = var2.right;
-                    var14 = var13;
-                    if (var8 < var11) {
-                        this.setInsetOffsetX(var1, var8 - var11);
-                        var14 = true;
-                    }
-                }
-
-                if (!var14) {
-                    this.setInsetOffsetX(var1, 0);
-                }
-
-                releaseTempRect(var6);
-            }
-
+            out.set(child.getLeft(), child.getTop(), child.getRight(), child.getBottom());
         }
     }
 
-    public void offsetChildToAnchor(View var1, int var2) {
-        SamsungCoordinatorLayout.LayoutParams var3 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
-        if (var3.mAnchorView != null) {
-            Rect var4;
-            Rect var5;
-            Rect var6;
-            int var8;
-            int var9;
-            boolean var11;
-            label27:
-            {
-                var4 = acquireTempRect();
-                var5 = acquireTempRect();
-                var6 = acquireTempRect();
-                this.getDescendantRect(var3.mAnchorView, var4);
-                boolean var7 = false;
-                this.getChildRect(var1, false, var5);
-                var8 = var1.getMeasuredWidth();
-                var9 = var1.getMeasuredHeight();
-                this.getDesiredAnchoredChildRectWithoutConstraints(var1, var2, var4, var6, var3, var8, var9);
-                if (var6.left == var5.left) {
-                    var11 = var7;
-                    if (var6.top == var5.top) {
-                        break label27;
-                    }
-                }
+    private void getDesiredAnchoredChildRectWithoutConstraints(int layoutDirection, Rect anchorRect, Rect out, LayoutParams lp, int childWidth, int childHeight) {
+        final int absGravity = GravityCompat.getAbsoluteGravity(resolveAnchoredChildGravity(lp.gravity), layoutDirection);
+        final int absAnchorGravity = GravityCompat.getAbsoluteGravity(resolveGravity(lp.anchorGravity), layoutDirection);
 
-                var11 = true;
-            }
+        final int hgrav = absGravity & Gravity.HORIZONTAL_GRAVITY_MASK;
+        final int vgrav = absGravity & Gravity.VERTICAL_GRAVITY_MASK;
+        final int anchorHgrav = absAnchorGravity & Gravity.HORIZONTAL_GRAVITY_MASK;
+        final int anchorVgrav = absAnchorGravity & Gravity.VERTICAL_GRAVITY_MASK;
 
-            this.constrainChildRect(var3, var6, var8, var9);
-            int var12 = var6.left - var5.left;
-            var9 = var6.top - var5.top;
-            if (var12 != 0) {
-                ViewCompat.offsetLeftAndRight(var1, var12);
-            }
+        int left;
+        int top;
 
-            if (var9 != 0) {
-                ViewCompat.offsetTopAndBottom(var1, var9);
-            }
-
-            if (var11) {
-                SamsungCoordinatorLayout.Behavior var10 = var3.getBehavior();
-                if (var10 != null) {
-                    var10.onDependentViewChanged(this, var1, var3.mAnchorView);
-                }
-            }
-
-            releaseTempRect(var4);
-            releaseTempRect(var5);
-            releaseTempRect(var6);
+        switch (anchorHgrav) {
+            default:
+            case Gravity.LEFT:
+                left = anchorRect.left;
+                break;
+            case Gravity.RIGHT:
+                left = anchorRect.right;
+                break;
+            case Gravity.CENTER_HORIZONTAL:
+                left = anchorRect.left + anchorRect.width() / 2;
+                break;
         }
 
+        switch (anchorVgrav) {
+            default:
+            case Gravity.TOP:
+                top = anchorRect.top;
+                break;
+            case Gravity.BOTTOM:
+                top = anchorRect.bottom;
+                break;
+            case Gravity.CENTER_VERTICAL:
+                top = anchorRect.top + anchorRect.height() / 2;
+                break;
+        }
+
+        switch (hgrav) {
+            default:
+            case Gravity.LEFT:
+                left -= childWidth;
+                break;
+            case Gravity.RIGHT:
+                break;
+            case Gravity.CENTER_HORIZONTAL:
+                left -= childWidth / 2;
+                break;
+        }
+
+        switch (vgrav) {
+            default:
+            case Gravity.TOP:
+                top -= childHeight;
+                break;
+            case Gravity.BOTTOM:
+                break;
+            case Gravity.CENTER_VERTICAL:
+                top -= childHeight / 2;
+                break;
+        }
+
+        out.set(left, top, left + childWidth, top + childHeight);
     }
 
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        this.resetTouchBehaviors(false);
-        if (this.mNeedsPreDrawListener) {
-            if (this.mOnPreDrawListener == null) {
-                this.mOnPreDrawListener = new SamsungCoordinatorLayout.OnPreDrawListener();
-            }
+    private void constrainChildRect(LayoutParams lp, Rect out, int childWidth, int childHeight) {
+        final int width = getWidth();
+        final int height = getHeight();
 
-            this.getViewTreeObserver().addOnPreDrawListener(this.mOnPreDrawListener);
-        }
+        int left = Math.max(getPaddingLeft() + lp.leftMargin, Math.min(out.left, width - getPaddingRight() - childWidth - lp.rightMargin));
+        int top = Math.max(getPaddingTop() + lp.topMargin, Math.min(out.top, height - getPaddingBottom() - childHeight - lp.bottomMargin));
 
-        if (this.mLastInsets == null && ViewCompat.getFitsSystemWindows(this)) {
-            ViewCompat.requestApplyInsets(this);
-        }
-
-        this.mIsAttachedToWindow = true;
+        out.set(left, top, left + childWidth, top + childHeight);
     }
 
-    public final void onChildViewsChanged(int var1) {
-        int var2 = ViewCompat.getLayoutDirection(this);
-        int var3 = this.mDependencySortedChildren.size();
-        Rect var4 = acquireTempRect();
-        Rect var5 = acquireTempRect();
-        Rect var6 = acquireTempRect();
+    void getDesiredAnchoredChildRect(View child, int layoutDirection, Rect anchorRect, Rect out) {
+        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        final int childWidth = child.getMeasuredWidth();
+        final int childHeight = child.getMeasuredHeight();
+        getDesiredAnchoredChildRectWithoutConstraints(layoutDirection, anchorRect, out, lp, childWidth, childHeight);
+        constrainChildRect(lp, out, childWidth, childHeight);
+    }
 
-        for (int var7 = 0; var7 < var3; ++var7) {
-            View var8 = (View) this.mDependencySortedChildren.get(var7);
-            SamsungCoordinatorLayout.LayoutParams var9 = (SamsungCoordinatorLayout.LayoutParams) var8.getLayoutParams();
-            if (var1 != 0 || var8.getVisibility() != View.GONE) {
-                int var10;
-                for (var10 = 0; var10 < var7; ++var10) {
-                    View var11 = (View) this.mDependencySortedChildren.get(var10);
-                    if (var9.mAnchorDirectChild == var11) {
-                        this.offsetChildToAnchor(var8, var2);
-                    }
+    private void layoutChildWithAnchor(View child, View anchor, int layoutDirection) {
+        final Rect anchorRect = acquireTempRect();
+        final Rect childRect = acquireTempRect();
+        try {
+            getDescendantRect(anchor, anchorRect);
+            getDesiredAnchoredChildRect(child, layoutDirection, anchorRect, childRect);
+            child.layout(childRect.left, childRect.top, childRect.right, childRect.bottom);
+        } finally {
+            releaseTempRect(anchorRect);
+            releaseTempRect(childRect);
+        }
+    }
+
+    private void layoutChildWithKeyline(View child, int keyline, int layoutDirection) {
+        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        final int absGravity = GravityCompat.getAbsoluteGravity(resolveKeylineGravity(lp.gravity), layoutDirection);
+
+        final int hgrav = absGravity & Gravity.HORIZONTAL_GRAVITY_MASK;
+        final int vgrav = absGravity & Gravity.VERTICAL_GRAVITY_MASK;
+        final int width = getWidth();
+        final int height = getHeight();
+        final int childWidth = child.getMeasuredWidth();
+        final int childHeight = child.getMeasuredHeight();
+
+        if (layoutDirection == ViewCompat.LAYOUT_DIRECTION_RTL) {
+            keyline = width - keyline;
+        }
+
+        int left = getKeyline(keyline) - childWidth;
+        int top = 0;
+
+        switch (hgrav) {
+            default:
+            case Gravity.LEFT:
+                break;
+            case Gravity.RIGHT:
+                left += childWidth;
+                break;
+            case Gravity.CENTER_HORIZONTAL:
+                left += childWidth / 2;
+                break;
+        }
+
+        switch (vgrav) {
+            default:
+            case Gravity.TOP:
+                break;
+            case Gravity.BOTTOM:
+                top += childHeight;
+                break;
+            case Gravity.CENTER_VERTICAL:
+                top += childHeight / 2;
+                break;
+        }
+
+        left = Math.max(getPaddingLeft() + lp.leftMargin, Math.min(left, width - getPaddingRight() - childWidth - lp.rightMargin));
+        top = Math.max(getPaddingTop() + lp.topMargin, Math.min(top, height - getPaddingBottom() - childHeight - lp.bottomMargin));
+
+        child.layout(left, top, left + childWidth, top + childHeight);
+    }
+
+    private void layoutChild(View child, int layoutDirection) {
+        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        final Rect parent = acquireTempRect();
+        parent.set(getPaddingLeft() + lp.leftMargin, getPaddingTop() + lp.topMargin, getWidth() - getPaddingRight() - lp.rightMargin, getHeight() - getPaddingBottom() - lp.bottomMargin);
+
+        if (mLastInsets != null && ViewCompat.getFitsSystemWindows(this) && !ViewCompat.getFitsSystemWindows(child)) {
+            parent.left += mLastInsets.getSystemWindowInsetLeft();
+            parent.top += mLastInsets.getSystemWindowInsetTop();
+            parent.right -= mLastInsets.getSystemWindowInsetRight();
+            parent.bottom -= mLastInsets.getSystemWindowInsetBottom();
+        }
+
+        final Rect out = acquireTempRect();
+        GravityCompat.apply(resolveGravity(lp.gravity), child.getMeasuredWidth(), child.getMeasuredHeight(), parent, out, layoutDirection);
+        child.layout(out.left, out.top, out.right, out.bottom);
+
+        releaseTempRect(parent);
+        releaseTempRect(out);
+    }
+
+    private static int resolveGravity(int gravity) {
+        if ((gravity & Gravity.HORIZONTAL_GRAVITY_MASK) == Gravity.NO_GRAVITY) {
+            gravity |= GravityCompat.START;
+        }
+        if ((gravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.NO_GRAVITY) {
+            gravity |= Gravity.TOP;
+        }
+        return gravity;
+    }
+
+    private static int resolveKeylineGravity(int gravity) {
+        return gravity == Gravity.NO_GRAVITY ? GravityCompat.END | Gravity.TOP : gravity;
+    }
+
+    private static int resolveAnchoredChildGravity(int gravity) {
+        return gravity == Gravity.NO_GRAVITY ? Gravity.CENTER : gravity;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
+        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        if (lp.mBehavior != null) {
+            final float scrimAlpha = lp.mBehavior.getScrimOpacity(this, child);
+            if (scrimAlpha > 0f) {
+                if (mScrimPaint == null) {
+                    mScrimPaint = new Paint();
                 }
+                mScrimPaint.setColor(lp.mBehavior.getScrimColor(this, child));
+                mScrimPaint.setAlpha(clamp(Math.round(255 * scrimAlpha), 0, 255));
 
-                this.getChildRect(var8, true, var5);
-                if (var9.insetEdge != 0 && !var5.isEmpty()) {
-                    var10 = GravityCompat.getAbsoluteGravity(var9.insetEdge, var2);
-                    int var12 = var10 & 112;
-                    if (var12 != 48) {
-                        if (var12 == 80) {
-                            var4.bottom = Math.max(var4.bottom, this.getHeight() - var5.top);
-                        }
-                    } else {
-                        var4.top = Math.max(var4.top, var5.bottom);
-                    }
-
-                    var10 &= 7;
-                    if (var10 != 3) {
-                        if (var10 == 5) {
-                            var4.right = Math.max(var4.right, this.getWidth() - var5.left);
-                        }
-                    } else {
-                        var4.left = Math.max(var4.left, var5.right);
-                    }
+                final int saved = canvas.save();
+                if (child.isOpaque()) {
+                    canvas.clipRect(child.getLeft(), child.getTop(), child.getRight(), child.getBottom(), Region.Op.DIFFERENCE);
                 }
+                canvas.drawRect(getPaddingLeft(), getPaddingTop(), getWidth() - getPaddingRight(), getHeight() - getPaddingBottom(), mScrimPaint);
+                canvas.restoreToCount(saved);
+            }
+        }
+        return super.drawChild(canvas, child, drawingTime);
+    }
 
-                if (var9.dodgeInsetEdges != 0 && var8.getVisibility() == View.VISIBLE) {
-                    this.offsetChildByInset(var8, var4, var2);
+    private static int clamp(int value, int min, int max) {
+        if (value < min) {
+            return min;
+        } else if (value > max) {
+            return max;
+        }
+        return value;
+    }
+
+    @SuppressWarnings("unchecked")
+    final void onChildViewsChanged(@DispatchChangeEvent final int type) {
+        final int layoutDirection = ViewCompat.getLayoutDirection(this);
+        final int childCount = mDependencySortedChildren.size();
+        final Rect inset = acquireTempRect();
+        final Rect drawRect = acquireTempRect();
+        final Rect lastDrawRect = acquireTempRect();
+
+        for (int i = 0; i < childCount; i++) {
+            final View child = mDependencySortedChildren.get(i);
+            final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            if (type == EVENT_PRE_DRAW && child.getVisibility() == View.GONE) {
+                continue;
+            }
+
+            for (int j = 0; j < i; j++) {
+                final View checkChild = mDependencySortedChildren.get(j);
+
+                if (lp.mAnchorDirectChild == checkChild) {
+                    offsetChildToAnchor(child, layoutDirection);
                 }
+            }
 
-                if (var1 != 2) {
-                    this.getLastChildRect(var8, var6);
-                    if (var6.equals(var5)) {
+            getChildRect(child, true, drawRect);
+
+            if (lp.insetEdge != Gravity.NO_GRAVITY && !drawRect.isEmpty()) {
+                final int absInsetEdge = GravityCompat.getAbsoluteGravity(lp.insetEdge, layoutDirection);
+                switch (absInsetEdge & Gravity.VERTICAL_GRAVITY_MASK) {
+                    case Gravity.TOP:
+                        inset.top = Math.max(inset.top, drawRect.bottom);
+                        break;
+                    case Gravity.BOTTOM:
+                        inset.bottom = Math.max(inset.bottom, getHeight() - drawRect.top);
+                        break;
+                }
+                switch (absInsetEdge & Gravity.HORIZONTAL_GRAVITY_MASK) {
+                    case Gravity.LEFT:
+                        inset.left = Math.max(inset.left, drawRect.right);
+                        break;
+                    case Gravity.RIGHT:
+                        inset.right = Math.max(inset.right, getWidth() - drawRect.left);
+                        break;
+                }
+            }
+
+            if (lp.dodgeInsetEdges != Gravity.NO_GRAVITY && child.getVisibility() == View.VISIBLE) {
+                offsetChildByInset(child, inset, layoutDirection);
+            }
+
+            if (type != EVENT_VIEW_REMOVED) {
+                getLastChildRect(child, lastDrawRect);
+                if (lastDrawRect.equals(drawRect)) {
+                    continue;
+                }
+                recordLastChildRect(child, drawRect);
+            }
+
+            for (int j = i + 1; j < childCount; j++) {
+                final View checkChild = mDependencySortedChildren.get(j);
+                final LayoutParams checkLp = (LayoutParams) checkChild.getLayoutParams();
+                final Behavior b = checkLp.getBehavior();
+
+                if (b != null && b.layoutDependsOn(this, checkChild, child)) {
+                    if (type == EVENT_PRE_DRAW && checkLp.getChangedAfterNestedScroll()) {
+                        checkLp.resetChangedAfterNestedScroll();
                         continue;
                     }
 
-                    this.recordLastChildRect(var8, var5);
-                }
+                    final boolean handled;
+                    switch (type) {
+                        case EVENT_VIEW_REMOVED:
+                            b.onDependentViewRemoved(this, checkChild, child);
+                            handled = true;
+                            break;
+                        default:
+                            handled = b.onDependentViewChanged(this, checkChild, child);
+                            break;
+                    }
 
-                for (var10 = var7 + 1; var10 < var3; ++var10) {
-                    View var15 = (View) this.mDependencySortedChildren.get(var10);
-                    SamsungCoordinatorLayout.LayoutParams var13 = (SamsungCoordinatorLayout.LayoutParams) var15.getLayoutParams();
-                    SamsungCoordinatorLayout.Behavior var16 = var13.getBehavior();
-                    if (var16 != null && var16.layoutDependsOn(this, var15, var8)) {
-                        if (var1 == 0 && var13.getChangedAfterNestedScroll()) {
-                            var13.resetChangedAfterNestedScroll();
-                        } else {
-                            boolean var14;
-                            if (var1 != 2) {
-                                var14 = var16.onDependentViewChanged(this, var15, var8);
-                            } else {
-                                var16.onDependentViewRemoved(this, var15, var8);
-                                var14 = true;
-                            }
-
-                            if (var1 == 1) {
-                                var13.setChangedAfterNestedScroll(var14);
-                            }
-                        }
+                    if (type == EVENT_NESTED_SCROLL) {
+                        checkLp.setChangedAfterNestedScroll(handled);
                     }
                 }
             }
         }
 
-        releaseTempRect(var4);
-        releaseTempRect(var5);
-        releaseTempRect(var6);
+        releaseTempRect(inset);
+        releaseTempRect(drawRect);
+        releaseTempRect(lastDrawRect);
     }
 
-    public void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        this.resetTouchBehaviors(false);
-        if (this.mNeedsPreDrawListener && this.mOnPreDrawListener != null) {
-            this.getViewTreeObserver().removeOnPreDrawListener(this.mOnPreDrawListener);
+    @SuppressWarnings("unchecked")
+    private void offsetChildByInset(final View child, final Rect inset, final int layoutDirection) {
+        if (!ViewCompat.isLaidOut(child)) {
+            return;
         }
 
-        View var1 = this.mNestedScrollingTarget;
-        if (var1 != null) {
-            this.mLastNestedScrollingChild = var1;
-            this.onStopNestedScroll(var1);
+        if (child.getWidth() <= 0 || child.getHeight() <= 0) {
+            return;
         }
 
-        this.mIsAttachedToWindow = false;
-    }
+        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        final Behavior behavior = lp.getBehavior();
+        final Rect dodgeRect = acquireTempRect();
+        final Rect bounds = acquireTempRect();
+        bounds.set(child.getLeft(), child.getTop(), child.getRight(), child.getBottom());
 
-    public void onDraw(Canvas var1) {
-        super.onDraw(var1);
-        if (this.mDrawStatusBarBackground && this.mStatusBarBackground != null) {
-            WindowInsetsCompat var2 = this.mLastInsets;
-            int var3;
-            if (var2 != null) {
-                var3 = var2.getSystemWindowInsetTop();
-            } else {
-                var3 = 0;
+        if (behavior != null && behavior.getInsetDodgeRect(this, child, dodgeRect)) {
+            if (!bounds.contains(dodgeRect)) {
+                throw new IllegalArgumentException("Rect should be within the child's bounds. Rect:" + dodgeRect.toShortString() + " | Bounds:" + bounds.toShortString());
             }
-
-            if (var3 > 0) {
-                this.mStatusBarBackground.setBounds(0, 0, this.getWidth(), var3);
-                this.mStatusBarBackground.draw(var1);
-            }
-        }
-
-    }
-
-    public boolean onInterceptTouchEvent(MotionEvent var1) {
-        int var2 = var1.getActionMasked();
-        if (var2 == 0) {
-            this.resetTouchBehaviors(true);
-        }
-
-        boolean var3 = this.performIntercept(var1, 0);
-        if (var2 == 1 || var2 == 3) {
-            this.resetTouchBehaviors(true);
-        }
-
-        return var3;
-    }
-
-    public void onLayout(boolean var1, int var2, int var3, int var4, int var5) {
-        var4 = ViewCompat.getLayoutDirection(this);
-        var3 = this.mDependencySortedChildren.size();
-
-        for (var2 = 0; var2 < var3; ++var2) {
-            View var6 = (View) this.mDependencySortedChildren.get(var2);
-            if (var6.getVisibility() != View.GONE) {
-                SamsungCoordinatorLayout.Behavior var7 = ((SamsungCoordinatorLayout.LayoutParams) var6.getLayoutParams()).getBehavior();
-                if (var7 == null || !var7.onLayoutChild(this, var6, var4)) {
-                    this.onLayoutChild(var6, var4);
-                }
-            }
-        }
-
-    }
-
-    public void onLayoutChild(View var1, int var2) {
-        SamsungCoordinatorLayout.LayoutParams var3 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
-        if (!var3.checkAnchorChanged()) {
-            View var4 = var3.mAnchorView;
-            if (var4 != null) {
-                this.layoutChildWithAnchor(var1, var4, var2);
-            } else {
-                int var5 = var3.keyline;
-                if (var5 >= 0) {
-                    this.layoutChildWithKeyline(var1, var5, var2);
-                } else {
-                    this.layoutChild(var1, var2);
-                }
-            }
-
         } else {
-            throw new IllegalStateException("An anchor may not be changed after CoordinatorLayout measurement begins before layout is complete.");
-        }
-    }
-
-    public void onMeasure(int var1, int var2) {
-        this.prepareChildren();
-        this.ensurePreDrawListener();
-        int var3 = this.getPaddingLeft();
-        int var4 = this.getPaddingTop();
-        int var5 = this.getPaddingRight();
-        int var6 = this.getPaddingBottom();
-        int var7 = ViewCompat.getLayoutDirection(this);
-        boolean var8;
-        if (var7 == 1) {
-            var8 = true;
-        } else {
-            var8 = false;
+            dodgeRect.set(bounds);
         }
 
-        int var9 = MeasureSpec.getMode(var1);
-        int var10 = MeasureSpec.getSize(var1);
-        int var11 = MeasureSpec.getMode(var2);
-        int var12 = MeasureSpec.getSize(var2);
-        int var13 = this.getSuggestedMinimumWidth();
-        int var14 = this.getSuggestedMinimumHeight();
-        boolean var15;
-        if (this.mLastInsets != null && ViewCompat.getFitsSystemWindows(this)) {
-            var15 = true;
-        } else {
-            var15 = false;
+        releaseTempRect(bounds);
+
+        if (dodgeRect.isEmpty()) {
+            releaseTempRect(dodgeRect);
+            return;
         }
 
-        int var16 = this.mDependencySortedChildren.size();
-        int var17 = 0;
+        final int absDodgeInsetEdges = GravityCompat.getAbsoluteGravity(lp.dodgeInsetEdges, layoutDirection);
 
-        for (int var18 = 0; var18 < var16; ++var18) {
-            View var19 = (View) this.mDependencySortedChildren.get(var18);
-            if (var19.getVisibility() != View.GONE) {
-                SamsungCoordinatorLayout.LayoutParams var20;
-                int var21;
-                int var22;
-                label73:
-                {
-                    var20 = (SamsungCoordinatorLayout.LayoutParams) var19.getLayoutParams();
-                    var21 = var20.keyline;
-                    if (var21 >= 0 && var9 != 0) {
-                        var22 = this.getKeyline(var21);
-                        var21 = GravityCompat.getAbsoluteGravity(resolveKeylineGravity(var20.gravity), var7) & 7;
-                        if (var21 == 3 && !var8 || var21 == 5 && var8) {
-                            var21 = Math.max(0, var10 - var5 - var22);
-                            break label73;
-                        }
-
-                        if (var21 == 5 && !var8 || var21 == 3 && var8) {
-                            var21 = Math.max(0, var22 - var3);
-                            break label73;
-                        }
-                    }
-
-                    var21 = 0;
-                }
-
-                int var23 = var14;
-                if (var15 && !ViewCompat.getFitsSystemWindows(var19)) {
-                    int var24 = this.mLastInsets.getSystemWindowInsetLeft();
-                    var22 = this.mLastInsets.getSystemWindowInsetRight();
-                    int var25 = this.mLastInsets.getSystemWindowInsetTop();
-                    var14 = this.mLastInsets.getSystemWindowInsetBottom();
-                    var22 = MeasureSpec.makeMeasureSpec(var10 - (var24 + var22), var9);
-                    var14 = MeasureSpec.makeMeasureSpec(var12 - (var25 + var14), var11);
-                } else {
-                    var22 = var1;
-                    var14 = var2;
-                }
-
-                SamsungCoordinatorLayout.Behavior var26 = var20.getBehavior();
-                if (var26 == null || !var26.onMeasureChild(this, var19, var22, var21, var14, 0)) {
-                    this.onMeasureChild(var19, var22, var21, var14, 0);
-                }
-
-                var13 = Math.max(var13, var3 + var5 + var19.getMeasuredWidth() + var20.leftMargin + var20.rightMargin);
-                var14 = Math.max(var23, var4 + var6 + var19.getMeasuredHeight() + var20.topMargin + var20.bottomMargin);
-                var17 = View.combineMeasuredStates(var17, var19.getMeasuredState());
+        boolean offsetY = false;
+        if ((absDodgeInsetEdges & Gravity.TOP) == Gravity.TOP) {
+            int distance = dodgeRect.top - lp.topMargin - lp.mInsetOffsetY;
+            if (distance < inset.top) {
+                setInsetOffsetY(child, inset.top - distance);
+                offsetY = true;
             }
         }
+        if ((absDodgeInsetEdges & Gravity.BOTTOM) == Gravity.BOTTOM) {
+            int distance = getHeight() - dodgeRect.bottom - lp.bottomMargin + lp.mInsetOffsetY;
+            if (distance < inset.bottom) {
+                setInsetOffsetY(child, distance - inset.bottom);
+                offsetY = true;
+            }
+        }
+        if (!offsetY) {
+            setInsetOffsetY(child, 0);
+        }
 
-        this.setMeasuredDimension(View.resolveSizeAndState(var13, var1, -16777216 & var17), View.resolveSizeAndState(var14, var2, var17 << 16));
+        boolean offsetX = false;
+        if ((absDodgeInsetEdges & Gravity.LEFT) == Gravity.LEFT) {
+            int distance = dodgeRect.left - lp.leftMargin - lp.mInsetOffsetX;
+            if (distance < inset.left) {
+                setInsetOffsetX(child, inset.left - distance);
+                offsetX = true;
+            }
+        }
+        if ((absDodgeInsetEdges & Gravity.RIGHT) == Gravity.RIGHT) {
+            int distance = getWidth() - dodgeRect.right - lp.rightMargin + lp.mInsetOffsetX;
+            if (distance < inset.right) {
+                setInsetOffsetX(child, distance - inset.right);
+                offsetX = true;
+            }
+        }
+        if (!offsetX) {
+            setInsetOffsetX(child, 0);
+        }
+
+        releaseTempRect(dodgeRect);
     }
 
-    public void onMeasureChild(View var1, int var2, int var3, int var4, int var5) {
-        this.measureChildWithMargins(var1, var2, var3, var4, var5);
+    private void setInsetOffsetX(View child, int offsetX) {
+        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        if (lp.mInsetOffsetX != offsetX) {
+            final int dx = offsetX - lp.mInsetOffsetX;
+            ViewCompat.offsetLeftAndRight(child, dx);
+            lp.mInsetOffsetX = offsetX;
+        }
     }
 
-    public boolean onNestedFling(View target, float velocityX, float velocityY, boolean consumed) {
-        boolean handled = false;
+    private void setInsetOffsetY(View child, int offsetY) {
+        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        if (lp.mInsetOffsetY != offsetY) {
+            final int dy = offsetY - lp.mInsetOffsetY;
+            ViewCompat.offsetTopAndBottom(child, dy);
+            lp.mInsetOffsetY = offsetY;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void dispatchDependentViewsChanged(@NonNull View view) {
+        final List<View> dependents = mChildDag.getIncomingEdges(view);
+        if (dependents != null && !dependents.isEmpty()) {
+            for (int i = 0; i < dependents.size(); i++) {
+                final View child = dependents.get(i);
+                LayoutParams lp = (LayoutParams) child.getLayoutParams();
+                Behavior b = lp.getBehavior();
+                if (b != null) {
+                    b.onDependentViewChanged(this, child, view);
+                }
+            }
+        }
+    }
+
+    @NonNull
+    public List<View> getDependencies(@NonNull View child) {
+        List<View> result = mChildDag.getOutgoingEdges(child);
+        return result == null ? Collections.<View>emptyList() : result;
+    }
+
+    @NonNull
+    public List<View> getDependents(@NonNull View child) {
+        List<View> result = mChildDag.getIncomingEdges(child);
+        return result == null ? Collections.<View>emptyList() : result;
+    }
+
+    final List<View> getDependencySortedChildren() {
+        prepareChildren();
+        return Collections.unmodifiableList(mDependencySortedChildren);
+    }
+
+    void ensurePreDrawListener() {
+        boolean hasDependencies = false;
         final int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
-            final View view = getChildAt(i);
-            if (view.getVisibility() == GONE) {
-                continue;
-            }
-            final LayoutParams lp = (LayoutParams) view.getLayoutParams();
-            if (!lp.isNestedScrollAccepted(ViewCompat.TYPE_TOUCH)) {
-                continue;
-            }
-            final Behavior viewBehavior = lp.getBehavior();
-            if (viewBehavior != null) {
-                handled |= viewBehavior.onNestedFling(this, view, target, velocityX, velocityY, consumed);
+            final View child = getChildAt(i);
+            if (hasDependencies(child)) {
+                hasDependencies = true;
+                break;
             }
         }
-        if (handled) {
-            onChildViewsChanged(1);
-        }
-        return handled;
-    }
 
-    public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
-        boolean handled = false;
-        final int childCount = getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            final View view = getChildAt(i);
-            if (view.getVisibility() == GONE) {
-                continue;
-            }
-            final LayoutParams lp = (LayoutParams) view.getLayoutParams();
-            if (!lp.isNestedScrollAccepted(ViewCompat.TYPE_TOUCH)) {
-                continue;
-            }
-            final Behavior viewBehavior = lp.getBehavior();
-            if (viewBehavior != null) {
-                handled |= viewBehavior.onNestedPreFling(this, view, target, velocityX, velocityY);
-            }
-        }
-        return handled;
-    }
-
-    @SuppressLint("WrongConstant")
-    public void onNestedPreScroll(View var1, int var2, int var3, int[] var4) {
-        this.onNestedPreScroll(var1, var2, var3, var4, 0);
-    }
-
-    public void onNestedPreScroll(View var1, int var2, int var3, int[] var4, int var5) {
-        int var6 = this.getChildCount();
-        byte var7 = 0;
-        int var10 = var7;
-        int var11 = var7;
-
-        int var8;
-        for (int var12 = var7; var12 < var6; var10 = var8) {
-            View var13 = this.getChildAt(var12);
-            int var9;
-            if (var13.getVisibility() == GONE) {
-                var9 = var11;
-                var8 = var10;
+        if (hasDependencies != mNeedsPreDrawListener) {
+            if (hasDependencies) {
+                addPreDrawListener();
             } else {
-                SamsungCoordinatorLayout.LayoutParams var14 = (SamsungCoordinatorLayout.LayoutParams) var13.getLayoutParams();
-                if (!var14.isNestedScrollAccepted(var5)) {
-                    var9 = var11;
-                    var8 = var10;
-                } else {
-                    SamsungCoordinatorLayout.Behavior var16 = var14.getBehavior();
-                    var9 = var11;
-                    var8 = var10;
-                    if (var16 != null) {
-                        int[] var15 = this.mBehaviorConsumed;
-                        var15[0] = 0;
-                        var15[1] = 0;
-                        var16.onNestedPreScroll(this, var13, var1, var2, var3, var15, var5);
-                        if (var2 > 0) {
-                            var8 = Math.max(var11, this.mBehaviorConsumed[0]);
-                        } else {
-                            var8 = Math.min(var11, this.mBehaviorConsumed[0]);
-                        }
+                removePreDrawListener();
+            }
+        }
+    }
 
-                        if (var3 > 0) {
-                            var9 = Math.max(var10, this.mBehaviorConsumed[1]);
-                        } else {
-                            var9 = Math.min(var10, this.mBehaviorConsumed[1]);
-                        }
+    private boolean hasDependencies(View child) {
+        return mChildDag.hasOutgoingEdges(child);
+    }
 
-                        var10 = var8;
-                        var8 = var9;
-                        var7 = 1;
-                        var9 = var10;
-                    }
+    void addPreDrawListener() {
+        if (mIsAttachedToWindow) {
+            if (mOnPreDrawListener == null) {
+                mOnPreDrawListener = new OnPreDrawListener();
+            }
+            final ViewTreeObserver vto = getViewTreeObserver();
+            vto.addOnPreDrawListener(mOnPreDrawListener);
+        }
+
+        mNeedsPreDrawListener = true;
+    }
+
+    void removePreDrawListener() {
+        if (mIsAttachedToWindow) {
+            if (mOnPreDrawListener != null) {
+                final ViewTreeObserver vto = getViewTreeObserver();
+                vto.removeOnPreDrawListener(mOnPreDrawListener);
+            }
+        }
+        mNeedsPreDrawListener = false;
+    }
+
+    @SuppressWarnings("unchecked")
+    void offsetChildToAnchor(View child, int layoutDirection) {
+        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        if (lp.mAnchorView != null) {
+            final Rect anchorRect = acquireTempRect();
+            final Rect childRect = acquireTempRect();
+            final Rect desiredChildRect = acquireTempRect();
+
+            getDescendantRect(lp.mAnchorView, anchorRect);
+            getChildRect(child, false, childRect);
+
+            int childWidth = child.getMeasuredWidth();
+            int childHeight = child.getMeasuredHeight();
+            getDesiredAnchoredChildRectWithoutConstraints(layoutDirection, anchorRect, desiredChildRect, lp, childWidth, childHeight);
+            boolean changed = desiredChildRect.left != childRect.left || desiredChildRect.top != childRect.top;
+            constrainChildRect(lp, desiredChildRect, childWidth, childHeight);
+
+            final int dx = desiredChildRect.left - childRect.left;
+            final int dy = desiredChildRect.top - childRect.top;
+
+            if (dx != 0) {
+                ViewCompat.offsetLeftAndRight(child, dx);
+            }
+            if (dy != 0) {
+                ViewCompat.offsetTopAndBottom(child, dy);
+            }
+
+            if (changed) {
+                final Behavior b = lp.getBehavior();
+                if (b != null) {
+                    b.onDependentViewChanged(this, child, lp.mAnchorView);
                 }
             }
 
-            ++var12;
-            var11 = var9;
+            releaseTempRect(anchorRect);
+            releaseTempRect(childRect);
+            releaseTempRect(desiredChildRect);
         }
+    }
 
-        var4[0] = var11;
-        var4[1] = var10;
-        if (var7 != 0) {
-            this.onChildViewsChanged(1);
+    public boolean isPointInChildBounds(@NonNull View child, int x, int y) {
+        final Rect r = acquireTempRect();
+        getDescendantRect(child, r);
+        try {
+            return r.contains(x, y);
+        } finally {
+            releaseTempRect(r);
         }
-
     }
 
-    @SuppressLint("WrongConstant")
-    public void onNestedScroll(View var1, int var2, int var3, int var4, int var5) {
-        this.onNestedScroll(var1, var2, var3, var4, var5, 0);
-    }
-
-    @SuppressLint("WrongConstant")
-    public void onNestedScroll(View var1, int var2, int var3, int var4, int var5, int var6) {
-        this.onNestedScroll(var1, var2, var3, var4, var5, 0, this.mNestedScrollingV2ConsumedCompat);
-    }
-
-    public void onNestedScroll(View var1, int var2, int var3, int var4, int var5, int var6, int[] var7) {
-        int var8 = this.getChildCount();
-        byte var9 = 0;
-        int var12 = var9;
-        int var13 = var9;
-
-        int var10;
-        for (int var14 = var9; var14 < var8; var12 = var10) {
-            View var15 = this.getChildAt(var14);
-            int var11;
-            if (var15.getVisibility() == GONE) {
-                var11 = var13;
-                var10 = var12;
-            } else {
-                SamsungCoordinatorLayout.LayoutParams var16 = (SamsungCoordinatorLayout.LayoutParams) var15.getLayoutParams();
-                if (!var16.isNestedScrollAccepted(var6)) {
-                    var11 = var13;
-                    var10 = var12;
-                } else {
-                    SamsungCoordinatorLayout.Behavior var17 = var16.getBehavior();
-                    var11 = var13;
-                    var10 = var12;
-                    if (var17 != null) {
-                        int[] var18 = this.mBehaviorConsumed;
-                        var18[0] = 0;
-                        var18[1] = 0;
-                        var17.onNestedScroll(this, var15, var1, var2, var3, var4, var5, var6, var18);
-                        if (var4 > 0) {
-                            var10 = Math.max(var13, this.mBehaviorConsumed[0]);
-                        } else {
-                            var10 = Math.min(var13, this.mBehaviorConsumed[0]);
-                        }
-
-                        if (var5 > 0) {
-                            var11 = Math.max(var12, this.mBehaviorConsumed[1]);
-                        } else {
-                            var11 = Math.min(var12, this.mBehaviorConsumed[1]);
-                        }
-
-                        var12 = var10;
-                        var10 = var11;
-                        var9 = 1;
-                        var11 = var12;
-                    }
-                }
-            }
-
-            ++var14;
-            var13 = var11;
-        }
-
-        var7[0] += var13;
-        var7[1] += var12;
-        if (var9 != 0) {
-            this.onChildViewsChanged(1);
-        }
-
-    }
-
-    @SuppressLint("WrongConstant")
-    public void onNestedScrollAccepted(View var1, View var2, int var3) {
-        this.onNestedScrollAccepted(var1, var2, var3, 0);
-    }
-
-    public void onNestedScrollAccepted(View var1, View var2, int var3, int var4) {
-        this.mNestedScrollingParentHelper.onNestedScrollAccepted(var1, var2, var3, var4);
-        this.mNestedScrollingTarget = var2;
-        this.mLastNestedScrollingChild = this.mNestedScrollingTarget;
-        int var5 = this.getChildCount();
-
-        for (int var6 = 0; var6 < var5; ++var6) {
-            View var7 = this.getChildAt(var6);
-            SamsungCoordinatorLayout.LayoutParams var8 = (SamsungCoordinatorLayout.LayoutParams) var7.getLayoutParams();
-            if (var8.isNestedScrollAccepted(var4)) {
-                SamsungCoordinatorLayout.Behavior var9 = var8.getBehavior();
-                if (var9 != null) {
-                    var9.onNestedScrollAccepted(this, var7, var1, var2, var3, var4);
-                }
+    public boolean doViewsOverlap(@NonNull View first, @NonNull View second) {
+        if (first.getVisibility() == VISIBLE && second.getVisibility() == VISIBLE) {
+            final Rect firstRect = acquireTempRect();
+            getChildRect(first, first.getParent() != this, firstRect);
+            final Rect secondRect = acquireTempRect();
+            getChildRect(second, second.getParent() != this, secondRect);
+            try {
+                return !(firstRect.left > secondRect.right || firstRect.top > secondRect.bottom || firstRect.right < secondRect.left || firstRect.bottom < secondRect.top);
+            } finally {
+                releaseTempRect(firstRect);
+                releaseTempRect(secondRect);
             }
         }
-
+        return false;
     }
 
-    public void onRestoreInstanceState(Parcelable var1) {
-        if (!(var1 instanceof SamsungCoordinatorLayout.SavedState)) {
-            super.onRestoreInstanceState(var1);
-        } else {
-            SamsungCoordinatorLayout.SavedState var8 = (SamsungCoordinatorLayout.SavedState) var1;
-            super.onRestoreInstanceState(var8.getSuperState());
-            SparseArray var9 = var8.behaviorStates;
-            int var2 = 0;
+    @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new LayoutParams(getContext(), attrs);
+    }
 
-            for (int var3 = this.getChildCount(); var2 < var3; ++var2) {
-                View var4 = this.getChildAt(var2);
-                int var5 = var4.getId();
-                SamsungCoordinatorLayout.Behavior var6 = this.getResolvedLayoutParams(var4).getBehavior();
-                if (var5 != -1 && var6 != null) {
-                    Parcelable var7 = (Parcelable) var9.get(var5);
-                    if (var7 != null) {
-                        var6.onRestoreInstanceState(this, var4, var7);
-                    }
-                }
-            }
-
+    @Override
+    protected LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
+        if (p instanceof LayoutParams) {
+            return new LayoutParams((LayoutParams) p);
+        } else if (p instanceof MarginLayoutParams) {
+            return new LayoutParams((MarginLayoutParams) p);
         }
+        return new LayoutParams(p);
     }
 
-    public Parcelable onSaveInstanceState() {
-        SamsungCoordinatorLayout.SavedState var1 = new SamsungCoordinatorLayout.SavedState(super.onSaveInstanceState());
-        SparseArray var2 = new SparseArray();
-        int var3 = this.getChildCount();
-
-        for (int var4 = 0; var4 < var3; ++var4) {
-            View var5 = this.getChildAt(var4);
-            int var6 = var5.getId();
-            SamsungCoordinatorLayout.Behavior var7 = ((SamsungCoordinatorLayout.LayoutParams) var5.getLayoutParams()).getBehavior();
-            if (var6 != -1 && var7 != null) {
-                Parcelable var8 = var7.onSaveInstanceState(this, var5);
-                if (var8 != null) {
-                    var2.append(var6, var8);
-                }
-            }
-        }
-
-        var1.behaviorStates = var2;
-        return var1;
+    @Override
+    protected LayoutParams generateDefaultLayoutParams() {
+        return new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
     }
 
-    @SuppressLint("WrongConstant")
-    public boolean onStartNestedScroll(View var1, View var2, int var3) {
-        return this.onStartNestedScroll(var1, var2, var3, 0);
+    @Override
+    protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
+        return p instanceof LayoutParams && super.checkLayoutParams(p);
     }
 
+    @Override
+    public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
+        return onStartNestedScroll(child, target, nestedScrollAxes, ViewCompat.TYPE_TOUCH);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
     public boolean onStartNestedScroll(View child, View target, int axes, int type) {
         boolean handled = false;
+
         final int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
             final View view = getChildAt(i);
@@ -1488,857 +1413,815 @@ public class SamsungCoordinatorLayout extends ViewGroup implements NestedScrolli
         return handled;
     }
 
-    @SuppressLint("WrongConstant")
-    public void onStopNestedScroll(View var1) {
-        this.onStopNestedScroll(var1, 0);
+    @Override
+    public void onNestedScrollAccepted(View child, View target, int axes) {
+        onNestedScrollAccepted(child, target, axes, ViewCompat.TYPE_TOUCH);
     }
 
-    public void onStopNestedScroll(View var1, int var2) {
-        this.mNestedScrollingParentHelper.onStopNestedScroll(var1, var2);
-        this.mLastNestedScrollingChild = var1;
-        int var3 = this.getChildCount();
+    @Override
+    @SuppressWarnings("unchecked")
+    public void onNestedScrollAccepted(View child, View target, int axes, int type) {
+        mNestedScrollingParentHelper.onNestedScrollAccepted(child, target, axes, type);
+        mNestedScrollingTarget = target;
 
-        for (int var4 = 0; var4 < var3; ++var4) {
-            View var5 = this.getChildAt(var4);
-            SamsungCoordinatorLayout.LayoutParams var6 = (SamsungCoordinatorLayout.LayoutParams) var5.getLayoutParams();
-            if (var6.isNestedScrollAccepted(var2)) {
-                SamsungCoordinatorLayout.Behavior var7 = var6.getBehavior();
-                if (var7 != null) {
-                    var7.onStopNestedScroll(this, var5, var1, var2);
-                }
+        final int childCount = getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            final View view = getChildAt(i);
+            final LayoutParams lp = (LayoutParams) view.getLayoutParams();
+            if (!lp.isNestedScrollAccepted(type)) {
+                continue;
+            }
 
-                var6.resetNestedScroll(var2);
-                var6.resetChangedAfterNestedScroll();
+            final Behavior viewBehavior = lp.getBehavior();
+            if (viewBehavior != null) {
+                viewBehavior.onNestedScrollAccepted(this, view, child, target, axes, type);
+            }
+        }
+    }
+
+    @Override
+    public void onStopNestedScroll(View target) {
+        onStopNestedScroll(target, ViewCompat.TYPE_TOUCH);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void onStopNestedScroll(View target, int type) {
+        mNestedScrollingParentHelper.onStopNestedScroll(target, type);
+
+        final int childCount = getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            final View view = getChildAt(i);
+            final LayoutParams lp = (LayoutParams) view.getLayoutParams();
+            if (!lp.isNestedScrollAccepted(type)) {
+                continue;
+            }
+
+            final Behavior viewBehavior = lp.getBehavior();
+            if (viewBehavior != null) {
+                viewBehavior.onStopNestedScroll(this, view, target, type);
+            }
+            lp.resetNestedScroll(type);
+            lp.resetChangedAfterNestedScroll();
+        }
+        mNestedScrollingTarget = null;
+    }
+
+    @Override
+    public void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
+        onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, ViewCompat.TYPE_TOUCH);
+    }
+
+    @Override
+    public void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
+        onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, ViewCompat.TYPE_TOUCH, mNestedScrollingV2ConsumedCompat);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, @ViewCompat.NestedScrollType int type, @NonNull int[] consumed) {
+        final int childCount = getChildCount();
+        boolean accepted = false;
+        int xConsumed = 0;
+        int yConsumed = 0;
+
+        for (int i = 0; i < childCount; i++) {
+            final View view = getChildAt(i);
+            if (view.getVisibility() == GONE) {
+                continue;
+            }
+
+            final LayoutParams lp = (LayoutParams) view.getLayoutParams();
+            if (!lp.isNestedScrollAccepted(type)) {
+                continue;
+            }
+
+            final Behavior viewBehavior = lp.getBehavior();
+            if (viewBehavior != null) {
+
+                mBehaviorConsumed[0] = 0;
+                mBehaviorConsumed[1] = 0;
+
+                viewBehavior.onNestedScroll(this, view, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type, mBehaviorConsumed);
+
+                xConsumed = dxUnconsumed > 0 ? Math.max(xConsumed, mBehaviorConsumed[0]) : Math.min(xConsumed, mBehaviorConsumed[0]);
+                yConsumed = dyUnconsumed > 0 ? Math.max(yConsumed, mBehaviorConsumed[1]) : Math.min(yConsumed, mBehaviorConsumed[1]);
+
+                accepted = true;
             }
         }
 
-        this.mNestedScrollingTarget = null;
+        consumed[0] += xConsumed;
+        consumed[1] += yConsumed;
+
+        if (accepted) {
+            onChildViewsChanged(EVENT_NESTED_SCROLL);
+        }
     }
 
-    public boolean onTouchEvent(MotionEvent ev) {
+    @Override
+    public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
+        onNestedPreScroll(target, dx, dy, consumed, ViewCompat.TYPE_TOUCH);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void onNestedPreScroll(View target, int dx, int dy, int[] consumed, int  type) {
+        int xConsumed = 0;
+        int yConsumed = 0;
+        boolean accepted = false;
+
+        final int childCount = getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            final View view = getChildAt(i);
+            if (view.getVisibility() == GONE) {
+                continue;
+            }
+
+            final LayoutParams lp = (LayoutParams) view.getLayoutParams();
+            if (!lp.isNestedScrollAccepted(type)) {
+                continue;
+            }
+
+            final Behavior viewBehavior = lp.getBehavior();
+            if (viewBehavior != null) {
+                mBehaviorConsumed[0] = 0;
+                mBehaviorConsumed[1] = 0;
+                viewBehavior.onNestedPreScroll(this, view, target, dx, dy, mBehaviorConsumed, type);
+
+                xConsumed = dx > 0 ? Math.max(xConsumed, mBehaviorConsumed[0]) : Math.min(xConsumed, mBehaviorConsumed[0]);
+                yConsumed = dy > 0 ? Math.max(yConsumed, mBehaviorConsumed[1]) : Math.min(yConsumed, mBehaviorConsumed[1]);
+
+                accepted = true;
+            }
+        }
+
+        consumed[0] = xConsumed;
+        consumed[1] = yConsumed;
+
+        if (accepted) {
+            onChildViewsChanged(EVENT_NESTED_SCROLL);
+        }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean onNestedFling(View target, float velocityX, float velocityY, boolean consumed) {
         boolean handled = false;
-        boolean cancelSuper = false;
-        MotionEvent cancelEvent = null;
-        final int action = ev.getActionMasked();
-        if (mBehaviorTouchView != null || (cancelSuper = performIntercept(ev, 1))) {
-            final LayoutParams lp = (LayoutParams) mBehaviorTouchView.getLayoutParams();
-            final Behavior b = lp.getBehavior();
-            if (b != null) {
-                handled = b.onTouchEvent(this, mBehaviorTouchView, ev);
+
+        final int childCount = getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            final View view = getChildAt(i);
+            if (view.getVisibility() == GONE) {
+                continue;
+            }
+
+            final LayoutParams lp = (LayoutParams) view.getLayoutParams();
+            if (!lp.isNestedScrollAccepted(ViewCompat.TYPE_TOUCH)) {
+                continue;
+            }
+
+            final Behavior viewBehavior = lp.getBehavior();
+            if (viewBehavior != null) {
+                handled |= viewBehavior.onNestedFling(this, view, target, velocityX, velocityY, consumed);
             }
         }
-        if (mBehaviorTouchView == null) {
-            handled |= super.onTouchEvent(ev);
-        } else if (cancelSuper) {
-            if (cancelEvent == null) {
-                final long now = SystemClock.uptimeMillis();
-                cancelEvent = MotionEvent.obtain(now, now, MotionEvent.ACTION_CANCEL, 0.0f, 0.0f, 0);
-            }
-            super.onTouchEvent(cancelEvent);
-        }
-        if (cancelEvent != null) {
-            cancelEvent.recycle();
-        }
-        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
-            resetTouchBehaviors(false);
+        if (handled) {
+            onChildViewsChanged(EVENT_NESTED_SCROLL);
         }
         return handled;
     }
 
-    public final boolean performIntercept(MotionEvent ev, final int type) {
-        boolean intercepted = false;
-        boolean newBlock = false;
-        MotionEvent cancelEvent = null;
-        final int action = ev.getActionMasked();
-        final List<View> topmostChildList = mTempList1;
-        getTopSortedChildren(topmostChildList);
-        final int childCount = topmostChildList.size();
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
+        boolean handled = false;
+
+        final int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
-            final View child = topmostChildList.get(i);
-            final LayoutParams lp = (LayoutParams) child.getLayoutParams();
-            final Behavior b = lp.getBehavior();
-            if ((intercepted || newBlock) && action != MotionEvent.ACTION_DOWN) {
-                if (b != null) {
-                    if (cancelEvent == null) {
-                        final long now = SystemClock.uptimeMillis();
-                        cancelEvent = MotionEvent.obtain(now, now, MotionEvent.ACTION_CANCEL, 0.0f, 0.0f, 0);
-                    }
-                    switch (type) {
-                        case 0:
-                            b.onInterceptTouchEvent(this, child, cancelEvent);
-                            break;
-                        case 1:
-                            b.onTouchEvent(this, child, cancelEvent);
-                            break;
-                    }
-                }
+            final View view = getChildAt(i);
+            if (view.getVisibility() == GONE) {
                 continue;
             }
-            if (!intercepted && b != null) {
-                switch (type) {
-                    case 0:
-                        intercepted = b.onInterceptTouchEvent(this, child, ev);
-                        break;
-                    case 1:
-                        intercepted = b.onTouchEvent(this, child, ev);
-                        break;
-                }
-                if (intercepted) {
-                    mBehaviorTouchView = child;
-                }
-            }
-            final boolean wasBlocking = lp.didBlockInteraction();
-            final boolean isBlocking = lp.isBlockingInteractionBelow(this, child);
-            newBlock = isBlocking && !wasBlocking;
-            if (isBlocking && !newBlock) {
-                break;
-            }
-        }
-        topmostChildList.clear();
-        return intercepted;
-    }
 
-    @SuppressLint("RestrictedApi")
-    public final void prepareChildren() {
-        this.mDependencySortedChildren.clear();
-        this.mChildDag.clear();
-        int var1 = this.getChildCount();
-
-        for (int var2 = 0; var2 < var1; ++var2) {
-            View var3 = this.getChildAt(var2);
-            SamsungCoordinatorLayout.LayoutParams var4 = this.getResolvedLayoutParams(var3);
-            var4.findAnchorView(this, var3);
-            this.mChildDag.addNode(var3);
-
-            for (int var5 = 0; var5 < var1; ++var5) {
-                if (var5 != var2) {
-                    View var6 = this.getChildAt(var5);
-                    if (var4.dependsOn(this, var3, var6)) {
-                        if (!this.mChildDag.contains(var6)) {
-                            this.mChildDag.addNode(var6);
-                        }
-
-                        this.mChildDag.addEdge(var6, var3);
-                    }
-                }
-            }
-        }
-
-        this.mDependencySortedChildren.addAll(this.mChildDag.getSortedList());
-        Collections.reverse(this.mDependencySortedChildren);
-    }
-
-    public void recordLastChildRect(View var1, Rect var2) {
-        ((SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams()).setLastChildRect(var2);
-    }
-
-    public void removePreDrawListener() {
-        if (this.mIsAttachedToWindow && this.mOnPreDrawListener != null) {
-            this.getViewTreeObserver().removeOnPreDrawListener(this.mOnPreDrawListener);
-        }
-
-        this.mNeedsPreDrawListener = false;
-    }
-
-    public boolean requestChildRectangleOnScreen(View var1, Rect var2, boolean var3) {
-        SamsungCoordinatorLayout.Behavior var4 = ((SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams()).getBehavior();
-        return var4 != null && var4.onRequestChildRectangleOnScreen(this, var1, var2, var3) ? true : super.requestChildRectangleOnScreen(var1, var2, var3);
-    }
-
-    public void requestDisallowInterceptTouchEvent(boolean var1) {
-        super.requestDisallowInterceptTouchEvent(var1);
-        if (var1 && !this.mDisallowInterceptReset) {
-            this.resetTouchBehaviors(false);
-            this.mDisallowInterceptReset = true;
-        }
-
-    }
-
-    public final void resetTouchBehaviors(boolean var1) {
-        int var2 = this.getChildCount();
-
-        int var3;
-        for (var3 = 0; var3 < var2; ++var3) {
-            View var4 = this.getChildAt(var3);
-            SamsungCoordinatorLayout.Behavior var5 = ((SamsungCoordinatorLayout.LayoutParams) var4.getLayoutParams()).getBehavior();
-            if (var5 != null) {
-                long var6 = SystemClock.uptimeMillis();
-                MotionEvent var8 = MotionEvent.obtain(var6, var6, 3, 0.0F, 0.0F, 0);
-                if (var1) {
-                    var5.onInterceptTouchEvent(this, var4, var8);
-                } else {
-                    var5.onTouchEvent(this, var4, var8);
-                }
-
-                var8.recycle();
-            }
-        }
-
-        for (var3 = 0; var3 < var2; ++var3) {
-            ((SamsungCoordinatorLayout.LayoutParams) this.getChildAt(var3).getLayoutParams()).resetTouchBehaviorTracking();
-        }
-
-        this.mBehaviorTouchView = null;
-        this.mDisallowInterceptReset = false;
-    }
-
-    public void setFitsSystemWindows(boolean var1) {
-        super.setFitsSystemWindows(var1);
-        this.setupForInsets();
-    }
-
-    public final void setInsetOffsetX(View var1, int var2) {
-        SamsungCoordinatorLayout.LayoutParams var3 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
-        int var4 = var3.mInsetOffsetX;
-        if (var4 != var2) {
-            ViewCompat.offsetLeftAndRight(var1, var2 - var4);
-            var3.mInsetOffsetX = var2;
-        }
-
-    }
-
-    public final void setInsetOffsetY(View var1, int var2) {
-        SamsungCoordinatorLayout.LayoutParams var3 = (SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams();
-        int var4 = var3.mInsetOffsetY;
-        if (var4 != var2) {
-            ViewCompat.offsetTopAndBottom(var1, var2 - var4);
-            var3.mInsetOffsetY = var2;
-        }
-
-    }
-
-    public void setOnHierarchyChangeListener(OnHierarchyChangeListener var1) {
-        this.mOnHierarchyChangeListener = var1;
-    }
-
-    public void setStatusBarBackgroundColor(int var1) {
-        this.setStatusBarBackground(new ColorDrawable(var1));
-    }
-
-    public void setStatusBarBackgroundResource(int var1) {
-        Drawable var2;
-        if (var1 != 0) {
-            var2 = ContextCompat.getDrawable(this.getContext(), var1);
-        } else {
-            var2 = null;
-        }
-
-        this.setStatusBarBackground(var2);
-    }
-
-    public void setVisibility(int var1) {
-        super.setVisibility(var1);
-        boolean var2;
-        if (var1 == 0) {
-            var2 = true;
-        } else {
-            var2 = false;
-        }
-
-        Drawable var3 = this.mStatusBarBackground;
-        if (var3 != null && var3.isVisible() != var2) {
-            this.mStatusBarBackground.setVisible(var2, false);
-        }
-
-    }
-
-    public final WindowInsetsCompat setWindowInsets(WindowInsetsCompat var1) {
-        WindowInsetsCompat var2 = var1;
-        if (!ObjectsCompat.equals(this.mLastInsets, var1)) {
-            this.mLastInsets = var1;
-            boolean var3 = true;
-            boolean var4;
-            if (var1 != null && var1.getSystemWindowInsetTop() > 0) {
-                var4 = true;
-            } else {
-                var4 = false;
+            final LayoutParams lp = (LayoutParams) view.getLayoutParams();
+            if (!lp.isNestedScrollAccepted(ViewCompat.TYPE_TOUCH)) {
+                continue;
             }
 
-            this.mDrawStatusBarBackground = var4;
-            if (!this.mDrawStatusBarBackground && this.getBackground() == null) {
-                var4 = var3;
-            } else {
-                var4 = false;
+            final Behavior viewBehavior = lp.getBehavior();
+            if (viewBehavior != null) {
+                handled |= viewBehavior.onNestedPreFling(this, view, target, velocityX, velocityY);
             }
-
-            this.setWillNotDraw(var4);
-            var2 = this.dispatchApplyWindowInsetsToBehaviors(var1);
-            this.requestLayout();
         }
-
-        return var2;
+        return handled;
     }
 
-    public final void setupForInsets() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            if (ViewCompat.getFitsSystemWindows(this)) {
-                if (this.mApplyWindowInsetsListener == null) {
-                    this.mApplyWindowInsetsListener = new androidx.core.view.OnApplyWindowInsetsListener() {
-                        public WindowInsetsCompat onApplyWindowInsets(View var1, WindowInsetsCompat var2) {
-                            return SamsungCoordinatorLayout.this.setWindowInsets(var2);
-                        }
-                    };
-                }
+    @Override
+    public int getNestedScrollAxes() {
+        return mNestedScrollingParentHelper.getNestedScrollAxes();
+    }
 
-                ViewCompat.setOnApplyWindowInsetsListener(this, this.mApplyWindowInsetsListener);
-                this.setSystemUiVisibility(1280);
-            } else {
-                ViewCompat.setOnApplyWindowInsetsListener(this, null);
+    class OnPreDrawListener implements ViewTreeObserver.OnPreDrawListener {
+        @Override
+        public boolean onPreDraw() {
+            onChildViewsChanged(EVENT_PRE_DRAW);
+            return true;
+        }
+    }
+
+    static class ViewElevationComparator implements Comparator<View> {
+        @Override
+        public int compare(View lhs, View rhs) {
+            final float lz = ViewCompat.getZ(lhs);
+            final float rz = ViewCompat.getZ(rhs);
+            if (lz > rz) {
+                return -1;
+            } else if (lz < rz) {
+                return 1;
             }
-
+            return 0;
         }
-    }
-
-    public boolean verifyDrawable(Drawable var1) {
-        boolean var2;
-        if (!super.verifyDrawable(var1) && var1 != this.mStatusBarBackground) {
-            var2 = false;
-        } else {
-            var2 = true;
-        }
-
-        return var2;
-    }
-
-    public interface AttachedBehavior {
-        SamsungCoordinatorLayout.Behavior getBehavior();
     }
 
     @Deprecated
     @Retention(RetentionPolicy.RUNTIME)
     public @interface DefaultBehavior {
-        Class<? extends SamsungCoordinatorLayout.Behavior> value();
+        Class<? extends Behavior> value();
     }
 
-    public abstract static class Behavior<V extends View> {
+    public interface AttachedBehavior {
+        @NonNull Behavior getBehavior();
+    }
+
+    public static abstract class Behavior<V extends View> {
         public Behavior() {
         }
 
-        public Behavior(Context var1, AttributeSet var2) {
+        public Behavior(Context context, AttributeSet attrs) {
         }
 
-        protected boolean dispatchGenericMotionEvent(MotionEvent motionEvent) {
-            return false;
-        }
-
-        public boolean blocksInteractionBelow(SamsungCoordinatorLayout var1, V var2) {
-            boolean var3;
-            if (this.getScrimOpacity(var1, var2) > 0.0F) {
-                var3 = true;
-            } else {
-                var3 = false;
-            }
-
-            return var3;
-        }
-
-        public boolean getInsetDodgeRect(SamsungCoordinatorLayout var1, V var2, Rect var3) {
-            return false;
-        }
-
-        public int getScrimColor(SamsungCoordinatorLayout var1, V var2) {
-            return -16777216;
-        }
-
-        public float getScrimOpacity(SamsungCoordinatorLayout var1, V var2) {
-            return 0.0F;
-        }
-
-        public boolean layoutDependsOn(SamsungCoordinatorLayout var1, V var2, View var3) {
-            return false;
-        }
-
-        public WindowInsetsCompat onApplyWindowInsets(SamsungCoordinatorLayout var1, V var2, WindowInsetsCompat var3) {
-            return var3;
-        }
-
-        public void onAttachedToLayoutParams(SamsungCoordinatorLayout.LayoutParams var1) {
-        }
-
-        public boolean onDependentViewChanged(SamsungCoordinatorLayout var1, V var2, View var3) {
-            return false;
-        }
-
-        public void onDependentViewRemoved(SamsungCoordinatorLayout var1, V var2, View var3) {
+        public void onAttachedToLayoutParams(@NonNull SamsungCoordinatorLayout.LayoutParams params) {
         }
 
         public void onDetachedFromLayoutParams() {
         }
 
-        public boolean onInterceptTouchEvent(SamsungCoordinatorLayout var1, V var2, MotionEvent var3) {
+        protected boolean dispatchGenericMotionEvent(@NonNull MotionEvent ev) {
             return false;
         }
 
-        public boolean onLayoutChild(SamsungCoordinatorLayout var1, V var2, int var3) {
+        public boolean onInterceptTouchEvent(@NonNull SamsungCoordinatorLayout parent, @NonNull V child, @NonNull MotionEvent ev) {
             return false;
         }
 
-        public boolean onMeasureChild(SamsungCoordinatorLayout var1, V var2, int var3, int var4, int var5, int var6) {
+        public boolean onTouchEvent(@NonNull SamsungCoordinatorLayout parent, @NonNull V child, @NonNull MotionEvent ev) {
             return false;
         }
 
-        public boolean onNestedFling(SamsungCoordinatorLayout var1, V var2, View var3, float var4, float var5, boolean var6) {
+        @ColorInt
+        public int getScrimColor(@NonNull SamsungCoordinatorLayout parent, @NonNull V child) {
+            return Color.BLACK;
+        }
+
+        @FloatRange(from = 0, to = 1)
+        public float getScrimOpacity(@NonNull SamsungCoordinatorLayout parent, @NonNull V child) {
+            return 0.f;
+        }
+
+        public boolean blocksInteractionBelow(@NonNull SamsungCoordinatorLayout parent, @NonNull V child) {
+            return getScrimOpacity(parent, child) > 0.f;
+        }
+
+        public boolean layoutDependsOn(@NonNull SamsungCoordinatorLayout parent, @NonNull V child, @NonNull View dependency) {
             return false;
         }
 
-        public boolean onNestedPreFling(SamsungCoordinatorLayout var1, V var2, View var3, float var4, float var5) {
+        public boolean onDependentViewChanged(@NonNull SamsungCoordinatorLayout parent, @NonNull V child, @NonNull View dependency) {
             return false;
+        }
+
+        public void onDependentViewRemoved(@NonNull SamsungCoordinatorLayout parent, @NonNull V child, @NonNull View dependency) {
+        }
+
+        public boolean onMeasureChild(@NonNull SamsungCoordinatorLayout parent, @NonNull V child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
+            return false;
+        }
+
+        public boolean onLayoutChild(@NonNull SamsungCoordinatorLayout parent, @NonNull V child, int layoutDirection) {
+            return false;
+        }
+
+        public static void setTag(@NonNull View child, @Nullable Object tag) {
+            final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            lp.mBehaviorTag = tag;
+        }
+
+        @Nullable
+        public static Object getTag(@NonNull View child) {
+            final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            return lp.mBehaviorTag;
         }
 
         @Deprecated
-        public void onNestedPreScroll(SamsungCoordinatorLayout var1, V var2, View var3, int var4, int var5, int[] var6) {
+        public boolean onStartNestedScroll(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View directTargetChild, @NonNull View target, @ScrollAxis int axes) {
+            return false;
         }
 
-        public void onNestedPreScroll(SamsungCoordinatorLayout var1, V var2, View var3, int var4, int var5, int[] var6, int var7) {
-            if (var7 == 0) {
-                this.onNestedPreScroll(var1, var2, var3, var4, var5, var6);
+        public boolean onStartNestedScroll(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View directTargetChild, @NonNull View target, @ScrollAxis int axes, @NestedScrollType int type) {
+            if (type == ViewCompat.TYPE_TOUCH) {
+                return onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, axes);
             }
-
-        }
-
-        @Deprecated
-        public void onNestedScroll(SamsungCoordinatorLayout var1, V var2, View var3, int var4, int var5, int var6, int var7) {
-        }
-
-        @Deprecated
-        public void onNestedScroll(SamsungCoordinatorLayout var1, V var2, View var3, int var4, int var5, int var6, int var7, int var8) {
-            if (var8 == 0) {
-                this.onNestedScroll(var1, var2, var3, var4, var5, var6, var7);
-            }
-
-        }
-
-        public void onNestedScroll(SamsungCoordinatorLayout var1, V var2, View var3, int var4, int var5, int var6, int var7, int var8, int[] var9) {
-            var9[0] += var6;
-            var9[1] += var7;
-            this.onNestedScroll(var1, var2, var3, var4, var5, var6, var7, var8);
-        }
-
-        @Deprecated
-        public void onNestedScrollAccepted(SamsungCoordinatorLayout var1, V var2, View var3, View var4, int var5) {
-        }
-
-        public void onNestedScrollAccepted(SamsungCoordinatorLayout var1, V var2, View var3, View var4, int var5, int var6) {
-            if (var6 == 0) {
-                this.onNestedScrollAccepted(var1, var2, var3, var4, var5);
-            }
-
-        }
-
-        public boolean onRequestChildRectangleOnScreen(SamsungCoordinatorLayout var1, V var2, Rect var3, boolean var4) {
             return false;
         }
 
-        public void onRestoreInstanceState(SamsungCoordinatorLayout var1, V var2, Parcelable var3) {
+        @Deprecated
+        public void onNestedScrollAccepted(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View directTargetChild, @NonNull View target, @ScrollAxis int axes) {
         }
 
-        public Parcelable onSaveInstanceState(SamsungCoordinatorLayout var1, V var2) {
+        public void onNestedScrollAccepted(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View directTargetChild, @NonNull View target, @ScrollAxis int axes, @NestedScrollType int type) {
+            if (type == ViewCompat.TYPE_TOUCH) {
+                onNestedScrollAccepted(coordinatorLayout, child, directTargetChild, target, axes);
+            }
+        }
+
+        @Deprecated
+        public void onStopNestedScroll(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View target) {
+        }
+
+        public void onStopNestedScroll(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View target, @NestedScrollType int type) {
+            if (type == ViewCompat.TYPE_TOUCH) {
+                onStopNestedScroll(coordinatorLayout, child, target);
+            }
+        }
+
+        @Deprecated
+        public void onNestedScroll(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
+        }
+
+        @Deprecated
+        public void onNestedScroll(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, @NestedScrollType int type) {
+            if (type == ViewCompat.TYPE_TOUCH) {
+                onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
+            }
+        }
+
+        public void onNestedScroll(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, @NestedScrollType int type, @NonNull int[] consumed) {
+            consumed[0] += dxUnconsumed;
+            consumed[1] += dyUnconsumed;
+            onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type);
+        }
+
+        @Deprecated
+        public void onNestedPreScroll(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View target, int dx, int dy, @NonNull int[] consumed) {
+        }
+
+        public void onNestedPreScroll(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View target, int dx, int dy, @NonNull int[] consumed, @NestedScrollType int type) {
+            if (type == ViewCompat.TYPE_TOUCH) {
+                onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed);
+            }
+        }
+
+        public boolean onNestedFling(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View target, float velocityX, float velocityY, boolean consumed) {
+            return false;
+        }
+
+        public boolean onNestedPreFling(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View target, float velocityX, float velocityY) {
+            return false;
+        }
+
+        @NonNull
+        public WindowInsetsCompat onApplyWindowInsets(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull WindowInsetsCompat insets) {
+            return insets;
+        }
+
+        public boolean onRequestChildRectangleOnScreen(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull Rect rectangle, boolean immediate) {
+            return false;
+        }
+
+        public void onRestoreInstanceState(@NonNull SamsungCoordinatorLayout parent, @NonNull V child, @NonNull Parcelable state) {
+        }
+
+        @Nullable
+        public Parcelable onSaveInstanceState(@NonNull SamsungCoordinatorLayout parent, @NonNull V child) {
             return BaseSavedState.EMPTY_STATE;
         }
 
-        @Deprecated
-        public boolean onStartNestedScroll(SamsungCoordinatorLayout var1, V var2, View var3, View var4, int var5) {
-            return false;
-        }
-
-        public boolean onStartNestedScroll(SamsungCoordinatorLayout var1, V var2, View var3, View var4, int var5, int var6) {
-            return var6 == 0 ? this.onStartNestedScroll(var1, var2, var3, var4, var5) : false;
-        }
-
-        @Deprecated
-        public void onStopNestedScroll(SamsungCoordinatorLayout var1, V var2, View var3) {
-        }
-
-        public void onStopNestedScroll(SamsungCoordinatorLayout var1, V var2, View var3, int var4) {
-            if (var4 == 0) {
-                this.onStopNestedScroll(var1, var2, var3);
-            }
-
-        }
-
-        public boolean onTouchEvent(SamsungCoordinatorLayout var1, V var2, MotionEvent var3) {
+        public boolean getInsetDodgeRect(@NonNull SamsungCoordinatorLayout parent, @NonNull V child, @NonNull Rect rect) {
             return false;
         }
     }
 
     public static class LayoutParams extends MarginLayoutParams {
-        public final Rect mLastChildRect = new Rect();
-        public int anchorGravity = 0;
-        public int dodgeInsetEdges = 0;
-        public int gravity = 0;
-        public int insetEdge = 0;
+        public int anchorGravity = Gravity.NO_GRAVITY;
+        public int dodgeInsetEdges = Gravity.NO_GRAVITY;
+        public int gravity = Gravity.NO_GRAVITY;
+        public int insetEdge = Gravity.NO_GRAVITY;
         public int keyline = -1;
-        public View mAnchorDirectChild;
-        public int mAnchorId = -1;
-        public View mAnchorView;
-        public SamsungCoordinatorLayout.Behavior mBehavior;
-        public boolean mBehaviorResolved = false;
-        public Object mBehaviorTag;
-        public boolean mDidAcceptNestedScrollNonTouch;
-        public boolean mDidAcceptNestedScrollTouch;
-        public boolean mDidBlockInteraction;
-        public boolean mDidChangeAfterNestedScroll;
-        public int mInsetOffsetX;
-        public int mInsetOffsetY;
+        View mAnchorDirectChild;
+        int mAnchorId = View.NO_ID;
+        View mAnchorView;
+        Behavior mBehavior;
+        boolean mBehaviorResolved = false;
+        Object mBehaviorTag;
+        private boolean mDidAcceptNestedScrollNonTouch;
+        private boolean mDidAcceptNestedScrollTouch;
+        private boolean mDidBlockInteraction;
+        private boolean mDidChangeAfterNestedScroll;
+        int mInsetOffsetX;
+        int mInsetOffsetY;
+        final Rect mLastChildRect = new Rect();
 
-        public LayoutParams(int var1, int var2) {
-            super(var1, var2);
+        public LayoutParams(int width, int height) {
+            super(width, height);
         }
 
-        public LayoutParams(Context var1, AttributeSet var2) {
-            super(var1, var2);
-            TypedArray var3 = var1.obtainStyledAttributes(var2, R.styleable.SamsungCoordinatorLayout_Layout);
-            this.gravity = var3.getInteger(R.styleable.SamsungCoordinatorLayout_Layout_android_layout_gravity, 0);
-            this.mAnchorId = var3.getResourceId(R.styleable.SamsungCoordinatorLayout_Layout_layout_anchor, -1);
-            this.anchorGravity = var3.getInteger(R.styleable.SamsungCoordinatorLayout_Layout_layout_anchorGravity, 0);
-            this.keyline = var3.getInteger(R.styleable.SamsungCoordinatorLayout_Layout_layout_keyline, -1);
-            this.insetEdge = var3.getInt(R.styleable.SamsungCoordinatorLayout_Layout_layout_insetEdge, 0);
-            this.dodgeInsetEdges = var3.getInt(R.styleable.SamsungCoordinatorLayout_Layout_layout_dodgeInsetEdges, 0);
-            this.mBehaviorResolved = var3.hasValue(R.styleable.SamsungCoordinatorLayout_Layout_layout_behavior);
-            if (this.mBehaviorResolved) {
-                this.mBehavior = SamsungCoordinatorLayout.parseBehavior(var1, var2, var3.getString(R.styleable.SamsungCoordinatorLayout_Layout_layout_behavior));
+        LayoutParams(@NonNull Context context, @Nullable AttributeSet attrs) {
+            super(context, attrs);
+
+            final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SamsungCoordinatorLayout_Layout);
+
+            this.gravity = a.getInteger(R.styleable.SamsungCoordinatorLayout_Layout_android_layout_gravity, Gravity.NO_GRAVITY);
+            mAnchorId = a.getResourceId(R.styleable.SamsungCoordinatorLayout_Layout_layout_anchor, View.NO_ID);
+            this.anchorGravity = a.getInteger(R.styleable.SamsungCoordinatorLayout_Layout_layout_anchorGravity, Gravity.NO_GRAVITY);
+            this.keyline = a.getInteger(R.styleable.SamsungCoordinatorLayout_Layout_layout_keyline, -1);
+
+            insetEdge = a.getInt(R.styleable.SamsungCoordinatorLayout_Layout_layout_insetEdge, 0);
+            dodgeInsetEdges = a.getInt(R.styleable.SamsungCoordinatorLayout_Layout_layout_dodgeInsetEdges, 0);
+            mBehaviorResolved = a.hasValue(R.styleable.SamsungCoordinatorLayout_Layout_layout_behavior);
+            if (mBehaviorResolved) {
+                mBehavior = parseBehavior(context, attrs, a.getString(R.styleable.SamsungCoordinatorLayout_Layout_layout_behavior));
             }
+            a.recycle();
 
-            var3.recycle();
-            SamsungCoordinatorLayout.Behavior var4 = this.mBehavior;
-            if (var4 != null) {
-                var4.onAttachedToLayoutParams(this);
-            }
-
-        }
-
-        public LayoutParams(android.view.ViewGroup.LayoutParams var1) {
-            super(var1);
-        }
-
-        public LayoutParams(MarginLayoutParams var1) {
-            super(var1);
-        }
-
-        public LayoutParams(SamsungCoordinatorLayout.LayoutParams var1) {
-            super(var1);
-        }
-
-        public boolean checkAnchorChanged() {
-            boolean var1;
-            if (this.mAnchorView == null && this.mAnchorId != -1) {
-                var1 = true;
-            } else {
-                var1 = false;
-            }
-
-            return var1;
-        }
-
-        public boolean dependsOn(SamsungCoordinatorLayout var1, View var2, View var3) {
-            boolean var5;
-            if (var3 != this.mAnchorDirectChild && !this.shouldDodge(var3, ViewCompat.getLayoutDirection(var1))) {
-                SamsungCoordinatorLayout.Behavior var4 = this.mBehavior;
-                if (var4 == null || !var4.layoutDependsOn(var1, var2, var3)) {
-                    var5 = false;
-                    return var5;
-                }
-            }
-
-            var5 = true;
-            return var5;
-        }
-
-        public boolean didBlockInteraction() {
-            if (this.mBehavior == null) {
-                this.mDidBlockInteraction = false;
-            }
-
-            return this.mDidBlockInteraction;
-        }
-
-        public View findAnchorView(SamsungCoordinatorLayout var1, View var2) {
-            if (this.mAnchorId == -1) {
-                this.mAnchorDirectChild = null;
-                this.mAnchorView = null;
-                return null;
-            } else {
-                if (this.mAnchorView == null || !this.verifyAnchorView(var2, var1)) {
-                    this.resolveAnchorView(var2, var1);
-                }
-
-                return this.mAnchorView;
+            if (mBehavior != null) {
+                mBehavior.onAttachedToLayoutParams(this);
             }
         }
 
+        public LayoutParams(LayoutParams p) {
+            super(p);
+        }
+
+        public LayoutParams(MarginLayoutParams p) {
+            super(p);
+        }
+
+        public LayoutParams(ViewGroup.LayoutParams p) {
+            super(p);
+        }
+
+        @IdRes
         public int getAnchorId() {
-            return this.mAnchorId;
+            return mAnchorId;
         }
 
-        public SamsungCoordinatorLayout.Behavior getBehavior() {
-            return this.mBehavior;
+        public void setAnchorId(@IdRes int id) {
+            invalidateAnchor();
+            mAnchorId = id;
         }
 
-        public void setBehavior(SamsungCoordinatorLayout.Behavior var1) {
-            SamsungCoordinatorLayout.Behavior var2 = this.mBehavior;
-            if (var2 != var1) {
-                if (var2 != null) {
-                    var2.onDetachedFromLayoutParams();
+        @Nullable
+        public Behavior getBehavior() {
+            return mBehavior;
+        }
+
+        public void setBehavior(@Nullable Behavior behavior) {
+            if (mBehavior != behavior) {
+                if (mBehavior != null) {
+                    mBehavior.onDetachedFromLayoutParams();
                 }
 
-                this.mBehavior = var1;
-                this.mBehaviorTag = null;
-                this.mBehaviorResolved = true;
-                if (var1 != null) {
-                    var1.onAttachedToLayoutParams(this);
+                mBehavior = behavior;
+                mBehaviorTag = null;
+                mBehaviorResolved = true;
+
+                if (behavior != null) {
+                    behavior.onAttachedToLayoutParams(this);
                 }
             }
-
         }
 
-        public boolean getChangedAfterNestedScroll() {
-            return this.mDidChangeAfterNestedScroll;
+        void setLastChildRect(Rect r) {
+            mLastChildRect.set(r);
         }
 
-        public void setChangedAfterNestedScroll(boolean var1) {
-            this.mDidChangeAfterNestedScroll = var1;
+        Rect getLastChildRect() {
+            return mLastChildRect;
         }
 
-        public Rect getLastChildRect() {
-            return this.mLastChildRect;
+        boolean checkAnchorChanged() {
+            return mAnchorView == null && mAnchorId != View.NO_ID;
         }
 
-        public void setLastChildRect(Rect var1) {
-            this.mLastChildRect.set(var1);
+        boolean didBlockInteraction() {
+            if (mBehavior == null) {
+                mDidBlockInteraction = false;
+            }
+            return mDidBlockInteraction;
         }
 
-        public boolean isBlockingInteractionBelow(SamsungCoordinatorLayout var1, View var2) {
-            boolean var3 = this.mDidBlockInteraction;
-            if (var3) {
+        @SuppressWarnings("unchecked")
+        boolean isBlockingInteractionBelow(SamsungCoordinatorLayout parent, View child) {
+            if (mDidBlockInteraction) {
                 return true;
-            } else {
-                SamsungCoordinatorLayout.Behavior var4 = this.mBehavior;
-                boolean var5;
-                if (var4 != null) {
-                    var5 = var4.blocksInteractionBelow(var1, var2);
-                } else {
-                    var5 = false;
-                }
+            }
 
-                var5 |= var3;
-                this.mDidBlockInteraction = var5;
-                return var5;
+            return mDidBlockInteraction |= mBehavior != null ? mBehavior.blocksInteractionBelow(parent, child) : false;
+        }
+
+        void resetTouchBehaviorTracking() {
+            mDidBlockInteraction = false;
+        }
+
+        void resetNestedScroll(int type) {
+            setNestedScrollAccepted(type, false);
+        }
+
+        void setNestedScrollAccepted(int type, boolean accept) {
+            switch (type) {
+                case ViewCompat.TYPE_TOUCH:
+                    mDidAcceptNestedScrollTouch = accept;
+                    break;
+                case ViewCompat.TYPE_NON_TOUCH:
+                    mDidAcceptNestedScrollNonTouch = accept;
+                    break;
             }
         }
 
-        public boolean isNestedScrollAccepted(int var1) {
-            if (var1 != 0) {
-                return var1 != 1 ? false : this.mDidAcceptNestedScrollNonTouch;
-            } else {
-                return this.mDidAcceptNestedScrollTouch;
+        boolean isNestedScrollAccepted(int type) {
+            switch (type) {
+                case ViewCompat.TYPE_TOUCH:
+                    return mDidAcceptNestedScrollTouch;
+                case ViewCompat.TYPE_NON_TOUCH:
+                    return mDidAcceptNestedScrollNonTouch;
             }
+            return false;
         }
 
-        public void resetChangedAfterNestedScroll() {
-            this.mDidChangeAfterNestedScroll = false;
+        boolean getChangedAfterNestedScroll() {
+            return mDidChangeAfterNestedScroll;
         }
 
-        public void resetNestedScroll(int var1) {
-            this.setNestedScrollAccepted(var1, false);
+        void setChangedAfterNestedScroll(boolean changed) {
+            mDidChangeAfterNestedScroll = changed;
         }
 
-        public void resetTouchBehaviorTracking() {
-            this.mDidBlockInteraction = false;
+        void resetChangedAfterNestedScroll() {
+            mDidChangeAfterNestedScroll = false;
         }
 
-        public final void resolveAnchorView(View var1, SamsungCoordinatorLayout var2) {
-            this.mAnchorView = var2.findViewById(this.mAnchorId);
-            View var3 = this.mAnchorView;
-            if (var3 == null) {
-                if (var2.isInEditMode()) {
-                    this.mAnchorDirectChild = null;
-                    this.mAnchorView = null;
-                } else {
-                    StringBuilder var5 = new StringBuilder();
-                    var5.append("Could not find CoordinatorLayout descendant view with id ");
-                    var5.append(var2.getResources().getResourceName(this.mAnchorId));
-                    var5.append(" to anchor view ");
-                    var5.append(var1);
-                    throw new IllegalStateException(var5.toString());
-                }
-            } else if (var3 == var2) {
-                if (var2.isInEditMode()) {
-                    this.mAnchorDirectChild = null;
-                    this.mAnchorView = null;
-                } else {
+        @SuppressWarnings("unchecked")
+        boolean dependsOn(SamsungCoordinatorLayout parent, View child, View dependency) {
+            return dependency == mAnchorDirectChild || shouldDodge(dependency, ViewCompat.getLayoutDirection(parent)) || (mBehavior != null && mBehavior.layoutDependsOn(parent, child, dependency));
+        }
+
+        void invalidateAnchor() {
+            mAnchorView = mAnchorDirectChild = null;
+        }
+
+        View findAnchorView(SamsungCoordinatorLayout parent, View forChild) {
+            if (mAnchorId == View.NO_ID) {
+                mAnchorView = mAnchorDirectChild = null;
+                return null;
+            }
+
+            if (mAnchorView == null || !verifyAnchorView(forChild, parent)) {
+                resolveAnchorView(forChild, parent);
+            }
+            return mAnchorView;
+        }
+
+        private void resolveAnchorView(final View forChild, final SamsungCoordinatorLayout parent) {
+            mAnchorView = parent.findViewById(mAnchorId);
+            if (mAnchorView != null) {
+                if (mAnchorView == parent) {
+                    if (parent.isInEditMode()) {
+                        mAnchorView = mAnchorDirectChild = null;
+                        return;
+                    }
                     throw new IllegalStateException("View can not be anchored to the the parent CoordinatorLayout");
                 }
-            } else {
-                for (ViewParent var4 = var3.getParent(); var4 != var2 && var4 != null; var4 = var4.getParent()) {
-                    if (var4 == var1) {
-                        if (var2.isInEditMode()) {
-                            this.mAnchorDirectChild = null;
-                            this.mAnchorView = null;
+
+                View directChild = mAnchorView;
+                for (ViewParent p = mAnchorView.getParent(); p != parent && p != null; p = p.getParent()) {
+                    if (p == forChild) {
+                        if (parent.isInEditMode()) {
+                            mAnchorView = mAnchorDirectChild = null;
                             return;
                         }
-
                         throw new IllegalStateException("Anchor must not be a descendant of the anchored view");
                     }
-
-                    if (var4 instanceof View) {
-                        var3 = (View) var4;
+                    if (p instanceof View) {
+                        directChild = (View) p;
                     }
                 }
-
-                this.mAnchorDirectChild = var3;
-            }
-        }
-
-        public void setNestedScrollAccepted(int var1, boolean var2) {
-            if (var1 != 0) {
-                if (var1 == 1) {
-                    this.mDidAcceptNestedScrollNonTouch = var2;
+                mAnchorDirectChild = directChild;
+            } else {
+                if (parent.isInEditMode()) {
+                    mAnchorView = mAnchorDirectChild = null;
+                    return;
                 }
-            } else {
-                this.mDidAcceptNestedScrollTouch = var2;
+                throw new IllegalStateException("Could not find CoordinatorLayout descendant view with id " + parent.getResources().getResourceName(mAnchorId) + " to anchor view " + forChild);
             }
-
         }
 
-        public final boolean shouldDodge(View var1, int var2) {
-            int var3 = GravityCompat.getAbsoluteGravity(((SamsungCoordinatorLayout.LayoutParams) var1.getLayoutParams()).insetEdge, var2);
-            boolean var4;
-            if (var3 != 0 && (GravityCompat.getAbsoluteGravity(this.dodgeInsetEdges, var2) & var3) == var3) {
-                var4 = true;
-            } else {
-                var4 = false;
-            }
-
-            return var4;
-        }
-
-        public final boolean verifyAnchorView(View var1, SamsungCoordinatorLayout var2) {
-            if (this.mAnchorView.getId() != this.mAnchorId) {
+        private boolean verifyAnchorView(View forChild, SamsungCoordinatorLayout parent) {
+            if (mAnchorView.getId() != mAnchorId) {
                 return false;
-            } else {
-                View var3 = this.mAnchorView;
+            }
 
-                for (ViewParent var4 = var3.getParent(); var4 != var2; var4 = var4.getParent()) {
-                    if (var4 == null || var4 == var1) {
-                        this.mAnchorDirectChild = null;
-                        this.mAnchorView = null;
-                        return false;
-                    }
-
-                    if (var4 instanceof View) {
-                        var3 = (View) var4;
-                    }
+            View directChild = mAnchorView;
+            for (ViewParent p = mAnchorView.getParent(); p != parent; p = p.getParent()) {
+                if (p == null || p == forChild) {
+                    mAnchorView = mAnchorDirectChild = null;
+                    return false;
                 }
-
-                this.mAnchorDirectChild = var3;
-                return true;
+                if (p instanceof View) {
+                    directChild = (View) p;
+                }
             }
-        }
-    }
-
-    protected static class SavedState extends AbsSavedState {
-        public static final Creator<SamsungCoordinatorLayout.SavedState> CREATOR = new ClassLoaderCreator<SamsungCoordinatorLayout.SavedState>() {
-            public SamsungCoordinatorLayout.SavedState createFromParcel(Parcel var1) {
-                return new SamsungCoordinatorLayout.SavedState(var1, (ClassLoader) null);
-            }
-
-            public SamsungCoordinatorLayout.SavedState createFromParcel(Parcel var1, ClassLoader var2) {
-                return new SamsungCoordinatorLayout.SavedState(var1, var2);
-            }
-
-            public SamsungCoordinatorLayout.SavedState[] newArray(int var1) {
-                return new SamsungCoordinatorLayout.SavedState[var1];
-            }
-        };
-        public SparseArray<Parcelable> behaviorStates;
-
-        public SavedState(Parcel var1, ClassLoader var2) {
-            super(var1, var2);
-            int var3 = var1.readInt();
-            int[] var4 = new int[var3];
-            var1.readIntArray(var4);
-            Parcelable[] var6 = var1.readParcelableArray(var2);
-            this.behaviorStates = new SparseArray(var3);
-
-            for (int var5 = 0; var5 < var3; ++var5) {
-                this.behaviorStates.append(var4[var5], var6[var5]);
-            }
-
+            mAnchorDirectChild = directChild;
+            return true;
         }
 
-        public SavedState(Parcelable var1) {
-            super(var1);
-        }
-
-        public void writeToParcel(Parcel var1, int var2) {
-            super.writeToParcel(var1, var2);
-            SparseArray var3 = this.behaviorStates;
-            int var4 = 0;
-            int var5;
-            if (var3 != null) {
-                var5 = var3.size();
-            } else {
-                var5 = 0;
-            }
-
-            var1.writeInt(var5);
-            int[] var7 = new int[var5];
-
-            Parcelable[] var6;
-            for (var6 = new Parcelable[var5]; var4 < var5; ++var4) {
-                var7[var4] = this.behaviorStates.keyAt(var4);
-                var6[var4] = (Parcelable) this.behaviorStates.valueAt(var4);
-            }
-
-            var1.writeIntArray(var7);
-            var1.writeParcelableArray(var6, var2);
-        }
-    }
-
-    public static class ViewElevationComparator implements Comparator<View> {
-        public ViewElevationComparator() {
-        }
-
-        public int compare(View var1, View var2) {
-            float var3 = ViewCompat.getZ(var1);
-            float var4 = ViewCompat.getZ(var2);
-            if (var3 > var4) {
-                return -1;
-            } else {
-                return var3 < var4 ? 1 : 0;
-            }
+        private boolean shouldDodge(View other, int layoutDirection) {
+            LayoutParams lp = (LayoutParams) other.getLayoutParams();
+            final int absInset = GravityCompat.getAbsoluteGravity(lp.insetEdge, layoutDirection);
+            return absInset != Gravity.NO_GRAVITY && (absInset & GravityCompat.getAbsoluteGravity(dodgeInsetEdges, layoutDirection)) == absInset;
         }
     }
 
     private class HierarchyChangeListener implements OnHierarchyChangeListener {
-        public HierarchyChangeListener() {
+        HierarchyChangeListener() {
         }
 
-        public void onChildViewAdded(View var1, View var2) {
-            OnHierarchyChangeListener var3 = SamsungCoordinatorLayout.this.mOnHierarchyChangeListener;
-            if (var3 != null) {
-                var3.onChildViewAdded(var1, var2);
+        @Override
+        public void onChildViewAdded(View parent, View child) {
+            if (mOnHierarchyChangeListener != null) {
+                mOnHierarchyChangeListener.onChildViewAdded(parent, child);
             }
-
         }
 
-        public void onChildViewRemoved(View var1, View var2) {
-            SamsungCoordinatorLayout.this.onChildViewsChanged(2);
-            OnHierarchyChangeListener var3 = SamsungCoordinatorLayout.this.mOnHierarchyChangeListener;
-            if (var3 != null) {
-                var3.onChildViewRemoved(var1, var2);
-            }
+        @Override
+        public void onChildViewRemoved(View parent, View child) {
+            onChildViewsChanged(EVENT_VIEW_REMOVED);
 
+            if (mOnHierarchyChangeListener != null) {
+                mOnHierarchyChangeListener.onChildViewRemoved(parent, child);
+            }
         }
     }
 
-    public class OnPreDrawListener implements android.view.ViewTreeObserver.OnPreDrawListener {
-        public OnPreDrawListener() {
+    @Override
+    @SuppressWarnings("unchecked")
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (!(state instanceof SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
         }
 
-        public boolean onPreDraw() {
-            SamsungCoordinatorLayout.this.onChildViewsChanged(0);
+        final SavedState ss = (SavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+
+        final SparseArray<Parcelable> behaviorStates = ss.behaviorStates;
+
+        for (int i = 0, count = getChildCount(); i < count; i++) {
+            final View child = getChildAt(i);
+            final int childId = child.getId();
+            final LayoutParams lp = getResolvedLayoutParams(child);
+            final Behavior b = lp.getBehavior();
+
+            if (childId != NO_ID && b != null) {
+                Parcelable savedState = behaviorStates.get(childId);
+                if (savedState != null) {
+                    b.onRestoreInstanceState(this, child, savedState);
+                }
+            }
+        }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    protected Parcelable onSaveInstanceState() {
+        final SavedState ss = new SavedState(super.onSaveInstanceState());
+
+        final SparseArray<Parcelable> behaviorStates = new SparseArray<>();
+        for (int i = 0, count = getChildCount(); i < count; i++) {
+            final View child = getChildAt(i);
+            final int childId = child.getId();
+            final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            final Behavior b = lp.getBehavior();
+
+            if (childId != NO_ID && b != null) {
+                Parcelable state = b.onSaveInstanceState(this, child);
+                if (state != null) {
+                    behaviorStates.append(childId, state);
+                }
+            }
+        }
+        ss.behaviorStates = behaviorStates;
+        return ss;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean requestChildRectangleOnScreen(View child, Rect rectangle, boolean immediate) {
+        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        final Behavior behavior = lp.getBehavior();
+
+        if (behavior != null && behavior.onRequestChildRectangleOnScreen(this, child, rectangle, immediate)) {
             return true;
         }
+
+        return super.requestChildRectangleOnScreen(child, rectangle, immediate);
+    }
+
+    @SuppressWarnings("deprecation")
+    private void setupForInsets() {
+        if (Build.VERSION.SDK_INT < 21) {
+            return;
+        }
+
+        if (ViewCompat.getFitsSystemWindows(this)) {
+            if (mApplyWindowInsetsListener == null) {
+                mApplyWindowInsetsListener = new androidx.core.view.OnApplyWindowInsetsListener() {
+                    @Override
+                    public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                        return setWindowInsets(insets);
+                    }
+                };
+            }
+            ViewCompat.setOnApplyWindowInsetsListener(this, mApplyWindowInsetsListener);
+
+            setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        } else {
+            ViewCompat.setOnApplyWindowInsetsListener(this, null);
+        }
+    }
+
+    protected static class SavedState extends AbsSavedState {
+        SparseArray<Parcelable> behaviorStates;
+
+        public SavedState(Parcel source, ClassLoader loader) {
+            super(source, loader);
+
+            final int size = source.readInt();
+
+            final int[] ids = new int[size];
+            source.readIntArray(ids);
+
+            final Parcelable[] states = source.readParcelableArray(loader);
+
+            behaviorStates = new SparseArray<>(size);
+            for (int i = 0; i < size; i++) {
+                behaviorStates.append(ids[i], states[i]);
+            }
+        }
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+
+            final int size = behaviorStates != null ? behaviorStates.size() : 0;
+            dest.writeInt(size);
+
+            final int[] ids = new int[size];
+            final Parcelable[] states = new Parcelable[size];
+
+            for (int i = 0; i < size; i++) {
+                ids[i] = behaviorStates.keyAt(i);
+                states[i] = behaviorStates.valueAt(i);
+            }
+            dest.writeIntArray(ids);
+            dest.writeParcelableArray(states, flags);
+
+        }
+
+        public static final Creator<SavedState> CREATOR =
+                new ClassLoaderCreator<SavedState>() {
+                    @Override
+                    public SavedState createFromParcel(Parcel in, ClassLoader loader) {
+                        return new SavedState(in, loader);
+                    }
+
+                    @Override
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in, null);
+                    }
+
+                    @Override
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
+    }
+
+    public void seslEnableAutoCollapsingKeyEvent(boolean enable) {
+        mEnableAutoCollapsingKeyEvent = enable;
     }
 }

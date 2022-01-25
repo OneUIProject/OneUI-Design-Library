@@ -349,6 +349,8 @@ public class ToolbarLayout extends LinearLayout {
             ViewGroup.LayoutParams lp = toolbar.getLayoutParams();
             lp.height = mContext.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_default_height : R.dimen.sesl_action_bar_default_height) + getToolbarTopPadding();
             toolbar.setLayoutParams(lp);
+
+            collapsedTitleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_toolbar_title_text_size : R.dimen.sesl_toolbar_title_text_size));
         } else
             Log.w(TAG + ".resetToolbarHeight", "toolbar is null.");
     }
