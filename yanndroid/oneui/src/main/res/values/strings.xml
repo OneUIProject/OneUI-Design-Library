@@ -4,6 +4,7 @@
     <string name="sesl_font_family_regular" translatable="false">sec-roboto-light</string>
     <string name="app_name" translatable="false" />
     <string name="sesl_appbar_scrolling_view_behavior" translatable="false">de.dlyt.yanndroid.oneui.sesl.appbar.SamsungAppBarLayout$ScrollingViewBehavior</string>
+    <string name="sesl_immersive_scrolling_behavior" translatable="false">de.dlyt.yanndroid.oneui.sesl.appbar.SeslImmersiveScrollBehavior</string>
 
     <string name="sesl_off_text">Off</string>
     <string name="sesl_on_text">On</string>

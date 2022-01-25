@@ -1256,7 +1256,7 @@ public class SamsungCollapsingToolbarLayout extends FrameLayout {
             } else {
                 mExtendedTitle.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 TextViewCompat.setAutoSizeTextTypeWithDefaults(mExtendedTitle, TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE);
-                mExtendedTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.sesl4_appbar_extended_title_text_size_with_subtitle));
+                mExtendedTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_appbar_extended_title_text_size_with_subtitle : R.dimen.sesl_appbar_extended_title_text_size_with_subtitle));
             }
 
             a.recycle();
