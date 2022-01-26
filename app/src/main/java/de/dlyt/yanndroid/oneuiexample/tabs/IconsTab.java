@@ -26,14 +26,13 @@ import java.util.List;
 
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.sesl.recyclerview.LinearLayoutManager;
+import de.dlyt.yanndroid.oneui.view.IndexScrollView;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 import de.dlyt.yanndroid.oneui.view.ViewPager;
-import de.dlyt.yanndroid.oneui.view.IndexScrollView;
 import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneuiexample.R;
 
 public class IconsTab extends Fragment {
-    //230
     Integer[] imageIDs = {R.drawable.ic_samsung_accessibility,
             R.drawable.ic_samsung_account,
             R.drawable.ic_samsung_advanced_feature,
@@ -50,7 +49,6 @@ public class IconsTab extends Fragment {
             R.drawable.ic_samsung_audio,
             R.drawable.ic_samsung_audio_2,
             R.drawable.ic_samsung_back,
-            R.drawable.ic_samsung_bag,
             R.drawable.ic_samsung_biometric_face,
             R.drawable.ic_samsung_biometric_fingerprint,
             R.drawable.ic_samsung_biometric_fingerprint_2,
@@ -319,6 +317,7 @@ public class IconsTab extends Fragment {
         for (int i = 0; i < imageIDs.length - 1; i++)
             list.add(getResources().getResourceEntryName(imageIDs[i]).substring(11));
         indexScrollView.syncWithRecyclerView(listView, list, true);
+        indexScrollView.setIndexBarGravity(isRTL() ? 0 : 1);
 
         onBackPressedCallback = new OnBackPressedCallback(false) {
             @Override
@@ -329,6 +328,9 @@ public class IconsTab extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
     }
 
+    private boolean isRTL() {
+        return getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+    }
 
     public void setSelecting(boolean enabled) {
         DrawerLayout drawerLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view));
@@ -519,7 +521,8 @@ public class IconsTab extends Fragment {
                     shallDrawDivider = false;
 
                 if (mDivider != null && viewHolder.isItem && shallDrawDivider) {
-                    mDivider.setBounds(130, y, width, mDividerHeight + y);
+                    int moveRTL = isRTL() ? 130 : 0;
+                    mDivider.setBounds(130 - moveRTL, y, width - moveRTL, mDividerHeight + y);
                     mDivider.draw(canvas);
                 }
 

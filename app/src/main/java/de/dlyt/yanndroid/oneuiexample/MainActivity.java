@@ -162,7 +162,7 @@ public class MainActivity extends BaseThemeActivity {
         for (String s : mTabsTitleName) {
             tabLayout.addTab(tabLayout.newTab().setText(s));
         }
-        
+
         Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_samsung_drawer, getTheme());
         icon.setColorFilter(getResources().getColor(R.color.sesl_tablayout_text_color), PorterDuff.Mode.SRC_IN);
         tabLayout.addTabCustomButton(icon, new CustomButtonClickListener(tabLayout) {
@@ -361,7 +361,7 @@ public class MainActivity extends BaseThemeActivity {
                 public boolean onMenuItemClick(MenuItem item) {
                     item.setBadge(item.getBadge() + 1);
                     tabLayout.seslShowBadge(2, true, String.valueOf(item.getBadge()));
-                    return true;
+                    return !item.isCheckable();
                 }
 
                 @Override
