@@ -124,17 +124,18 @@
 
 
     <!--TabLayout-->
-    <color name="sesl_tablayout_show_button_text_color">#252525</color>
-    <color name="sesl_tablayout_subtab_background_stroke_color">#99FFFFFF</color>
-    <color name="sesl_tablayout_subtab_text_color_default">#999999</color>
-    <color name="sesl_tablayout_subtab_text_color_disabled">#33A8A9A9</color>
-    <color name="sesl_tablayout_subtab_text_color_selected">#FFFFFF</color>
-    <color name="sesl_tablayout_text_color_default">#A8A9A9</color>
-    <color name="sesl_tablayout_text_color_disabled">#66A8A9A9</color>
-    <color name="sesl4_tablayout_subtab_indicator_background">#1AFFFFFF</color>
-    <color name="sesl4_tablayout_text_color_selected">#FAFAFA</color>
-    <color name="sesl4_tablayout_main_tab_indicator_color">#FAFAFA</color>
-
+    <color name="sesl_tablayout_main_tab_indicator_color">#fffafafa</color>
+    <color name="sesl_tablayout_subtab_background_stroke_color">#99ffffff</color>
+    <color name="sesl4_tablayout_subtab_background_stroke_color">#ffffffff</color>
+    <color name="sesl_tablayout_subtab_indicator_background">#1affffff</color>
+    <color name="sesl_tablayout_subtab_sub_text_color_default">#ff909090</color>
+    <color name="sesl_tablayout_subtab_sub_text_color_selected">#ff3e91ff</color>
+    <color name="sesl_tablayout_subtab_text_color_default">#ff999999</color>
+    <color name="sesl_tablayout_subtab_text_color_disabled">#33999999</color>
+    <color name="sesl_tablayout_subtab_text_color_selected">#ffe5e5e5</color>
+    <color name="sesl_tablayout_text_color_default">#ff999999</color>
+    <color name="sesl_tablayout_text_color_disabled">#66999999</color>
+    <color name="sesl_tablayout_text_color_selected">#fffafafa</color>
 
     <!--Dialog-->
     <color name="sesl_dialog_body_text_color">#ffe5e5e5</color>

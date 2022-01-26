@@ -13,10 +13,10 @@
         android:layout_height="match_parent"
         app:layout_location="main_content" />
 
-    <de.dlyt.yanndroid.oneui.widget.BottomNavigationView
+    <de.dlyt.yanndroid.oneui.widget.TabLayout
         android:id="@+id/main_samsung_tabs"
         android:layout_width="match_parent"
-        android:layout_height="60.0dip"
+        android:layout_height="wrap_content"
         app:layout_location="footer" />
 
     <include layout="@layout/content_drawer" />

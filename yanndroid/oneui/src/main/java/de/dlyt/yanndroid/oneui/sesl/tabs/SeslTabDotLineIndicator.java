@@ -5,35 +5,40 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
-public class TabDotLineIndicator extends AbsIndicatorView {
-    private final float mScaleFromDiff;
-    private int mDiameter;
-    private int mInterval;
+public class SeslTabDotLineIndicator extends SeslAbsIndicatorView {
+    private static final float CIRCLE_INTERVAL = 2.5f;
+    private static final float DIAMETER_SIZE = 2.5f;
+    private static final int SCALE_DIFF = 5;
+    private final int mDiameter;
+    private final int mInterval;
     private Paint mPaint;
     private float mScaleFrom;
+    private final float mScaleFromDiff;
     private int mWidth;
 
-    public TabDotLineIndicator(Context context) {
+    public SeslTabDotLineIndicator(Context context) {
         this(context, null);
     }
 
-    public TabDotLineIndicator(Context context, AttributeSet attrs) {
+    public SeslTabDotLineIndicator(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public TabDotLineIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SeslTabDotLineIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
 
-    public TabDotLineIndicator(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+    public SeslTabDotLineIndicator(Context context, AttributeSet attributeSet, int defStyleAttr, int defStyleRes) {
+        super(context, attributeSet, defStyleAttr, defStyleRes);
 
-        mDiameter = (int) TypedValue.applyDimension(1, 2.5f, context.getResources().getDisplayMetrics());
-        mInterval = (int) TypedValue.applyDimension(1, 2.5f, context.getResources().getDisplayMetrics());
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 
-        mScaleFromDiff = TypedValue.applyDimension(1, 5.0f, context.getResources().getDisplayMetrics());
+        mDiameter = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, CIRCLE_INTERVAL, displayMetrics);
+        mInterval = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DIAMETER_SIZE, displayMetrics);
+        mScaleFromDiff = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, SCALE_DIFF, displayMetrics);
 
         mPaint = new Paint();
         mPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
@@ -76,14 +81,18 @@ public class TabDotLineIndicator extends AbsIndicatorView {
         mPaint.setColor(color);
     }
 
+    // kang
     @Override
-    public void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
         updateDotLineScaleFrom();
         if ((isPressed() || isSelected()) && (getBackground() instanceof ColorDrawable)) {
             int width = (getWidth() - getPaddingStart()) - getPaddingEnd();
             float height = ((float) getHeight()) / 2.0f;
-            canvas.drawRoundRect(0.0f, height - (((float) mDiameter) / 2.0f), (float) width, height + (((float) mDiameter) / 2.0f), (float) mDiameter, (float) mDiameter, this.mPaint);
+            float f = ((float) mDiameter) / 2.0f;
+            canvas.drawRoundRect(0.0f, height - f, (float) width, height + f, (float) mDiameter, (float) mDiameter, this.mPaint);
         }
     }
+    // kang
 }

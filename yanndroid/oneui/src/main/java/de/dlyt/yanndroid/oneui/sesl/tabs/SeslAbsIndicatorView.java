@@ -4,23 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-public abstract class AbsIndicatorView extends View {
-    public AbsIndicatorView(Context context) {
-        super(context);
-    }
-
-    public AbsIndicatorView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public AbsIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    public AbsIndicatorView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
+abstract class SeslAbsIndicatorView extends View {
     abstract void onHide();
 
     abstract void onSetSelectedIndicatorColor(int i);
@@ -30,6 +14,22 @@ public abstract class AbsIndicatorView extends View {
     abstract void startPressEffect();
 
     abstract void startReleaseEffect();
+
+    public SeslAbsIndicatorView(Context context) {
+        super(context);
+    }
+
+    public SeslAbsIndicatorView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public SeslAbsIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    public SeslAbsIndicatorView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+    }
 
     public void setSelectedIndicatorColor(int color) {
         onSetSelectedIndicatorColor(color);

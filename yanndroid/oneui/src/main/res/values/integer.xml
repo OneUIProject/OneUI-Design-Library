@@ -7,5 +7,6 @@
     <integer name="sesl_dialog_disabled_anim_duration">100</integer>
     <integer name="sesl_dialog_enter_anim_duration">100</integer>
     <integer name="sesl_dialog_exit_anim_duration">100</integer>
+    <integer name="sesl_tablayout_over_screen_width_dp">480</integer>
 
 </resources>

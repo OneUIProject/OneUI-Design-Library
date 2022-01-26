@@ -28,13 +28,12 @@ import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.sesl.recyclerview.LinearLayoutManager;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
 import de.dlyt.yanndroid.oneui.view.ViewPager;
-import de.dlyt.yanndroid.oneui.widget.BottomNavigationView;
 import de.dlyt.yanndroid.oneui.view.IndexScrollView;
 import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneuiexample.R;
 
 public class IconsTab extends Fragment {
-    //229
+    //230
     Integer[] imageIDs = {R.drawable.ic_samsung_accessibility,
             R.drawable.ic_samsung_account,
             R.drawable.ic_samsung_advanced_feature,
@@ -333,8 +332,8 @@ public class IconsTab extends Fragment {
 
     public void setSelecting(boolean enabled) {
         DrawerLayout drawerLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view));
-        TabLayout tabLayout = getActivity().findViewById(R.id.tabLayout);
-        BottomNavigationView bnv = getActivity().findViewById(R.id.main_samsung_tabs);
+        TabLayout subTabs = getActivity().findViewById(R.id.sub_tabs);
+        TabLayout mainTabs = getActivity().findViewById(R.id.main_samsung_tabs);
         ViewPager viewPager = getActivity().findViewById(R.id.viewPager);
 
         if (enabled) {
@@ -357,8 +356,8 @@ public class IconsTab extends Fragment {
                 for (Boolean b : selected.values()) if (b) count++;
                 drawerLayout.setSelectModeCount(count);
             });
-            tabLayout.setEnabled(false);
-            bnv.setEnabled(false);
+            subTabs.setEnabled(false);
+            mainTabs.setEnabled(false);
             viewPager.setPagingEnabled(false);
             onBackPressedCallback.setEnabled(true);
         } else {
@@ -368,8 +367,8 @@ public class IconsTab extends Fragment {
 
             drawerLayout.setSelectModeCount(0);
             drawerLayout.dismissSelectMode();
-            tabLayout.setEnabled(true);
-            bnv.setEnabled(true);
+            subTabs.setEnabled(true);
+            mainTabs.setEnabled(true);
             viewPager.setPagingEnabled(true);
             onBackPressedCallback.setEnabled(false);
         }

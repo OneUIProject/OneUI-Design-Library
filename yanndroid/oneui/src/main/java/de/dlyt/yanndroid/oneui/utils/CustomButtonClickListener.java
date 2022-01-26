@@ -3,13 +3,13 @@ package de.dlyt.yanndroid.oneui.utils;
 import android.view.MotionEvent;
 import android.view.View;
 
-import de.dlyt.yanndroid.oneui.widget.BottomNavigationView;
+import de.dlyt.yanndroid.oneui.widget.TabLayout;
 
 public abstract class CustomButtonClickListener implements View.OnTouchListener {
-    private BottomNavigationView mBnv;
+    private TabLayout mTabLayout;
 
-    public CustomButtonClickListener(BottomNavigationView bnv) {
-        mBnv = bnv;
+    public CustomButtonClickListener(TabLayout tabLayout) {
+        mTabLayout = tabLayout;
     }
 
     @Override
@@ -22,7 +22,7 @@ public abstract class CustomButtonClickListener implements View.OnTouchListener 
             case MotionEvent.ACTION_UP:
                 v.setPressed(false);
                 onClick(v);
-                mBnv.fullScroll(mBnv.getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL ? View.FOCUS_LEFT : View.FOCUS_RIGHT);
+                mTabLayout.fullScroll(mTabLayout.getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL ? View.FOCUS_LEFT : View.FOCUS_RIGHT);
                 break;
             case MotionEvent.ACTION_CANCEL:
                 v.setPressed(false);

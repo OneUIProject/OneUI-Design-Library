@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector
+<shape android:shape="oval"
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="@color/sesl_tablayout_text_color_selected" />
-</selector>
+    <solid android:color="@color/sesl_badge_background_color" />
+</shape>
