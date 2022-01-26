@@ -196,7 +196,7 @@ public class SeslColorPicker extends LinearLayout implements View.OnClickListene
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mColorPickerTabSwatchesText.setTextAppearance(R.style.TabTextSelected);
         }
-        mColorPickerTabSwatchesText.setTextColor(getResources().getColor(R.color.sesl_dialog_body_text_color));
+        mColorPickerTabSwatchesText.setTextColor(getResources().getColor(R.color.sesl4_tablayout_subtab_background_stroke_color));
         mColorPickerTabSpectrumText.setTextColor(getResources().getColor(R.color.sesl_secondary_text_color));
         mColorPickerOpacityEditText.setTag(1);
         mFlagVar = true;
@@ -254,7 +254,7 @@ public class SeslColorPicker extends LinearLayout implements View.OnClickListene
             mColorPickerTabSwatchesText.setBackgroundResource(mIsOneUI4 ? R.drawable.sesl4_color_picker_tab_selector_bg : R.drawable.sesl_color_picker_tab_selector_bg);
             mColorPickerTabSpectrumText.setSelected(false);
             mColorPickerTabSpectrumText.setBackgroundResource(0);
-            mColorPickerTabSwatchesText.setTextColor(getResources().getColor(R.color.sesl_dialog_body_text_color));
+            mColorPickerTabSwatchesText.setTextColor(getResources().getColor(R.color.sesl4_tablayout_subtab_background_stroke_color));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 mColorPickerTabSwatchesText.setTextAppearance(R.style.TabTextSelected);
             }
@@ -275,7 +275,7 @@ public class SeslColorPicker extends LinearLayout implements View.OnClickListene
             mColorPickerTabSpectrumText.setBackgroundResource(mIsOneUI4 ? R.drawable.sesl4_color_picker_tab_selector_bg : R.drawable.sesl_color_picker_tab_selector_bg);
             mColorPickerTabSwatchesText.setBackgroundResource(0);
             initColorSpectrumView();
-            mColorPickerTabSpectrumText.setTextColor(getResources().getColor(R.color.sesl_dialog_body_text_color));
+            mColorPickerTabSpectrumText.setTextColor(getResources().getColor(R.color.sesl4_tablayout_subtab_background_stroke_color));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 mColorPickerTabSpectrumText.setTextAppearance(R.style.TabTextSelected);
             }

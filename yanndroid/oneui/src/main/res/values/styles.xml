@@ -78,8 +78,7 @@
         <item name="appBarLayoutStyle">@style/AppBarLayoutStyle</item>
         <item name="collapsingToolbarLayoutStyle">@style/CollapsingToolbarLayoutStyle</item>
 
-        <item name="bottomNaviViewStyle">@style/BaseTabLayoutStyle</item>
-        <item name="tabLayoutStyle">@style/TabLayoutStyle</item>
+        <item name="tabStyle">@style/TabLayoutStyle</item>
 
         <item name="preferenceTheme">@style/PreferenceThemeStyle</item>
 
@@ -593,13 +592,13 @@
     </style>
 
     <!--TabLayout-->
-    <style name="BaseTabLayoutStyle" parent="@android:style/Widget">
+    <style name="TabLayoutStyle" parent="@android:style/Widget">
         <item name="android:background">@null</item>
         <item name="tabBackground">@null</item>
         <item name="tabIconTint">@null</item>
         <item name="tabIndicator">@drawable/sesl_tabs_default_indicator</item>
-        <item name="tabIndicatorAnimationDuration">@integer/design_tab_indicator_anim_duration_ms
-        </item>
+        <item name="tabIndicatorAnimationDuration">300</item>
+        <item name="tabIndicatorAnimationMode">linear</item>
         <item name="tabIndicatorColor">@color/sesl_tablayout_selected_indicator_color</item>
         <item name="tabIndicatorGravity">bottom</item>
         <item name="tabIndicatorHeight">2.0dip</item>
@@ -611,6 +610,7 @@
         <item name="tabRippleColor">@null</item>
         <item name="tabSelectedTextColor">@color/sesl_tablayout_selected_text_color</item>
         <item name="tabTextAppearance">@style/TabLayoutTextStyle</item>
+        <item name="seslTabSubTextAppearance">@style/TabLayoutSubTextStyle</item>
         <item name="tabTextColor">@null</item>
         <item name="tabUnboundedRipple">false</item>
         <item name="tabGravity">fill</item>
@@ -620,13 +620,16 @@
 
     <style name="TabLayoutTextStyle" parent="TextAppearance.AppCompat.Button">
         <item name="android:textSize">@dimen/sesl_tab_text_size</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/sesl_tablayout_text_color</item>
-        <item name="fontFamily">@string/sesl_font_family_regular</item>
+        <item name="android:fontFamily">@string/sesl_font_family_medium</item>
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="TabLayoutStyle" parent="@style/BaseTabLayoutStyle">
-        <item name="tabSelectedTextColor">@color/sesl_tablayout_subtab_text_color_selected</item>
+    <style name="TabLayoutSubTextStyle" parent="@style/TabLayoutTextStyle">
+        <item name="android:textSize">@dimen/sesl_tab_sub_text_size</item>
+        <item name="android:textColor">@color/sesl_tablayout_subtab_sub_text_color</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
 
@@ -936,7 +939,7 @@
 
         <item name="goToTopStyle">@drawable/sesl4_list_go_to_top</item>
 
-        <item name="bottomNaviViewStyle">@style/OneUI4.BaseTabLayoutStyle</item>
+        <item name="tabStyle">@style/OneUI4.TabLayoutStyle</item>
     </style>
 
 
@@ -1055,7 +1058,7 @@
 
 
     <!-- TabLayout -->
-    <style name="OneUI4.BaseTabLayoutStyle" parent="@style/BaseTabLayoutStyle">
+    <style name="OneUI4.TabLayoutStyle" parent="@style/TabLayoutStyle">
         <item name="tabIndicatorColor">@color/sesl4_tablayout_selected_indicator_color</item>
         <item name="tabSelectedTextColor">@color/sesl4_tablayout_selected_text_color</item>
     </style>

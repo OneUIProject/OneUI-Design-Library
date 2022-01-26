@@ -1,31 +1,72 @@
 package de.dlyt.yanndroid.oneui.widget;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.Configuration;
+import android.graphics.Point;
+import android.graphics.drawable.Drawable;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.reflect.content.res.SeslConfigurationReflector;
+
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.sesl.tabs.SamsungBaseTabLayout;
+import de.dlyt.yanndroid.oneui.sesl.support.WindowManagerSupport;
+import de.dlyt.yanndroid.oneui.sesl.tabs.SamsungTabLayout;
+import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
+import de.dlyt.yanndroid.oneui.utils.CustomButtonClickListener;
 
-public class TabLayout extends SamsungBaseTabLayout {
+public class TabLayout extends SamsungTabLayout {
+    private Context mContext;
+    public float mScreenWidthPixels;
+    public float mTabLayoutPaddingMax;
+    public float mTabTextPadding;
+    public float mTabTextPaddingSum;
 
-    public TabLayout(Context context, AttributeSet attrs) {
-        this(context, attrs, R.attr.tabLayoutStyle);
+    public TabLayout(@NonNull Context context) {
+        this(context, null);
     }
 
-    public TabLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TabLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, R.attr.tabStyle);
+    }
+
+    public TabLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mDepthStyle = 2;
+        mContext = context;
+
+        Point point = new Point();
+        WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        if (isVisibleNaviBar() || SeslConfigurationReflector.isDexEnabled(getResources().getConfiguration()) || WindowManagerSupport.isMultiWindowMode(getActivity())) {
+            wm.getDefaultDisplay().getSize(point);
+        } else {
+            wm.getDefaultDisplay().getRealSize(point);
+        }
+        mScreenWidthPixels = (float) point.x;
+
+        mTabTextPadding = getResources().getDimension(R.dimen.tab_layout_default_padding);
+        mTabTextPaddingSum = mTabTextPadding * 8.0f;
+        mTabLayoutPaddingMax = mScreenWidthPixels * 0.125f;
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        setTabLayoutMargin();
+    }
+
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        updateWidget();
+        setTabLayoutMargin();
     }
 
     @Override
@@ -41,128 +82,98 @@ public class TabLayout extends SamsungBaseTabLayout {
         }
     }
 
-    public void updateWidget() {
-        Float[] tabCount = new Float[getTabCount()];
-        float f = 0.0f;
-        for (int i = 0; i < getTabCount(); i++) {
-            TabLayout.Tab tab = getTabAt(i);
-            if (tab != null) {
-                tabCount[i] = getTabTextWidth(tab.seslGetTextView());
-                f += tabCount[i];
+    public float calculateTabLayoutPadding(float textWidthSum, float padding) {
+        Configuration config = mContext.getResources().getConfiguration();
+        int screenWidthDp = config.screenWidthDp;
+
+        if (isDisplayDeviceTypeSub(config) && config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            return padding / 2.0f;
+        }
+        if (screenWidthDp <= 480) {
+            return padding;
+        }
+
+        float tabLayoutPaddingMin = ((mScreenWidthPixels - textWidthSum) - mTabTextPaddingSum) / 2.0f;
+        if (tabLayoutPaddingMin < mTabLayoutPaddingMax) {
+            return padding < tabLayoutPaddingMin ? tabLayoutPaddingMin : padding;
+        } else {
+            return mTabLayoutPaddingMax;
+        }
+    }
+
+    private AppCompatActivity getActivity() {
+        Context context = getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof AppCompatActivity) {
+                return (AppCompatActivity) context;
             }
+            context = ((ContextWrapper) context).getBaseContext();
         }
-        float tabLayoutPadding = (float) getResources().getDimensionPixelSize(R.dimen.tab_layout_padding);
-        ((MarginLayoutParams) getLayoutParams()).setMargins((int) tabLayoutPadding, 0, (int) tabLayoutPadding, 0);
-        setViewDimens(tabCount, f);
-        post(new Runnable() {
-            public final void run() {
-                setSelectedTabScrollPosition();
-            }
-        });
-    }
-
-    private View getTabView(int position) {
-        ViewGroup viewGroup = getTabViewGroup();
-        if (viewGroup == null || viewGroup.getChildCount() <= position) {
-            return null;
-        }
-        return viewGroup.getChildAt(position);
-    }
-
-    private ViewGroup getTabViewGroup() {
-        if (getChildCount() <= 0) {
-            return null;
-        }
-        View view = getChildAt(0);
-        if (view == null || !(view instanceof ViewGroup)) {
-            return null;
-        }
-        return (ViewGroup) view;
-    }
-
-    private void setSelectedTabScrollPosition() {
-        setScrollPosition(getSelectedTabPosition(), 0.0f, true);
+        return null;
     }
 
     private float getTabTextWidth(TextView textView) {
         return textView.getPaint().measureText(textView.getText().toString());
     }
 
-    // kang from com.samsung.android.messaging
-    private void setViewDimens(Float[] fArr, float f) {
-        int i;
-        int tabCount = getTabCount();
-        if (tabCount > 0) {
-            int dimensionPixelSize = getResources().getDimensionPixelSize(R.dimen.tablayout_start_end_margin);
-            i = getDisplayWidth(getContext());
-            int i2 = i - (dimensionPixelSize * 2);
-            float dimensionPixelSize2 = (float) getResources().getDimensionPixelSize(R.dimen.tablayout_text_padding);
-            float f2 = (float) i2;
-            float f3 = f2 / ((float) tabCount);
-            float f4 = dimensionPixelSize2 * 2.0f;
-            float f5 = (0.75f * f2) - f4;
-            float f6 = 0.0f;
-            int i3 = 0;
-            int i4 = 0;
-            for (int i5 = 0; i5 < tabCount; i5++) {
-                Log.d("TabLayout", "i : " + i5 + ", width : " + fArr[i5]);
-                if (f5 < fArr[i5].floatValue()) {
-                    i3 = (int) (((float) i3) + (fArr[i5].floatValue() - f5));
-                    fArr[i5] = Float.valueOf(f5);
-                    i4++;
-                    f6 = f5;
-                } else if (f6 < fArr[i5].floatValue()) {
-                    f6 = fArr[i5].floatValue();
-                }
-            }
-            float f7 = f - ((float) i3);
-            setTabMode(0);
-            Log.d("TabLayout", "[MODE_SCROLLABLE]");
-            Log.d("TabLayout", "availableContentWidth : " + i2 + ", tabTextPaddingLeftRight : " + dimensionPixelSize2);
-            ViewGroup viewGroup = (ViewGroup) getChildAt(0);
-            int i6 = (tabCount - i4) * 2;
-            int i7 = i6 > 0 ? ((int) ((f2 - f7) - ((((float) i4) * dimensionPixelSize2) * 2.0f))) / i6 : 0;
-            int i8 = (int) dimensionPixelSize2;
-            int i9 = -1;
-            boolean z = true;
-            if (i7 < i8) {
-                i7 = i8;
-            } else {
-                float f8 = f6 + dimensionPixelSize2 + dimensionPixelSize2;
-                if (f3 >= f8) {
-                    setTabMode(1);
-                    for (int i10 = 0; i10 < tabCount; i10++) {
-                        ((ViewGroup) viewGroup.getChildAt(i10)).getChildAt(0).getLayoutParams().width = -1;
-                        getTabAt(i10).seslGetTextView().setMaxWidth(i2);
-                        getTabAt(i10).seslGetTextView().setMinimumWidth(0);
-                        getTabAt(i10).seslGetTextView().setPadding(0, 0, 0, 0);
-                    }
-                    Log.d("TabLayout", "[MODE_FIXED] TabCount : " + tabCount + ", minNeededTabWidth : " + f3 + ", maxTabWidth : " + f8);
-                    return;
-                }
-            }
-            int i11 = 0;
-            while (i11 < tabCount) {
-                boolean z2 = fArr[i11].floatValue() >= f5 ? z : false;
-                int floatValue = (int) (fArr[i11].floatValue() + ((z2 ? dimensionPixelSize2 : (float) i7) * 2.0f));
-                ViewGroup.LayoutParams layoutParams = viewGroup.getChildAt(i11).getLayoutParams();
-                layoutParams.width = floatValue;
-                layoutParams.height = i9;
-                viewGroup.getChildAt(i11).setMinimumWidth(floatValue);
-                int i12 = z2 ? 0 : (int) (((float) i7) - dimensionPixelSize2);
-                getTabAt(i11).seslGetTextView().setMaxWidth((int) f5);
-                getTabAt(i11).seslGetTextView().setMinimumWidth(floatValue - ((int) f4));
-                getTabAt(i11).seslGetTextView().setPadding(i12, 0, i12, 0);
-                Log.d("TabLayout", "params.width : " + layoutParams.width + ", tabWidthList[" + i11 + "] : " + fArr[i11] + ", LeftRightPadding : " + (i7 * 2));
-                i11++;
-                i9 = -1;
-                z = true;
-            }
-            requestLayout();
+    private ViewGroup getTabViewGroup() {
+        if (getChildCount() <= 0) {
+            return null;
+        }
+
+        View view = getChildAt(0);
+        if (view != null && view instanceof ViewGroup) {
+            return (ViewGroup) view;
+        }
+        return null;
+    }
+
+    private View getTabView(int position) {
+        ViewGroup viewGroup = getTabViewGroup();
+        if (viewGroup != null && viewGroup.getChildCount() > position) {
+            return viewGroup.getChildAt(position);
+        }
+        return null;
+    }
+
+    private boolean isDisplayDeviceTypeSub(Configuration config) {
+        if (config == null) {
+            return false;
+        }
+
+        Object displayDeviceType = ReflectUtils.genericGetField(Configuration.class, config, "semDisplayDeviceType");
+        if (displayDeviceType != null) {
+            return ((int) displayDeviceType) == 5; /* Configuration.SEM_DISPLAY_DEVICE_TYPE_SUB */
+        } else {
+            return false;
         }
     }
 
-    private int getDisplayWidth(Context context) {
-        return context.getResources().getDisplayMetrics().widthPixels;
+    private boolean isVisibleNaviBar() {
+        return Settings.Global.getInt(mContext.getContentResolver(), "navigationbar_hide_bar_enabled", 0) == 0;
+    }
+
+    private void setTabLayoutMargin() {
+        float tabTextWidthSum = 0.0f;
+        for (int i = 0; i < getTabCount(); i++) {
+            final Tab tab = getTabAt(i);
+            tabTextWidthSum += getTabTextWidth(tab.seslGetTextView());
+        }
+
+        final int margin = (int) calculateTabLayoutPadding(tabTextWidthSum, mTabTextPadding);
+        ((ViewGroup.MarginLayoutParams) getLayoutParams()).setMargins(margin, 0, margin, 0);
+    }
+
+    public void addTabCustomButton(Drawable icon, CustomButtonClickListener listener) {
+        if (mDepthStyle != 2) {
+            Tab tab = newTab().setIcon(icon);
+            addTab(tab);
+
+            ViewGroup view = ((ViewGroup) getTabView(tab.getPosition()));
+            view.setBackground(getContext().getDrawable(R.drawable.oui_tablayout_custombutton_background));
+            view.setOnTouchListener(listener);
+        } else {
+            Log.w("TabLayout", "addTabCustomButton not supported with DEPTH_TYPE_SUB");
+        }
     }
 }

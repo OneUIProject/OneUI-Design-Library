@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -32,11 +33,12 @@ import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneui.menu.MenuItem;
 import de.dlyt.yanndroid.oneui.menu.PopupMenu;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
+import de.dlyt.yanndroid.oneui.sesl.tabs.SamsungTabLayout;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneui.utils.CustomButtonClickListener;
 import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
 import de.dlyt.yanndroid.oneui.view.Snackbar;
-import de.dlyt.yanndroid.oneui.widget.BottomNavigationView;
+import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneuiexample.base.BaseThemeActivity;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
 
@@ -53,7 +55,7 @@ public class MainActivity extends BaseThemeActivity {
     private TabsManager mTabsManager;
 
     private DrawerLayout drawerLayout;
-    private BottomNavigationView bnvLayout;
+    private TabLayout tabLayout;
     private PopupMenu bnvPopupMenu;
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
@@ -90,29 +92,11 @@ public class MainActivity extends BaseThemeActivity {
         }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (bnvLayout != null) {
-            bnvLayout.setResumeStatus(false);
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (bnvLayout != null) {
-            bnvLayout.setResumeStatus(true);
-        }
-    }
-
     private void init() {
         ViewSupport.semSetRoundedCorners(getWindow().getDecorView(), 0);
 
         drawerLayout = findViewById(R.id.drawer_view);
-        bnvLayout = findViewById(R.id.main_samsung_tabs);
+        tabLayout = findViewById(R.id.main_samsung_tabs);
 
         sharedPrefName = "mainactivity_tabs";
         mTabsTagName = getResources().getStringArray(R.array.mainactivity_tab_tag);
@@ -172,40 +156,43 @@ public class MainActivity extends BaseThemeActivity {
             }
         });
 
-        //BottomNavigationLayout
-        Drawable icon = getDrawable(R.drawable.ic_samsung_drawer);
-        icon.setColorFilter(getResources().getColor(R.color.sesl_tablayout_text_color), PorterDuff.Mode.SRC_IN);
+        // TabLayout
+        tabLayout.setTabMode(SamsungTabLayout.SESL_MODE_FIXED_AUTO);
+
         for (String s : mTabsTitleName) {
-            bnvLayout.addTab(bnvLayout.newTab().setText(s));
+            tabLayout.addTab(tabLayout.newTab().setText(s));
         }
-        bnvLayout.addTabCustomButton(icon, new CustomButtonClickListener(bnvLayout) {
+        
+        Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_samsung_drawer, getTheme());
+        icon.setColorFilter(getResources().getColor(R.color.sesl_tablayout_text_color), PorterDuff.Mode.SRC_IN);
+        tabLayout.addTabCustomButton(icon, new CustomButtonClickListener(tabLayout) {
             @Override
             public void onClick(View v) {
                 popupView(v);
             }
         });
 
-        bnvLayout.addOnTabSelectedListener(new BottomNavigationView.OnTabSelectedListener() {
-            public void onTabSelected(BottomNavigationView.Tab tab) {
+        tabLayout.addOnTabSelectedListener(new SamsungTabLayout.OnTabSelectedListener() {
+            public void onTabSelected(SamsungTabLayout.Tab tab) {
                 int tabPosition = tab.getPosition();
                 mTabsManager.setTabPosition(tabPosition);
                 setCurrentItem();
             }
 
-            public void onTabUnselected(BottomNavigationView.Tab tab) {
+            public void onTabUnselected(SamsungTabLayout.Tab tab) {
             }
 
-            public void onTabReselected(BottomNavigationView.Tab tab) {
+            public void onTabReselected(SamsungTabLayout.Tab tab) {
             }
         });
-        bnvLayout.updateWidget(this);
+
         setCurrentItem();
     }
 
     private void setCurrentItem() {
-        if (bnvLayout.isEnabled()) {
+        if (tabLayout.isEnabled()) {
             int tabPosition = mTabsManager.getCurrentTab();
-            BottomNavigationView.Tab tab = bnvLayout.getTabAt(tabPosition);
+            SamsungTabLayout.Tab tab = tabLayout.getTabAt(tabPosition);
             if (tab != null) {
                 tab.select();
                 setFragment(tabPosition);
@@ -217,6 +204,7 @@ public class MainActivity extends BaseThemeActivity {
                     drawerLayout.getToolbarMenu().findItem(R.id.search).setVisible(true);
                     drawerLayout.setImmersiveScroll(false);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.findViewById(R.id.drawerLayout)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
+                    tabLayout.seslShowDotBadge(1, true);
                 } else {
                     // MainActivitySecondFragment
                     drawerLayout.setSubtitle("Preferences");
@@ -224,8 +212,8 @@ public class MainActivity extends BaseThemeActivity {
                     drawerLayout.getToolbarMenu().findItem(R.id.search).setVisible(false);
                     drawerLayout.setImmersiveScroll(true);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.findViewById(R.id.drawerLayout)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    tabLayout.seslShowDotBadge(1, false);
                 }
-
             }
         }
     }
@@ -372,6 +360,7 @@ public class MainActivity extends BaseThemeActivity {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     item.setBadge(item.getBadge() + 1);
+                    tabLayout.seslShowBadge(2, true, String.valueOf(item.getBadge()));
                     return true;
                 }
 

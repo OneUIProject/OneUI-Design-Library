@@ -198,17 +198,21 @@
 
 
     <!--TabLayout-->
-    <color name="sesl_tablayout_badge_text_color">#FAFAFA</color>
-    <color name="sesl_tablayout_show_button_text_color">#FAFAFA</color>
-    <color name="sesl_tablayout_subtab_background_stroke_color">#717171</color>
-    <color name="sesl_tablayout_subtab_text_color_default">#858585</color>
-    <color name="sesl_tablayout_subtab_text_color_disabled">#66858585</color>
-    <color name="sesl_tablayout_subtab_text_color_selected">#252525</color>
-    <color name="sesl_tablayout_text_color_default">#858585</color>
-    <color name="sesl_tablayout_text_color_disabled">#66858585</color>
-    <color name="sesl4_tablayout_subtab_indicator_background">#0D000000</color>
-    <color name="sesl4_tablayout_text_color_selected">#010101</color>
-    <color name="sesl4_tablayout_main_tab_indicator_color">#252525</color>
+    <color name="sesl_badge_background_color">#ffef5e16</color>
+    <color name="sesl_badge_text_color">@color/sesl_white</color>
+    <color name="sesl_tablayout_main_tab_indicator_color">#ff252525</color>
+    <color name="sesl_tablayout_subtab_background_stroke_color">#ff717171</color>
+    <color name="sesl4_tablayout_subtab_background_stroke_color">#ff000000</color>
+    <color name="sesl_tablayout_subtab_indicator_background">#0d000000</color>
+    <color name="sesl_tablayout_subtab_sub_text_color_default">#ff909090</color>
+    <color name="sesl_tablayout_subtab_sub_text_color_disabled">#66858585</color>
+    <color name="sesl_tablayout_subtab_sub_text_color_selected">#ff0072de</color>
+    <color name="sesl_tablayout_subtab_text_color_default">#ff8c8c8c</color>
+    <color name="sesl_tablayout_subtab_text_color_disabled">#668c8c8c</color>
+    <color name="sesl_tablayout_subtab_text_color_selected">#ff252525</color>
+    <color name="sesl_tablayout_text_color_default">#ff8c8c8c</color>
+    <color name="sesl_tablayout_text_color_disabled">#668c8c8c</color>
+    <color name="sesl_tablayout_text_color_selected">#ff010101</color>
 
     <!--Dialog-->
     <color name="sesl_dialog_body_text_color">#ff505050</color>

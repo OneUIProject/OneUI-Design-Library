@@ -6,9 +6,9 @@
     android:orientation="vertical">
 
     <de.dlyt.yanndroid.oneui.widget.TabLayout
-        android:id="@+id/tabLayout"
+        android:id="@+id/sub_tabs"
         android:layout_width="match_parent"
-        android:layout_height="60.0dip" />
+        android:layout_height="wrap_content" />
 
     <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
         android:layout_width="match_parent"
