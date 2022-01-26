@@ -204,6 +204,7 @@ public class MainActivity extends BaseThemeActivity {
                     drawerLayout.getToolbarMenu().findItem(R.id.search).setVisible(true);
                     drawerLayout.setImmersiveScroll(false);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.findViewById(R.id.drawerLayout)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
+                    tabLayout.seslShowDotBadge(1, true);
                 } else {
                     // MainActivitySecondFragment
                     drawerLayout.setSubtitle("Preferences");
@@ -211,8 +212,8 @@ public class MainActivity extends BaseThemeActivity {
                     drawerLayout.getToolbarMenu().findItem(R.id.search).setVisible(false);
                     drawerLayout.setImmersiveScroll(true);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.findViewById(R.id.drawerLayout)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    tabLayout.seslShowDotBadge(1, false);
                 }
-
             }
         }
     }
@@ -359,6 +360,7 @@ public class MainActivity extends BaseThemeActivity {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     item.setBadge(item.getBadge() + 1);
+                    tabLayout.seslShowBadge(2, true, String.valueOf(item.getBadge()));
                     return true;
                 }
 
