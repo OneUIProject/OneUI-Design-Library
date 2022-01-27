@@ -1,5 +1,6 @@
 package de.dlyt.yanndroid.oneui.sesl.support;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -23,6 +24,7 @@ public class WindowManagerSupport {
         return Math.round(Math.min(((float) displayMetrics.heightPixels) / displayMetrics.density, ((float) displayMetrics.widthPixels) / displayMetrics.density));
     }
 
+    @SuppressLint("WrongConstant")
     public static void hideStatusBarForLandscape(Activity activity, int orientation) {
         if (!DeviceInfo.isTabletDevice(activity.getApplicationContext()) && !SeslConfigurationReflector.isDexEnabled(activity.getResources().getConfiguration())) {
             WindowManager.LayoutParams params = activity.getWindow().getAttributes();
@@ -30,7 +32,7 @@ public class WindowManagerSupport {
                 if (!isMultiWindowMode(activity)) {
                     params.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
                 } else {
-                    params.flags &= -WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.LAYOUT_CHANGED;
+                    params.flags &= -WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON;
                 }
 
                 ReflectUtils.genericInvokeMethod(params, "semAddExtensionFlags", 1 /* WindowManager.LayoutParams.SEM_EXTENSION_FLAG_RESIZE_FULLSCREEN_WINDOW_ON_SOFT_INPUT */);

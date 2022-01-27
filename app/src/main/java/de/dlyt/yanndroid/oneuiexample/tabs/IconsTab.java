@@ -28,7 +28,7 @@ import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.sesl.recyclerview.LinearLayoutManager;
 import de.dlyt.yanndroid.oneui.view.IndexScrollView;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
-import de.dlyt.yanndroid.oneui.view.ViewPager;
+import de.dlyt.yanndroid.oneui.view.ViewPager2;
 import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneuiexample.R;
 
@@ -336,7 +336,7 @@ public class IconsTab extends Fragment {
         DrawerLayout drawerLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view));
         TabLayout subTabs = getActivity().findViewById(R.id.sub_tabs);
         TabLayout mainTabs = getActivity().findViewById(R.id.main_samsung_tabs);
-        ViewPager viewPager = getActivity().findViewById(R.id.viewPager);
+        ViewPager2 viewPager2 = getActivity().findViewById(R.id.viewPager2);
 
         if (enabled) {
             mSelecting = true;
@@ -360,7 +360,7 @@ public class IconsTab extends Fragment {
             });
             subTabs.setEnabled(false);
             mainTabs.setEnabled(false);
-            viewPager.setPagingEnabled(false);
+            viewPager2.setUserInputEnabled(false);
             onBackPressedCallback.setEnabled(true);
         } else {
             mSelecting = false;
@@ -371,7 +371,7 @@ public class IconsTab extends Fragment {
             drawerLayout.dismissSelectMode();
             subTabs.setEnabled(true);
             mainTabs.setEnabled(true);
-            viewPager.setPagingEnabled(true);
+            viewPager2.setUserInputEnabled(true);
             onBackPressedCallback.setEnabled(false);
         }
     }

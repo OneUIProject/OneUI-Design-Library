@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset android:insetLeft="@dimen/oui_tip_popup_button_inset_horizontal" android:insetRight="@dimen/oui_tip_popup_button_inset_horizontal" android:insetTop="@dimen/oui_tip_popup_button_inset_vertical" android:insetBottom="@dimen/oui_tip_popup_button_inset_vertical"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <shape android:tint="?colorButtonNormal" android:shape="rectangle">
+        <corners android:radius="2.0dip" />
+        <solid android:color="@android:color/white" />
+        <padding android:left="@dimen/oui_tip_popup_button_padding_horizontal" android:top="@dimen/oui_tip_popup_button_padding_vertical" android:right="@dimen/oui_tip_popup_button_padding_horizontal" android:bottom="@dimen/oui_tip_popup_button_padding_vertical" />
+    </shape>
+</inset>

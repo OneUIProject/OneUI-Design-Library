@@ -1,5 +1,6 @@
 package de.dlyt.yanndroid.oneui.sesl.utils;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import java.lang.reflect.Constructor;
@@ -8,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class ReflectUtils {
+    @SuppressLint("LongLogTag")
     public static Object genericGetField(Class<?> cl, String fieldName) {
         Field field;
         Object requiredObj = null;
@@ -22,6 +24,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericGetField(Object obj, String fieldName) {
         Field field;
         Object requiredObj = null;
@@ -36,6 +39,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericGetField(Class<?> cl, Object obj, String fieldName) {
         Field field;
         Object requiredObj = null;
@@ -50,6 +54,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static void genericSetField(Object obj, String fieldName, Object fieldValue) {
         Field field;
         try {
@@ -61,6 +66,7 @@ public class ReflectUtils {
         }
     }
 
+    @SuppressLint("LongLogTag")
     public static void genericSetField(Class<?> cl, Object obj, String fieldName, Object fieldValue) {
         Field field;
         try {
@@ -72,6 +78,7 @@ public class ReflectUtils {
         }
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericInvokeMethod(String className, String methodName, Object... params) {
         int paramCount = params.length;
         Method method;
@@ -107,6 +114,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericInvokeMethod(Object obj, String methodName, Object... params) {
         int paramCount = params.length;
         Method method;
@@ -132,6 +140,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericInvokeMethod(Class<?> cl, String methodName, Object... params) {
         int paramCount = params.length;
         Method method;
@@ -157,6 +166,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericInvokeMethod(String className, Object obj, String methodName, Object... params) {
         int paramCount = params.length;
         Method method;
@@ -191,6 +201,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericInvokeMethod(Class<?> cl, Object obj, String methodName, Object... params) {
         int paramCount = params.length;
         Method method;
@@ -216,6 +227,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericNewInstance(String className, Class<?> conCl, Object obj) {
         Object requiredObj = null;
         Class<?> cl;

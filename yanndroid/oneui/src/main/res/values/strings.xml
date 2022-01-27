@@ -115,4 +115,6 @@
     <string name="sesl_index_section">Section index</string>
     <string name="sesl_index_selected">selected</string>
 
+    <string name="oui_tip_popup_hint_string">Double tap this button to learn more.</string>
+
 </resources>

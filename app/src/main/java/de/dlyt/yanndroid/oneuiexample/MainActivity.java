@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -24,6 +25,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
 import de.dlyt.yanndroid.oneui.dialog.ClassicColorPickerDialog;
 import de.dlyt.yanndroid.oneui.dialog.DetailedColorPickerDialog;
@@ -36,8 +39,11 @@ import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.tabs.SamsungTabLayout;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneui.utils.CustomButtonClickListener;
+import de.dlyt.yanndroid.oneui.utils.OnSingleClickListener;
 import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
 import de.dlyt.yanndroid.oneui.view.Snackbar;
+import de.dlyt.yanndroid.oneui.view.TipPopup;
+import de.dlyt.yanndroid.oneui.view.Tooltip;
 import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneuiexample.base.BaseThemeActivity;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
@@ -57,6 +63,7 @@ public class MainActivity extends BaseThemeActivity {
     private DrawerLayout drawerLayout;
     private TabLayout tabLayout;
     private PopupMenu bnvPopupMenu;
+    private TipPopup tipPopup;
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
@@ -156,9 +163,40 @@ public class MainActivity extends BaseThemeActivity {
             }
         });
 
-        // TabLayout
-        tabLayout.setTabMode(SamsungTabLayout.SESL_MODE_FIXED_AUTO);
+        // FAB
+        FloatingActionButton fab = findViewById(R.id.sesl_fab);
+        fab.setRippleColor(getResources().getColor(mUseOUI4Theme ? R.color.sesl4_ripple_color : R.color.sesl_ripple_color));
+        // dummy colors
+        if (mUseOUI4Theme) {
+            fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.sesl_swipe_refresh_background)));
+            fab.setSupportImageTintList(ResourcesCompat.getColorStateList(getResources(), R.color.sesl_tablayout_selected_indicator_color, getTheme()));
+        } else {
+            fab.setBackgroundTintList(ResourcesCompat.getColorStateList(getResources(), R.color.sesl_tablayout_selected_indicator_color, getTheme()));
+            fab.setSupportImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.sesl_white)));
+        }
+        Tooltip.setTooltipText(fab, "FAB");
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tipPopup != null && tipPopup.isShowing()) {
+                    tipPopup.dismiss(true);
+                    tipPopup = null;
+                } else {
+                    tipPopup = new TipPopup(view, mUseOUI4Theme ? TipPopup.MODE_TRANSLUCENT : TipPopup.MODE_NORMAL);
+                    tipPopup.setMessage("This is a TipPopup demo.");
+                    tipPopup.setAction("Ok", new OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View view) {
+                        }
+                    });
+                    tipPopup.show(getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL ? TipPopup.DIRECTION_TOP_RIGHT : TipPopup.DIRECTION_TOP_LEFT);
+
+                }
+            }
+        });
+
+        // TabLayout
         for (String s : mTabsTitleName) {
             tabLayout.addTab(tabLayout.newTab().setText(s));
         }
@@ -199,6 +237,7 @@ public class MainActivity extends BaseThemeActivity {
 
                 if (tabPosition == 0) {
                     // MainActivityFirstFragment
+                    findViewById(R.id.sesl_fab).setVisibility(View.VISIBLE);
                     drawerLayout.setSubtitle("Design");
                     drawerLayout.setNavigationButtonVisible(true);
                     drawerLayout.getToolbarMenu().findItem(R.id.search).setVisible(true);
@@ -207,6 +246,7 @@ public class MainActivity extends BaseThemeActivity {
                     tabLayout.seslShowDotBadge(1, true);
                 } else {
                     // MainActivitySecondFragment
+                    findViewById(R.id.sesl_fab).setVisibility(View.GONE);
                     drawerLayout.setSubtitle("Preferences");
                     drawerLayout.setNavigationButtonVisible(false);
                     drawerLayout.getToolbarMenu().findItem(R.id.search).setVisible(false);

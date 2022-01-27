@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent" android:layout_height="fill_parent">
+    <FrameLayout
+        android:id="@+id/tip_popup_balloon_bubble" android:layout_width="@dimen/oui_tip_popup_bubble_width" android:layout_height="@dimen/oui_tip_popup_bubble_height">
+        <ImageView
+            android:id="@+id/tip_popup_balloon_bubble_hint" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/oui_tip_popup_hint_background_02" app:tint="@color/oui_tip_popup_background_color" />
+        <ImageView
+            android:id="@+id/tip_popup_balloon_bubble_icon" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/oui_tip_popup_hint_background_02" app:tint="@color/oui_tip_popup_text_color" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/tip_popup_balloon_panel" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <ImageView
+            android:id="@+id/tip_popup_balloon_bg_01" android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="@drawable/oui_tip_popup_balloon_background_left" android:backgroundTint="@color/oui_tip_popup_background_color" />
+        <ImageView
+            android:id="@+id/tip_popup_balloon_bg_02" android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="@drawable/oui_tip_popup_balloon_background_right" android:backgroundTint="@color/oui_tip_popup_background_color" />
+
+        <FrameLayout
+            android:id="@+id/tip_popup_balloon_content" android:layout_width="fill_parent" android:layout_height="fill_parent" android:gravity="top" android:orientation="vertical">
+            <TextView
+                android:id="@+id/tip_popup_message" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/oui_tip_popup_button_padding_horizontal" android:layout_marginEnd="@dimen/oui_tip_popup_button_padding_horizontal" android:layout_gravity="start|center|top" android:textAppearance="@style/TipPopupTextStyle" />
+            <Button
+                android:id="@+id/tip_popup_action" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="end|bottom|center" android:maxLines="1" android:ellipsize="end" style="@style/TipPopupButtonStyle" />
+        </FrameLayout>
+    </FrameLayout>
+</FrameLayout>

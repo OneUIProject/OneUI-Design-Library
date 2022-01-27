@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <ImageView
+        android:id="@+id/tip_popup_bubble_bg" android:layout_width="@dimen/oui_tip_popup_bubble_width" android:layout_height="@dimen/oui_tip_popup_bubble_height" android:layout_gravity="start|center|top" android:src="@drawable/oui_tip_popup_hint_background_01" app:tint="@color/oui_tip_popup_background_color" />
+    <ImageView
+        android:id="@+id/tip_popup_bubble_icon" android:layout_width="@dimen/oui_tip_popup_bubble_width" android:layout_height="@dimen/oui_tip_popup_bubble_height" android:layout_gravity="start|center|top" android:src="@drawable/oui_tip_popup_hint_icon" app:tint="@color/oui_tip_popup_text_color" android:contentDescription="@string/oui_tip_popup_hint_string" />
+</FrameLayout>

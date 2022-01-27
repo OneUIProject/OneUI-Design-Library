@@ -340,6 +340,10 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="SeslViewPager2">
+        <attr name="android:orientation"/>
+    </declare-styleable>
+
     <declare-styleable name="View">
         <attr name="android:background" />
     </declare-styleable>

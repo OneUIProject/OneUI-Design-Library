@@ -82,7 +82,7 @@ public class TabLayout extends SamsungTabLayout {
         }
     }
 
-    public float calculateTabLayoutPadding(float textWidthSum, float padding) {
+    private float calculateTabLayoutPadding(float textWidthSum, float padding) {
         Configuration config = mContext.getResources().getConfiguration();
         int screenWidthDp = config.screenWidthDp;
 
