@@ -101,6 +101,7 @@
             <enum name="loading" value="0" />
             <enum name="update_available" value="1" />
             <enum name="no_update" value="2" />
+            <enum name="no_connection" value="3" />
         </attr>
     </declare-styleable>
 

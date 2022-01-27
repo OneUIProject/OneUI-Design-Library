@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.util.SeslMisc;
 
@@ -55,6 +56,11 @@ public class MainActivitySecondFragment extends PreferenceFragment
                     parent.removePreference(tipCard);
                     parent.removePreference(findPreference("spacing"));
                 }
+            }
+
+            @Override
+            public void onViewClicked(View view) {
+                Toast.makeText(mContext, "TipsCardView clicked", Toast.LENGTH_SHORT).show();
             }
         });
 

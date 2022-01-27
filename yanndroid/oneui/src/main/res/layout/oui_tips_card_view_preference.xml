@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="?colorPrimary"
+    android:foreground="?selectableItemBackground"
     android:orientation="vertical"
     android:padding="18.0dip">
 
@@ -21,7 +23,6 @@
             android:layout_marginBottom="8.0dip"
             android:fontFamily="@string/sesl_font_family_regular"
             android:textAppearance="?textAppearanceListItem"
-            android:textSize="18.0sp"
             android:textColor="@color/tips_card_view_item_color" />
 
         <TextView
@@ -44,6 +45,6 @@
             android:layout_alignParentEnd="true"
             android:background="?android:selectableItemBackgroundBorderless"
             android:src="@drawable/oui_tips_card_view_cancel_button"
-            android:tint="@color/tips_card_view_item_color" />
+            app:tint="@color/tips_card_view_item_color" />
     </RelativeLayout>
 </RelativeLayout>

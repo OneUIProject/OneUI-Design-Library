@@ -39,11 +39,8 @@ public class TipsCardViewPreference extends Preference {
         ((TextView) preferenceViewHolder.itemView.findViewById(android.R.id.summary)).setTextColor(mTextColor);
 
         Tooltip.setTooltipText(preferenceViewHolder.itemView.findViewById(R.id.tips_cancel_button), mContext.getString(R.string.sesl_cancel));
-        preferenceViewHolder.itemView.findViewById(R.id.tips_cancel_button).setOnClickListener(new View.OnClickListener() {
-            public final void onClick(View view) {
-                mTipsCardListener.onCancelClicked(view);
-            }
-        });
+        preferenceViewHolder.itemView.findViewById(R.id.tips_cancel_button).setOnClickListener(view -> mTipsCardListener.onCancelClicked(view));
+        preferenceViewHolder.itemView.setOnClickListener(view -> mTipsCardListener.onViewClicked(view));
     }
 
     public void setTipsCardListener(TipsCardListener listener) {
@@ -52,6 +49,8 @@ public class TipsCardViewPreference extends Preference {
 
     public interface TipsCardListener {
         void onCancelClicked(View view);
+
+        void onViewClicked(View view);
     }
 
 }
