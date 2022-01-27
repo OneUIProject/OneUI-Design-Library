@@ -4,12 +4,11 @@ import android.view.animation.Interpolator;
 
 import androidx.annotation.RestrictTo;
 
-@RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
-class SeslElasticInterpolator implements Interpolator {
+public class SeslElasticInterpolator implements Interpolator {
     private float mAmplitude;
     private float mPeriod;
 
-    SeslElasticInterpolator(float f, float f2) {
+    public SeslElasticInterpolator(float f, float f2) {
         this.mAmplitude = f;
         this.mPeriod = f2;
     }

@@ -22,12 +22,13 @@
     <include layout="@layout/content_drawer" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/sesl_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        app:layout_location="root"
-        app:srcCompat="@drawable/ic_samsung_favorite_on" />
+        android:layout_margin="24.0dip"
+        android:elevation="4.0dip"
+        app:srcCompat="@drawable/ic_samsung_list_add"
+        app:layout_location="root" />
 
 </de.dlyt.yanndroid.oneui.layout.DrawerLayout>

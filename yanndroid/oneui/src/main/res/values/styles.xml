@@ -5,6 +5,7 @@
     <style name="OneUI3StyleMain">
         <item name="colorAccent">?colorSecondary</item>
         <item name="colorBackgroundFloating">@color/sesl_background_floating</item>
+        <item name="colorButtonNormal">@color/sesl_btn_default_color</item>
         <item name="colorControlActivated">?colorSecondary</item>
         <item name="colorControlHighlight">@color/sesl_ripple_color</item>
         <item name="colorControlNormal">@color/sesl_control_normal_color</item>
@@ -885,6 +886,30 @@
         <item name="height">?actionBarSize</item>
         <item name="subtitleTextStyle">@style/ActionBarSubtitleTextStyle</item>
         <item name="titleTextStyle">@style/ActionBarTitleTextStyle</item>
+    </style>
+
+
+    <!-- TipPopup -->
+    <style name="TipPopupTextStyle" parent="@android:style/Widget">
+        <item name="android:textSize">@dimen/oui_tip_popup_balloon_message_text_size</item>
+        <item name="android:textColor">@color/oui_tip_popup_text_color</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
+    </style>
+
+    <style name="TipPopupButtonStyle" parent="@android:style/Widget">
+        <item name="android:textAppearance">@style/TipPopupButtonTextStyle</item>
+        <item name="android:background">@drawable/oui_tip_popup_btn_borderless</item>
+        <item name="android:minWidth">@dimen/oui_tip_popup_balloon_button_minwidth</item>
+        <item name="android:minHeight">@dimen/oui_tip_popup_balloon_button_minheight</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="TipPopupButtonTextStyle" parent="@android:style/Widget">
+        <item name="android:textSize">@dimen/oui_tip_popup_balloon_action_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/oui_tip_popup_text_color</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
 

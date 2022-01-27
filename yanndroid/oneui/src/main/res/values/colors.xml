@@ -27,6 +27,7 @@
     <color name="item_background_color">#fffcfcfc</color>
     <color name="item_color">@color/sesl_black</color>
 
+    <color name="sesl_btn_background_color">#14000000</color>
     <color name="sesl_btn_default_text_color">@color/sesl_black</color>
 
     <!-- <color name="sesl_list_ripple_color">@color/sesl_ripple_color</color> -->
@@ -258,6 +259,12 @@
     <!--Snackbar-->
     <color name="sesl_design_snackbar_text_color">#fffafafa</color>
     <color name="sesl_snackbar_action_ripple_color">#40000000</color>
+    
+    <!-- TipPopup -->
+    <color name="oui_tip_popup_background_color">#ff474747</color>
+    <color name="oui_tip_popup_text_color">#fffcfcfc</color>
+    <color name="oui_tip_popup_text_color_translucent">#fffcfcfc</color>
+
 
 
 </resources>

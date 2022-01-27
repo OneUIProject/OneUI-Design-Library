@@ -18,6 +18,7 @@
     <color name="item_background_color">#ff171717</color>
     <color name="item_color">@color/sesl_white</color>
 
+    <color name="sesl_btn_background_color">#4dffffff</color>
     <color name="sesl_btn_default_text_color">@color/sesl_white</color>
 
     <!-- <color name="sesl_list_ripple_color">@color/sesl_ripple_color</color> -->
@@ -163,6 +164,11 @@
     <color name="widget_multi_button_unselected_color">#ffa8a9a9</color>
     <color name="widget_multi_button_unselected_icon_color">#ff9c9c9c</color>
     <color name="widget_multi_button_divider_color">#4de6e6e6</color>
+
+
+    <!-- TipPopup -->
+    <color name="oui_tip_popup_background_color">#ff474747</color>
+    <color name="oui_tip_popup_text_color">#fffcfcfc</color>
 
 
 </resources>
