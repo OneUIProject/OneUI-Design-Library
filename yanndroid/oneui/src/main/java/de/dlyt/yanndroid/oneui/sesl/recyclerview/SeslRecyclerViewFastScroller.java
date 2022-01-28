@@ -133,7 +133,7 @@ public class SeslRecyclerViewFastScroller {
     private float mThreshold = 0.0f;
     private float mLastDraggingY = 0.0f;
     private boolean mScrollCompleted = true;
-    private int mState = STATE_NONE;
+    private int mState = STATE_VISIBLE;
 
     private static Property<View, Integer> LEFT = new IntProperty<View>("left") {
         @Override
@@ -624,7 +624,7 @@ public class SeslRecyclerViewFastScroller {
     }
 
     private void layoutThumb() {
-        final Rect bounds = this.mTempBounds;
+        final Rect bounds = mTempBounds;
         measureViewToSide(mThumbImage, null, null, bounds);
         applyLayout(mThumbImage, bounds);
     }
@@ -636,7 +636,7 @@ public class SeslRecyclerViewFastScroller {
         final int maxWidth = Math.max(0, container.width());
         final int maxHeight = Math.max(0, container.height());
         final int widthMeasureSpec = MeasureSpec.makeMeasureSpec(maxWidth, MeasureSpec.AT_MOST);
-        final int heightMeasureSpec = makeSafeMeasureSpec(maxHeight, MeasureSpec.UNSPECIFIED);
+        final int heightMeasureSpec = makeSafeMeasureSpec(MeasureSpec.getSize(maxHeight), MeasureSpec.UNSPECIFIED);
         track.measure(widthMeasureSpec, heightMeasureSpec);
 
         int top;

@@ -162,6 +162,7 @@
 
 
     <!--ColorPicker-->
+    <color name="sesl_color_picker_divider">#ff979797</color>
     <color name="sesl_color_picker_cursor_stroke_color">#ffffffff</color>
     <color name="sesl_color_picker_percent_text_color">@color/sesl_color_picker_tab_selected</color>
     <color name="sesl_color_picker_seekbar_cursor_background_color">#fffafafa</color>

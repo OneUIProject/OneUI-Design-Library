@@ -97,6 +97,7 @@
 
 
     <!--ColorPicker-->
+    <color name="sesl_color_picker_divider">#42fafafa</color>
     <color name="sesl_color_picker_selected_color_item_text_color">#ffb0b0b0</color>
     <color name="sesl_color_picker_stroke_color">#ff000000</color>
     <color name="sesl_color_picker_tab_selected_background">#1affffff</color>
