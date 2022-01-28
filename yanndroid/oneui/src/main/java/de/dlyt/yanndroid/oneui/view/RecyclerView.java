@@ -8624,7 +8624,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
         if (mFastScroller != null) {
             mFastScroller.setEnabled(enabled);
         } else if (enabled) {
-            mFastScroller = new SeslRecyclerViewFastScroller(this);;
+            mFastScroller = new SeslRecyclerViewFastScroller(this);
             mFastScroller.setEnabled(true);
             mFastScroller.setScrollbarPosition(getVerticalScrollbarPosition());
         }

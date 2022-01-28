@@ -608,7 +608,7 @@ public class SeslColorPicker extends LinearLayout implements View.OnClickListene
         int color = ((red & 255) << 16) | ((mOpacitySeekBar.getProgress() & 255) << 24) | ((green & 255) << 8) | (blue & 255);
         String colorStr = String.format("%08x", color);
 
-        mColorPickerHexEditText.setText("" + colorStr.substring(2, colorStr.length()));
+        mColorPickerHexEditText.setText("" + colorStr.substring(2, colorStr.length()).toUpperCase());
         mColorPickerHexEditText.setSelection(mColorPickerHexEditText.getText().length());
         if (!mfromSaturationSeekbar && !mfromSpectrumTouch) {
             mapColorOnColorWheel(color);
@@ -623,7 +623,7 @@ public class SeslColorPicker extends LinearLayout implements View.OnClickListene
         if (i != 0) {
             String format = String.format("%08x", i);
             String substring = format.substring(2, format.length());
-            mColorPickerHexEditText.setText("" + substring);
+            mColorPickerHexEditText.setText("" + substring.toUpperCase());
             mColorPickerHexEditText.setSelection(mColorPickerHexEditText.getText().length());
 
             int color = Color.parseColor("#" + substring);
