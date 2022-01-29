@@ -25,7 +25,7 @@ Huge thanks to [BlackMesa123](https://github.com/BlackMesa123) who has contribut
 
 1. Add the dependency
 ```gradle
-implementation 'io.github.yanndroid:oneui:2.2.1'
+implementation 'io.github.yanndroid:oneui:2.3.0'
 ```
 2. Apply the main theme in AndroidManifest.xml
 ```xml

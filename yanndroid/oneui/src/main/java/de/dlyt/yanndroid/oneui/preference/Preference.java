@@ -235,6 +235,7 @@ public class Preference implements Comparable<Preference> {
 
     public void setWidgetLayoutResource(int widgetLayoutResId) {
         mWidgetLayoutResId = widgetLayoutResId;
+        notifyChanged();
     }
 
     public final int getWidgetLayoutResource() {
@@ -716,7 +717,7 @@ public class Preference implements Comparable<Preference> {
         mListener = listener;
     }
 
-    protected void notifyChanged() {
+    public void notifyChanged() {
         if (mListener != null) {
             mListener.onPreferenceChange(this);
         }

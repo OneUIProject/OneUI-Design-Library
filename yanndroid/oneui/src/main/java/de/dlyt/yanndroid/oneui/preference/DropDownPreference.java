@@ -88,7 +88,7 @@ public class DropDownPreference extends ListPreference {
     }
 
     @Override
-    protected void notifyChanged() {
+    public void notifyChanged() {
         super.notifyChanged();
         if (mAdapter != null) {
             mAdapter.notifyDataSetChanged();
