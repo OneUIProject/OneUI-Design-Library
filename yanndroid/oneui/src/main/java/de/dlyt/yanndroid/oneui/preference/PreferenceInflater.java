@@ -7,6 +7,9 @@ import android.util.AttributeSet;
 import android.util.Xml;
 import android.view.InflateException;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -15,43 +18,42 @@ import java.lang.reflect.Constructor;
 import java.util.HashMap;
 
 class PreferenceInflater {
-    private static final String TAG = "PreferenceInflater";
+    private static final Class<?>[] CONSTRUCTOR_SIGNATURE = new Class<?>[]{Context.class, AttributeSet.class};
+    private static final HashMap<String, Constructor<?>> CONSTRUCTOR_MAP = new HashMap<>();
     private static final String INTENT_TAG_NAME = "intent";
     private static final String EXTRA_TAG_NAME = "extra";
-    private static final Class<?>[] CONSTRUCTOR_SIGNATURE = new Class[]{Context.class, AttributeSet.class};
-    private static final HashMap<String, Constructor> CONSTRUCTOR_MAP = new HashMap<>();
+    @NonNull
     private final Context mContext;
     private final Object[] mConstructorArgs = new Object[2];
     private PreferenceManager mPreferenceManager;
     private String[] mDefaultPackages;
 
-    public PreferenceInflater(Context context, PreferenceManager preferenceManager) {
+    public PreferenceInflater(@NonNull Context context, PreferenceManager preferenceManager) {
         mContext = context;
         init(preferenceManager);
     }
 
-    private static void skipCurrentTag(XmlPullParser parser) throws XmlPullParserException, IOException {
-        int outerDepth = parser.getDepth();
-        int type;
-        do {
-            type = parser.next();
-        } while (type != XmlPullParser.END_DOCUMENT && (type != XmlPullParser.END_TAG || parser.getDepth() > outerDepth));
-    }
-
     private void init(PreferenceManager preferenceManager) {
         mPreferenceManager = preferenceManager;
-        setDefaultPackages(new String[]{"de.dlyt.yanndroid.oneui.preference."});
+
+        setDefaultPackages(new String[]{Preference.class.getPackage().getName() + ".", SwitchPreference.class.getPackage().getName() + "."});
     }
 
     public void setDefaultPackages(String[] defaultPackage) {
         mDefaultPackages = defaultPackage;
     }
 
+    public String[] getDefaultPackages() {
+        return mDefaultPackages;
+    }
+
+    @NonNull
     public Context getContext() {
         return mContext;
     }
 
-    public Preference inflate(int resource, PreferenceGroup root) {
+    @NonNull
+    public Preference inflate(int resource, @Nullable PreferenceGroup root) {
         XmlResourceParser parser = getContext().getResources().getXml(resource);
         try {
             return inflate(parser, root);
@@ -60,7 +62,8 @@ class PreferenceInflater {
         }
     }
 
-    public Preference inflate(XmlPullParser parser, PreferenceGroup root) {
+    @NonNull
+    public Preference inflate(XmlPullParser parser, @Nullable PreferenceGroup root) {
         synchronized (mConstructorArgs) {
             final AttributeSet attrs = Xml.asAttributeSet(parser);
             mConstructorArgs[0] = mContext;
@@ -98,7 +101,7 @@ class PreferenceInflater {
         }
     }
 
-    private PreferenceGroup onMergeRoots(PreferenceGroup givenRoot, PreferenceGroup xmlRoot) {
+    private @NonNull PreferenceGroup onMergeRoots(PreferenceGroup givenRoot, @NonNull PreferenceGroup xmlRoot) {
         if (givenRoot == null) {
             xmlRoot.onAttachedToHierarchy(mPreferenceManager);
             return xmlRoot;
@@ -107,20 +110,20 @@ class PreferenceInflater {
         }
     }
 
-    private Preference createItem(String name, String[] prefixes, AttributeSet attrs) throws ClassNotFoundException, InflateException {
-        Constructor constructor = CONSTRUCTOR_MAP.get(name);
+    private Preference createItem(@NonNull String name, @Nullable String[] prefixes, AttributeSet attrs) throws ClassNotFoundException, InflateException {
+        Constructor<?> constructor = CONSTRUCTOR_MAP.get(name);
 
         try {
             if (constructor == null) {
                 final ClassLoader classLoader = mContext.getClassLoader();
                 Class<?> clazz = null;
                 if (prefixes == null || prefixes.length == 0) {
-                    clazz = classLoader.loadClass(name);
+                    clazz = Class.forName(name, false, classLoader);
                 } else {
                     ClassNotFoundException notFoundException = null;
                     for (final String prefix : prefixes) {
                         try {
-                            clazz = classLoader.loadClass(prefix + name);
+                            clazz = Class.forName(prefix + name, false, classLoader);
                             break;
                         } catch (final ClassNotFoundException e) {
                             notFoundException = e;
@@ -138,9 +141,11 @@ class PreferenceInflater {
                 constructor.setAccessible(true);
                 CONSTRUCTOR_MAP.put(name, constructor);
             }
+
             Object[] args = mConstructorArgs;
             args[1] = attrs;
             return (Preference) constructor.newInstance(args);
+
         } catch (ClassNotFoundException e) {
             throw e;
         } catch (Exception e) {
@@ -165,8 +170,10 @@ class PreferenceInflater {
             }
 
             return item;
+
         } catch (InflateException e) {
             throw e;
+
         } catch (ClassNotFoundException e) {
             final InflateException ie = new InflateException(attrs.getPositionDescription() + ": Error inflating class (not found)" + name);
             ie.initCause(e);
@@ -179,11 +186,12 @@ class PreferenceInflater {
         }
     }
 
-    private void rInflate(XmlPullParser parser, Preference parent, final AttributeSet attrs) throws XmlPullParserException, IOException {
+    private void rInflate(@NonNull XmlPullParser parser, Preference parent, final AttributeSet attrs) throws XmlPullParserException, IOException {
         final int depth = parser.getDepth();
 
         int type;
         while (((type = parser.next()) != XmlPullParser.END_TAG || parser.getDepth() > depth) && type != XmlPullParser.END_DOCUMENT) {
+
             if (type != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -219,4 +227,13 @@ class PreferenceInflater {
         }
 
     }
+
+    private static void skipCurrentTag(@NonNull XmlPullParser parser) throws XmlPullParserException, IOException {
+        int outerDepth = parser.getDepth();
+        int type;
+        do {
+            type = parser.next();
+        } while (type != XmlPullParser.END_DOCUMENT && (type != XmlPullParser.END_TAG || parser.getDepth() > outerDepth));
+    }
+
 }

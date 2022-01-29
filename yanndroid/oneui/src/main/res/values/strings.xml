@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="closed" translatable="false">closed</string>
     <string name="opened" translatable="false">opened</string>
     <string name="sesl_font_family_bold" translatable="false">sans-serif</string>
@@ -17,6 +17,14 @@
     <string name="sesl_button">Button</string>
     <string name="sesl_navigate_up">Navigate up</string>
     <string name="sesl_navigation_drawer">Navigation drawer</string>
+
+    <string name="expand_button_title">Advanced</string>
+    <string name="summary_collapsed_preference_list"><xliff:g id="current_items">%1$s</xliff:g>, <xliff:g id="added_items">%2$s</xliff:g></string>
+    <string name="copy">Copy</string>
+    <string name="preference_copied">
+        \"<xliff:g id="summary" example="Version 1.1">%1$s</xliff:g>\" copied to clipboard.
+    </string>
+    <string name="not_set">Not set</string>
 
     <string name="action_settings">Settings</string>
     <string name="sec_relative_description">Looking for something else?</string>

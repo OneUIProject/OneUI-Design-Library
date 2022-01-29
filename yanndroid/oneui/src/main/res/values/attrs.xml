@@ -402,6 +402,8 @@
         <attr name="android:singleLineTitle" />
         <attr name="iconSpaceReserved" format="boolean" />
         <attr name="android:iconSpaceReserved" />
+        <attr name="isPreferenceVisible" format="boolean" />
+        <attr name="enableCopying" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="PreferenceCategory">
         <attr name="roundStroke">
@@ -413,17 +415,24 @@
             <flag name="top_right" value="0x00000002" />
         </attr>
     </declare-styleable>
-    <declare-styleable name="SeslPreferenceFragmentCompat">
+    <declare-styleable name="PreferenceFragment">
         <attr name="android:layout" />
         <attr name="android:divider" />
         <attr name="android:dividerHeight" />
         <attr name="allowDividerAfterLastItem" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="PreferenceFragmentCompat">
+        <attr name="android:layout" />
+        <attr name="android:divider" />
+        <attr name="android:dividerHeight" />
+        <attr name="allowDividerAfterLastItem" />
+    </declare-styleable>
     <declare-styleable name="PreferenceGroup">
         <attr name="orderingFromXml" format="boolean" />
         <attr name="android:orderingFromXml" />
+        <attr name="initialExpandedChildrenCount" format="integer" />
     </declare-styleable>
-    <declare-styleable name="SeslPreferenceImageView">
+    <declare-styleable name="PreferenceImageView">
         <attr name="maxWidth" format="dimension" />
         <attr name="android:maxWidth" />
         <attr name="maxHeight" format="dimension" />
@@ -443,6 +452,9 @@
         <attr name="dialogLayout" format="reference" />
         <attr name="android:dialogLayout" />
     </declare-styleable>
+    <declare-styleable name="EditTextPreference">
+        <attr name="useSimpleSummaryProvider" format="boolean"/>
+    </declare-styleable>
     <declare-styleable name="CheckBoxPreference">
         <attr name="summaryOn" format="string" />
         <attr name="android:summaryOn" />
@@ -456,6 +468,7 @@
         <attr name="android:entries" />
         <attr name="entryValues" format="reference" />
         <attr name="android:entryValues" />
+        <attr name="useSimpleSummaryProvider" />
     </declare-styleable>
     <declare-styleable name="MultiSelectListPreference">
         <attr name="entries" />
@@ -491,6 +504,18 @@
         <attr name="disableDependentsState" />
         <attr name="android:disableDependentsState" />
     </declare-styleable>
+    <declare-styleable name="SwitchPreferenceCompat">
+        <attr name="summaryOn" />
+        <attr name="android:summaryOn" />
+        <attr name="summaryOff" />
+        <attr name="android:summaryOff" />
+        <attr name="switchTextOn" />
+        <attr name="android:switchTextOn" />
+        <attr name="switchTextOff" />
+        <attr name="android:switchTextOff" />
+        <attr name="disableDependentsState" />
+        <attr name="android:disableDependentsState" />
+    </declare-styleable>
     <declare-styleable name="InsetPreferenceCategory">
         <attr name="height" format="dimension" />
     </declare-styleable>
@@ -511,6 +536,7 @@
             <enum name="noImage" value="1" />
         </attr>
     </declare-styleable>
+
     <declare-styleable name="SwipeRefreshLayout">
         <attr name="swipeRefreshLayoutProgressSpinnerBackgroundColor" format="color" />
     </declare-styleable>

@@ -1,5 +1,6 @@
 package de.dlyt.yanndroid.oneui.preference;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -10,84 +11,91 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.reflect.view.SeslViewReflector;
 import androidx.reflect.widget.SeslHoverPopupWindowReflector;
 
 import de.dlyt.yanndroid.oneui.R;
 
-public class SwitchPreferenceScreen extends SwitchPreference {
-    private View.OnKeyListener mSwitchKeyListener;
+public class SwitchPreferenceScreen extends SwitchPreferenceCompat {
+    private View.OnKeyListener mSwitchKeyListener = new View.OnKeyListener() {
+        @Override
+        public boolean onKey(View view, int i, KeyEvent keyEvent) {
+            int keyCode = keyEvent.getKeyCode();
 
-    public SwitchPreferenceScreen(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    if (!isChecked()) {
+                        return false;
+                    } else {
+                        if (callChangeListener(false)) {
+                            setChecked(false);
+                        }
+                    }
+                    break;
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    if (isChecked()) {
+                        return false;
+                    } else {
+                        if (callChangeListener(true)) {
+                            setChecked(true);
+                        }
+                    }
+                    break;
+            }
+
+            return true;
+        }
+    };
+
+    public SwitchPreferenceScreen(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        mSwitchKeyListener = new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                boolean handled = false;
-                switch (event.getKeyCode()) {
-                    case 21:
-                        if (isChecked()) {
-                            if (callChangeListener(false)) {
-                                setChecked(false);
-                            }
-                            handled = true;
-                        }
-                        break;
-                    case 22:
-                        if (!isChecked()) {
-                            if (callChangeListener(true)) {
-                                setChecked(true);
-                            }
-                            handled = true;
-                        }
-                        break;
-                }
-                return handled;
-            }
-        };
-
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Preference, defStyleAttr, defStyleRes);
+        Configuration config = context.getResources().getConfiguration();
+
         String fragment = a.getString(R.styleable.Preference_android_fragment);
         if (fragment == null || fragment.equals("")) {
-            Log.w("SwitchPreferenceScreen", "SwitchPreferenceScreen should get fragment property. Fragment property does not exsit in SwitchPreferenceScreen");
+            Log.w("SwitchPreferenceScreen", "SwitchPreferenceScreen should getfragment property. Fragment property does not exsit in SwitchPreferenceScreen");
         }
-        Configuration conf = context.getResources().getConfiguration();
-        if ((conf.screenWidthDp > 320 || conf.fontScale < 1.1F) && (conf.screenWidthDp >= 411 || conf.fontScale < 1.3F)) {
+
+        if ((config.screenWidthDp > 320 || config.fontScale < FONT_SCALE_MEDIUM) && (config.screenWidthDp >= 411 || config.fontScale < FONT_SCALE_LARGE)) {
             setLayoutResource(R.layout.sesl_switch_preference_screen);
         } else {
             setLayoutResource(R.layout.sesl_switch_preference_screen_large);
         }
+
         setWidgetLayoutResource(R.layout.sesl_switch_preference_screen_widget_divider);
         a.recycle();
     }
 
-    public SwitchPreferenceScreen(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SwitchPreferenceScreen(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
 
-    public SwitchPreferenceScreen(Context context, AttributeSet attrs) {
+    public SwitchPreferenceScreen(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, R.attr.switchPreferenceStyle);
     }
 
-    @Override
-    protected void onClick() {
+    public SwitchPreferenceScreen(@NonNull Context context) {
+        this(context, null);
     }
 
+    // kang
+    @SuppressLint("ResourceType")
     @Override
-    protected void callClickListener() {
-    }
-
-    @Override
-    public void onBindViewHolder(PreferenceViewHolder holder) {
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
-        holder.itemView.setOnKeyListener(this.mSwitchKeyListener);
+        holder.itemView.setOnKeyListener(mSwitchKeyListener);
+
         TextView textView = (TextView) holder.findViewById(16908310);
         View findViewById = holder.findViewById(16908352);
         if (!(textView == null || findViewById == null)) {
             SeslViewReflector.semSetHoverPopupType(findViewById, SeslHoverPopupWindowReflector.getField_TYPE_NONE());
             findViewById.setContentDescription(textView.getText().toString());
         }
+
         if (findViewById != null) {
             Configuration configuration = getContext().getResources().getConfiguration();
             ViewGroup.LayoutParams layoutParams = findViewById.getLayoutParams();
@@ -98,5 +106,14 @@ public class SwitchPreferenceScreen extends SwitchPreference {
             }
             findViewById.setLayoutParams(layoutParams);
         }
+    }
+    // kang
+
+    @Override
+    void callClickListener() {
+    }
+
+    @Override
+    protected void onClick() {
     }
 }

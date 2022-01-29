@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="fill_parent"
-    android:gravity="center_vertical">
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content" android:layout_height="fill_parent" android:gravity="center_vertical">
     <View
-        android:layout_width="@dimen/sesl_switch_divider_height"
-        android:layout_height="22.0dip"
-        android:background="@color/sesl_switch_divider_color" />
-
+        android:layout_width="@dimen/sesl_switch_divider_height" android:layout_height="22.0dip" android:background="@color/sesl_switch_divider_color" />
     <de.dlyt.yanndroid.oneui.widget.Switch
-        android:id="@android:id/switch_widget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:focusable="false"
-        android:paddingStart="9.0dip"
-        android:paddingEnd="?android:listPreferredItemPaddingEnd" />
+        tools:ignore="NewApi" android:id="@android:id/switch_widget" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="9.0dip" android:paddingEnd="?android:listPreferredItemPaddingEnd" android:focusable="false" />
 </LinearLayout>

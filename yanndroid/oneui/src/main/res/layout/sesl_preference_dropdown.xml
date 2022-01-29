@@ -27,7 +27,7 @@
             android:minWidth="56.0dip"
             android:paddingEnd="@dimen/sesl_list_image_end_padding">
 
-            <de.dlyt.yanndroid.oneui.preference.internal.SeslPreferenceImageView
+            <de.dlyt.yanndroid.oneui.preference.internal.PreferenceImageView
                 android:id="@android:id/icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

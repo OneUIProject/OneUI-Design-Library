@@ -16,7 +16,7 @@ import java.util.Collections;
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.dialog.ClassicColorPickerDialog;
 import de.dlyt.yanndroid.oneui.dialog.DetailedColorPickerDialog;
-import de.dlyt.yanndroid.oneui.preference.internal.SeslPreferenceImageView;
+import de.dlyt.yanndroid.oneui.preference.internal.PreferenceImageView;
 
 public class ColorPickerPreference extends Preference implements Preference.OnPreferenceClickListener,
         ClassicColorPickerDialog.OnColorSetListener,
@@ -26,7 +26,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
 
     PreferenceViewHolder mViewHolder;
     Dialog mDialog;
-    SeslPreferenceImageView mPreview;
+    PreferenceImageView mPreview;
     private int mValue = Color.BLACK;
     private ArrayList<Integer> mUsedColors = new ArrayList();
 
@@ -87,7 +87,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         mViewHolder = holder;
-        mPreview = (SeslPreferenceImageView) holder.findViewById(R.id.imageview_widget);
+        mPreview = (PreferenceImageView) holder.findViewById(R.id.imageview_widget);
         setPreviewColor();
     }
 

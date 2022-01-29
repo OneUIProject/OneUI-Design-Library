@@ -18,14 +18,14 @@ import androidx.core.view.ViewCompat;
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.widget.Switch;
 
-public class SwitchPreference extends TwoStatePreference {
+public class SwitchPreferenceCompat extends TwoStatePreference {
     private final DummyClickListener mClickListener = new DummyClickListener();
     private final Listener mListener = new Listener();
     private CharSequence mSwitchOn;
     private CharSequence mSwitchOff;
 
     @SuppressLint("RestrictedApi")
-    public SwitchPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SwitchPreferenceCompat(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
         Configuration config = context.getResources().getConfiguration();
@@ -33,25 +33,24 @@ public class SwitchPreference extends TwoStatePreference {
             setLayoutResource(R.layout.sesl_preference_switch_large);
         }
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SwitchPreference, defStyleAttr, defStyleRes);
-        setSummaryOn(TypedArrayUtils.getString(a, R.styleable.SwitchPreference_summaryOn, R.styleable.SwitchPreference_android_summaryOn));
-        setSummaryOff(TypedArrayUtils.getString(a, R.styleable.SwitchPreference_summaryOff, R.styleable.SwitchPreference_android_summaryOff));
-        setSwitchTextOn(TypedArrayUtils.getString(a, R.styleable.SwitchPreference_switchTextOn, R.styleable.SwitchPreference_android_switchTextOn));
-        setSwitchTextOff(TypedArrayUtils.getString(a, R.styleable.SwitchPreference_switchTextOff, R.styleable.SwitchPreference_android_switchTextOff));
-        setDisableDependentsState(TypedArrayUtils.getBoolean(a, R.styleable.SwitchPreference_disableDependentsState, R.styleable.SwitchPreference_android_disableDependentsState, false));
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SwitchPreferenceCompat, defStyleAttr, defStyleRes);
+        setSummaryOn(TypedArrayUtils.getString(a, R.styleable.SwitchPreferenceCompat_summaryOn, R.styleable.SwitchPreferenceCompat_android_summaryOn));
+        setSummaryOff(TypedArrayUtils.getString(a, R.styleable.SwitchPreferenceCompat_summaryOff, R.styleable.SwitchPreferenceCompat_android_summaryOff));
+        setSwitchTextOn(TypedArrayUtils.getString(a, R.styleable.SwitchPreferenceCompat_switchTextOn, R.styleable.SwitchPreferenceCompat_android_switchTextOn));
+        setSwitchTextOff(TypedArrayUtils.getString(a, R.styleable.SwitchPreferenceCompat_switchTextOff, R.styleable.SwitchPreferenceCompat_android_switchTextOff));
+        setDisableDependentsState(TypedArrayUtils.getBoolean(a, R.styleable.SwitchPreferenceCompat_disableDependentsState, R.styleable.SwitchPreferenceCompat_android_disableDependentsState, false));
         a.recycle();
     }
 
-    public SwitchPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SwitchPreferenceCompat(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
 
-    @SuppressLint("RestrictedApi")
-    public SwitchPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.switchPreferenceStyle, android.R.attr.switchPreferenceStyle));
+    public SwitchPreferenceCompat(@NonNull Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, R.attr.switchPreferenceCompatStyle);
     }
 
-    public SwitchPreference(@NonNull Context context) {
+    public SwitchPreferenceCompat(@NonNull Context context) {
         this(context, null);
     }
 
@@ -130,7 +129,7 @@ public class SwitchPreference extends TwoStatePreference {
             if (switchView.isClickable()) {
                 switchView.setOnClickListener(mClickListener);
             }
-            if (isTalkBackIsRunning()) {
+            if (isTalkBackIsRunning() && !(this instanceof SwitchPreferenceScreen)) {
                 ViewCompat.setBackground(switchView, null);
                 switchView.setClickable(false);
             }
@@ -147,7 +146,7 @@ public class SwitchPreference extends TwoStatePreference {
                 return;
             }
 
-            SwitchPreference.this.setChecked(isChecked);
+            SwitchPreferenceCompat.this.setChecked(isChecked);
         }
     }
 
