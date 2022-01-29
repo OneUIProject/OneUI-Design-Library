@@ -1,37 +1,37 @@
 package de.dlyt.yanndroid.oneui.preference.internal;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import de.dlyt.yanndroid.oneui.R;
 
-@SuppressLint("AppCompatCustomView")
-public class SeslPreferenceImageView extends ImageView {
+public class PreferenceImageView extends ImageView {
     private int mMaxWidth = Integer.MAX_VALUE;
     private int mMaxHeight = Integer.MAX_VALUE;
 
-    public SeslPreferenceImageView(Context context) {
+    public PreferenceImageView(@NonNull Context context) {
         this(context, null);
     }
 
-    public SeslPreferenceImageView(Context context, AttributeSet attrs) {
+    public PreferenceImageView(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SeslPreferenceImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PreferenceImageView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SeslPreferenceImageView, defStyleAttr, 0);
-        setMaxWidth(a.getDimensionPixelSize(R.styleable.SeslPreferenceImageView_maxWidth, Integer.MAX_VALUE));
-        setMaxHeight(a.getDimensionPixelSize(R.styleable.SeslPreferenceImageView_maxHeight, Integer.MAX_VALUE));
-        a.recycle();
-    }
 
-    @Override
-    public int getMaxWidth() {
-        return mMaxWidth;
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PreferenceImageView, defStyleAttr, 0);
+
+        setMaxWidth(a.getDimensionPixelSize(R.styleable.PreferenceImageView_maxWidth, Integer.MAX_VALUE));
+
+        setMaxHeight(a.getDimensionPixelSize(R.styleable.PreferenceImageView_maxHeight, Integer.MAX_VALUE));
+
+        a.recycle();
     }
 
     @Override
@@ -41,14 +41,19 @@ public class SeslPreferenceImageView extends ImageView {
     }
 
     @Override
-    public int getMaxHeight() {
-        return mMaxHeight;
+    public int getMaxWidth() {
+        return mMaxWidth;
     }
 
     @Override
     public void setMaxHeight(int maxHeight) {
         mMaxHeight = maxHeight;
         super.setMaxHeight(maxHeight);
+    }
+
+    @Override
+    public int getMaxHeight() {
+        return mMaxHeight;
     }
 
     @Override

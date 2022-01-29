@@ -767,6 +767,10 @@
         <item name="switchPreferenceStyle">@style/SwitchPreferenceStyle</item>
     </style>
 
+    <style name="PreferenceSummaryTextStyle">
+        <item name="android:textAppearance">?android:textAppearanceListItemSecondary</item>
+    </style>
+
     <style name="PreferenceStyle">
         <item name="android:layout">@layout/sesl_preference</item>
     </style>
@@ -790,17 +794,13 @@
         <item name="android:dialogLayout">@layout/sesl_preference_dialog_edittext</item>
     </style>
 
-    <style name="DialogSeekBarPreferenceStyle" parent="@style/DialogPreferenceStyle">
-        <item name="android:dialogLayout">@layout/sesl_preference_dialog_seekbar</item>
-    </style>
-
     <style name="DropDownPreferenceStyle" parent="@style/PreferenceStyle">
         <item name="android:layout">@layout/sesl_preference_dropdown</item>
     </style>
 
     <style name="InfoPreferenceStyle" parent="@style/PreferenceStyle">
         <item name="android:enabled">false</item>
-        <item name="android:layout">@layout/sesl_preference_information</item>
+        <item name="android:layout">@layout/oui_preference_information</item>
         <item name="android:shouldDisableView">false</item>
     </style>
 

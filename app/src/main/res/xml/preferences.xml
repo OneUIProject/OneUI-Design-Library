@@ -3,120 +3,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TipsCardViewPreference
-        android:key="tip_card"
-        android:summary="Creating OneUI apps has never been so easy!"
-        android:title="TipsCardView" />
+        android:key="tip_card" android:title="TipsCardView" android:summary="Creating OneUI apps has never been so easy!" />
 
     <PreferenceCategory
-        android:key="spacing"
-        android:title="HorizontalRadioPreference" />
+        android:key="spacing" android:title="HorizontalRadioPreference" />
 
     <HorizontalRadioPreference
-        android:key="dark_mode"
-        android:title="Dark mode settings"
-        app:entries="@array/preferences_darkmode_entries"
-        app:entriesImage="@array/preferences_darkmode_entries_image"
-        app:entryValues="@array/preferences_darkmode_values"
-        app:viewType="image" />
+        android:key="dark_mode" android:title="Dark mode settings" app:viewType="image" app:entriesImage="@array/preferences_darkmode_entries_image" app:entries="@array/preferences_darkmode_entries" app:entryValues="@array/preferences_darkmode_values" />
     <SwitchPreference
-        android:key="dark_mode_auto"
-        android:title="System default" />
+        android:key="dark_mode_auto" android:title="System default" />
 
-    <PreferenceCategory android:title="Switch">
-        <SwitchPreference
-            android:summary="Summary"
-            android:title="SwitchPreference" />
+    <de.dlyt.yanndroid.oneui.preference.PreferenceCategory
+        android:title="Switch">
+        <SwitchPreferenceCompat
+            android:title="SwitchPreference" android:summary="Summary" />
         <SwitchPreferenceScreen
-            android:key="switch_preference_screen"
-            android:summary="Summary"
-            android:title="SwitchPreferenceScreen">
+            android:key="switch_preference_screen" android:title="SwitchPreferenceScreen" android:summary="Summary">
             <intent
-                android:targetClass="de.dlyt.yanndroid.oneuiexample.SwitchBarActivity"
-                android:targetPackage="de.dlyt.yanndroid.oneuiexample" />
+                android:targetPackage="de.dlyt.yanndroid.oneuiexample" android:targetClass="de.dlyt.yanndroid.oneuiexample.SwitchBarActivity" />
         </SwitchPreferenceScreen>
         <CheckBoxPreference
-            android:summary="Summary"
-            android:title="CheckBoxPreference" />
-    </PreferenceCategory>
+            android:title="CheckBoxPreference" android:summary="Summary" />
+    </de.dlyt.yanndroid.oneui.preference.PreferenceCategory>
 
-    <PreferenceCategory android:title="SeekBar">
+    <de.dlyt.yanndroid.oneui.preference.PreferenceCategory
+        android:title="SeekBar">
         <SeekBarPreference
-            android:defaultValue="5"
-            android:summary="min 1; max 10"
-            android:title="Standard SeekBar"
-            app:max="10"
-            app:min="1" />
+            android:title="Standard SeekBar" android:summary="min 1; max 10" app:min="1" app:max="10" android:defaultValue="5" />
         <SeekBarPreference
-            android:defaultValue="30"
-            android:summary="min 1; max 100"
-            android:title="Expand SeekBar"
-            app:max="100"
-            app:min="1"
-            app:seekBarMode="expand" />
+            android:title="Expand SeekBar" android:summary="min 1; max 100" app:min="1" app:max="100" android:defaultValue="30" app:seekBarMode="expand" />
         <SeekBarPreference
-            android:defaultValue="50"
-            android:summary="min 1; max 255; overlap 200; showSeekBarValue"
-            android:title="Standard SeekBar+Overlap"
-            app:max="255"
-            app:min="1"
-            app:overlap="200"
-            app:showSeekBarValue="true" />
+            android:title="Standard SeekBar+Overlap" android:summary="min 1; max 255; overlap 200; showSeekBarValue" app:min="1" app:max="255" android:defaultValue="50" app:overlap="200" app:showSeekBarValue="true" />
         <SeekBarPreference
-            android:defaultValue="2"
-            android:summary="min 1; max 5; seekBarSeamless"
-            android:title="Expand SeekBar"
-            app:max="5"
-            app:min="1"
-            app:seekBarMode="expand"
-            app:seekBarSeamless="true" />
-    </PreferenceCategory>
+            android:title="Expand SeekBar" android:summary="min 1; max 5; seekBarSeamless" app:min="1" app:max="5" android:defaultValue="2" app:seekBarMode="expand" app:seekBarSeamless="true" />
+    </de.dlyt.yanndroid.oneui.preference.PreferenceCategory>
 
-    <PreferenceCategory>
+    <de.dlyt.yanndroid.oneui.preference.PreferenceCategory>
         <EditTextPreference
-            android:key="key0"
-            android:summary="Summary"
-            android:title="EditTextPreference" />
+            android:key="key0" android:title="EditTextPreference" android:summary="Summary" />
         <ListPreference
-            android:entries="@array/preferences_test_entries"
-            android:entryValues="@array/preferences_test_values"
-            android:key="key1"
-            android:summary="Summary"
-            android:title="ListPreference" />
+            android:key="key1" android:title="ListPreference" android:summary="Summary" android:entries="@array/preferences_test_entries" android:entryValues="@array/preferences_test_values" />
         <DropDownPreference
-            android:entries="@array/preferences_test_entries"
-            android:entryValues="@array/preferences_test_values"
-            android:key="key2"
-            android:summary="Summary"
-            android:title="DropDownPreference" />
+            android:key="key2" android:title="DropDownPreference" android:summary="Summary" android:entries="@array/preferences_test_entries" android:entryValues="@array/preferences_test_values" />
         <MultiSelectListPreference
-            android:entries="@array/preferences_test_entries"
-            android:entryValues="@array/preferences_test_values"
-            android:key="key3"
-            android:summary="Summary"
-            android:title="MultiSelectListPreference" />
+            android:key="key3" android:title="MultiSelectListPreference" android:summary="Summary" android:entries="@array/preferences_test_entries" android:entryValues="@array/preferences_test_values" />
         <ColorPickerPreference
-            android:defaultValue="#085265"
-            android:key="key4"
-            android:summary="pickerType classic"
-            android:title="ColorPickerPreference"
-            app:pickerType="classic" />
+            android:key="key4" android:title="ColorPickerPreference" android:summary="pickerType classic" android:defaultValue="#085265" app:pickerType="classic" />
         <ColorPickerPreference
-            android:defaultValue="#FF2563"
-            android:key="key5"
-            android:summary="pickerType detailed; showAlphaSlider"
-            android:title="ColorPickerPreference"
-            app:pickerType="detailed"
-            app:showAlphaSlider="true" />
-    </PreferenceCategory>
+            android:key="key5" android:title="ColorPickerPreference" android:summary="pickerType detailed; showAlphaSlider" android:defaultValue="#FF2563" app:pickerType="detailed" app:showAlphaSlider="true" />
+    </de.dlyt.yanndroid.oneui.preference.PreferenceCategory>
 
-    <PreferenceCategory android:key="spacing2" />
+    <PreferenceCategory
+        android:key="spacing2" />
 
-    <PreferenceScreen
-        android:key="about_app"
-        android:title="About OneUI Sample">
+    <de.dlyt.yanndroid.oneui.preference.PreferenceScreen
+        android:key="about_app" android:title="About OneUI Sample">
         <intent
-            android:targetClass="de.dlyt.yanndroid.oneuiexample.AboutActivity"
-            android:targetPackage="de.dlyt.yanndroid.oneuiexample" />
-    </PreferenceScreen>
+            android:targetPackage="de.dlyt.yanndroid.oneuiexample" android:targetClass="de.dlyt.yanndroid.oneuiexample.AboutActivity" />
+    </de.dlyt.yanndroid.oneui.preference.PreferenceScreen>
 
 </de.dlyt.yanndroid.oneui.preference.PreferenceScreen>

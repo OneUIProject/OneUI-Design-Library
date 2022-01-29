@@ -1,13 +1,15 @@
 package de.dlyt.yanndroid.oneui.preference;
 
+import androidx.annotation.Nullable;
+
 import java.util.Set;
 
 public abstract class PreferenceDataStore {
-    public void putString(String key, String value) {
+    public void putString(String key, @Nullable String value) {
         throw new UnsupportedOperationException("Not implemented on this data store");
     }
 
-    public void putStringSet(String key, Set<String> values) {
+    public void putStringSet(String key, @Nullable Set<String> values) {
         throw new UnsupportedOperationException("Not implemented on this data store");
     }
 
@@ -27,11 +29,13 @@ public abstract class PreferenceDataStore {
         throw new UnsupportedOperationException("Not implemented on this data store");
     }
 
-    public String getString(String key, String defValue) {
+    @Nullable
+    public String getString(String key, @Nullable String defValue) {
         return defValue;
     }
 
-    public Set<String> getStringSet(String key, Set<String> defValues) {
+    @Nullable
+    public Set<String> getStringSet(String key, @Nullable Set<String> defValues) {
         return defValues;
     }
 
@@ -51,3 +55,4 @@ public abstract class PreferenceDataStore {
         return defValue;
     }
 }
+

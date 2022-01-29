@@ -6,10 +6,11 @@ import android.view.View;
 import de.dlyt.yanndroid.oneui.preference.InsetPreferenceCategory;
 import de.dlyt.yanndroid.oneui.preference.LayoutPreference;
 import de.dlyt.yanndroid.oneui.preference.Preference;
+import de.dlyt.yanndroid.oneui.preference.PreferenceFragmentCompat;
 import de.dlyt.yanndroid.oneui.preference.PreferenceGroup;
 import de.dlyt.yanndroid.oneui.preference.internal.PreferencesRelatedCard;
 
-public abstract class PreferenceFragment extends de.dlyt.yanndroid.oneui.preference.PreferenceFragment {
+public abstract class PreferenceFragment extends PreferenceFragmentCompat {
     private int mRelatedCardViewCount = 0;
 
     private LayoutPreference mFooter;
@@ -48,11 +49,11 @@ public abstract class PreferenceFragment extends de.dlyt.yanndroid.oneui.prefere
         if (isRelativeLinkView) {
             LayoutPreference layoutPreference = new LayoutPreference(getPrefContext(), view, isRelativeLinkView);
             mFooter = layoutPreference;
-            layoutPreference.seslSetSubheaderRoundedBg(0);
+            layoutPreference.seslSetSubheaderRoundedBackground(0);
 
             InsetPreferenceCategory insetPreferenceCategory = new InsetPreferenceCategory(getContext());
             insetPreferenceCategory.setOrder(2147483645 - (mRelatedCardViewCount * 2));
-            insetPreferenceCategory.seslSetSubheaderRoundedBg(12);
+            insetPreferenceCategory.seslSetSubheaderRoundedBackground(12);
 
             if (getPreferenceScreen() != null) {
                 getPreferenceScreen().addPreference(insetPreferenceCategory);

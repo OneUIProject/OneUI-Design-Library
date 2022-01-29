@@ -10,6 +10,9 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.widget.SeekBar;
 
@@ -59,7 +62,7 @@ public class SeekBarPreference extends Preference {
             }
         }
     };
-    private View.OnKeyListener mSeekBarKeyListener = new View.OnKeyListener() {
+    private final View.OnKeyListener mSeekBarKeyListener = new View.OnKeyListener() {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             if (event.getAction() != KeyEvent.ACTION_DOWN) {
@@ -79,20 +82,7 @@ public class SeekBarPreference extends Preference {
         }
     };
 
-
-    public SeekBarPreference(Context context) {
-        this(context, null);
-    }
-
-    public SeekBarPreference(Context context, AttributeSet attrs) {
-        this(context, attrs, R.attr.seekBarPreferenceStyle);
-    }
-
-    public SeekBarPreference(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SeekBarPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SeekBarPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SeekBarPreference, defStyleAttr, defStyleRes);
@@ -113,18 +103,31 @@ public class SeekBarPreference extends Preference {
         a.recycle();
     }
 
+    public SeekBarPreference(@NonNull Context context, @Nullable AttributeSet attrs,int defStyleAttr) {
+        this(context, attrs, defStyleAttr, 0);
+    }
+
+    public SeekBarPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, R.attr.seekBarPreferenceStyle);
+    }
+
+    public SeekBarPreference(@NonNull Context context) {
+        this(context, null);
+    }
+
     @Override
-    public void onBindViewHolder(PreferenceViewHolder view) {
-        super.onBindViewHolder(view);
-        view.itemView.setOnKeyListener(mSeekBarKeyListener);
-        mSeekBar = (SeekBar) view.findViewById(R.id.seekbar);
-        mSeekBarValueTextView = (TextView) view.findViewById(R.id.seekbar_value);
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
+        super.onBindViewHolder(holder);
+        holder.itemView.setOnKeyListener(mSeekBarKeyListener);
+        mSeekBar = (SeekBar) holder.findViewById(R.id.seekbar);
+        mSeekBarValueTextView = (TextView) holder.findViewById(R.id.seekbar_value);
         if (mShowSeekBarValue) {
             mSeekBarValueTextView.setVisibility(View.VISIBLE);
         } else {
             mSeekBarValueTextView.setVisibility(View.GONE);
             mSeekBarValueTextView = null;
         }
+
         if (mSeekBar == null) {
             Log.e(TAG, "SeekBar view is null in onBindViewHolder.");
             return;
@@ -141,13 +144,14 @@ public class SeekBarPreference extends Preference {
         } else {
             mSeekBarIncrement = mSeekBar.getKeyProgressIncrement();
         }
+
         mSeekBar.setProgress(mSeekBarValue - mMin);
         updateLabelValue(mSeekBarValue);
         mSeekBar.setEnabled(isEnabled());
     }
 
     @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
+    protected void onSetInitialValue(Object defaultValue) {
         if (defaultValue == null) {
             defaultValue = 0;
         }
@@ -155,7 +159,7 @@ public class SeekBarPreference extends Preference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index) {
+    protected @Nullable Object onGetDefaultValue(@NonNull TypedArray a, int index) {
         return a.getInt(index, 0);
     }
 
@@ -230,6 +234,7 @@ public class SeekBarPreference extends Preference {
         if (seekBarValue > mMax) {
             seekBarValue = mMax;
         }
+
         if (seekBarValue != mSeekBarValue) {
             mSeekBarValue = seekBarValue;
             updateLabelValue(mSeekBarValue);
@@ -249,7 +254,7 @@ public class SeekBarPreference extends Preference {
     }
 
     @SuppressWarnings("WeakerAccess")
-    void syncValueInternal(SeekBar seekBar) {
+    void syncValueInternal(@NonNull SeekBar seekBar) {
         int seekBarValue = mMin + seekBar.getProgress();
         if (seekBarValue != mSeekBarValue) {
             if (callChangeListener(seekBarValue)) {
@@ -268,6 +273,7 @@ public class SeekBarPreference extends Preference {
         }
     }
 
+    @Nullable
     @Override
     protected Parcelable onSaveInstanceState() {
         final Parcelable superState = super.onSaveInstanceState();
@@ -283,8 +289,8 @@ public class SeekBarPreference extends Preference {
     }
 
     @Override
-    protected void onRestoreInstanceState(Parcelable state) {
-        if (!state.getClass().equals(SavedState.class)) {
+    protected void onRestoreInstanceState(@Nullable Parcelable state) {
+        if (state == null || !state.getClass().equals(SavedState.class)) {
             super.onRestoreInstanceState(state);
             return;
         }
@@ -299,18 +305,6 @@ public class SeekBarPreference extends Preference {
 
 
     private static class SavedState extends BaseSavedState {
-        public static final Parcelable.Creator<SavedState> CREATOR =
-                new Parcelable.Creator<SavedState>() {
-                    @Override
-                    public SavedState createFromParcel(Parcel in) {
-                        return new SavedState(in);
-                    }
-
-                    @Override
-                    public SavedState[] newArray(int size) {
-                        return new SavedState[size];
-                    }
-                };
         int mSeekBarValue;
         int mMin;
         int mMax;
@@ -333,5 +327,17 @@ public class SeekBarPreference extends Preference {
             dest.writeInt(mMin);
             dest.writeInt(mMax);
         }
+
+        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+            @Override
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            @Override
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
     }
 }

@@ -7,14 +7,20 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat {
+@SuppressWarnings("deprecation")
+@Deprecated
+public class EditTextPreferenceDialogFragment extends PreferenceDialogFragment {
     private static final String SAVE_STATE_TEXT = "EditTextPreferenceDialogFragment.text";
     private EditText mEditText;
     private CharSequence mText;
 
+    @Deprecated
+    public EditTextPreferenceDialogFragment() {}
+
     @NonNull
-    public static EditTextPreferenceDialogFragmentCompat newInstance(String key) {
-        final EditTextPreferenceDialogFragmentCompat fragment = new EditTextPreferenceDialogFragmentCompat();
+    @Deprecated
+    public static EditTextPreferenceDialogFragment newInstance(String key) {
+        final EditTextPreferenceDialogFragment fragment = new EditTextPreferenceDialogFragment();
         final Bundle b = new Bundle(1);
         b.putString(ARG_KEY, key);
         fragment.setArguments(b);
@@ -42,17 +48,14 @@ public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFrag
         super.onBindDialogView(view);
 
         mEditText = view.findViewById(android.R.id.edit);
+        mEditText.requestFocus();
 
         if (mEditText == null) {
             throw new IllegalStateException("Dialog view must contain an EditText with id @android:id/edit");
         }
 
-        mEditText.requestFocus();
         mEditText.setText(mText);
         mEditText.setSelection(mEditText.getText().length());
-        if (getEditTextPreference().getOnBindEditTextListener() != null) {
-            getEditTextPreference().getOnBindEditTextListener().onBindEditText(mEditText);
-        }
     }
 
     private EditTextPreference getEditTextPreference() {
@@ -64,15 +67,15 @@ public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFrag
         return true;
     }
 
+    @Deprecated
     @Override
     public void onDialogClosed(boolean positiveResult) {
+
         if (positiveResult) {
             String value = mEditText.getText().toString();
-            final EditTextPreference preference = getEditTextPreference();
-            if (preference.callChangeListener(value)) {
-                preference.setText(value);
+            if (getEditTextPreference().callChangeListener(value)) {
+                getEditTextPreference().setText(value);
             }
         }
     }
-
 }

@@ -1,34 +1,33 @@
 package de.dlyt.yanndroid.oneui.preference;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
-
-public class MultiSelectListPreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat {
-    private static final String SAVE_STATE_VALUES = "MultiSelectListPreferenceDialogFragmentCompat.values";
-    private static final String SAVE_STATE_CHANGED = "MultiSelectListPreferenceDialogFragmentCompat.changed";
-    private static final String SAVE_STATE_ENTRIES = "MultiSelectListPreferenceDialogFragmentCompat.entries";
-    private static final String SAVE_STATE_ENTRY_VALUES = "MultiSelectListPreferenceDialogFragmentCompat.entryValues";
-    @SuppressWarnings("WeakerAccess")
+@Deprecated
+public class MultiSelectListPreferenceDialogFragment extends PreferenceDialogFragment {
+    private static final String SAVE_STATE_VALUES = "MultiSelectListPreferenceDialogFragment.values";
+    private static final String SAVE_STATE_CHANGED = "MultiSelectListPreferenceDialogFragment.changed";
+    private static final String SAVE_STATE_ENTRIES = "MultiSelectListPreferenceDialogFragment.entries";
+    private static final String SAVE_STATE_ENTRY_VALUES = "MultiSelectListPreferenceDialogFragment.entryValues";
     Set<String> mNewValues = new HashSet<>();
-    @SuppressWarnings("WeakerAccess")
     boolean mPreferenceChanged;
-    @SuppressWarnings("WeakerAccess")
     CharSequence[] mEntries;
-    @SuppressWarnings("WeakerAccess")
     CharSequence[] mEntryValues;
 
+    @Deprecated
+    public MultiSelectListPreferenceDialogFragment() {}
+
     @NonNull
-    public static MultiSelectListPreferenceDialogFragmentCompat newInstance(String key) {
-        final MultiSelectListPreferenceDialogFragmentCompat fragment = new MultiSelectListPreferenceDialogFragmentCompat();
+    @Deprecated
+    public static MultiSelectListPreferenceDialogFragment newInstance(String key) {
+        final MultiSelectListPreferenceDialogFragment fragment = new MultiSelectListPreferenceDialogFragment();
         final Bundle b = new Bundle(1);
         b.putString(ARG_KEY, key);
         fragment.setArguments(b);
@@ -36,7 +35,7 @@ public class MultiSelectListPreferenceDialogFragmentCompat extends PreferenceDia
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
@@ -94,12 +93,14 @@ public class MultiSelectListPreferenceDialogFragmentCompat extends PreferenceDia
         });
     }
 
+    @Deprecated
     @Override
     public void onDialogClosed(boolean positiveResult) {
+        final MultiSelectListPreference preference = getListPreference();
         if (positiveResult && mPreferenceChanged) {
-            final MultiSelectListPreference preference = getListPreference();
-            if (preference.callChangeListener(mNewValues)) {
-                preference.setValues(mNewValues);
+            final Set<String> values = mNewValues;
+            if (preference.callChangeListener(values)) {
+                preference.setValues(values);
             }
         }
         mPreferenceChanged = false;

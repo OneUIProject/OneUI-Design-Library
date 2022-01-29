@@ -33,13 +33,10 @@ public class HorizontalRadioViewContainer extends LinearLayout {
             int marginTop = Math.round(getContext().getResources().getDimension(R.dimen.widget_multi_btn_preference_divider_margin_top));
             int height = (getHeight() - marginTop) - Math.round(getContext().getResources().getDimension(R.dimen.widget_multi_btn_preference_divider_margin_bottom));
             int width = Math.round(getContext().getResources().getDimension(R.dimen.sesl_list_divider_height));
-            int childCount = getChildCount() - 1;
 
-            int i = 0;
-            while (i < childCount) {
+            for (int i = 0; i < getChildCount() - 1; i++) {
                 drawable.setBounds(0, 0, width, height);
                 canvas.save();
-                i++;
                 canvas.translate((float) Math.round((((float) getWidth()) / ((float) getChildCount())) * ((float) i)), (float) marginTop);
                 drawable.draw(canvas);
                 canvas.restore();

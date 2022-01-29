@@ -9,26 +9,29 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 public abstract class TwoStatePreference extends Preference {
     protected boolean mChecked;
+    private CharSequence mSummaryOn;
+    private CharSequence mSummaryOff;
     private boolean mCheckedSet;
     private boolean mDisableDependentsState;
-    private CharSequence mSummaryOff;
-    private CharSequence mSummaryOn;
 
-    public TwoStatePreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public TwoStatePreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public TwoStatePreference(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TwoStatePreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
 
-    public TwoStatePreference(Context context, AttributeSet attrs) {
+    public TwoStatePreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public TwoStatePreference(Context context) {
+    public TwoStatePreference(@NonNull Context context) {
         this(context, null);
     }
 
@@ -65,18 +68,40 @@ public abstract class TwoStatePreference extends Preference {
         return shouldDisable || super.shouldDisableDependents();
     }
 
-    public void setSummaryOn(CharSequence summary) {
+    public void setSummaryOn(@Nullable CharSequence summary) {
         mSummaryOn = summary;
         if (isChecked()) {
             notifyChanged();
         }
     }
 
-    public void setSummaryOff(CharSequence summary) {
+    @Nullable
+    public CharSequence getSummaryOn() {
+        return mSummaryOn;
+    }
+
+    public void setSummaryOn(int summaryResId) {
+        setSummaryOn(getContext().getString(summaryResId));
+    }
+
+    public void setSummaryOff(@Nullable CharSequence summary) {
         mSummaryOff = summary;
         if (!isChecked()) {
             notifyChanged();
         }
+    }
+
+    @Nullable
+    public CharSequence getSummaryOff() {
+        return mSummaryOff;
+    }
+
+    public void setSummaryOff(int summaryResId) {
+        setSummaryOff(getContext().getString(summaryResId));
+    }
+
+    public boolean getDisableDependentsState() {
+        return mDisableDependentsState;
     }
 
     public void setDisableDependentsState(boolean disableDependentsState) {
@@ -84,16 +109,19 @@ public abstract class TwoStatePreference extends Preference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index) {
+    protected @Nullable Object onGetDefaultValue(@NonNull TypedArray a, int index) {
         return a.getBoolean(index, false);
     }
 
     @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        setChecked(restoreValue ? getPersistedBoolean(mChecked) : (Boolean) defaultValue);
+    protected void onSetInitialValue(Object defaultValue) {
+        if (defaultValue == null) {
+            defaultValue = false;
+        }
+        setChecked(getPersistedBoolean((Boolean) defaultValue));
     }
 
-    protected void syncSummaryView(PreferenceViewHolder holder) {
+    protected void syncSummaryView(@NonNull PreferenceViewHolder holder) {
         View view = holder.findViewById(android.R.id.summary);
         syncSummaryView(view);
     }
@@ -127,6 +155,7 @@ public abstract class TwoStatePreference extends Preference {
         }
     }
 
+    @Nullable
     @Override
     protected Parcelable onSaveInstanceState() {
         final Parcelable superState = super.onSaveInstanceState();
@@ -135,12 +164,12 @@ public abstract class TwoStatePreference extends Preference {
         }
 
         final SavedState myState = new SavedState(superState);
-        myState.checked = isChecked();
+        myState.mChecked = isChecked();
         return myState;
     }
 
     @Override
-    protected void onRestoreInstanceState(Parcelable state) {
+    protected void onRestoreInstanceState(@Nullable Parcelable state) {
         if (state == null || !state.getClass().equals(SavedState.class)) {
             super.onRestoreInstanceState(state);
             return;
@@ -148,11 +177,27 @@ public abstract class TwoStatePreference extends Preference {
 
         SavedState myState = (SavedState) state;
         super.onRestoreInstanceState(myState.getSuperState());
-        setChecked(myState.checked);
+        setChecked(myState.mChecked);
     }
 
-
     static class SavedState extends BaseSavedState {
+        boolean mChecked;
+
+        SavedState(Parcel source) {
+            super(source);
+            mChecked = source.readInt() == 1;
+        }
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeInt(mChecked ? 1 : 0);
+        }
+
         public static final Parcelable.Creator<SavedState> CREATOR =
                 new Parcelable.Creator<SavedState>() {
                     @Override
@@ -165,21 +210,5 @@ public abstract class TwoStatePreference extends Preference {
                         return new SavedState[size];
                     }
                 };
-        boolean checked;
-
-        public SavedState(Parcel source) {
-            super(source);
-            checked = source.readInt() == 1;
-        }
-
-        public SavedState(Parcelable superState) {
-            super(superState);
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            super.writeToParcel(dest, flags);
-            dest.writeInt(checked ? 1 : 0);
-        }
     }
 }

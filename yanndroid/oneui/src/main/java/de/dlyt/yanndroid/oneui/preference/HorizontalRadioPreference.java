@@ -12,6 +12,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -157,7 +158,7 @@ public class HorizontalRadioPreference extends Preference {
                             case KeyEvent.ACTION_UP:
                                 if (!mIsTouchEffectEnabled)
                                     v.setAlpha(1.0f);
-                                v.playSoundEffect(0);
+                                v.playSoundEffect(SoundEffectConstants.CLICK);
                                 v.callOnClick();
                         }
                     }

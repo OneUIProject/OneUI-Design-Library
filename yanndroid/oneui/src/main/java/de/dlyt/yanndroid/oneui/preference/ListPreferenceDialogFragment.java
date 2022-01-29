@@ -1,25 +1,28 @@
 package de.dlyt.yanndroid.oneui.preference;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
-
-public class ListPreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat {
+@Deprecated
+public class ListPreferenceDialogFragment extends PreferenceDialogFragment {
     private static final String SAVE_STATE_INDEX = "ListPreferenceDialogFragment.index";
     private static final String SAVE_STATE_ENTRIES = "ListPreferenceDialogFragment.entries";
     private static final String SAVE_STATE_ENTRY_VALUES = "ListPreferenceDialogFragment.entryValues";
-    @SuppressWarnings("WeakerAccess")
     int mClickedDialogEntryIndex;
     private CharSequence[] mEntries;
     private CharSequence[] mEntryValues;
 
+    @Deprecated
+    public ListPreferenceDialogFragment() {}
+
     @NonNull
-    public static ListPreferenceDialogFragmentCompat newInstance(String key) {
-        final ListPreferenceDialogFragmentCompat fragment = new ListPreferenceDialogFragmentCompat();
+    @Deprecated
+    public static ListPreferenceDialogFragment newInstance(String key) {
+        final ListPreferenceDialogFragment fragment = new ListPreferenceDialogFragment();
         final Bundle b = new Bundle(1);
         b.putString(ARG_KEY, key);
         fragment.setArguments(b);
@@ -67,7 +70,7 @@ public class ListPreferenceDialogFragmentCompat extends PreferenceDialogFragment
             public void onClick(DialogInterface dialog, int which) {
                 mClickedDialogEntryIndex = which;
 
-                ListPreferenceDialogFragmentCompat.this.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
+                ListPreferenceDialogFragment.this.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
                 dialog.dismiss();
             }
         });
@@ -75,11 +78,12 @@ public class ListPreferenceDialogFragmentCompat extends PreferenceDialogFragment
         builder.setPositiveButton(null, null);
     }
 
+    @Deprecated
     @Override
     public void onDialogClosed(boolean positiveResult) {
+        final ListPreference preference = getListPreference();
         if (positiveResult && mClickedDialogEntryIndex >= 0) {
             String value = mEntryValues[mClickedDialogEntryIndex].toString();
-            final ListPreference preference = getListPreference();
             if (preference.callChangeListener(value)) {
                 preference.setValue(value);
             }
