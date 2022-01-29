@@ -1135,4 +1135,8 @@ public class SeslViewPager2 extends ViewGroup {
             onChanged();
         }
     }
+
+    public RecyclerView seslGetListView() {
+        return mRecyclerView;
+    }
 }
