@@ -400,7 +400,7 @@ public class MainActivity extends BaseThemeActivity {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     item.setBadge(item.getBadge() + 1);
-                    tabLayout.seslShowBadge(2, true, String.valueOf(item.getBadge()));
+                    tabLayout.seslShowBadge(2, true, String.valueOf(bnvPopupMenu.getMenu().getTotalBadgeCount()));
                     return !item.isCheckable();
                 }
 

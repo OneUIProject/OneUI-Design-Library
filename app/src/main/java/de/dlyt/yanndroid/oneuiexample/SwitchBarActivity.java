@@ -29,8 +29,8 @@ public class SwitchBarActivity extends BaseThemeActivity implements SwitchBar.On
             return true;
         });
 
-        switchBarLayout.getSwitchBar().setChecked(getSwitchBarDefaultStatus());
-        switchBarLayout.getSwitchBar().addOnSwitchChangeListener(this);
+        switchBarLayout.setChecked(getSwitchBarDefaultStatus());
+        switchBarLayout.addOnSwitchChangeListener(this);
     }
 
     private boolean getSwitchBarDefaultStatus() {

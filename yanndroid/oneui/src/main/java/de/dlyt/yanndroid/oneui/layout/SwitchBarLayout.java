@@ -41,4 +41,16 @@ public class SwitchBarLayout extends ToolbarLayout {
     public SwitchBar getSwitchBar() {
         return switchBar;
     }
+
+    public void setChecked(boolean checked) {
+        switchBar.setChecked(checked);
+    }
+
+    public boolean isChecked() {
+        return switchBar.isChecked();
+    }
+
+    public void addOnSwitchChangeListener(SwitchBar.OnSwitchChangeListener onSwitchChangeListener) {
+        switchBar.addOnSwitchChangeListener(onSwitchChangeListener);
+    }
 }

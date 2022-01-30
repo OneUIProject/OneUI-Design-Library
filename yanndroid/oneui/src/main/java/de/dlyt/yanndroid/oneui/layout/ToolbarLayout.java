@@ -440,6 +440,10 @@ public class ToolbarLayout extends LinearLayout {
         collapsingToolbarLayout.seslSetCustomTitleView(view, params);
     }
 
+    public void setCustomSubtitle(View view) {
+        collapsingToolbarLayout.seslSetCustomSubtitle(view);
+    }
+
     public void setImmersiveScroll(boolean activate) {
         appBarLayout.seslSetImmersiveScroll(activate);
     }
