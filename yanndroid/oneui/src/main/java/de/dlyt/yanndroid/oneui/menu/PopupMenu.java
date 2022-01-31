@@ -2,6 +2,7 @@ package de.dlyt.yanndroid.oneui.menu;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.provider.Settings;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -189,15 +190,16 @@ public class PopupMenu {
     }
 
     private void setupBlurEffect() {
-        if (mBlurEffectEnabled) {
-            if (popupWindow.getContentView() != null && context != null) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && mBlurEffectEnabled) {
+            if (popupWindow != null && popupWindow.getContentView() != null) {
                 Object blurBuilder = SeslSemBlurInfoReflector.semCreateBlurBuilder(0 /* SemBlurInfo.BLUR_MODE_WINDOW */);
 
                 if (blurBuilder != null && !isReduceTransparencySettingsEnabled()) {
                     SeslSemBlurInfoReflector.semSetBuilderBlurRadius(blurBuilder, 120);
-                    SeslSemBlurInfoReflector.semSetBuilderBlurBackgroundColor(blurBuilder, context.getResources().getColor(R.color.sesl_popup_menu_blur_background));
-                    SeslSemBlurInfoReflector.semSetBuilderBlurBackgroundCornerRadius(blurBuilder, context.getResources().getDimension(R.dimen.sesl_menu_popup_corner_radius));
+                    SeslSemBlurInfoReflector.semSetBuilderBlurBackgroundColor(blurBuilder, context.getResources().getColor(R.color.sesl_popup_menu_blur_background, context.getTheme()));
+                    SeslSemBlurInfoReflector.semSetBuilderBlurBackgroundCornerRadius(blurBuilder, context.getResources().getDimension(mIsOneUI4 ? R.dimen.sesl4_menu_popup_corner_radius : R.dimen.sesl_menu_popup_corner_radius));
                     SeslSemBlurInfoReflector.semBuildSetBlurInfo(blurBuilder, popupWindow.getContentView());
+
                     if (listView != null) {
                         listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
                     }
