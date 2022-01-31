@@ -41,7 +41,7 @@ public class PopupMenu {
     private CharSequence title;
 
     private int mAnimationStyleRes = 0;
-    private boolean mBlurEffectEnabled = true;
+    private boolean mBlurEffectEnabled;
     private boolean mGroupDividerEnabled;
 
     private int lastGroupId = 0;
@@ -52,6 +52,7 @@ public class PopupMenu {
         this.context = anchor.getContext();
         this.anchor = anchor;
         mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
+        mBlurEffectEnabled = mIsOneUI4;
     }
 
     public interface PopupMenuListener {
