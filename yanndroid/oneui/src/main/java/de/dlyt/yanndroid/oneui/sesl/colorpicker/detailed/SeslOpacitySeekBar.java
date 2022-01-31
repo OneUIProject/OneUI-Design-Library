@@ -5,11 +5,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
+import android.widget.SeekBar;
 
 import androidx.core.view.ViewCompat;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.widget.SeekBar;
 
 @SuppressLint("AppCompatCustomView")
 class SeslOpacitySeekBar extends SeekBar {
@@ -31,6 +31,7 @@ class SeslOpacitySeekBar extends SeekBar {
         setProgressDrawable(mProgressDrawable);
         setThumb(getContext().getResources().getDrawable(R.drawable.sesl_color_picker_seekbar_cursor));
         setThumbOffset(0);
+        setSplitTrack(false);
     }
 
     private void initColor(int i) {

@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.RestrictTo;
@@ -24,7 +25,6 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.widget.SeekBar;
 
 public class SeslColorPicker extends LinearLayout {
     static final int RECENT_COLOR_SLOT_COUNT = 6;

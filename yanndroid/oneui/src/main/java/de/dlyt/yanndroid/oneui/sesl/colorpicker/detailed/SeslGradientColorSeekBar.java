@@ -10,11 +10,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
+import android.widget.SeekBar;
 
 import androidx.core.view.ViewCompat;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.widget.SeekBar;
 
 @SuppressLint("AppCompatCustomView")
 class SeslGradientColorSeekBar extends SeekBar {
@@ -79,6 +79,7 @@ class SeslGradientColorSeekBar extends SeekBar {
     private void initThumb() {
         setThumb(getContext().getDrawable(R.drawable.sesl_color_picker_seekbar_cursor));
         setThumbOffset(0);
+        setSplitTrack(false);
     }
 
     private static Drawable resizeDrawable(Context context, BitmapDrawable bitmapDrawable, int i, int i2) {
