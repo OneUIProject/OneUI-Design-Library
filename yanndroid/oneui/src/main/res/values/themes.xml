@@ -12,6 +12,8 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
 
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@color/sesl_round_and_bgcolor</item>
+
         <item name="android:listSeparatorTextViewStyle">@style/ListSeparatorStyle</item>
 
         <item name="colorPrimary">@color/primary_color</item>
@@ -59,6 +61,8 @@
         <item name="android:windowBackground">@color/sesl4_round_and_bgcolor</item>
         <item name="android:statusBarColor">@color/sesl4_round_and_bgcolor</item>
         <item name="android:navigationBarColor">@color/sesl4_round_and_bgcolor</item>
+
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@color/sesl4_round_and_bgcolor</item>
 
         <item name="roundedCornerColor">@color/sesl4_round_and_bgcolor</item>
 

@@ -23,11 +23,14 @@ public class BaseThemeActivity extends AppCompatActivity {
 
         int normalTheme = mUseOUI4Theme ? R.style.OneUI4Theme : R.style.OneUI3Theme;
         int altTheme = mUseOUI4Theme ? R.style.OneUI4AboutTheme : R.style.OneUI3AboutTheme;
-
         setTheme(mUseAltTheme ? altTheme : normalTheme);
         new ThemeUtil(this);
 
         super.onCreate(savedInstanceState);
+
+        int normalThemeNavBar = mUseOUI4Theme ? R.color.sesl4_round_and_bgcolor : R.color.sesl_round_and_bgcolor;
+        int altThemeNavBar = R.color.splash_background;
+        getWindow().setNavigationBarColor(getResources().getColor(mUseAltTheme ? altThemeNavBar : normalThemeNavBar));
     }
 
     protected void switchOUITheme() {

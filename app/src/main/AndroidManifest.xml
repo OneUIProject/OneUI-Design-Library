@@ -15,9 +15,6 @@
         <meta-data
             android:name="com.samsung.android.icon_container.has_icon_container"
             android:value="true" />
-        <meta-data
-            android:name="com.samsung.android.icon_container.feature_appicon"
-            android:value="ADAPTIVEICON_SHADOW" />
 
         <activity android:name=".SwitchBarActivity" />
         <activity
@@ -30,6 +27,9 @@
             android:name=".SplashActivity"
             android:theme="@style/OneUISplashTheme"
             android:exported="true">
+            <meta-data
+                android:name="com.sec.android.app.launcher.icon_theme" android:value="themeColor"/>
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
