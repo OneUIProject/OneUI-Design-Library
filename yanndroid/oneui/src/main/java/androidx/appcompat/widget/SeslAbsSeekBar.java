@@ -46,6 +46,7 @@ import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.widget.ProgressBar;
 
 public abstract class SeslAbsSeekBar extends ProgressBar {
+    private boolean mIsOneUI4;
     public static final boolean IS_BASE_SDK_VERSION;
 
     static {
@@ -196,6 +197,7 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         this.mSetDualColorMode = false;
         this.mPreviousHoverPopupType = 0;
         this.mIsSeamless = false;
+        this.mIsOneUI4 = var1.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
         TypedArray var5 = var1.obtainStyledAttributes(var2, R.styleable.SeslAbsSeekBar, var3, var4);
         if (Build.VERSION.SDK_INT >= 29) {
             this.saveAttributeDataForStyleable(var1, R.styleable.SeslAbsSeekBar, var2, var5, var3, var4);
@@ -225,9 +227,9 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         }
 
         this.mSplitTrack = var5.getBoolean(R.styleable.SeslAbsSeekBar_android_splitTrack, false);
-        this.mTrackMinWidth = var5.getDimensionPixelSize(R.styleable.SeslAbsSeekBar_seslTrackMinWidth, Math.round(var6.getDimension(R.dimen.sesl_seekbar_track_height)));
+        this.mTrackMinWidth = var5.getDimensionPixelSize(R.styleable.SeslAbsSeekBar_seslTrackMinWidth, Math.round(var6.getDimension(mIsOneUI4 ? R.dimen.sesl4_seekbar_track_height : R.dimen.sesl_seekbar_track_height)));
         this.mTrackMaxWidth = var5.getDimensionPixelSize(R.styleable.SeslAbsSeekBar_seslTrackMaxWidth, Math.round(var6.getDimension(R.dimen.sesl_seekbar_track_height_expand)));
-        this.mThumbRadius = var5.getDimensionPixelSize(R.styleable.SeslAbsSeekBar_seslThumbRadius, Math.round(var6.getDimension(R.dimen.sesl_seekbar_thumb_radius)));
+        this.mThumbRadius = var5.getDimensionPixelSize(R.styleable.SeslAbsSeekBar_seslThumbRadius, Math.round(var6.getDimension(mIsOneUI4 ? R.dimen.sesl4_seekbar_thumb_radius : R.dimen.sesl_seekbar_thumb_radius)));
         this.setThumbOffset(var5.getDimensionPixelOffset(R.styleable.SeslAbsSeekBar_android_thumbOffset, this.getThumbOffset()));
         if (var5.hasValue(R.styleable.SeslAbsSeekBar_seslSeekBarMode)) {
             super.mCurrentMode = var5.getInt(R.styleable.SeslAbsSeekBar_seslSeekBarMode, 0);
@@ -247,11 +249,11 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         this.applyTickMarkTint();
         this.mScaledTouchSlop = ViewConfiguration.get(var1).getScaledTouchSlop();
         this.mIsLightTheme = SeslMisc.isLightTheme(var1);
-        this.mDefaultNormalProgressColor = this.colorToColorStateList(var6.getColor(R.color.sesl_seekbar_control_color_default, var1.getTheme()));
+        this.mDefaultNormalProgressColor = this.colorToColorStateList(var6.getColor(mIsOneUI4 ? R.color.sesl4_seekbar_control_color_default : R.color.sesl_seekbar_control_color_default, var1.getTheme()));
         this.mDefaultSecondaryProgressColor = this.colorToColorStateList(var6.getColor(R.color.sesl_seekbar_control_color_secondary, var1.getTheme()));
         this.mDefaultActivatedProgressColor = this.colorToColorStateList(getColor(var1, R.attr.colorPrimary));
-        this.mOverlapNormalProgressColor = this.colorToColorStateList(var6.getColor(R.color.sesl_seekbar_overlap_color_default, var1.getTheme()));
-        this.mOverlapActivatedProgressColor = this.colorToColorStateList(var6.getColor(R.color.sesl_seekbar_overlap_color_activated, var1.getTheme()));
+        this.mOverlapNormalProgressColor = this.colorToColorStateList(var6.getColor(mIsOneUI4 ? R.color.sesl4_seekbar_overlap_color_default : R.color.sesl_seekbar_overlap_color_default, var1.getTheme()));
+        this.mOverlapActivatedProgressColor = this.colorToColorStateList(var6.getColor(mIsOneUI4 ? R.color.sesl4_seekbar_overlap_color_activated : R.color.sesl_seekbar_overlap_color_activated, var1.getTheme()));
         this.mOverlapActivatedThumbColor = this.mOverlapActivatedProgressColor;
         this.mDefaultActivatedThumbColor = this.getThumbTintList();
         if (this.mDefaultActivatedThumbColor == null) {

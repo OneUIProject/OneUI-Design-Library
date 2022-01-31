@@ -15,11 +15,14 @@
     <dimen name="sesl_text_size_title">20.0sp</dimen>
     <dimen name="sesl_toolbar_title_text_size">19.0sp</dimen>
     <dimen name="sesl_progress_bar_min_height">16.0dip</dimen>
+    <dimen name="sesl4_progress_bar_min_height">21.0dip</dimen>
 
     <dimen name="sesl_seekbar_padding_horizontal">16.0dip</dimen>
     <dimen name="sesl_seekbar_ripple_radius">16.0dip</dimen>
     <dimen name="sesl_seekbar_thumb_radius">8.5dp</dimen>
+    <dimen name="sesl4_seekbar_thumb_radius">10.0dip</dimen>
     <dimen name="sesl_seekbar_track_height">3.0dip</dimen>
+    <dimen name="sesl4_seekbar_track_height">4.0dip</dimen>
     <dimen name="sesl_seekbar_track_height_expand">17.0dip</dimen>
 
     <dimen name="spacing_vertical_small">16.0dip</dimen>

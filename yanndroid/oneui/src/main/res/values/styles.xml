@@ -129,8 +129,7 @@
     </style>
 
     <style name="ProgressBarStyle.Horizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
-        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal
-        </item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
         <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
     </style>
 
@@ -312,8 +311,7 @@
         <item name="android:focusable">true</item>
         <item name="android:maxHeight">@dimen/sesl_progress_bar_min_height</item>
         <item name="android:indeterminateOnly">false</item>
-        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal
-        </item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
         <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
         <item name="android:minHeight">@dimen/sesl_progress_bar_min_height</item>
         <item name="android:thumb">@drawable/sesl_scrubber_control_anim</item>
@@ -950,6 +948,7 @@
 
         <item name="seslSwitchBarStyle">@style/OneUI4.SeslSwitchBarStyle</item>
         <item name="switchStyle">@style/OneUI4.SwitchStyle</item>
+        <item name="seekBarStyle">@style/OneUI4.SeekBarStyle</item>
 
         <item name="listChoiceBackgroundIndicator">@drawable/sesl4_list_selector</item>
 
@@ -1010,6 +1009,16 @@
         <item name="android:indeterminateDrawable">@drawable/sesl_progress_bar_horizontal_large</item>
         <item name="android:progressDrawable">@drawable/sesl_progress_bar_horizontal_large</item>
         <item name="android:minHeight">@dimen/progress_bar_height</item>
+    </style>
+
+
+    <!--Seekbar-->
+    <style name="OneUI4.SeekBarStyle" parent="@style/SeekBarStyle">
+        <item name="android:maxHeight">@dimen/sesl4_progress_bar_min_height</item>
+        <item name="android:indeterminateDrawable">@drawable/sesl4_scrubber_progress_horizontal</item>
+        <item name="android:progressDrawable">@drawable/sesl4_scrubber_progress_horizontal</item>
+        <item name="android:minHeight">@dimen/sesl4_progress_bar_min_height</item>
+        <item name="android:thumb">@drawable/sesl4_scrubber_control_anim</item>
     </style>
 
 

@@ -46,6 +46,7 @@
 
     <!--Seekbar-->
     <color name="sesl_seekbar_disable_color_activated">#ff545454</color>
+    <color name="sesl4_seekbar_overlap_color_activated">#ffff6021</color>
     <color name="sesl_seekbar_overlap_color_default">#ff673724</color>
 
 
