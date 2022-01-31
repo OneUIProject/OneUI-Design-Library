@@ -135,6 +135,7 @@
     <color name="sesl_menu_popup_background_stroke_color">#fffcfcfc</color>
     <color name="sesl4_menu_popup_background_color">#fffcfcfc</color>
     <color name="sesl4_menu_popup_background_stroke_color">#fffcfcfc</color>
+    <color name="sesl_popup_menu_blur_background">#e6fcfcfc</color>
     <color name="sesl_popup_menu_item_text_color_checked">?colorPrimaryDark</color>
     <color name="sesl_spinner_dropdown_item_checkmark">?colorPrimaryDark</color>
     <color name="sesl_spinner_dropdown_item_text_color_disabled">#66000000</color>

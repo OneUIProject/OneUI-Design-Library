@@ -2,6 +2,7 @@ package androidx.reflect;
 
 import android.util.Log;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -201,6 +202,15 @@ public class SeslBaseReflector {
             Log.e(TAG, field.getName() + " IllegalAccessException", e);
         } catch (IllegalArgumentException e2) {
             Log.e(TAG, field.getName() + " IllegalArgumentException", e2);
+        }
+    }
+
+    public static Constructor<?> getConstructor(String str, Class<?>... clsArr) {
+        try {
+            return Class.forName(str).getDeclaredConstructor(clsArr);
+        } catch (ClassNotFoundException | NoSuchMethodException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

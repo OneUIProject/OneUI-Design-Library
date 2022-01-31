@@ -27,4 +27,13 @@ public class SeslSystemReflector {
         }
         return obj instanceof String ? (String) obj : "pen_hovering";
     }
+
+    public static String getField_SEM_ACCESSIBILITY_REDUCE_TRANSPARENCY() {
+        Method declaredMethod;
+        Object obj = null;
+        if (Build.VERSION.SDK_INT >= 31 && (declaredMethod = SeslBaseReflector.getDeclaredMethod(mClass, "hidden_SEM_ACCESSIBILITY_REDUCE_TRANSPARENCY", new Class[0])) != null) {
+            obj = SeslBaseReflector.invoke(null, declaredMethod, new Object[0]);
+        }
+        return obj instanceof String ? (String) obj : "not_supported";
+    }
 }
