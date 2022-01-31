@@ -8,7 +8,10 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.SystemClock;
 import android.util.AttributeSet;
+
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +33,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
     private int mValue = Color.BLACK;
     private ArrayList<Integer> mUsedColors = new ArrayList();
 
+    private long mLastClickTime;
     private boolean mAlphaSliderEnabled = false;
     private int mPickerType = CLASSIC;
 
@@ -68,8 +72,8 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
     }
 
     @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        onColorSet(restoreValue ? getPersistedInt(mValue) : (Integer) defaultValue);
+    protected void onSetInitialValue(Object defaultValue) {
+        onColorSet(defaultValue == null ? getPersistedInt(mValue) : (Integer) defaultValue);
     }
 
     private void init(Context context, AttributeSet attrs) {
@@ -84,7 +88,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder) {
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         mViewHolder = holder;
         mPreview = (PreferenceImageView) holder.findViewById(R.id.imageview_widget);
@@ -115,8 +119,12 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
     }
 
     @Override
-    public boolean onPreferenceClick(Preference preference) {
-        showDialog(null);
+    public boolean onPreferenceClick(@NonNull Preference preference) {
+        long uptimeMillis = SystemClock.uptimeMillis();
+        if (uptimeMillis - mLastClickTime > 600L) {
+            showDialog(null);
+        }
+        mLastClickTime = uptimeMillis;
         return false;
     }
 
