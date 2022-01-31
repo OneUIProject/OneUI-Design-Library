@@ -2,6 +2,7 @@ package androidx.reflect.view;
 
 import android.graphics.Rect;
 import android.os.Build;
+import android.util.Log;
 import android.view.PointerIcon;
 import android.view.View;
 
@@ -11,6 +12,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public class SeslViewReflector {
+    private static final String TAG = "SeslViewReflector";
     private static final Class<?> mClass = View.class;
 
     private SeslViewReflector() {
@@ -163,6 +165,19 @@ public class SeslViewReflector {
             }
         }
         return false;
+    }
+
+    public static void semSetBlurInfo(View view, Object obj) {
+        if (Build.VERSION.SDK_INT >= 31) {
+            try {
+                Method declaredMethod = SeslBaseReflector.getDeclaredMethod(mClass, "hidden_semSetBlurInfo", Class.forName("android.view.SemBlurInfo"));
+                if (declaredMethod != null) {
+                    SeslBaseReflector.invoke(view, declaredMethod, obj);
+                }
+            } catch (ClassNotFoundException e) {
+                Log.e(TAG, "semSetBlurInfo ClassNotFoundException", e);
+            }
+        }
     }
 
     public static void semSetPointerIcon(View view, int i, PointerIcon pointerIcon) {
