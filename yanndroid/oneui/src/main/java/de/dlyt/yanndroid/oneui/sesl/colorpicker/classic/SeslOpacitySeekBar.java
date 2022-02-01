@@ -4,9 +4,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
+import android.widget.SeekBar;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.widget.SeekBar;
 
 class SeslOpacitySeekBar extends SeekBar {
     private static final int SEEKBAR_MAX_VALUE = 255;
@@ -49,6 +49,7 @@ class SeslOpacitySeekBar extends SeekBar {
         this.setProgressDrawable(this.mProgressDrawable);
         this.setThumb(this.getContext().getResources().getDrawable(R.drawable.sesl_color_picker_seekbar_cursor, getContext().getTheme()));
         this.setThumbOffset(0);
+        this.setSplitTrack(false);
     }
 
     void restoreColor(int var1) {

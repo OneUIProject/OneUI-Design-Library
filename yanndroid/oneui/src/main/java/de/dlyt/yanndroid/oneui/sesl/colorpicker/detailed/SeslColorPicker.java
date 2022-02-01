@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -32,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.widget.SeekBar;
 
 public class SeslColorPicker extends LinearLayout implements View.OnClickListener {
     private static final int CURRENT_COLOR_VIEW = 0;
