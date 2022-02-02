@@ -33,22 +33,32 @@
                 android:layout_marginVertical="10dp"
                 android:orientation="vertical">
 
-
                 <de.dlyt.yanndroid.oneui.widget.ProgressBar
-                    android:id="@+id/progressbar"
                     style="?android:progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:indeterminate="true" />
 
                 <de.dlyt.yanndroid.oneui.widget.ProgressBar
-                    style="@style/ProgressBarStyle.Horizontal.Large"
-                    android:indeterminate="true" />
+                    android:id="@+id/pgb1"
+                    style="?android:progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <de.dlyt.yanndroid.oneui.widget.ProgressBar
+                    android:id="@+id/pgb2"
+                    style="@style/ProgressBarStyle.Horizontal.Large" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
+                    <de.dlyt.yanndroid.oneui.widget.ProgressBar
+                        android:id="@+id/pgb3"
+                        style="?android:progressBarStyleLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                     <de.dlyt.yanndroid.oneui.widget.ProgressBar
                         style="?android:progressBarStyleLarge"
@@ -269,8 +279,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
                     android:hint="EditText"
-                    android:maxLines="1"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:maxLines="1" />
 
                 <androidx.appcompat.widget.SeslSpinner
                     android:id="@+id/spinner"
