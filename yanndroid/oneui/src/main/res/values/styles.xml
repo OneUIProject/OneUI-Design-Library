@@ -129,8 +129,8 @@
     </style>
 
     <style name="ProgressBarStyle.Horizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
-        <item name="android:indeterminateDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
-        <item name="android:progressDrawable">@drawable/sesl_scrubber_progress_horizontal</item>
+        <item name="android:indeterminateDrawable">@drawable/sesl_progress_indeterminate_horizontal</item>
+        <item name="android:progressDrawable">@drawable/sesl_progress_horizontal</item>
     </style>
 
     <style name="ProgressBarStyle.Horizontal.Large" parent="@android:style/Widget.ProgressBar.Horizontal">
@@ -994,10 +994,9 @@
     </style>
 
     <style name="OneUI4.ProgressBarStyle.Horizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
-        <!-- OUI 4 indeterminate drawable is sorta of broken -->
-        <!--<item name="android:indeterminateDrawable">@drawable/sesl4_progress_bar_indeterminate_xlarge_transition</item>-->
+        <item name="android:indeterminateDrawable">@drawable/sesl_progress_bar_indeterminate_xlarge_transition</item>
         <item name="android:progressDrawable">@drawable/sesl4_progress_horizontal</item>
-        <item name="android:indeterminateDrawable">@drawable/sesl4_progress_horizontal</item>
+        <item name="useHorizontalProgress">true</item>
     </style>
 
     <style name="OneUI4.ProgressBarStyle.Horizontal.Large" parent="@android:style/Widget.ProgressBar.Horizontal">
@@ -1014,10 +1013,8 @@
 
     <!--Seekbar-->
     <style name="OneUI4.SeekBarStyle" parent="@style/SeekBarStyle">
-        <item name="android:maxHeight">@dimen/sesl4_progress_bar_min_height</item>
         <item name="android:indeterminateDrawable">@drawable/sesl4_scrubber_progress_horizontal</item>
         <item name="android:progressDrawable">@drawable/sesl4_scrubber_progress_horizontal</item>
-        <item name="android:minHeight">@dimen/sesl4_progress_bar_min_height</item>
         <item name="android:thumb">@drawable/sesl4_scrubber_control_anim</item>
     </style>
 

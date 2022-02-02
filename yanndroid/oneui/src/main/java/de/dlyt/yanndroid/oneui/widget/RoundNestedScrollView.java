@@ -5,10 +5,9 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 
-import androidx.appcompat.util.SeslRoundedCorner;
+import de.dlyt.yanndroid.oneui.sesl.utils.SeslRoundedCorner;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.widget.NestedScrollView;
 
 public class RoundNestedScrollView extends NestedScrollView {
     SeslRoundedCorner mSeslRoundedCorner;

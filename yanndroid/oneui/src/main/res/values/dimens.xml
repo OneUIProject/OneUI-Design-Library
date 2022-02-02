@@ -2,11 +2,6 @@
 <resources>
     <dimen name="rounded_corner_size">26dp</dimen>
     <item name="sesl_disabled_color_alpha" type="dimen">0.4</item>
-    <dimen name="sesl_progress_circle_size">60.0dip</dimen>
-    <dimen name="sesl_progress_bar_size_large">60.0dip</dimen>
-    <dimen name="sesl_progress_bar_size_small">24.0dip</dimen>
-    <dimen name="sesl_progress_bar_height">3.0dip</dimen>
-    <dimen name="sesl_progress_bar_size_small_title">16.0dip</dimen>
     <dimen name="sesl_switchbar_height">64.0dip</dimen>
     <dimen name="sesl_switchbar_margin_end">24.0dip</dimen>
     <dimen name="sesl_switchbar_margin_start">24.0dip</dimen>
@@ -14,16 +9,6 @@
     <dimen name="sesl_text_size_body_1">14.0sp</dimen>
     <dimen name="sesl_text_size_title">20.0sp</dimen>
     <dimen name="sesl_toolbar_title_text_size">19.0sp</dimen>
-    <dimen name="sesl_progress_bar_min_height">16.0dip</dimen>
-    <dimen name="sesl4_progress_bar_min_height">21.0dip</dimen>
-
-    <dimen name="sesl_seekbar_padding_horizontal">16.0dip</dimen>
-    <dimen name="sesl_seekbar_ripple_radius">16.0dip</dimen>
-    <dimen name="sesl_seekbar_thumb_radius">8.5dp</dimen>
-    <dimen name="sesl4_seekbar_thumb_radius">10.0dip</dimen>
-    <dimen name="sesl_seekbar_track_height">3.0dip</dimen>
-    <dimen name="sesl4_seekbar_track_height">4.0dip</dimen>
-    <dimen name="sesl_seekbar_track_height_expand">17.0dip</dimen>
 
     <dimen name="spacing_vertical_small">16.0dip</dimen>
     <dimen name="spacing_vertical_tiny">10.0dip</dimen>
@@ -94,6 +79,42 @@
     <dimen name="sesl_spinner_item_top_padding">4.0dip</dimen>
 
     <dimen name="sesl_checked_text_padding">18.0dip</dimen>
+
+
+    <!-- ProgressBar -->
+    <dimen name="sesl_progress_bar_height">3.0dip</dimen>
+    <dimen name="sesl4_progress_bar_height">4.0dip</dimen>
+    <dimen name="sesl_progress_bar_size_large">60.0dip</dimen>
+    <dimen name="sesl_progress_bar_size_small">24.0dip</dimen>
+    <dimen name="sesl_progress_bar_size_small_title">16.0dip</dimen>
+    <dimen name="sesl_progress_bar_min_height">21.0dip</dimen>
+    <dimen name="sesl_progress_bar_indeterminate_large">1919.0dip</dimen>
+    <dimen name="sesl_progress_bar_indeterminate_medium">959.0dip</dimen>
+    <dimen name="sesl_progress_bar_indeterminate_small">719.0dip</dimen>
+    <dimen name="sesl_progress_bar_indeterminate_xsmall">479.0dip</dimen>
+    <dimen name="sesl_progress_bar_size_xlarge">75.0dip</dimen>
+    <dimen name="sesl_progress_circle_size">60.0dip</dimen>
+    <dimen name="sesl_progress_circle_size_large_padding">2.5dip</dimen>
+    <dimen name="sesl_progress_circle_size_large_width">8.799988dip</dimen>
+    <dimen name="sesl_progress_circle_size_small_padding">1.0dip</dimen>
+    <dimen name="sesl_progress_circle_size_small_title_padding">0.70000005dip</dimen>
+    <dimen name="sesl_progress_circle_size_small_title_width">2.2999878dip</dimen>
+    <dimen name="sesl_progress_circle_size_small_width">3.5dip</dimen>
+    <dimen name="sesl_progress_circle_size_xlarge_padding">3.0999756dip</dimen>
+    <dimen name="sesl_progress_circle_size_xlarge_width">10.899994dip</dimen>
+    <dimen name="sesl_progress_circle_thickness">2.5dip</dimen>
+
+    <dimen name="sesl_seekbar_padding_horizontal">16.0dip</dimen>
+    <dimen name="sesl_seekbar_ripple_radius">16.0dip</dimen>
+    <dimen name="sesl_seekbar_thumb_radius">8.5dip</dimen>
+    <dimen name="sesl4_seekbar_thumb_radius">10.0dip</dimen>
+    <dimen name="sesl_seekbar_track_height">3.0dip</dimen>
+    <dimen name="sesl4_seekbar_track_height">4.0dip</dimen>
+    <dimen name="sesl_seekbar_track_height_expand">17.0dip</dimen>
+
+
+
+
 
 
     <!--Popup-->
@@ -470,9 +491,6 @@
     <!--#############-->
     <!--#  OneUI  4 #-->
     <!--#############-->
-
-    <dimen name="sesl4_progress_bar_height">4.0dip</dimen>
-
     <item name="sesl4_appbar_height_proportion" type="dimen">0.0</item>
     <dimen name="sesl4_action_bar_default_height">64.0dip</dimen>
     <dimen name="sesl4_action_bar_height_with_padding">80.0dip</dimen>

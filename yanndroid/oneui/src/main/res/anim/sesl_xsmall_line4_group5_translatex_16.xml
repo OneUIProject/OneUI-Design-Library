@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set android:ordering="together"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <set android:ordering="sequentially">
+        <objectAnimator android:duration="666" android:valueFrom="81.5" android:valueTo="81.5" android:propertyName="translateX" />
+        <objectAnimator android:interpolator="@anim/sesl_easing_sine_in_out_90" android:duration="1250" android:valueFrom="81.5" android:valueTo="1247.875" android:propertyName="translateX" />
+    </set>
+</set>

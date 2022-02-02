@@ -6,8 +6,12 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.AnimatedVectorDrawable;
@@ -23,12 +27,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.FloatProperty;
+import android.util.IntProperty;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewDebug;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
@@ -36,14 +44,15 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.Transformation;
 import android.widget.RemoteViews;
 
+import androidx.annotation.IntDef;
 import androidx.annotation.InterpolatorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
-import androidx.annotation.RestrictTo;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.DrawableUtils;
 import androidx.appcompat.widget.ViewUtils;
-import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.util.Pools;
 import androidx.core.view.ViewCompat;
@@ -61,1413 +70,847 @@ import de.dlyt.yanndroid.oneui.R;
 
 @RemoteViews.RemoteView
 public class ProgressBar extends View {
+    private boolean mIsOneUI4;
+    private static final int MAX_LEVEL = 10000;
+    public static final int MODE_CIRCLE = 7;
     public static final int MODE_DUAL_COLOR = 2;
     public static final int MODE_EXPAND = 5;
     public static final int MODE_EXPAND_VERTICAL = 6;
     public static final int MODE_SPLIT = 4;
+    protected static final int MODE_STANDARD = 0;
     public static final int MODE_VERTICAL = 3;
     public static final int MODE_WARNING = 1;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    protected static final int MODE_STANDARD = 0;
-    private static final int MAX_LEVEL = 10000;
+    @IntDef(value = {MODE_STANDARD, MODE_WARNING, MODE_DUAL_COLOR, MODE_VERTICAL, MODE_SPLIT, MODE_EXPAND, MODE_EXPAND_VERTICAL, MODE_CIRCLE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface SeekBarMode { }
     private static final int PROGRESS_ANIM_DURATION = 80;
     private static final DecelerateInterpolator PROGRESS_ANIM_INTERPOLATOR = new DecelerateInterpolator();
     private static final int TIMEOUT_SEND_ACCESSIBILITY_EVENT = 200;
-    private final FloatProperty<ProgressBar> VISUAL_PROGRESS;
-    private final ArrayList<RefreshData> mRefreshData;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public
-    int mMaxHeight;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public
-    int mMaxWidth;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public
-    int mMinHeight;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public
-    int mMinWidth;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public
-    boolean mMirrorForRtl;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    protected int mCurrentMode;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    protected float mDensity;
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    int mSampleWidth;
     private AccessibilityEventSender mAccessibilityEventSender;
     private boolean mAggregatedIsVisible;
     private AlphaAnimation mAnimation;
     private boolean mAttached;
     private int mBehavior;
     private CircleAnimationCallback mCircleAnimationCallback;
+    private int mCirclePadding;
     private Drawable mCurrentDrawable;
+    protected int mCurrentMode = MODE_STANDARD;
+    protected float mDensity;
     private int mDuration;
     private boolean mHasAnimation;
     private boolean mInDrawing;
     private boolean mIndeterminate;
     private Drawable mIndeterminateDrawable;
+    private Drawable mIndeterminateHorizontalLarge;
+    private Drawable mIndeterminateHorizontalMedium;
+    private Drawable mIndeterminateHorizontalSmall;
+    private Drawable mIndeterminateHorizontalXlarge;
+    private Drawable mIndeterminateHorizontalXsmall;
     private Interpolator mInterpolator;
     private int mMax;
+    protected int mMaxHeight;
     private boolean mMaxInitialized;
+    protected int mMaxWidth;
     private int mMin;
+    protected int mMinHeight;
     private boolean mMinInitialized;
+    protected int mMinWidth;
+    protected boolean mMirrorForRtl = false;
     private boolean mNoInvalidate;
     private boolean mOnlyIndeterminate;
     private int mProgress;
     private Drawable mProgressDrawable;
     private ProgressTintInfo mProgressTintInfo;
+    private final ArrayList<RefreshData> mRefreshData = new ArrayList<RefreshData>();
     private boolean mRefreshIsPosted;
     private RefreshProgressRunnable mRefreshProgressRunnable;
+    private int mRoundStrokeWidth;
+    int mSampleWidth = 0;
     private int mSecondaryProgress;
     private boolean mShouldStartAnimationDrawable;
     private Transformation mTransformation;
     private long mUiThreadId;
+    private boolean mUseHorizontalProgress = false;
     private float mVisualProgress;
+
+    private final FloatProperty<ProgressBar> VISUAL_PROGRESS = new FloatProperty<ProgressBar>("visual_progress") {
+        @Override
+        public void setValue(ProgressBar object, float value) {
+            object.setVisualProgress(android.R.id.progress, value);
+            object.mVisualProgress = value;
+        }
+
+        @Override
+        public Float get(ProgressBar object) {
+            return object.mVisualProgress;
+        }
+    };
 
     public ProgressBar(Context context) {
         this(context, null);
     }
 
-    public ProgressBar(Context context, AttributeSet attributeSet) {
-        this(context, attributeSet, 16842871);
+    public ProgressBar(Context context, AttributeSet attrs) {
+        this(context, attrs, android.R.attr.progressBarStyle);
     }
 
-    public ProgressBar(Context context, AttributeSet attributeSet, int i) {
-        this(context, attributeSet, i, 0);
+    public ProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
+        this(context, attrs, defStyleAttr, 0);
     }
 
     @SuppressLint("RestrictedApi")
-    public ProgressBar(Context context, AttributeSet attributeSet, int i, int i2) {
-        super(context, attributeSet, i, i2);
-        boolean z = false;
-        this.mCurrentMode = 0;
-        this.mSampleWidth = 0;
-        this.mMirrorForRtl = false;
-        this.mRefreshData = new ArrayList<>();
-        this.VISUAL_PROGRESS = new FloatProperty<ProgressBar>("visual_progress") {
-            /* class de.dlyt.yanndroid.samsung.SeslProgressBar.AnonymousClass1 */
+    public ProgressBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
 
-            public Float get(ProgressBar seslProgressBar) {
-                return Float.valueOf(seslProgressBar.mVisualProgress);
-            }
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
 
-            public void setValue(ProgressBar seslProgressBar, float f) {
-                seslProgressBar.setVisualProgress(R.id.progress, f);
-                seslProgressBar.mVisualProgress = f;
-            }
-        };
-        this.mUiThreadId = Thread.currentThread().getId();
+        mUiThreadId = Thread.currentThread().getId();
         initProgressBar();
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ProgressBar, i, i2);
+
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ProgressBar, defStyleAttr, defStyleRes);
         if (Build.VERSION.SDK_INT >= 29) {
-            saveAttributeDataForStyleable(context, R.styleable.ProgressBar, attributeSet, obtainStyledAttributes, i, i2);
+            saveAttributeDataForStyleable(context, R.styleable.ProgressBar, attrs, a, defStyleAttr, defStyleRes);
         }
-        this.mNoInvalidate = true;
-        Drawable drawable = obtainStyledAttributes.getDrawable(R.styleable.ProgressBar_android_progressDrawable);
-        if (drawable != null) {
-            if (needsTileify(drawable)) {
-                setProgressDrawableTiled(drawable);
+
+        mNoInvalidate = true;
+
+        final Drawable progressDrawable = a.getDrawable(R.styleable.ProgressBar_android_progressDrawable);
+        if (progressDrawable != null) {
+            if (needsTileify(progressDrawable)) {
+                setProgressDrawableTiled(progressDrawable);
             } else {
-                setProgressDrawable(drawable);
+                setProgressDrawable(progressDrawable);
             }
         }
-        this.mDuration = obtainStyledAttributes.getInt(R.styleable.ProgressBar_android_indeterminateDuration, this.mDuration);
-        this.mMinWidth = obtainStyledAttributes.getDimensionPixelSize(R.styleable.ProgressBar_android_minWidth, this.mMinWidth);
-        this.mMaxWidth = obtainStyledAttributes.getDimensionPixelSize(R.styleable.ProgressBar_android_maxWidth, this.mMaxWidth);
-        this.mMinHeight = obtainStyledAttributes.getDimensionPixelSize(R.styleable.ProgressBar_android_minHeight, this.mMinHeight);
-        this.mMaxHeight = obtainStyledAttributes.getDimensionPixelSize(R.styleable.ProgressBar_android_maxHeight, this.mMaxHeight);
-        this.mBehavior = obtainStyledAttributes.getInt(R.styleable.ProgressBar_android_indeterminateBehavior, this.mBehavior);
-        int resourceId = obtainStyledAttributes.getResourceId(R.styleable.ProgressBar_android_interpolator, 17432587);
-        if (resourceId > 0) {
-            setInterpolator(context, resourceId);
+
+        mDuration = a.getInt(R.styleable.ProgressBar_android_indeterminateDuration, mDuration);
+
+        mMinWidth = a.getDimensionPixelSize(R.styleable.ProgressBar_android_minWidth, mMinWidth);
+        mMaxWidth = a.getDimensionPixelSize(R.styleable.ProgressBar_android_maxWidth, mMaxWidth);
+        mMinHeight = a.getDimensionPixelSize(R.styleable.ProgressBar_android_minHeight, mMinHeight);
+        mMaxHeight = a.getDimensionPixelSize(R.styleable.ProgressBar_android_maxHeight, mMaxHeight);
+
+        mBehavior = a.getInt(R.styleable.ProgressBar_android_indeterminateBehavior, mBehavior);
+
+        final int resID = a.getResourceId(R.styleable.ProgressBar_android_interpolator, android.R.anim.linear_interpolator);
+        if (resID > 0) {
+            setInterpolator(context, resID);
         }
-        setMin(obtainStyledAttributes.getInt(R.styleable.ProgressBar_android_min, this.mMin));
-        setMax(obtainStyledAttributes.getInt(R.styleable.ProgressBar_android_max, this.mMax));
-        setProgress(obtainStyledAttributes.getInt(R.styleable.ProgressBar_android_progress, this.mProgress));
-        setSecondaryProgress(obtainStyledAttributes.getInt(R.styleable.ProgressBar_android_secondaryProgress, this.mSecondaryProgress));
-        Drawable drawable2 = obtainStyledAttributes.getDrawable(R.styleable.ProgressBar_android_indeterminateDrawable);
-        if (drawable2 != null) {
-            if (needsTileify(drawable2)) {
-                setIndeterminateDrawableTiled(drawable2);
+
+        setMin(a.getInt(R.styleable.ProgressBar_android_min, mMin));
+        setMax(a.getInt(R.styleable.ProgressBar_android_max, mMax));
+
+        setProgress(a.getInt(R.styleable.ProgressBar_android_progress, mProgress));
+
+        setSecondaryProgress(a.getInt(R.styleable.ProgressBar_android_secondaryProgress, mSecondaryProgress));
+
+        final Drawable indeterminateDrawable = a.getDrawable(R.styleable.ProgressBar_android_indeterminateDrawable);
+        if (indeterminateDrawable != null) {
+            if (needsTileify(indeterminateDrawable)) {
+                setIndeterminateDrawableTiled(indeterminateDrawable);
             } else {
-                setIndeterminateDrawable(drawable2);
+                setIndeterminateDrawable(indeterminateDrawable);
             }
         }
-        boolean z2 = obtainStyledAttributes.getBoolean(R.styleable.ProgressBar_android_indeterminateOnly, this.mOnlyIndeterminate);
-        this.mOnlyIndeterminate = z2;
-        this.mNoInvalidate = false;
-        setIndeterminate((z2 || obtainStyledAttributes.getBoolean(R.styleable.ProgressBar_android_indeterminate, this.mIndeterminate)) ? true : z);
-        this.mMirrorForRtl = obtainStyledAttributes.getBoolean(R.styleable.ProgressBar_android_mirrorForRtl, this.mMirrorForRtl);
-        if (obtainStyledAttributes.hasValue(R.styleable.ProgressBar_android_progressTintMode)) {
-            if (this.mProgressTintInfo == null) {
-                this.mProgressTintInfo = new ProgressTintInfo();
+
+        mOnlyIndeterminate = a.getBoolean(R.styleable.ProgressBar_android_indeterminateOnly, mOnlyIndeterminate);
+
+        mNoInvalidate = false;
+
+        setIndeterminate(mOnlyIndeterminate || a.getBoolean(R.styleable.ProgressBar_android_indeterminate, mIndeterminate));
+
+        mMirrorForRtl = a.getBoolean(R.styleable.ProgressBar_android_mirrorForRtl, mMirrorForRtl);
+
+        if (a.hasValue(R.styleable.ProgressBar_android_progressTintMode)) {
+            if (mProgressTintInfo == null) {
+                mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mProgressTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(R.styleable.ProgressBar_android_progressTintMode, -1), null);
-            this.mProgressTintInfo.mHasProgressTintMode = true;
+            mProgressTintInfo.mProgressTintMode = DrawableUtils.parseTintMode(a.getInt(R.styleable.ProgressBar_android_progressTintMode, -1), null);
+            mProgressTintInfo.mHasProgressTintMode = true;
         }
-        if (obtainStyledAttributes.hasValue(R.styleable.ProgressBar_android_progressTint)) {
-            if (this.mProgressTintInfo == null) {
-                this.mProgressTintInfo = new ProgressTintInfo();
+
+        if (a.hasValue(R.styleable.ProgressBar_android_progressTint)) {
+            if (mProgressTintInfo == null) {
+                mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mProgressTintList = obtainStyledAttributes.getColorStateList(R.styleable.ProgressBar_android_progressTint);
-            this.mProgressTintInfo.mHasProgressTint = true;
+            mProgressTintInfo.mProgressTintList = a.getColorStateList(R.styleable.ProgressBar_android_progressTint);
+            mProgressTintInfo.mHasProgressTint = true;
         }
-        if (obtainStyledAttributes.hasValue(R.styleable.ProgressBar_android_progressBackgroundTintMode)) {
-            if (this.mProgressTintInfo == null) {
-                this.mProgressTintInfo = new ProgressTintInfo();
+
+        if (a.hasValue(R.styleable.ProgressBar_android_progressBackgroundTintMode)) {
+            if (mProgressTintInfo == null) {
+                mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mProgressBackgroundTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(R.styleable.ProgressBar_android_progressBackgroundTintMode, -1), null);
-            this.mProgressTintInfo.mHasProgressBackgroundTintMode = true;
+            mProgressTintInfo.mProgressBackgroundTintMode = DrawableUtils.parseTintMode(a.getInt(R.styleable.ProgressBar_android_progressBackgroundTintMode, -1), null);
+            mProgressTintInfo.mHasProgressBackgroundTintMode = true;
         }
-        if (obtainStyledAttributes.hasValue(R.styleable.ProgressBar_android_progressBackgroundTint)) {
-            if (this.mProgressTintInfo == null) {
-                this.mProgressTintInfo = new ProgressTintInfo();
+
+        if (a.hasValue(R.styleable.ProgressBar_android_progressBackgroundTint)) {
+            if (mProgressTintInfo == null) {
+                mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mProgressBackgroundTintList = obtainStyledAttributes.getColorStateList(R.styleable.ProgressBar_android_progressBackgroundTint);
-            this.mProgressTintInfo.mHasProgressBackgroundTint = true;
+            mProgressTintInfo.mProgressBackgroundTintList = a.getColorStateList(R.styleable.ProgressBar_android_progressBackgroundTint);
+            mProgressTintInfo.mHasProgressBackgroundTint = true;
         }
-        if (obtainStyledAttributes.hasValue(R.styleable.ProgressBar_android_secondaryProgressTintMode)) {
-            if (this.mProgressTintInfo == null) {
-                this.mProgressTintInfo = new ProgressTintInfo();
+
+        if (a.hasValue(R.styleable.ProgressBar_android_secondaryProgressTintMode)) {
+            if (mProgressTintInfo == null) {
+                mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mSecondaryProgressTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(R.styleable.ProgressBar_android_secondaryProgressTintMode, -1), null);
-            this.mProgressTintInfo.mHasSecondaryProgressTintMode = true;
+            mProgressTintInfo.mSecondaryProgressTintMode = DrawableUtils.parseTintMode(a.getInt(R.styleable.ProgressBar_android_secondaryProgressTintMode, -1), null);
+            mProgressTintInfo.mHasSecondaryProgressTintMode = true;
         }
-        if (obtainStyledAttributes.hasValue(R.styleable.ProgressBar_android_secondaryProgressTint)) {
-            if (this.mProgressTintInfo == null) {
-                this.mProgressTintInfo = new ProgressTintInfo();
+
+        if (a.hasValue(R.styleable.ProgressBar_android_secondaryProgressTint)) {
+            if (mProgressTintInfo == null) {
+                mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mSecondaryProgressTintList = obtainStyledAttributes.getColorStateList(R.styleable.ProgressBar_android_secondaryProgressTint);
-            this.mProgressTintInfo.mHasSecondaryProgressTint = true;
+            mProgressTintInfo.mSecondaryProgressTintList = a.getColorStateList(R.styleable.ProgressBar_android_secondaryProgressTint);
+            mProgressTintInfo.mHasSecondaryProgressTint = true;
         }
-        if (obtainStyledAttributes.hasValue(R.styleable.ProgressBar_android_indeterminateTintMode)) {
-            if (this.mProgressTintInfo == null) {
-                this.mProgressTintInfo = new ProgressTintInfo();
+
+        if (a.hasValue(R.styleable.ProgressBar_android_indeterminateTintMode)) {
+            if (mProgressTintInfo == null) {
+                mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mIndeterminateTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(R.styleable.ProgressBar_android_indeterminateTintMode, -1), null);
-            this.mProgressTintInfo.mHasIndeterminateTintMode = true;
+            mProgressTintInfo.mIndeterminateTintMode = DrawableUtils.parseTintMode(a.getInt(R.styleable.ProgressBar_android_indeterminateTintMode, -1), null);
+            mProgressTintInfo.mHasIndeterminateTintMode = true;
         }
-        if (obtainStyledAttributes.hasValue(R.styleable.ProgressBar_android_indeterminateTint)) {
-            if (this.mProgressTintInfo == null) {
-                this.mProgressTintInfo = new ProgressTintInfo();
+
+        if (a.hasValue(R.styleable.ProgressBar_android_indeterminateTint)) {
+            if (mProgressTintInfo == null) {
+                mProgressTintInfo = new ProgressTintInfo();
             }
-            this.mProgressTintInfo.mIndeterminateTintList = obtainStyledAttributes.getColorStateList(R.styleable.ProgressBar_android_indeterminateTint);
-            this.mProgressTintInfo.mHasIndeterminateTint = true;
+            mProgressTintInfo.mIndeterminateTintList = a.getColorStateList(R.styleable.ProgressBar_android_indeterminateTint);
+            mProgressTintInfo.mHasIndeterminateTint = true;
         }
-        obtainStyledAttributes.recycle();
+
+        mUseHorizontalProgress = a.getBoolean(R.styleable.ProgressBar_useHorizontalProgress, mUseHorizontalProgress);
+        
+        ContextThemeWrapper contextWrap = new ContextThemeWrapper(context, R.style.OneUI4Theme);
+        mIndeterminateHorizontalXsmall = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_xsmall_transition, contextWrap.getTheme());
+        mIndeterminateHorizontalSmall = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_small_transition, contextWrap.getTheme());
+        mIndeterminateHorizontalMedium = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_medium_transition, contextWrap.getTheme());
+        mIndeterminateHorizontalLarge = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_large_transition, contextWrap.getTheme());
+        mIndeterminateHorizontalXlarge = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_xlarge_transition, contextWrap.getTheme());
+
+        a.recycle();
+
         applyProgressTints();
         applyIndeterminateTint();
-        if (ViewCompat.getImportantForAccessibility(this) == ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_AUTO) {
-            ViewCompat.setImportantForAccessibility(this, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_YES);
+
+        if (getImportantForAccessibility() == View.IMPORTANT_FOR_ACCESSIBILITY_AUTO) {
+            setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
         }
-        this.mDensity = context.getResources().getDisplayMetrics().density;
-        this.mCircleAnimationCallback = new CircleAnimationCallback(this);
+
+        mDensity = context.getResources().getDisplayMetrics().density;
+        mCircleAnimationCallback = new CircleAnimationCallback(this);
     }
 
-    private static boolean needsTileify(Drawable drawable) {
+    public void setMinWidth(@Px int minWidth) {
+        mMinWidth = minWidth;
+        requestLayout();
+    }
+
+    @Px public int getMinWidth() {
+        return mMinWidth;
+    }
+
+    public void setMaxWidth(@Px int maxWidth) {
+        mMaxWidth = maxWidth;
+        requestLayout();
+    }
+
+    @Px public int getMaxWidth() {
+        return mMaxWidth;
+    }
+
+    public void setMinHeight(@Px int minHeight) {
+        mMinHeight = minHeight;
+        requestLayout();
+    }
+
+    @Px public int getMinHeight() {
+        return mMinHeight;
+    }
+
+    public void setMaxHeight(@Px int maxHeight) {
+        mMaxHeight = maxHeight;
+        requestLayout();
+    }
+
+    @Px public int getMaxHeight() {
+        return mMaxHeight;
+    }
+
+    private static boolean needsTileify(Drawable dr) {
+        if (dr instanceof LayerDrawable) {
+            final LayerDrawable orig = (LayerDrawable) dr;
+            final int N = orig.getNumberOfLayers();
+            for (int i = 0; i < N; i++) {
+                if (needsTileify(orig.getDrawable(i))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        if (dr instanceof StateListDrawable) {
+            final StateListDrawable in = (StateListDrawable) dr;
+            final int N = StateListDrawableCompat.getStateCount(in);
+            for (int i = 0; i < N; i++) {
+                if (needsTileify(StateListDrawableCompat.getStateDrawable(in, i))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        if (dr instanceof BitmapDrawable) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private Drawable tileify(Drawable drawable, boolean clip) {
         if (drawable instanceof LayerDrawable) {
-            LayerDrawable layerDrawable = (LayerDrawable) drawable;
-            int numberOfLayers = layerDrawable.getNumberOfLayers();
-            for (int i = 0; i < numberOfLayers; i++) {
-                if (needsTileify(layerDrawable.getDrawable(i))) {
-                    return true;
+            final LayerDrawable orig = (LayerDrawable) drawable;
+            final int N = orig.getNumberOfLayers();
+            final Drawable[] outDrawables = new Drawable[N];
+
+            for (int i = 0; i < N; i++) {
+                final int id = orig.getId(i);
+                outDrawables[i] = tileify(orig.getDrawable(i), (id == android.R.id.progress || id == android.R.id.secondaryProgress));
+            }
+
+            final LayerDrawable clone = new LayerDrawable(outDrawables);
+            if (Build.VERSION.SDK_INT >= 23) {
+                for (int i = 0; i < N; i++) {
+                    clone.setId(i, orig.getId(i));
+                    clone.setLayerGravity(i, orig.getLayerGravity(i));
+                    clone.setLayerWidth(i, orig.getLayerWidth(i));
+                    clone.setLayerHeight(i, orig.getLayerHeight(i));
+                    clone.setLayerInsetLeft(i, orig.getLayerInsetLeft(i));
+                    clone.setLayerInsetRight(i, orig.getLayerInsetRight(i));
+                    clone.setLayerInsetTop(i, orig.getLayerInsetTop(i));
+                    clone.setLayerInsetBottom(i, orig.getLayerInsetBottom(i));
+                    clone.setLayerInsetStart(i, orig.getLayerInsetStart(i));
+                    clone.setLayerInsetEnd(i, orig.getLayerInsetEnd(i));
                 }
             }
-            return false;
-        } else if (!(drawable instanceof StateListDrawable)) {
-            return drawable instanceof BitmapDrawable;
-        } else {
-            StateListDrawable stateListDrawable = (StateListDrawable) drawable;
-            int stateCount = StateListDrawableCompat.getStateCount(stateListDrawable);
-            for (int i2 = 0; i2 < stateCount; i2++) {
-                Drawable stateDrawable = StateListDrawableCompat.getStateDrawable(stateListDrawable, i2);
-                if (stateDrawable != null && needsTileify(stateDrawable)) {
-                    return true;
-                }
+
+            return clone;
+        }
+
+        if (drawable instanceof StateListDrawable) {
+            final StateListDrawable in = (StateListDrawable) drawable;
+            final StateListDrawable out = new StateListDrawable();
+            final int N = StateListDrawableCompat.getStateCount(in);
+            for (int i = 0; i < N; i++) {
+                out.addState(StateListDrawableCompat.getStateSet(in, i), tileify(StateListDrawableCompat.getStateDrawable(in, i), clip));
             }
-            return false;
+
+            return out;
+        }
+
+        if (drawable instanceof BitmapDrawable) {
+            final Drawable.ConstantState cs = drawable.getConstantState();
+            final BitmapDrawable clone = (BitmapDrawable) cs.newDrawable(getResources());
+            clone.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.CLAMP);
+
+            if (mSampleWidth <= 0) {
+                mSampleWidth = clone.getIntrinsicWidth();
+            }
+
+            if (clip) {
+                return new ClipDrawable(clone, Gravity.LEFT, ClipDrawable.HORIZONTAL);
+            } else {
+                return clone;
+            }
+        }
+
+        return drawable;
+    }
+
+    private Drawable tileifyIndeterminate(Drawable drawable) {
+        if (drawable instanceof AnimationDrawable) {
+            AnimationDrawable background = (AnimationDrawable) drawable;
+            final int N = background.getNumberOfFrames();
+            AnimationDrawable newBg = new AnimationDrawable();
+            newBg.setOneShot(background.isOneShot());
+
+            for (int i = 0; i < N; i++) {
+                Drawable frame = tileify(background.getFrame(i), true);
+                frame.setLevel(MAX_LEVEL);
+                newBg.addFrame(frame, background.getDuration(i));
+            }
+            newBg.setLevel(MAX_LEVEL);
+            drawable = newBg;
+        }
+        return drawable;
+    }
+
+    private void initProgressBar() {
+        mMin = 0;
+        mMax = 100;
+        mProgress = 0;
+        mSecondaryProgress = 0;
+        mIndeterminate = false;
+        mOnlyIndeterminate = false;
+        mDuration = 4000;
+        mBehavior = AlphaAnimation.RESTART;
+        mMinWidth = 24;
+        mMaxWidth = 48;
+        mMinHeight = 24;
+        mMaxHeight = 48;
+    }
+
+    @ViewDebug.ExportedProperty(category = "progress")
+    public synchronized boolean isIndeterminate() {
+        return mIndeterminate;
+    }
+
+    public synchronized void setIndeterminate(boolean indeterminate) {
+        if ((!mOnlyIndeterminate || !mIndeterminate) && indeterminate != mIndeterminate) {
+            mIndeterminate = indeterminate;
+
+            if (indeterminate) {
+                swapCurrentDrawable(mIndeterminateDrawable);
+                startAnimation();
+            } else {
+                swapCurrentDrawable(mProgressDrawable);
+                stopAnimation();
+            }
         }
     }
 
-    public static int MathUtilsdotconstrain(int i, int i2, int i3) {
-        return i < i2 ? i2 : i > i3 ? i3 : i;
+    private void swapCurrentDrawable(Drawable newDrawable) {
+        final Drawable oldDrawable = mCurrentDrawable;
+        mCurrentDrawable = newDrawable;
+
+        if (oldDrawable != mCurrentDrawable) {
+            if (oldDrawable != null) {
+                oldDrawable.setVisible(false, false);
+            }
+            if (mCurrentDrawable != null) {
+                mCurrentDrawable.setVisible(getWindowVisibility() == VISIBLE && isShown(), false);
+            }
+        }
+    }
+
+    public Drawable getIndeterminateDrawable() {
+        return mIndeterminateDrawable;
+    }
+
+    public void setIndeterminateDrawable(Drawable d) {
+        if (mIndeterminateDrawable != d) {
+            if (mIndeterminateDrawable != null) {
+                if (mUseHorizontalProgress) {
+                    stopAnimation();
+                }
+                mIndeterminateDrawable.setCallback(null);
+                unscheduleDrawable(mIndeterminateDrawable);
+            }
+
+            mIndeterminateDrawable = d;
+
+            if (d != null) {
+                d.setCallback(this);
+                DrawableCompat.setLayoutDirection(d, getLayoutDirection());
+                if (d.isStateful()) {
+                    d.setState(getDrawableState());
+                }
+                applyIndeterminateTint();
+            }
+
+            if (mIndeterminate) {
+                if (mUseHorizontalProgress) {
+                    startAnimation();
+                }
+                swapCurrentDrawable(d);
+                postInvalidate();
+            }
+        }
+    }
+
+    public void setIndeterminateTintList(@Nullable ColorStateList tint) {
+        if (mProgressTintInfo == null) {
+            mProgressTintInfo = new ProgressTintInfo();
+        }
+        mProgressTintInfo.mIndeterminateTintList = tint;
+        mProgressTintInfo.mHasIndeterminateTint = true;
+
+        applyIndeterminateTint();
+    }
+
+    @Nullable
+    public ColorStateList getIndeterminateTintList() {
+        return mProgressTintInfo != null ? mProgressTintInfo.mIndeterminateTintList : null;
+    }
+
+    public void setIndeterminateTintMode(@Nullable PorterDuff.Mode tintMode) {
+        if (mProgressTintInfo == null) {
+            mProgressTintInfo = new ProgressTintInfo();
+        }
+        mProgressTintInfo.mIndeterminateTintMode = tintMode;
+        mProgressTintInfo.mHasIndeterminateTintMode = true;
+
+        applyIndeterminateTint();
+    }
+
+    @Nullable
+    public PorterDuff.Mode getIndeterminateTintMode() {
+        return mProgressTintInfo != null ? mProgressTintInfo.mIndeterminateTintMode : null;
     }
 
     private void applyIndeterminateTint() {
-        ProgressTintInfo progressTintInfo;
-        if (this.mIndeterminateDrawable != null && (progressTintInfo = this.mProgressTintInfo) != null) {
-            if (progressTintInfo.mHasIndeterminateTint || progressTintInfo.mHasIndeterminateTintMode) {
-                Drawable mutate = this.mIndeterminateDrawable.mutate();
-                this.mIndeterminateDrawable = mutate;
-                if (progressTintInfo.mHasIndeterminateTint) {
-                    DrawableCompat.setTintList(mutate, progressTintInfo.mIndeterminateTintList);
+        if (mIndeterminateDrawable != null && mProgressTintInfo != null) {
+            final ProgressTintInfo tintInfo = mProgressTintInfo;
+            if (tintInfo.mHasIndeterminateTint || tintInfo.mHasIndeterminateTintMode) {
+                mIndeterminateDrawable = mIndeterminateDrawable.mutate();
+
+                if (tintInfo.mHasIndeterminateTint) {
+                    DrawableCompat.setTintList(mIndeterminateDrawable, tintInfo.mIndeterminateTintList);
                 }
-                if (progressTintInfo.mHasIndeterminateTintMode) {
-                    DrawableCompat.setTintMode(this.mIndeterminateDrawable, progressTintInfo.mIndeterminateTintMode);
+
+                if (tintInfo.mHasIndeterminateTintMode) {
+                    DrawableCompat.setTintMode(mIndeterminateDrawable, tintInfo.mIndeterminateTintMode);
                 }
-                if (this.mIndeterminateDrawable.isStateful()) {
-                    this.mIndeterminateDrawable.setState(getDrawableState());
+
+                if (mIndeterminateDrawable.isStateful()) {
+                    mIndeterminateDrawable.setState(getDrawableState());
                 }
             }
         }
     }
 
-    private void applyPrimaryProgressTint() {
-        Drawable tintTarget;
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        if ((progressTintInfo.mHasProgressTint || progressTintInfo.mHasProgressTintMode) && (tintTarget = getTintTarget(R.id.progress, true)) != null) {
-            ProgressTintInfo progressTintInfo2 = this.mProgressTintInfo;
-            if (progressTintInfo2.mHasProgressTint) {
-                DrawableCompat.setTintList(tintTarget, progressTintInfo2.mProgressTintList);
+    public void setIndeterminateDrawableTiled(Drawable d) {
+        if (d != null) {
+            d = tileifyIndeterminate(d);
+        }
+
+        setIndeterminateDrawable(d);
+    }
+
+    public Drawable getProgressDrawable() {
+        return mProgressDrawable;
+    }
+
+    public void setProgressDrawable(Drawable d) {
+        if (mProgressDrawable != d) {
+            if (mProgressDrawable != null) {
+                mProgressDrawable.setCallback(null);
+                unscheduleDrawable(mProgressDrawable);
             }
-            ProgressTintInfo progressTintInfo3 = this.mProgressTintInfo;
-            if (progressTintInfo3.mHasProgressTintMode) {
-                DrawableCompat.setTintMode(tintTarget, progressTintInfo3.mProgressTintMode);
+
+            mProgressDrawable = d;
+
+            if (d != null) {
+                d.setCallback(this);
+                DrawableCompat.setLayoutDirection(d, getLayoutDirection());
+                if (d.isStateful()) {
+                    d.setState(getDrawableState());
+                }
+
+                if (mCurrentMode == MODE_VERTICAL) {
+                    int drawableWidth = d.getMinimumWidth();
+                    if (mMaxWidth < drawableWidth) {
+                        mMaxWidth = drawableWidth;
+                        requestLayout();
+                    }
+                } else {
+                    int drawableHeight = d.getMinimumHeight();
+                    if (mMaxHeight < drawableHeight) {
+                        mMaxHeight = drawableHeight;
+                        requestLayout();
+                    }
+                }
+
+                applyProgressTints();
             }
-            if (tintTarget.isStateful()) {
-                tintTarget.setState(getDrawableState());
+
+            if (!mIndeterminate) {
+                swapCurrentDrawable(d);
+                postInvalidate();
             }
+
+            updateDrawableBounds(getWidth(), getHeight());
+            updateDrawableState();
+
+            doRefreshProgress(android.R.id.progress, mProgress, false, false, false);
+            doRefreshProgress(android.R.id.secondaryProgress, mSecondaryProgress, false, false, false);
         }
     }
 
-    private void applyProgressBackgroundTint() {
-        Drawable tintTarget;
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        if ((progressTintInfo.mHasProgressBackgroundTint || progressTintInfo.mHasProgressBackgroundTintMode) && (tintTarget = getTintTarget(R.id.background, false)) != null) {
-            ProgressTintInfo progressTintInfo2 = this.mProgressTintInfo;
-            if (progressTintInfo2.mHasProgressBackgroundTint) {
-                DrawableCompat.setTintList(tintTarget, progressTintInfo2.mProgressBackgroundTintList);
-            }
-            ProgressTintInfo progressTintInfo3 = this.mProgressTintInfo;
-            if (progressTintInfo3.mHasProgressBackgroundTintMode) {
-                DrawableCompat.setTintMode(tintTarget, progressTintInfo3.mProgressBackgroundTintMode);
-            }
-            if (tintTarget.isStateful()) {
-                tintTarget.setState(getDrawableState());
-            }
-        }
+    public boolean getMirrorForRtl() {
+        return mMirrorForRtl;
     }
 
     private void applyProgressTints() {
-        if (this.mProgressDrawable != null && this.mProgressTintInfo != null) {
+        if (mProgressDrawable != null && mProgressTintInfo != null) {
             applyPrimaryProgressTint();
             applyProgressBackgroundTint();
             applySecondaryProgressTint();
         }
     }
 
+    private void applyPrimaryProgressTint() {
+        if (mProgressTintInfo.mHasProgressTint || mProgressTintInfo.mHasProgressTintMode) {
+            final Drawable target = getTintTarget(android.R.id.progress, true);
+            if (target != null) {
+                if (mProgressTintInfo.mHasProgressTint) {
+                    target.setTintList(mProgressTintInfo.mProgressTintList);
+                }
+                if (mProgressTintInfo.mHasProgressTintMode) {
+                    DrawableCompat.setTintMode(target, mProgressTintInfo.mProgressTintMode);
+                }
+
+                if (target.isStateful()) {
+                    target.setState(getDrawableState());
+                }
+            }
+        }
+    }
+
+    private void applyProgressBackgroundTint() {
+        if (mProgressTintInfo.mHasProgressBackgroundTint || mProgressTintInfo.mHasProgressBackgroundTintMode) {
+            final Drawable target = getTintTarget(android.R.id.background, false);
+            if (target != null) {
+                if (mProgressTintInfo.mHasProgressBackgroundTint) {
+                    target.setTintList(mProgressTintInfo.mProgressBackgroundTintList);
+                }
+                if (mProgressTintInfo.mHasProgressBackgroundTintMode) {
+                    DrawableCompat.setTintMode(target, mProgressTintInfo.mProgressBackgroundTintMode);
+                }
+
+                if (target.isStateful()) {
+                    target.setState(getDrawableState());
+                }
+            }
+        }
+    }
+
     private void applySecondaryProgressTint() {
-        Drawable tintTarget;
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        if ((progressTintInfo.mHasSecondaryProgressTint || progressTintInfo.mHasSecondaryProgressTintMode) && (tintTarget = getTintTarget(R.id.secondaryProgress, false)) != null) {
-            ProgressTintInfo progressTintInfo2 = this.mProgressTintInfo;
-            if (progressTintInfo2.mHasSecondaryProgressTint) {
-                DrawableCompat.setTintList(tintTarget, progressTintInfo2.mSecondaryProgressTintList);
-            }
-            ProgressTintInfo progressTintInfo3 = this.mProgressTintInfo;
-            if (progressTintInfo3.mHasSecondaryProgressTintMode) {
-                DrawableCompat.setTintMode(tintTarget, progressTintInfo3.mSecondaryProgressTintMode);
-            }
-            if (tintTarget.isStateful()) {
-                tintTarget.setState(getDrawableState());
-            }
-        }
-    }
+        if (mProgressTintInfo.mHasSecondaryProgressTint || mProgressTintInfo.mHasSecondaryProgressTintMode) {
+            final Drawable target = getTintTarget(android.R.id.secondaryProgress, false);
+            if (target != null) {
+                if (mProgressTintInfo.mHasSecondaryProgressTint) {
+                    target.setTintList(mProgressTintInfo.mSecondaryProgressTintList);
+                }
+                if (mProgressTintInfo.mHasSecondaryProgressTintMode) {
+                    DrawableCompat.setTintMode(target, mProgressTintInfo.mSecondaryProgressTintMode);
+                }
 
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
-    private synchronized void doRefreshProgress(int i, int i2, boolean z, boolean z2, boolean z3) {
-        int i3 = this.mMax - this.mMin;
-        float f = i3 > 0 ? ((float) (i2 - this.mMin)) / ((float) i3) : 0.0f;
-        boolean z4 = i == R.id.progress;
-        Drawable drawable = this.mCurrentDrawable;
-        if (drawable != null) {
-            int i4 = (int) (10000.0f * f);
-            if (drawable instanceof LayerDrawable) {
-                Drawable findDrawableByLayerId = ((LayerDrawable) drawable).findDrawableByLayerId(i);
-                if (findDrawableByLayerId != null && Build.VERSION.SDK_INT > 19 && canResolveLayoutDirection()) {
-                    DrawableCompat.setLayoutDirection(findDrawableByLayerId, ViewCompat.getLayoutDirection(this));
-                }
-                if (findDrawableByLayerId != null) {
-                    drawable = findDrawableByLayerId;
-                }
-            } else if (drawable instanceof StateListDrawable) {
-                int stateCount = StateListDrawableCompat.getStateCount((StateListDrawable) drawable);
-                for (int i5 = 0; i5 < stateCount; i5++) {
-                    Drawable stateDrawable = StateListDrawableCompat.getStateDrawable((StateListDrawable) drawable, i5);
-                    Drawable drawable2 = null;
-                    if (stateDrawable != null) {
-                        if ((stateDrawable instanceof LayerDrawable) && (drawable2 = ((LayerDrawable) stateDrawable).findDrawableByLayerId(i)) != null && Build.VERSION.SDK_INT > 19 && canResolveLayoutDirection()) {
-                            DrawableCompat.setLayoutDirection(drawable2, ViewCompat.getLayoutDirection(this));
-                        }
-                        if (drawable2 == null) {
-                            drawable2 = drawable;
-                        }
-                        drawable2.setLevel(i4);
-                    } else {
-                        return;
-                    }
+                if (target.isStateful()) {
+                    target.setState(getDrawableState());
                 }
             }
-            drawable.setLevel(i4);
-        } else {
-            invalidate();
-        }
-        if (!z4 || !z3) {
-            setVisualProgress(i, f);
-        } else {
-            ObjectAnimator ofFloat = ObjectAnimator.ofFloat(this, this.VISUAL_PROGRESS, f);
-            if (Build.VERSION.SDK_INT > 18) {
-                ofFloat.setAutoCancel(true);
-            }
-            ofFloat.setDuration(80L);
-            ofFloat.setInterpolator(PROGRESS_ANIM_INTERPOLATOR);
-            ofFloat.start();
-        }
-        if (z4 && z2) {
-            onProgressRefresh(f, z, i2);
         }
     }
 
-    @Nullable
-    private Drawable getTintTarget(int i, boolean z) {
-        Drawable drawable = this.mProgressDrawable;
-        Drawable drawable2 = null;
-        if (drawable != null) {
-            this.mProgressDrawable = drawable.mutate();
-            if (drawable instanceof LayerDrawable) {
-                drawable2 = ((LayerDrawable) drawable).findDrawableByLayerId(i);
-            }
-            if (z && drawable2 == null) {
-                return drawable;
-            }
+    public void setProgressTintList(@Nullable ColorStateList tint) {
+        if (mProgressTintInfo == null) {
+            mProgressTintInfo = new ProgressTintInfo();
         }
-        return drawable2;
-    }
+        mProgressTintInfo.mProgressTintList = tint;
+        mProgressTintInfo.mHasProgressTint = true;
 
-    private void initProgressBar() {
-        this.mMin = 0;
-        this.mMax = 100;
-        this.mProgress = 0;
-        this.mSecondaryProgress = 0;
-        this.mIndeterminate = false;
-        this.mOnlyIndeterminate = false;
-        this.mDuration = 4000;
-        this.mBehavior = 1;
-        this.mMinWidth = 24;
-        this.mMaxWidth = 48;
-        this.mMinHeight = 24;
-        this.mMaxHeight = 48;
-    }
-
-    private synchronized void refreshProgress(int i, int i2, boolean z, boolean z2) {
-        if (this.mUiThreadId == Thread.currentThread().getId()) {
-            doRefreshProgress(i, i2, z, true, z2);
-        } else {
-            if (this.mRefreshProgressRunnable == null) {
-                this.mRefreshProgressRunnable = new RefreshProgressRunnable();
-            }
-            this.mRefreshData.add(RefreshData.obtain(i, i2, z, z2));
-            if (this.mAttached && !this.mRefreshIsPosted) {
-                post(this.mRefreshProgressRunnable);
-                this.mRefreshIsPosted = true;
-            }
-        }
-    }
-
-    private void scheduleAccessibilityEventSender() {
-        AccessibilityEventSender accessibilityEventSender = this.mAccessibilityEventSender;
-        if (accessibilityEventSender == null) {
-            this.mAccessibilityEventSender = new AccessibilityEventSender();
-        } else {
-            removeCallbacks(accessibilityEventSender);
-        }
-        postDelayed(this.mAccessibilityEventSender, 200);
-    }
-
-    /* access modifiers changed from: private */
-    /* access modifiers changed from: public */
-    private void setVisualProgress(int i, float f) {
-        this.mVisualProgress = f;
-        Drawable drawable = this.mCurrentDrawable;
-        if ((drawable instanceof LayerDrawable) && (drawable = ((LayerDrawable) drawable).findDrawableByLayerId(i)) == null) {
-            drawable = this.mCurrentDrawable;
-        }
-        if (drawable != null) {
-            drawable.setLevel((int) (10000.0f * f));
-        } else {
-            invalidate();
-        }
-        onVisualProgressChanged(i, f);
-    }
-
-    private void startAnimation() {
-        if (getVisibility() != VISIBLE) {
-            return;
-        }
-        if (Build.VERSION.SDK_INT > 23 || getWindowVisibility() == VISIBLE) {
-            if (this.mIndeterminateDrawable instanceof Animatable) {
-                this.mShouldStartAnimationDrawable = true;
-                this.mHasAnimation = false;
-                if (mIndeterminateDrawable instanceof AnimatedVectorDrawable) {
-                    AnimatedVectorDrawableCompat.registerAnimationCallback(mIndeterminateDrawable, mCircleAnimationCallback);
-                }
-            } else {
-                this.mHasAnimation = true;
-                if (this.mInterpolator == null) {
-                    this.mInterpolator = new LinearInterpolator();
-                }
-                Transformation transformation = this.mTransformation;
-                if (transformation == null) {
-                    this.mTransformation = new Transformation();
-                } else {
-                    transformation.clear();
-                }
-                AlphaAnimation alphaAnimation = this.mAnimation;
-                if (alphaAnimation == null) {
-                    this.mAnimation = new AlphaAnimation(0.0f, 1.0f);
-                } else {
-                    alphaAnimation.reset();
-                }
-                this.mAnimation.setRepeatMode(this.mBehavior);
-                this.mAnimation.setRepeatCount(-1);
-                this.mAnimation.setDuration((long) this.mDuration);
-                this.mAnimation.setInterpolator(this.mInterpolator);
-                this.mAnimation.setStartTime(-1);
-            }
-            postInvalidate();
-        }
-    }
-
-    private void stopAnimation() {
-        this.mHasAnimation = false;
-        Drawable drawable = this.mIndeterminateDrawable;
-        if (drawable instanceof Animatable) {
-            ((Animatable) drawable).stop();
-            if (drawable instanceof AnimatedVectorDrawable) {
-                AnimatedVectorDrawableCompat.unregisterAnimationCallback(drawable, mCircleAnimationCallback);
-            }
-            this.mShouldStartAnimationDrawable = false;
-        }
-        postInvalidate();
-    }
-
-    private void swapCurrentDrawable(Drawable drawable) {
-        Drawable drawable2 = this.mCurrentDrawable;
-        this.mCurrentDrawable = drawable;
-        if (drawable2 != drawable) {
-            if (drawable2 != null) {
-                drawable2.setVisible(false, false);
-            }
-            Drawable drawable3 = this.mCurrentDrawable;
-            if (drawable3 != null) {
-                drawable3.setVisible(getWindowVisibility() == VISIBLE && isShown(), false);
-            }
-        }
-    }
-
-    private Drawable tileify(Drawable drawable, boolean z) {
-        int i = 0;
-        if (drawable instanceof LayerDrawable) {
-            LayerDrawable layerDrawable = (LayerDrawable) drawable;
-            int numberOfLayers = layerDrawable.getNumberOfLayers();
-            Drawable[] drawableArr = new Drawable[numberOfLayers];
-            for (int i2 = 0; i2 < numberOfLayers; i2++) {
-                int id = layerDrawable.getId(i2);
-                drawableArr[i2] = tileify(layerDrawable.getDrawable(i2), id == R.id.progress || id == R.id.secondaryProgress);
-            }
-            LayerDrawable layerDrawable2 = new LayerDrawable(drawableArr);
-            if (Build.VERSION.SDK_INT >= 23) {
-                while (i < numberOfLayers) {
-                    layerDrawable2.setId(i, layerDrawable.getId(i));
-                    layerDrawable2.setLayerGravity(i, layerDrawable.getLayerGravity(i));
-                    layerDrawable2.setLayerWidth(i, layerDrawable.getLayerWidth(i));
-                    layerDrawable2.setLayerHeight(i, layerDrawable.getLayerHeight(i));
-                    layerDrawable2.setLayerInsetLeft(i, layerDrawable.getLayerInsetLeft(i));
-                    layerDrawable2.setLayerInsetRight(i, layerDrawable.getLayerInsetRight(i));
-                    layerDrawable2.setLayerInsetTop(i, layerDrawable.getLayerInsetTop(i));
-                    layerDrawable2.setLayerInsetBottom(i, layerDrawable.getLayerInsetBottom(i));
-                    layerDrawable2.setLayerInsetStart(i, layerDrawable.getLayerInsetStart(i));
-                    layerDrawable2.setLayerInsetEnd(i, layerDrawable.getLayerInsetEnd(i));
-                    i++;
-                }
-            }
-            return layerDrawable2;
-        } else if (drawable instanceof StateListDrawable) {
-            StateListDrawable stateListDrawable = (StateListDrawable) drawable;
-            StateListDrawable stateListDrawable2 = new StateListDrawable();
-            int stateCount = StateListDrawableCompat.getStateCount(stateListDrawable);
-            while (i < stateCount) {
-                int[] stateSet = StateListDrawableCompat.getStateSet(stateListDrawable, i);
-                Drawable stateDrawable = StateListDrawableCompat.getStateDrawable(stateListDrawable, i);
-                if (stateDrawable != null) {
-                    stateListDrawable2.addState(stateSet, tileify(stateDrawable, z));
-                }
-                i++;
-            }
-            return stateListDrawable2;
-        } else {
-            if (drawable instanceof BitmapDrawable) {
-                drawable = (BitmapDrawable) drawable.getConstantState().newDrawable(getResources());
-                ((BitmapDrawable) drawable).setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.CLAMP);
-                if (this.mSampleWidth <= 0) {
-                    this.mSampleWidth = drawable.getIntrinsicWidth();
-                }
-                if (z) {
-                    return new ClipDrawable(drawable, 3, 1);
-                }
-            }
-            return drawable;
-        }
-    }
-
-    private Drawable tileifyIndeterminate(Drawable drawable) {
-        if (!(drawable instanceof AnimationDrawable)) {
-            return drawable;
-        }
-        AnimationDrawable animationDrawable = (AnimationDrawable) drawable;
-        int numberOfFrames = animationDrawable.getNumberOfFrames();
-        AnimationDrawable animationDrawable2 = new AnimationDrawable();
-        animationDrawable2.setOneShot(animationDrawable.isOneShot());
-        for (int i = 0; i < numberOfFrames; i++) {
-            Drawable tileify = tileify(animationDrawable.getFrame(i), true);
-            tileify.setLevel(MAX_LEVEL);
-            animationDrawable2.addFrame(tileify, animationDrawable.getDuration(i));
-        }
-        animationDrawable2.setLevel(MAX_LEVEL);
-        return animationDrawable2;
-    }
-
-    private void updateDrawableState() {
-        int[] drawableState = getDrawableState();
-        Drawable drawable = this.mProgressDrawable;
-        boolean z = false;
-        if (drawable != null && drawable.isStateful()) {
-            z = false | drawable.setState(drawableState);
-        }
-        Drawable drawable2 = this.mIndeterminateDrawable;
-        if (drawable2 != null && drawable2.isStateful()) {
-            z |= drawable2.setState(drawableState);
-        }
-        if (z) {
-            invalidate();
-        }
-    }
-
-    @SuppressLint("RestrictedApi")
-    public void drawTrack(Canvas canvas) {
-        Drawable drawable = this.mCurrentDrawable;
-        if (drawable != null) {
-            int save = canvas.save();
-            if (this.mCurrentMode == 3 || !this.mMirrorForRtl || !ViewUtils.isLayoutRtl(this)) {
-                canvas.translate((float) getPaddingLeft(), (float) getPaddingTop());
-            } else {
-                canvas.translate((float) (getWidth() - getPaddingRight()), (float) getPaddingTop());
-                canvas.scale(-1.0f, 1.0f);
-            }
-            long drawingTime = getDrawingTime();
-            if (this.mHasAnimation) {
-                this.mAnimation.getTransformation(drawingTime, this.mTransformation);
-                float alpha = this.mTransformation.getAlpha();
-                try {
-                    this.mInDrawing = true;
-                    drawable.setLevel((int) (alpha * 10000.0f));
-                    this.mInDrawing = false;
-                    ViewCompat.postInvalidateOnAnimation(this);
-                } catch (Throwable th) {
-                    this.mInDrawing = false;
-                    throw th;
-                }
-            }
-            drawable.draw(canvas);
-            canvas.restoreToCount(save);
-            if (this.mShouldStartAnimationDrawable && (drawable instanceof Animatable)) {
-                ((Animatable) drawable).start();
-                this.mShouldStartAnimationDrawable = false;
-            }
-        }
-    }
-
-    public void drawableHotspotChanged(float f, float f2) {
-        super.drawableHotspotChanged(f, f2);
-        Drawable drawable = this.mProgressDrawable;
-        if (drawable != null) {
-            DrawableCompat.setHotspot(drawable, f, f2);
-        }
-        Drawable drawable2 = this.mIndeterminateDrawable;
-        if (drawable2 != null) {
-            DrawableCompat.setHotspot(drawable2, f, f2);
-        }
-    }
-
-    /* access modifiers changed from: protected */
-    public void drawableStateChanged() {
-        super.drawableStateChanged();
-        updateDrawableState();
-    }
-
-    public CharSequence getAccessibilityClassName() {
-        return android.widget.ProgressBar.class.getName();
-    }
-
-    @Nullable
-    public Drawable getCurrentDrawable() {
-        return this.mCurrentDrawable;
-    }
-
-    public Drawable getIndeterminateDrawable() {
-        return this.mIndeterminateDrawable;
-    }
-
-    public void setIndeterminateDrawable(Drawable drawable) {
-        Drawable drawable2 = this.mIndeterminateDrawable;
-        if (drawable2 != drawable) {
-            if (drawable2 != null) {
-                drawable2.setCallback(null);
-                unscheduleDrawable(this.mIndeterminateDrawable);
-            }
-            this.mIndeterminateDrawable = drawable;
-            if (drawable != null) {
-                drawable.setCallback(this);
-                DrawableCompat.setLayoutDirection(drawable, ViewCompat.getLayoutDirection(this));
-                if (drawable.isStateful()) {
-                    drawable.setState(getDrawableState());
-                }
-                applyIndeterminateTint();
-            }
-            if (this.mIndeterminate) {
-                swapCurrentDrawable(drawable);
-                postInvalidate();
-            }
-        }
-    }
-
-    @Nullable
-    public ColorStateList getIndeterminateTintList() {
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        if (progressTintInfo != null) {
-            return progressTintInfo.mIndeterminateTintList;
-        }
-        return null;
-    }
-
-    public void setIndeterminateTintList(@Nullable ColorStateList colorStateList) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
-        }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mIndeterminateTintList = colorStateList;
-        progressTintInfo.mHasIndeterminateTint = true;
-        applyIndeterminateTint();
-    }
-
-    @Nullable
-    public PorterDuff.Mode getIndeterminateTintMode() {
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        if (progressTintInfo != null) {
-            return progressTintInfo.mIndeterminateTintMode;
-        }
-        return null;
-    }
-
-    public void setIndeterminateTintMode(@Nullable PorterDuff.Mode mode) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
-        }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mIndeterminateTintMode = mode;
-        progressTintInfo.mHasIndeterminateTintMode = true;
-        applyIndeterminateTint();
-    }
-
-    public Interpolator getInterpolator() {
-        return this.mInterpolator;
-    }
-
-    public void setInterpolator(Interpolator interpolator) {
-        this.mInterpolator = interpolator;
-    }
-
-    @ViewDebug.ExportedProperty(category = NotificationCompat.CATEGORY_PROGRESS)
-    public synchronized int getMax() {
-        return this.mMax;
-    }
-
-    public synchronized void setMax(int i) {
-        if (this.mMinInitialized && i < this.mMin) {
-            i = this.mMin;
-        }
-        this.mMaxInitialized = true;
-        if (!this.mMinInitialized || i == this.mMax) {
-            this.mMax = i;
-        } else {
-            this.mMax = i;
-            postInvalidate();
-            if (this.mProgress > i) {
-                this.mProgress = i;
-            }
-            refreshProgress(R.id.progress, this.mProgress, false, false);
-        }
-    }
-
-    @Px
-    public int getMaxHeight() {
-        return this.mMaxHeight;
-    }
-
-    public void setMaxHeight(@Px int i) {
-        this.mMaxHeight = i;
-        requestLayout();
-    }
-
-    @Px
-    public int getMaxWidth() {
-        return this.mMaxWidth;
-    }
-
-    public void setMaxWidth(@Px int i) {
-        this.mMaxWidth = i;
-        requestLayout();
-    }
-
-    @ViewDebug.ExportedProperty(category = NotificationCompat.CATEGORY_PROGRESS)
-    public synchronized int getMin() {
-        return this.mMin;
-    }
-
-    public synchronized void setMin(int i) {
-        if (this.mMaxInitialized && i > this.mMax) {
-            i = this.mMax;
-        }
-        this.mMinInitialized = true;
-        if (!this.mMaxInitialized || i == this.mMin) {
-            this.mMin = i;
-        } else {
-            this.mMin = i;
-            postInvalidate();
-            if (this.mProgress < i) {
-                this.mProgress = i;
-            }
-            refreshProgress(R.id.progress, this.mProgress, false, false);
-        }
-    }
-
-    @Px
-    public int getMinHeight() {
-        return this.mMinHeight;
-    }
-
-    public void setMinHeight(@Px int i) {
-        this.mMinHeight = i;
-        requestLayout();
-    }
-
-    @Px
-    public int getMinWidth() {
-        return this.mMinWidth;
-    }
-
-    public void setMinWidth(@Px int i) {
-        this.mMinWidth = i;
-        requestLayout();
-    }
-
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public boolean getMirrorForRtl() {
-        return this.mMirrorForRtl;
-    }
-
-    public int getPaddingLeft() {
-        return SeslViewReflector.getField_mPaddingLeft(this);
-    }
-
-    public int getPaddingRight() {
-        return SeslViewReflector.getField_mPaddingRight(this);
-    }
-
-    @ViewDebug.ExportedProperty(category = NotificationCompat.CATEGORY_PROGRESS)
-    public synchronized int getProgress() {
-        return this.mIndeterminate ? 0 : this.mProgress;
-    }
-
-    public synchronized void setProgress(int i) {
-        setProgressInternal(i, false, false);
-    }
-
-    @Nullable
-    public ColorStateList getProgressBackgroundTintList() {
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        if (progressTintInfo != null) {
-            return progressTintInfo.mProgressBackgroundTintList;
-        }
-        return null;
-    }
-
-    public void setProgressBackgroundTintList(@Nullable ColorStateList colorStateList) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
-        }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mProgressBackgroundTintList = colorStateList;
-        progressTintInfo.mHasProgressBackgroundTint = true;
-        if (this.mProgressDrawable != null) {
-            applyProgressBackgroundTint();
-        }
-    }
-
-    @Nullable
-    public PorterDuff.Mode getProgressBackgroundTintMode() {
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        if (progressTintInfo != null) {
-            return progressTintInfo.mProgressBackgroundTintMode;
-        }
-        return null;
-    }
-
-    public void setProgressBackgroundTintMode(@Nullable PorterDuff.Mode mode) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
-        }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mProgressBackgroundTintMode = mode;
-        progressTintInfo.mHasProgressBackgroundTintMode = true;
-        if (this.mProgressDrawable != null) {
-            applyProgressBackgroundTint();
-        }
-    }
-
-    public Drawable getProgressDrawable() {
-        return this.mProgressDrawable;
-    }
-
-    public void setProgressDrawable(Drawable drawable) {
-        Drawable drawable2 = this.mProgressDrawable;
-        if (drawable2 != drawable) {
-            if (drawable2 != null) {
-                drawable2.setCallback(null);
-                unscheduleDrawable(this.mProgressDrawable);
-            }
-            this.mProgressDrawable = drawable;
-            if (drawable != null) {
-                drawable.setCallback(this);
-                DrawableCompat.setLayoutDirection(drawable, ViewCompat.getLayoutDirection(this));
-                if (drawable.isStateful()) {
-                    drawable.setState(getDrawableState());
-                }
-                if (this.mCurrentMode == 3 || this.mCurrentMode == 6) {
-                    int minimumWidth = drawable.getMinimumWidth();
-                    if (this.mMaxWidth < minimumWidth) {
-                        this.mMaxWidth = minimumWidth;
-                    }
-                    applyProgressTints();
-                } else {
-                    int minimumHeight = drawable.getMinimumHeight();
-                    if (this.mMaxHeight < minimumHeight) {
-                        this.mMaxHeight = minimumHeight;
-                    }
-                    applyProgressTints();
-                }
-                requestLayout();
-                applyProgressTints();
-            }
-            if (!this.mIndeterminate) {
-                swapCurrentDrawable(drawable);
-                postInvalidate();
-            }
-            updateDrawableBounds(getWidth(), getHeight());
-            updateDrawableState();
-            doRefreshProgress(R.id.progress, this.mProgress, false, false, false);
-            doRefreshProgress(R.id.secondaryProgress, this.mSecondaryProgress, false, false, false);
+        if (mProgressDrawable != null) {
+            applyPrimaryProgressTint();
         }
     }
 
     @Nullable
     public ColorStateList getProgressTintList() {
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        if (progressTintInfo != null) {
-            return progressTintInfo.mProgressTintList;
-        }
-        return null;
+        return mProgressTintInfo != null ? mProgressTintInfo.mProgressTintList : null;
     }
 
-    public void setProgressTintList(@Nullable ColorStateList colorStateList) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
+    public void setProgressTintMode(@Nullable PorterDuff.Mode tintMode) {
+        if (mProgressTintInfo == null) {
+            mProgressTintInfo = new ProgressTintInfo();
         }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mProgressTintList = colorStateList;
-        progressTintInfo.mHasProgressTint = true;
-        if (this.mProgressDrawable != null) {
+        mProgressTintInfo.mProgressTintMode = tintMode;
+        mProgressTintInfo.mHasProgressTintMode = true;
+
+        if (mProgressDrawable != null) {
             applyPrimaryProgressTint();
         }
     }
 
     @Nullable
     public PorterDuff.Mode getProgressTintMode() {
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        if (progressTintInfo != null) {
-            return progressTintInfo.mProgressTintMode;
-        }
-        return null;
+        return mProgressTintInfo != null ? mProgressTintInfo.mProgressTintMode : null;
     }
 
-    public void setProgressTintMode(@Nullable PorterDuff.Mode mode) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
+    public void setProgressBackgroundTintList(@Nullable ColorStateList tint) {
+        if (mProgressTintInfo == null) {
+            mProgressTintInfo = new ProgressTintInfo();
         }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mProgressTintMode = mode;
-        progressTintInfo.mHasProgressTintMode = true;
-        if (this.mProgressDrawable != null) {
-            applyPrimaryProgressTint();
+        mProgressTintInfo.mProgressBackgroundTintList = tint;
+        mProgressTintInfo.mHasProgressBackgroundTint = true;
+
+        if (mProgressDrawable != null) {
+            applyProgressBackgroundTint();
         }
     }
 
-    @ViewDebug.ExportedProperty(category = NotificationCompat.CATEGORY_PROGRESS)
-    public synchronized int getSecondaryProgress() {
-        return this.mIndeterminate ? 0 : this.mSecondaryProgress;
+    @Nullable
+    public ColorStateList getProgressBackgroundTintList() {
+        return mProgressTintInfo != null ? mProgressTintInfo.mProgressBackgroundTintList : null;
     }
 
-    public synchronized void setSecondaryProgress(int i) {
-        if (!this.mIndeterminate) {
-            if (i < this.mMin) {
-                i = this.mMin;
-            }
-            if (i > this.mMax) {
-                i = this.mMax;
-            }
-            if (i != this.mSecondaryProgress) {
-                this.mSecondaryProgress = i;
-                refreshProgress(R.id.secondaryProgress, i, false, false);
-            }
+    public void setProgressBackgroundTintMode(@Nullable PorterDuff.Mode tintMode) {
+        if (mProgressTintInfo == null) {
+            mProgressTintInfo = new ProgressTintInfo();
+        }
+        mProgressTintInfo.mProgressBackgroundTintMode = tintMode;
+        mProgressTintInfo.mHasProgressBackgroundTintMode = true;
+
+        if (mProgressDrawable != null) {
+            applyProgressBackgroundTint();
+        }
+    }
+
+    @Nullable
+    public PorterDuff.Mode getProgressBackgroundTintMode() {
+        return mProgressTintInfo != null ? mProgressTintInfo.mProgressBackgroundTintMode : null;
+    }
+
+    public void setSecondaryProgressTintList(@Nullable ColorStateList tint) {
+        if (mProgressTintInfo == null) {
+            mProgressTintInfo = new ProgressTintInfo();
+        }
+        mProgressTintInfo.mSecondaryProgressTintList = tint;
+        mProgressTintInfo.mHasSecondaryProgressTint = true;
+
+        if (mProgressDrawable != null) {
+            applySecondaryProgressTint();
         }
     }
 
     @Nullable
     public ColorStateList getSecondaryProgressTintList() {
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        if (progressTintInfo != null) {
-            return progressTintInfo.mSecondaryProgressTintList;
-        }
-        return null;
+        return mProgressTintInfo != null ? mProgressTintInfo.mSecondaryProgressTintList : null;
     }
 
-    public void setSecondaryProgressTintList(@Nullable ColorStateList colorStateList) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
+    public void setSecondaryProgressTintMode(@Nullable PorterDuff.Mode tintMode) {
+        if (mProgressTintInfo == null) {
+            mProgressTintInfo = new ProgressTintInfo();
         }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mSecondaryProgressTintList = colorStateList;
-        progressTintInfo.mHasSecondaryProgressTint = true;
-        if (this.mProgressDrawable != null) {
+        mProgressTintInfo.mSecondaryProgressTintMode = tintMode;
+        mProgressTintInfo.mHasSecondaryProgressTintMode = true;
+
+        if (mProgressDrawable != null) {
             applySecondaryProgressTint();
         }
     }
 
     @Nullable
     public PorterDuff.Mode getSecondaryProgressTintMode() {
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        if (progressTintInfo != null) {
-            return progressTintInfo.mSecondaryProgressTintMode;
-        }
-        return null;
+        return mProgressTintInfo != null ? mProgressTintInfo.mSecondaryProgressTintMode : null;
     }
 
-    public void setSecondaryProgressTintMode(@Nullable PorterDuff.Mode mode) {
-        if (this.mProgressTintInfo == null) {
-            this.mProgressTintInfo = new ProgressTintInfo();
-        }
-        ProgressTintInfo progressTintInfo = this.mProgressTintInfo;
-        progressTintInfo.mSecondaryProgressTintMode = mode;
-        progressTintInfo.mHasSecondaryProgressTintMode = true;
-        if (this.mProgressDrawable != null) {
-            applySecondaryProgressTint();
-        }
-    }
+    @Nullable
+    private Drawable getTintTarget(int layerId, boolean shouldFallback) {
+        Drawable layer = null;
 
-    public final synchronized void incrementProgressBy(int i) {
-        setProgress(this.mProgress + i);
-    }
+        final Drawable d = mProgressDrawable;
+        if (d != null) {
+            mProgressDrawable = d.mutate();
 
-    public final synchronized void incrementSecondaryProgressBy(int i) {
-        setSecondaryProgress(this.mSecondaryProgress + i);
-    }
+            if (d instanceof LayerDrawable) {
+                layer = ((LayerDrawable) d).findDrawableByLayerId(layerId);
+            }
 
-    public void invalidateDrawable(@NonNull Drawable drawable) {
-        if (this.mInDrawing) {
-            return;
-        }
-        if (verifyDrawable(drawable)) {
-            Rect bounds = drawable.getBounds();
-            int scrollX = getScrollX() + getPaddingLeft();
-            int scrollY = getScrollY() + getPaddingTop();
-            invalidate(bounds.left + scrollX, bounds.top + scrollY, bounds.right + scrollX, bounds.bottom + scrollY);
-            return;
-        }
-        super.invalidateDrawable(drawable);
-    }
-
-    public boolean isAnimating() {
-        return isIndeterminate() && getWindowVisibility() == VISIBLE && isShown();
-    }
-
-    @ViewDebug.ExportedProperty(category = NotificationCompat.CATEGORY_PROGRESS)
-    public synchronized boolean isIndeterminate() {
-        return this.mIndeterminate;
-    }
-
-    public synchronized void setIndeterminate(boolean z) {
-        if ((!this.mOnlyIndeterminate || !this.mIndeterminate) && z != this.mIndeterminate) {
-            this.mIndeterminate = z;
-            if (z) {
-                swapCurrentDrawable(this.mIndeterminateDrawable);
-                startAnimation();
-            } else {
-                swapCurrentDrawable(this.mProgressDrawable);
-                stopAnimation();
+            if (shouldFallback && layer == null) {
+                layer = d;
             }
         }
+
+        return layer;
     }
 
+    public void setProgressDrawableTiled(Drawable d) {
+        if (d != null) {
+            d = tileify(d, false);
+        }
+
+        setProgressDrawable(d);
+    }
+
+    @Nullable
+    public Drawable getCurrentDrawable() {
+        return mCurrentDrawable;
+    }
+
+    @Override
+    protected boolean verifyDrawable(@NonNull Drawable who) {
+        return who == mProgressDrawable || who == mIndeterminateDrawable || super.verifyDrawable(who);
+    }
+
+    @Override
     public void jumpDrawablesToCurrentState() {
         super.jumpDrawablesToCurrentState();
-        Drawable drawable = this.mProgressDrawable;
-        if (drawable != null) {
-            drawable.jumpToCurrentState();
+        if (mProgressDrawable != null) mProgressDrawable.jumpToCurrentState();
+        if (mIndeterminateDrawable != null) mIndeterminateDrawable.jumpToCurrentState();
+    }
+
+    // @Override : hidden method
+    @SuppressWarnings("unused")
+    public void onResolveDrawables(int layoutDirection) {
+        final Drawable d = mCurrentDrawable;
+        if (d != null) {
+            DrawableCompat.setLayoutDirection(d, layoutDirection);
         }
-        Drawable drawable2 = this.mIndeterminateDrawable;
-        if (drawable2 != null) {
-            drawable2.jumpToCurrentState();
+        if (mIndeterminateDrawable != null) {
+            DrawableCompat.setLayoutDirection(mIndeterminateDrawable, layoutDirection);
+        }
+        if (mProgressDrawable != null) {
+            DrawableCompat.setLayoutDirection(mProgressDrawable, layoutDirection);
         }
     }
 
-    /* access modifiers changed from: protected */
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        if (this.mIndeterminate) {
-            startAnimation();
-        }
-        if (this.mRefreshData != null) {
-            synchronized (this) {
-                int size = this.mRefreshData.size();
-                for (int i = 0; i < size; i++) {
-                    RefreshData refreshData = this.mRefreshData.get(i);
-                    doRefreshProgress(refreshData.id, refreshData.progress, refreshData.fromUser, true, refreshData.animate);
-                    refreshData.recycle();
-                }
-                this.mRefreshData.clear();
-            }
-        }
-        this.mAttached = true;
-    }
-
-    /* access modifiers changed from: protected */
-    public void onDetachedFromWindow() {
-        if (this.mIndeterminate) {
-            stopAnimation();
-        } else {
-            mCircleAnimationCallback = null;
-        }
-        RefreshProgressRunnable refreshProgressRunnable = this.mRefreshProgressRunnable;
-        if (refreshProgressRunnable != null) {
-            removeCallbacks(refreshProgressRunnable);
-            this.mRefreshIsPosted = false;
-        }
-        AccessibilityEventSender accessibilityEventSender = this.mAccessibilityEventSender;
-        if (accessibilityEventSender != null) {
-            removeCallbacks(accessibilityEventSender);
-        }
-        super.onDetachedFromWindow();
-        this.mAttached = false;
-    }
-
-    /* access modifiers changed from: protected */
-    public synchronized void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        drawTrack(canvas);
-    }
-
-    public void onInitializeAccessibilityEvent(AccessibilityEvent accessibilityEvent) {
-        super.onInitializeAccessibilityEvent(accessibilityEvent);
-        accessibilityEvent.setItemCount(this.mMax - this.mMin);
-        accessibilityEvent.setCurrentItemIndex(this.mProgress);
-    }
-
-    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo accessibilityNodeInfo) {
-        super.onInitializeAccessibilityNodeInfo(accessibilityNodeInfo);
-        if (Build.VERSION.SDK_INT >= 19 && !isIndeterminate()) {
-            accessibilityNodeInfo.setRangeInfo(AccessibilityNodeInfo.RangeInfo.obtain(0, (float) getMin(), (float) getMax(), (float) getProgress()));
-        }
-    }
-
-    /* access modifiers changed from: protected */
-    public synchronized void onMeasure(int i, int i2) {
-        int i3;
-        int i4;
-        Drawable drawable = this.mCurrentDrawable;
-        if (drawable != null) {
-            i3 = Math.max(this.mMinWidth, Math.min(this.mMaxWidth, drawable.getIntrinsicWidth()));
-            i4 = Math.max(this.mMinHeight, Math.min(this.mMaxHeight, drawable.getIntrinsicHeight()));
-        } else {
-            i4 = 0;
-            i3 = 0;
-        }
-        updateDrawableState();
-        setMeasuredDimension(View.resolveSizeAndState(i3 + getPaddingLeft() + getPaddingRight(), i, 0), View.resolveSizeAndState(i4 + getPaddingTop() + getPaddingBottom(), i2, 0));
-    }
-
-    /* access modifiers changed from: package-private */
-    public void onProgressRefresh(float f, boolean z, int i) {
-        if (((AccessibilityManager) getContext().getSystemService(Context.ACCESSIBILITY_SERVICE)).isEnabled()) {
-            scheduleAccessibilityEventSender();
-        }
-        int i2 = this.mSecondaryProgress;
-        if (i2 > this.mProgress && !z) {
-            refreshProgress(R.id.secondaryProgress, i2, false, false);
-        }
-    }
-
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public void onResolveDrawables(int i) {
-        Drawable drawable = this.mCurrentDrawable;
-        int layoutDirection = ViewCompat.getLayoutDirection(this);
-        if (drawable != null) {
-            DrawableCompat.setLayoutDirection(drawable, layoutDirection);
-        }
-        Drawable drawable2 = this.mIndeterminateDrawable;
-        if (drawable2 != null) {
-            DrawableCompat.setLayoutDirection(drawable2, layoutDirection);
-        }
-        Drawable drawable3 = this.mProgressDrawable;
-        if (drawable3 != null) {
-            DrawableCompat.setLayoutDirection(drawable3, layoutDirection);
-        }
-    }
-
-    public void onRestoreInstanceState(Parcelable parcelable) {
-        SavedState savedState = (SavedState) parcelable;
-        super.onRestoreInstanceState(savedState.getSuperState());
-        setProgress(savedState.progress);
-        setSecondaryProgress(savedState.secondaryProgress);
-    }
-
-    public Parcelable onSaveInstanceState() {
-        SavedState savedState = new SavedState(super.onSaveInstanceState());
-        savedState.progress = this.mProgress;
-        savedState.secondaryProgress = this.mSecondaryProgress;
-        return savedState;
-    }
-
-    /* access modifiers changed from: protected */
-    public void onSizeChanged(int i, int i2, int i3, int i4) {
-        updateDrawableBounds(i, i2);
-    }
-
-    /* access modifiers changed from: protected */
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public void onSlidingRefresh(int i) {
-        Drawable drawable = this.mCurrentDrawable;
-        if (drawable != null) {
-            Drawable drawable2 = null;
-            if (drawable instanceof LayerDrawable) {
-                drawable2 = ((LayerDrawable) drawable).findDrawableByLayerId(R.id.progress);
-            }
-            if (drawable2 != null) {
-                drawable2.setLevel(i);
-            }
-        }
-    }
-
-    public void onVisibilityAggregated(boolean z) {
-        super.onVisibilityAggregated(z);
-        if (z != this.mAggregatedIsVisible) {
-            this.mAggregatedIsVisible = z;
-            if (this.mIndeterminate) {
-                if (z) {
-                    startAnimation();
-                } else {
-                    stopAnimation();
-                }
-            }
-            Drawable drawable = this.mCurrentDrawable;
-            if (drawable != null) {
-                drawable.setVisible(z, false);
-            }
-        }
-    }
-
-    /* access modifiers changed from: package-private */
-    public void onVisualProgressChanged(int i, float f) {
-    }
-
+    @Override
     public void postInvalidate() {
-        if (!this.mNoInvalidate) {
+        if (!mNoInvalidate) {
             super.postInvalidate();
         }
     }
 
-    public void setIndeterminateDrawableTiled(Drawable drawable) {
-        if (drawable != null) {
-            drawable = tileifyIndeterminate(drawable);
-        }
-        setIndeterminateDrawable(drawable);
-    }
-
-    public void setInterpolator(Context context, @InterpolatorRes int i) {
-        setInterpolator(AnimationUtils.loadInterpolator(context, i));
-    }
-
-    public void setMode(int i2) {
-        Drawable drawable = null;
-        this.mCurrentMode = i2;
-        if (i2 == 3) {
-            drawable = androidx.core.content.ContextCompat.getDrawable(getContext(), R.drawable.sesl_scrubber_progress_vertical);
-        } else if (i2 == 4) {
-            drawable = androidx.core.content.ContextCompat.getDrawable(getContext(), R.drawable.sesl_split_seekbar_background_progress);
-        }
-        if (drawable != null) {
-            setProgressDrawableTiled(drawable);
-        }
-    }
-
-    public void setProgress(int i, boolean z) {
-        setProgressInternal(i, false, z);
-    }
-
-    public void setProgressDrawableTiled(Drawable drawable) {
-        if (drawable != null) {
-            drawable = tileify(drawable, false);
-        }
-        setProgressDrawable(drawable);
-    }
-
-    /* access modifiers changed from: package-private */
-    public synchronized boolean setProgressInternal(int i, boolean z, boolean z2) {
-        if (this.mIndeterminate) {
-            return false;
-        }
-        int constrain = MathUtilsdotconstrain(i, this.mMin, this.mMax);
-        if (constrain == this.mProgress) {
-            return false;
-        }
-        this.mProgress = constrain;
-        refreshProgress(R.id.progress, constrain, z, z2);
-        return true;
-    }
-
-    /* access modifiers changed from: protected */
-    @SuppressLint("RestrictedApi")
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public void updateDrawableBounds(int i, int i2) {
-        int i3;
-        int i4;
-        int i5;
-        int paddingRight = i - (getPaddingRight() + getPaddingLeft());
-        int paddingTop = i2 - (getPaddingTop() + getPaddingBottom());
-        Drawable drawable = this.mIndeterminateDrawable;
-        if (drawable != null) {
-            if (this.mOnlyIndeterminate && !(drawable instanceof AnimationDrawable)) {
-                float intrinsicWidth = ((float) drawable.getIntrinsicWidth()) / ((float) this.mIndeterminateDrawable.getIntrinsicHeight());
-                float f = (float) paddingRight;
-                float f2 = (float) paddingTop;
-                float f3 = f / f2;
-                if (((double) Math.abs(intrinsicWidth - f3)) < 1.0E-7d) {
-                    if (f3 > intrinsicWidth) {
-                        int i6 = (int) (f2 * intrinsicWidth);
-                        int i7 = (paddingRight - i6) / 2;
-                        i3 = i7;
-                        i4 = i6 + i7;
-                        i5 = 0;
-                    } else {
-                        int i8 = (int) (f * (1.0f / intrinsicWidth));
-                        int i9 = (paddingTop - i8) / 2;
-                        int i10 = i8 + i9;
-                        i4 = paddingRight;
-                        i3 = 0;
-                        i5 = i9;
-                        paddingTop = i10;
-                    }
-                    if (this.mMirrorForRtl || !ViewUtils.isLayoutRtl(this)) {
-                        paddingRight = i4;
-                    } else {
-                        int i11 = paddingRight - i4;
-                        paddingRight -= i3;
-                        i3 = i11;
-                    }
-                    this.mIndeterminateDrawable.setBounds(i3, i5, paddingRight, paddingTop);
+    private class RefreshProgressRunnable implements Runnable {
+        public void run() {
+            synchronized (ProgressBar.this) {
+                final int count = mRefreshData.size();
+                for (int i = 0; i < count; i++) {
+                    final RefreshData rd = mRefreshData.get(i);
+                    doRefreshProgress(rd.id, rd.progress, rd.fromUser, true, rd.animate);
+                    rd.recycle();
                 }
+                mRefreshData.clear();
+                mRefreshIsPosted = false;
             }
-            i4 = paddingRight;
-            i5 = 0;
-            i3 = 0;
-            if (this.mMirrorForRtl) {
-            }
-            paddingRight = i4;
-            this.mIndeterminateDrawable.setBounds(i3, i5, paddingRight, paddingTop);
-        }
-        Drawable drawable2 = this.mProgressDrawable;
-        if (drawable2 != null) {
-            drawable2.setBounds(0, 0, paddingRight, paddingTop);
         }
     }
 
-    /* access modifiers changed from: protected */
-    public boolean verifyDrawable(@NonNull Drawable drawable) {
-        return drawable == this.mProgressDrawable || drawable == this.mIndeterminateDrawable || super.verifyDrawable(drawable);
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public @interface SeekBarMode {
-    }
-
-    /* access modifiers changed from: private */
-    public static class ProgressTintInfo {
-        boolean mHasIndeterminateTint;
-        boolean mHasIndeterminateTintMode;
-        boolean mHasProgressBackgroundTint;
-        boolean mHasProgressBackgroundTintMode;
-        boolean mHasProgressTint;
-        boolean mHasProgressTintMode;
-        boolean mHasSecondaryProgressTint;
-        boolean mHasSecondaryProgressTintMode;
-        ColorStateList mIndeterminateTintList;
-        PorterDuff.Mode mIndeterminateTintMode;
-        ColorStateList mProgressBackgroundTintList;
-        PorterDuff.Mode mProgressBackgroundTintMode;
-        ColorStateList mProgressTintList;
-        PorterDuff.Mode mProgressTintMode;
-        ColorStateList mSecondaryProgressTintList;
-        PorterDuff.Mode mSecondaryProgressTintMode;
-
-        private ProgressTintInfo() {
-        }
-    }
-
-    /* access modifiers changed from: private */
-    public static class RefreshData {
+    private static class RefreshData {
         private static final int POOL_MAX = 24;
-        private static final Pools.SynchronizedPool<RefreshData> sPool = new Pools.SynchronizedPool<>(24);
-        public boolean animate;
-        public boolean fromUser;
+        private static final Pools.SynchronizedPool<RefreshData> sPool = new Pools.SynchronizedPool<RefreshData>(POOL_MAX);
         public int id;
         public int progress;
+        public boolean fromUser;
+        public boolean animate;
 
-        private RefreshData() {
-        }
-
-        public static RefreshData obtain(int i, int i2, boolean z, boolean z2) {
-            RefreshData acquire = sPool.acquire();
-            if (acquire == null) {
-                acquire = new RefreshData();
+        public static RefreshData obtain(int id, int progress, boolean fromUser, boolean animate) {
+            RefreshData rd = sPool.acquire();
+            if (rd == null) {
+                rd = new RefreshData();
             }
-            acquire.id = i;
-            acquire.progress = i2;
-            acquire.fromUser = z;
-            acquire.animate = z2;
-            return acquire;
+            rd.id = id;
+            rd.progress = progress;
+            rd.fromUser = fromUser;
+            rd.animate = animate;
+            return rd;
         }
 
         public void recycle() {
@@ -1475,98 +918,765 @@ public class ProgressBar extends View {
         }
     }
 
-    /* access modifiers changed from: package-private */
-    public static class SavedState extends BaseSavedState {
-        @NonNull
-        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-            /* class de.dlyt.yanndroid.samsung.SeslProgressBar.SavedState.AnonymousClass1 */
+    private synchronized void doRefreshProgress(int id, int progress, boolean fromUser, boolean callBackToApp, boolean animate) {
+        int range = mMax - mMin;
+        final float scale = range > 0 ? (progress - mMin) / (float) range : 0;
+        final boolean isPrimary = id == android.R.id.progress;
 
-            @Override // android.os.Parcelable.Creator
-            public SavedState createFromParcel(Parcel parcel) {
-                return new SavedState(parcel);
+        Drawable drawable = mCurrentDrawable;
+        if (drawable != null) {
+            final int level = (int) (scale * 10000.0f);
+
+            if (drawable instanceof LayerDrawable) {
+                Drawable layer = ((LayerDrawable) drawable).findDrawableByLayerId(id);
+                if (layer != null && Build.VERSION.SDK_INT > 19 && canResolveLayoutDirection()) {
+                    DrawableCompat.setLayoutDirection(layer, ViewCompat.getLayoutDirection(this));
+                }
+                if (layer != null) {
+                    drawable = layer;
+                }
+                drawable.setLevel(level);
+            } else if (drawable instanceof StateListDrawable) {
+                for (int i = 0; i < StateListDrawableCompat.getStateCount((StateListDrawable) drawable); i++) {
+                    Drawable stateD = StateListDrawableCompat.getStateDrawable((StateListDrawable) drawable, i);
+                    Drawable layer = ((LayerDrawable) stateD).findDrawableByLayerId(i);
+                    if (stateD != null) {
+                        if ((stateD instanceof LayerDrawable) && layer != null && Build.VERSION.SDK_INT > 19 && canResolveLayoutDirection()) {
+                            DrawableCompat.setLayoutDirection(layer, ViewCompat.getLayoutDirection(this));
+                        }
+                        if (layer == null) {
+                            layer = drawable;
+                        }
+                        layer.setLevel(level);
+                    } else {
+                        return;
+                    }
+                }
+            } else {
+                drawable.setLevel(level);
+            }
+        } else {
+            invalidate();
+        }
+
+        if (isPrimary && animate) {
+            final ObjectAnimator animator = ObjectAnimator.ofFloat(this, VISUAL_PROGRESS, scale);
+            if (Build.VERSION.SDK_INT > 18) {
+                animator.setAutoCancel(true);
+            }
+            animator.setDuration(PROGRESS_ANIM_DURATION);
+            animator.setInterpolator(PROGRESS_ANIM_INTERPOLATOR);
+            animator.start();
+        } else {
+            setVisualProgress(id, scale);
+        }
+
+        if (isPrimary && callBackToApp) {
+            onProgressRefresh(scale, fromUser, progress);
+        }
+    }
+
+    private float getPercent(int progress) {
+        final float maxProgress = getMax();
+        final float minProgress = getMin();
+        final float currentProgress = progress;
+        final float diffProgress = maxProgress - minProgress;
+        if (diffProgress <= 0.0f) {
+            return 0.0f;
+        }
+        final float percent = (currentProgress - minProgress) / diffProgress;
+        return Math.max(0.0f, Math.min(1.0f, percent));
+    }
+
+    protected void onProgressRefresh(float scale, boolean fromUser, int progress) {
+        if (((AccessibilityManager) getContext().getSystemService(Context.ACCESSIBILITY_SERVICE)).isEnabled()) {
+            scheduleAccessibilityEventSender();
+        }
+        if (mSecondaryProgress > mProgress && !fromUser) {
+            refreshProgress(android.R.id.secondaryProgress, mSecondaryProgress, false, false);
+        }
+    }
+
+    private void setVisualProgress(int id, float progress) {
+        mVisualProgress = progress;
+
+        Drawable d = mCurrentDrawable;
+
+        if (d instanceof LayerDrawable) {
+            d = ((LayerDrawable) d).findDrawableByLayerId(id);
+            if (d == null) {
+                d = mCurrentDrawable;
+            }
+        }
+
+        if (d != null) {
+            final int level = (int) (progress * MAX_LEVEL);
+            d.setLevel(level);
+        } else {
+            invalidate();
+        }
+
+        onVisualProgressChanged(id, progress);
+    }
+
+    protected void onVisualProgressChanged(int id, float progress) {
+    }
+
+    private synchronized void refreshProgress(int id, int progress, boolean fromUser, boolean animate) {
+        if (mUiThreadId == Thread.currentThread().getId()) {
+            doRefreshProgress(id, progress, fromUser, true, animate);
+        } else {
+            if (mRefreshProgressRunnable == null) {
+                mRefreshProgressRunnable = new RefreshProgressRunnable();
             }
 
-            @Override // android.os.Parcelable.Creator
-            public SavedState[] newArray(int i) {
-                return new SavedState[i];
+            final RefreshData rd = RefreshData.obtain(id, progress, fromUser, animate);
+            mRefreshData.add(rd);
+            if (mAttached && !mRefreshIsPosted) {
+                post(mRefreshProgressRunnable);
+                mRefreshIsPosted = true;
             }
-        };
+        }
+    }
+
+    public synchronized void setProgress(int progress) {
+        setProgressInternal(progress, false, false);
+    }
+
+    public void setProgress(int progress, boolean animate) {
+        setProgressInternal(progress, false, animate);
+    }
+
+    protected synchronized boolean setProgressInternal(int progress, boolean fromUser, boolean animate) {
+        if (mIndeterminate) {
+            return false;
+        }
+
+        progress = constrain(progress, mMin, mMax);
+
+        if (progress == mProgress) {
+            return false;
+        }
+
+        mProgress = progress;
+        if (mCurrentMode == MODE_CIRCLE) {
+            if (getProgressDrawable() instanceof LayerDrawable) {
+                Drawable d = ((LayerDrawable) getProgressDrawable()).findDrawableByLayerId(android.R.id.progress);
+                if (d != null && d instanceof CirCleProgressDrawable) {
+                    ((CirCleProgressDrawable) d).setProgress(mProgress, animate);
+                }
+            }
+        }
+        refreshProgress(android.R.id.progress, mProgress, fromUser, animate);
+        return true;
+    }
+
+    public synchronized void setSecondaryProgress(int secondaryProgress) {
+        if (mIndeterminate) {
+            return;
+        }
+
+        if (secondaryProgress < mMin) {
+            secondaryProgress = mMin;
+        }
+
+        if (secondaryProgress > mMax) {
+            secondaryProgress = mMax;
+        }
+
+        if (secondaryProgress != mSecondaryProgress) {
+            mSecondaryProgress = secondaryProgress;
+            refreshProgress(android.R.id.secondaryProgress, mSecondaryProgress, false, false);
+        }
+    }
+
+    @ViewDebug.ExportedProperty(category = "progress")
+    public synchronized int getProgress() {
+        return mIndeterminate ? 0 : mProgress;
+    }
+
+    @ViewDebug.ExportedProperty(category = "progress")
+    public synchronized int getSecondaryProgress() {
+        return mIndeterminate ? 0 : mSecondaryProgress;
+    }
+
+    @ViewDebug.ExportedProperty(category = "progress")
+    public synchronized int getMin() {
+        return mMin;
+    }
+
+    @ViewDebug.ExportedProperty(category = "progress")
+    public synchronized int getMax() {
+        return mMax;
+    }
+
+    public synchronized void setMin(int min) {
+        if (mMaxInitialized) {
+            if (min > mMax) {
+                min = mMax;
+            }
+        }
+        mMinInitialized = true;
+        if (mMaxInitialized && min != mMin) {
+            mMin = min;
+            postInvalidate();
+
+            if (mProgress < min) {
+                mProgress = min;
+            }
+            refreshProgress(android.R.id.progress, mProgress, false, false);
+        } else {
+            mMin = min;
+        }
+    }
+
+    public synchronized void setMax(int max) {
+        if (mMinInitialized) {
+            if (max < mMin) {
+                max = mMin;
+            }
+        }
+        mMaxInitialized = true;
+        if (mMinInitialized && max != mMax) {
+            mMax = max;
+            postInvalidate();
+
+            if (mProgress > max) {
+                mProgress = max;
+            }
+            refreshProgress(android.R.id.progress, mProgress, false, false);
+        } else {
+            mMax = max;
+        }
+    }
+
+    public synchronized final void incrementProgressBy(int diff) {
+        setProgress(mProgress + diff);
+    }
+
+    public synchronized final void incrementSecondaryProgressBy(int diff) {
+        setSecondaryProgress(mSecondaryProgress + diff);
+    }
+
+    void startAnimation() {
+        if (getVisibility() != VISIBLE || getWindowVisibility() != VISIBLE) {
+            return;
+        }
+
+        if (Build.VERSION.SDK_INT > 23) {
+            if (mIndeterminateDrawable instanceof Animatable) {
+                mShouldStartAnimationDrawable = true;
+                mHasAnimation = false;
+                if (mIndeterminateDrawable instanceof AnimatedVectorDrawable) {
+                    AnimatedVectorDrawableCompat.registerAnimationCallback(mIndeterminateDrawable, mCircleAnimationCallback);
+                }
+            } else {
+                mHasAnimation = true;
+
+                if (mInterpolator == null) {
+                    mInterpolator = new LinearInterpolator();
+                }
+
+                if (mTransformation == null) {
+                    mTransformation = new Transformation();
+                } else {
+                    mTransformation.clear();
+                }
+
+                if (mAnimation == null) {
+                    mAnimation = new AlphaAnimation(0.0f, 1.0f);
+                } else {
+                    mAnimation.reset();
+                }
+
+                mAnimation.setRepeatMode(mBehavior);
+                mAnimation.setRepeatCount(Animation.INFINITE);
+                mAnimation.setDuration(mDuration);
+                mAnimation.setInterpolator(mInterpolator);
+                mAnimation.setStartTime(Animation.START_ON_FIRST_FRAME);
+            }
+            postInvalidate();
+        }
+    }
+
+    void stopAnimation() {
+        mHasAnimation = false;
+        if (mIndeterminateDrawable instanceof Animatable) {
+            ((Animatable) mIndeterminateDrawable).stop();
+            if (mIndeterminateDrawable instanceof AnimatedVectorDrawable) {
+                AnimatedVectorDrawableCompat.unregisterAnimationCallback(mIndeterminateDrawable, mCircleAnimationCallback);
+            }
+            mShouldStartAnimationDrawable = false;
+        }
+        postInvalidate();
+    }
+
+    public void setInterpolator(Context context, @InterpolatorRes int resID) {
+        setInterpolator(AnimationUtils.loadInterpolator(context, resID));
+    }
+
+    public void setInterpolator(Interpolator interpolator) {
+        mInterpolator = interpolator;
+    }
+
+    public Interpolator getInterpolator() {
+        return mInterpolator;
+    }
+
+    @Override
+    public void onVisibilityAggregated(boolean isVisible) {
+        super.onVisibilityAggregated(isVisible);
+
+        if (isVisible != mAggregatedIsVisible) {
+            mAggregatedIsVisible = isVisible;
+
+            if (mIndeterminate) {
+                if (isVisible) {
+                    startAnimation();
+                } else {
+                    stopAnimation();
+                }
+            }
+
+            if (mCurrentDrawable != null) {
+                mCurrentDrawable.setVisible(isVisible, false);
+            }
+        }
+    }
+
+    @Override
+    public void invalidateDrawable(@NonNull Drawable dr) {
+        if (!mInDrawing) {
+            if (verifyDrawable(dr)) {
+                final Rect dirty = dr.getBounds();
+                final int scrollX = getScrollX() + getPaddingLeft();
+                final int scrollY = getScrollY() + getPaddingTop();
+
+                invalidate(dirty.left + scrollX, dirty.top + scrollY, dirty.right + scrollX, dirty.bottom + scrollY);
+            } else {
+                super.invalidateDrawable(dr);
+            }
+        }
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        updateDrawableBounds(w, h);
+    }
+
+    // kang
+    @SuppressLint("RestrictedApi")
+    protected void updateDrawableBounds(int w, int h) {
+        int var3 = w - (this.getPaddingRight() + this.getPaddingLeft());
+        int var4 = h - (this.getPaddingTop() + this.getPaddingBottom());
+        Drawable var5 = this.mIndeterminateDrawable;
+        h = var3;
+        w = var4;
+        if (var5 != null) {
+            int var10;
+            int var11;
+            label29: {
+                if (this.mOnlyIndeterminate && !(var5 instanceof AnimationDrawable)) {
+                    h = var5.getIntrinsicWidth();
+                    w = this.mIndeterminateDrawable.getIntrinsicHeight();
+                    float var6 = (float)h / (float)w;
+                    float var7 = (float)var3;
+                    float var8 = (float)var4;
+                    float var9 = var7 / var8;
+                    if ((double)Math.abs(var6 - var9) < 1.0E-7D) {
+                        if (var9 > var6) {
+                            var10 = (int)(var8 * var6);
+                            h = (var3 - var10) / 2;
+                            w = h;
+                            h += var10;
+                            var10 = 0;
+                        } else {
+                            var11 = (int)(var7 * (1.0F / var6));
+                            var4 = (var4 - var11) / 2;
+                            h = var3;
+                            w = 0;
+                            var10 = var4;
+                            var4 += var11;
+                        }
+                        break label29;
+                    }
+                }
+
+                h = var3;
+                var10 = 0;
+                w = var10;
+            }
+
+            if (this.mMirrorForRtl && ViewUtils.isLayoutRtl(this)) {
+                var11 = var3 - w;
+                w = var3 - h;
+                h = var11;
+            }
+
+            this.mIndeterminateDrawable.setBounds(w, var10, h, var4);
+            w = var4;
+        }
+
+        var5 = this.mProgressDrawable;
+        if (var5 != null) {
+            var5.setBounds(0, 0, h, w);
+        }
+    }
+    // kang
+
+    @Override
+    protected synchronized void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        drawTrack(canvas);
+    }
+
+    @SuppressLint("RestrictedApi")
+    protected void drawTrack(Canvas canvas) {
+        final Drawable d = mCurrentDrawable;
+        if (d != null) {
+            final int saveCount = canvas.save();
+
+            if (mCurrentMode != MODE_VERTICAL && ViewUtils.isLayoutRtl(this) && mMirrorForRtl) {
+                canvas.translate(getWidth() - getPaddingRight(), getPaddingTop());
+                canvas.scale(-1.0f, 1.0f);
+            } else {
+                canvas.translate(getPaddingLeft(), getPaddingTop());
+            }
+
+            final long time = getDrawingTime();
+            if (mHasAnimation) {
+                mAnimation.getTransformation(time, mTransformation);
+                final float scale = mTransformation.getAlpha();
+                try {
+                    mInDrawing = true;
+                    d.setLevel((int) (scale * MAX_LEVEL));
+                    mInDrawing = false;
+                    ViewCompat.postInvalidateOnAnimation(this);
+                } finally {
+                    mInDrawing = false;
+                }
+                postInvalidateOnAnimation();
+            }
+
+            d.draw(canvas);
+            canvas.restoreToCount(saveCount);
+
+            if (mShouldStartAnimationDrawable && d instanceof Animatable) {
+                ((Animatable) d).start();
+                mShouldStartAnimationDrawable = false;
+            }
+        }
+    }
+
+    @Override
+    protected synchronized void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int dw = 0;
+        int dh = 0;
+
+        final Drawable d = mCurrentDrawable;
+        if (d != null) {
+            dw = Math.max(mMinWidth, Math.min(mMaxWidth, d.getIntrinsicWidth()));
+            dh = Math.max(mMinHeight, Math.min(mMaxHeight, d.getIntrinsicHeight()));
+        }
+
+        updateDrawableState();
+
+        dw += getPaddingLeft() + getPaddingRight();
+        dh += getPaddingTop() + getPaddingBottom();
+
+        final int measuredWidth = resolveSizeAndState(dw, widthMeasureSpec, 0);
+        final int measuredHeight = resolveSizeAndState(dh, heightMeasureSpec, 0);
+        initCirCleStrokeWidth(measuredWidth - getPaddingLeft() - getPaddingRight());
+        if (mIsOneUI4 && mIndeterminate && mUseHorizontalProgress) {
+            seslSetIndeterminateProgressDrawable(measuredWidth - getPaddingLeft() - getPaddingRight());
+        }
+        setMeasuredDimension(measuredWidth, measuredHeight);
+    }
+
+    @Override
+    protected void drawableStateChanged() {
+        super.drawableStateChanged();
+        updateDrawableState();
+    }
+
+    private void updateDrawableState() {
+        final int[] state = getDrawableState();
+        boolean changed = false;
+
+        final Drawable progressDrawable = mProgressDrawable;
+        if (progressDrawable != null && progressDrawable.isStateful()) {
+            changed |= progressDrawable.setState(state);
+        }
+
+        final Drawable indeterminateDrawable = mIndeterminateDrawable;
+        if (indeterminateDrawable != null && indeterminateDrawable.isStateful()) {
+            changed |= indeterminateDrawable.setState(state);
+        }
+
+        if (changed) {
+            invalidate();
+        }
+    }
+
+    @Override
+    public void drawableHotspotChanged(float x, float y) {
+        super.drawableHotspotChanged(x, y);
+
+        if (mProgressDrawable != null) {
+            mProgressDrawable.setHotspot(x, y);
+        }
+
+        if (mIndeterminateDrawable != null) {
+            mIndeterminateDrawable.setHotspot(x, y);
+        }
+    }
+
+    static class SavedState extends BaseSavedState {
         int progress;
         int secondaryProgress;
 
-        private SavedState(Parcel parcel) {
-            super(parcel);
-            this.progress = parcel.readInt();
-            this.secondaryProgress = parcel.readInt();
+        SavedState(Parcelable superState) {
+            super(superState);
         }
 
-        SavedState(Parcelable parcelable) {
-            super(parcelable);
+        private SavedState(Parcel in) {
+            super(in);
+            progress = in.readInt();
+            secondaryProgress = in.readInt();
         }
 
-        public void writeToParcel(Parcel parcel, int i) {
-            super.writeToParcel(parcel, i);
-            parcel.writeInt(this.progress);
-            parcel.writeInt(this.secondaryProgress);
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeInt(progress);
+            out.writeInt(secondaryProgress);
+        }
+
+        public static final @NonNull Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        SavedState ss = new SavedState(superState);
+
+        ss.progress = mProgress;
+        ss.secondaryProgress = mSecondaryProgress;
+
+        return ss;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        SavedState ss = (SavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+
+        setProgress(ss.progress);
+        setSecondaryProgress(ss.secondaryProgress);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if (mIndeterminate) {
+            startAnimation();
+        }
+        if (mRefreshData != null) {
+            synchronized (this) {
+                final int count = mRefreshData.size();
+                for (int i = 0; i < count; i++) {
+                    final RefreshData rd = mRefreshData.get(i);
+                    doRefreshProgress(rd.id, rd.progress, rd.fromUser, true, rd.animate);
+                    rd.recycle();
+                }
+                mRefreshData.clear();
+            }
+        }
+        mAttached = true;
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        if (mIndeterminate) {
+            stopAnimation();
+        } else {
+            mCircleAnimationCallback = null;
+        }
+        if (mRefreshProgressRunnable != null) {
+            removeCallbacks(mRefreshProgressRunnable);
+            mRefreshIsPosted = false;
+        }
+        if (mAccessibilityEventSender != null) {
+            removeCallbacks(mAccessibilityEventSender);
+        }
+        super.onDetachedFromWindow();
+        mAttached = false;
+    }
+
+    @Override
+    public CharSequence getAccessibilityClassName() {
+        return android.widget.ProgressBar.class.getName();
+    }
+
+    @Override
+    public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
+        super.onInitializeAccessibilityEvent(event);
+        event.setItemCount(mMax - mMin);
+        event.setCurrentItemIndex(mProgress);
+    }
+
+    @Override
+    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
+        super.onInitializeAccessibilityNodeInfo(info);
+
+        if (Build.VERSION.SDK_INT >= 19 && !isIndeterminate()) {
+            AccessibilityNodeInfo.RangeInfo rangeInfo = AccessibilityNodeInfo.RangeInfo.obtain(AccessibilityNodeInfo.RangeInfo.RANGE_TYPE_INT, getMin(), getMax(), getProgress());
+            info.setRangeInfo(rangeInfo);
         }
     }
 
-    /* access modifiers changed from: private */
-    public static class StateListDrawableCompat {
-        private static final boolean IS_BASE_SDK_VERSION = (Build.VERSION.SDK_INT <= 23);
-
-        private StateListDrawableCompat() {
+    private void scheduleAccessibilityEventSender() {
+        if (mAccessibilityEventSender == null) {
+            mAccessibilityEventSender = new AccessibilityEventSender();
+        } else {
+            removeCallbacks(mAccessibilityEventSender);
         }
+        postDelayed(mAccessibilityEventSender, TIMEOUT_SEND_ACCESSIBILITY_EVENT);
+    }
 
-        static int getStateCount(StateListDrawable stateListDrawable) {
+    public boolean isAnimating() {
+        return isIndeterminate() && getWindowVisibility() == VISIBLE && isShown();
+    }
+
+    private class AccessibilityEventSender implements Runnable {
+        @Override
+        public void run() {
+            sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_SELECTED);
+        }
+    }
+
+    private static class ProgressTintInfo {
+        ColorStateList mIndeterminateTintList;
+        PorterDuff.Mode mIndeterminateTintMode;
+        boolean mHasIndeterminateTint;
+        boolean mHasIndeterminateTintMode;
+
+        ColorStateList mProgressTintList;
+        PorterDuff.Mode mProgressTintMode;
+        boolean mHasProgressTint;
+        boolean mHasProgressTintMode;
+
+        ColorStateList mProgressBackgroundTintList;
+        PorterDuff.Mode mProgressBackgroundTintMode;
+        boolean mHasProgressBackgroundTint;
+        boolean mHasProgressBackgroundTintMode;
+
+        ColorStateList mSecondaryProgressTintList;
+        PorterDuff.Mode mSecondaryProgressTintMode;
+        boolean mHasSecondaryProgressTint;
+        boolean mHasSecondaryProgressTintMode;
+    }
+
+    public void setMode(@SeekBarMode int mode) {
+        mCurrentMode = mode;
+
+        switch (mode) {
+            case MODE_VERTICAL:
+                setProgressDrawableTiled(ContextCompat.getDrawable(getContext(), mIsOneUI4 ? R.drawable.sesl4_scrubber_progress_vertical : R.drawable.sesl_scrubber_progress_vertical));
+                break;
+            case MODE_SPLIT:
+                setProgressDrawableTiled(ContextCompat.getDrawable(getContext(), mIsOneUI4 ? R.drawable.sesl4_split_seekbar_background_progress : R.drawable.sesl_split_seekbar_background_progress));
+                break;
+            case MODE_CIRCLE:
+                initializeRoundCicleMode();
+                break;
+        }
+    }
+
+    protected void onSlidingRefresh(int level) {
+        if (mCurrentDrawable != null) {
+            final Drawable layer = mCurrentDrawable instanceof LayerDrawable ? ((LayerDrawable) mCurrentDrawable).findDrawableByLayerId(android.R.id.progress) : null;
+            if (layer != null) {
+                layer.setLevel(level);
+            }
+        }
+    }
+
+    @Override
+    public int getPaddingLeft() {
+        return SeslViewReflector.getField_mPaddingLeft(this);
+    }
+
+    @Override
+    public int getPaddingRight() {
+        return SeslViewReflector.getField_mPaddingRight(this);
+    }
+
+    private void initCirCleStrokeWidth(int size) {
+        if (size == getResources().getDimensionPixelSize(R.dimen.sesl_progress_bar_size_small)) {
+            mRoundStrokeWidth = getResources().getDimensionPixelSize(R.dimen.sesl_progress_circle_size_small_width);
+            mCirclePadding = getResources().getDimensionPixelOffset(R.dimen.sesl_progress_circle_size_small_padding);
+        } else if (size == getResources().getDimensionPixelSize(R.dimen.sesl_progress_bar_size_small_title)) {
+            mRoundStrokeWidth = getResources().getDimensionPixelSize(R.dimen.sesl_progress_circle_size_small_title_width);
+            mCirclePadding = getResources().getDimensionPixelOffset(R.dimen.sesl_progress_circle_size_small_title_padding);
+        } else if (size == getResources().getDimensionPixelSize(R.dimen.sesl_progress_bar_size_large)) {
+            mRoundStrokeWidth = getResources().getDimensionPixelSize(R.dimen.sesl_progress_circle_size_large_width);
+            mCirclePadding = getResources().getDimensionPixelOffset(R.dimen.sesl_progress_circle_size_large_padding);
+        } else if (size == getResources().getDimensionPixelSize(R.dimen.sesl_progress_bar_size_xlarge)) {
+            mRoundStrokeWidth = getResources().getDimensionPixelSize(R.dimen.sesl_progress_circle_size_xlarge_width);
+            mCirclePadding = getResources().getDimensionPixelOffset(R.dimen.sesl_progress_circle_size_xlarge_padding);
+        } else {
+            mRoundStrokeWidth = (getResources().getDimensionPixelSize(R.dimen.sesl_progress_circle_size_small_width) * size) / getResources().getDimensionPixelSize(R.dimen.sesl_progress_bar_size_small);
+            mCirclePadding = (size * getResources().getDimensionPixelOffset(R.dimen.sesl_progress_circle_size_small_padding)) / getResources().getDimensionPixelSize(R.dimen.sesl_progress_bar_size_small);
+        }
+    }
+
+    private void seslSetIndeterminateProgressDrawable(int size) {
+        if (getResources().getDimensionPixelSize(R.dimen.sesl_progress_bar_indeterminate_xsmall) >= size) {
+            setIndeterminateDrawable(mIndeterminateHorizontalXsmall);
+        } else if (getResources().getDimensionPixelSize(R.dimen.sesl_progress_bar_indeterminate_small) >= size) {
+            setIndeterminateDrawable(mIndeterminateHorizontalSmall);
+        } else if (getResources().getDimensionPixelSize(R.dimen.sesl_progress_bar_indeterminate_medium) >= size) {
+            setIndeterminateDrawable(mIndeterminateHorizontalMedium);
+        } else if (getResources().getDimensionPixelSize(R.dimen.sesl_progress_bar_indeterminate_large) >= size) {
+            setIndeterminateDrawable(mIndeterminateHorizontalLarge);
+        } else {
+            setIndeterminateDrawable(mIndeterminateHorizontalXlarge);
+        }
+    }
+
+    private static class StateListDrawableCompat {
+        private static final boolean IS_BASE_SDK_VERSION = Build.VERSION.SDK_INT <= 23;
+
+        static int getStateCount(StateListDrawable drawable) {
             if (!IS_BASE_SDK_VERSION) {
                 return 0;
             }
-            SeslStateListDrawableReflector.getStateCount(stateListDrawable);
+            SeslStateListDrawableReflector.getStateCount(drawable);
             return 0;
         }
 
-        static Drawable getStateDrawable(StateListDrawable stateListDrawable, int i) {
+        static Drawable getStateDrawable(StateListDrawable drawable, int index) {
             if (IS_BASE_SDK_VERSION) {
-                return SeslStateListDrawableReflector.getStateDrawable(stateListDrawable, i);
+                return SeslStateListDrawableReflector.getStateDrawable(drawable, index);
             }
             return null;
         }
 
-        static int[] getStateSet(StateListDrawable stateListDrawable, int i) {
+        static int[] getStateSet(StateListDrawable drawable, int index) {
             if (IS_BASE_SDK_VERSION) {
-                return SeslStateListDrawableReflector.getStateSet(stateListDrawable, i);
+                return SeslStateListDrawableReflector.getStateSet(drawable, index);
             }
             return null;
-        }
-    }
-
-    /* access modifiers changed from: private */
-    public class AccessibilityEventSender implements Runnable {
-        private AccessibilityEventSender() {
-        }
-
-        public void run() {
-            ProgressBar.this.sendAccessibilityEvent(4);
-        }
-    }
-
-    /* access modifiers changed from: private */
-    public class RefreshProgressRunnable implements Runnable {
-        private RefreshProgressRunnable() {
-        }
-
-        public void run() {
-            synchronized (ProgressBar.this) {
-                int size = ProgressBar.this.mRefreshData.size();
-                for (int i = 0; i < size; i++) {
-                    RefreshData refreshData = (RefreshData) ProgressBar.this.mRefreshData.get(i);
-                    ProgressBar.this.doRefreshProgress(refreshData.id, refreshData.progress, refreshData.fromUser, true, refreshData.animate);
-                    refreshData.recycle();
-                }
-                ProgressBar.this.mRefreshData.clear();
-                ProgressBar.this.mRefreshIsPosted = false;
-            }
         }
     }
 
@@ -1574,21 +1684,193 @@ public class ProgressBar extends View {
         final Handler mHandler = new Handler();
         private WeakReference<ProgressBar> mProgressBar;
 
-        public CircleAnimationCallback(ProgressBar seslProgressBar) {
-            this.mProgressBar = new WeakReference<>(seslProgressBar);
+        public CircleAnimationCallback(ProgressBar progressBar) {
+            mProgressBar = new WeakReference<>(progressBar);
         }
 
-        @Override // android.graphics.drawable.Animatable2.AnimationCallback
+        @Override
         public void onAnimationEnd(Drawable drawable) {
-            this.mHandler.post(new Runnable() { // from class: androidx.appcompat.widget.SeslProgressBar.CircleAnimationCallback.1
-                @Override // java.lang.Runnable
+            mHandler.post(new Runnable() {
+                @Override
                 public void run() {
-                    ProgressBar seslProgressBar = (ProgressBar) CircleAnimationCallback.this.mProgressBar.get();
-                    if (seslProgressBar != null) {
-                        ((AnimatedVectorDrawable) seslProgressBar.mIndeterminateDrawable).start();
+                    ProgressBar progressBar = (ProgressBar) mProgressBar.get();
+                    if (progressBar != null) {
+                        ((AnimatedVectorDrawable) progressBar.mIndeterminateDrawable).start();
                     }
                 }
             });
         }
+    }
+
+    private ColorStateList colorToColorStateList(int color) {
+        return new ColorStateList(new int[][]{new int[0]}, new int[]{color});
+    }
+
+    private void initializeRoundCicleMode() {
+        mOnlyIndeterminate = false;
+        setIndeterminate(false);
+
+        TypedValue value = new TypedValue();
+        getContext().getTheme().resolveAttribute(R.attr.colorPrimary, value, true);
+
+        LayerDrawable d = new LayerDrawable(new Drawable[]{new CirCleProgressDrawable(true, colorToColorStateList(getResources().getColor(R.color.sesl_progress_control_color_background))),
+                new CirCleProgressDrawable(false, colorToColorStateList(value.data))});
+        d.setPaddingMode(LayerDrawable.PADDING_MODE_STACK);
+        d.setId(0, android.R.id.background);
+        d.setId(1, android.R.id.progress);
+        setProgressDrawable(d);
+    }
+
+    private class CirCleProgressDrawable extends Drawable {
+        int mColor;
+        ColorStateList mColorStateList;
+        private boolean mIsBackground;
+        private final Paint mPaint;
+        int mAlpha = 255;
+        private RectF mArcRect = new RectF();
+        private final ProgressState mState = new ProgressState();
+        private final IntProperty<CirCleProgressDrawable> VISUAL_CIRCLE_PROGRESS = new IntProperty<CirCleProgressDrawable>("visual_progress") {
+            public void setValue(CirCleProgressDrawable d, int value) {
+                mProgress = value;
+                invalidateSelf();
+            }
+
+            public Integer get(CirCleProgressDrawable d) {
+                return Integer.valueOf(d.mProgress);
+            }
+        };
+        public int mProgress = 0;
+
+        private int modulateAlpha(int paintAlpha, int alpha) {
+            int scale = alpha + (alpha >>> 7);
+            return (paintAlpha * scale) >>> 8;
+        }
+
+        @Override
+        public boolean isStateful() {
+            return true;
+        }
+
+        public CirCleProgressDrawable(boolean isBackground, ColorStateList colorStateList) {
+            mPaint = new Paint();
+            mIsBackground = isBackground;
+            mPaint.setStyle(Paint.Style.STROKE);
+            mPaint.setStrokeCap(Paint.Cap.ROUND);
+            mColorStateList = colorStateList;
+            mColor = colorStateList.getDefaultColor();
+            mPaint.setColor(mColor);
+        }
+
+        @Override
+        public void draw(Canvas canvas) {
+            mPaint.setStrokeWidth(mRoundStrokeWidth);
+            int prevAlpha = mPaint.getAlpha();
+            mPaint.setAlpha(modulateAlpha(prevAlpha, mAlpha));
+            mPaint.setAntiAlias(true);
+            mArcRect.set((((float) mRoundStrokeWidth) / 2.0f) + ((float) mCirclePadding),
+                    (((float) mRoundStrokeWidth) / 2.0f) + ((float) mCirclePadding),
+                    (((float) ProgressBar.this.getWidth()) - (((float) mRoundStrokeWidth) / 2.0f)) - ((float) mCirclePadding),
+                    (((float) ProgressBar.this.getWidth()) - (((float) mRoundStrokeWidth) / 2.0f)) - ((float) mCirclePadding));
+            int range = mMax - mMin;
+            float angle = range > 0 ? ((float) (mProgress - mMin)) / ((float) range) : 0.0f;
+            canvas.save();
+            if (mIsBackground) {
+                canvas.drawArc(mArcRect, 270.0f, 360.0f, false, mPaint);
+            } else {
+                canvas.drawArc(mArcRect, 270.0f, angle * 360.0f, false, mPaint);
+            }
+            canvas.restore();
+            mPaint.setAlpha(prevAlpha);
+        }
+
+        public void setProgress(int progress, boolean animate) {
+            if (animate) {
+                ObjectAnimator ofInt = ObjectAnimator.ofInt(this, VISUAL_CIRCLE_PROGRESS, progress);
+                if (Build.VERSION.SDK_INT > 18) {
+                    ofInt.setAutoCancel(true);
+                }
+                ofInt.setDuration(PROGRESS_ANIM_DURATION);
+                ofInt.setInterpolator(PROGRESS_ANIM_INTERPOLATOR);
+                ofInt.start();
+            } else {
+                mProgress = progress;
+                ProgressBar.this.invalidate();
+            }
+        }
+
+        @Override
+        public void setAlpha(int alpha) {
+            mAlpha = alpha;
+            invalidateSelf();
+        }
+
+        @Override
+        public void setColorFilter(ColorFilter colorFilter) {
+            mPaint.setColorFilter(colorFilter);
+            invalidateSelf();
+        }
+
+        @Override
+        public int getOpacity() {
+            if (mPaint.getXfermode() != null) {
+                return PixelFormat.TRANSLUCENT;
+            }
+            if (mPaint.getAlpha() == 0) {
+                return PixelFormat.TRANSPARENT;
+            }
+            if (mPaint.getAlpha() == 255) {
+                return PixelFormat.OPAQUE;
+            } else {
+                return PixelFormat.TRANSLUCENT;
+            }
+        }
+
+        @Override
+        public void setTintList(ColorStateList tint) {
+            super.setTintList(tint);
+            if (tint != null) {
+                mColorStateList = tint;
+                mColor = tint.getDefaultColor();
+                mPaint.setColor(mColor);
+                invalidateSelf();
+            }
+        }
+
+        @Override
+        protected boolean onStateChange(int[] state) {
+            boolean onStateChange = super.onStateChange(state);
+            int color = mColorStateList.getColorForState(state, mColor);
+            if (mColor != color) {
+                mColor = color;
+                mPaint.setColor(color);
+                invalidateSelf();
+            }
+            return onStateChange;
+        }
+
+        @Override
+        public Drawable.ConstantState getConstantState() {
+            return mState;
+        }
+
+        private class ProgressState extends Drawable.ConstantState {
+            @Override
+            public int getChangingConfigurations() {
+                return 0;
+            }
+
+            @Override
+            public Drawable newDrawable() {
+                return CirCleProgressDrawable.this;
+            }
+        }
+    }
+
+    /*kang from MathUtils.smali*/
+    public static int constrain(int amount, int low, int high) {
+        if (amount < low) {
+            return low;
+        }
+        return amount > high ? high : amount;
     }
 }
