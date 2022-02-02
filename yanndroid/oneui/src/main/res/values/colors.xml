@@ -90,7 +90,7 @@
     <color name="sesl_seekbar_overlap_color_activated">#ffff6021</color>
     <color name="sesl4_seekbar_overlap_color_activated">#ffef5e16</color>
     <color name="sesl_seekbar_overlap_color_default">#fffcb69b</color>
-    <color name="sesl4_seekbar_overlap_color_default">#66cacaca</color>
+    <color name="sesl4_seekbar_overlap_color_default">#fffcb69b</color> <!--#66cacaca-->
     <color name="sesl_seekbar_control_color_secondary">#ff7ab9cb</color>
 
 

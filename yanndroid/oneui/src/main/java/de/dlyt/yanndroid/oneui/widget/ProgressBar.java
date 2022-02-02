@@ -287,12 +287,11 @@ public class ProgressBar extends View {
 
         mUseHorizontalProgress = a.getBoolean(R.styleable.ProgressBar_useHorizontalProgress, mUseHorizontalProgress);
         
-        ContextThemeWrapper contextWrap = new ContextThemeWrapper(context, R.style.OneUI4Theme);
-        mIndeterminateHorizontalXsmall = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_xsmall_transition, contextWrap.getTheme());
-        mIndeterminateHorizontalSmall = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_small_transition, contextWrap.getTheme());
-        mIndeterminateHorizontalMedium = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_medium_transition, contextWrap.getTheme());
-        mIndeterminateHorizontalLarge = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_large_transition, contextWrap.getTheme());
-        mIndeterminateHorizontalXlarge = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_xlarge_transition, contextWrap.getTheme());
+        mIndeterminateHorizontalXsmall = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_xsmall_transition, context.getTheme());
+        mIndeterminateHorizontalSmall = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_small_transition, context.getTheme());
+        mIndeterminateHorizontalMedium = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_medium_transition, context.getTheme());
+        mIndeterminateHorizontalLarge = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_large_transition, context.getTheme());
+        mIndeterminateHorizontalXlarge = getResources().getDrawable(R.drawable.sesl_progress_bar_indeterminate_xlarge_transition, context.getTheme());
 
         a.recycle();
 
@@ -613,7 +612,7 @@ public class ProgressBar extends View {
                     d.setState(getDrawableState());
                 }
 
-                if (mCurrentMode == MODE_VERTICAL) {
+                if (mCurrentMode == MODE_VERTICAL || mCurrentMode == MODE_EXPAND_VERTICAL) {
                     int drawableWidth = d.getMinimumWidth();
                     if (mMaxWidth < drawableWidth) {
                         mMaxWidth = drawableWidth;
