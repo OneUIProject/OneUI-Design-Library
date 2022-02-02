@@ -197,7 +197,7 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         mDefaultNormalProgressColor = colorToColorStateList(ResourcesCompat.getColor(getResources(), mIsOneUI4 ? R.color.sesl4_seekbar_control_color_default : R.color.sesl_seekbar_control_color_default, context.getTheme()));
         mDefaultSecondaryProgressColor = colorToColorStateList(getResources().getColor(R.color.sesl_seekbar_control_color_secondary));
         mDefaultActivatedProgressColor = colorToColorStateList(getColor(context, R.attr.colorPrimary));
-        mOverlapNormalProgressColor = colorToColorStateList(getResources().getColor(mIsOneUI4 ? R.color.sesl4_seekbar_overlap_color_default : R.color.sesl_seekbar_overlap_color_default));
+        mOverlapNormalProgressColor = colorToColorStateList(getResources().getColor(R.color.sesl_seekbar_overlap_color_default));
         mOverlapActivatedProgressColor = colorToColorStateList(getResources().getColor(mIsOneUI4 ? R.color.sesl4_seekbar_overlap_color_activated : R.color.sesl_seekbar_overlap_color_activated));
 
         mDefaultActivatedThumbColor = getThumbTintList();
