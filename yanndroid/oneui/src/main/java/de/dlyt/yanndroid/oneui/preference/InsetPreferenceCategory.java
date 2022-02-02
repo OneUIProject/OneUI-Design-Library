@@ -5,7 +5,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
-import androidx.appcompat.util.SeslRoundedCorner;
+import de.dlyt.yanndroid.oneui.sesl.utils.SeslRoundedCorner;
 
 import de.dlyt.yanndroid.oneui.R;
 

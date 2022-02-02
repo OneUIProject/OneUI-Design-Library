@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set android:ordering="together"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <set android:ordering="sequentially">
+        <objectAnimator android:interpolator="@interpolator/sine_in_out_70" android:duration="500" android:valueFrom="35" android:valueTo="15" android:propertyName="translateX" />
+        <objectAnimator android:interpolator="@anim/sesl_progress_indeterminate_circle_interpolator1" android:duration="483" android:valueFrom="15" android:valueTo="34.989353" android:propertyName="translateX" />
+    </set>
+</set>

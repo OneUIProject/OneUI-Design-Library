@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape android:shape="rectangle" android:tint="?progressActivatedColor">
+        <shape android:tint="?progressActivatedColor" android:shape="rectangle">
             <size android:height="@dimen/sesl_seekbar_track_height" />
         </shape>
     </item>

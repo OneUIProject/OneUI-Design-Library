@@ -66,7 +66,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.animation.SeslAnimationUtils;
-import androidx.appcompat.util.SeslSubheaderRoundedCorner;
+import de.dlyt.yanndroid.oneui.sesl.utils.SeslSubheaderRoundedCorner;
 import androidx.core.os.TraceCompat;
 import androidx.core.util.Preconditions;
 import androidx.core.view.AccessibilityDelegateCompat;

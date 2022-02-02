@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import androidx.appcompat.util.SeslRoundedCorner;
+import de.dlyt.yanndroid.oneui.sesl.utils.SeslRoundedCorner;
 
 import de.dlyt.yanndroid.oneui.R;
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="128.0dip" android:width="4640.0dip" android:viewportWidth="4640.0" android:viewportHeight="128.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <group android:name="s3" android:pivotX="496.0" android:pivotY="64.0" android:scaleX="1.0" android:scaleY="1.0" android:rotation="0.0" android:translateX="1824.0" android:translateY="1.0" aapt:layer_name="Track">
+        <group android:name="s3pg1" android:pivotX="0.0" android:pivotY="0.0" android:scaleX="1.0" android:scaleY="1.0" android:rotation="0.0" android:translateX="152.0" android:translateY="572.0" aapt:layer_name="Group 5">
+            <path android:name="s3pg1p10" android:fillColor="?progressNormalColor" android:pathData="M -1966.719 -517 C -1966.719 -517 2655.472 -517 2655.472 -517 C 2659.89 -517 2663.472 -513.418 2663.472 -509 C 2663.472 -504.582 2659.89 -501 2655.472 -501 C 2655.472 -501 -1966.719 -501 -1966.719 -501 C -1971.137 -501 -1974.719 -504.582 -1974.719 -509 C -1974.719 -513.418 -1971.137 -517 -1966.719 -517 Z" android:fillAlpha="0.6" aapt:layer_name="Path 1" />
+        </group>
+    </group>
+    <group>
+        <clip-path android:name="trk_mask" android:pathData="M9.281,56h4622.191c4.418,0 8,3.582 8,8c0,4.418 -3.582,8 -8,8h-4622.191c-4.418,0 -8,-3.582 -8,-8c0,-4.418 3.582,-8 8,-8z" />
+        <group android:name="c2" android:pivotX="2320.0" android:pivotY="64.0" android:scaleX="1.0" android:scaleY="1.0" android:rotation="0.0" android:translateX="0.0" android:translateY="0.0" aapt:layer_name="Progressbarindterminatenotracklarge">
+            <group android:name="c2s4" android:pivotX="496.0" android:pivotY="64.0" android:scaleX="1.0" android:scaleY="1.0" android:rotation="0.0" android:translateX="1801.0" android:translateY="1.0" aapt:layer_name="line1">
+                <group android:name="c2s4pg1" android:pivotX="0.0" android:pivotY="0.0" android:scaleX="1.0" android:scaleY="1.0" android:rotation="0.0" android:translateX="-1668.5" android:translateY="572.0" aapt:layer_name="Group 5">
+                    <path android:name="c2s4pg1p10" android:fillColor="?progressActivatedColor" android:pathData="M -2892.203 -517 C -2892.203 -517 -145.646 -517 -145.646 -517 C -141.228 -517 -137.646 -513.418 -137.646 -509 C -137.646 -504.582 -141.228 -501 -145.646 -501 C -145.646 -501 -2892.203 -501 -2892.203 -501 C -2896.621 -501 -2900.202 -504.582 -2900.202 -509 C -2900.202 -513.418 -2896.621 -517 -2892.203 -517 Z" android:fillAlpha="1.0" aapt:layer_name="Path 1" />
+                </group>
+            </group>
+            <group android:name="c2s3" android:pivotX="496.0" android:pivotY="64.0" android:scaleX="1.0" android:scaleY="1.0" android:rotation="0.0" android:translateX="1801.0" android:translateY="1.0" aapt:layer_name="line2">
+                <group android:name="c2s3pg1" android:pivotX="0.0" android:pivotY="0.0" android:scaleX="1.0" android:scaleY="1.0" android:rotation="0.0" android:translateX="-1679.5" android:translateY="572.0" aapt:layer_name="Group 5">
+                    <path android:name="c2s3pg1p10" android:fillColor="?progressActivatedColor" android:pathData="M -1875.203 -517 C -1875.203 -517 -145.646 -517 -145.646 -517 C -141.228 -517 -137.646 -513.418 -137.646 -509 C -137.646 -504.582 -141.228 -501 -145.646 -501 C -145.646 -501 -1875.203 -501 -1875.203 -501 C -1879.621 -501 -1883.202 -504.582 -1883.202 -509 C -1883.202 -513.418 -1879.621 -517 -1875.203 -517 Z" android:fillAlpha="1.0" aapt:layer_name="Path 1" />
+                </group>
+            </group>
+            <group android:name="c2s2" android:pivotX="496.0" android:pivotY="64.0" android:scaleX="1.0" android:scaleY="1.0" android:rotation="0.0" android:translateX="1800.5" android:translateY="1.0" aapt:layer_name="line3">
+                <group android:name="c2s2pg1" android:pivotX="0.0" android:pivotY="0.0" android:scaleX="1.0" android:scaleY="1.0" android:rotation="0.0" android:translateX="-1681.5" android:translateY="572.0" aapt:layer_name="Group 5">
+                    <path android:name="c2s2pg1p10" android:fillColor="?progressActivatedColor" android:pathData="M -1161.578 -517 C -1161.578 -517 -144.021 -517 -144.021 -517 C -139.603 -517 -136.021 -513.418 -136.021 -509 C -136.021 -504.582 -139.603 -501 -144.021 -501 C -144.021 -501 -1161.578 -501 -1161.578 -501 C -1165.996 -501 -1169.577 -504.582 -1169.577 -509 C -1169.577 -513.418 -1165.996 -517 -1161.578 -517 Z" android:fillAlpha="1.0" aapt:layer_name="Path 1" />
+                </group>
+            </group>
+            <group android:name="c2s1" android:pivotX="496.0" android:pivotY="64.0" android:scaleX="1.0" android:scaleY="1.0" android:rotation="0.0" android:translateX="1800.5" android:translateY="1.0" aapt:layer_name="line4">
+                <group android:name="c2s1pg1" android:pivotX="0.0" android:pivotY="0.0" android:scaleX="1.0" android:scaleY="1.0" android:rotation="0.0" android:translateX="-1698.5" android:translateY="572.0" aapt:layer_name="Group 5">
+                    <path android:name="c2s1pg1p10" android:fillColor="?progressActivatedColor" android:pathData="M -144.23 -517 C -144.23 -517 -144.107 -517 -144.107 -517 C -139.689 -517 -136.107 -513.418 -136.107 -509 C -136.107 -504.582 -139.689 -501 -144.107 -501 C -144.107 -501 -144.23 -501 -144.23 -501 C -148.648 -501 -152.23 -504.582 -152.23 -509 C -152.23 -513.418 -148.648 -517 -144.23 -517 Z" android:fillAlpha="1.0" aapt:layer_name="Path 1" />
+                </group>
+            </group>
+        </group>
+    </group>
+</vector>

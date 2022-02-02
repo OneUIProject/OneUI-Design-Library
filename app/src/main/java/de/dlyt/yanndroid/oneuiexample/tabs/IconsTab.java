@@ -17,7 +17,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.util.SeslRoundedCorner;
+import de.dlyt.yanndroid.oneui.sesl.utils.SeslRoundedCorner;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;

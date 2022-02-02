@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SeslSpinner;
 import androidx.fragment.app.Fragment;
 
@@ -19,12 +18,13 @@ import java.util.List;
 
 import de.dlyt.yanndroid.oneui.widget.SeekBar;
 import de.dlyt.yanndroid.oneui.widget.SwitchBar;
+import de.dlyt.yanndroid.oneuiexample.MainActivity;
 import de.dlyt.yanndroid.oneuiexample.R;
 
 public class ViewsTab extends Fragment {
 
     private View mRootView;
-    private AppCompatActivity mActivity;
+    private MainActivity mActivity;
 
     public ViewsTab() {
     }
@@ -32,7 +32,7 @@ public class ViewsTab extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity = (AppCompatActivity) getActivity();
+        mActivity = (MainActivity) getActivity();
     }
 
     @Override

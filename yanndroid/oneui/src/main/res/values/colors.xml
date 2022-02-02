@@ -78,13 +78,20 @@
     <color name="sesl_loading_progress_color1">#ff06b485</color>
     <color name="sesl_loading_progress_color2">?colorPrimary</color>
     <color name="sesl_progress_control_color_normal">@color/sesl_control_color_normal</color>
-    <color name="progress_bar_background_color">#4d9c9c9c</color>
-
     <color name="sesl4_progress_control_color_normal">#66cacaca</color>
-
+    <color name="sesl_progress_control_color_background">#66cacaca</color>
     <color name="sesl_swipe_refresh_color1">#ff00d694</color>
     <color name="sesl_swipe_refresh_color2">?colorPrimary</color>
 
+    <color name="sesl_seekbar_control_color_normal">@color/sesl_control_color_normal</color>
+    <color name="sesl_seekbar_control_color_default">@color/sesl_control_color_normal</color>
+    <color name="sesl4_seekbar_control_color_default">#66cacaca</color>
+    <color name="sesl_seekbar_disable_color_activated">#ffd2d2d2</color>
+    <color name="sesl_seekbar_overlap_color_activated">#ffff6021</color>
+    <color name="sesl4_seekbar_overlap_color_activated">#ffef5e16</color>
+    <color name="sesl_seekbar_overlap_color_default">#fffcb69b</color>
+    <color name="sesl4_seekbar_overlap_color_default">#66cacaca</color>
+    <color name="sesl_seekbar_control_color_secondary">#ff7ab9cb</color>
 
 
     <!--Switch-->
@@ -122,15 +129,7 @@
 
 
     <!--Seekbar-->
-    <color name="sesl_seekbar_control_color_normal">@color/sesl_control_color_normal</color>
-    <color name="sesl_seekbar_control_color_default">@color/sesl_control_color_normal</color>
-    <color name="sesl4_seekbar_control_color_default">#66cacaca</color>
-    <color name="sesl_seekbar_control_color_secondary">#ff7ab9cb</color>
-    <color name="sesl_seekbar_disable_color_activated">#ffd2d2d2</color>
-    <color name="sesl_seekbar_overlap_color_activated">#ffff6021</color>
-    <color name="sesl4_seekbar_overlap_color_activated">#ffef5e16</color>
-    <color name="sesl_seekbar_overlap_color_default">#fffcb69b</color>
-    <color name="sesl4_seekbar_overlap_color_default">#66cacaca</color>
+
 
 
     <!--Spinner-->

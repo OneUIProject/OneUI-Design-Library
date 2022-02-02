@@ -40,7 +40,7 @@ public class SplashView extends LinearLayout {
                 mText = attr.getString(R.styleable.SplashView_text);
                 mImage_foreground = attr.getDrawable(R.styleable.SplashView_foreground_image);
                 mImage_background = attr.getDrawable(R.styleable.SplashView_background_image);
-                splash_anim = AnimationUtils.loadAnimation(context, attr.getResourceId(R.styleable.SplashView_animation, R.anim.sesl_splash_animation));
+                splash_anim = AnimationUtils.loadAnimation(context, attr.getResourceId(R.styleable.SplashView_animation, R.anim.oui_splash_animation));
             } else {
                 mText = attr.getString(R.styleable.SplashView_text);
                 mImage = attr.getDrawable(R.styleable.SplashView_image);

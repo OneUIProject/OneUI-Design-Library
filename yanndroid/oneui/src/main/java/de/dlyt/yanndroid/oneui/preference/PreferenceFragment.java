@@ -22,8 +22,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.XmlRes;
-import androidx.appcompat.util.SeslRoundedCorner;
-import androidx.appcompat.util.SeslSubheaderRoundedCorner;
+import de.dlyt.yanndroid.oneui.sesl.utils.SeslRoundedCorner;
+import de.dlyt.yanndroid.oneui.sesl.utils.SeslSubheaderRoundedCorner;
 import androidx.core.content.res.TypedArrayUtils;
 
 import de.dlyt.yanndroid.oneui.R;

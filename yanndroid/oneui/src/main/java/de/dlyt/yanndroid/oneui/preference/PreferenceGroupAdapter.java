@@ -1,7 +1,5 @@
 package de.dlyt.yanndroid.oneui.preference;
 
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -11,9 +9,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.util.SeslRoundedCorner;
-import androidx.core.view.ViewCompat;
+
+import de.dlyt.yanndroid.oneui.sesl.utils.SeslRoundedCorner;
 
 import java.util.ArrayList;
 import java.util.List;

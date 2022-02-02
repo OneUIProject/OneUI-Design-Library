@@ -565,6 +565,7 @@
         <attr name="android:secondaryProgress" />
         <attr name="android:secondaryProgressTint" />
         <attr name="android:secondaryProgressTintMode" />
+        <attr name="useHorizontalProgress" format="boolean" />
     </declare-styleable>
     <declare-styleable name="SeslSwitchBar">
         <attr name="seslSwitchBarBackgroundActivatedColor" format="color" />
