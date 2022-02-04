@@ -2,7 +2,6 @@ package de.dlyt.yanndroid.oneuiexample.tabs;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import de.dlyt.yanndroid.oneui.layout.SwipeRefreshLayout;
+import de.dlyt.yanndroid.oneui.widget.SwipeRefreshLayout;
 import de.dlyt.yanndroid.oneuiexample.R;
 
 public class NothingTab extends Fragment {

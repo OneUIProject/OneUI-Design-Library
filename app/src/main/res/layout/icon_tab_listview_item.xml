@@ -32,21 +32,14 @@
             android:gravity="center"
             android:scaleType="fitXY" />
 
-        <RelativeLayout
-            android:layout_width="0.0dip"
+        <TextView
+            android:id="@+id/icon_tab_item_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:orientation="vertical"
-            android:paddingVertical="14.0dip">
-
-            <TextView
-                android:id="@+id/icon_tab_item_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textAppearance="?textAppearanceListItem" />
-        </RelativeLayout>
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingVertical="14.0dip"
+            android:textAppearance="?textAppearanceListItem" />
 
     </LinearLayout>
 

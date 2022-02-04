@@ -2,6 +2,8 @@ package de.dlyt.yanndroid.oneui.menu;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Build;
+import android.provider.Settings;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -15,6 +17,8 @@ import android.widget.TextView;
 
 import androidx.annotation.MenuRes;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.reflect.provider.SeslSystemReflector;
+import androidx.reflect.view.SeslSemBlurInfoReflector;
 
 import java.util.ArrayList;
 
@@ -38,6 +42,7 @@ public class PopupMenu {
     private CharSequence title;
 
     private int mAnimationStyleRes = 0;
+    private boolean mBlurEffectEnabled;
     private boolean mGroupDividerEnabled;
 
     private int lastGroupId = 0;
@@ -48,6 +53,7 @@ public class PopupMenu {
         this.context = anchor.getContext();
         this.anchor = anchor;
         mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
+        mBlurEffectEnabled = mIsOneUI4;
     }
 
     public interface PopupMenuListener {
@@ -178,6 +184,30 @@ public class PopupMenu {
         return titleView;
     }
 
+    private boolean isReduceTransparencySettingsEnabled() {
+        String reduceTransparencyFlag = SeslSystemReflector.getField_SEM_ACCESSIBILITY_REDUCE_TRANSPARENCY();
+        return !reduceTransparencyFlag.equals("not_supported") && Settings.System.getInt(context.getContentResolver(), reduceTransparencyFlag, 0) == 1;
+    }
+
+    private void setupBlurEffect() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && mBlurEffectEnabled) {
+            if (popupWindow != null && popupWindow.getContentView() != null) {
+                Object blurBuilder = SeslSemBlurInfoReflector.semCreateBlurBuilder(0 /* SemBlurInfo.BLUR_MODE_WINDOW */);
+
+                if (blurBuilder != null && !isReduceTransparencySettingsEnabled()) {
+                    SeslSemBlurInfoReflector.semSetBuilderBlurRadius(blurBuilder, 120);
+                    SeslSemBlurInfoReflector.semSetBuilderBlurBackgroundColor(blurBuilder, context.getResources().getColor(R.color.sesl_popup_menu_blur_background, context.getTheme()));
+                    SeslSemBlurInfoReflector.semSetBuilderBlurBackgroundCornerRadius(blurBuilder, context.getResources().getDimension(mIsOneUI4 ? R.dimen.sesl4_menu_popup_corner_radius : R.dimen.sesl_menu_popup_corner_radius));
+                    SeslSemBlurInfoReflector.semBuildSetBlurInfo(blurBuilder, popupWindow.getContentView());
+
+                    if (listView != null) {
+                        listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+                    }
+                }
+            }
+        }
+    }
+
     private boolean shouldShowGroupDivider(MenuItem menuItem) {
         if (mGroupDividerEnabled) {
             if (menuItem.getGroupId() == lastGroupId) {
@@ -228,6 +258,7 @@ public class PopupMenu {
     public void show(int xoff, int yoff) {
         this.xoff = xoff;
         this.yoff = yoff;
+        setupBlurEffect();
         popupWindow.showAsDropDown(anchor, xoff, yoff);
         updatePopupSize();
         ((View) ReflectUtils.genericGetField(popupWindow, "mBackgroundView")).setClipToOutline(true);
@@ -238,6 +269,10 @@ public class PopupMenu {
         if (popupWindow != null) {
             popupWindow.setAnimationStyle(animationStyle);
         }
+    }
+
+    public void setBlurEffectEnabled(boolean enabled) {
+        mBlurEffectEnabled = enabled;
     }
 
     public void setGroupDividerEnabled(boolean enabled) {

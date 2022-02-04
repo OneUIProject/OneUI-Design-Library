@@ -8,8 +8,10 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.SystemClock;
 import android.util.AttributeSet;
-import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,21 +19,21 @@ import java.util.Collections;
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.dialog.ClassicColorPickerDialog;
 import de.dlyt.yanndroid.oneui.dialog.DetailedColorPickerDialog;
-import de.dlyt.yanndroid.oneui.preference.internal.SeslPreferenceImageView;
+import de.dlyt.yanndroid.oneui.preference.internal.PreferenceImageView;
 
 public class ColorPickerPreference extends Preference implements Preference.OnPreferenceClickListener,
-        ClassicColorPickerDialog.ColorPickerChangedListener,
-        DetailedColorPickerDialog.ColorPickerChangedListener {
+        ClassicColorPickerDialog.OnColorSetListener,
+        DetailedColorPickerDialog.OnColorSetListener {
     private static int CLASSIC = 0;
     private static int DETAILED = 1;
 
     PreferenceViewHolder mViewHolder;
     Dialog mDialog;
-    SeslPreferenceImageView mPreview;
+    PreferenceImageView mPreview;
     private int mValue = Color.BLACK;
-    private boolean mFirstColor = true;
     private ArrayList<Integer> mUsedColors = new ArrayList();
 
+    private long mLastClickTime;
     private boolean mAlphaSliderEnabled = false;
     private int mPickerType = CLASSIC;
 
@@ -70,16 +72,12 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
     }
 
     @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        if (mPickerType == CLASSIC)
-            onColorChanged(restoreValue ? getPersistedInt(mValue) : (Integer) defaultValue);
-        else {
-            onColorChanged(restoreValue ? getPersistedInt(mValue) : (Integer) defaultValue, null);
-        }
+    protected void onSetInitialValue(Object defaultValue) {
+        onColorSet(defaultValue == null ? getPersistedInt(mValue) : (Integer) defaultValue);
     }
 
     private void init(Context context, AttributeSet attrs) {
-        setWidgetLayoutResource(R.layout.color_picker_preference_widget);
+        setWidgetLayoutResource(R.layout.oui_color_picker_preference_widget);
 
         setOnPreferenceClickListener(this);
 
@@ -90,10 +88,10 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder) {
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         mViewHolder = holder;
-        mPreview = (SeslPreferenceImageView) holder.findViewById(R.id.imageview_widget);
+        mPreview = (PreferenceImageView) holder.findViewById(R.id.imageview_widget);
         setPreviewColor();
     }
 
@@ -102,51 +100,31 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
             return;
         }
 
-        GradientDrawable drawable = (GradientDrawable) getContext().getDrawable(R.drawable.color_picker_preference_preview).mutate();
+        GradientDrawable drawable = (GradientDrawable) getContext().getDrawable(R.drawable.oui_color_picker_preference_preview).mutate();
         drawable.setColor(mValue);
 
         mPreview.setBackground(drawable);
     }
 
     @Override
-    public void onColorChanged(int color) {
+    public void onColorSet(int color) {
         if (isPersistent()) {
             persistInt(color);
         }
         mValue = color;
 
         callChangeListener(color);
-
-        if (!mFirstColor)
-            addRecentColor(color);
-        else
-            mFirstColor = false;
+        addRecentColor(color);
         setPreviewColor();
     }
 
     @Override
-    public void onColorChanged(int color, float[] HSVcolor) {
-        if (isPersistent()) {
-            persistInt(color);
+    public boolean onPreferenceClick(@NonNull Preference preference) {
+        long uptimeMillis = SystemClock.uptimeMillis();
+        if (uptimeMillis - mLastClickTime > 600L) {
+            showDialog(null);
         }
-        mValue = color;
-
-        callChangeListener(color);
-
-        if (!mFirstColor)
-            addRecentColor(color);
-        else
-            mFirstColor = false;
-        setPreviewColor();
-    }
-
-    @Override
-    public void onViewModeChanged(int i) {
-    }
-
-    @Override
-    public boolean onPreferenceClick(Preference preference) {
-        showDialog(null);
+        mLastClickTime = uptimeMillis;
         return false;
     }
 
@@ -160,13 +138,10 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
             dialog.show();
 
             mDialog = dialog;
-        } else {
-            float[] fArr = new float[3];
-            Color.colorToHSV(mValue, fArr);
-            DetailedColorPickerDialog dialog = new DetailedColorPickerDialog(getContext(), 1, fArr);
-            dialog.setColorPickerChangeListener(this);
-            if (mAlphaSliderEnabled)
-                Log.e("ColorPickerPreference", "mAlphaSliderEnabled not supported with detailed mode");
+        } else if (mPickerType == DETAILED) {
+            DetailedColorPickerDialog dialog = new DetailedColorPickerDialog(getContext(), this, mValue, getRecentColors(), mAlphaSliderEnabled);
+            dialog.setNewColor(mValue);
+            dialog.setTransparencyControlEnabled(mAlphaSliderEnabled);
             if (state != null)
                 dialog.onRestoreInstanceState(state);
             dialog.show();
@@ -177,9 +152,10 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
 
     public void setAlphaSliderEnabled(boolean enable) {
         mAlphaSliderEnabled = enable;
+    }
 
-        if (mPickerType == DETAILED)
-            Log.e("ColorPickerPreference", "mAlphaSliderEnabled not supported with detailed mode");
+    public void setPickerType(int type) {
+        mPickerType = type;
     }
 
     private void addRecentColor(int color) {

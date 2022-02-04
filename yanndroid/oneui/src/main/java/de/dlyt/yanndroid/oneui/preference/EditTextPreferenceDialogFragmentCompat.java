@@ -1,15 +1,18 @@
 package de.dlyt.yanndroid.oneui.preference;
 
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat {
     private static final String SAVE_STATE_TEXT = "EditTextPreferenceDialogFragment.text";
     private EditText mEditText;
     private CharSequence mText;
 
+    @NonNull
     public static EditTextPreferenceDialogFragmentCompat newInstance(String key) {
         final EditTextPreferenceDialogFragmentCompat fragment = new EditTextPreferenceDialogFragmentCompat();
         final Bundle b = new Bundle(1);
@@ -19,7 +22,7 @@ public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFrag
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             mText = getEditTextPreference().getText();
@@ -29,24 +32,27 @@ public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFrag
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putCharSequence(SAVE_STATE_TEXT, mText);
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        mEditText = (EditText) view.findViewById(android.R.id.edit);
+        mEditText = view.findViewById(android.R.id.edit);
 
         if (mEditText == null) {
-            throw new IllegalStateException("Dialog view must contain an EditText with id" + " @android:id/edit");
+            throw new IllegalStateException("Dialog view must contain an EditText with id @android:id/edit");
         }
 
-        mEditText.setText(mText);
-        mEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         mEditText.requestFocus();
+        mEditText.setText(mText);
+        mEditText.setSelection(mEditText.getText().length());
+        if (getEditTextPreference().getOnBindEditTextListener() != null) {
+            getEditTextPreference().getOnBindEditTextListener().onBindEditText(mEditText);
+        }
     }
 
     private EditTextPreference getEditTextPreference() {
@@ -62,9 +68,11 @@ public class EditTextPreferenceDialogFragmentCompat extends PreferenceDialogFrag
     public void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
             String value = mEditText.getText().toString();
-            if (getEditTextPreference().callChangeListener(value)) {
-                getEditTextPreference().setText(value);
+            final EditTextPreference preference = getEditTextPreference();
+            if (preference.callChangeListener(value)) {
+                preference.setText(value);
             }
         }
     }
+
 }

@@ -1,58 +1,67 @@
 package de.dlyt.yanndroid.oneui.preference;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.provider.Settings.Secure;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.AbsSavedState;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.TypedArrayUtils;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.preference.internal.SeslPreferenceImageView;
 
-public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference.Preference> {
+public class Preference implements Comparable<Preference> {
+    private static final String CLIPBOARD_ID = "Preference";
     public static final int DEFAULT_ORDER = Integer.MAX_VALUE;
-    private final OnClickListener mClickListener;
-    public boolean mIsSolidRoundedCorner;
-    boolean mIsPreferenceRoundedBg;
-    boolean mIsRoundChanged;
-    int mSubheaderColor;
-    boolean mSubheaderRound;
-    int mWhere;
-    private boolean mAllowDividerAbove;
-    private boolean mAllowDividerBelow;
+    protected static final float FONT_SCALE_LARGE = 1.3f;
+    protected static final float FONT_SCALE_MEDIUM = 1.1f;
+    private static final String TAG = "SeslPreference";
+    private boolean mAllowDividerAbove = true;
+    private boolean mAllowDividerBelow = true;
     private boolean mBaseMethodCalled;
-    private boolean mChangedSummaryColor;
-    private boolean mChangedSummaryColorStateList;
+    private boolean mChangedSummaryColor = false;
+    private boolean mChangedSummaryColorStateList = false;
+    @NonNull
     private Context mContext;
+    private boolean mCopyingEnabled;
     private Object mDefaultValue;
     private String mDependencyKey;
-    private boolean mDependencyMet;
-    private List<de.dlyt.yanndroid.oneui.preference.Preference> mDependents;
-    private boolean mEnabled;
+    private boolean mDependencyMet = true;
+    private List<Preference> mDependents;
+    private boolean mEnabled = true;
     private Bundle mExtras;
     private String mFragment;
     private boolean mHasId;
@@ -62,445 +71,357 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
     private boolean mIconSpaceReserved;
     private long mId;
     private Intent mIntent;
+    private boolean mIsPreferenceRoundedBg = false;
+    boolean mIsRoundChanged = false;
+    private View mItemView;
     private String mKey;
-    private int mLayoutResId;
-    private de.dlyt.yanndroid.oneui.preference.Preference.OnPreferenceChangeInternalListener mListener;
-    private de.dlyt.yanndroid.oneui.preference.Preference.OnPreferenceChangeListener mOnChangeListener;
-    private de.dlyt.yanndroid.oneui.preference.Preference.OnPreferenceClickListener mOnClickListener;
-    private int mOrder;
-    private boolean mParentDependencyMet;
+    private int mLayoutResId = R.layout.sesl_preference;
+    private OnPreferenceChangeInternalListener mListener;
+    private OnPreferenceChangeListener mOnChangeListener;
+    private OnPreferenceClickListener mOnClickListener;
+    private OnPreferenceCopyListener mOnCopyListener;
+    private int mOrder = DEFAULT_ORDER;
+    private boolean mParentDependencyMet = true;
     private PreferenceGroup mParentGroup;
-    private boolean mPersistent;
+    private boolean mPersistent = true;
+    @Nullable
     private PreferenceDataStore mPreferenceDataStore;
+    @Nullable
     private PreferenceManager mPreferenceManager;
-    private boolean mSelectable;
-    private boolean mShouldDisableView;
-    private boolean mSingleLineTitle;
+    private boolean mRequiresKey;
+    private boolean mSelectable = true;
+    private boolean mShouldDisableView = true;
+    private boolean mSingleLineTitle = true;
+    int mSubheaderColor;
+    private boolean mSubheaderRound = false;
     private CharSequence mSummary;
     private int mSummaryColor;
     private ColorStateList mSummaryColorStateList;
+    private SummaryProvider mSummaryProvider;
     private ColorStateList mTextColorSecondary;
     private CharSequence mTitle;
-    private int mViewId;
-    private boolean mVisible;
+    private int mViewId = 0;
+    private boolean mVisible = true;
     private boolean mWasDetached;
+    private int mWhere = 0;
     private int mWidgetLayoutResId;
 
-    @SuppressLint("RestrictedApi")
-    public Preference(Context var1, AttributeSet var2) {
-        this(var1, var2, TypedArrayUtils.getAttr(var1, R.attr.preferenceStyle, 16842894));
-    }
-
-    public Preference(Context var1, AttributeSet var2, int var3) {
-        this(var1, var2, var3, 0);
-    }
+    private final View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            performClick(v);
+        }
+    };
 
     @SuppressLint("RestrictedApi")
-    public Preference(Context var1, AttributeSet var2, int var3, int var4) {
-        this.mOrder = 2147483647;
-        this.mViewId = 0;
-        this.mEnabled = true;
-        this.mSelectable = true;
-        this.mPersistent = true;
-        this.mDependencyMet = true;
-        this.mParentDependencyMet = true;
-        this.mVisible = true;
-        this.mAllowDividerAbove = true;
-        this.mAllowDividerBelow = true;
-        this.mSingleLineTitle = true;
-        this.mIsSolidRoundedCorner = false;
-        this.mIsPreferenceRoundedBg = false;
-        this.mSubheaderRound = false;
-        this.mWhere = 0;
-        this.mIsRoundChanged = false;
-        this.mChangedSummaryColor = false;
-        this.mChangedSummaryColorStateList = false;
-        this.mShouldDisableView = true;
-        this.mLayoutResId = R.layout.sesl_preference;
-        this.mClickListener = new OnClickListener() {
-            public void onClick(View var1) {
-                de.dlyt.yanndroid.oneui.preference.Preference.this.performClick(var1);
-            }
-        };
-        this.mContext = var1;
-        TypedArray var5 = var1.obtainStyledAttributes(var2, R.styleable.Preference, var3, var4);
-        this.mIconResId = TypedArrayUtils.getResourceId(var5, R.styleable.Preference_icon, R.styleable.Preference_android_icon, 0);
-        this.mKey = TypedArrayUtils.getString(var5, R.styleable.Preference_key, R.styleable.Preference_android_key);
-        this.mTitle = TypedArrayUtils.getText(var5, R.styleable.Preference_title, R.styleable.Preference_android_title);
-        this.mSummary = TypedArrayUtils.getText(var5, R.styleable.Preference_summary, R.styleable.Preference_android_summary);
-        this.mOrder = TypedArrayUtils.getInt(var5, R.styleable.Preference_order, R.styleable.Preference_android_order, 2147483647);
-        this.mFragment = TypedArrayUtils.getString(var5, R.styleable.Preference_fragment, R.styleable.Preference_android_fragment);
-        this.mLayoutResId = TypedArrayUtils.getResourceId(var5, R.styleable.Preference_layout, R.styleable.Preference_android_layout, R.layout.sesl_preference);
-        this.mWidgetLayoutResId = TypedArrayUtils.getResourceId(var5, R.styleable.Preference_widgetLayout, R.styleable.Preference_android_widgetLayout, 0);
-        this.mEnabled = TypedArrayUtils.getBoolean(var5, R.styleable.Preference_enabled, R.styleable.Preference_android_enabled, true);
-        this.mSelectable = TypedArrayUtils.getBoolean(var5, R.styleable.Preference_selectable, R.styleable.Preference_android_selectable, true);
-        this.mPersistent = TypedArrayUtils.getBoolean(var5, R.styleable.Preference_persistent, R.styleable.Preference_android_persistent, true);
-        this.mDependencyKey = TypedArrayUtils.getString(var5, R.styleable.Preference_dependency, R.styleable.Preference_android_dependency);
-        this.mAllowDividerAbove = TypedArrayUtils.getBoolean(var5, R.styleable.Preference_allowDividerAbove, R.styleable.Preference_allowDividerAbove, this.mSelectable);
-        this.mAllowDividerBelow = TypedArrayUtils.getBoolean(var5, R.styleable.Preference_allowDividerBelow, R.styleable.Preference_allowDividerBelow, this.mSelectable);
-        if (var5.hasValue(R.styleable.Preference_defaultValue)) {
-            this.mDefaultValue = this.onGetDefaultValue(var5, R.styleable.Preference_defaultValue);
-        } else if (var5.hasValue(R.styleable.Preference_android_defaultValue)) {
-            this.mDefaultValue = this.onGetDefaultValue(var5, R.styleable.Preference_android_defaultValue);
+    public Preference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        mContext = context;
+
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Preference, defStyleAttr, defStyleRes);
+
+        mIconResId = TypedArrayUtils.getResourceId(a, R.styleable.Preference_icon, R.styleable.Preference_android_icon, 0);
+        mKey = TypedArrayUtils.getString(a, R.styleable.Preference_key, R.styleable.Preference_android_key);
+        mTitle = TypedArrayUtils.getText(a, R.styleable.Preference_title, R.styleable.Preference_android_title);
+        mSummary = TypedArrayUtils.getText(a, R.styleable.Preference_summary, R.styleable.Preference_android_summary);
+        mOrder = TypedArrayUtils.getInt(a, R.styleable.Preference_order, R.styleable.Preference_android_order, DEFAULT_ORDER);
+        mFragment = TypedArrayUtils.getString(a, R.styleable.Preference_fragment, R.styleable.Preference_android_fragment);
+        mLayoutResId = TypedArrayUtils.getResourceId(a, R.styleable.Preference_layout, R.styleable.Preference_android_layout, R.layout.sesl_preference);
+        mWidgetLayoutResId = TypedArrayUtils.getResourceId(a, R.styleable.Preference_widgetLayout, R.styleable.Preference_android_widgetLayout, 0);
+        mEnabled = TypedArrayUtils.getBoolean(a, R.styleable.Preference_enabled, R.styleable.Preference_android_enabled, true);
+        mSelectable = TypedArrayUtils.getBoolean(a, R.styleable.Preference_selectable, R.styleable.Preference_android_selectable, true);
+        mPersistent = TypedArrayUtils.getBoolean(a, R.styleable.Preference_persistent, R.styleable.Preference_android_persistent, true);
+        mDependencyKey = TypedArrayUtils.getString(a, R.styleable.Preference_dependency, R.styleable.Preference_android_dependency);
+        mAllowDividerAbove = TypedArrayUtils.getBoolean(a, R.styleable.Preference_allowDividerAbove, R.styleable.Preference_allowDividerAbove, mSelectable);
+        mAllowDividerBelow = TypedArrayUtils.getBoolean(a, R.styleable.Preference_allowDividerBelow, R.styleable.Preference_allowDividerBelow, mSelectable);
+
+        if (a.hasValue(R.styleable.Preference_defaultValue)) {
+            mDefaultValue = onGetDefaultValue(a, R.styleable.Preference_defaultValue);
+        } else if (a.hasValue(R.styleable.Preference_android_defaultValue)) {
+            mDefaultValue = onGetDefaultValue(a, R.styleable.Preference_android_defaultValue);
         }
 
-        this.mShouldDisableView = TypedArrayUtils.getBoolean(var5, R.styleable.Preference_shouldDisableView, R.styleable.Preference_android_shouldDisableView, true);
-        this.mHasSingleLineTitleAttr = var5.hasValue(R.styleable.Preference_singleLineTitle);
-        if (this.mHasSingleLineTitleAttr) {
-            this.mSingleLineTitle = TypedArrayUtils.getBoolean(var5, R.styleable.Preference_singleLineTitle, R.styleable.Preference_android_singleLineTitle, true);
+        mShouldDisableView = TypedArrayUtils.getBoolean(a, R.styleable.Preference_shouldDisableView, R.styleable.Preference_android_shouldDisableView, true);
+
+        mHasSingleLineTitleAttr = a.hasValue(R.styleable.Preference_singleLineTitle);
+        if (mHasSingleLineTitleAttr) {
+            mSingleLineTitle = TypedArrayUtils.getBoolean(a, R.styleable.Preference_singleLineTitle, R.styleable.Preference_android_singleLineTitle, true);
         }
 
-        this.mIconSpaceReserved = TypedArrayUtils.getBoolean(var5, R.styleable.Preference_iconSpaceReserved, R.styleable.Preference_android_iconSpaceReserved, false);
-        var5.recycle();
-        TypedValue var6 = new TypedValue();
-        var1.getTheme().resolveAttribute(16842808, var6, true);
-        if (var6.resourceId > 0) {
-            this.mTextColorSecondary = var1.getResources().getColorStateList(var6.resourceId, null);
-        }
+        mIconSpaceReserved = TypedArrayUtils.getBoolean(a, R.styleable.Preference_iconSpaceReserved, R.styleable.Preference_android_iconSpaceReserved, false);
+        mVisible = TypedArrayUtils.getBoolean(a, R.styleable.Preference_isPreferenceVisible, R.styleable.Preference_isPreferenceVisible, true);
+        mCopyingEnabled = TypedArrayUtils.getBoolean(a, R.styleable.Preference_enableCopying, R.styleable.Preference_enableCopying, false);
 
-    }
+        a.recycle();
 
-    private void dispatchSetInitialValue() {
-        if (this.getPreferenceDataStore() != null) {
-            this.onSetInitialValue(true, this.mDefaultValue);
-        } else if (this.shouldPersist() && this.getSharedPreferences().contains(this.mKey)) {
-            this.onSetInitialValue(true, (Object) null);
-        } else if (this.mDefaultValue != null) {
-            this.onSetInitialValue(false, this.mDefaultValue);
-        }
-
-    }
-
-    public boolean persistStringSet(Set<String> var1) {
-        if (!this.shouldPersist()) {
-            return false;
-        } else if (var1.equals(this.getPersistedStringSet((Set<String>) null))) {
-            return true;
-        } else {
-            PreferenceDataStore var2 = this.getPreferenceDataStore();
-            if (var2 != null) {
-                var2.putStringSet(this.mKey, var1);
-            } else {
-                Editor var3 = this.mPreferenceManager.getEditor();
-                var3.putStringSet(this.mKey, var1);
-                this.tryCommit(var3);
-            }
-
-            return true;
+        TypedValue textColorSecondary = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.textColorSecondary, textColorSecondary, true);
+        if (textColorSecondary.resourceId > 0) {
+            mTextColorSecondary = context.getResources().getColorStateList(textColorSecondary.resourceId);
         }
     }
 
-    private void registerDependency() {
-        if (!TextUtils.isEmpty(this.mDependencyKey)) {
-            de.dlyt.yanndroid.oneui.preference.Preference var1 = this.findPreferenceInHierarchy(this.mDependencyKey);
-            if (var1 == null) {
-                throw new IllegalStateException("Dependency \"" + this.mDependencyKey + "\" not found for preference \"" + this.mKey + "\" (title: \"" + this.mTitle + "\"");
-            }
-
-            var1.registerDependent(this);
-        }
-
+    public Preference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        this(context, attrs, defStyleAttr, 0);
     }
 
-    private void registerDependent(de.dlyt.yanndroid.oneui.preference.Preference var1) {
-        if (this.mDependents == null) {
-            this.mDependents = new ArrayList();
-        }
-
-        this.mDependents.add(var1);
-        var1.onDependencyChanged(this, this.shouldDisableDependents());
+    @SuppressLint("RestrictedApi")
+    public Preference(@NonNull Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.preferenceStyle, android.R.attr.preferenceStyle));
     }
 
-    private void setEnabledStateOnViews(View var1, boolean var2) {
-        var1.setEnabled(var2);
-        if (var1 instanceof ViewGroup) {
-            ViewGroup var4 = (ViewGroup) var1;
-
-            for (int var3 = var4.getChildCount() - 1; var3 >= 0; --var3) {
-                this.setEnabledStateOnViews(var4.getChildAt(var3), var2);
-            }
-        }
-
+    public Preference(@NonNull Context context) {
+        this(context, null);
     }
 
-    private void tryCommit(Editor var1) {
-        if (this.mPreferenceManager.shouldCommit()) {
-            var1.apply();
-        }
-
+    @Nullable
+    protected Object onGetDefaultValue(@NonNull TypedArray a, int index) {
+        return null;
     }
 
-    private void unregisterDependency() {
-        if (this.mDependencyKey != null) {
-            de.dlyt.yanndroid.oneui.preference.Preference var1 = this.findPreferenceInHierarchy(this.mDependencyKey);
-            if (var1 != null) {
-                var1.unregisterDependent(this);
-            }
-        }
-
+    public void setIntent(@Nullable Intent intent) {
+        mIntent = intent;
     }
 
-    private void unregisterDependent(de.dlyt.yanndroid.oneui.preference.Preference var1) {
-        if (this.mDependents != null) {
-            this.mDependents.remove(var1);
-        }
-
-    }
-
-    void assignParent(PreferenceGroup var1) {
-        this.mParentGroup = var1;
-    }
-
-    public boolean callChangeListener(Object var1) {
-        boolean var2;
-        if (this.mOnChangeListener != null && !this.mOnChangeListener.onPreferenceChange(this, var1)) {
-            var2 = false;
-        } else {
-            var2 = true;
-        }
-
-        return var2;
-    }
-
-    protected void callClickListener() {
-        if (this.mOnClickListener != null) {
-            this.mOnClickListener.onPreferenceClick(this);
-        }
-    }
-
-    public final void clearWasDetached() {
-        this.mWasDetached = false;
-    }
-
-    public int compareTo(de.dlyt.yanndroid.oneui.preference.Preference var1) {
-        int var2;
-        if (this.mOrder != var1.mOrder) {
-            var2 = this.mOrder - var1.mOrder;
-        } else if (this.mTitle == var1.mTitle) {
-            var2 = 0;
-        } else if (this.mTitle == null) {
-            var2 = 1;
-        } else if (var1.mTitle == null) {
-            var2 = -1;
-        } else {
-            var2 = this.mTitle.toString().compareToIgnoreCase(var1.mTitle.toString());
-        }
-
-        return var2;
-    }
-
-    void dispatchRestoreInstanceState(Bundle var1) {
-        if (this.hasKey()) {
-            Parcelable var2 = var1.getParcelable(this.mKey);
-            if (var2 != null) {
-                this.mBaseMethodCalled = false;
-                this.onRestoreInstanceState(var2);
-                if (!this.mBaseMethodCalled) {
-                    throw new IllegalStateException("Derived class did not call super.onRestoreInstanceState()");
-                }
-            }
-        }
-
-    }
-
-    void dispatchSaveInstanceState(Bundle var1) {
-        if (this.hasKey()) {
-            this.mBaseMethodCalled = false;
-            Parcelable var2 = this.onSaveInstanceState();
-            if (!this.mBaseMethodCalled) {
-                throw new IllegalStateException("Derived class did not call super.onSaveInstanceState()");
-            }
-
-            if (var2 != null) {
-                var1.putParcelable(this.mKey, var2);
-            }
-        }
-
-    }
-
-    protected de.dlyt.yanndroid.oneui.preference.Preference findPreferenceInHierarchy(String var1) {
-        de.dlyt.yanndroid.oneui.preference.Preference var2;
-        if (!TextUtils.isEmpty(var1) && this.mPreferenceManager != null) {
-            var2 = this.mPreferenceManager.findPreference(var1);
-        } else {
-            var2 = null;
-        }
-
-        return var2;
-    }
-
-    public Context getContext() {
-        return this.mContext;
-    }
-
-    public Bundle getExtras() {
-        if (this.mExtras == null) {
-            this.mExtras = new Bundle();
-        }
-
-        return this.mExtras;
-    }
-
-    StringBuilder getFilterableStringBuilder() {
-        StringBuilder var1 = new StringBuilder();
-        CharSequence var2 = this.getTitle();
-        if (!TextUtils.isEmpty(var2)) {
-            var1.append(var2).append(' ');
-        }
-
-        var2 = this.getSummary();
-        if (!TextUtils.isEmpty(var2)) {
-            var1.append(var2).append(' ');
-        }
-
-        if (var1.length() > 0) {
-            var1.setLength(var1.length() - 1);
-        }
-
-        return var1;
-    }
-
-    public String getFragment() {
-        return this.mFragment;
-    }
-
-    long getId() {
-        return this.mId;
-    }
-
+    @Nullable
     public Intent getIntent() {
-        return this.mIntent;
+        return mIntent;
     }
 
-    public void setIntent(Intent var1) {
-        this.mIntent = var1;
+    public void setFragment(@Nullable String fragment) {
+        mFragment = fragment;
     }
 
-    public String getKey() {
-        return this.mKey;
+    @Nullable
+    public String getFragment() {
+        return mFragment;
+    }
+
+    public void setPreferenceDataStore(@Nullable PreferenceDataStore dataStore) {
+        mPreferenceDataStore = dataStore;
+    }
+
+    @Nullable
+    public PreferenceDataStore getPreferenceDataStore() {
+        if (mPreferenceDataStore != null) {
+            return mPreferenceDataStore;
+        } else if (mPreferenceManager != null) {
+            return mPreferenceManager.getPreferenceDataStore();
+        }
+
+        return null;
+    }
+
+    @NonNull
+    public Bundle getExtras() {
+        if (mExtras == null) {
+            mExtras = new Bundle();
+        }
+        return mExtras;
+    }
+
+    @SuppressWarnings("NullableCollection")
+    @Nullable
+    public Bundle peekExtras() {
+        return mExtras;
+    }
+
+    public void setLayoutResource(int layoutResId) {
+        mLayoutResId = layoutResId;
     }
 
     public final int getLayoutResource() {
-        return this.mLayoutResId;
+        return mLayoutResId;
     }
 
-    public void setLayoutResource(int var1) {
-        this.mLayoutResId = var1;
+    public void setWidgetLayoutResource(int widgetLayoutResId) {
+        mWidgetLayoutResId = widgetLayoutResId;
+        notifyChanged();
+    }
+
+    public final int getWidgetLayoutResource() {
+        return mWidgetLayoutResId;
+    }
+
+    // kang
+    @SuppressLint("ResourceType")
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
+        View var2;
+        byte var4;
+        CharSequence var5;
+        Integer var11;
+        label113: {
+            var2 = holder.itemView;
+            var2.setOnClickListener(this.mClickListener);
+            var2.setId(this.mViewId);
+            TextView var3 = (TextView)holder.findViewById(16908304);
+            var4 = View.GONE;
+            if (var3 != null) {
+                var5 = this.getSummary();
+                if (!TextUtils.isEmpty(var5)) {
+                    var3.setText(var5);
+                    if (this.mChangedSummaryColor) {
+                        var3.setTextColor(this.mSummaryColor);
+                        Log.d("SeslPreference", "set Summary Color : " + this.mSummaryColor);
+                    } else if (this.mChangedSummaryColorStateList) {
+                        var3.setTextColor(this.mSummaryColorStateList);
+                        Log.d("SeslPreference", "set Summary ColorStateList : " + this.mSummaryColorStateList);
+                    } else {
+                        ColorStateList var14 = this.mTextColorSecondary;
+                        if (var14 != null) {
+                            var3.setTextColor(var14);
+                        }
+                    }
+
+                    var3.setVisibility(View.VISIBLE);
+                    var11 = var3.getCurrentTextColor();
+                    break label113;
+                }
+
+                var3.setVisibility(View.GONE);
+            }
+
+            var11 = null;
+        }
+
+        holder.setPreferenceBackgroundType(this.mIsPreferenceRoundedBg, this.mWhere, this.mSubheaderRound);
+        TextView var6 = (TextView)holder.findViewById(16908310);
+        if (var6 != null) {
+            var5 = this.getTitle();
+            if (!TextUtils.isEmpty(var5)) {
+                var6.setText(var5);
+                var6.setVisibility(View.VISIBLE);
+                if (this.mHasSingleLineTitleAttr) {
+                    var6.setSingleLine(this.mSingleLineTitle);
+                }
+
+                if (!this.isSelectable() && this.isEnabled() && var11 != null) {
+                    var6.setTextColor(var11);
+                }
+            } else if (TextUtils.isEmpty(var5) && this instanceof PreferenceCategory) {
+                var6.setVisibility(View.VISIBLE);
+                if (this.mHasSingleLineTitleAttr) {
+                    var6.setSingleLine(this.mSingleLineTitle);
+                }
+            } else {
+                var6.setVisibility(View.GONE);
+            }
+        }
+
+        ImageView var15 = (ImageView)holder.findViewById(16908294);
+        byte var17;
+        if (var15 != null) {
+            int var7 = this.mIconResId;
+            if (var7 != 0 || this.mIcon != null) {
+                if (this.mIcon == null) {
+                    this.mIcon = AppCompatResources.getDrawable(this.mContext, var7);
+                }
+
+                Drawable var12 = this.mIcon;
+                if (var12 != null) {
+                    var15.setImageDrawable(var12);
+                }
+            }
+
+            if (this.mIcon != null) {
+                var15.setVisibility(View.VISIBLE);
+            } else {
+                if (this.mIconSpaceReserved) {
+                    var17 = View.INVISIBLE;
+                } else {
+                    var17 = View.GONE;
+                }
+
+                var15.setVisibility(var17);
+            }
+        }
+
+        View var16 = holder.findViewById(R.id.icon_frame);
+        View var13 = var16;
+        if (var16 == null) {
+            var13 = holder.findViewById(16908350);
+        }
+
+        if (var13 != null) {
+            if (this.mIcon != null) {
+                var13.setVisibility(View.VISIBLE);
+            } else {
+                var17 = var4;
+                if (this.mIconSpaceReserved) {
+                    var17 = View.INVISIBLE;
+                }
+
+                var13.setVisibility(var17);
+            }
+        }
+
+        if (this.mShouldDisableView) {
+            this.setEnabledStateOnViews(var2, this.isEnabled());
+        } else {
+            this.setEnabledStateOnViews(var2, true);
+        }
+
+        boolean var8 = this.isSelectable();
+        var2.setFocusable(var8);
+        var2.setClickable(var8);
+        holder.setDividerAllowedAbove(this.mAllowDividerAbove);
+        holder.setDividerAllowedBelow(this.mAllowDividerBelow);
+        boolean var9 = this.isCopyingEnabled();
+        if (var9 && this.mOnCopyListener == null) {
+            this.mOnCopyListener = new Preference.OnPreferenceCopyListener(this);
+        }
+
+        Preference.OnPreferenceCopyListener var10;
+        if (var9) {
+            var10 = this.mOnCopyListener;
+        } else {
+            var10 = null;
+        }
+
+        var2.setOnCreateContextMenuListener(var10);
+        var2.setLongClickable(var9);
+        if (var9 && !var8) {
+            ViewCompat.setBackground(var2, (Drawable)null);
+        }
+
+        this.mItemView = var2;
+    }
+    // kang
+
+    public void seslGetPreferenceBounds(Rect bounds) {
+        if (mItemView != null) {
+            mItemView.getGlobalVisibleRect(bounds);
+        }
+    }
+
+    private void setEnabledStateOnViews(@NonNull View v, boolean enabled) {
+        v.setEnabled(enabled);
+
+        if (v instanceof ViewGroup) {
+            final ViewGroup vg = (ViewGroup) v;
+            for (int i = vg.getChildCount() - 1; i >= 0; i--) {
+                setEnabledStateOnViews(vg.getChildAt(i), enabled);
+            }
+        }
+    }
+
+    public void setOrder(int order) {
+        if (order != mOrder) {
+            mOrder = order;
+
+            notifyHierarchyChanged();
+        }
     }
 
     public int getOrder() {
-        return this.mOrder;
+        return mOrder;
     }
 
-    public void setOrder(int var1) {
-        if (var1 != this.mOrder) {
-            this.mOrder = var1;
-            this.notifyHierarchyChanged();
-        }
-
+    public void setViewId(int viewId) {
+        mViewId = viewId;
     }
 
-    public PreferenceGroup getParent() {
-        return this.mParentGroup;
-    }
-
-    protected boolean getPersistedBoolean(boolean var1) {
-        if (this.shouldPersist()) {
-            PreferenceDataStore var2 = this.getPreferenceDataStore();
-            if (var2 != null) {
-                var1 = var2.getBoolean(this.mKey, var1);
-            } else {
-                var1 = this.mPreferenceManager.getSharedPreferences().getBoolean(this.mKey, var1);
-            }
-        }
-
-        return var1;
-    }
-
-    protected int getPersistedInt(int var1) {
-        if (this.shouldPersist()) {
-            PreferenceDataStore var2 = this.getPreferenceDataStore();
-            if (var2 != null) {
-                var1 = var2.getInt(this.mKey, var1);
-            } else {
-                var1 = this.mPreferenceManager.getSharedPreferences().getInt(this.mKey, var1);
-            }
-        }
-
-        return var1;
-    }
-
-    protected String getPersistedString(String var1) {
-        if (this.shouldPersist()) {
-            PreferenceDataStore var2 = this.getPreferenceDataStore();
-            if (var2 != null) {
-                var1 = var2.getString(this.mKey, var1);
-            } else {
-                var1 = this.mPreferenceManager.getSharedPreferences().getString(this.mKey, var1);
-            }
-        }
-
-        return var1;
-    }
-
-    public Set<String> getPersistedStringSet(Set<String> var1) {
-        if (!this.shouldPersist()) {
-            return var1;
-        } else {
-            PreferenceDataStore var2 = this.getPreferenceDataStore();
-            return var2 != null ? var2.getStringSet(this.mKey, var1) : this.mPreferenceManager.getSharedPreferences().getStringSet(this.mKey, var1);
-        }
-    }
-
-    public PreferenceDataStore getPreferenceDataStore() {
-        PreferenceDataStore var1;
-        if (this.mPreferenceDataStore != null) {
-            var1 = this.mPreferenceDataStore;
-        } else if (this.mPreferenceManager != null) {
-            var1 = this.mPreferenceManager.getPreferenceDataStore();
-        } else {
-            var1 = null;
-        }
-
-        return var1;
-    }
-
-    public PreferenceManager getPreferenceManager() {
-        return this.mPreferenceManager;
-    }
-
-    public SharedPreferences getSharedPreferences() {
-        SharedPreferences var1;
-        if (this.mPreferenceManager != null && this.getPreferenceDataStore() == null) {
-            var1 = this.mPreferenceManager.getSharedPreferences();
-        } else {
-            var1 = null;
-        }
-
-        return var1;
-    }
-
-    public CharSequence getSummary() {
-        return this.mSummary;
-    }
-
-    public void setSummary(CharSequence summary) {
-        if (!TextUtils.equals(mSummary, summary)) {
-            mSummary = summary;
-            notifyChanged();
-        }
-    }
-
-    public void setSummary(int summaryResId) {
-        setSummary(mContext.getString(summaryResId));
-    }
-
-    public CharSequence getTitle() {
-        return this.mTitle;
-    }
-
-    public void setTitle(CharSequence title) {
-        if (!TextUtils.equals(mTitle, title)) {
+    public void setTitle(@Nullable CharSequence title) {
+        if (title == null && mTitle != null || title != null && !title.equals(mTitle)) {
             mTitle = title;
             notifyChanged();
         }
@@ -510,54 +431,53 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         setTitle(mContext.getString(titleResId));
     }
 
-    public final int getWidgetLayoutResource() {
-        return this.mWidgetLayoutResId;
+    @Nullable
+    public CharSequence getTitle() {
+        return mTitle;
     }
 
-    public void setWidgetLayoutResource(int var1) {
-        this.mWidgetLayoutResId = var1;
-        this.notifyChanged();
-    }
-
-    public boolean hasKey() {
-        boolean var1;
-        if (!TextUtils.isEmpty(this.mKey)) {
-            var1 = true;
-        } else {
-            var1 = false;
+    public void setIcon(@Nullable Drawable icon) {
+        if (mIcon != icon) {
+            mIcon = icon;
+            mIconResId = 0;
+            notifyChanged();
         }
-
-        return var1;
     }
 
-    public void seslSetSummaryColor(int color) {
-        mSummaryColor = color;
-        mChangedSummaryColor = true;
-        mChangedSummaryColorStateList = false;
+    public void setIcon(int iconResId) {
+        setIcon(AppCompatResources.getDrawable(mContext, iconResId));
+        mIconResId = iconResId;
     }
 
-    public void seslSetSummaryColor(ColorStateList colorStateList) {
-        mSummaryColorStateList = colorStateList;
-        mChangedSummaryColorStateList = true;
-        mChangedSummaryColor = false;
-    }
-
-    public void seslSetRoundedBg(int where) {
-        mIsPreferenceRoundedBg = true;
-        mWhere = where;
-        mSubheaderRound = false;
-        mIsRoundChanged = true;
-    }
-
-    public boolean isEnabled() {
-        boolean var1;
-        if (this.mEnabled && this.mDependencyMet && this.mParentDependencyMet) {
-            var1 = true;
-        } else {
-            var1 = false;
+    @Nullable
+    public Drawable getIcon() {
+        if (mIcon == null && mIconResId != 0) {
+            mIcon = AppCompatResources.getDrawable(mContext, mIconResId);
         }
+        return mIcon;
+    }
 
-        return var1;
+    @Nullable
+    @SuppressWarnings("unchecked")
+    public CharSequence getSummary() {
+        if (getSummaryProvider() != null) {
+            return getSummaryProvider().provideSummary(this);
+        }
+        return mSummary;
+    }
+
+    public void setSummary(@Nullable CharSequence summary) {
+        if (getSummaryProvider() != null) {
+            throw new IllegalStateException("Preference already has a SummaryProvider set.");
+        }
+        if (!TextUtils.equals(mSummary, summary)) {
+            mSummary = summary;
+            notifyChanged();
+        }
+    }
+
+    public void setSummary(int summaryResId) {
+        setSummary(mContext.getString(summaryResId));
     }
 
     public void setEnabled(boolean enabled) {
@@ -570,12 +490,8 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         }
     }
 
-    public boolean isPersistent() {
-        return this.mPersistent;
-    }
-
-    public boolean isSelectable() {
-        return this.mSelectable;
+    public boolean isEnabled() {
+        return mEnabled && mDependencyMet && mParentDependencyMet;
     }
 
     public void setSelectable(boolean selectable) {
@@ -585,444 +501,809 @@ public class Preference implements Comparable<de.dlyt.yanndroid.oneui.preference
         }
     }
 
-    public void setShouldDisableView(boolean shouldDisableView) {
-        this.mShouldDisableView = shouldDisableView;
-        notifyChanged();
+    public boolean isSelectable() {
+        return mSelectable;
     }
 
-    protected boolean isTalkBackIsRunning() {
-        AccessibilityManager var1 = (AccessibilityManager) this.getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
-        boolean var2;
-        if (var1 != null && var1.isEnabled()) {
-            String var3 = Secure.getString(this.getContext().getContentResolver(), "enabled_accessibility_services");
-            if (var3 != null && (var3.matches("(?i).*com.samsung.accessibility/com.samsung.android.app.talkback.TalkBackService.*") || var3.matches("(?i).*com.google.android.marvin.talkback.TalkBackService.*") || var3.matches("(?i).*com.samsung.accessibility/com.samsung.accessibility.universalswitch.UniversalSwitchService.*"))) {
-                var2 = true;
-                return var2;
+    public void setShouldDisableView(boolean shouldDisableView) {
+        if (mShouldDisableView != shouldDisableView) {
+            mShouldDisableView = shouldDisableView;
+            notifyChanged();
+        }
+    }
+
+    public boolean getShouldDisableView() {
+        return mShouldDisableView;
+    }
+
+    public final void setVisible(boolean visible) {
+        if (mVisible != visible) {
+            mVisible = visible;
+            if (mListener != null) {
+                mListener.onPreferenceVisibilityChange(this);
             }
         }
-
-        var2 = false;
-        return var2;
     }
 
     public final boolean isVisible() {
-        return this.mVisible;
+        return mVisible;
+    }
+
+    public final boolean isShown() {
+        if (!isVisible()) {
+            return false;
+        }
+
+        if (getPreferenceManager() == null) {
+            return false;
+        }
+
+        if (this == getPreferenceManager().getPreferenceScreen()) {
+            return true;
+        }
+
+        PreferenceGroup parent = getParent();
+        if (parent == null) {
+            return false;
+        }
+
+        return parent.isShown();
+    }
+
+    long getId() {
+        return mId;
+    }
+
+    protected void onClick() {}
+
+    public void setKey(String key) {
+        mKey = key;
+
+        if (mRequiresKey && !hasKey()) {
+            requireKey();
+        }
+    }
+
+    public String getKey() {
+        return mKey;
+    }
+
+    void requireKey() {
+        if (TextUtils.isEmpty(mKey)) {
+            throw new IllegalStateException("Preference does not have a key assigned.");
+        }
+
+        mRequiresKey = true;
+    }
+
+    public boolean hasKey() {
+        return !TextUtils.isEmpty(mKey);
+    }
+
+    public boolean isPersistent() {
+        return mPersistent;
+    }
+
+    protected boolean shouldPersist() {
+        return mPreferenceManager != null && isPersistent() && hasKey();
+    }
+
+    public void setPersistent(boolean persistent) {
+        mPersistent = persistent;
+    }
+
+    public void setSingleLineTitle(boolean singleLineTitle) {
+        mHasSingleLineTitleAttr = true;
+        mSingleLineTitle = singleLineTitle;
+    }
+
+    public boolean isSingleLineTitle() {
+        return mSingleLineTitle;
+    }
+
+    public void setIconSpaceReserved(boolean iconSpaceReserved) {
+        if (mIconSpaceReserved != iconSpaceReserved) {
+            mIconSpaceReserved = iconSpaceReserved;
+            notifyChanged();
+        }
+    }
+
+    public boolean isIconSpaceReserved() {
+        return mIconSpaceReserved;
+    }
+
+    public void setCopyingEnabled(boolean enabled) {
+        if (mCopyingEnabled != enabled) {
+            mCopyingEnabled = enabled;
+            notifyChanged();
+        }
+    }
+
+    public boolean isCopyingEnabled() {
+        return mCopyingEnabled;
+    }
+
+    public final void setSummaryProvider(@Nullable SummaryProvider summaryProvider) {
+        mSummaryProvider = summaryProvider;
+        notifyChanged();
+    }
+
+    @Nullable
+    public final SummaryProvider getSummaryProvider() {
+        return mSummaryProvider;
+    }
+
+    public boolean callChangeListener(Object newValue) {
+        return mOnChangeListener == null || mOnChangeListener.onPreferenceChange(this, newValue);
+    }
+
+    public void setOnPreferenceChangeListener(@Nullable OnPreferenceChangeListener onPreferenceChangeListener) {
+        mOnChangeListener = onPreferenceChangeListener;
+    }
+
+    @Nullable
+    public OnPreferenceChangeListener getOnPreferenceChangeListener() {
+        return mOnChangeListener;
+    }
+
+    public void setOnPreferenceClickListener(@Nullable OnPreferenceClickListener onPreferenceClickListener) {
+        mOnClickListener = onPreferenceClickListener;
+    }
+
+    @Nullable
+    public OnPreferenceClickListener getOnPreferenceClickListener() {
+        return mOnClickListener;
+    }
+
+    protected void performClick(@NonNull View view) {
+        performClick();
+    }
+
+    public void performClick() {
+        if (!isEnabled() || !isSelectable()) {
+            return;
+        }
+
+        onClick();
+
+        if (mOnClickListener != null && mOnClickListener.onPreferenceClick(this)) {
+            return;
+        }
+
+        PreferenceManager preferenceManager = getPreferenceManager();
+        if (preferenceManager != null) {
+            PreferenceManager.OnPreferenceTreeClickListener listener = preferenceManager.getOnPreferenceTreeClickListener();
+            if (listener != null && listener.onPreferenceTreeClick(this)) {
+                return;
+            }
+        }
+
+        if (mIntent != null) {
+            Context context = getContext();
+            context.startActivity(mIntent);
+        }
+    }
+
+    @NonNull
+    public Context getContext() {
+        return mContext;
+    }
+
+    @Nullable
+    public SharedPreferences getSharedPreferences() {
+        if (mPreferenceManager == null || getPreferenceDataStore() != null) {
+            return null;
+        }
+
+        return mPreferenceManager.getSharedPreferences();
+    }
+
+    @Override
+    public int compareTo(@NonNull Preference another) {
+        if (mOrder != another.mOrder) {
+            return mOrder - another.mOrder;
+        } else if (mTitle == another.mTitle) {
+            return 0;
+        } else if (mTitle == null) {
+            return 1;
+        } else if (another.mTitle == null) {
+            return -1;
+        } else {
+            return mTitle.toString().compareToIgnoreCase(another.mTitle.toString());
+        }
+    }
+
+    final void setOnPreferenceChangeInternalListener(@Nullable OnPreferenceChangeInternalListener listener) {
+        mListener = listener;
     }
 
     public void notifyChanged() {
-        if (this.mListener != null) {
-            this.mListener.onPreferenceChange(this);
+        if (mListener != null) {
+            mListener.onPreferenceChange(this);
         }
-
-    }
-
-    public void notifyDependencyChange(boolean var1) {
-        List var2 = this.mDependents;
-        if (var2 != null) {
-            int var3 = var2.size();
-
-            for (int var4 = 0; var4 < var3; ++var4) {
-                ((de.dlyt.yanndroid.oneui.preference.Preference) var2.get(var4)).onDependencyChanged(this, var1);
-            }
-        }
-
     }
 
     protected void notifyHierarchyChanged() {
-        if (this.mListener != null) {
-            this.mListener.onPreferenceHierarchyChange(this);
+        if (mListener != null) {
+            mListener.onPreferenceHierarchyChange(this);
+        }
+    }
+
+    public PreferenceManager getPreferenceManager() {
+        return mPreferenceManager;
+    }
+
+    protected void onAttachedToHierarchy(@NonNull PreferenceManager preferenceManager) {
+        mPreferenceManager = preferenceManager;
+
+        if (!mHasId) {
+            mId = preferenceManager.getNextId();
         }
 
+        dispatchSetInitialValue();
+    }
+
+    protected void onAttachedToHierarchy(@NonNull PreferenceManager preferenceManager, long id) {
+        mId = id;
+        mHasId = true;
+        try {
+            onAttachedToHierarchy(preferenceManager);
+        } finally {
+            mHasId = false;
+        }
+    }
+
+    void assignParent(@Nullable PreferenceGroup parentGroup) {
+        if (parentGroup != null && mParentGroup != null) {
+            throw new IllegalStateException("This preference already has a parent. You must remove the existing parent before assigning a new one.");
+        }
+        mParentGroup = parentGroup;
     }
 
     public void onAttached() {
-        this.registerDependency();
-    }
-
-    protected void onAttachedToHierarchy(PreferenceManager var1) {
-        this.mPreferenceManager = var1;
-        if (!this.mHasId) {
-            this.mId = var1.getNextId();
-        }
-
-        this.dispatchSetInitialValue();
-    }
-
-    protected void onAttachedToHierarchy(PreferenceManager var1, long var2) {
-        this.mId = var2;
-        this.mHasId = true;
-
-        try {
-            this.onAttachedToHierarchy(var1);
-        } finally {
-            this.mHasId = false;
-        }
-
-    }
-
-    @SuppressLint("WrongConstant")
-    public void onBindViewHolder(PreferenceViewHolder var1) {
-        byte var2 = 4;
-        var1.itemView.setOnClickListener(this.mClickListener);
-        var1.itemView.setId(this.mViewId);
-        var1.seslSetPreferenceBackgroundType(this.mIsPreferenceRoundedBg, this.mWhere, this.mSubheaderRound);
-        TextView var3 = (TextView) var1.findViewById(16908310);
-        if (var3 != null) {
-            CharSequence var4 = this.getTitle();
-            if (!TextUtils.isEmpty(var4)) {
-                var3.setText(var4);
-                var3.setVisibility(0);
-                if (this.mHasSingleLineTitleAttr) {
-                    var3.setSingleLine(this.mSingleLineTitle);
-                }
-            } else if (TextUtils.isEmpty(var4) && this instanceof PreferenceCategory) {
-                var3.setVisibility(0);
-                if (this.mHasSingleLineTitleAttr) {
-                    var3.setSingleLine(this.mSingleLineTitle);
-                }
-            } else {
-                var3.setVisibility(8);
-            }
-        }
-
-        TextView var9 = (TextView) var1.findViewById(16908304);
-        if (var9 != null) {
-            CharSequence var7 = this.getSummary();
-            if (!TextUtils.isEmpty(var7)) {
-                var9.setText(var7);
-                if (this.mChangedSummaryColor) {
-                    var9.setTextColor(this.mSummaryColor);
-                    Log.d("Preference", "set Summary Color : " + this.mSummaryColor);
-                } else if (this.mChangedSummaryColorStateList) {
-                    var9.setTextColor(this.mSummaryColorStateList);
-                    Log.d("Preference", "set Summary ColorStateList : " + this.mSummaryColorStateList);
-                } else if (this.mTextColorSecondary != null) {
-                    var9.setTextColor(this.mTextColorSecondary);
-                }
-
-                var9.setVisibility(0);
-            } else {
-                var9.setVisibility(8);
-            }
-        }
-
-        SeslPreferenceImageView imageView = (SeslPreferenceImageView) var1.findViewById(16908294);
-        byte var6;
-        if (imageView != null) {
-            if (!(this.mIconResId == 0 && this.mIcon == null)) {
-                if (this.mIcon == null) {
-                    this.mIcon = AppCompatResources.getDrawable(this.mContext, this.mIconResId);
-                }
-                Drawable drawable = this.mIcon;
-                if (drawable != null) {
-                    imageView.setImageDrawable(drawable);
-                }
-            }
-            if (this.mIcon != null) {
-                imageView.setVisibility(0);
-            } else {
-                if (this.mIconSpaceReserved) {
-                    var6 = 4;
-                } else {
-                    var6 = 8;
-                }
-
-                imageView.setVisibility(var6);
-            }
-        }
-
-        View var8 = var1.findViewById(R.id.icon_frame);
-        View var11 = var8;
-        if (var8 == null) {
-            var11 = var1.findViewById(16908350);
-        }
-
-        if (var11 != null) {
-            if (this.mIcon != null) {
-                var11.setVisibility(0);
-            } else {
-                if (this.mIconSpaceReserved) {
-                    var6 = var2;
-                } else {
-                    var6 = 8;
-                }
-
-                var11.setVisibility(var6);
-            }
-        }
-
-        if (this.mShouldDisableView) {
-            this.setEnabledStateOnViews(var1.itemView, this.isEnabled());
-        } else {
-            this.setEnabledStateOnViews(var1.itemView, true);
-        }
-
-        boolean var5 = this.isSelectable();
-        var1.itemView.setFocusable(var5);
-        var1.itemView.setClickable(var5);
-        var1.setDividerAllowedAbove(this.mAllowDividerAbove);
-        var1.setDividerAllowedBelow(this.mAllowDividerBelow);
-    }
-
-    protected void onClick() {
-    }
-
-    public void onDependencyChanged(de.dlyt.yanndroid.oneui.preference.Preference var1, boolean var2) {
-        if (this.mDependencyMet == var2) {
-            if (!var2) {
-                var2 = true;
-            } else {
-                var2 = false;
-            }
-
-            this.mDependencyMet = var2;
-            this.notifyDependencyChange(this.shouldDisableDependents());
-            this.notifyChanged();
-        }
-
+        registerDependency();
     }
 
     public void onDetached() {
-        this.unregisterDependency();
-        this.mWasDetached = true;
+        unregisterDependency();
+        mWasDetached = true;
     }
 
-    protected Object onGetDefaultValue(TypedArray var1, int var2) {
-        return null;
+    final boolean wasDetached() {
+        return mWasDetached;
     }
 
-    public void onParentChanged(de.dlyt.yanndroid.oneui.preference.Preference var1, boolean var2) {
-        if (this.mParentDependencyMet == var2) {
-            if (!var2) {
-                var2 = true;
-            } else {
-                var2 = false;
+    final void clearWasDetached() {
+        mWasDetached = false;
+    }
+
+    private void registerDependency() {
+        if (TextUtils.isEmpty(mDependencyKey)) return;
+
+        Preference preference = findPreferenceInHierarchy(mDependencyKey);
+        if (preference != null) {
+            preference.registerDependent(this);
+        } else {
+            throw new IllegalStateException("Dependency \"" + mDependencyKey + "\" not found for preference \"" + mKey + "\" (title: \"" + mTitle + "\"");
+        }
+    }
+
+    private void unregisterDependency() {
+        if (mDependencyKey != null) {
+            final Preference oldDependency = findPreferenceInHierarchy(mDependencyKey);
+            if (oldDependency != null) {
+                oldDependency.unregisterDependent(this);
             }
+        }
+    }
 
-            this.mParentDependencyMet = var2;
-            this.notifyDependencyChange(this.shouldDisableDependents());
-            this.notifyChanged();
+    @SuppressWarnings("TypeParameterUnusedInFormals")
+    @Nullable
+    protected <T extends Preference> T findPreferenceInHierarchy(@NonNull String key) {
+        if (mPreferenceManager == null) {
+            return null;
         }
 
+        return mPreferenceManager.findPreference(key);
+    }
+
+    private void registerDependent(Preference dependent) {
+        if (mDependents == null) {
+            mDependents = new ArrayList<>();
+        }
+
+        mDependents.add(dependent);
+
+        dependent.onDependencyChanged(this, shouldDisableDependents());
+    }
+
+    private void unregisterDependent(Preference dependent) {
+        if (mDependents != null) {
+            mDependents.remove(dependent);
+        }
+    }
+
+    public void notifyDependencyChange(boolean disableDependents) {
+        final List<Preference> dependents = mDependents;
+
+        if (dependents == null) {
+            return;
+        }
+
+        final int dependentsCount = dependents.size();
+        for (int i = 0; i < dependentsCount; i++) {
+            dependents.get(i).onDependencyChanged(this, disableDependents);
+        }
+    }
+
+    public void onDependencyChanged(@NonNull Preference dependency, boolean disableDependent) {
+        if (mDependencyMet == disableDependent) {
+            mDependencyMet = !disableDependent;
+
+            notifyDependencyChange(shouldDisableDependents());
+
+            notifyChanged();
+        }
+    }
+
+    public void onParentChanged(@NonNull Preference parent, boolean disableChild) {
+        if (mParentDependencyMet == disableChild) {
+            mParentDependencyMet = !disableChild;
+
+            notifyDependencyChange(shouldDisableDependents());
+
+            notifyChanged();
+        }
+    }
+
+    public boolean shouldDisableDependents() {
+        return !isEnabled();
+    }
+
+    public void setDependency(@Nullable String dependencyKey) {
+        unregisterDependency();
+
+        mDependencyKey = dependencyKey;
+        registerDependency();
+    }
+
+    @Nullable
+    public String getDependency() {
+        return mDependencyKey;
+    }
+
+    @Nullable
+    public PreferenceGroup getParent() {
+        return mParentGroup;
     }
 
     protected void onPrepareForRemoval() {
-        this.unregisterDependency();
+        unregisterDependency();
     }
 
-    protected void onRestoreInstanceState(Parcelable var1) {
-        this.mBaseMethodCalled = true;
-        if (var1 != de.dlyt.yanndroid.oneui.preference.Preference.BaseSavedState.EMPTY_STATE && var1 != null) {
+    public void setDefaultValue(Object defaultValue) {
+        mDefaultValue = defaultValue;
+    }
+
+    private void dispatchSetInitialValue() {
+        if (getPreferenceDataStore() != null) {
+            onSetInitialValue(true, mDefaultValue);
+            return;
+        }
+
+        final boolean shouldPersist = shouldPersist();
+        if (!shouldPersist || !getSharedPreferences().contains(mKey)) {
+            if (mDefaultValue != null) {
+                onSetInitialValue(false, mDefaultValue);
+            }
+        } else {
+            onSetInitialValue(true, null);
+        }
+    }
+
+    @Deprecated
+    protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
+        onSetInitialValue(defaultValue);
+    }
+
+    protected void onSetInitialValue(@Nullable Object defaultValue) {}
+
+    private void tryCommit(@NonNull SharedPreferences.Editor editor) {
+        if (mPreferenceManager.shouldCommit()) {
+            editor.apply();
+        }
+    }
+
+    protected boolean persistString(String value) {
+        if (!shouldPersist()) {
+            return false;
+        }
+
+        if (TextUtils.equals(value, getPersistedString(null))) {
+            return true;
+        }
+
+        PreferenceDataStore dataStore = getPreferenceDataStore();
+        if (dataStore != null) {
+            dataStore.putString(mKey, value);
+        } else {
+            SharedPreferences.Editor editor = mPreferenceManager.getEditor();
+            editor.putString(mKey, value);
+            tryCommit(editor);
+        }
+        return true;
+    }
+
+    protected String getPersistedString(String defaultReturnValue) {
+        if (!shouldPersist()) {
+            return defaultReturnValue;
+        }
+
+        PreferenceDataStore dataStore = getPreferenceDataStore();
+        if (dataStore != null) {
+            return dataStore.getString(mKey, defaultReturnValue);
+        }
+
+        return mPreferenceManager.getSharedPreferences().getString(mKey, defaultReturnValue);
+    }
+
+    public boolean persistStringSet(Set<String> values) {
+        if (!shouldPersist()) {
+            return false;
+        }
+
+        if (values.equals(getPersistedStringSet(null))) {
+            return true;
+        }
+
+        PreferenceDataStore dataStore = getPreferenceDataStore();
+        if (dataStore != null) {
+            dataStore.putStringSet(mKey, values);
+        } else {
+            SharedPreferences.Editor editor = mPreferenceManager.getEditor();
+            editor.putStringSet(mKey, values);
+            tryCommit(editor);
+        }
+        return true;
+    }
+
+    public Set<String> getPersistedStringSet(Set<String> defaultReturnValue) {
+        if (!shouldPersist()) {
+            return defaultReturnValue;
+        }
+
+        PreferenceDataStore dataStore = getPreferenceDataStore();
+        if (dataStore != null) {
+            return dataStore.getStringSet(mKey, defaultReturnValue);
+        }
+
+        return mPreferenceManager.getSharedPreferences().getStringSet(mKey, defaultReturnValue);
+    }
+
+    protected boolean persistInt(int value) {
+        if (!shouldPersist()) {
+            return false;
+        }
+
+        if (value == getPersistedInt(~value)) {
+            return true;
+        }
+
+        PreferenceDataStore dataStore = getPreferenceDataStore();
+        if (dataStore != null) {
+            dataStore.putInt(mKey, value);
+        } else {
+            SharedPreferences.Editor editor = mPreferenceManager.getEditor();
+            editor.putInt(mKey, value);
+            tryCommit(editor);
+        }
+        return true;
+    }
+
+    protected int getPersistedInt(int defaultReturnValue) {
+        if (!shouldPersist()) {
+            return defaultReturnValue;
+        }
+
+        PreferenceDataStore dataStore = getPreferenceDataStore();
+        if (dataStore != null) {
+            return dataStore.getInt(mKey, defaultReturnValue);
+        }
+
+        return mPreferenceManager.getSharedPreferences().getInt(mKey, defaultReturnValue);
+    }
+
+    protected boolean persistFloat(float value) {
+        if (!shouldPersist()) {
+            return false;
+        }
+
+        if (value == getPersistedFloat(Float.NaN)) {
+            return true;
+        }
+
+        PreferenceDataStore dataStore = getPreferenceDataStore();
+        if (dataStore != null) {
+            dataStore.putFloat(mKey, value);
+        } else {
+            SharedPreferences.Editor editor = mPreferenceManager.getEditor();
+            editor.putFloat(mKey, value);
+            tryCommit(editor);
+        }
+        return true;
+    }
+
+    protected float getPersistedFloat(float defaultReturnValue) {
+        if (!shouldPersist()) {
+            return defaultReturnValue;
+        }
+
+        PreferenceDataStore dataStore = getPreferenceDataStore();
+        if (dataStore != null) {
+            return dataStore.getFloat(mKey, defaultReturnValue);
+        }
+
+        return mPreferenceManager.getSharedPreferences().getFloat(mKey, defaultReturnValue);
+    }
+
+    protected boolean persistLong(long value) {
+        if (!shouldPersist()) {
+            return false;
+        }
+
+        if (value == getPersistedLong(~value)) {
+            return true;
+        }
+
+        PreferenceDataStore dataStore = getPreferenceDataStore();
+        if (dataStore != null) {
+            dataStore.putLong(mKey, value);
+        } else {
+            SharedPreferences.Editor editor = mPreferenceManager.getEditor();
+            editor.putLong(mKey, value);
+            tryCommit(editor);
+        }
+        return true;
+    }
+
+    protected long getPersistedLong(long defaultReturnValue) {
+        if (!shouldPersist()) {
+            return defaultReturnValue;
+        }
+
+        PreferenceDataStore dataStore = getPreferenceDataStore();
+        if (dataStore != null) {
+            return dataStore.getLong(mKey, defaultReturnValue);
+        }
+
+        return mPreferenceManager.getSharedPreferences().getLong(mKey, defaultReturnValue);
+    }
+
+    protected boolean persistBoolean(boolean value) {
+        if (!shouldPersist()) {
+            return false;
+        }
+
+        if (value == getPersistedBoolean(!value)) {
+            return true;
+        }
+
+        PreferenceDataStore dataStore = getPreferenceDataStore();
+        if (dataStore != null) {
+            dataStore.putBoolean(mKey, value);
+        } else {
+            SharedPreferences.Editor editor = mPreferenceManager.getEditor();
+            editor.putBoolean(mKey, value);
+            tryCommit(editor);
+        }
+        return true;
+    }
+
+    protected boolean getPersistedBoolean(boolean defaultReturnValue) {
+        if (!shouldPersist()) {
+            return defaultReturnValue;
+        }
+
+        PreferenceDataStore dataStore = getPreferenceDataStore();
+        if (dataStore != null) {
+            return dataStore.getBoolean(mKey, defaultReturnValue);
+        }
+
+        return mPreferenceManager.getSharedPreferences().getBoolean(mKey, defaultReturnValue);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getFilterableStringBuilder().toString();
+    }
+
+    @NonNull
+    StringBuilder getFilterableStringBuilder() {
+        StringBuilder sb = new StringBuilder();
+        CharSequence title = getTitle();
+        if (!TextUtils.isEmpty(title)) {
+            sb.append(title).append(' ');
+        }
+        CharSequence summary = getSummary();
+        if (!TextUtils.isEmpty(summary)) {
+            sb.append(summary).append(' ');
+        }
+        if (sb.length() > 0) {
+            sb.setLength(sb.length() - 1);
+        }
+        return sb;
+    }
+
+    public void saveHierarchyState(@NonNull Bundle container) {
+        dispatchSaveInstanceState(container);
+    }
+
+    void dispatchSaveInstanceState(@NonNull Bundle container) {
+        if (hasKey()) {
+            mBaseMethodCalled = false;
+            Parcelable state = onSaveInstanceState();
+            if (!mBaseMethodCalled) {
+                throw new IllegalStateException("Derived class did not call super.onSaveInstanceState()");
+            }
+            if (state != null) {
+                container.putParcelable(mKey, state);
+            }
+        }
+    }
+
+    @Nullable
+    protected Parcelable onSaveInstanceState() {
+        mBaseMethodCalled = true;
+        return BaseSavedState.EMPTY_STATE;
+    }
+
+    public void restoreHierarchyState(@NonNull Bundle container) {
+        dispatchRestoreInstanceState(container);
+    }
+
+    void dispatchRestoreInstanceState(@NonNull Bundle container) {
+        if (hasKey()) {
+            Parcelable state = container.getParcelable(mKey);
+            if (state != null) {
+                mBaseMethodCalled = false;
+                onRestoreInstanceState(state);
+                if (!mBaseMethodCalled) {
+                    throw new IllegalStateException("Derived class did not call super.onRestoreInstanceState()");
+                }
+            }
+        }
+    }
+
+    protected void onRestoreInstanceState(@Nullable Parcelable state) {
+        mBaseMethodCalled = true;
+        if (state != BaseSavedState.EMPTY_STATE && state != null) {
             throw new IllegalArgumentException("Wrong state class -- expecting Preference State");
         }
     }
 
-    protected Parcelable onSaveInstanceState() {
-        this.mBaseMethodCalled = true;
-        return de.dlyt.yanndroid.oneui.preference.Preference.BaseSavedState.EMPTY_STATE;
-    }
-
-    protected void onSetInitialValue(boolean var1, Object var2) {
-    }
-
-    public void performClick() {
-        if (this.isEnabled()) {
-            this.onClick();
-            if (this.mOnClickListener == null || !this.mOnClickListener.onPreferenceClick(this)) {
-                PreferenceManager var1 = this.getPreferenceManager();
-                if (var1 != null) {
-                    PreferenceManager.OnPreferenceTreeClickListener var2 = var1.getOnPreferenceTreeClickListener();
-                    if (var2 != null && var2.onPreferenceTreeClick(this)) {
-                        return;
-                    }
-                }
-
-                if (this.mIntent != null) {
-                    this.getContext().startActivity(this.mIntent);
-                }
-            }
+    void callClickListener() {
+        if (mOnClickListener != null) {
+            mOnClickListener.onPreferenceClick(this);
         }
-
     }
 
-    protected void performClick(View var1) {
-        this.performClick();
-    }
+    boolean isTalkBackIsRunning() {
+        AccessibilityManager accessibility = (AccessibilityManager) getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
+        String enabledServices = Settings.Secure.getString(getContext().getContentResolver(), "enabled_accessibility_services");
 
-    protected boolean persistBoolean(boolean var1) {
-        boolean var2 = false;
-        boolean var3 = true;
-        boolean var4;
-        if (!this.shouldPersist()) {
-            var4 = false;
-        } else {
-            if (!var1) {
-                var2 = true;
-            }
-
-            var4 = var3;
-            if (var1 != this.getPersistedBoolean(var2)) {
-                PreferenceDataStore var5 = this.getPreferenceDataStore();
-                if (var5 != null) {
-                    var5.putBoolean(this.mKey, var1);
-                    var4 = var3;
-                } else {
-                    Editor var6 = this.mPreferenceManager.getEditor();
-                    var6.putBoolean(this.mKey, var1);
-                    this.tryCommit(var6);
-                    var4 = var3;
-                }
-            }
+        if (accessibility != null && accessibility.isEnabled() && enabledServices != null) {
+            return enabledServices.matches("(?i).*com.samsung.accessibility/com.samsung.android.app.talkback.TalkBackService.*")
+                    || enabledServices.matches("(?i).*com.samsung.android.accessibility.talkback/com.samsung.android.marvin.talkback.TalkBackService.*")
+                    || enabledServices.matches("(?i).*com.google.android.marvin.talkback.TalkBackService.*")
+                    || enabledServices.matches("(?i).*com.samsung.accessibility/com.samsung.accessibility.universalswitch.UniversalSwitchService.*");
         }
-
-        return var4;
+        return false;
     }
 
-    protected boolean persistInt(int var1) {
-        boolean var2 = true;
-        boolean var3;
-        if (!this.shouldPersist()) {
-            var3 = false;
-        } else {
-            var3 = var2;
-            if (var1 != this.getPersistedInt(~var1)) {
-                PreferenceDataStore var4 = this.getPreferenceDataStore();
-                if (var4 != null) {
-                    var4.putInt(this.mKey, var1);
-                    var3 = var2;
-                } else {
-                    Editor var5 = this.mPreferenceManager.getEditor();
-                    var5.putInt(this.mKey, var1);
-                    this.tryCommit(var5);
-                    var3 = var2;
-                }
-            }
-        }
-
-        return var3;
+    public void seslSetSummaryColor(int color) {
+        mSummaryColor = color;
+        mChangedSummaryColor = true;
+        mChangedSummaryColorStateList = false;
     }
 
-    protected boolean persistString(String var1) {
-        boolean var2 = true;
-        boolean var3;
-        if (!this.shouldPersist()) {
-            var3 = false;
-        } else {
-            var3 = var2;
-            if (!TextUtils.equals(var1, this.getPersistedString((String) null))) {
-                PreferenceDataStore var4 = this.getPreferenceDataStore();
-                if (var4 != null) {
-                    var4.putString(this.mKey, var1);
-                    var3 = var2;
-                } else {
-                    Editor var5 = this.mPreferenceManager.getEditor();
-                    var5.putString(this.mKey, var1);
-                    this.tryCommit(var5);
-                    var3 = var2;
-                }
-            }
-        }
-
-        return var3;
+    public void seslSetSummaryColor(ColorStateList color) {
+        mSummaryColorStateList = color;
+        mChangedSummaryColorStateList = true;
+        mChangedSummaryColor = false;
     }
 
-    public void restoreHierarchyState(Bundle var1) {
-        this.dispatchRestoreInstanceState(var1);
+    public void seslSetRoundedBg(int where) {
+        mIsPreferenceRoundedBg = true;
+        mWhere = where;
+        mSubheaderRound = false;
+        mIsRoundChanged = true;
     }
 
-    public void saveHierarchyState(Bundle var1) {
-        this.dispatchSaveInstanceState(var1);
+    public void seslSetSubheaderRoundedBackground(int where) {
+        mIsPreferenceRoundedBg = true;
+        mWhere = where;
+        mSubheaderRound = true;
+        mIsRoundChanged = true;
     }
 
-    public void seslSetSubheaderColor(int var1) {
-        this.mSubheaderColor = var1;
+    public void seslSetSubheaderColor(int color) {
+        mSubheaderColor = color;
     }
 
-    public void seslSetSubheaderRoundedBg(int var1) {
-        this.mIsPreferenceRoundedBg = true;
-        this.mWhere = var1;
-        this.mSubheaderRound = true;
-        this.mIsRoundChanged = true;
-    }
-
-    final void setOnPreferenceChangeInternalListener(de.dlyt.yanndroid.oneui.preference.Preference.OnPreferenceChangeInternalListener var1) {
-        this.mListener = var1;
-    }
-
-    public OnPreferenceChangeListener getOnPreferenceChangeListener() {
-        return this.mOnChangeListener;
-    }
-
-    public void setOnPreferenceChangeListener(OnPreferenceChangeListener var1) {
-        this.mOnChangeListener = var1;
-    }
-
-    public OnPreferenceClickListener getOnPreferenceClickListener() {
-        return this.mOnClickListener;
-    }
-
-    public void setOnPreferenceClickListener(de.dlyt.yanndroid.oneui.preference.Preference.OnPreferenceClickListener var1) {
-        this.mOnClickListener = var1;
-    }
-
-    public boolean shouldDisableDependents() {
-        boolean var1;
-        if (!this.isEnabled()) {
-            var1 = true;
-        } else {
-            var1 = false;
-        }
-
-        return var1;
-    }
-
-    protected boolean shouldPersist() {
-        boolean var1;
-        if (this.mPreferenceManager != null && this.isPersistent() && this.hasKey()) {
-            var1 = true;
-        } else {
-            var1 = false;
-        }
-
-        return var1;
-    }
-
-    public String toString() {
-        return this.getFilterableStringBuilder().toString();
-    }
-
-    interface OnPreferenceChangeInternalListener {
-        void onPreferenceChange(de.dlyt.yanndroid.oneui.preference.Preference var1);
-
-        void onPreferenceHierarchyChange(de.dlyt.yanndroid.oneui.preference.Preference var1);
-    }
+    @CallSuper
+    @Deprecated
+    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfoCompat info) {}
 
     public interface OnPreferenceChangeListener {
-        boolean onPreferenceChange(de.dlyt.yanndroid.oneui.preference.Preference var1, Object var2);
+        boolean onPreferenceChange(@NonNull Preference preference, Object newValue);
     }
 
     public interface OnPreferenceClickListener {
-        boolean onPreferenceClick(de.dlyt.yanndroid.oneui.preference.Preference var1);
+        boolean onPreferenceClick(@NonNull Preference preference);
+    }
+
+    interface OnPreferenceChangeInternalListener {
+        void onPreferenceChange(@NonNull Preference preference);
+
+        void onPreferenceHierarchyChange(@NonNull Preference preference);
+
+        void onPreferenceVisibilityChange(@NonNull Preference preference);
+    }
+
+    public interface SummaryProvider<T extends Preference> {
+        @Nullable
+        CharSequence provideSummary(@NonNull T preference);
     }
 
     public static class BaseSavedState extends AbsSavedState {
-        public static final Creator<de.dlyt.yanndroid.oneui.preference.Preference.BaseSavedState> CREATOR = new Creator<de.dlyt.yanndroid.oneui.preference.Preference.BaseSavedState>() {
-            public de.dlyt.yanndroid.oneui.preference.Preference.BaseSavedState createFromParcel(Parcel var1) {
-                return new de.dlyt.yanndroid.oneui.preference.Preference.BaseSavedState(var1);
-            }
-
-            public de.dlyt.yanndroid.oneui.preference.Preference.BaseSavedState[] newArray(int var1) {
-                return new de.dlyt.yanndroid.oneui.preference.Preference.BaseSavedState[var1];
-            }
-        };
-
-        public BaseSavedState(Parcel var1) {
-            super(var1);
+        public BaseSavedState(Parcel source) {
+            super(source);
         }
 
-        public BaseSavedState(Parcelable var1) {
-            super(var1);
+        public BaseSavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        @NonNull
+        public static final Parcelable.Creator<BaseSavedState> CREATOR = new Parcelable.Creator<BaseSavedState>() {
+            @Override
+            public BaseSavedState createFromParcel(Parcel in) {
+                return new BaseSavedState(in);
+            }
+
+            @Override
+            public BaseSavedState[] newArray(int size) {
+                return new BaseSavedState[size];
+            }
+        };
+    }
+
+    private static class OnPreferenceCopyListener implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
+        private final Preference mPreference;
+
+        OnPreferenceCopyListener(@NonNull Preference preference) {
+            mPreference = preference;
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            CharSequence summary = mPreference.getSummary();
+            if (!mPreference.isCopyingEnabled() || TextUtils.isEmpty(summary)) {
+                return;
+            }
+            menu.setHeaderTitle(summary);
+            menu.add(Menu.NONE, Menu.NONE, Menu.NONE, R.string.copy).setOnMenuItemClickListener(this);
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            ClipboardManager clipboard = (ClipboardManager) mPreference.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            CharSequence summary = mPreference.getSummary();
+            ClipData clip = ClipData.newPlainText(CLIPBOARD_ID, summary);
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(mPreference.getContext(), mPreference.getContext().getString(R.string.preference_copied, summary), Toast.LENGTH_SHORT).show();
+            return true;
         }
     }
 }
-

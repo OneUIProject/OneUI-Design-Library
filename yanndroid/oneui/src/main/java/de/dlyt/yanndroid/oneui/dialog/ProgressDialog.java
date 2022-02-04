@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.view.ProgressBar;
+import de.dlyt.yanndroid.oneui.widget.ProgressBar;
 
 public class ProgressDialog extends AlertDialog {
     public static final int STYLE_SPINNER = 0;
@@ -130,7 +130,7 @@ public class ProgressDialog extends AlertDialog {
             mProgressPercent = (TextView) view.findViewById(R.id.progress_percent);
             setView(view);
         } else {
-            View view = inflater.inflate(a.getResourceId(R.styleable.SamsungAlertDialog_progressLayout, R.layout.sesl_progress_dialog_circle), null);
+            View view = inflater.inflate(a.getResourceId(R.styleable.SamsungAlertDialog_progressLayout, mIsOneUI4 ? R.layout.sesl4_progress_dialog_circle : R.layout.sesl_progress_dialog_circle), null);
             mProgress = (ProgressBar) view.findViewById(R.id.progress);
             mMessageView = (TextView) view.findViewById(R.id.message);
             setView(view);
@@ -166,7 +166,7 @@ public class ProgressDialog extends AlertDialog {
 
         if (mProgressStyle == STYLE_CIRCLE_ONLY) {
             int size = (int) ((70 * mContext.getResources().getDisplayMetrics().density));
-            getWindow().setBackgroundDrawableResource(mIsOneUI4 ? android.R.color.transparent : R.drawable.progress_circle_dialog_bg);
+            getWindow().setBackgroundDrawableResource(mIsOneUI4 ? android.R.color.transparent : R.drawable.oui_progress_circle_dialog_bg);
             getWindow().setLayout(size, size);
             getWindow().setGravity(Gravity.CENTER);
             setContentView(inflater.inflate(R.layout.sesl_progress_dialog_circle_only, null));

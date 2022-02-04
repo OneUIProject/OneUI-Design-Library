@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="dragndroplist_drag_release">IDS_COM_POP_ITEM_DROPPED_INTO_POSITION_PD_TTS</string>
+    <string name="dragndroplist_drag_start">IDS_COM_POP_STARTED_DRAGGING_ITEM_AT_POSITION_PD_TTS</string>
+    <string name="dragndroplist_item_cannot_be_dragged">IDS_COM_POP_ITEM_AT_POSITION_PD_CANNOT_BE_DRAGGED_TTS</string>
+</resources>

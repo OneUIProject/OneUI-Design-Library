@@ -4,57 +4,76 @@ import android.view.View;
 
 import androidx.core.view.ViewCompat;
 
-public class ViewOffsetHelper {
-    public final View view;
-    public boolean horizontalOffsetEnabled = true;
-    public int layoutLeft;
-    public int layoutTop;
-    public int offsetLeft;
-    public int offsetTop;
-    public boolean verticalOffsetEnabled = true;
+class ViewOffsetHelper {
+    private final View view;
+    private int layoutTop;
+    private int layoutLeft;
+    private int offsetTop;
+    private int offsetLeft;
+    private boolean verticalOffsetEnabled = true;
+    private boolean horizontalOffsetEnabled = true;
 
-    public ViewOffsetHelper(View var1) {
-        this.view = var1;
+    public ViewOffsetHelper(View view) {
+        this.view = view;
     }
 
-    public int getLayoutTop() {
-        return this.layoutTop;
+    void onViewLayout() {
+        layoutTop = view.getTop();
+        layoutLeft = view.getLeft();
+    }
+
+    void applyOffsets() {
+        ViewCompat.offsetTopAndBottom(view, offsetTop - (view.getTop() - layoutTop));
+        ViewCompat.offsetLeftAndRight(view, offsetLeft - (view.getLeft() - layoutLeft));
+    }
+
+    public boolean setTopAndBottomOffset(int offset) {
+        if (verticalOffsetEnabled && offsetTop != offset) {
+            offsetTop = offset;
+            applyOffsets();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean setLeftAndRightOffset(int offset) {
+        if (horizontalOffsetEnabled && offsetLeft != offset) {
+            offsetLeft = offset;
+            applyOffsets();
+            return true;
+        }
+        return false;
     }
 
     public int getTopAndBottomOffset() {
-        return this.offsetTop;
+        return offsetTop;
     }
 
-    public void onViewLayout() {
-        this.layoutTop = this.view.getTop();
-        this.layoutLeft = this.view.getLeft();
-        this.updateOffsets();
+    public int getLeftAndRightOffset() {
+        return offsetLeft;
     }
 
-    public boolean setLeftAndRightOffset(int var1) {
-        if (this.horizontalOffsetEnabled && this.offsetLeft != var1) {
-            this.offsetLeft = var1;
-            this.updateOffsets();
-            return true;
-        } else {
-            return false;
-        }
+    public int getLayoutTop() {
+        return layoutTop;
     }
 
-    public boolean setTopAndBottomOffset(int var1) {
-        if (this.verticalOffsetEnabled && this.offsetTop != var1) {
-            this.offsetTop = var1;
-            this.updateOffsets();
-            return true;
-        } else {
-            return false;
-        }
+    public int getLayoutLeft() {
+        return layoutLeft;
     }
 
-    public final void updateOffsets() {
-        View var1 = this.view;
-        ViewCompat.offsetTopAndBottom(var1, this.offsetTop - (var1.getTop() - this.layoutTop));
-        var1 = this.view;
-        ViewCompat.offsetLeftAndRight(var1, this.offsetLeft - (var1.getLeft() - this.layoutLeft));
+    public void setVerticalOffsetEnabled(boolean verticalOffsetEnabled) {
+        this.verticalOffsetEnabled = verticalOffsetEnabled;
+    }
+
+    public boolean isVerticalOffsetEnabled() {
+        return verticalOffsetEnabled;
+    }
+
+    public void setHorizontalOffsetEnabled(boolean horizontalOffsetEnabled) {
+        this.horizontalOffsetEnabled = horizontalOffsetEnabled;
+    }
+
+    public boolean isHorizontalOffsetEnabled() {
+        return horizontalOffsetEnabled;
     }
 }

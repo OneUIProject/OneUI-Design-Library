@@ -15,12 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -28,6 +26,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import de.dlyt.yanndroid.oneui.R;
+import de.dlyt.yanndroid.oneui.widget.ProgressBar;
 
 public class AboutPage extends LinearLayout {
 
@@ -63,7 +62,7 @@ public class AboutPage extends LinearLayout {
         }
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.samsung_about_screen, this, true);
+        inflater.inflate(R.layout.oui_about_screen, this, true);
 
         toolbarLayout = findViewById(R.id.toolbar_layout);
         about_content = findViewById(R.id.about_content);
@@ -78,6 +77,9 @@ public class AboutPage extends LinearLayout {
         setOptionalText(optional_text);
         setUpdateState(update_state);
 
+        toolbarLayout.findViewById(R.id.toolbar_layout_app_bar).setBackgroundColor(getResources().getColor(R.color.splash_background));
+        toolbarLayout.findViewById(R.id.toolbar_layout_collapsing_toolbar_layout).setBackgroundColor(getResources().getColor(R.color.splash_background));
+
         toolbarLayout.setNavigationButtonIcon(getResources().getDrawable(R.drawable.ic_samsung_back, context.getTheme()));
         toolbarLayout.setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigate_up));
         toolbarLayout.setNavigationButtonOnClickListener(new OnClickListener() {
@@ -87,7 +89,7 @@ public class AboutPage extends LinearLayout {
             }
         });
 
-        toolbarLayout.inflateToolbarMenu(R.menu.about_page);
+        toolbarLayout.inflateToolbarMenu(R.menu.oui_about_page);
         if (mIsOneUI4) {
             toolbarLayout.getToolbarMenu().findItem(R.id.app_info).setIcon(getResources().getDrawable(R.drawable.ic_samsung_info_2, context.getTheme()));
         }
@@ -186,6 +188,10 @@ public class AboutPage extends LinearLayout {
         optional_text = text;
         about_optional_text.setText(text);
         about_optional_text.setVisibility(text == null || text.isEmpty() ? GONE : VISIBLE);
+    }
+
+    public void setToolbarExpandable(boolean expandable) {
+        toolbarLayout.setExpandable(expandable);
     }
 
     @Override

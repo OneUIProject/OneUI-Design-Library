@@ -5,19 +5,14 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.textview.MaterialTextView;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 import de.dlyt.yanndroid.oneui.R;
 
@@ -45,7 +40,7 @@ public class SplashView extends LinearLayout {
                 mText = attr.getString(R.styleable.SplashView_text);
                 mImage_foreground = attr.getDrawable(R.styleable.SplashView_foreground_image);
                 mImage_background = attr.getDrawable(R.styleable.SplashView_background_image);
-                splash_anim = AnimationUtils.loadAnimation(context, attr.getResourceId(R.styleable.SplashView_animation, R.anim.sesl_splash_animation));
+                splash_anim = AnimationUtils.loadAnimation(context, attr.getResourceId(R.styleable.SplashView_animation, R.anim.oui_splash_animation));
             } else {
                 mText = attr.getString(R.styleable.SplashView_text);
                 mImage = attr.getDrawable(R.styleable.SplashView_image);
@@ -56,7 +51,7 @@ public class SplashView extends LinearLayout {
         }
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(animated ? R.layout.samsung_splashview_animated : R.layout.samsung_splashview_simple, this, true);
+        inflater.inflate(animated ? R.layout.oui_splashview_animated : R.layout.oui_splashview_simple, this, true);
 
 
         textView = findViewById(R.id.sesl_splash_text);

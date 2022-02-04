@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:drawer_icon="@drawable/ic_samsung_info_2"
-    app:toolbar_title="@string/app_name">
+    app:title="@string/app_name">
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -13,12 +13,22 @@
         android:layout_height="match_parent"
         app:layout_location="main_content" />
 
-    <de.dlyt.yanndroid.oneui.view.BottomNavigationView
+    <de.dlyt.yanndroid.oneui.widget.TabLayout
         android:id="@+id/main_samsung_tabs"
         android:layout_width="match_parent"
-        android:layout_height="60.0dip"
+        android:layout_height="wrap_content"
         app:layout_location="footer" />
 
     <include layout="@layout/content_drawer" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/sesl_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="24.0dip"
+        android:elevation="4.0dip"
+        app:srcCompat="@drawable/ic_samsung_list_add"
+        app:layout_location="root" />
 
 </de.dlyt.yanndroid.oneui.layout.DrawerLayout>

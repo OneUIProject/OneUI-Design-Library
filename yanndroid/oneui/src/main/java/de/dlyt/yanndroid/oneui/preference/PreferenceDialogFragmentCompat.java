@@ -7,20 +7,27 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.annotation.DoNotInline;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
 
-public abstract class PreferenceDialogFragmentCompat extends DialogFragment implements DialogInterface.OnClickListener {
+public abstract class PreferenceDialogFragmentCompat extends DialogFragment implements
+        DialogInterface.OnClickListener {
     protected static final String ARG_KEY = "key";
     private static final String SAVE_STATE_TITLE = "PreferenceDialogFragment.title";
     private static final String SAVE_STATE_POSITIVE_TEXT = "PreferenceDialogFragment.positiveText";
@@ -33,24 +40,25 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
     private CharSequence mPositiveButtonText;
     private CharSequence mNegativeButtonText;
     private CharSequence mDialogMessage;
-    private int mDialogLayoutRes;
+    private @LayoutRes int mDialogLayoutRes;
     private BitmapDrawable mDialogIcon;
     private int mWhichButtonClicked;
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         final Fragment rawFragment = getTargetFragment();
         if (!(rawFragment instanceof DialogPreference.TargetFragment)) {
-            throw new IllegalStateException("Target fragment must implement TargetFragment" + " interface");
+            throw new IllegalStateException("Target fragment must implement TargetFragment interface");
         }
 
         final DialogPreference.TargetFragment fragment = (DialogPreference.TargetFragment) rawFragment;
 
-        final String key = getArguments().getString(ARG_KEY);
+        final String key = requireArguments().getString(ARG_KEY);
         if (savedInstanceState == null) {
-            mPreference = (DialogPreference) fragment.findPreference(key);
+            mPreference = fragment.findPreference(key);
             mDialogTitle = mPreference.getDialogTitle();
             mPositiveButtonText = mPreference.getPositiveButtonText();
             mNegativeButtonText = mPreference.getNegativeButtonText();
@@ -81,7 +89,7 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putCharSequence(SAVE_STATE_TITLE, mDialogTitle);
@@ -95,13 +103,17 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final Context context = getActivity();
+    public @NonNull
+    Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         mWhichButtonClicked = DialogInterface.BUTTON_NEGATIVE;
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle(mDialogTitle).setIcon(mDialogIcon).setPositiveButton(mPositiveButtonText, this).setNegativeButton(mNegativeButtonText, this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
+                .setTitle(mDialogTitle)
+                .setIcon(mDialogIcon)
+                .setPositiveButton(mPositiveButtonText, this)
+                .setNegativeButton(mNegativeButtonText, this);
 
-        View contentView = onCreateDialogView(context);
+        View contentView = onCreateDialogView(requireContext());
         if (contentView != null) {
             onBindDialogView(contentView);
             builder.setView(contentView);
@@ -119,38 +131,38 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
         return dialog;
     }
 
+    @SuppressWarnings("deprecation")
     public DialogPreference getPreference() {
         if (mPreference == null) {
-            final String key = getArguments().getString(ARG_KEY);
+            final String key = requireArguments().getString(ARG_KEY);
             final DialogPreference.TargetFragment fragment = (DialogPreference.TargetFragment) getTargetFragment();
-            mPreference = (DialogPreference) fragment.findPreference(key);
+            mPreference = fragment.findPreference(key);
         }
         return mPreference;
     }
 
-    protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
-    }
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {}
 
     protected boolean needInputMethod() {
         return false;
     }
 
-    private void requestInputMethod(Dialog dialog) {
+    private void requestInputMethod(@NonNull Dialog dialog) {
         Window window = dialog.getWindow();
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
-    protected View onCreateDialogView(Context context) {
+    @Nullable
+    protected View onCreateDialogView(@NonNull Context context) {
         final int resId = mDialogLayoutRes;
         if (resId == 0) {
             return null;
         }
 
-        LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(resId, null);
+        return getLayoutInflater().inflate(resId, null);
     }
 
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         View dialogMessageView = view.findViewById(android.R.id.message);
 
         if (dialogMessageView != null) {
@@ -172,12 +184,12 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
     }
 
     @Override
-    public void onClick(DialogInterface dialog, int which) {
+    public void onClick(@NonNull DialogInterface dialog, int which) {
         mWhichButtonClicked = which;
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         onDialogClosed(mWhichButtonClicked == DialogInterface.BUTTON_POSITIVE);
     }

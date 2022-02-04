@@ -2,84 +2,116 @@ package de.dlyt.yanndroid.oneui.preference;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Checkable;
 import android.widget.CompoundButton;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.res.TypedArrayUtils;
+import androidx.core.view.ViewCompat;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.view.Switch;
+import de.dlyt.yanndroid.oneui.widget.Switch;
 
 public class SwitchPreference extends TwoStatePreference {
     private final DummyClickListener mClickListener = new DummyClickListener();
     private final Listener mListener = new Listener();
-    private CharSequence mSwitchOff;
     private CharSequence mSwitchOn;
+    private CharSequence mSwitchOff;
 
     @SuppressLint("RestrictedApi")
-    public SwitchPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SwitchPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+
+        Configuration config = context.getResources().getConfiguration();
+        if ((config.screenWidthDp <= 320 && config.fontScale >= FONT_SCALE_MEDIUM) || (config.screenWidthDp < 411 && config.fontScale >= FONT_SCALE_LARGE)) {
+            setLayoutResource(R.layout.sesl_preference_switch_large);
+        }
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SwitchPreference, defStyleAttr, defStyleRes);
-        setSummaryOn(TypedArrayUtils.getString(a, R.styleable.SwitchPreference_summaryOn, R.styleable.SwitchPreference_summaryOn));
-        setSummaryOff(TypedArrayUtils.getString(a, R.styleable.SwitchPreference_summaryOff, R.styleable.SwitchPreference_summaryOff));
-        setSwitchTextOn(TypedArrayUtils.getString(a, R.styleable.SwitchPreference_switchTextOn, R.styleable.SwitchPreference_switchTextOn));
-        setSwitchTextOff(TypedArrayUtils.getString(a, R.styleable.SwitchPreference_switchTextOff, R.styleable.SwitchPreference_switchTextOff));
-        setDisableDependentsState(TypedArrayUtils.getBoolean(a, R.styleable.SwitchPreference_disableDependentsState, R.styleable.SwitchPreference_disableDependentsState, false));
+        setSummaryOn(TypedArrayUtils.getString(a, R.styleable.SwitchPreference_summaryOn, R.styleable.SwitchPreference_android_summaryOn));
+        setSummaryOff(TypedArrayUtils.getString(a, R.styleable.SwitchPreference_summaryOff, R.styleable.SwitchPreference_android_summaryOff));
+        setSwitchTextOn(TypedArrayUtils.getString(a, R.styleable.SwitchPreference_switchTextOn, R.styleable.SwitchPreference_android_switchTextOn));
+        setSwitchTextOff(TypedArrayUtils.getString(a, R.styleable.SwitchPreference_switchTextOff, R.styleable.SwitchPreference_android_switchTextOff));
+        setDisableDependentsState(TypedArrayUtils.getBoolean(a, R.styleable.SwitchPreference_disableDependentsState, R.styleable.SwitchPreference_android_disableDependentsState, false));
         a.recycle();
     }
 
-    public SwitchPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SwitchPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
 
-    public SwitchPreference(Context context, AttributeSet attrs) {
-        this(context, attrs, R.attr.switchPreferenceStyle);
+    @SuppressLint("RestrictedApi")
+    public SwitchPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.switchPreferenceStyle, android.R.attr.switchPreferenceStyle));
     }
 
-    public SwitchPreference(Context context) {
+    public SwitchPreference(@NonNull Context context) {
         this(context, null);
     }
 
+    @SuppressLint("ResourceType")
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder) {
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
-        View switchView = holder.findViewById(android.R.id.switch_widget);
+        View switchView = holder.findViewById(16908352);
         syncSwitchView(switchView);
         syncSummaryView(holder);
     }
 
-    public void setSwitchTextOn(CharSequence onText) {
+    public void setSwitchTextOn(@Nullable CharSequence onText) {
         mSwitchOn = onText;
         notifyChanged();
     }
 
-    public void setSwitchTextOff(CharSequence offText) {
+    public void setSwitchTextOff(@Nullable CharSequence offText) {
         mSwitchOff = offText;
         notifyChanged();
     }
 
+    @Nullable
+    public CharSequence getSwitchTextOn() {
+        return mSwitchOn;
+    }
+
+    public void setSwitchTextOn(int resId) {
+        setSwitchTextOn(getContext().getString(resId));
+    }
+
+    @Nullable
+    public CharSequence getSwitchTextOff() {
+        return mSwitchOff;
+    }
+
+    public void setSwitchTextOff(int resId) {
+        setSwitchTextOff(getContext().getString(resId));
+    }
+
     @Override
-    protected void performClick(View view) {
+    protected void performClick(@NonNull View view) {
         super.performClick(view);
         syncViewIfAccessibilityEnabled(view);
     }
 
+    @SuppressLint("ResourceType")
     private void syncViewIfAccessibilityEnabled(View view) {
         AccessibilityManager accessibilityManager = (AccessibilityManager) getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
         if (!accessibilityManager.isEnabled()) {
             return;
         }
 
-        View switchView = view.findViewById(android.R.id.switch_widget);
+        View switchView = view.findViewById(16908352);
         syncSwitchView(switchView);
 
-        View summaryView = view.findViewById(android.R.id.summary);
-        syncSummaryView(summaryView);
+        if (!isTalkBackIsRunning()) {
+            View summaryView = view.findViewById(android.R.id.summary);
+            syncSummaryView(summaryView);
+        }
     }
 
     private void syncSwitchView(View view) {
@@ -98,21 +130,16 @@ public class SwitchPreference extends TwoStatePreference {
             if (switchView.isClickable()) {
                 switchView.setOnClickListener(mClickListener);
             }
-            if (isTalkBackIsRunning() && !(this instanceof SwitchPreferenceScreen)) {
-                switchView.setBackground(null);
+            if (isTalkBackIsRunning()) {
+                ViewCompat.setBackground(switchView, null);
                 switchView.setClickable(false);
             }
         }
     }
 
-
-    private class DummyClickListener implements OnClickListener {
-        public void onClick(View v) {
-            callClickListener();
-        }
-    }
-
     private class Listener implements CompoundButton.OnCheckedChangeListener {
+        Listener() {}
+
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (!callChangeListener(isChecked)) {
@@ -120,7 +147,17 @@ public class SwitchPreference extends TwoStatePreference {
                 return;
             }
 
-            de.dlyt.yanndroid.oneui.preference.SwitchPreference.this.setChecked(isChecked);
+            SwitchPreference.this.setChecked(isChecked);
+        }
+    }
+
+    private class DummyClickListener implements View.OnClickListener {
+        private DummyClickListener() {
+        }
+
+        @Override
+        public void onClick(View v) {
+            callClickListener();
         }
     }
 }

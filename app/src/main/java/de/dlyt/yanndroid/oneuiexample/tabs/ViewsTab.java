@@ -1,5 +1,6 @@
 package de.dlyt.yanndroid.oneuiexample.tabs;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,21 +11,22 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SeslSpinner;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.dlyt.yanndroid.oneui.view.SeekBar;
-import de.dlyt.yanndroid.oneui.view.SwitchBar;
+import de.dlyt.yanndroid.oneui.widget.ProgressBar;
+import de.dlyt.yanndroid.oneui.widget.SeekBar;
+import de.dlyt.yanndroid.oneui.widget.SwitchBar;
+import de.dlyt.yanndroid.oneuiexample.MainActivity;
 import de.dlyt.yanndroid.oneuiexample.R;
 
 public class ViewsTab extends Fragment {
 
     private View mRootView;
-    private AppCompatActivity mActivity;
+    private MainActivity mActivity;
 
     public ViewsTab() {
     }
@@ -32,7 +34,7 @@ public class ViewsTab extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity = (AppCompatActivity) getActivity();
+        mActivity = (MainActivity) getActivity();
     }
 
     @Override
@@ -41,9 +43,15 @@ public class ViewsTab extends Fragment {
         return mRootView;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ProgressBar pgb1 = mRootView.findViewById(R.id.pgb1);
+        ProgressBar pgb2 = mRootView.findViewById(R.id.pgb2);
+        ProgressBar pgb3 = mRootView.findViewById(R.id.pgb3);
+        pgb3.setMode(ProgressBar.MODE_CIRCLE);
 
         //SeekBar
         SeekBar seekBar1 = mRootView.findViewById(R.id.seekbar1);
@@ -53,6 +61,9 @@ public class ViewsTab extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seslSeekBar, int i, boolean z) {
                 seekBar1.setSecondaryProgress(i);
+                pgb1.setProgress(i);
+                pgb2.setProgress(i);
+                pgb3.setProgress(i);
             }
 
             @Override

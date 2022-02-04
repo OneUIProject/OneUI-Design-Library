@@ -16,11 +16,6 @@
 
     <attr name="useDisabledAlpha" format="boolean" />
 
-    <attr name="layout_isTitleCustom" format="boolean" />
-
-    <attr name="bottomNaviViewStyle" format="reference" />
-    <attr name="tabLayoutStyle" format="reference" />
-
     <attr name="toolbarTheme" format="reference" />
     <attr name="appBarLayoutStyle" format="reference" />
     <attr name="collapsingToolbarLayoutStyle" format="reference" />
@@ -77,22 +72,19 @@
 
     <declare-styleable name="DrawerLayout">
         <attr name="android:layout" />
-        <attr name="toolbar_title" format="string" />
-        <attr name="toolbar_subtitle" format="string" />
-        <attr name="toolbar_expanded" format="boolean" />
         <attr name="drawer_icon" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ToolBarLayout">
         <attr name="android:layout" />
-        <attr name="title" format="string" />
-        <attr name="subtitle" format="string" />
         <attr name="expandable" format="boolean" />
         <attr name="expanded" format="boolean" />
         <attr name="navigationIcon" format="reference" />
+        <attr name="title" format="string" />
+        <attr name="subtitle" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="Drawer_ToolBar_LayoutLocation">
+    <declare-styleable name="ToolbarLayoutParams">
         <attr name="layout_location">
             <enum name="main_content" value="0" />
             <enum name="appbar_header" value="1" />
@@ -102,13 +94,6 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="SwitchBarLayout">
-        <attr name="android:layout" />
-        <attr name="toolbar_title" />
-        <attr name="toolbar_subtitle" />
-        <attr name="toolbar_expanded" />
-    </declare-styleable>
-
     <declare-styleable name="AboutPage">
         <attr name="optional_text" format="string" />
         <attr name="update_state">
@@ -116,6 +101,7 @@
             <enum name="loading" value="0" />
             <enum name="update_available" value="1" />
             <enum name="no_update" value="2" />
+            <enum name="no_connection" value="3" />
         </attr>
     </declare-styleable>
 
@@ -179,14 +165,14 @@
     </declare-styleable>
 
     <declare-styleable name="SamsungCoordinatorLayout">
-        <attr name="keylines" format="reference" />
-        <attr name="statusBarBackground" format="color|reference" />
+        <attr name="keylines" />
+        <attr name="statusBarBackground" />
     </declare-styleable>
     <declare-styleable name="SamsungCoordinatorLayout_Layout">
         <attr name="android:layout_gravity" />
-        <attr name="layout_behavior" format="string" />
-        <attr name="layout_anchor" format="reference" />
-        <attr name="layout_keyline" format="integer" />
+        <attr name="layout_behavior" />
+        <attr name="layout_anchor" />
+        <attr name="layout_keyline" />
         <attr name="layout_anchorGravity" />
         <attr name="layout_insetEdge" />
         <attr name="layout_dodgeInsetEdges" />
@@ -197,10 +183,12 @@
         <attr name="expanded" />
         <attr name="android:keyboardNavigationCluster" />
         <attr name="android:touchscreenBlocksFocus" />
-        <attr name="liftOnScroll" format="boolean" />
-        <attr name="liftOnScrollTargetViewId" format="reference" />
-        <attr name="statusBarForeground" format="color" />
-        <attr name="sesl_layout_heightPercent" format="float" />
+        <attr name="liftOnScroll" />
+        <attr name="liftOnScrollTargetViewId" />
+        <attr name="statusBarForeground" />
+        <attr name="seslUseCustomHeight" format="boolean"/>
+        <attr name="seslUseCustomPadding" format="boolean"/>
+        <attr name="seslHeightProportion" format="float"/>
         <attr name="android:paddingBottom" />
     </declare-styleable>
     <declare-styleable name="SamsungAppBarLayout_Layout">
@@ -208,60 +196,70 @@
         <attr name="layout_scrollInterpolator" format="reference" />
     </declare-styleable>
     <declare-styleable name="SamsungCollapsingToolbarLayout">
-        <attr name="expandedTitleMargin" format="dimension" />
-        <attr name="expandedTitleMarginStart" format="dimension" />
-        <attr name="expandedTitleMarginTop" format="dimension" />
-        <attr name="expandedTitleMarginEnd" format="dimension" />
-        <attr name="expandedTitleMarginBottom" format="dimension" />
-        <attr name="expandedTitleTextAppearance" format="reference" />
-        <attr name="extendTitleEnabled" format="boolean" />
-        <attr name="extendTitleTextAppearance" format="reference" />
-        <attr name="extendSubTitleTextAppearance" format="reference" />
-        <attr name="collapseTitleTextAppearance" format="reference" />
-        <attr name="collapsedTitleTextAppearance" format="reference" />
-        <attr name="contentScrim" format="color" />
-        <attr name="statusBarScrim" format="color" />
-        <attr name="toolbarId" format="reference" />
-        <attr name="scrimVisibleHeightTrigger" format="dimension" />
-        <attr name="scrimAnimationDuration" format="integer" />
+        <attr name="expandedTitleMargin" />
+        <attr name="expandedTitleMarginStart" />
+        <attr name="expandedTitleMarginTop" />
+        <attr name="expandedTitleMarginEnd" />
+        <attr name="expandedTitleMarginBottom" />
+        <attr name="expandedTitleTextAppearance" />
+        <attr name="extendedTitleEnabled" format="boolean" />
+        <attr name="extendedTitleTextAppearance" format="reference" />
+        <attr name="extendedSubtitleTextAppearance" format="reference" />
+        <attr name="collapsedTitleTextAppearance" />
+        <attr name="contentScrim" />
+        <attr name="statusBarScrim" />
+        <attr name="toolbarId" />
+        <attr name="scrimVisibleHeightTrigger" />
+        <attr name="scrimAnimationDuration" />
         <attr name="collapsedTitleGravity" />
         <attr name="expandedTitleGravity" />
-        <attr name="titleEnabled" format="boolean" />
+        <attr name="titleEnabled" />
         <attr name="title" />
+        <attr name="titleCollapseMode" />
         <attr name="subtitle" />
+        <attr name="maxLines" />
     </declare-styleable>
     <declare-styleable name="SamsungCollapsingToolbarLayout_Layout">
         <attr name="layout_collapseMode" />
-        <attr name="layout_collapseParallaxMultiplier" format="float" />
-        <attr name="layout_isTitleCustom" />
+        <attr name="layout_collapseParallaxMultiplier" />
+        <attr name="isCustomTitle" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="SamsungTabLayout">
-        <attr name="tabIndicator" format="reference" />
-        <attr name="tabIndicatorColor" format="color" />
-        <attr name="tabIndicatorHeight" format="dimension" />
-        <attr name="tabIndicatorFullWidth" format="boolean" />
+        <attr name="tabIndicatorColor" />
+        <attr name="tabIndicatorHeight" />
+        <attr name="tabContentStart" />
+        <attr name="tabBackground" />
+        <attr name="tabIndicator" />
         <attr name="tabIndicatorGravity" />
-        <attr name="tabIconTint" format="color" />
-        <attr name="tabIconTintMode" />
-        <attr name="tabContentStart" format="dimension" />
-        <attr name="tabBackground" format="reference" />
-        <attr name="tabRippleColor" format="color" />
         <attr name="tabIndicatorAnimationDuration" format="integer" />
+        <attr name="tabIndicatorFullWidth" />
+        <attr name="tabIndicatorAnimationMode" />
         <attr name="tabMode" />
         <attr name="tabGravity" />
-        <attr name="tabInlineLabel" format="boolean" />
+        <attr name="tabInlineLabel" />
+        <attr name="tabMinWidth" />
+        <attr name="tabMaxWidth" />
+        <attr name="tabTextAppearance" />
+        <attr name="tabTextColor" />
+        <attr name="tabSelectedTextColor" />
+        <attr name="seslTabSubTextAppearance" format="reference" />
+        <attr name="seslTabSubTextColor" format="color" />
+        <attr name="seslTabSelectedSubTextColor" format="color" />
+        <attr name="tabPaddingStart" />
+        <attr name="tabPaddingTop" />
+        <attr name="tabPaddingEnd" />
+        <attr name="tabPaddingBottom" />
+        <attr name="tabPadding" />
+        <attr name="tabIconTint" />
+        <attr name="tabIconTintMode" />
+        <attr name="tabRippleColor" />
         <attr name="tabUnboundedRipple" format="boolean" />
-        <attr name="tabMinWidth" format="dimension" />
-        <attr name="tabMaxWidth" format="dimension" />
-        <attr name="tabTextAppearance" format="reference" />
-        <attr name="tabTextColor" format="color" />
-        <attr name="tabSelectedTextColor" format="color" />
-        <attr name="tabPaddingStart" format="dimension" />
-        <attr name="tabPaddingTop" format="dimension" />
-        <attr name="tabPaddingEnd" format="dimension" />
-        <attr name="tabPaddingBottom" format="dimension" />
-        <attr name="tabPadding" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="TabItem">
+        <attr name="android:text"/>
+        <attr name="android:icon"/>
+        <attr name="android:layout"/>
     </declare-styleable>
 
     <declare-styleable name="RoundFrameLayout">
@@ -307,6 +305,9 @@
         <attr name="paddingBottomNoButtons" format="dimension" />
         <attr name="paddingTopNoTitle" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="ButtonBarLayout">
+        <attr name="allowStacking" format="boolean" />
+    </declare-styleable>
 
     <declare-styleable name="RecyclerView">
         <attr name="layoutManager" format="string" />
@@ -338,6 +339,10 @@
             <enum name="inside" value="1" />
             <enum name="midpoint" value="0" />
         </attr>
+    </declare-styleable>
+
+    <declare-styleable name="SeslViewPager2">
+        <attr name="android:orientation"/>
     </declare-styleable>
 
     <declare-styleable name="View">
@@ -397,6 +402,8 @@
         <attr name="android:singleLineTitle" />
         <attr name="iconSpaceReserved" format="boolean" />
         <attr name="android:iconSpaceReserved" />
+        <attr name="isPreferenceVisible" format="boolean" />
+        <attr name="enableCopying" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="PreferenceCategory">
         <attr name="roundStroke">
@@ -408,17 +415,24 @@
             <flag name="top_right" value="0x00000002" />
         </attr>
     </declare-styleable>
-    <declare-styleable name="SeslPreferenceFragmentCompat">
+    <declare-styleable name="PreferenceFragment">
         <attr name="android:layout" />
         <attr name="android:divider" />
         <attr name="android:dividerHeight" />
         <attr name="allowDividerAfterLastItem" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="PreferenceFragmentCompat">
+        <attr name="android:layout" />
+        <attr name="android:divider" />
+        <attr name="android:dividerHeight" />
+        <attr name="allowDividerAfterLastItem" />
+    </declare-styleable>
     <declare-styleable name="PreferenceGroup">
         <attr name="orderingFromXml" format="boolean" />
         <attr name="android:orderingFromXml" />
+        <attr name="initialExpandedChildrenCount" format="integer" />
     </declare-styleable>
-    <declare-styleable name="SeslPreferenceImageView">
+    <declare-styleable name="PreferenceImageView">
         <attr name="maxWidth" format="dimension" />
         <attr name="android:maxWidth" />
         <attr name="maxHeight" format="dimension" />
@@ -438,6 +452,9 @@
         <attr name="dialogLayout" format="reference" />
         <attr name="android:dialogLayout" />
     </declare-styleable>
+    <declare-styleable name="EditTextPreference">
+        <attr name="useSimpleSummaryProvider" format="boolean"/>
+    </declare-styleable>
     <declare-styleable name="CheckBoxPreference">
         <attr name="summaryOn" format="string" />
         <attr name="android:summaryOn" />
@@ -451,6 +468,7 @@
         <attr name="android:entries" />
         <attr name="entryValues" format="reference" />
         <attr name="android:entryValues" />
+        <attr name="useSimpleSummaryProvider" />
     </declare-styleable>
     <declare-styleable name="MultiSelectListPreference">
         <attr name="entries" />
@@ -486,6 +504,18 @@
         <attr name="disableDependentsState" />
         <attr name="android:disableDependentsState" />
     </declare-styleable>
+    <declare-styleable name="SwitchPreferenceCompat">
+        <attr name="summaryOn" />
+        <attr name="android:summaryOn" />
+        <attr name="summaryOff" />
+        <attr name="android:summaryOff" />
+        <attr name="switchTextOn" />
+        <attr name="android:switchTextOn" />
+        <attr name="switchTextOff" />
+        <attr name="android:switchTextOff" />
+        <attr name="disableDependentsState" />
+        <attr name="android:disableDependentsState" />
+    </declare-styleable>
     <declare-styleable name="InsetPreferenceCategory">
         <attr name="height" format="dimension" />
     </declare-styleable>
@@ -506,6 +536,7 @@
             <enum name="noImage" value="1" />
         </attr>
     </declare-styleable>
+
     <declare-styleable name="SwipeRefreshLayout">
         <attr name="swipeRefreshLayoutProgressSpinnerBackgroundColor" format="color" />
     </declare-styleable>
@@ -534,6 +565,7 @@
         <attr name="android:secondaryProgress" />
         <attr name="android:secondaryProgressTint" />
         <attr name="android:secondaryProgressTintMode" />
+        <attr name="useHorizontalProgress" format="boolean" />
     </declare-styleable>
     <declare-styleable name="SeslSwitchBar">
         <attr name="seslSwitchBarBackgroundActivatedColor" format="color" />

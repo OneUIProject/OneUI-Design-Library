@@ -2,1356 +2,2193 @@ package de.dlyt.yanndroid.oneui.sesl.appbar;
 
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
-import android.view.animation.PathInterpolator;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.animation.SeslAnimationUtils;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.math.MathUtils;
 import androidx.core.util.ObjectsCompat;
-import androidx.core.view.MotionEventCompat;
 import androidx.core.view.NestedScrollingChild;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsAnimationCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityViewCommand;
 import androidx.customview.view.AbsSavedState;
+import androidx.reflect.content.res.SeslConfigurationReflector;
 
-import com.google.android.material.internal.ContextUtils;
+import com.google.android.material.animation.AnimationUtils;
 import com.google.android.material.internal.ThemeEnforcement;
+import com.google.android.material.shape.MaterialShapeDrawable;
+import com.google.android.material.shape.MaterialShapeUtils;
+import com.google.android.material.theme.overlay.MaterialThemeOverlay;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.layout.CoordinatorLayout;
-import de.dlyt.yanndroid.oneui.sesl.utils.ABLBehavior;
+import de.dlyt.yanndroid.oneui.sesl.coordinatorlayout.AppBarLayoutBehavior;
+import de.dlyt.yanndroid.oneui.sesl.coordinatorlayout.SamsungCoordinatorLayout;
 
-@CoordinatorLayout.DefaultBehavior(SamsungAppBarLayout.Behavior.class)
-public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
+public class SamsungAppBarLayout extends LinearLayout implements SamsungCoordinatorLayout.AttachedBehavior, AppBarLayoutBehavior {
     private boolean mIsOneUI4;
-    public static final Interpolator SINE_OUT_80_INTERPOLATOR = new PathInterpolator(0.17F, 0.17F, 0.2F, 1.0F);
-    public static float mAppBarHeight;
-    public boolean liftOnScroll;
-    public WeakReference<View> liftOnScrollTargetView;
-    public int liftOnScrollTargetViewId;
-    public Drawable mBackground;
-    public int mBottomPadding;
-    public int mCurrentOrientation;
-    public int mDownPreScrollRange;
-    public int mDownScrollRange;
-    public boolean mHaveChildWithInterpolator;
-    public float mHeightCustom;
-    public float mHeightPercent;
-    public boolean mIsSetCollapsedHeight;
-    public WindowInsetsCompat mLastInsets;
-    public boolean mLiftable;
-    public boolean mLiftableOverride;
-    public boolean mLifted;
-    public List<SamsungAppBarLayout.BaseOnOffsetChangedListener> mListeners;
-    public int mPendingAction;
-    public int[] mTmpStatesArray;
-    public int mTotalScrollRange;
+    private static final float DEFAULT_HEIGHT_RATIO_TO_SCREEN = 0.39f;
+    private static final int DEF_STYLE_RES = R.style.OneUI4_AppBarLayoutStyle;
+    public static final int IMMERSIVE_DETACH_OPTION_SET_FIT_SYSTEM_WINDOW = 1;
+    private static final int INVALID_SCROLL_RANGE = -1;
+    static final int PENDING_ACTION_ANIMATE_ENABLED = 4;
+    static final int PENDING_ACTION_COLLAPSED = 2;
+    static final int PENDING_ACTION_COLLAPSED_IMM = 512;
+    static final int PENDING_ACTION_EXPANDED = 1;
+    static final int PENDING_ACTION_FORCE = 8;
+    static final int PENDING_ACTION_NONE = 0;
+    public static final int SESL_STATE_COLLAPSED = 0;
+    public static final int SESL_STATE_EXPANDED = 1;
+    public static final int SESL_STATE_HIDE = 2;
+    public static final int SESL_STATE_IDLE = 3;
+    private static final String TAG = "AppBarLayout";
+    private int currentOffset;
+    private int downPreScrollRange = INVALID_SCROLL_RANGE;
+    private int downScrollRange = INVALID_SCROLL_RANGE;
+    @Nullable private ValueAnimator elevationOverlayAnimator;
+    private boolean haveChildWithInterpolator;
+    private boolean isMouse = false;
+    @Nullable private WindowInsetsCompat lastInsets;
+    private boolean liftOnScroll;
+    @Nullable private WeakReference<View> liftOnScrollTargetView;
+    @IdRes private int liftOnScrollTargetViewId;
+    private boolean liftable;
+    private boolean liftableOverride;
+    private boolean lifted = false;
+    private List<BaseOnOffsetChangedListener> listeners;
+    private SeslAppbarState mAppbarState;
+    private Drawable mBackground;
+    private int mBottomPadding = 0;
+    private float mCollapsedHeight;
+    private int mCurrentOrientation;
+    private int mCurrentScreenHeight;
+    private int mCustomHeight = -1;
+    private float mCustomHeightProportion;
+    private float mHeightProportion;
+    private boolean mImmHideStatusBar = false;
+    private List<SeslBaseOnImmOffsetChangedListener> mImmOffsetListener;
+    private int mImmersiveTopInset = 0;
+    private boolean mIsActivatedByUser = false;
+    private boolean mIsActivatedImmersiveScroll = false;
+    private boolean mIsCanScroll = false;
+    private boolean mIsDetachedState = false;
+    private boolean mIsReservedImmersiveDetachOption = false;
+    private boolean mReservedFitSystemWindow = false;
+    private Resources mResources;
+    private boolean mRestoreAnim = false;
+    private int mSeslTCScrollRange = 0;
+    private boolean mSetCustomHeight;
+    private boolean mSetCustomProportion;
+    private boolean mUseCollapsedHeight = false;
+    private boolean mUseCustomHeight;
+    private boolean mUseCustomPadding;
+    private int pendingAction = PENDING_ACTION_NONE;
+    @Nullable
+    private Drawable statusBarForeground;
+    private int[] tmpStatesArray;
+    private int totalScrollRange = INVALID_SCROLL_RANGE;
 
-    public SamsungAppBarLayout(Context var1) {
-        this(var1, (AttributeSet) null);
+    public interface BaseOnOffsetChangedListener<T extends SamsungAppBarLayout> {
+        void onOffsetChanged(T appBarLayout, int verticalOffset);
     }
 
-    public SamsungAppBarLayout(Context var1, AttributeSet var2) {
-        this(var1, var2, 0);
+    public interface OnOffsetChangedListener extends BaseOnOffsetChangedListener<SamsungAppBarLayout> {
+        void onOffsetChanged(SamsungAppBarLayout appBarLayout, int verticalOffset);
     }
 
-    @SuppressLint({"WrongConstant", "RestrictedApi"})
-    public SamsungAppBarLayout(Context var1, AttributeSet var2, int var3) {
-        super(var1, var2, var3);
+    public interface SeslBaseOnImmOffsetChangedListener<T extends SamsungAppBarLayout> {
+        void onOffsetChanged(T appBarLayout, int verticalOffset);
+    }
 
-        mIsOneUI4 = var1.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
+    public interface SeslOnImmOffsetChangedListener extends SeslBaseOnImmOffsetChangedListener<SamsungAppBarLayout> {
+        void onOffsetChanged(SamsungAppBarLayout appBarLayout, int verticalOffset);
+    }
 
-        this.mTotalScrollRange = -1;
-        this.mDownPreScrollRange = -1;
-        this.mDownScrollRange = -1;
-        this.mPendingAction = 0;
-        this.mLifted = false;
-        this.mHeightCustom = 0.0F;
-        this.mHeightPercent = 0.0F;
-        this.mBottomPadding = 0;
-        this.mIsSetCollapsedHeight = false;
-        this.setOrientation(1);
+    public static class SeslAppbarState {
+        private int mCurrentState = SESL_STATE_IDLE;
+
+        void onStateChanged(int state) {
+            mCurrentState = state;
+        }
+
+        public int getState() {
+            return mCurrentState;
+        }
+    }
+
+    public SamsungAppBarLayout(@NonNull Context context) {
+        this(context, null);
+    }
+
+    public SamsungAppBarLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, R.attr.appBarLayoutStyle);
+    }
+
+    @SuppressLint("RestrictedApi")
+    public SamsungAppBarLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(MaterialThemeOverlay.wrap(context, attrs, defStyleAttr, DEF_STYLE_RES), attrs, defStyleAttr);
+        context = getContext();
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
+        setOrientation(VERTICAL);
+
         if (Build.VERSION.SDK_INT >= 21) {
-            ViewUtilsLollipop.setStateListAnimatorFromAttrs(this, var2, var3, R.style.AppBarLayoutStyle);
+            ViewUtilsLollipop.setStateListAnimatorFromAttrs(this, attrs, defStyleAttr, DEF_STYLE_RES);
         }
 
-        TypedArray var4 = ThemeEnforcement.obtainStyledAttributes(var1, var2, R.styleable.SamsungAppBarLayout, var3, R.style.AppBarLayoutStyle, new int[0]);
-        if (var4.hasValue(R.styleable.SamsungAppBarLayout_android_background)) {
-            this.mBackground = var4.getDrawable(R.styleable.SamsungAppBarLayout_android_background);
-            ViewCompat.setBackground(this, this.mBackground);
+        final TypedArray a = ThemeEnforcement.obtainStyledAttributes(context, attrs, R.styleable.SamsungAppBarLayout, defStyleAttr, DEF_STYLE_RES);
+
+        mAppbarState = new SeslAppbarState();
+        mResources = getResources();
+
+        if (a.hasValue(R.styleable.SamsungAppBarLayout_android_background)) {
+            mBackground = a.getDrawable(R.styleable.SamsungAppBarLayout_android_background);;
+            ViewCompat.setBackground(this, mBackground);
         } else {
-            this.mBackground = null;
-            this.setBackgroundColor(this.getResources().getColor(mIsOneUI4 ? R.color.sesl4_action_bar_background_color : R.color.sesl_action_bar_background_color, var1.getTheme()));
+            mBackground = null;
+            setBackgroundColor(mResources.getColor(mIsOneUI4 ? R.color.sesl4_action_bar_background_color : R.color.sesl_action_bar_background_color));
         }
 
-        if (var4.hasValue(R.styleable.SamsungAppBarLayout_expanded)) {
-            this.setExpanded(var4.getBoolean(R.styleable.SamsungAppBarLayout_expanded, false), false, false);
+        if (getBackground() instanceof ColorDrawable) {
+            ColorDrawable background = (ColorDrawable) getBackground();
+            MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable();
+            materialShapeDrawable.setFillColor(ColorStateList.valueOf(background.getColor()));
+            materialShapeDrawable.initializeElevationOverlay(context);
+            ViewCompat.setBackground(this, materialShapeDrawable);
         }
 
-        if (Build.VERSION.SDK_INT >= 21 && var4.hasValue(R.styleable.SamsungAppBarLayout_elevation)) {
-            ViewUtilsLollipop.setDefaultAppBarLayoutStateListAnimator(this, (float) var4.getDimensionPixelSize(R.styleable.SamsungAppBarLayout_elevation, 0));
+        if (a.hasValue(R.styleable.SamsungAppBarLayout_expanded)) {
+            setExpanded(a.getBoolean(R.styleable.SamsungAppBarLayout_expanded, false), false, false);
         }
 
-        if (var4.hasValue(R.styleable.SamsungAppBarLayout_sesl_layout_heightPercent)) {
-            this.mHeightCustom = var4.getFloat(R.styleable.SamsungAppBarLayout_sesl_layout_heightPercent, 0.3967F);
+        if (a.hasValue(R.styleable.SamsungAppBarLayout_seslUseCustomHeight)) {
+            mUseCustomHeight = a.getBoolean(R.styleable.SamsungAppBarLayout_seslUseCustomHeight, false);
+        }
+
+        if (a.hasValue(R.styleable.SamsungAppBarLayout_seslHeightProportion)) {
+            mSetCustomProportion = true;
+            mCustomHeightProportion = a.getFloat(R.styleable.SamsungAppBarLayout_seslHeightProportion, DEFAULT_HEIGHT_RATIO_TO_SCREEN);
         } else {
-            this.mHeightCustom = 0.3967F;
+            mSetCustomProportion = false;
+            mCustomHeightProportion = DEFAULT_HEIGHT_RATIO_TO_SCREEN;
         }
 
-        TypedValue var5 = new TypedValue();
-        this.getResources().getValue(mIsOneUI4 ? R.dimen.sesl4_appbar_height_proportion : R.dimen.sesl_appbar_height_proportion, var5, true);
-        this.mHeightPercent = var5.getFloat();
-        if (!mIsOneUI4 && var4.hasValue(R.styleable.SamsungAppBarLayout_android_paddingBottom)) {
-            this.mBottomPadding = var4.getDimensionPixelSize(R.styleable.SamsungAppBarLayout_android_paddingBottom, 0);
-            this.setPadding(0, 0, 0, this.mBottomPadding);
+        mHeightProportion = ResourcesCompat.getFloat(mResources, mIsOneUI4 ? R.dimen.sesl4_appbar_height_proportion : R.dimen.sesl_appbar_height_proportion);
+
+        if (a.hasValue(R.styleable.SamsungAppBarLayout_seslUseCustomPadding)) {
+            mUseCustomPadding = a.getBoolean(R.styleable.SamsungAppBarLayout_seslUseCustomPadding, false);
+        }
+
+        if (mUseCustomPadding) {
+            mBottomPadding = a.getDimensionPixelSize(R.styleable.SamsungAppBarLayout_android_paddingBottom, 0);
         } else {
-            this.mBottomPadding = 0;
+            mBottomPadding = mIsOneUI4 ? 0 : mResources.getDimensionPixelOffset(R.dimen.sesl_extended_appbar_bottom_padding);
         }
 
-        if (Build.VERSION.SDK_INT >= 26) {
-            if (var4.hasValue(R.styleable.SamsungAppBarLayout_android_keyboardNavigationCluster)) {
-                this.setKeyboardNavigationCluster(var4.getBoolean(R.styleable.SamsungAppBarLayout_android_keyboardNavigationCluster, false));
+        setPadding(0, 0, 0, mBottomPadding);
+
+        mCollapsedHeight =  (float) (mResources.getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_height_with_padding) + mBottomPadding);
+
+        seslSetCollapsedHeight(mCollapsedHeight, false);
+
+        if (Build.VERSION.SDK_INT >= 21 && a.hasValue(R.styleable.SamsungAppBarLayout_elevation)) {
+            ViewUtilsLollipop.setDefaultAppBarLayoutStateListAnimator(this, a.getDimensionPixelSize(R.styleable.SamsungAppBarLayout_elevation, 0));
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (a.hasValue(R.styleable.SamsungAppBarLayout_android_keyboardNavigationCluster)) {
+                setKeyboardNavigationCluster(a.getBoolean(R.styleable.SamsungAppBarLayout_android_keyboardNavigationCluster, false));
             }
-
-            if (var4.hasValue(R.styleable.SamsungAppBarLayout_android_touchscreenBlocksFocus)) {
-                this.setTouchscreenBlocksFocus(var4.getBoolean(R.styleable.SamsungAppBarLayout_android_touchscreenBlocksFocus, false));
+            if (a.hasValue(R.styleable.SamsungAppBarLayout_android_touchscreenBlocksFocus)) {
+                setTouchscreenBlocksFocus(a.getBoolean(R.styleable.SamsungAppBarLayout_android_touchscreenBlocksFocus, false));
             }
         }
 
-        this.liftOnScroll = var4.getBoolean(R.styleable.SamsungAppBarLayout_liftOnScroll, false);
-        this.liftOnScrollTargetViewId = var4.getResourceId(R.styleable.SamsungAppBarLayout_liftOnScrollTargetViewId, -1);
-        var4.recycle();
-        if (this.mBottomPadding > 0) {
-            mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
-        } else {
-            mAppBarHeight = (float) this.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_default_height);
-        }
+        liftOnScroll = a.getBoolean(R.styleable.SamsungAppBarLayout_liftOnScroll, false);
+        liftOnScrollTargetViewId = a.getResourceId(R.styleable.SamsungAppBarLayout_liftOnScrollTargetViewId, View.NO_ID);
+
+        setStatusBarForeground(a.getDrawable(R.styleable.SamsungAppBarLayout_statusBarForeground));
+        a.recycle();
 
         ViewCompat.setOnApplyWindowInsetsListener(this, new androidx.core.view.OnApplyWindowInsetsListener() {
-            public WindowInsetsCompat onApplyWindowInsets(View var1, WindowInsetsCompat var2) {
-                return SamsungAppBarLayout.this.onWindowInsetChanged(var2);
+            @Override
+            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                return onWindowInsetChanged(insets);
             }
         });
-        this.mCurrentOrientation = this.getContext().getResources().getConfiguration().orientation;
+
+        mCurrentOrientation = mResources.getConfiguration().orientation;
+        mCurrentScreenHeight = mResources.getConfiguration().screenHeightDp;
     }
 
-    private int getWindowHeight() {
-        return this.getResources().getDisplayMetrics().heightPixels;
-    }
-
-    public void addOnOffsetChangedListener(SamsungAppBarLayout.BaseOnOffsetChangedListener var1) {
-        if (this.mListeners == null) {
-            this.mListeners = new ArrayList();
+    void updateInternalCollapsedHeight() {
+        if (useCollapsedHeight()) {
+            return;
         }
-
-        if (var1 != null && !this.mListeners.contains(var1)) {
-            this.mListeners.add(var1);
+        if (getImmBehavior() == null || !getCanScroll()) {
+            float height = (float) (getHeight() - getTotalScrollRange());
+            if (height != seslGetCollapsedHeight() && height > 0.0f) {
+                Log.i(TAG, "Internal collapsedHeight/ oldCollapsedHeight :" + seslGetCollapsedHeight() + " newCollapsedHeight :" + height);
+                seslSetCollapsedHeight(height, false);
+                updateInternalHeight();
+            }
         }
-
     }
 
-    public void addOnOffsetChangedListener(SamsungAppBarLayout.OnOffsetChangedListener var1) {
-        this.addOnOffsetChangedListener((SamsungAppBarLayout.BaseOnOffsetChangedListener) var1);
-    }
-
-    public boolean checkLayoutParams(android.view.ViewGroup.LayoutParams var1) {
-        return var1 instanceof SamsungAppBarLayout.LayoutParams;
-    }
-
-    public final void clearLiftOnScrollTargetView() {
-        WeakReference var1 = this.liftOnScrollTargetView;
-        if (var1 != null) {
-            var1.clear();
+    void updateInternalCollapsedHeightOnce() {
+        if (useCollapsedHeight()) {
+            return;
         }
-
-        this.liftOnScrollTargetView = null;
+        if (getImmBehavior() == null || !getCanScroll()) {
+            Log.i(TAG, "update InternalCollapsedHeight from updateInternalHeight() : " + seslGetCollapsedHeight());
+            seslSetCollapsedHeight(seslGetCollapsedHeight(), false);
+        }
     }
 
-    public boolean dispatchGenericMotionEvent(MotionEvent var1) {
-        if (var1.getAction() == 8) {
-            if (this.liftOnScrollTargetView != null) {
-                if (var1.getAxisValue(9) < 0.0F) {
-                    this.setExpanded(false);
-                } else if (var1.getAxisValue(9) > 0.0F && !this.canScrollVertically(-1)) {
-                    this.setExpanded(true);
+    public SeslAppbarState seslGetAppBarState() {
+        return mAppbarState;
+    }
+
+    public void seslSetCustomHeightProportion(boolean enabled, float proportion) {
+        if (proportion > 1.0f) {
+            Log.e(TAG, "Height proportion float range is 0..1");
+            return;
+        }
+        mUseCustomHeight = enabled;
+        mSetCustomProportion = enabled;
+        mSetCustomHeight = false;
+        mCustomHeightProportion = proportion;
+        updateInternalHeight();
+        requestLayout();
+    }
+
+    public void seslSetCustomHeight(int height) {
+        mCustomHeight = height;
+        mUseCustomHeight = true;
+        mSetCustomHeight = true;
+        mSetCustomProportion = false;
+
+        SamsungCoordinatorLayout.LayoutParams lp;
+        try {
+            lp = (SamsungCoordinatorLayout.LayoutParams) getLayoutParams();
+        } catch (ClassCastException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+            lp = null;
+        }
+        if (lp != null) {
+            lp.height = height;
+            setLayoutParams(lp);
+        }
+    }
+
+    @SuppressWarnings("FunctionalInterfaceClash")
+    public void addOnOffsetChangedListener(@Nullable BaseOnOffsetChangedListener listener) {
+        if (listeners == null) {
+            listeners = new ArrayList<>();
+        }
+        if (listener != null && !listeners.contains(listener)) {
+            listeners.add(listener);
+        }
+    }
+
+    @SuppressWarnings("FunctionalInterfaceClash")
+    public void addOnOffsetChangedListener(OnOffsetChangedListener listener) {
+        addOnOffsetChangedListener((BaseOnOffsetChangedListener) listener);
+    }
+
+    public void seslAddOnImmOffsetChangedListener(@Nullable SeslBaseOnImmOffsetChangedListener listener) {
+        if (mImmOffsetListener == null) {
+            mImmOffsetListener = new ArrayList();
+        }
+        if (listener != null && !mImmOffsetListener.contains(listener)) {
+            mImmOffsetListener.add(listener);
+        }
+    }
+
+    public void seslAddOnImmOffsetChangedListener(SeslOnImmOffsetChangedListener listener) {
+        seslAddOnImmOffsetChangedListener((SeslBaseOnImmOffsetChangedListener) listener);
+    }
+
+    @SuppressWarnings("FunctionalInterfaceClash")
+    public void removeOnOffsetChangedListener(@Nullable BaseOnOffsetChangedListener listener) {
+        if (listeners != null && listener != null) {
+            listeners.remove(listener);
+        }
+    }
+
+    @SuppressWarnings("FunctionalInterfaceClash")
+    public void removeOnOffsetChangedListener(OnOffsetChangedListener listener) {
+        removeOnOffsetChangedListener((BaseOnOffsetChangedListener) listener);
+    }
+
+    public void seslRemoveOnImmOffsetChangedListener(SeslBaseOnImmOffsetChangedListener listener) {
+        if (mImmOffsetListener != null && listener != null) {
+            mImmOffsetListener.remove(listener);
+        }
+    }
+
+    public void seslRemoveOnImmOffsetChangedListener(OnOffsetChangedListener listener) {
+        seslRemoveOnImmOffsetChangedListener((SeslBaseOnImmOffsetChangedListener) listener);
+    }
+
+    public void setStatusBarForeground(@Nullable Drawable drawable) {
+        if (statusBarForeground != drawable) {
+            if (statusBarForeground != null) {
+                statusBarForeground.setCallback(null);
+            }
+            statusBarForeground = drawable != null ? drawable.mutate() : null;
+            if (statusBarForeground != null) {
+                if (statusBarForeground.isStateful()) {
+                    statusBarForeground.setState(getDrawableState());
                 }
-            } else if (var1.getAxisValue(9) < 0.0F) {
-                this.setExpanded(false);
-            } else if (var1.getAxisValue(9) > 0.0F) {
-                this.setExpanded(true);
+                DrawableCompat.setLayoutDirection(statusBarForeground, ViewCompat.getLayoutDirection(this));
+                statusBarForeground.setVisible(getVisibility() == VISIBLE, false);
+                statusBarForeground.setCallback(this);
             }
-        }
-
-        return super.dispatchGenericMotionEvent(var1);
-    }
-
-    public void dispatchOffsetUpdates(int var1) {
-        List var2 = this.mListeners;
-        if (var2 != null) {
-            int var3 = 0;
-
-            for (int var4 = var2.size(); var3 < var4; ++var3) {
-                SamsungAppBarLayout.BaseOnOffsetChangedListener var5 = (SamsungAppBarLayout.BaseOnOffsetChangedListener) this.mListeners.get(var3);
-                if (var5 != null) {
-                    var5.onOffsetChanged(this, var1);
-                }
-            }
-        }
-
-    }
-
-    public final Activity findActivityOfContext(Context var1) {
-        Activity var2 = null;
-
-        while (var2 == null && var1 != null) {
-            if (var1 instanceof Activity) {
-                var2 = (Activity) var1;
-            } else if (var1 instanceof ContextWrapper) {
-                var1 = ((ContextWrapper) var1).getBaseContext();
-            } else {
-                var1 = null;
-            }
-        }
-
-        return var2;
-    }
-
-    public final View findLiftOnScrollTargetView() {
-        WeakReference var1 = this.liftOnScrollTargetView;
-        Object var2 = null;
-        View var5;
-        if (var1 == null && this.liftOnScrollTargetViewId != -1) {
-            @SuppressLint("RestrictedApi") Activity var4 = ContextUtils.getActivity(this.getContext());
-            if (var4 != null) {
-                var5 = var4.findViewById(this.liftOnScrollTargetViewId);
-            } else if (this.getParent() instanceof ViewGroup) {
-                var5 = ((ViewGroup) this.getParent()).findViewById(this.liftOnScrollTargetViewId);
-            } else {
-                var5 = null;
-            }
-
-            if (var5 != null) {
-                this.liftOnScrollTargetView = new WeakReference(var5);
-            }
-        }
-
-        WeakReference var3 = this.liftOnScrollTargetView;
-        var5 = (View) var2;
-        if (var3 != null) {
-            var5 = (View) var3.get();
-        }
-
-        return var5;
-    }
-
-    public SamsungAppBarLayout.LayoutParams generateDefaultLayoutParams() {
-        return new SamsungAppBarLayout.LayoutParams(-1, -2);
-    }
-
-    public SamsungAppBarLayout.LayoutParams generateLayoutParams(AttributeSet var1) {
-        return new SamsungAppBarLayout.LayoutParams(this.getContext(), var1);
-    }
-
-    public SamsungAppBarLayout.LayoutParams generateLayoutParams(android.view.ViewGroup.LayoutParams var1) {
-        if (Build.VERSION.SDK_INT >= 19 && var1 instanceof android.widget.LinearLayout.LayoutParams) {
-            return new SamsungAppBarLayout.LayoutParams((android.widget.LinearLayout.LayoutParams) var1);
-        } else {
-            return var1 instanceof MarginLayoutParams ? new SamsungAppBarLayout.LayoutParams((MarginLayoutParams) var1) : new SamsungAppBarLayout.LayoutParams(var1);
+            updateWillNotDraw();
+            ViewCompat.postInvalidateOnAnimation(this);
         }
     }
 
-    public float getCollapsedHeight() {
-        return mAppBarHeight;
+    public void setStatusBarForegroundColor(@ColorInt int color) {
+        setStatusBarForeground(new ColorDrawable(color));
     }
 
-    public void setCollapsedHeight(float var1) {
-        StringBuilder var2 = new StringBuilder();
-        var2.append("setCollapsedHeight: height :");
-        var2.append(var1);
-        Log.d("Sesl_AppBarLayout", var2.toString());
-        this.mIsSetCollapsedHeight = true;
-        mAppBarHeight = var1;
+    public void setStatusBarForegroundResource(@DrawableRes int resId) {
+        setStatusBarForeground(AppCompatResources.getDrawable(getContext(), resId));
     }
 
-    public int getDownNestedPreScrollRange() {
-        int var1 = this.mDownPreScrollRange;
-        if (var1 != -1) {
-            return var1;
-        } else {
-            int var2 = this.getChildCount() - 1;
+    @Nullable
+    public Drawable getStatusBarForeground() {
+        return statusBarForeground;
+    }
 
-            int var3;
-            for (var3 = 0; var2 >= 0; var3 = var1) {
-                View var4 = this.getChildAt(var2);
-                SamsungAppBarLayout.LayoutParams var5 = (SamsungAppBarLayout.LayoutParams) var4.getLayoutParams();
-                int var6 = var4.getMeasuredHeight();
-                var1 = var5.scrollFlags;
-                if ((var1 & 5) == 5) {
-                    var3 += var5.topMargin + var5.bottomMargin;
-                    if ((var1 & 8) != 0) {
-                        var1 = var3 + ViewCompat.getMinimumHeight(var4);
-                    } else {
-                        if ((var1 & 2) != 0) {
-                            var1 = ViewCompat.getMinimumHeight(var4);
-                        } else {
-                            var1 = this.getTopInset();
-                        }
+    @Override
+    public void draw(@NonNull Canvas canvas) {
+        super.draw(canvas);
 
-                        var1 = var3 + (var6 - var1);
-                    }
-                } else {
-                    var1 = var3;
-                    if (var3 > 0) {
-                        break;
-                    }
-                }
-
-                --var2;
-            }
-
-            var1 = Math.max(0, var3);
-            this.mDownPreScrollRange = var1;
-            return var1;
+        if (shouldDrawStatusBarForeground()) {
+            int saveCount = canvas.save();
+            canvas.translate(0f, -currentOffset);
+            statusBarForeground.draw(canvas);
+            canvas.restoreToCount(saveCount);
         }
     }
 
-    public int getDownNestedScrollRange() {
-        int var1 = this.mDownScrollRange;
-        if (var1 != -1) {
-            return var1;
-        } else {
-            int var2 = this.getChildCount();
-            int var3 = 0;
-            var1 = var3;
+    @Override
+    protected void drawableStateChanged() {
+        super.drawableStateChanged();
 
-            int var4;
-            while (true) {
-                var4 = var1;
-                if (var3 >= var2) {
+        final int[] state = getDrawableState();
+
+        Drawable d = statusBarForeground;
+        if (d != null && d.isStateful() && d.setState(state)) {
+            invalidateDrawable(d);
+        }
+    }
+
+    @Override
+    protected boolean verifyDrawable(@NonNull Drawable who) {
+        return super.verifyDrawable(who) || who == statusBarForeground;
+    }
+
+    @Override
+    public void setVisibility(int visibility) {
+        super.setVisibility(visibility);
+
+        final boolean visible = visibility == VISIBLE;
+        if (statusBarForeground != null) {
+            statusBarForeground.setVisible(visible, false);
+        }
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        updateInternalHeight();
+
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        if (heightMode != MeasureSpec.EXACTLY && ViewCompat.getFitsSystemWindows(this) && shouldOffsetFirstChild()) {
+            int newHeight = getMeasuredHeight();
+            switch (heightMode) {
+                case MeasureSpec.AT_MOST:
+                    newHeight = MathUtils.clamp(getMeasuredHeight() + getTopInset(), 0, MeasureSpec.getSize(heightMeasureSpec));
                     break;
-                }
-
-                View var5 = this.getChildAt(var3);
-                SamsungAppBarLayout.LayoutParams var6 = (SamsungAppBarLayout.LayoutParams) var5.getLayoutParams();
-                int var7 = var5.getMeasuredHeight();
-                int var8 = var6.topMargin;
-                int var9 = var6.bottomMargin;
-                int var10 = var6.scrollFlags;
-                var4 = var1;
-                if ((var10 & 1) == 0) {
+                case MeasureSpec.UNSPECIFIED:
+                    newHeight += getTopInset();
                     break;
-                }
-
-                var1 += var7 + var8 + var9;
-                if ((var10 & 2) != 0) {
-                    var4 = var1 - (ViewCompat.getMinimumHeight(var5) + this.getTopInset());
-                    break;
-                }
-
-                ++var3;
+                default:
             }
-
-            var1 = Math.max(0, var4);
-            this.mDownScrollRange = var1;
-            return var1;
+            setMeasuredDimension(getMeasuredWidth(), newHeight);
         }
+
+        invalidateScrollRanges();
     }
 
-    public int getLiftOnScrollTargetViewId() {
-        return this.liftOnScrollTargetViewId;
-    }
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
 
-    public void setLiftOnScrollTargetViewId(int var1) {
-        this.liftOnScrollTargetViewId = var1;
-        this.clearLiftOnScrollTargetView();
-    }
-
-    public final int getMinimumHeightForVisibleOverlappingContent() {
-        int var1 = this.getTopInset();
-        int var2 = ViewCompat.getMinimumHeight(this);
-        if (var2 == 0) {
-            var2 = this.getChildCount();
-            if (var2 >= 1) {
-                var2 = ViewCompat.getMinimumHeight(this.getChildAt(var2 - 1));
-            } else {
-                var2 = 0;
-            }
-
-            if (var2 == 0) {
-                return this.getHeight() / 3;
+        if (ViewCompat.getFitsSystemWindows(this) && shouldOffsetFirstChild()) {
+            final int topInset = getTopInset();
+            for (int z = getChildCount() - 1; z >= 0; z--) {
+                ViewCompat.offsetTopAndBottom(getChildAt(z), topInset);
             }
         }
 
-        return var2 * 2 + var1;
-    }
+        invalidateScrollRanges();
 
-    public int getPendingAction() {
-        return this.mPendingAction;
-    }
+        haveChildWithInterpolator = false;
+        for (int i = 0, z = getChildCount(); i < z; i++) {
+            final View child = getChildAt(i);
+            final LayoutParams childLp = (LayoutParams) child.getLayoutParams();
+            final Interpolator interpolator = childLp.getScrollInterpolator();
 
-    @Deprecated
-    public float getTargetElevation() {
-        return 0.0F;
-    }
-
-    @Deprecated
-    public void setTargetElevation(float var1) {
-        if (Build.VERSION.SDK_INT >= 21) {
-            ViewUtilsLollipop.setDefaultAppBarLayoutStateListAnimator(this, var1);
-        }
-
-    }
-
-    public final int getTopInset() {
-        WindowInsetsCompat var1 = this.mLastInsets;
-        int var2;
-        if (var1 != null) {
-            var2 = var1.getSystemWindowInsetTop();
-        } else {
-            var2 = 0;
-        }
-
-        return var2;
-    }
-
-    public final int getTotalScrollRange() {
-        int var1 = this.mTotalScrollRange;
-        if (var1 != -1) {
-            return var1;
-        } else {
-            int var2 = this.getChildCount();
-            int var3 = 0;
-            var1 = var3;
-
-            int var4;
-            while (true) {
-                var4 = var1;
-                if (var3 >= var2) {
-                    break;
-                }
-
-                View var5 = this.getChildAt(var3);
-                SamsungAppBarLayout.LayoutParams var6 = (SamsungAppBarLayout.LayoutParams) var5.getLayoutParams();
-                int var7 = var5.getMeasuredHeight();
-                int var8 = var6.scrollFlags;
-                var4 = var1;
-                if ((var8 & 1) == 0) {
-                    break;
-                }
-
-                var1 += var7 + var6.topMargin + var6.bottomMargin;
-                if ((var8 & 2) != 0) {
-                    var4 = var1 - ViewCompat.getMinimumHeight(var5);
-                    break;
-                }
-
-                ++var3;
-            }
-
-            var1 = Math.max(0, var4 - this.getTopInset());
-            this.mTotalScrollRange = var1;
-            return var1;
-        }
-    }
-
-    public int getUpNestedPreScrollRange() {
-        return this.getTotalScrollRange();
-    }
-
-    public boolean hasChildWithInterpolator() {
-        return this.mHaveChildWithInterpolator;
-    }
-
-    public final boolean hasCollapsibleChild() {
-        int var1 = this.getChildCount();
-
-        for (int var2 = 0; var2 < var1; ++var2) {
-            if (((SamsungAppBarLayout.LayoutParams) this.getChildAt(var2).getLayoutParams()).isCollapsible()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public boolean hasScrollableChildren() {
-        boolean var1;
-        if (this.getTotalScrollRange() != 0) {
-            var1 = true;
-        } else {
-            var1 = false;
-        }
-
-        return var1;
-    }
-
-    public final void invalidateScrollRanges() {
-        this.mTotalScrollRange = -1;
-        this.mDownPreScrollRange = -1;
-        this.mDownScrollRange = -1;
-    }
-
-    public boolean isCollapsed() {
-        return this.mLifted;
-    }
-
-    public boolean isLiftOnScroll() {
-        return this.liftOnScroll;
-    }
-
-    public void setLiftOnScroll(boolean var1) {
-        this.liftOnScroll = var1;
-    }
-
-    public final boolean isLightTheme() {
-        TypedValue var1 = new TypedValue();
-        Resources.Theme var2 = this.getContext().getTheme();
-        int var3 = R.attr.isLightTheme;
-        boolean var4 = true;
-        var2.resolveAttribute(var3, var1, true);
-        if (var1.data == 0) {
-            var4 = false;
-        }
-
-        return var4;
-    }
-
-    public void onConfigurationChanged(Configuration var1) {
-        super.onConfigurationChanged(var1);
-        Drawable var2 = this.mBackground;
-        if (var2 != null) {
-            if (var2 == this.getBackground()) {
-                this.setBackground(this.mBackground);
-            } else {
-                this.setBackground(this.getBackground());
-            }
-        } else if (this.getBackground() != null) {
-            this.mBackground = this.getBackground();
-            this.setBackground(this.mBackground);
-        } else {
-            this.mBackground = null;
-            this.setBackgroundColor(this.getResources().getColor(mIsOneUI4 ? R.color.sesl4_action_bar_background_color : R.color.sesl_action_bar_background_color, getContext().getTheme()));
-        }
-
-        this.mBottomPadding = mIsOneUI4 ? 0 : this.getContext().getResources().getDimensionPixelSize(R.dimen.sesl_extended_appbar_bottom_padding);
-        this.setPadding(0, 0, 0, this.mBottomPadding);
-        if (this.mBottomPadding > 0) {
-            mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
-        } else {
-            mAppBarHeight = (float) this.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_default_height);
-        }
-
-        TypedValue var3 = new TypedValue();
-        this.getResources().getValue(mIsOneUI4 ? R.dimen.sesl4_appbar_height_proportion : R.dimen.sesl_appbar_height_proportion, var3, true);
-        this.mHeightPercent = var3.getFloat();
-        if (this.mHeightCustom > 0.0F) {
-            Log.d("Sesl_AppBarLayout", "onConfigurationChanged");
-            this.updateInternalHeight();
-        }
-
-        if (this.mLifted || this.mCurrentOrientation == 1 && var1.orientation == 2) {
-            this.setExpanded(false, false, true);
-        } else {
-            this.setExpanded(true, false, true);
-        }
-
-        this.mCurrentOrientation = var1.orientation;
-    }
-
-    public int[] onCreateDrawableState(int var1) {
-        if (this.mTmpStatesArray == null) {
-            this.mTmpStatesArray = new int[4];
-        }
-
-        int[] var2 = this.mTmpStatesArray;
-        int[] var3 = super.onCreateDrawableState(var1 + var2.length);
-        if (this.mLiftable) {
-            var1 = R.attr.state_liftable;
-        } else {
-            var1 = -R.attr.state_liftable;
-        }
-
-        var2[0] = var1;
-        if (this.mLiftable && this.mLifted) {
-            var1 = R.attr.state_lifted;
-        } else {
-            var1 = -R.attr.state_lifted;
-        }
-
-        var2[1] = var1;
-        if (this.mLiftable) {
-            var1 = R.attr.state_collapsible;
-        } else {
-            var1 = -R.attr.state_collapsible;
-        }
-
-        var2[2] = var1;
-        if (this.mLiftable && this.mLifted) {
-            var1 = R.attr.state_collapsed;
-        } else {
-            var1 = -R.attr.state_collapsed;
-        }
-
-        var2[3] = var1;
-        return LinearLayout.mergeDrawableStates(var3, var2);
-    }
-
-    public void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        this.clearLiftOnScrollTargetView();
-    }
-
-    public void onLayout(boolean var1, int var2, int var3, int var4, int var5) {
-        super.onLayout(var1, var2, var3, var4, var5);
-        this.invalidateScrollRanges();
-        var1 = false;
-        this.mHaveChildWithInterpolator = false;
-        var3 = this.getChildCount();
-
-        for (var2 = 0; var2 < var3; ++var2) {
-            if (((SamsungAppBarLayout.LayoutParams) this.getChildAt(var2).getLayoutParams()).getScrollInterpolator() != null) {
-                this.mHaveChildWithInterpolator = true;
+            if (interpolator != null) {
+                haveChildWithInterpolator = true;
                 break;
             }
         }
 
-        if (!this.mLiftableOverride) {
-            if (this.liftOnScroll || this.hasCollapsibleChild()) {
-                var1 = true;
+        if (statusBarForeground != null) {
+            statusBarForeground.setBounds(0, 0, getWidth(), getTopInset());
+        }
+
+        if (!liftableOverride) {
+            setLiftableState(liftOnScroll || hasCollapsibleChild());
+        }
+    }
+
+    private void updateWillNotDraw() {
+        setWillNotDraw(!shouldDrawStatusBarForeground());
+    }
+
+    private boolean shouldDrawStatusBarForeground() {
+        return statusBarForeground != null && getTopInset() > 0;
+    }
+
+    private boolean hasCollapsibleChild() {
+        for (int i = 0, z = getChildCount(); i < z; i++) {
+            if (((LayoutParams) getChildAt(i).getLayoutParams()).isCollapsible()) {
+                return true;
             }
-
-            this.setLiftableState(var1);
         }
-
+        return false;
     }
 
-    public void onMeasure(int var1, int var2) {
-        if (!this.mIsSetCollapsedHeight) {
-            if (this.mBottomPadding > 0) {
-                mAppBarHeight = (float) this.getResources().getDimensionPixelSize(R.dimen.sesl_action_bar_height_with_padding);
-            } else {
-                mAppBarHeight = (float) this.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_default_height);
-            }
-        }
-
-        if (this.mHeightCustom > 0.0F) {
-            this.updateInternalHeight();
-        }
-
-        super.onMeasure(var1, var2);
-        this.invalidateScrollRanges();
+    private void invalidateScrollRanges() {
+        totalScrollRange = INVALID_SCROLL_RANGE;
+        downPreScrollRange = INVALID_SCROLL_RANGE;
+        downScrollRange = INVALID_SCROLL_RANGE;
     }
 
-    public WindowInsetsCompat onWindowInsetChanged(WindowInsetsCompat var1) {
-        WindowInsetsCompat var2;
-        if (ViewCompat.getFitsSystemWindows(this)) {
-            var2 = var1;
-        } else {
-            var2 = null;
-        }
-
-        if (!ObjectsCompat.equals(this.mLastInsets, var2)) {
-            this.mLastInsets = var2;
-            this.invalidateScrollRanges();
-        }
-
-        return var1;
-    }
-
-    public void removeOnOffsetChangedListener(SamsungAppBarLayout.BaseOnOffsetChangedListener var1) {
-        List var2 = this.mListeners;
-        if (var2 != null && var1 != null) {
-            var2.remove(var1);
-        }
-
-    }
-
-    public void removeOnOffsetChangedListener(SamsungAppBarLayout.OnOffsetChangedListener var1) {
-        this.removeOnOffsetChangedListener((SamsungAppBarLayout.BaseOnOffsetChangedListener) var1);
-    }
-
-    public void resetPendingAction() {
-        this.mPendingAction = 0;
-    }
-
-    public boolean seslIsCollapsed() {
-        return this.mLifted;
-    }
-
-    public void seslSetExpanded(boolean var1) {
-        this.setExpanded(var1);
-    }
-
-    public void setExpanded(boolean var1) {
-        this.setExpanded(var1, ViewCompat.isLaidOut(this));
-    }
-
-    public void setExpanded(boolean var1, boolean var2) {
-        this.setExpanded(var1, var2, true);
-    }
-
-    public final void setExpanded(boolean var1, boolean var2, boolean var3) {
-        this.setLifted(var1 ^ true);
-        byte var4;
-        if (var1) {
-            var4 = 1;
-        } else {
-            var4 = 2;
-        }
-
-        byte var5 = 0;
-        byte var6;
-        if (var2) {
-            var6 = 4;
-        } else {
-            var6 = 0;
-        }
-
-        if (var3) {
-            var5 = 8;
-        }
-
-        this.mPendingAction = var4 | var6 | var5;
-        this.requestLayout();
-    }
-
-    public final boolean setLiftableState(boolean var1) {
-        if (this.mLiftable != var1) {
-            this.mLiftable = var1;
-            this.refreshDrawableState();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean setLifted(boolean var1) {
-        return this.setLiftedState(var1);
-    }
-
-    public boolean setLiftedState(boolean var1) {
-        if (this.mLifted != var1) {
-            this.mLifted = var1;
-            this.mLifted = var1;
-            this.refreshDrawableState();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void setOrientation(int var1) {
-        if (var1 == 1) {
-            super.setOrientation(var1);
-        } else {
+    @Override
+    public void setOrientation(int orientation) {
+        if (orientation != VERTICAL) {
             throw new IllegalArgumentException("AppBarLayout is always vertical and does not support horizontal orientation");
         }
+        super.setOrientation(orientation);
     }
 
-    public boolean shouldLift(View var1) {
-        View var2 = this.findLiftOnScrollTargetView();
-        if (var2 != null) {
-            var1 = var2;
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        mIsDetachedState = false;
+        MaterialShapeUtils.setParentAbsoluteElevation(this);
+    }
+
+    @Override
+    @NonNull
+    public SamsungCoordinatorLayout.Behavior<SamsungAppBarLayout> getBehavior() {
+        return new SamsungAppBarLayout.Behavior();
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void setElevation(float elevation) {
+        super.setElevation(elevation);
+
+        MaterialShapeUtils.setElevation(this, elevation);
+    }
+
+    public void setExpanded(boolean expanded) {
+        setExpanded(expanded, ViewCompat.isLaidOut(this));
+    }
+
+    public void setExpanded(boolean expanded, boolean animate) {
+        setExpanded(expanded, animate, true);
+    }
+
+    private void setExpanded(boolean expanded, boolean animate, boolean force) {
+        setLifted(!expanded);
+        pendingAction = (expanded ? PENDING_ACTION_EXPANDED : seslGetImmersiveScroll() ? PENDING_ACTION_COLLAPSED_IMM : PENDING_ACTION_COLLAPSED) | (animate ? PENDING_ACTION_ANIMATE_ENABLED : 0) | (force ? PENDING_ACTION_FORCE : 0);
+        requestLayout();
+    }
+
+    @Override
+    protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
+        return p instanceof LayoutParams;
+    }
+
+    @Override
+    protected LayoutParams generateDefaultLayoutParams() {
+        return new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+    }
+
+    @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new LayoutParams(getContext(), attrs);
+    }
+
+    @Override
+    protected LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
+        if (Build.VERSION.SDK_INT >= 19 && p instanceof LinearLayout.LayoutParams) {
+            return new LayoutParams((LinearLayout.LayoutParams) p);
+        } else if (p instanceof MarginLayoutParams) {
+            return new LayoutParams((MarginLayoutParams) p);
+        }
+        return new LayoutParams(p);
+    }
+
+    public void seslReserveImmersiveDetachOption(int flag) {
+        if (flag != 0) {
+            mIsReservedImmersiveDetachOption = true;
+            mReservedFitSystemWindow = (flag & IMMERSIVE_DETACH_OPTION_SET_FIT_SYSTEM_WINDOW) != 0;
+            return;
+        }
+        mIsReservedImmersiveDetachOption = false;
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        mIsDetachedState = true;
+        if (mIsReservedImmersiveDetachOption && getImmBehavior() != null && mReservedFitSystemWindow) {
+            Log.i(TAG, "fits system window Immersive detached");
+            getImmBehavior().setupDecorFitsSystemWindow(true);
         }
 
-        boolean var3;
-        if (var1 == null || !var1.canScrollVertically(-1) && var1.getScrollY() <= 0) {
-            var3 = false;
+        super.onDetachedFromWindow();
+
+        clearLiftOnScrollTargetView();
+    }
+
+    boolean hasChildWithInterpolator() {
+        return haveChildWithInterpolator;
+    }
+
+    public final int getTotalScrollRange() {
+        if (totalScrollRange != INVALID_SCROLL_RANGE) {
+            return totalScrollRange;
+        }
+
+        int range = 0;
+        for (int i = 0, z = getChildCount(); i < z; i++) {
+            final View child = getChildAt(i);
+            final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            final int childHeight = child.getMeasuredHeight();
+            final int flags = lp.scrollFlags;
+
+            if ((flags & LayoutParams.SCROLL_FLAG_SCROLL) != 0) {
+                range += childHeight + lp.topMargin + lp.bottomMargin;
+
+                if (i == 0 && ViewCompat.getFitsSystemWindows(child)) {
+                    range -= getTopInset();
+                }
+                if ((flags & LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) != 0) {
+                    if (getCanScroll()) {
+                        range += getTopInset() + mBottomPadding + seslGetTCScrollRange();
+                    } else {
+                        range -= ViewCompat.getMinimumHeight(child);
+                    }
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        return totalScrollRange = Math.max(0, range);
+    }
+
+    boolean hasScrollableChildren() {
+        return getTotalScrollRange() != 0;
+    }
+
+    int getUpNestedPreScrollRange() {
+        return getTotalScrollRange();
+    }
+
+    // kang
+    int getDownNestedPreScrollRange() {
+        int var1 = this.downPreScrollRange;
+        if (var1 != -1) {
+            return var1;
         } else {
-            var3 = true;
+            int var2 = this.getChildCount() - 1;
+            var1 = 0;
+
+            int var3;
+            while(true) {
+                var3 = var1;
+                if (var2 < 0) {
+                    break;
+                }
+
+                View var4 = this.getChildAt(var2);
+                SamsungAppBarLayout.LayoutParams var5 = (SamsungAppBarLayout.LayoutParams)var4.getLayoutParams();
+                int var6 = var4.getMeasuredHeight();
+                var3 = var5.scrollFlags;
+                if ((var3 & 5) != 5) {
+                    var3 = var1;
+                    if (this.getCanScroll()) {
+                        var3 = (int)((float)var1 + this.seslGetCollapsedHeight() + (float)this.seslGetTCScrollRange());
+                    }
+                    break;
+                }
+
+                int var7;
+                label36: {
+                    var7 = var5.topMargin + var5.bottomMargin;
+                    if ((var3 & 8) != 0) {
+                        var3 = ViewCompat.getMinimumHeight(var4);
+                    } else {
+                        if ((var3 & 2) == 0) {
+                            var3 = var7 + var6;
+                            break label36;
+                        }
+
+                        var3 = var6 - ViewCompat.getMinimumHeight(var4);
+                    }
+
+                    var3 += var7;
+                }
+
+                var7 = var3;
+                if (var2 == 0) {
+                    var7 = var3;
+                    if (ViewCompat.getFitsSystemWindows(var4)) {
+                        var7 = Math.min(var3, var6 - this.getTopInset());
+                    }
+                }
+
+                var1 += var7;
+                --var2;
+            }
+
+            var1 = Math.max(0, var3);
+            this.downPreScrollRange = var1;
+            return var1;
+        }
+    }
+    // kang
+
+    int getDownNestedScrollRange() {
+        if (downScrollRange != INVALID_SCROLL_RANGE) {
+            return downScrollRange;
         }
 
-        return var3;
+        int range = 0;
+        for (int i = 0, z = getChildCount(); i < z; i++) {
+            final View child = getChildAt(i);
+            final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            int childHeight = child.getMeasuredHeight();
+            childHeight += lp.topMargin + lp.bottomMargin;
+
+            final int flags = lp.scrollFlags;
+
+            if ((flags & LayoutParams.SCROLL_FLAG_SCROLL) != 0) {
+                range += childHeight;
+
+                if ((flags & LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) != 0) {
+                    int newRange;
+                    if (!mIsCanScroll || !(child instanceof SamsungCollapsingToolbarLayout)) {
+                        newRange = ViewCompat.getMinimumHeight(child);
+                    } else {
+                        newRange = ((SamsungCollapsingToolbarLayout) child).seslGetMinimumHeightWithoutMargin();
+                    }
+                    range -= newRange;
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        return downScrollRange = Math.max(0, range);
     }
 
-    public final void updateInternalHeight() {
-        int var1 = this.getWindowHeight();
-        float var2 = (float) var1 * this.mHeightPercent;
-        float var3 = var2;
-        if (var2 == 0.0F) {
-            var3 = mAppBarHeight;
+    void onOffsetChanged(int offset) {
+        currentOffset = offset;
+
+        int totalScrollRange = getTotalScrollRange();
+        int height = getHeight() - ((int) seslGetCollapsedHeight());
+        if (Math.abs(offset) >= totalScrollRange) {
+            if (getCanScroll()) {
+                if (mAppbarState.getState() != SESL_STATE_HIDE) {
+                    mAppbarState.onStateChanged(SESL_STATE_HIDE);
+                }
+            } else if (mAppbarState.getState() != SESL_STATE_COLLAPSED) {
+                mAppbarState.onStateChanged(SESL_STATE_COLLAPSED);
+            }
+        } else if (Math.abs(offset) >= height) {
+            if (mAppbarState.getState() != SESL_STATE_COLLAPSED) {
+                mAppbarState.onStateChanged(SESL_STATE_COLLAPSED);
+            }
+        } else if (Math.abs(offset) == 0) {
+            if (mAppbarState.getState() != SESL_STATE_EXPANDED) {
+                mAppbarState.onStateChanged(SESL_STATE_EXPANDED);
+            }
+        } else if (mAppbarState.getState() != SESL_STATE_IDLE) {
+            mAppbarState.onStateChanged(SESL_STATE_IDLE);
         }
 
-        Activity var4 = this.findActivityOfContext(this.getContext());
-        StringBuilder var5 = new StringBuilder();
-        var5.append("updateInternalHeight: context:");
-        var5.append(this.getContext());
-        var5.append(", orientation:");
-        var5.append(this.getContext().getResources().getConfiguration().orientation);
-        var5.append(" density:");
-        var5.append(this.getContext().getResources().getConfiguration().densityDpi);
-        var5.append(" ,mHeightPercent");
-        var5.append(this.mHeightPercent);
-        var5.append(" windowHeight:");
-        var5.append(var1);
-        var5.append(" activity:");
-        var5.append(var4);
-        Log.d("Sesl_AppBarLayout", var5.toString());
+        if (!willNotDraw()) {
+            ViewCompat.postInvalidateOnAnimation(this);
+        }
 
-        CoordinatorLayout.LayoutParams var7;
+        if (listeners != null) {
+            for (int i = 0, z = listeners.size(); i < z; i++) {
+                final BaseOnOffsetChangedListener listener = listeners.get(i);
+                if (listener != null) {
+                    listener.onOffsetChanged(this, offset);
+                }
+            }
+        }
+    }
+
+    void onImmOffsetChanged(int offset) {
+        if (!willNotDraw()) {
+            ViewCompat.postInvalidateOnAnimation(this);
+        }
+
+        if (mImmOffsetListener != null) {
+            for (int i = 0, z = mImmOffsetListener.size(); i < z; i++) {
+                final SeslBaseOnImmOffsetChangedListener listener = mImmOffsetListener.get(i);
+                if (listener != null) {
+                    listener.onOffsetChanged(this, offset);
+                }
+            }
+        }
+    }
+
+    public final int getMinimumHeightForVisibleOverlappingContent() {
+        final int topInset = getTopInset();
+        final int minHeight = ViewCompat.getMinimumHeight(this);
+        if (minHeight != 0) {
+            return (minHeight * 2) + topInset;
+        }
+
+        final int childCount = getChildCount();
+        final int lastChildMinHeight = childCount >= 1 ? ViewCompat.getMinimumHeight(getChildAt(childCount - 1)) : 0;
+        if (lastChildMinHeight != 0) {
+            return (lastChildMinHeight * 2) + topInset;
+        }
+
+        return getHeight() / 3;
+    }
+
+    @Override
+    protected int[] onCreateDrawableState(int extraSpace) {
+        if (tmpStatesArray == null) {
+            tmpStatesArray = new int[4];
+        }
+        final int[] extraStates = tmpStatesArray;
+        final int[] states = super.onCreateDrawableState(extraSpace + extraStates.length);
+
+        extraStates[0] = liftable ? R.attr.state_liftable : -R.attr.state_liftable;
+        extraStates[1] = liftable && lifted ? R.attr.state_lifted : -R.attr.state_lifted;
+
+        extraStates[2] = liftable ? R.attr.state_collapsible : -R.attr.state_collapsible;
+        extraStates[3] = liftable && lifted ? R.attr.state_collapsed : -R.attr.state_collapsed;
+
+        return mergeDrawableStates(states, extraStates);
+    }
+
+    public boolean setLiftable(boolean liftable) {
+        liftableOverride = true;
+        return setLiftableState(liftable);
+    }
+
+    public void setLiftableOverrideEnabled(boolean enabled) {
+        liftableOverride = enabled;
+    }
+
+    private boolean setLiftableState(boolean liftable) {
+        if (this.liftable != liftable) {
+            this.liftable = liftable;
+            refreshDrawableState();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean setLifted(boolean lifted) {
+        return setLiftedState(lifted);
+    }
+
+    public boolean isLifted() {
+        return lifted;
+    }
+
+    boolean setLiftedState(boolean lifted) {
+        if (this.lifted == lifted) {
+            return false;
+        }
+        this.lifted = lifted;
+        refreshDrawableState();
+        if (liftOnScroll && getBackground() instanceof MaterialShapeDrawable) {
+            startLiftOnScrollElevationOverlayAnimation((MaterialShapeDrawable) getBackground(), lifted);
+        }
+        return true;
+    }
+
+    private void startLiftOnScrollElevationOverlayAnimation(@NonNull final MaterialShapeDrawable background, boolean lifted) {
+        float appBarElevation = getResources().getDimension(R.dimen.sesl_appbar_elevation);
+        float fromElevation = lifted ? 0 : appBarElevation;
+        float toElevation = lifted ? appBarElevation : 0;
+
+        if (elevationOverlayAnimator != null) {
+            elevationOverlayAnimator.cancel();
+        }
+
+        elevationOverlayAnimator = ValueAnimator.ofFloat(fromElevation, toElevation);
+        elevationOverlayAnimator.setDuration(getResources().getInteger(R.integer.app_bar_elevation_anim_duration));
+        elevationOverlayAnimator.setInterpolator(AnimationUtils.LINEAR_INTERPOLATOR);
+        elevationOverlayAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(@NonNull ValueAnimator valueAnimator) {
+                float elevation = (float) valueAnimator.getAnimatedValue();
+                background.setElevation(elevation);
+            }
+        });
+        elevationOverlayAnimator.start();
+    }
+
+    public void setLiftOnScroll(boolean liftOnScroll) {
+        this.liftOnScroll = liftOnScroll;
+    }
+
+    public boolean isLiftOnScroll() {
+        return liftOnScroll;
+    }
+
+    public void setLiftOnScrollTargetViewId(@IdRes int liftOnScrollTargetViewId) {
+        this.liftOnScrollTargetViewId = liftOnScrollTargetViewId;
+        clearLiftOnScrollTargetView();
+    }
+
+    @IdRes
+    public int getLiftOnScrollTargetViewId() {
+        return liftOnScrollTargetViewId;
+    }
+
+    boolean shouldLift(@Nullable View defaultScrollingView) {
+        View scrollingView = findLiftOnScrollTargetView(defaultScrollingView);
+        if (scrollingView == null) {
+            scrollingView = defaultScrollingView;
+        }
+        return scrollingView != null && (scrollingView.canScrollVertically(-1) || scrollingView.getScrollY() > 0);
+    }
+
+    @Nullable
+    private View findLiftOnScrollTargetView(@Nullable View defaultScrollingView) {
+        if (liftOnScrollTargetView == null && liftOnScrollTargetViewId != View.NO_ID) {
+            View targetView = null;
+            if (defaultScrollingView != null) {
+                targetView = defaultScrollingView.findViewById(liftOnScrollTargetViewId);
+            }
+            if (targetView == null && getParent() instanceof ViewGroup) {
+                targetView = ((ViewGroup) getParent()).findViewById(liftOnScrollTargetViewId);
+            }
+            if (targetView != null) {
+                liftOnScrollTargetView = new WeakReference<>(targetView);
+            }
+        }
+        return liftOnScrollTargetView != null ? liftOnScrollTargetView.get() : null;
+    }
+
+    private void clearLiftOnScrollTargetView() {
+        if (liftOnScrollTargetView != null) {
+            liftOnScrollTargetView.clear();
+        }
+        liftOnScrollTargetView = null;
+    }
+
+    @Deprecated
+    public void setTargetElevation(float elevation) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            ViewUtilsLollipop.setDefaultAppBarLayoutStateListAnimator(this, elevation);
+        }
+    }
+
+    @Deprecated
+    public float getTargetElevation() {
+        return 0;
+    }
+
+    int getPendingAction() {
+        return pendingAction;
+    }
+
+    void resetPendingAction() {
+        pendingAction = PENDING_ACTION_NONE;
+    }
+
+    final int getTopInset() {
+        return lastInsets != null ? lastInsets.getSystemWindowInsetTop() : 0;
+    }
+
+    private boolean shouldOffsetFirstChild() {
+        if (getChildCount() > 0) {
+            final View firstChild = getChildAt(0);
+            return firstChild.getVisibility() != GONE && !ViewCompat.getFitsSystemWindows(firstChild);
+        }
+        return false;
+    }
+
+    WindowInsetsCompat onWindowInsetChanged(final WindowInsetsCompat insets) {
+        WindowInsetsCompat newInsets = null;
+
+        if (ViewCompat.getFitsSystemWindows(this)) {
+            newInsets = insets;
+        }
+
+        if (!ObjectsCompat.equals(lastInsets, newInsets)) {
+            lastInsets = newInsets;
+            updateWillNotDraw();
+            requestLayout();
+        }
+
+        return insets;
+    }
+
+    protected int getCurrentOrientation() {
+        return mCurrentOrientation;
+    }
+
+    @Deprecated
+    public void seslRestoreTopAndBottom(View view) {
+        seslRestoreTopAndBottom();
+    }
+
+    private SeslImmersiveScrollBehavior getImmBehavior() {
+        ViewGroup.LayoutParams lp = getLayoutParams();
+        if (lp instanceof SamsungCoordinatorLayout.LayoutParams) {
+            SamsungCoordinatorLayout.Behavior behavior = ((SamsungCoordinatorLayout.LayoutParams) lp).getBehavior();
+            if (behavior instanceof SeslImmersiveScrollBehavior) {
+                return (SeslImmersiveScrollBehavior) behavior;
+            }
+        }
+
+        return null;
+    }
+
+    public boolean seslHaveImmersiveBehavior() {
+        return getImmBehavior() != null;
+    }
+
+    public void seslSetWindowInsetsAnimationCallback(Object callback) {
+        SeslImmersiveScrollBehavior behavior = getImmBehavior();
+        if (behavior != null) {
+            if (callback == null) {
+                behavior.setWindowInsetsAnimationCallback(this, null);
+            }
+            if (callback instanceof WindowInsetsAnimationCompat.Callback) {
+                behavior.setWindowInsetsAnimationCallback(this, (WindowInsetsAnimationCompat.Callback) callback);
+            }
+        }
+    }
+
+    public void seslRestoreTopAndBottom() {
+        SeslImmersiveScrollBehavior behavior = getImmBehavior();
+        if (behavior != null) {
+            behavior.seslRestoreTopAndBottom();
+        }
+    }
+
+    public void seslRestoreTopAndBottom(boolean restore) {
+        SeslImmersiveScrollBehavior behavior = getImmBehavior();
+        if (behavior != null) {
+            behavior.seslRestoreTopAndBottom(restore);
+        }
+    }
+
+    public void resetAppBarAndInsets() {
+        seslResetAppBarAndInsets(true);
+    }
+
+    public void seslResetAppBarAndInsets(boolean force) {
+        SeslImmersiveScrollBehavior behavior = getImmBehavior();
+        if (behavior != null) {
+            Log.i(TAG, "seslResetAppBarAndInsets() force = " + force);
+            behavior.seslRestoreTopAndBottom();
+            behavior.showWindowInset(force);
+        }
+    }
+
+    public void seslCancelWindowInsetsAnimationController() {
+        SeslImmersiveScrollBehavior behavior = getImmBehavior();
+        if (behavior != null) {
+            Log.i(TAG, "seslCancelWindowInsetsAnimationController");
+            behavior.cancelWindowInsetsAnimationController();
+        }
+    }
+
+    public void seslImmHideStatusBarForLandscape(boolean hide) {
+        mImmHideStatusBar = hide;
+    }
+
+    boolean isImmHideStatusBarForLandscape() {
+        return mImmHideStatusBar;
+    }
+
+    @Deprecated
+    public void seslSetBottomView(View view, View bottomView) {
+        seslSetBottomView(bottomView);
+    }
+
+    public void seslSetBottomView(View bottomView) {
+        if (bottomView == null) {
+            Log.w(TAG, "bottomView is null");
+        }
+        SeslImmersiveScrollBehavior behavior = getImmBehavior();
+        if (behavior != null) {
+            behavior.seslSetBottomView(bottomView);
+        }
+    }
+
+    protected void internalActivateImmersiveScroll(boolean activate, boolean byUser) {
+        mIsActivatedImmersiveScroll = activate;
+        mIsActivatedByUser = byUser;
+
+        SeslImmersiveScrollBehavior behavior = getImmBehavior();
+        Log.i(TAG, "internalActivateImmersiveScroll : " + activate + " , byUser : " + byUser + " , behavior : " + behavior);
+        if (behavior == null) {
+            return;
+        }
+        if (!activate || behavior.isAppBarHide()) {
+            behavior.seslRestoreTopAndBottom(mRestoreAnim);
+        }
+    }
+
+    public void seslActivateImmersiveScroll(boolean activate, boolean byUser) {
+        if (isDexEnabled()) {
+            Log.i(TAG, "Dex Enabled Set false ImmersiveScroll");
+            activate = false;
+        }
+
+        mRestoreAnim = byUser;
+        internalActivateImmersiveScroll(activate, true);
+
+        boolean z = true;
+        SeslImmersiveScrollBehavior behavior = getImmBehavior();
+        if (behavior != null) {
+            z = behavior.dispatchImmersiveScrollEnable();
+        }
+
+        if (z || !activate) {
+            setCanScroll(activate);
+        }
+    }
+
+    public void seslSetImmersiveScroll(boolean activate, boolean byUser) {
+        seslActivateImmersiveScroll(activate, byUser);
+    }
+
+    public void seslActivateImmersiveScroll(boolean activate) {
+        seslActivateImmersiveScroll(activate, true);
+    }
+
+    public void seslSetImmersiveScroll(boolean activate) {
+        seslActivateImmersiveScroll(activate);
+    }
+
+    public boolean isActivatedImmsersiveScroll() {
+        return mIsActivatedImmersiveScroll;
+    }
+
+    public boolean seslGetImmersiveScroll() {
+        return isActivatedImmsersiveScroll();
+    }
+
+    protected boolean isImmersiveActivatedByUser() {
+        return mIsActivatedByUser;
+    }
+
+    protected void setCanScroll(boolean canScroll) {
+        if (mIsCanScroll != canScroll) {
+            mIsCanScroll = canScroll;
+            invalidateScrollRanges();
+            requestLayout();
+        }
+    }
+
+    public void seslSetTCScrollRange(int range) {
+        mSeslTCScrollRange = range;
+    }
+
+    protected int seslGetTCScrollRange() {
+        return mSeslTCScrollRange;
+    }
+
+    protected boolean getCanScroll() {
+        return mIsCanScroll;
+    }
+
+    public void seslSetCollapsedHeight(float height) {
+        Log.i(TAG, "seslSetCollapsedHeight, height : " + height);
+        seslSetCollapsedHeight(height, true);
+    }
+
+    private void seslSetCollapsedHeight(float height, boolean custom) {
+        mUseCollapsedHeight = custom;
+        mCollapsedHeight = height;
+    }
+
+    void internalProportion(float proportion) {
+        if (!mUseCustomHeight && mHeightProportion != proportion) {
+            mHeightProportion = proportion;
+            updateInternalHeight();
+        }
+    }
+
+    void setImmersiveTopInset(int top) {
+        mImmersiveTopInset = top;
+    }
+
+    final int getImmersiveTopInset() {
+        if (mIsCanScroll) {
+            return mImmersiveTopInset;
+        }
+        return 0;
+    }
+
+    public float seslGetCollapsedHeight() {
+        return mCollapsedHeight + ((float) getImmersiveTopInset());
+    }
+
+    public float seslGetHeightProPortion() {
+        return mHeightProportion;
+    }
+
+    boolean useCollapsedHeight() {
+        return mUseCollapsedHeight;
+    }
+
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (mBackground != null) {
+            setBackgroundDrawable(mBackground == getBackground() ? mBackground : getBackground());
+        } else if (getBackground() != null) {
+            mBackground = getBackground();
+            setBackgroundDrawable(mBackground);
+        } else {
+            mBackground = null;
+            setBackgroundColor(mResources.getColor(R.color.sesl_action_bar_background_color));
+        }
+
+        if (mCurrentScreenHeight != newConfig.screenHeightDp || mCurrentOrientation != newConfig.orientation) {
+            if (!mUseCustomPadding && !mUseCollapsedHeight) {
+                Log.i(TAG, "Update bottom padding");
+                mBottomPadding = mResources.getDimensionPixelSize(R.dimen.sesl_extended_appbar_bottom_padding);
+                setPadding(0, 0, 0, mBottomPadding);
+                mCollapsedHeight = (float) (mResources.getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_height_with_padding) + mBottomPadding);
+                seslSetCollapsedHeight(mCollapsedHeight, false);
+            } else if (mUseCustomPadding && mBottomPadding == 0 && !mUseCollapsedHeight) {
+                mCollapsedHeight = (float) mResources.getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_action_bar_height_with_padding : R.dimen.sesl_action_bar_height_with_padding);
+                seslSetCollapsedHeight(mCollapsedHeight, false);
+            }
+        }
+
+        if (!mSetCustomProportion) {
+            mHeightProportion = ResourcesCompat.getFloat(mResources, mIsOneUI4 ? R.dimen.sesl4_appbar_height_proportion : R.dimen.sesl_appbar_height_proportion);
+        }
+
+        updateInternalHeight();
+
+        if (lifted || (mCurrentOrientation == Configuration.ORIENTATION_PORTRAIT && newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)) {
+            setExpanded(false, false, true);
+        } else {
+            setExpanded(true, false, true);
+        }
+
+        mCurrentOrientation = newConfig.orientation;
+        mCurrentScreenHeight = newConfig.screenHeightDp;
+    }
+
+    @Override
+    public boolean dispatchGenericMotionEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_SCROLL) {
+            if (liftOnScrollTargetView != null) {
+                if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0f) {
+                    setExpanded(false);
+                } else if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) > 0.0f && !canScrollVertically(-1)) {
+                    setExpanded(true);
+                }
+            } else if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0f) {
+                setExpanded(false);
+            } else if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) > 0.0f) {
+                setExpanded(true);
+            }
+        }
+
+        return super.dispatchGenericMotionEvent(event);
+    }
+
+    private void updateInternalHeight() {
+        int windowHeight = getWindowHeight();
+
+        float proportion;
+        if (mUseCustomHeight) {
+            if (mCustomHeightProportion != 0.0f) {
+                proportion = mCustomHeightProportion + (getCanScroll() ? getDifferImmHeightRatio() : 0.0f);
+            } else {
+                proportion = 0.0f;
+            }
+        } else {
+            proportion = mHeightProportion;
+        }
+
+        float collapsedHeight = ((float) windowHeight) * proportion;
+        if (collapsedHeight == 0.0f) {
+            updateInternalCollapsedHeightOnce();
+            collapsedHeight = seslGetCollapsedHeight();
+        }
+
+        SamsungCoordinatorLayout.LayoutParams lp;
         try {
-            var7 = (CoordinatorLayout.LayoutParams) this.getLayoutParams();
-        } catch (ClassCastException var6) {
-            Log.e("Sesl_AppBarLayout", Log.getStackTraceString(var6));
-            var7 = null;
+            lp = (SamsungCoordinatorLayout.LayoutParams) getLayoutParams();
+        } catch (ClassCastException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+            lp = null;
         }
 
-        if (var7 != null) {
-            var7.height = (int) var3;
-            var5 = new StringBuilder();
-            var5.append("updateInternalHeight: LayoutParams :");
-            var5.append(var7);
-            var5.append(" ,lp.height :");
-            var5.append(var7.height);
-            Log.d("Sesl_AppBarLayout", var5.toString());
-            this.setLayoutParams(var7);
+        String logStr = "[updateInternalHeight] orientation : " + mResources.getConfiguration().orientation + ", density : " + mResources.getConfiguration().densityDpi + ", windowHeight : " + windowHeight;
+        if (mUseCustomHeight) {
+            if (mSetCustomProportion) {
+                if (lp != null) {
+                    lp.height = (int) collapsedHeight;
+                    setLayoutParams(lp);
+                    logStr += ", [1]updateInternalHeight: lp.height : " + lp.height + ", mCustomHeightProportion : " + mCustomHeightProportion;
+                }
+            } else if (mSetCustomHeight && lp != null) {
+                lp.height = mCustomHeight + getImmersiveTopInset();
+                setLayoutParams(lp);
+                logStr += ", [2]updateInternalHeight: CustomHeight : " + mCustomHeight + "lp.height : " + lp.height;
+            }
+        } else if (lp != null) {
+            lp.height = (int) collapsedHeight;
+            setLayoutParams(lp);
+            logStr += ", [3]updateInternalHeight: lp.height : " + lp.height + ", mHeightProportion : " + mHeightProportion;
+        }
+        logStr += " , mIsImmersiveScroll : " + mIsActivatedImmersiveScroll + " , mIsSetByUser : " + mIsActivatedByUser;
+        Log.i(TAG, logStr);
+    }
+
+    private float getDifferImmHeightRatio() {
+        float windowHeight = (float) getWindowHeight();
+        if (windowHeight == 0.0f) {
+            windowHeight = 1.0f;
+        }
+        return getImmersiveTopInset() / windowHeight;
+    }
+
+    private int getWindowHeight() {
+        return mResources.getDisplayMetrics().heightPixels;
+    }
+
+    @Override
+    public void seslSetExpanded(boolean expanded) {
+        setExpanded(expanded);
+    }
+
+    @Override
+    public boolean seslIsCollapsed() {
+        return lifted;
+    }
+
+    @Override
+    public void seslSetIsMouse(boolean mouse) {
+        isMouse = mouse;
+    }
+
+    protected boolean getIsMouse() {
+        return isMouse;
+    }
+
+
+    public static class LayoutParams extends LinearLayout.LayoutParams {
+        static final int COLLAPSIBLE_FLAGS = 10;
+        private static final int FLAG_NO_SCROLL_HOLD = 65536;
+        private static final int FLAG_NO_SNAP = 4096;
+        static final int FLAG_QUICK_RETURN = 5;
+        static final int FLAG_SNAP = 17;
+        public static final int SCROLL_FLAG_ENTER_ALWAYS = 4;
+        public static final int SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED = 8;
+        public static final int SCROLL_FLAG_EXIT_UNTIL_COLLAPSED = 2;
+        public static final int SCROLL_FLAG_NO_SCROLL = 0;
+        public static final int SCROLL_FLAG_SCROLL = 1;
+        public static final int SCROLL_FLAG_SNAP = 16;
+        public static final int SCROLL_FLAG_SNAP_MARGINS = 32;
+        public static final int SESL_SCROLL_FLAG_NO_SCROLL_HOLD = 65536;
+        public static final int SESL_SCROLL_FLAG_NO_SNAP = 4096;
+        int scrollFlags = SCROLL_FLAG_SCROLL;
+        Interpolator scrollInterpolator;
+
+        @Retention(RetentionPolicy.SOURCE)
+        public @interface ScrollFlags {}
+
+        public LayoutParams(Context c, AttributeSet attrs) {
+            super(c, attrs);
+            TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.SamsungAppBarLayout_Layout);
+            scrollFlags = a.getInt(R.styleable.SamsungAppBarLayout_Layout_layout_scrollFlags, 0);
+
+            if (a.hasValue(R.styleable.SamsungAppBarLayout_Layout_layout_scrollInterpolator)) {
+                int resId = a.getResourceId(R.styleable.SamsungAppBarLayout_Layout_layout_scrollInterpolator, 0);
+                scrollInterpolator = android.view.animation.AnimationUtils.loadInterpolator(c, resId);
+            }
+            a.recycle();
         }
 
+        public LayoutParams(int width, int height) {
+            super(width, height);
+        }
+
+        public LayoutParams(int width, int height, float weight) {
+            super(width, height, weight);
+        }
+
+        public LayoutParams(ViewGroup.LayoutParams p) {
+            super(p);
+        }
+
+        public LayoutParams(MarginLayoutParams source) {
+            super(source);
+        }
+
+        @RequiresApi(19)
+        public LayoutParams(LinearLayout.LayoutParams source) {
+            super(source);
+        }
+
+        @RequiresApi(19)
+        public LayoutParams(@NonNull LayoutParams source) {
+            super(source);
+            scrollFlags = source.scrollFlags;
+            scrollInterpolator = source.scrollInterpolator;
+        }
+
+        public void setScrollFlags(@ScrollFlags int flags) {
+            scrollFlags = flags;
+        }
+
+        @ScrollFlags
+        public int getScrollFlags() {
+            return scrollFlags;
+        }
+
+        public void setScrollInterpolator(Interpolator interpolator) {
+            scrollInterpolator = interpolator;
+        }
+
+        public Interpolator getScrollInterpolator() {
+            return scrollInterpolator;
+        }
+
+        boolean isCollapsible() {
+            return (scrollFlags & SCROLL_FLAG_SCROLL) == SCROLL_FLAG_SCROLL && (scrollFlags & COLLAPSIBLE_FLAGS) != 0;
+        }
     }
 
-    public interface BaseOnOffsetChangedListener<T extends SamsungAppBarLayout> {
-        void onOffsetChanged(T var1, int var2);
-    }
 
-    public interface OnOffsetChangedListener extends SamsungAppBarLayout.BaseOnOffsetChangedListener<SamsungAppBarLayout> {
+    public static class Behavior extends BaseBehavior<SamsungAppBarLayout> {
+        public abstract static class DragCallback extends BaseBehavior.BaseDragCallback<SamsungAppBarLayout> {}
+
+        public Behavior() {
+            super();
+        }
+
+        public Behavior(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
     }
 
     protected static class BaseBehavior<T extends SamsungAppBarLayout> extends HeaderBehavior<T> {
-        public WeakReference<View> lastNestedScrollingChildRef;
-        public int lastStartedType;
-        public float mDiffY_Touch;
-        public boolean mIsFlingScrollDown = false;
-        public boolean mIsFlingScrollUp = false;
-        public boolean mIsScrollHold = false;
-        public boolean mIsSetStaticDuration = false;
-        public float mLastMotionY_Touch;
-        public boolean mLifted;
-        public boolean mToolisMouse;
-        public int mTouchSlop = -1;
-        public float mVelocity = 0.0F;
-        public ValueAnimator offsetAnimator;
-        public int offsetDelta;
-        public int offsetToChildIndexOnLayout = -1;
-        public boolean offsetToChildIndexOnLayoutIsMinHeight;
-        public float offsetToChildIndexOnLayoutPerc;
-        public SamsungAppBarLayout.BaseBehavior.BaseDragCallback onDragCallback;
-        public float touchX;
-        public float touchY;
+        private static final int INVALID_POSITION = -1;
+        private static final int MAX_OFFSET_ANIMATION_DURATION = 600;
+        @Nullable private WeakReference<View> lastNestedScrollingChildRef;
+        @ViewCompat.NestedScrollType private int lastStartedType;
+        private float mDiffY_Touch;
+        private float mLastMotionY_Touch;
+        private boolean mLifted;
+        private boolean mToolisMouse;
+        private ValueAnimator offsetAnimator;
+        private int offsetDelta;
+        private boolean offsetToChildIndexOnLayoutIsMinHeight;
+        private float offsetToChildIndexOnLayoutPerc;
+        private BaseDragCallback onDragCallback;
+        private float touchX;
+        private float touchY;
+        private int offsetToChildIndexOnLayout = -1;
+        private boolean mIsFlingScrollDown = false;
+        private boolean mIsFlingScrollUp = false;
+        private boolean mDirectTouchAppbar = false;
+        private int mTouchSlop = -1;
+        private float mVelocity = 0.0f;
+        private boolean mIsSetStaticDuration = false;
+        private boolean mIsScrollHold = false;
 
-        public BaseBehavior() {
+        public abstract static class BaseDragCallback<T extends SamsungAppBarLayout> {
+            public abstract boolean canDrag(@NonNull T appBarLayout);
         }
 
-        public BaseBehavior(Context var1, AttributeSet var2) {
-            super(var1, var2);
+        public BaseBehavior() {}
+
+        public BaseBehavior(Context context, AttributeSet attrs) {
+            super(context, attrs);
         }
 
-        public static boolean checkFlag(int var0, int var1) {
-            boolean var2;
-            if ((var0 & var1) == var1) {
-                var2 = true;
+        @Override
+        public boolean onStartNestedScroll(@NonNull SamsungCoordinatorLayout parent, @NonNull T child, @NonNull View directTargetChild, View target, int nestedScrollAxes, int type) {
+            final boolean started = (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0 && (child.isLiftOnScroll() || canScrollChildren(parent, child, directTargetChild));
+
+            if (started && offsetAnimator != null) {
+                offsetAnimator.cancel();
+            }
+
+            if (((float) child.getBottom()) <= child.seslGetCollapsedHeight()) {
+                mLifted = true;
+                child.setLifted(true);
+                mDiffY_Touch = 0.0f;
             } else {
-                var2 = false;
+                mLifted = false;
+                child.setLifted(false);
             }
 
-            return var2;
+            child.updateInternalCollapsedHeight();
+
+            lastNestedScrollingChildRef = null;
+            lastStartedType = type;
+            mToolisMouse = child.getIsMouse();
+
+            return started;
         }
 
-        public static View getAppBarChildOnOffset(SamsungAppBarLayout var0, int var1) {
-            int var2 = Math.abs(var1);
-            int var3 = var0.getChildCount();
-
-            for (var1 = 0; var1 < var3; ++var1) {
-                View var4 = var0.getChildAt(var1);
-                if (var2 >= var4.getTop() && var2 <= var4.getBottom()) {
-                    return var4;
-                }
-            }
-
-            return null;
+        private boolean canScrollChildren(@NonNull SamsungCoordinatorLayout parent, @NonNull T child, @NonNull View directTargetChild) {
+            return child.hasScrollableChildren() && parent.getHeight() - directTargetChild.getHeight() <= child.getHeight();
         }
 
-        public final void animateOffsetTo(CoordinatorLayout var1, T var2, int var3, float var4) {
-            int var5;
-            if (Math.abs(this.mVelocity) > 0.0F && Math.abs(this.mVelocity) <= 3000.0F) {
-                var5 = (int) ((double) (3000.0F - Math.abs(this.mVelocity)) * 0.4D);
-            } else {
-                var5 = 250;
-            }
+        @Override
+        public void onNestedPreScroll(SamsungCoordinatorLayout coordinatorLayout, @NonNull T child, View target, int dx, int dy, int[] consumed, int type) {
+            if (dy != 0) {
+                int min;
+                int max;
+                if (dy < 0) {
+                    min = -child.getTotalScrollRange();
+                    max = min + child.getDownNestedPreScrollRange();
 
-            int var6 = var5;
-            if (var5 <= 250) {
-                var6 = 250;
-            }
-
-            if (this.mIsSetStaticDuration) {
-                this.mIsSetStaticDuration = false;
-                var6 = 250;
-            }
-
-            if (this.mVelocity < 2000.0F) {
-                this.animateOffsetWithDuration(var1, var2, var3, var6);
-            }
-
-            this.mVelocity = 0.0F;
-        }
-
-        public final void animateOffsetWithDuration(final CoordinatorLayout var1, final T var2, int var3, int var4) {
-            int var5 = this.getTopBottomOffsetForScrollingSibling();
-            if (var5 == var3) {
-                ValueAnimator var7 = this.offsetAnimator;
-                if (var7 != null && var7.isRunning()) {
-                    this.offsetAnimator.cancel();
-                }
-
-            } else {
-                ValueAnimator var6 = this.offsetAnimator;
-                if (var6 == null) {
-                    this.offsetAnimator = new ValueAnimator();
-                    this.offsetAnimator.setInterpolator(SamsungAppBarLayout.SINE_OUT_80_INTERPOLATOR);
-                    this.offsetAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        public void onAnimationUpdate(ValueAnimator var1x) {
-                            SamsungAppBarLayout.BaseBehavior.this.setHeaderTopBottomOffset(var1, var2, (Integer) var1x.getAnimatedValue());
-                        }
-                    });
-                } else {
-                    var6.cancel();
-                }
-
-                this.offsetAnimator.setDuration((long) Math.min(var4, 600));
-                this.offsetAnimator.setIntValues(new int[]{var5, var3});
-                this.offsetAnimator.start();
-            }
-        }
-
-        public boolean canDragView(T var1) {
-            SamsungAppBarLayout.BaseBehavior.BaseDragCallback var2 = this.onDragCallback;
-            if (var2 != null) {
-                return var2.canDrag(var1);
-            } else {
-                WeakReference var5 = this.lastNestedScrollingChildRef;
-                boolean var3 = true;
-                boolean var4 = var3;
-                if (var5 != null) {
-                    View var6 = (View) var5.get();
-                    if (var6 != null && var6.isShown() && !var6.canScrollVertically(-1)) {
-                        var4 = var3;
+                    mIsFlingScrollDown = true;
+                    mIsFlingScrollUp = false;
+                    if (((double) child.getBottom()) >= ((double) child.getHeight()) * 0.52d) {
+                        mIsSetStaticDuration = true;
+                    }
+                    if (dy < -30) {
+                        mIsFlingScrollDown = true;
                     } else {
-                        var4 = false;
+                        mVelocity = 0.0f;
+                        mIsFlingScrollDown = false;
+                    }
+                } else {
+                    min = -child.getUpNestedPreScrollRange();
+                    max = 0;
+
+                    mIsFlingScrollDown = false;
+                    mIsFlingScrollUp = true;
+                    if (((double) child.getBottom()) <= ((double) child.getHeight()) * 0.43d) {
+                        mIsSetStaticDuration = true;
+                    }
+                    if (dy > 30) {
+                        mIsFlingScrollUp = true;
+                    } else {
+                        mVelocity = 0.0f;
+                        mIsFlingScrollUp = false;
+                    }
+                    if (getTopAndBottomOffset() == min) {
+                        mIsScrollHold = true;
                     }
                 }
+                if (isFlingRunnable()) {
+                    onFlingFinished(coordinatorLayout, child);
+                }
+                if (min != max) {
+                    consumed[1] = scroll(coordinatorLayout, child, dy, min, max);
+                }
+            }
+            if (child.isLiftOnScroll()) {
+                child.setLiftedState(child.shouldLift(target));
+            }
+            stopNestedScrollIfNeeded(dy, child, target, type);
+        }
 
-                return var4;
+        @Override
+        public void onNestedScroll(SamsungCoordinatorLayout coordinatorLayout, @NonNull T child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type, int[] consumed) {
+            if (isScrollHoldMode(child)) {
+                if (dyUnconsumed >= 0 || mIsScrollHold) {
+                    ViewCompat.stopNestedScroll(target, ViewCompat.TYPE_NON_TOUCH);
+                } else {
+                    consumed[1] = scroll(coordinatorLayout, child, dyUnconsumed, -child.getDownNestedScrollRange(), 0);
+                    stopNestedScrollIfNeeded(dyUnconsumed, child, target, type);
+                }
+            } else if (dyUnconsumed < 0) {
+                consumed[1] = scroll(coordinatorLayout, child, dyUnconsumed, -child.getDownNestedScrollRange(), 0);
+                stopNestedScrollIfNeeded(dyUnconsumed, child, target, type);
+            }
+
+            if (dyUnconsumed == 0) {
+                updateAccessibilityActions(coordinatorLayout, child);
             }
         }
 
-        public final boolean canScrollChildren(CoordinatorLayout var1, T var2, View var3) {
-            boolean var4;
-            if (var2.hasScrollableChildren() && var1.getHeight() - var3.getHeight() <= var2.getHeight()) {
-                var4 = true;
+        private void stopNestedScrollIfNeeded(int dy, @NonNull T child, View target, int type) {
+            if (type == ViewCompat.TYPE_NON_TOUCH) {
+                if ((dy < 0 && getTopBottomOffsetForScrollingSibling() == 0) || (dy > 0 && getTopBottomOffsetForScrollingSibling() == (-child.getDownNestedScrollRange()))) {
+                    ViewCompat.stopNestedScroll(target, ViewCompat.TYPE_NON_TOUCH);
+                }
+            }
+        }
+
+        @Override
+        public void onStopNestedScroll(SamsungCoordinatorLayout coordinatorLayout, @NonNull T abl, View target, int type) {
+            if (mLastTouchEvent == MotionEvent.ACTION_CANCEL || mLastTouchEvent == MotionEvent.ACTION_UP || mLastInterceptTouchEvent == MotionEvent.ACTION_CANCEL || mLastInterceptTouchEvent == MotionEvent.ACTION_UP) {
+                snapToChildIfNeeded(coordinatorLayout, abl);
+            }
+            if (lastStartedType == ViewCompat.TYPE_TOUCH || type == ViewCompat.TYPE_NON_TOUCH) {
+                if (abl.isLiftOnScroll()) {
+                    abl.setLiftedState(abl.shouldLift(target));
+                }
+                if (mIsScrollHold) {
+                    mIsScrollHold = false;
+                }
+            }
+
+            lastNestedScrollingChildRef = new WeakReference<>(target);
+        }
+
+        public void setDragCallback(@Nullable BaseDragCallback callback) {
+            onDragCallback = callback;
+        }
+
+        // kang
+        private void animateOffsetTo(final SamsungCoordinatorLayout coordinatorLayout, @NonNull final T child, final int offset, float velocity) {
+            int i = (Math.abs(this.mVelocity) > 0.0f ? 1 : (Math.abs(this.mVelocity) == 0.0f ? 0 : -1));
+            int i2 = 250;
+            int abs = (i <= 0 || Math.abs(this.mVelocity) > 3000.0f) ? 250 : (int) (((double) (3000.0f - Math.abs(this.mVelocity))) * 0.4d);
+            if (abs <= 250) {
+                abs = 250;
+            }
+            if (this.mIsSetStaticDuration) {
+                this.mIsSetStaticDuration = false;
             } else {
-                var4 = false;
+                i2 = abs;
+            }
+            if (Math.abs(this.mVelocity) < 2000.0f) {
+                animateOffsetWithDuration(coordinatorLayout, child, offset, i2);
+            }
+            this.mVelocity = 0.0f;
+        }
+        // kang
+
+        private void animateOffsetWithDuration(final SamsungCoordinatorLayout coordinatorLayout, final T child, final int offset, final int duration) {
+            final int currentOffset = getTopBottomOffsetForScrollingSibling();
+            if (currentOffset == offset) {
+                if (offsetAnimator != null && offsetAnimator.isRunning()) {
+                    offsetAnimator.cancel();
+                }
+                return;
             }
 
-            return var4;
+            if (offsetAnimator == null) {
+                offsetAnimator = new ValueAnimator();
+                offsetAnimator.setInterpolator(SeslAnimationUtils.SINE_OUT_80);
+                offsetAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(@NonNull ValueAnimator animator) {
+                        setHeaderTopBottomOffset(coordinatorLayout, child, (int) animator.getAnimatedValue());
+                    }
+                });
+            } else {
+                offsetAnimator.cancel();
+            }
+
+            offsetAnimator.setDuration(Math.min(duration, MAX_OFFSET_ANIMATION_DURATION));
+            offsetAnimator.setIntValues(currentOffset, offset);
+            offsetAnimator.start();
         }
 
-        public final View findFirstScrollingChild(CoordinatorLayout var1) {
-            int var2 = var1.getChildCount();
+        private int getChildIndexOnOffset(@NonNull T abl, int offset) {
+            for (int i = 0, count = abl.getChildCount(); i < count; i++) {
+                View child = abl.getChildAt(i);
+                int top = child.getTop();
+                int bottom = child.getBottom();
 
-            for (int var3 = 0; var3 < var2; ++var3) {
-                View var4 = var1.getChildAt(var3);
-                if (var4 instanceof NestedScrollingChild || var4 instanceof ListView || var4 instanceof ScrollView) {
-                    return var4;
+                final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+                if (checkFlag(lp.getScrollFlags(), LayoutParams.SCROLL_FLAG_SNAP_MARGINS)) {
+                    top -= lp.topMargin;
+                    bottom += lp.bottomMargin;
+                }
+
+                if (abl.seslGetTCScrollRange() != 0) {
+                    bottom += abl.seslGetTCScrollRange();
+                }
+
+                offset += (abl.isLifted() ? abl.getPaddingBottom() : 0);
+
+                if (top <= -offset && bottom >= -offset) {
+                    return i;
                 }
             }
-
-            return null;
-        }
-
-        public final int getChildIndexOnOffset(T var1, int var2) {
-            int var3 = var1.getChildCount();
-
-            for (int var4 = 0; var4 < var3; ++var4) {
-                View var5 = var1.getChildAt(var4);
-                int var6 = var5.getTop();
-                int var7 = var5.getBottom();
-                SamsungAppBarLayout.LayoutParams var10 = (SamsungAppBarLayout.LayoutParams) var5.getLayoutParams();
-                int var8 = var6;
-                int var9 = var7;
-                if (checkFlag(var10.getScrollFlags(), 32)) {
-                    var8 = var6 - var10.topMargin;
-                    var9 = var7 + var10.bottomMargin;
-                }
-
-                var7 = -var2;
-                if (var8 <= var7 && var9 >= var7) {
-                    return var4;
-                }
-            }
-
             return -1;
         }
 
-        public int getMaxDragOffset(T var1) {
-            return -var1.getDownNestedScrollRange();
+        // kang
+        private void snapToChildIfNeeded(SamsungCoordinatorLayout coordinatorLayout, T t) {
+            int topBottomOffsetForScrollingSibling = getTopBottomOffsetForScrollingSibling();
+            int childIndexOnOffset = getChildIndexOnOffset(t, topBottomOffsetForScrollingSibling);
+            View childAt = coordinatorLayout.getChildAt(1);
+            if (childIndexOnOffset >= 0) {
+                View childAt2 = t.getChildAt(childIndexOnOffset);
+                LayoutParams layoutParams = (LayoutParams) childAt2.getLayoutParams();
+                int scrollFlags = layoutParams.getScrollFlags();
+                if ((scrollFlags & 4096) == 4096) {
+                    seslHasNoSnapFlag(true);
+                    return;
+                }
+                seslHasNoSnapFlag(false);
+                int seslGetTCScrollRange = t.getCanScroll() ? t.seslGetTCScrollRange() : 0;
+                if (((float) t.getBottom()) >= t.seslGetCollapsedHeight()) {
+                    int i = -childAt2.getTop();
+                    int i2 = -childAt2.getBottom();
+                    if (childIndexOnOffset == t.getChildCount() - 1) {
+                        i2 += t.getTopInset();
+                    }
+                    if (checkFlag(scrollFlags, 2)) {
+                        if (t.getCanScroll()) {
+                            i2 = (int) (((float) i2) + (t.seslGetCollapsedHeight() - ((float) t.getPaddingBottom())));
+                        } else {
+                            i2 += ViewCompat.getMinimumHeight(childAt2);
+                        }
+                    } else if (checkFlag(scrollFlags, 5)) {
+                        int minimumHeight = ViewCompat.getMinimumHeight(childAt2) + i2;
+                        if (topBottomOffsetForScrollingSibling < minimumHeight) {
+                            i = minimumHeight;
+                        } else {
+                            i2 = minimumHeight;
+                        }
+                    }
+                    if (checkFlag(scrollFlags, 32)) {
+                        i += layoutParams.topMargin;
+                        i2 -= layoutParams.bottomMargin;
+                    }
+                    int i3 = (!this.mLifted ? ((double) topBottomOffsetForScrollingSibling) >= ((double) (i2 + i)) * 0.43d : ((double) topBottomOffsetForScrollingSibling) >= ((double) (i2 + i)) * 0.52d) ? i : i2;
+                    if (childAt == null) {
+                        Log.w(TAG, "coordinatorLayout.getChildAt(1) is null");
+                        i = i3;
+                    } else {
+                        if (this.mIsFlingScrollUp) {
+                            this.mIsFlingScrollUp = false;
+                            this.mIsFlingScrollDown = false;
+                        } else {
+                            i2 = i3;
+                        }
+                        if (!this.mIsFlingScrollDown || ((float) childAt.getTop()) <= t.seslGetCollapsedHeight()) {
+                            i = i2;
+                        } else {
+                            this.mIsFlingScrollDown = false;
+                        }
+                    }
+                    animateOffsetTo(coordinatorLayout, t, MathUtils.clamp(i, -t.getTotalScrollRange(), 0), 0.0f);
+                } else if (t.getCanScroll()) {
+                    int seslGetCollapsedHeight = (((int) t.seslGetCollapsedHeight()) - t.getTotalScrollRange()) + seslGetTCScrollRange;
+                    int i4 = -t.getTotalScrollRange();
+                    int i5 = ((double) (t.getBottom() + seslGetTCScrollRange)) >= ((double) t.seslGetCollapsedHeight()) * 0.48d ? seslGetCollapsedHeight : i4;
+                    if (!this.mIsFlingScrollUp) {
+                        i4 = i5;
+                    }
+                    if (!this.mIsFlingScrollDown) {
+                        seslGetCollapsedHeight = i4;
+                    }
+                    animateOffsetTo(coordinatorLayout, t, MathUtils.clamp(seslGetCollapsedHeight, -t.getTotalScrollRange(), 0), 0.0f);
+                }
+            }
+        }
+        // kang
+
+        private static boolean checkFlag(final int flags, final int check) {
+            return (flags & check) == check;
         }
 
-        public int getTopBottomOffsetForScrollingSibling() {
-            return this.getTopAndBottomOffset() + this.offsetDelta;
+        @Override
+        public boolean onMeasureChild(@NonNull SamsungCoordinatorLayout parent, @NonNull T child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
+            final SamsungCoordinatorLayout.LayoutParams lp = (SamsungCoordinatorLayout.LayoutParams) child.getLayoutParams();
+            if (lp.height == SamsungCoordinatorLayout.LayoutParams.WRAP_CONTENT) {
+                parent.onMeasureChild(child, parentWidthMeasureSpec, widthUsed, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), heightUsed);
+                return true;
+            }
+
+            return super.onMeasureChild(parent, child, parentWidthMeasureSpec, widthUsed, parentHeightMeasureSpec, heightUsed);
         }
 
-        public final int interpolateOffset(T var1, int var2) {
-            int var3 = Math.abs(var2);
-            int var4 = var1.getChildCount();
-            byte var5 = 0;
+        private int getImmPendingActionOffset(SamsungAppBarLayout appBarLayout) {
+            Behavior behavior = (Behavior) ((SamsungCoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams()).getBehavior();
+            if (appBarLayout.getCanScroll() && (behavior instanceof SeslImmersiveScrollBehavior)) {
+                return ((int) appBarLayout.seslGetCollapsedHeight()) + appBarLayout.seslGetTCScrollRange();
+            }
+            return 0;
+        }
 
-            for (int var6 = 0; var6 < var4; ++var6) {
-                View var7 = var1.getChildAt(var6);
-                SamsungAppBarLayout.LayoutParams var8 = (SamsungAppBarLayout.LayoutParams) var7.getLayoutParams();
-                Interpolator var9 = var8.getScrollInterpolator();
-                if (var3 >= var7.getTop() && var3 <= var7.getBottom()) {
-                    if (var9 != null) {
-                        var4 = var8.getScrollFlags();
-                        var6 = var5;
-                        int var11;
-                        if ((var4 & 1) != 0) {
-                            var11 = 0 + var7.getHeight() + var8.topMargin + var8.bottomMargin;
-                            var6 = var11;
-                            if ((var4 & 2) != 0) {
-                                var6 = var11 - ViewCompat.getMinimumHeight(var7);
+        @Override
+        public boolean onLayoutChild(@NonNull SamsungCoordinatorLayout parent, @NonNull T abl, int layoutDirection) {
+            boolean handled = super.onLayoutChild(parent, abl, layoutDirection);
+
+            final int pendingAction = abl.getPendingAction();
+            if (offsetToChildIndexOnLayout >= 0 && (pendingAction & PENDING_ACTION_FORCE) == 0) {
+                View childAt = abl.getChildAt(offsetToChildIndexOnLayout);
+
+                int i;
+                if (offsetToChildIndexOnLayoutIsMinHeight) {
+                    i = ViewCompat.getMinimumHeight(childAt) + abl.getTopInset();
+                } else {
+                    i = Math.round(((float) childAt.getHeight()) * offsetToChildIndexOnLayoutPerc);
+                }
+                setHeaderTopBottomOffset(parent, abl, (-childAt.getBottom()) + i);
+            } else if (pendingAction != PENDING_ACTION_NONE) {
+                final boolean animate = (pendingAction & PENDING_ACTION_ANIMATE_ENABLED) != 0;
+                if ((pendingAction & PENDING_ACTION_COLLAPSED) != 0) {
+                    int offset = ((-abl.getTotalScrollRange()) + getImmPendingActionOffset(abl)) - abl.getImmersiveTopInset();
+                    if (animate) {
+                        animateOffsetTo(parent, abl, offset, 0);
+                    } else {
+                        setHeaderTopBottomOffset(parent, abl, offset);
+                    }
+                } else if ((pendingAction & PENDING_ACTION_COLLAPSED_IMM) != 0) {
+                    int offset = (-abl.getTotalScrollRange()) + getImmPendingActionOffset(abl);
+                    if (parent.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT && abl.getImmersiveTopInset() == 0 && abl.seslGetHeightProPortion() == 0.0f) {
+                        offset = 0;
+                    }
+                    if (animate) {
+                        animateOffsetTo(parent, abl, offset, 0);
+                    } else {
+                        setHeaderTopBottomOffset(parent, abl, offset);
+                    }
+                } else if ((pendingAction & PENDING_ACTION_EXPANDED) != 0) {
+                    if (animate) {
+                        animateOffsetTo(parent, abl, 0, 0);
+                    } else {
+                        setHeaderTopBottomOffset(parent, abl, 0);
+                    }
+                }
+            }
+
+            abl.resetPendingAction();
+            offsetToChildIndexOnLayout = -1;
+
+            setTopAndBottomOffset(MathUtils.clamp(getTopAndBottomOffset(), -abl.getTotalScrollRange(), 0));
+
+            updateAppBarLayoutDrawableState(parent, abl, getTopAndBottomOffset(), 0, true);
+
+            abl.onOffsetChanged(getTopAndBottomOffset());
+
+            updateAccessibilityActions(parent, abl);
+            return handled;
+        }
+
+        private void updateAccessibilityActions(SamsungCoordinatorLayout coordinatorLayout, @NonNull T appBarLayout) {
+            ViewCompat.removeAccessibilityAction(coordinatorLayout, AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SCROLL_FORWARD.getId());
+            ViewCompat.removeAccessibilityAction(coordinatorLayout, AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SCROLL_BACKWARD.getId());
+            View scrollingView = findFirstScrollingChild(coordinatorLayout);
+
+            if (scrollingView == null || appBarLayout.getTotalScrollRange() == 0) {
+                return;
+            }
+            SamsungCoordinatorLayout.LayoutParams lp = (SamsungCoordinatorLayout.LayoutParams) scrollingView.getLayoutParams();
+            if (!(lp.getBehavior() instanceof ScrollingViewBehavior)) {
+                return;
+            }
+            addAccessibilityScrollActions(coordinatorLayout, appBarLayout, scrollingView);
+        }
+
+        private void addAccessibilityScrollActions(final SamsungCoordinatorLayout coordinatorLayout, @NonNull final T appBarLayout, @NonNull final View scrollingView) {
+            if (getTopBottomOffsetForScrollingSibling() != -appBarLayout.getTotalScrollRange() && scrollingView.canScrollVertically(1)) {
+                addActionToExpand(coordinatorLayout, appBarLayout, AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SCROLL_FORWARD, false);
+            }
+            if (getTopBottomOffsetForScrollingSibling() != 0) {
+                if (scrollingView.canScrollVertically(-1)) {
+                    final int dy = -appBarLayout.getDownNestedPreScrollRange();
+                    if (dy != 0) {
+                        ViewCompat.replaceAccessibilityAction(coordinatorLayout, AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SCROLL_BACKWARD, null, new AccessibilityViewCommand() {
+                            @Override
+                            public boolean perform(@NonNull View view, @Nullable CommandArguments arguments) {
+                                onNestedPreScroll(coordinatorLayout, appBarLayout, scrollingView, 0, dy, new int[] {0, 0}, ViewCompat.TYPE_NON_TOUCH);
+                                return true;
+                            }
+                        });
+                    }
+                } else {
+                    addActionToExpand(coordinatorLayout, appBarLayout, AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SCROLL_BACKWARD, true);
+                }
+            }
+        }
+
+        private void addActionToExpand(SamsungCoordinatorLayout parent, @NonNull final T appBarLayout, @NonNull AccessibilityNodeInfoCompat.AccessibilityActionCompat action, final boolean expand) {
+            ViewCompat.replaceAccessibilityAction(parent, action, null, new AccessibilityViewCommand() {
+                @Override
+                public boolean perform(@NonNull View view, @Nullable CommandArguments arguments) {
+                    appBarLayout.setExpanded(expand);
+                    return true;
+                }
+            });
+        }
+
+        @Override
+        boolean canDragView(T view) {
+            if (onDragCallback != null) {
+                return onDragCallback.canDrag(view);
+            }
+
+            if (lastNestedScrollingChildRef != null) {
+                final View scrollingView = lastNestedScrollingChildRef.get();
+                return scrollingView != null && scrollingView.isShown() && !scrollingView.canScrollVertically(-1);
+            } else {
+                return true;
+            }
+        }
+
+        @Override
+        void onFlingFinished(@NonNull SamsungCoordinatorLayout parent, @NonNull T layout) {
+            if (scroller != null) {
+                scroller.forceFinished(true);
+            }
+        }
+
+        @Override
+        int getMaxDragOffset(@NonNull T view) {
+            return -view.getDownNestedScrollRange();
+        }
+
+        @Override
+        int getScrollRangeForDragFling(@NonNull T view) {
+            return view.getTotalScrollRange();
+        }
+
+        @Override
+        int setHeaderTopBottomOffset(@NonNull SamsungCoordinatorLayout coordinatorLayout, @NonNull T appBarLayout, int newOffset, int minOffset, int maxOffset) {
+            final int curOffset = getTopBottomOffsetForScrollingSibling();
+            int consumed = 0;
+
+            if (minOffset != 0 && curOffset >= minOffset && curOffset <= maxOffset) {
+                newOffset = MathUtils.clamp(newOffset, minOffset, maxOffset);
+                if (curOffset != newOffset) {
+                    final int interpolatedOffset = appBarLayout.hasChildWithInterpolator() ? interpolateOffset(appBarLayout, newOffset) : newOffset;
+
+                    final boolean offsetChanged = setTopAndBottomOffset(interpolatedOffset);
+
+                    consumed = curOffset - newOffset;
+                    offsetDelta = newOffset - interpolatedOffset;
+
+                    if (!offsetChanged && appBarLayout.hasChildWithInterpolator()) {
+                        coordinatorLayout.dispatchDependentViewsChanged(appBarLayout);
+                    }
+
+                    appBarLayout.onOffsetChanged(getTopAndBottomOffset());
+
+                    updateAppBarLayoutDrawableState(coordinatorLayout, appBarLayout, newOffset, newOffset < curOffset ? -1 : 1, false);
+                }
+            } else {
+                offsetDelta = 0;
+            }
+
+            updateAccessibilityActions(coordinatorLayout, appBarLayout);
+            return consumed;
+        }
+
+        boolean isOffsetAnimatorRunning() {
+            return offsetAnimator != null && offsetAnimator.isRunning();
+        }
+
+        private int interpolateOffset(@NonNull T layout, final int offset) {
+            final int absOffset = Math.abs(offset);
+
+            for (int i = 0, z = layout.getChildCount(); i < z; i++) {
+                final View child = layout.getChildAt(i);
+                final SamsungAppBarLayout.LayoutParams childLp = (LayoutParams) child.getLayoutParams();
+                final Interpolator interpolator = childLp.getScrollInterpolator();
+
+                if (absOffset >= child.getTop() && absOffset <= child.getBottom()) {
+                    if (interpolator != null) {
+                        int childScrollableHeight = 0;
+                        final int flags = childLp.getScrollFlags();
+                        if ((flags & LayoutParams.SCROLL_FLAG_SCROLL) != 0) {
+                            childScrollableHeight += child.getHeight() + childLp.topMargin + childLp.bottomMargin;
+
+                            if ((flags & LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) != 0) {
+                                childScrollableHeight -= ViewCompat.getMinimumHeight(child);
                             }
                         }
 
-                        var11 = var6;
-                        if (ViewCompat.getFitsSystemWindows(var7)) {
-                            var11 = var6 - var1.getTopInset();
+                        if (ViewCompat.getFitsSystemWindows(child)) {
+                            childScrollableHeight -= layout.getTopInset();
                         }
 
-                        if (var11 > 0) {
-                            var6 = var7.getTop();
-                            float var10 = (float) var11;
-                            var6 = Math.round(var10 * var9.getInterpolation((float) (var3 - var6) / var10));
-                            return Integer.signum(var2) * (var7.getTop() + var6);
+                        if (childScrollableHeight > 0) {
+                            final int offsetForView = absOffset - child.getTop();
+                            final int interpolatedDiff = Math.round(childScrollableHeight * interpolator.getInterpolation(offsetForView / (float) childScrollableHeight));
+
+                            return Integer.signum(offset) * (child.getTop() + interpolatedDiff);
                         }
                     }
+
                     break;
                 }
             }
 
-            return var2;
+            return offset;
         }
 
-        public final boolean isScrollHoldMode(T var1) {
-            if (this.mToolisMouse) {
+        private void updateAppBarLayoutDrawableState(@NonNull final SamsungCoordinatorLayout parent, @NonNull final T layout, final int offset, final int direction, final boolean forceJump) {
+            final View child = getAppBarChildOnOffset(layout, offset);
+            boolean lifted = false;
+            if (child != null) {
+                final SamsungAppBarLayout.LayoutParams childLp = (LayoutParams) child.getLayoutParams();
+                final int flags = childLp.getScrollFlags();
+
+                if ((flags & LayoutParams.SCROLL_FLAG_SCROLL) != 0) {
+                    final int minHeight = ViewCompat.getMinimumHeight(child);
+
+                    if (direction > 0 && (flags & (LayoutParams.SCROLL_FLAG_ENTER_ALWAYS | LayoutParams.SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED)) != 0) {
+                        lifted = -offset >= child.getBottom() - minHeight - layout.getTopInset() - layout.getImmersiveTopInset();
+                    } else if ((flags & LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) != 0) {
+                        lifted = -offset >= child.getBottom() - minHeight - layout.getTopInset() - layout.getImmersiveTopInset();
+                    }
+                }
+
+                if (layout.isLiftOnScroll()) {
+                    lifted = layout.shouldLift(findFirstScrollingChild(parent));
+                }
+
+                final boolean changed = layout.setLiftedState(lifted);
+
+                if (forceJump || (changed && shouldJumpElevationState(parent, layout))) {
+                    layout.jumpDrawablesToCurrentState();
+                }
+            }
+        }
+
+        private boolean shouldJumpElevationState(@NonNull SamsungCoordinatorLayout parent, @NonNull T layout) {
+            final List<View> dependencies = parent.getDependents(layout);
+            for (int i = 0, size = dependencies.size(); i < size; i++) {
+                final View dependency = dependencies.get(i);
+                final SamsungCoordinatorLayout.LayoutParams lp = (SamsungCoordinatorLayout.LayoutParams) dependency.getLayoutParams();
+                final SamsungCoordinatorLayout.Behavior behavior = lp.getBehavior();
+
+                if (behavior instanceof ScrollingViewBehavior) {
+                    return ((ScrollingViewBehavior) behavior).getOverlayTop() != 0;
+                }
+            }
+            return false;
+        }
+
+        @Nullable
+        private static View getAppBarChildOnOffset(@NonNull final SamsungAppBarLayout layout, final int offset) {
+            final int absOffset = Math.abs(offset);
+            for (int i = 0, z = layout.getChildCount(); i < z; i++) {
+                final View child = layout.getChildAt(i);
+                if (absOffset >= child.getTop() && absOffset <= child.getBottom()) {
+                    return child;
+                }
+            }
+            return null;
+        }
+
+        @Nullable
+        private View findFirstScrollingChild(@NonNull SamsungCoordinatorLayout parent) {
+            for (int i = 0, z = parent.getChildCount(); i < z; i++) {
+                final View child = parent.getChildAt(i);
+                if (child instanceof NestedScrollingChild || child instanceof ListView || child instanceof ScrollView) {
+                    return child;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        int getTopBottomOffsetForScrollingSibling() {
+            return getTopAndBottomOffset() + offsetDelta;
+        }
+
+        @Override
+        public Parcelable onSaveInstanceState(@NonNull SamsungCoordinatorLayout parent, @NonNull T abl) {
+            Parcelable superState = super.onSaveInstanceState(parent, abl);
+
+            for (int i = 0; i < abl.getChildCount(); i++) {
+                View child = abl.getChildAt(i);
+                int bottom = child.getBottom() + getTopAndBottomOffset();
+
+                if (child.getTop() + getTopAndBottomOffset() <= 0 && bottom >= 0) {
+                    SavedState savedState = new SavedState(superState);
+                    savedState.firstVisibleChildIndex = i;
+                    savedState.firstVisibleChildAtMinimumHeight = bottom == ViewCompat.getMinimumHeight(child) + abl.getTopInset();
+                    savedState.firstVisibleChildPercentageShown = ((float) bottom) / ((float) child.getHeight());
+                    return savedState;
+                }
+            }
+
+            return superState;
+        }
+
+        @Override
+        public void onRestoreInstanceState(@NonNull SamsungCoordinatorLayout parent, @NonNull T appBarLayout, Parcelable state) {
+            if (state instanceof SavedState) {
+                SavedState savedState = (SavedState) state;
+                super.onRestoreInstanceState(parent, appBarLayout, savedState.getSuperState());
+                offsetToChildIndexOnLayout = savedState.firstVisibleChildIndex;
+                offsetToChildIndexOnLayoutPerc = savedState.firstVisibleChildPercentageShown;
+                offsetToChildIndexOnLayoutIsMinHeight = savedState.firstVisibleChildAtMinimumHeight;
+            } else {
+                super.onRestoreInstanceState(parent, appBarLayout, state);
+                offsetToChildIndexOnLayout = -1;
+            }
+        }
+
+        protected static class SavedState extends AbsSavedState {
+            boolean firstVisibleChildAtMinimumHeight;
+            int firstVisibleChildIndex;
+            float firstVisibleChildPercentageShown;
+
+            public SavedState(@NonNull Parcel source, ClassLoader loader) {
+                super(source, loader);
+                firstVisibleChildIndex = source.readInt();
+                firstVisibleChildPercentageShown = source.readFloat();
+                firstVisibleChildAtMinimumHeight = source.readByte() != 0;
+            }
+
+            public SavedState(Parcelable superState) {
+                super(superState);
+            }
+
+            @Override
+            public void writeToParcel(@NonNull Parcel dest, int flags) {
+                super.writeToParcel(dest, flags);
+                dest.writeInt(firstVisibleChildIndex);
+                dest.writeFloat(firstVisibleChildPercentageShown);
+                dest.writeByte((byte) (firstVisibleChildAtMinimumHeight ? 1 : 0));
+            }
+
+            public static final Creator<SavedState> CREATOR = new ClassLoaderCreator<SavedState>() {
+                @NonNull
+                @Override
+                public SavedState createFromParcel(@NonNull Parcel source, ClassLoader loader) {
+                    return new SavedState(source, loader);
+                }
+
+                @Nullable
+                @Override
+                public SavedState createFromParcel(@NonNull Parcel source) {
+                    return new SavedState(source, null);
+                }
+
+                @NonNull
+                @Override
+                public SavedState[] newArray(int size) {
+                    return new SavedState[size];
+                }
+            };
+        }
+
+        // kang
+        private boolean isScrollHoldMode(T appBarLayout) {
+            if (mToolisMouse) {
                 return false;
-            } else {
-                boolean var2 = true;
-                int var3 = this.getChildIndexOnOffset(var1, this.getTopBottomOffsetForScrollingSibling());
-                boolean var4 = var2;
-                if (var3 >= 0) {
-                    var4 = var2;
-                    if ((((SamsungAppBarLayout.LayoutParams) var1.getChildAt(var3).getLayoutParams()).getScrollFlags() & 65536) == 65536) {
-                        var4 = false;
-                    }
-                }
-
-                return var4;
             }
+            int childIndexOnOffset = getChildIndexOnOffset(appBarLayout, getTopBottomOffsetForScrollingSibling());
+            return childIndexOnOffset < 0 || (((LayoutParams) appBarLayout.getChildAt(childIndexOnOffset).getLayoutParams()).getScrollFlags() & 65536) != 65536;
         }
 
-        public boolean onLayoutChild(CoordinatorLayout var1, T var2, int var3) {
-            boolean var4 = super.onLayoutChild(var1, var2, var3);
-            int var5 = var2.getPendingAction();
-            var3 = this.offsetToChildIndexOnLayout;
-            if (var3 >= 0 && (var5 & 8) == 0) {
-                View var6 = var2.getChildAt(var3);
-                var5 = -var6.getBottom();
-                if (this.offsetToChildIndexOnLayoutIsMinHeight) {
-                    var3 = ViewCompat.getMinimumHeight(var6) + var2.getTopInset();
-                } else {
-                    var3 = Math.round((float) var6.getHeight() * this.offsetToChildIndexOnLayoutPerc);
-                }
-
-                this.setHeaderTopBottomOffset(var1, var2, var5 + var3);
-            } else if (var5 != 0) {
-                boolean var7;
-                if ((var5 & 4) != 0) {
-                    var7 = true;
-                } else {
-                    var7 = false;
-                }
-
-                if ((var5 & 2) != 0) {
-                    var5 = -var2.getUpNestedPreScrollRange();
-                    if (var7) {
-                        this.animateOffsetTo(var1, var2, var5, 0.0F);
-                    } else {
-                        this.setHeaderTopBottomOffset(var1, var2, var5);
-                    }
-                } else if ((var5 & 1) != 0) {
-                    if (var7) {
-                        this.animateOffsetTo(var1, var2, 0, 0.0F);
-                    } else {
-                        this.setHeaderTopBottomOffset(var1, var2, 0);
-                    }
-                }
-            }
-
-            var2.resetPendingAction();
-            this.offsetToChildIndexOnLayout = -1;
-            this.setTopAndBottomOffset(MathUtils.clamp(this.getTopAndBottomOffset(), -var2.getTotalScrollRange(), 0));
-            this.updateAppBarLayoutDrawableState(var1, var2, this.getTopAndBottomOffset(), 0, false);
-            var2.dispatchOffsetUpdates(this.getTopAndBottomOffset());
-            return var4;
-        }
-
-        @SuppressLint("WrongConstant")
-        public boolean onMeasureChild(CoordinatorLayout var1, T var2, int var3, int var4, int var5, int var6) {
-            if (((CoordinatorLayout.LayoutParams) var2.getLayoutParams()).height == -2) {
-                var1.onMeasureChild(var2, var3, var4, MeasureSpec.makeMeasureSpec(0, 0), var6);
-                return true;
-            } else {
-                return super.onMeasureChild(var1, var2, var3, var4, var5, var6);
-            }
-        }
-
-        public boolean onNestedPreFling(CoordinatorLayout var1, T var2, View var3, float var4, float var5) {
-            this.mVelocity = var5;
-            if (var5 < -300.0F) {
+        @Override
+        public boolean onNestedPreFling(SamsungCoordinatorLayout coordinatorLayout, T t, View view, float f, float f2) {
+            this.mVelocity = f2;
+            if (f2 < -300.0f) {
                 this.mIsFlingScrollDown = true;
                 this.mIsFlingScrollUp = false;
-            } else {
-                if (var5 <= 300.0F) {
-                    this.mVelocity = 0.0F;
-                    this.mIsFlingScrollDown = false;
-                    this.mIsFlingScrollUp = false;
-                    return true;
-                }
-
+            } else if (f2 > 300.0f) {
                 this.mIsFlingScrollDown = false;
                 this.mIsFlingScrollUp = true;
-            }
-
-            return super.onNestedPreFling(var1, var2, var3, var4, var5);
-        }
-
-        public void onNestedPreScroll(CoordinatorLayout var1, T var2, View var3, int var4, int var5, int[] var6, int var7) {
-            if (var5 != 0) {
-                int var8;
-                if (var5 < 0) {
-                    var8 = -var2.getTotalScrollRange();
-                    int var9 = var2.getDownNestedPreScrollRange();
-                    this.mIsFlingScrollDown = true;
-                    this.mIsFlingScrollUp = false;
-                    if ((double) var2.getBottom() >= (double) var2.getHeight() * 0.52D) {
-                        this.mIsSetStaticDuration = true;
-                    }
-
-                    if (var5 < -30) {
-                        this.mIsFlingScrollDown = true;
-                    } else {
-                        this.mVelocity = 0.0F;
-                        this.mIsFlingScrollDown = false;
-                    }
-
-                    var4 = var8;
-                    var8 += var9;
-                } else {
-                    var4 = -var2.getUpNestedPreScrollRange();
-                    this.mIsFlingScrollDown = false;
-                    this.mIsFlingScrollUp = true;
-                    if ((double) var2.getBottom() <= (double) var2.getHeight() * 0.43D) {
-                        this.mIsSetStaticDuration = true;
-                    }
-
-                    if (var5 > 30) {
-                        this.mIsFlingScrollUp = true;
-                    } else {
-                        this.mVelocity = 0.0F;
-                        this.mIsFlingScrollUp = false;
-                    }
-
-                    if (this.getTopAndBottomOffset() == var4) {
-                        this.mIsScrollHold = true;
-                    }
-
-                    var8 = 0;
-                }
-
-                if (var4 != var8) {
-                    var6[1] = this.scroll(var1, var2, var5, var4, var8);
-                }
-            }
-
-            if (var2.isLiftOnScroll()) {
-                var2.setLiftedState(var2.shouldLift(var3));
-            }
-
-            this.stopNestedScrollIfNeeded(var5, var2, var3, var7);
-        }
-
-        @SuppressLint("WrongConstant")
-        public void onNestedScroll(CoordinatorLayout var1, T var2, View var3, int var4, int var5, int var6, int var7, int var8) {
-            if (this.isScrollHoldMode(var2)) {
-                if (var7 < 0 && !this.mIsScrollHold) {
-                    this.scroll(var1, var2, var7, -var2.getDownNestedScrollRange(), 0);
-                    this.stopNestedScrollIfNeeded(var7, var2, var3, var8);
-                } else {
-                    ViewCompat.stopNestedScroll(var3, 1);
-                }
-            } else if (var7 < 0) {
-                this.scroll(var1, var2, var7, -var2.getDownNestedScrollRange(), 0);
-                this.stopNestedScrollIfNeeded(var7, var2, var3, var8);
-            }
-
-        }
-
-        public void onRestoreInstanceState(CoordinatorLayout var1, T var2, Parcelable var3) {
-            if (var3 instanceof SamsungAppBarLayout.BaseBehavior.SavedState) {
-                SamsungAppBarLayout.BaseBehavior.SavedState var4 = (SamsungAppBarLayout.BaseBehavior.SavedState) var3;
-                super.onRestoreInstanceState(var1, var2, var4.getSuperState());
-                this.offsetToChildIndexOnLayout = var4.firstVisibleChildIndex;
-                this.offsetToChildIndexOnLayoutPerc = var4.firstVisibleChildPercentageShown;
-                this.offsetToChildIndexOnLayoutIsMinHeight = var4.firstVisibleChildAtMinimumHeight;
             } else {
-                super.onRestoreInstanceState(var1, var2, var3);
-                this.offsetToChildIndexOnLayout = -1;
+                this.mVelocity = 0.0f;
+                this.mIsFlingScrollDown = false;
+                this.mIsFlingScrollUp = false;
+                return true;
             }
-
+            return super.onNestedPreFling(coordinatorLayout, t, view, f, f2);
         }
 
-        public Parcelable onSaveInstanceState(CoordinatorLayout var1, T var2) {
-            Parcelable var3 = super.onSaveInstanceState(var1, var2);
-            int var4 = this.getTopAndBottomOffset();
-            int var5 = var2.getChildCount();
-            boolean var6 = false;
-
-            for (int var7 = 0; var7 < var5; ++var7) {
-                View var9 = var2.getChildAt(var7);
-                int var8 = var9.getBottom() + var4;
-                if (var9.getTop() + var4 <= 0 && var8 >= 0) {
-                    SamsungAppBarLayout.BaseBehavior.SavedState var10 = new SamsungAppBarLayout.BaseBehavior.SavedState(var3);
-                    var10.firstVisibleChildIndex = var7;
-                    if (var8 == ViewCompat.getMinimumHeight(var9) + var2.getTopInset()) {
-                        var6 = true;
-                    }
-
-                    var10.firstVisibleChildAtMinimumHeight = var6;
-                    var10.firstVisibleChildPercentageShown = (float) var8 / (float) var9.getHeight();
-                    return var10;
-                }
-            }
-
-            return var3;
-        }
-
-        public boolean onStartNestedScroll(CoordinatorLayout var1, T var2, View var3, View var4, int var5, int var6) {
-            boolean var7;
-            if ((var5 & 2) == 0 || !var2.isLiftOnScroll() && !this.canScrollChildren(var1, var2, var3)) {
-                var7 = false;
-            } else {
-                var7 = true;
-            }
-
-            if (var7) {
-                ValueAnimator var9 = this.offsetAnimator;
-                if (var9 != null) {
-                    var9.cancel();
-                }
-            }
-
-            if (var2.mLifted) {
-                float var8 = (float) (var2.getHeight() - var2.getTotalScrollRange());
-                if (var8 > SamsungAppBarLayout.mAppBarHeight) {
-                    StringBuilder var10 = new StringBuilder();
-                    var10.append("CollapsedHeight is bigger than AppBarHeight :");
-                    var10.append(var8);
-                    Log.d("Sesl_AppBarLayout", var10.toString());
-                    SamsungAppBarLayout.mAppBarHeight = var8;
-                }
-            }
-
-            if ((float) var2.getBottom() <= SamsungAppBarLayout.mAppBarHeight) {
-                this.mLifted = true;
-                var2.mLifted = this.mLifted;
-                this.mDiffY_Touch = 0.0F;
-            } else {
-                this.mLifted = false;
-                var2.mLifted = this.mLifted;
-            }
-
-            this.lastNestedScrollingChildRef = null;
-            this.lastStartedType = var6;
-            return var7;
-        }
-
-        public void onStopNestedScroll(CoordinatorLayout var1, T var2, View var3, int var4) {
-            if (this.getLastInterceptTouchEventEvent() == 3 || this.getLastInterceptTouchEventEvent() == 1 || this.getLastTouchEventEvent() == 3 || this.getLastTouchEventEvent() == 1) {
-                this.snapToChildIfNeeded(var1, var2);
-            }
-
-            if (this.lastStartedType == 0 || var4 == 1) {
-                if (var2.isLiftOnScroll()) {
-                    var2.setLiftedState(var2.shouldLift(var3));
-                }
-
-                if (this.mIsScrollHold) {
-                    this.mIsScrollHold = false;
-                }
-            }
-
-            this.lastNestedScrollingChildRef = new WeakReference(var3);
-        }
-
-        public boolean onTouchEvent(CoordinatorLayout var1, T var2, MotionEvent var3) {
+        @Override
+        public boolean onTouchEvent(SamsungCoordinatorLayout var1, T var2, MotionEvent var3) {
             if (this.mTouchSlop < 0) {
                 this.mTouchSlop = ViewConfiguration.get(var1.getContext()).getScaledTouchSlop();
             }
 
             int var4 = var3.getAction();
+            this.mToolisMouse = var2.getIsMouse();
+            float var6;
             if (var4 != 0) {
-                boolean var5 = true;
-                float var6;
                 if (var4 != 1) {
                     if (var4 == 2) {
-                        if (var3 == null || !MotionEventCompat.isFromSource(var3, 8194)) {
-                            var5 = false;
+                        this.mDirectTouchAppbar = true;
+                        float var5 = var3.getY();
+                        var6 = this.mLastMotionY_Touch;
+                        if (var5 - var6 != 0.0F) {
+                            this.mDiffY_Touch = var5 - var6;
                         }
 
-                        this.mToolisMouse = var5;
-                        var6 = var3.getY();
-                        float var7 = this.mLastMotionY_Touch;
-                        if (var6 - var7 != 0.0F) {
-                            this.mDiffY_Touch = var6 - var7;
-                        }
-
-                        if (Math.abs(this.mDiffY_Touch) > (float) this.mTouchSlop) {
-                            this.mLastMotionY_Touch = var6;
+                        if (Math.abs(this.mDiffY_Touch) > (float)this.mTouchSlop) {
+                            this.mLastMotionY_Touch = var5;
                         }
 
                         return super.onTouchEvent(var1, var2, var3);
@@ -1379,455 +2216,148 @@ public class SamsungAppBarLayout extends LinearLayout implements ABLBehavior {
                     this.mLastMotionY_Touch = 0.0F;
                 }
 
-                this.snapToChildIfNeeded(var1, var2);
+                if (this.mDirectTouchAppbar) {
+                    this.mDirectTouchAppbar = false;
+                    this.snapToChildIfNeeded(var1, var2);
+                }
             } else {
+                this.mDirectTouchAppbar = true;
                 this.touchX = var3.getX();
-                this.touchY = var3.getY();
-                this.mLastMotionY_Touch = this.touchY;
+                var6 = var3.getY();
+                this.touchY = var6;
+                this.mLastMotionY_Touch = var6;
                 this.mDiffY_Touch = 0.0F;
             }
 
             return super.onTouchEvent(var1, var2, var3);
         }
-
-        public int setHeaderTopBottomOffset(CoordinatorLayout var1, T var2, int var3, int var4, int var5) {
-            int var6 = this.getTopBottomOffsetForScrollingSibling();
-            byte var7 = 0;
-            if (var4 != 0 && var6 >= var4 && var6 <= var5) {
-                var4 = MathUtils.clamp(var3, var4, var5);
-                var3 = var7;
-                if (var6 != var4) {
-                    if (var2.hasChildWithInterpolator()) {
-                        var3 = this.interpolateOffset(var2, var4);
-                    } else {
-                        var3 = var4;
-                    }
-
-                    boolean var8 = this.setTopAndBottomOffset(var3);
-                    var5 = var6 - var4;
-                    this.offsetDelta = var4 - var3;
-                    if (!var8 && var2.hasChildWithInterpolator()) {
-                        var1.dispatchDependentViewsChanged(var2);
-                    }
-
-                    var2.dispatchOffsetUpdates(this.getTopAndBottomOffset());
-                    byte var9;
-                    if (var4 < var6) {
-                        var9 = -1;
-                    } else {
-                        var9 = 1;
-                    }
-
-                    this.updateAppBarLayoutDrawableState(var1, var2, var4, var9, false);
-                    var3 = var5;
-                }
-            } else {
-                this.offsetDelta = 0;
-                var3 = var7;
-            }
-
-            return var3;
-        }
-
-        public final boolean shouldJumpElevationState(CoordinatorLayout var1, T var2) {
-            List var6 = var1.getDependents(var2);
-            int var3 = var6.size();
-            boolean var4 = false;
-
-            for (int var5 = 0; var5 < var3; ++var5) {
-                CoordinatorLayout.Behavior var7 = ((CoordinatorLayout.LayoutParams) ((View) var6.get(var5)).getLayoutParams()).getBehavior();
-                if (var7 instanceof SamsungAppBarLayout.ScrollingViewBehavior) {
-                    if (((SamsungAppBarLayout.ScrollingViewBehavior) var7).getOverlayTop() != 0) {
-                        var4 = true;
-                    }
-
-                    return var4;
-                }
-            }
-
-            return false;
-        }
-
-        public final void snapToChildIfNeeded(CoordinatorLayout var1, T var2) {
-            int var3 = this.getTopBottomOffsetForScrollingSibling();
-            int var4 = this.getChildIndexOnOffset(var2, var3);
-            View var5 = var1.getChildAt(1);
-            if (var4 >= 0) {
-                View var6 = var2.getChildAt(var4);
-                SamsungAppBarLayout.LayoutParams var7 = (SamsungAppBarLayout.LayoutParams) var6.getLayoutParams();
-                int var8 = var7.getScrollFlags();
-                if ((var8 & 4096) == 4096) {
-                    return;
-                }
-
-                int var9 = -var6.getTop();
-                int var10 = -var6.getBottom();
-                int var11 = var10;
-                if (var4 == var2.getChildCount() - 1) {
-                    var11 = var10 + var2.getTopInset();
-                }
-
-                int var12;
-                if (checkFlag(var8, 2)) {
-                    var4 = var11 + ViewCompat.getMinimumHeight(var6);
-                    var12 = var9;
-                } else {
-                    var12 = var9;
-                    var4 = var11;
-                    if (checkFlag(var8, 5)) {
-                        var10 = ViewCompat.getMinimumHeight(var6) + var11;
-                        if (var3 < var10) {
-                            var12 = var10;
-                            var4 = var11;
-                        } else {
-                            var4 = var10;
-                            var12 = var9;
-                        }
-                    }
-                }
-
-                var10 = var12;
-                var11 = var4;
-                if (checkFlag(var8, 32)) {
-                    var10 = var12 + var7.topMargin;
-                    var11 = var4 - var7.bottomMargin;
-                }
-
-                label71:
-                {
-                    label70:
-                    {
-                        double var13 = (double) var3;
-                        double var15 = (double) (var11 + var10);
-                        if (this.mLifted) {
-                            if (var13 >= var15 * 0.52D) {
-                                break label70;
-                            }
-                        } else if (var13 >= var15 * 0.43D) {
-                            break label70;
-                        }
-
-                        var4 = var11;
-                        break label71;
-                    }
-
-                    var4 = var10;
-                }
-
-                label63:
-                {
-                    if (this.isScrollHoldMode(var2)) {
-                        if (this.mIsFlingScrollUp) {
-                            this.mIsFlingScrollUp = false;
-                            this.mIsFlingScrollDown = false;
-                            var4 = var11;
-                        }
-
-                        var11 = var4;
-                        if (!this.mIsFlingScrollDown) {
-                            break label63;
-                        }
-
-                        var11 = var4;
-                        if (var5 == null) {
-                            break label63;
-                        }
-
-                        var11 = var4;
-                        if ((float) var5.getTop() <= SamsungAppBarLayout.mAppBarHeight) {
-                            break label63;
-                        }
-
-                        this.mIsFlingScrollDown = false;
-                    } else {
-                        if (this.mIsFlingScrollUp) {
-                            this.mIsFlingScrollUp = false;
-                            this.mIsFlingScrollDown = false;
-                            var4 = var11;
-                        }
-
-                        var11 = var4;
-                        if (!this.mIsFlingScrollDown) {
-                            break label63;
-                        }
-
-                        var11 = var4;
-                        if (var5 == null) {
-                            break label63;
-                        }
-
-                        var11 = var4;
-                        if ((float) var5.getTop() <= SamsungAppBarLayout.mAppBarHeight) {
-                            break label63;
-                        }
-
-                        this.mIsFlingScrollDown = false;
-                    }
-
-                    var11 = var10;
-                }
-
-                this.animateOffsetTo(var1, var2, MathUtils.clamp(var11, -var2.getTotalScrollRange(), 0), 0.0F);
-            }
-
-        }
-
-        @SuppressLint("WrongConstant")
-        public final void stopNestedScrollIfNeeded(int var1, T var2, View var3, int var4) {
-            if (var4 == 1) {
-                var4 = this.getTopBottomOffsetForScrollingSibling();
-                if (var1 < 0 && var4 == 0 || var1 > 0 && var4 == -var2.getDownNestedScrollRange()) {
-                    ViewCompat.stopNestedScroll(var3, 1);
-                }
-            }
-
-        }
-
-        public final void updateAppBarLayoutDrawableState(CoordinatorLayout var1, T var2, int var3, int var4, boolean var5) {
-            View var6 = getAppBarChildOnOffset(var2, var3);
-            if (var6 != null) {
-                int var7 = ((SamsungAppBarLayout.LayoutParams) var6.getLayoutParams()).getScrollFlags();
-                boolean var8 = false;
-                boolean var9 = var8;
-                if ((var7 & 1) != 0) {
-                    label51:
-                    {
-                        int var10 = ViewCompat.getMinimumHeight(var6);
-                        if (var4 > 0 && (var7 & 12) != 0) {
-                            var9 = var8;
-                            if (-var3 < var6.getBottom() - var10 - var2.getTopInset()) {
-                                break label51;
-                            }
-                        } else {
-                            var9 = var8;
-                            if ((var7 & 2) == 0) {
-                                break label51;
-                            }
-
-                            var9 = var8;
-                            if (-var3 < var6.getBottom() - var10 - var2.getTopInset()) {
-                                break label51;
-                            }
-                        }
-
-                        var9 = true;
-                    }
-                }
-
-                if (var2.isLiftOnScroll()) {
-                    var9 = var2.shouldLift(this.findFirstScrollingChild(var1));
-                }
-
-                var9 = var2.setLiftedState(var9);
-                if (Build.VERSION.SDK_INT >= 11 && (var5 || var9 && this.shouldJumpElevationState(var1, var2))) {
-                    var2.jumpDrawablesToCurrentState();
-                }
-            }
-
-        }
-
-        public abstract static class BaseDragCallback<T extends SamsungAppBarLayout> {
-            public abstract boolean canDrag(T var1);
-        }
-
-        protected static class SavedState extends AbsSavedState {
-            public static final Creator<SamsungAppBarLayout.BaseBehavior.SavedState> CREATOR = new ClassLoaderCreator<SamsungAppBarLayout.BaseBehavior.SavedState>() {
-                public SamsungAppBarLayout.BaseBehavior.SavedState createFromParcel(Parcel var1) {
-                    return new SamsungAppBarLayout.BaseBehavior.SavedState(var1, (ClassLoader) null);
-                }
-
-                public SamsungAppBarLayout.BaseBehavior.SavedState createFromParcel(Parcel var1, ClassLoader var2) {
-                    return new SamsungAppBarLayout.BaseBehavior.SavedState(var1, var2);
-                }
-
-                public SamsungAppBarLayout.BaseBehavior.SavedState[] newArray(int var1) {
-                    return new SamsungAppBarLayout.BaseBehavior.SavedState[var1];
-                }
-            };
-            public boolean firstVisibleChildAtMinimumHeight;
-            public int firstVisibleChildIndex;
-            public float firstVisibleChildPercentageShown;
-
-            public SavedState(Parcel var1, ClassLoader var2) {
-                super(var1, var2);
-                this.firstVisibleChildIndex = var1.readInt();
-                this.firstVisibleChildPercentageShown = var1.readFloat();
-                boolean var3;
-                if (var1.readByte() != 0) {
-                    var3 = true;
-                } else {
-                    var3 = false;
-                }
-
-                this.firstVisibleChildAtMinimumHeight = var3;
-            }
-
-            public SavedState(Parcelable var1) {
-                super(var1);
-            }
-
-            public void writeToParcel(Parcel var1, int var2) {
-                super.writeToParcel(var1, var2);
-                var1.writeInt(this.firstVisibleChildIndex);
-                var1.writeFloat(this.firstVisibleChildPercentageShown);
-                var1.writeByte((byte) (firstVisibleChildAtMinimumHeight ? 1 : 0));
-            }
-        }
-    }
-
-    public static class Behavior extends SamsungAppBarLayout.BaseBehavior<SamsungAppBarLayout> {
-        public Behavior() {
-        }
-
-        public Behavior(Context var1, AttributeSet var2) {
-            super(var1, var2);
-        }
-    }
-
-    public static class LayoutParams extends android.widget.LinearLayout.LayoutParams {
-        public int scrollFlags = 1;
-        public Interpolator scrollInterpolator;
-
-        public LayoutParams(int var1, int var2) {
-            super(var1, var2);
-        }
-
-        public LayoutParams(Context var1, AttributeSet var2) {
-            super(var1, var2);
-            TypedArray var3 = var1.obtainStyledAttributes(var2, R.styleable.SamsungAppBarLayout_Layout);
-            this.scrollFlags = var3.getInt(R.styleable.SamsungAppBarLayout_Layout_layout_scrollFlags, 0);
-            if (var3.hasValue(R.styleable.SamsungAppBarLayout_Layout_layout_scrollInterpolator)) {
-                this.scrollInterpolator = AnimationUtils.loadInterpolator(var1, var3.getResourceId(R.styleable.SamsungAppBarLayout_Layout_layout_scrollInterpolator, 0));
-            }
-
-            var3.recycle();
-        }
-
-        public LayoutParams(android.view.ViewGroup.LayoutParams var1) {
-            super(var1);
-        }
-
-        public LayoutParams(MarginLayoutParams var1) {
-            super(var1);
-        }
-
-        public LayoutParams(android.widget.LinearLayout.LayoutParams var1) {
-            super(var1);
-        }
-
-        public int getScrollFlags() {
-            return this.scrollFlags;
-        }
-
-        public Interpolator getScrollInterpolator() {
-            return this.scrollInterpolator;
-        }
-
-        public boolean isCollapsible() {
-            int var1 = this.scrollFlags;
-            boolean var2 = true;
-            if ((var1 & 1) != 1 || (var1 & 10) == 0) {
-                var2 = false;
-            }
-
-            return var2;
-        }
+        // kang
     }
 
     public static class ScrollingViewBehavior extends HeaderScrollingViewBehavior {
-        public ScrollingViewBehavior() {
+        public ScrollingViewBehavior() {}
+
+        public ScrollingViewBehavior(Context context, AttributeSet attrs) {
+            super(context, attrs);
+
+            final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ScrollingViewBehavior_Layout);
+            setOverlayTop(a.getDimensionPixelSize(R.styleable.ScrollingViewBehavior_Layout_behavior_overlapTop, 0));
+            a.recycle();
         }
 
-        public ScrollingViewBehavior(Context var1, AttributeSet var2) {
-            super(var1, var2);
-            TypedArray var3 = var1.obtainStyledAttributes(var2, R.styleable.ScrollingViewBehavior_Layout);
-            this.setOverlayTop(var3.getDimensionPixelSize(R.styleable.ScrollingViewBehavior_Layout_behavior_overlapTop, 0));
-            var3.recycle();
+        @Override
+        public boolean layoutDependsOn(SamsungCoordinatorLayout parent, View child, View dependency) {
+            return dependency instanceof SamsungAppBarLayout;
         }
 
-        public static int getAppBarLayoutOffset(SamsungAppBarLayout var0) {
-            CoordinatorLayout.Behavior var1 = ((CoordinatorLayout.LayoutParams) var0.getLayoutParams()).getBehavior();
-            return var1 instanceof SamsungAppBarLayout.BaseBehavior ? ((SamsungAppBarLayout.BaseBehavior) var1).getTopBottomOffsetForScrollingSibling() : 0;
-        }
-
-        public SamsungAppBarLayout findFirstDependency(List<View> var1) {
-            int var2 = var1.size();
-
-            for (int var3 = 0; var3 < var2; ++var3) {
-                View var4 = (View) var1.get(var3);
-                if (var4 instanceof SamsungAppBarLayout) {
-                    return (SamsungAppBarLayout) var4;
-                }
-            }
-
-            return null;
-        }
-
-        public float getOverlapRatioForOffset(View var1) {
-            if (var1 instanceof SamsungAppBarLayout) {
-                SamsungAppBarLayout var5 = (SamsungAppBarLayout) var1;
-                int var2 = var5.getTotalScrollRange();
-                int var3 = var5.getDownNestedPreScrollRange();
-                int var4 = getAppBarLayoutOffset(var5);
-                if (var3 != 0 && var2 + var4 <= var3) {
-                    return 0.0F;
-                }
-
-                var2 -= var3;
-                if (var2 != 0) {
-                    return (float) var4 / (float) var2 + 1.0F;
-                }
-            }
-
-            return 0.0F;
-        }
-
-        public int getScrollRange(View var1) {
-            return var1 instanceof SamsungAppBarLayout ? ((SamsungAppBarLayout) var1).getTotalScrollRange() : super.getScrollRange(var1);
-        }
-
-        public boolean layoutDependsOn(CoordinatorLayout var1, View var2, View var3) {
-            return var3 instanceof SamsungAppBarLayout;
-        }
-
-        public final void offsetChildAsNeeded(View var1, View var2) {
-            CoordinatorLayout.Behavior var3 = ((CoordinatorLayout.LayoutParams) var2.getLayoutParams()).getBehavior();
-            if (var3 instanceof SamsungAppBarLayout.BaseBehavior) {
-                SamsungAppBarLayout.BaseBehavior var4 = (SamsungAppBarLayout.BaseBehavior) var3;
-                ViewCompat.offsetTopAndBottom(var1, var2.getBottom() - var1.getTop() + var4.offsetDelta + this.getVerticalLayoutGap() - this.getOverlapPixelsForOffset(var2));
-            }
-
-        }
-
-        public boolean onDependentViewChanged(CoordinatorLayout var1, View var2, View var3) {
-            this.offsetChildAsNeeded(var2, var3);
-            this.updateLiftedStateIfNeeded(var2, var3);
+        @Override
+        public boolean onDependentViewChanged(@NonNull SamsungCoordinatorLayout parent, @NonNull View child, @NonNull View dependency) {
+            offsetChildAsNeeded(child, dependency);
+            updateLiftedStateIfNeeded(child, dependency);
             return false;
         }
 
-        public boolean onRequestChildRectangleOnScreen(CoordinatorLayout var1, View var2, Rect var3, boolean var4) {
-            SamsungAppBarLayout var5 = this.findFirstDependency(var1.getDependencies(var2));
-            if (var5 != null) {
-                var3.offset(var2.getLeft(), var2.getTop());
-                Rect var6 = super.tempRect1;
-                var6.set(0, 0, var1.getWidth(), var1.getHeight());
-                if (!var6.contains(var3)) {
-                    var5.setExpanded(false, var4 ^ true);
+        @Override
+        public void onDependentViewRemoved(@NonNull SamsungCoordinatorLayout parent, @NonNull View child, @NonNull View dependency) {
+            if (dependency instanceof SamsungAppBarLayout) {
+                ViewCompat.removeAccessibilityAction(parent, AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SCROLL_FORWARD.getId());
+                ViewCompat.removeAccessibilityAction(parent, AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SCROLL_BACKWARD.getId());
+            }
+        }
+
+        @Override
+        public boolean onRequestChildRectangleOnScreen(@NonNull SamsungCoordinatorLayout parent, @NonNull View child, @NonNull Rect rectangle, boolean immediate) {
+            final SamsungAppBarLayout header = findFirstDependency(parent.getDependencies(child));
+            if (header != null) {
+                rectangle.offset(child.getLeft(), child.getTop());
+
+                final Rect parentRect = tempRect1;
+                parentRect.set(0, 0, parent.getWidth(), parent.getHeight());
+
+                if (!parentRect.contains(rectangle)) {
+                    header.setExpanded(false, !immediate);
                     return true;
                 }
             }
-
             return false;
         }
 
-        public final void updateLiftedStateIfNeeded(View var1, View var2) {
-            if (var2 instanceof SamsungAppBarLayout) {
-                SamsungAppBarLayout var3 = (SamsungAppBarLayout) var2;
-                if (var3.isLiftOnScroll()) {
-                    var3.setLiftedState(var3.shouldLift(var1));
+        private void offsetChildAsNeeded(@NonNull View child, @NonNull View dependency) {
+            final SamsungCoordinatorLayout.Behavior behavior = ((SamsungCoordinatorLayout.LayoutParams) dependency.getLayoutParams()).getBehavior();
+            if (behavior instanceof BaseBehavior) {
+                final BaseBehavior ablBehavior = (BaseBehavior) behavior;
+                ViewCompat.offsetTopAndBottom(child, (dependency.getBottom() - child.getTop()) + ablBehavior.offsetDelta + getVerticalLayoutGap() - getOverlapPixelsForOffset(dependency));
+            }
+        }
+
+        @Override
+        float getOverlapRatioForOffset(final View header) {
+            if (header instanceof SamsungAppBarLayout) {
+                final SamsungAppBarLayout abl = (SamsungAppBarLayout) header;
+                final int totalScrollRange = abl.getTotalScrollRange();
+                final int preScrollDown = abl.getDownNestedPreScrollRange();
+                final int offset = getAppBarLayoutOffset(abl);
+
+                if (preScrollDown != 0 && (totalScrollRange + offset) <= preScrollDown) {
+                    return 0;
+                } else {
+                    final int availScrollRange = totalScrollRange - preScrollDown;
+                    if (availScrollRange != 0) {
+                        return 1f + (offset / (float) availScrollRange);
+                    }
                 }
             }
-
+            return 0f;
         }
+
+        private static int getAppBarLayoutOffset(@NonNull SamsungAppBarLayout abl) {
+            final SamsungCoordinatorLayout.Behavior behavior = ((SamsungCoordinatorLayout.LayoutParams) abl.getLayoutParams()).getBehavior();
+            if (behavior instanceof BaseBehavior) {
+                return ((BaseBehavior) behavior).getTopBottomOffsetForScrollingSibling();
+            }
+            return 0;
+        }
+
+        @Nullable
+        @Override
+        SamsungAppBarLayout findFirstDependency(@NonNull List<View> views) {
+            for (int i = 0, z = views.size(); i < z; i++) {
+                View view = views.get(i);
+                if (view instanceof SamsungAppBarLayout) {
+                    return (SamsungAppBarLayout) view;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        int getScrollRange(View v) {
+            if (v instanceof SamsungAppBarLayout) {
+                return ((SamsungAppBarLayout) v).getTotalScrollRange();
+            } else {
+                return super.getScrollRange(v);
+            }
+        }
+
+        private void updateLiftedStateIfNeeded(View child, View dependency) {
+            if (dependency instanceof SamsungAppBarLayout) {
+                SamsungAppBarLayout appBarLayout = (SamsungAppBarLayout) dependency;
+                if (appBarLayout.isLiftOnScroll()) {
+                    appBarLayout.setLiftedState(appBarLayout.shouldLift(child));
+                }
+            }
+        }
+    }
+
+
+    private boolean isDexEnabled() {
+        if (getContext() == null) {
+            return false;
+        }
+        return SeslConfigurationReflector.isDexEnabled(getContext().getResources().getConfiguration());
+    }
+
+    protected boolean isDetachedState() {
+        return mIsDetachedState;
     }
 }

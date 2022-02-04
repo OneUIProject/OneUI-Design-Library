@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/parentPanel" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="@dimen/sesl_dialog_title_padding_top" android:orientation="vertical">
+    <LinearLayout
+        android:id="@id/topPanel" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
+        <LinearLayout
+            android:id="@id/title_template" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingLeft="@dimen/sesl_dialog_padding_horizontal" android:paddingRight="@dimen/sesl_dialog_padding_horizontal" android:paddingBottom="@dimen/sesl4_dialog_title_padding_bottom" android:gravity="start|bottom|center" android:orientation="horizontal">
+            <ImageView
+                android:id="@android:id/icon" android:layout_width="32.0dip" android:layout_height="32.0dip" android:src="@null" android:scaleType="fitCenter" style="@style/RtlOverlay.Widget.AppCompat.DialogTitle.Icon" />
+            <de.dlyt.yanndroid.oneui.sesl.dialog.widget.DialogTitle
+                android:id="@id/alertTitle" android:layout_width="fill_parent" android:layout_height="wrap_content" android:maxLines="1" android:ellipsize="end" android:textAlignment="viewStart" style="?android:windowTitleStyle" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@id/contentPanel" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1.0" android:minHeight="24.0dip">
+        <View
+            android:id="@id/scrollIndicatorUp" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_gravity="top" android:background="?colorControlHighlight" android:visibility="gone" />
+
+        <de.dlyt.yanndroid.oneui.widget.NestedScrollView
+            android:id="@id/scrollView" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingStart="@dimen/sesl_dialog_body_text_scroll_padding_start" android:paddingEnd="@dimen/sesl_dialog_body_text_scroll_padding_end" android:paddingBottom="@dimen/sesl4_dialog_body_text_padding_bottom" android:scrollbars="vertical" android:scrollbarStyle="outsideOverlay">
+            <TextView
+                android:id="@android:id/message" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginStart="@dimen/sesl_dialog_body_text_margin_start" android:layout_marginEnd="@dimen/sesl_dialog_body_text_margin_end" android:textAlignment="viewStart" android:lineSpacingExtra="@dimen/sesl_dialog_body_text_line_spacing_extra" style="?android:textAppearance" />
+        </de.dlyt.yanndroid.oneui.widget.NestedScrollView>
+
+        <View
+            android:id="@id/scrollIndicatorDown" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_gravity="bottom" android:background="?colorControlHighlight" android:visibility="gone" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@id/customPanel" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1.0" android:minHeight="48.0dip">
+        <FrameLayout
+            android:id="@id/custom" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    </FrameLayout>
+
+    <include
+        android:layout_width="fill_parent" android:layout_height="wrap_content" layout="@layout/sesl4_alert_dialog_button_bar" />
+</LinearLayout>

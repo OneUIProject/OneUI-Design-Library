@@ -5,23 +5,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <de.dlyt.yanndroid.oneui.view.TabLayout
-        android:id="@+id/tabLayout"
+    <de.dlyt.yanndroid.oneui.widget.TabLayout
+        android:id="@+id/sub_tabs"
         android:layout_width="match_parent"
-        android:layout_height="60.0dip" />
+        android:layout_height="wrap_content" />
 
-    <de.dlyt.yanndroid.oneui.layout.RoundLinearLayout
+    <de.dlyt.yanndroid.oneui.widget.RoundFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:roundedCorners="top_left|top_right">
 
-        <de.dlyt.yanndroid.oneui.view.ViewPager
-            android:id="@+id/viewPager"
+        <de.dlyt.yanndroid.oneui.view.ViewPager2
+            android:id="@+id/viewPager2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never" />
+            android:layout_height="match_parent" />
 
-    </de.dlyt.yanndroid.oneui.layout.RoundLinearLayout>
+    </de.dlyt.yanndroid.oneui.widget.RoundFrameLayout>
 
 </LinearLayout>

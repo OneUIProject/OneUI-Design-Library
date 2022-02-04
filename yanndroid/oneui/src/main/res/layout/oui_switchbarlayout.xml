@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <de.dlyt.yanndroid.oneui.widget.SwitchBar
+        android:id="@+id/switchbar_switchbarlayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sesl_switchbar_height"
+        android:layout_marginBottom="20.0dip" />
+
+    <FrameLayout
+        android:id="@+id/switchbarlayout_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

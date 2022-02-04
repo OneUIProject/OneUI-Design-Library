@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="all_details" type="id" />
+    <item name="bottom_bar_overlay" type="id" />
     <item name="drawer_custom_translation" type="id" />
+    <item name="sesl_badge_dot" type="id" />
+    <item name="sesl_badge_n" type="id" />
 </resources>

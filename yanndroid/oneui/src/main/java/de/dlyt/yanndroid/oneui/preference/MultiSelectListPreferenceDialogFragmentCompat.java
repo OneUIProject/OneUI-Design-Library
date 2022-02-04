@@ -3,6 +3,9 @@ package de.dlyt.yanndroid.oneui.preference;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,11 +17,16 @@ public class MultiSelectListPreferenceDialogFragmentCompat extends PreferenceDia
     private static final String SAVE_STATE_CHANGED = "MultiSelectListPreferenceDialogFragmentCompat.changed";
     private static final String SAVE_STATE_ENTRIES = "MultiSelectListPreferenceDialogFragmentCompat.entries";
     private static final String SAVE_STATE_ENTRY_VALUES = "MultiSelectListPreferenceDialogFragmentCompat.entryValues";
-    private Set<String> mNewValues = new HashSet<>();
-    private boolean mPreferenceChanged;
-    private CharSequence[] mEntries;
-    private CharSequence[] mEntryValues;
+    @SuppressWarnings("WeakerAccess")
+    Set<String> mNewValues = new HashSet<>();
+    @SuppressWarnings("WeakerAccess")
+    boolean mPreferenceChanged;
+    @SuppressWarnings("WeakerAccess")
+    CharSequence[] mEntries;
+    @SuppressWarnings("WeakerAccess")
+    CharSequence[] mEntryValues;
 
+    @NonNull
     public static MultiSelectListPreferenceDialogFragmentCompat newInstance(String key) {
         final MultiSelectListPreferenceDialogFragmentCompat fragment = new MultiSelectListPreferenceDialogFragmentCompat();
         final Bundle b = new Bundle(1);
@@ -28,14 +36,14 @@ public class MultiSelectListPreferenceDialogFragmentCompat extends PreferenceDia
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
             final MultiSelectListPreference preference = getListPreference();
 
             if (preference.getEntries() == null || preference.getEntryValues() == null) {
-                throw new IllegalStateException("MultiSelectListPreference requires an entries array and " + "an entryValues array.");
+                throw new IllegalStateException("MultiSelectListPreference requires an entries array and an entryValues array.");
             }
 
             mNewValues.clear();
@@ -53,7 +61,7 @@ public class MultiSelectListPreferenceDialogFragmentCompat extends PreferenceDia
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putStringArrayList(SAVE_STATE_VALUES, new ArrayList<>(mNewValues));
         outState.putBoolean(SAVE_STATE_CHANGED, mPreferenceChanged);
@@ -66,7 +74,7 @@ public class MultiSelectListPreferenceDialogFragmentCompat extends PreferenceDia
     }
 
     @Override
-    protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
+    protected void onPrepareDialogBuilder(@NonNull AlertDialog.Builder builder) {
         super.onPrepareDialogBuilder(builder);
 
         final int entryCount = mEntryValues.length;
@@ -74,26 +82,24 @@ public class MultiSelectListPreferenceDialogFragmentCompat extends PreferenceDia
         for (int i = 0; i < entryCount; i++) {
             checkedItems[i] = mNewValues.contains(mEntryValues[i].toString());
         }
-        builder.setMultiChoiceItems(mEntries, checkedItems,
-                new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                        if (isChecked) {
-                            mPreferenceChanged |= mNewValues.add(mEntryValues[which].toString());
-                        } else {
-                            mPreferenceChanged |= mNewValues.remove(mEntryValues[which].toString());
-                        }
-                    }
-                });
+        builder.setMultiChoiceItems(mEntries, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked) {
+                    mPreferenceChanged |= mNewValues.add(mEntryValues[which].toString());
+                } else {
+                    mPreferenceChanged |= mNewValues.remove(mEntryValues[which].toString());
+                }
+            }
+        });
     }
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-        final MultiSelectListPreference preference = getListPreference();
         if (positiveResult && mPreferenceChanged) {
-            final Set<String> values = mNewValues;
-            if (preference.callChangeListener(values)) {
-                preference.setValues(values);
+            final MultiSelectListPreference preference = getListPreference();
+            if (preference.callChangeListener(mNewValues)) {
+                preference.setValues(mNewValues);
             }
         }
         mPreferenceChanged = false;

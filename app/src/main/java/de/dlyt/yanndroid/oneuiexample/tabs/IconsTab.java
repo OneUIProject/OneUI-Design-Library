@@ -17,22 +17,22 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.util.SeslRoundedCorner;
+import de.dlyt.yanndroid.oneui.sesl.utils.SeslRoundedCorner;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
-import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
-import de.dlyt.yanndroid.oneui.sesl.recyclerview.SeslLinearLayoutManager;
-import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
+import de.dlyt.yanndroid.oneui.sesl.recyclerview.LinearLayoutManager;
+import de.dlyt.yanndroid.oneui.view.IndexScrollView;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
-import de.dlyt.yanndroid.oneui.view.TabLayout;
-import de.dlyt.yanndroid.oneui.view.ViewPager;
+import de.dlyt.yanndroid.oneui.view.ViewPager2;
+import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneuiexample.R;
 
 public class IconsTab extends Fragment {
-    //229
     Integer[] imageIDs = {R.drawable.ic_samsung_accessibility,
             R.drawable.ic_samsung_account,
             R.drawable.ic_samsung_advanced_feature,
@@ -49,7 +49,6 @@ public class IconsTab extends Fragment {
             R.drawable.ic_samsung_audio,
             R.drawable.ic_samsung_audio_2,
             R.drawable.ic_samsung_back,
-            R.drawable.ic_samsung_bag,
             R.drawable.ic_samsung_biometric_face,
             R.drawable.ic_samsung_biometric_fingerprint,
             R.drawable.ic_samsung_biometric_fingerprint_2,
@@ -300,7 +299,7 @@ public class IconsTab extends Fragment {
         for (int i = 0; i < imageIDs.length; i++) selected.put(i, false);
 
         listView = mRootView.findViewById(R.id.images);
-        listView.setLayoutManager(new SeslLinearLayoutManager(mContext));
+        listView.setLayoutManager(new LinearLayoutManager(mContext));
         imageAdapter = new ImageAdapter();
         listView.setAdapter(imageAdapter);
 
@@ -309,10 +308,16 @@ public class IconsTab extends Fragment {
         decoration.setDivider(mContext.getDrawable(divider.resourceId));
 
         listView.setItemAnimator(null);
-        listView.seslSetFastScrollerEnabled(true);
         listView.seslSetFillBottomEnabled(true);
         listView.seslSetGoToTopEnabled(true);
         listView.seslSetLastRoundedCorner(false);
+
+        IndexScrollView indexScrollView = mRootView.findViewById(R.id.indexScrollView);
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < imageIDs.length - 1; i++)
+            list.add(getResources().getResourceEntryName(imageIDs[i]).substring(11));
+        indexScrollView.syncWithRecyclerView(listView, list, true);
+        indexScrollView.setIndexBarGravity(isRTL() ? 0 : 1);
 
         onBackPressedCallback = new OnBackPressedCallback(false) {
             @Override
@@ -323,23 +328,26 @@ public class IconsTab extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
     }
 
+    private boolean isRTL() {
+        return getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+    }
 
     public void setSelecting(boolean enabled) {
-        ToolbarLayout toolbarLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view)).getToolbarLayout();
-        TabLayout tabLayout = getActivity().findViewById(R.id.tabLayout);
-        BottomNavigationView bnv = getActivity().findViewById(R.id.main_samsung_tabs);
-        ViewPager viewPager = getActivity().findViewById(R.id.viewPager);
+        DrawerLayout drawerLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view));
+        TabLayout subTabs = getActivity().findViewById(R.id.sub_tabs);
+        TabLayout mainTabs = getActivity().findViewById(R.id.main_samsung_tabs);
+        ViewPager2 viewPager2 = getActivity().findViewById(R.id.viewPager2);
 
         if (enabled) {
             mSelecting = true;
             imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount() - 1);
-            toolbarLayout.setSelectModeBottomMenu(R.menu.select_mode_menu, item -> {
+            drawerLayout.setSelectModeBottomMenu(R.menu.select_mode_menu, item -> {
                 item.setBadge(item.getBadge() + 1);
                 Toast.makeText(mContext, item.getTitle(), Toast.LENGTH_SHORT).show();
                 return true;
             });
-            toolbarLayout.showSelectMode();
-            toolbarLayout.setSelectModeAllCheckedChangeListener((buttonView, isChecked) -> {
+            drawerLayout.showSelectMode();
+            drawerLayout.setSelectModeAllCheckedChangeListener((buttonView, isChecked) -> {
                 if (checkAllListening) {
                     for (int i = 0; i < imageAdapter.getItemCount() - 1; i++) {
                         selected.put(i, isChecked);
@@ -348,22 +356,22 @@ public class IconsTab extends Fragment {
                 }
                 int count = 0;
                 for (Boolean b : selected.values()) if (b) count++;
-                toolbarLayout.setSelectModeCount(count);
+                drawerLayout.setSelectModeCount(count);
             });
-            tabLayout.setEnabled(false);
-            bnv.setEnabled(false);
-            viewPager.setPagingEnabled(false);
+            subTabs.setEnabled(false);
+            mainTabs.setEnabled(false);
+            viewPager2.setUserInputEnabled(false);
             onBackPressedCallback.setEnabled(true);
         } else {
             mSelecting = false;
             for (int i = 0; i < imageAdapter.getItemCount() - 1; i++) selected.put(i, false);
             imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount() - 1);
 
-            toolbarLayout.setSelectModeCount(0);
-            toolbarLayout.dismissSelectMode();
-            tabLayout.setEnabled(true);
-            bnv.setEnabled(true);
-            viewPager.setPagingEnabled(true);
+            drawerLayout.setSelectModeCount(0);
+            drawerLayout.dismissSelectMode();
+            subTabs.setEnabled(true);
+            mainTabs.setEnabled(true);
+            viewPager2.setUserInputEnabled(true);
             onBackPressedCallback.setEnabled(false);
         }
     }
@@ -375,9 +383,9 @@ public class IconsTab extends Fragment {
         checkAllListening = false;
         int count = 0;
         for (Boolean b : selected.values()) if (b) count++;
-        ToolbarLayout toolbarLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view)).getToolbarLayout();
-        toolbarLayout.setSelectModeAllChecked(count == imageAdapter.getItemCount() - 1);
-        toolbarLayout.setSelectModeCount(count);
+        DrawerLayout drawerLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view));
+        drawerLayout.setSelectModeAllChecked(count == imageAdapter.getItemCount() - 1);
+        drawerLayout.setSelectModeCount(count);
         checkAllListening = true;
     }
 
@@ -513,7 +521,8 @@ public class IconsTab extends Fragment {
                     shallDrawDivider = false;
 
                 if (mDivider != null && viewHolder.isItem && shallDrawDivider) {
-                    mDivider.setBounds(130, y, width, mDividerHeight + y);
+                    int moveRTL = isRTL() ? 130 : 0;
+                    mDivider.setBounds(130 - moveRTL, y, width - moveRTL, mDividerHeight + y);
                     mDivider.draw(canvas);
                 }
 
@@ -528,30 +537,10 @@ public class IconsTab extends Fragment {
             mSeslRoundedCornerTop.drawRoundedCorner(canvas);
         }
 
-        private boolean canScrollUp(RecyclerView recyclerView) {
-            RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-            if (!(layoutManager instanceof SeslLinearLayoutManager)) {
-                return false;
-            }
-
-            boolean isntFirstItem = ((SeslLinearLayoutManager) layoutManager).findFirstVisibleItemPosition() > 0;
-            View childAt = recyclerView.getChildAt(0);
-
-            if (isntFirstItem || childAt == null) {
-                return isntFirstItem;
-            }
-            if (childAt.getTop() < recyclerView.getPaddingTop()) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
         public void setDivider(Drawable d) {
             mDivider = d;
             mDividerHeight = d.getIntrinsicHeight();
             listView.invalidateItemDecorations();
         }
-
     }
 }

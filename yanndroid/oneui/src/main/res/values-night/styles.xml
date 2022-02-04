@@ -5,13 +5,67 @@
     <style name="RelatedButtonStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/related_button_ripple_background</item>
+        <item name="android:background">@drawable/oui_related_button_ripple_background</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:textSize">@dimen/widget_related_card_text_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?colorSecondary</item>
         <item name="android:fontFamily">sec-roboto-light</item>
+    </style>
+
+    <!--Dialog-->
+    <style name="DialogTheme" parent="@style/Base.ThemeOverlay.AppCompat">
+        <item name="isOneUI4">false</item>
+        <item name="android:colorBackground">@color/sesl_dialog_window_background_color_material</item>
+        <item name="android:backgroundDimAmount">0.65</item>
+        <item name="android:disabledAlpha">0.4</item>
+        <item name="android:textAppearance">@style/DialogTextStyle</item>
+        <item name="android:textAppearanceInverse">@style/TextAppearance.AppCompat.Inverse</item>
+        <item name="android:windowBackground">@drawable/sesl_dialog_background</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTitleStyle">@style/DialogTitleStyle</item>
+        <item name="android:scrollbarThumbHorizontal">@drawable/sesl_dialog_scrollbar_handle</item>
+        <item name="android:scrollbarThumbVertical">@drawable/sesl_dialog_scrollbar_handle</item>
+        <item name="android:windowAnimationStyle">@style/DialogAnimStyle</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowCloseOnTouchOutside">@bool/sesl_config_closeDialogWhenTouchOutside</item>
+        <item name="android:windowElevation">@dimen/sesl_dialog_window_elevation</item>
+        <item name="borderlessButtonStyle">@style/ButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarStyle">@style/ButtonBarStyle</item>
+        <item name="colorControlHighlight">@color/sesl_ripple_color</item>
+        <item name="dialogPreferredPadding">@dimen/sesl_dialog_padding</item>
+        <item name="listPreferredItemHeightSmall">@dimen/sesl_list_preferred_item_height_small</item>
+        <item name="listPreferredItemPaddingEnd">@dimen/sesl_select_dialog_padding_end</item>
+        <item name="listPreferredItemPaddingLeft">?listPreferredItemPaddingStart</item>
+        <item name="listPreferredItemPaddingRight">?listPreferredItemPaddingEnd</item>
+        <item name="listPreferredItemPaddingStart">@dimen/sesl_select_dialog_padding_start</item>
+        <item name="textAppearanceListItem">@style/DialogTextListItemStyle</item>
+        <item name="textAppearanceListItemSecondary">@style/DialogTextListItemSecondaryStyle</item>
+        <item name="textAppearanceListItemSmall">@style/DialogTextListItemStyle</item>
+        <item name="textColorAlertDialogListItem">@color/sesl_select_dialog_list_item_text</item>
+        <item name="windowActionBar">?android:windowActionBar</item>
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="OneUI4.DialogTheme" parent="@style/DialogTheme">
+        <item name="isOneUI4">true</item>
+        <item name="android:backgroundDimAmount">0.65</item>
+        <item name="android:textAppearance">@style/OneUI4.DialogTextStyle</item>
+        <item name="android:windowTitleStyle">@style/OneUI4.DialogTitleStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/OneUI4.DialogButtonStyle</item>
+        <item name="colorControlHighlight">@color/sesl4_ripple_color</item>
+        <item name="textAppearanceListItem">@style/OneUI4.DialogTextListItemStyle</item>
+        <item name="textAppearanceListItemSmall">@style/OneUI4.DialogTextListItemStyle</item>
     </style>
 
 </resources>

@@ -5,9 +5,15 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.collection.SimpleArrayMap;
 import androidx.core.content.res.TypedArrayUtils;
 
@@ -18,8 +24,17 @@ import java.util.List;
 import de.dlyt.yanndroid.oneui.R;
 
 public abstract class PreferenceGroup extends Preference {
-    private final Handler mHandler = new Handler();
-    private final SimpleArrayMap<String, Long> mIdRecycleCache = new SimpleArrayMap<>();
+    private static final String TAG = "PreferenceGroup";
+    @SuppressWarnings("WeakerAccess")
+    final SimpleArrayMap<String, Long> mIdRecycleCache = new SimpleArrayMap<>();
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
+    private final List<Preference> mPreferences;
+    private boolean mOrderingAsAdded = true;
+    private int mCurrentPreferenceOrder = 0;
+    private boolean mAttachedToHierarchy = false;
+    private int mInitialExpandedChildrenCount = Integer.MAX_VALUE;
+    private OnExpandButtonClickListener mOnExpandButtonClickListener = null;
+
     private final Runnable mClearRecycleCacheRunnable = new Runnable() {
         @Override
         public void run() {
@@ -28,24 +43,28 @@ public abstract class PreferenceGroup extends Preference {
             }
         }
     };
-    private boolean mAttachedToHierarchy = false;
-    private int mCurrentPreferenceOrder = 0;
-    private boolean mOrderingAsAdded = true;
-    private List<Preference> mPreferenceList = new ArrayList();
 
     @SuppressLint("RestrictedApi")
-    public PreferenceGroup(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public PreferenceGroup(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PreferenceGroup, defStyleAttr, defStyleRes);
+
+        mPreferences = new ArrayList<>();
+
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PreferenceGroup, defStyleAttr, defStyleRes);
+
         mOrderingAsAdded = TypedArrayUtils.getBoolean(a, R.styleable.PreferenceGroup_orderingFromXml, R.styleable.PreferenceGroup_orderingFromXml, true);
+
+        if (a.hasValue(R.styleable.PreferenceGroup_initialExpandedChildrenCount)) {
+            setInitialExpandedChildrenCount(TypedArrayUtils.getInt(a, R.styleable.PreferenceGroup_initialExpandedChildrenCount, R.styleable.PreferenceGroup_initialExpandedChildrenCount, Integer.MAX_VALUE));
+        }
         a.recycle();
     }
 
-    public PreferenceGroup(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PreferenceGroup(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
 
-    public PreferenceGroup(Context context, AttributeSet attrs) {
+    public PreferenceGroup(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
@@ -53,21 +72,47 @@ public abstract class PreferenceGroup extends Preference {
         mOrderingAsAdded = orderingAsAdded;
     }
 
-    public void addItemFromInflater(Preference preference) {
+    public boolean isOrderingAsAdded() {
+        return mOrderingAsAdded;
+    }
+
+    public void setInitialExpandedChildrenCount(int expandedCount) {
+        if (expandedCount != Integer.MAX_VALUE && !hasKey()) {
+            Log.e(TAG, getClass().getSimpleName() + " should have a key defined if it contains an expandable preference");
+        }
+        mInitialExpandedChildrenCount = expandedCount;
+    }
+
+    public int getInitialExpandedChildrenCount() {
+        return mInitialExpandedChildrenCount;
+    }
+
+    public void addItemFromInflater(@NonNull Preference preference) {
         addPreference(preference);
     }
 
     public int getPreferenceCount() {
-        return mPreferenceList.size();
+        return mPreferences.size();
     }
 
+    @NonNull
     public Preference getPreference(int index) {
-        return mPreferenceList.get(index);
+        return mPreferences.get(index);
     }
 
-    public boolean addPreference(Preference preference) {
-        if (mPreferenceList.contains(preference)) {
+    public boolean addPreference(@NonNull Preference preference) {
+        if (mPreferences.contains(preference)) {
             return true;
+        }
+        if (preference.getKey() != null) {
+            PreferenceGroup root = this;
+            while (root.getParent() != null) {
+                root = root.getParent();
+            }
+            final String key = preference.getKey();
+            if (root.findPreference(key) != null) {
+                Log.e(TAG, "Found duplicated key: \"" + key + "\". This can cause unintended behaviour, please use unique keys for every preference.");
+            }
         }
 
         if (preference.getOrder() == DEFAULT_ORDER) {
@@ -75,12 +120,12 @@ public abstract class PreferenceGroup extends Preference {
                 preference.setOrder(mCurrentPreferenceOrder++);
             }
 
-            if (preference instanceof de.dlyt.yanndroid.oneui.preference.PreferenceGroup) {
-                ((de.dlyt.yanndroid.oneui.preference.PreferenceGroup) preference).setOrderingAsAdded(mOrderingAsAdded);
+            if (preference instanceof PreferenceGroup) {
+                ((PreferenceGroup) preference).setOrderingAsAdded(mOrderingAsAdded);
             }
         }
 
-        int insertionIndex = Collections.binarySearch(mPreferenceList, preference);
+        int insertionIndex = Collections.binarySearch(mPreferences, preference);
         if (insertionIndex < 0) {
             insertionIndex = insertionIndex * -1 - 1;
         }
@@ -90,7 +135,7 @@ public abstract class PreferenceGroup extends Preference {
         }
 
         synchronized (this) {
-            mPreferenceList.add(insertionIndex, preference);
+            mPreferences.add(insertionIndex, preference);
         }
 
         final PreferenceManager preferenceManager = getPreferenceManager();
@@ -114,19 +159,27 @@ public abstract class PreferenceGroup extends Preference {
         return true;
     }
 
-    public boolean removePreference(Preference preference) {
-        boolean returnValue = removePreferenceInt(preference);
+    public boolean removePreference(@NonNull Preference preference) {
+        final boolean returnValue = removePreferenceInt(preference);
         notifyHierarchyChanged();
         return returnValue;
     }
 
-    private boolean removePreferenceInt(Preference preference) {
+    public boolean removePreferenceRecursively(@NonNull CharSequence key) {
+        final Preference preference = findPreference(key);
+        if (preference == null) {
+            return false;
+        }
+        return preference.getParent().removePreference(preference);
+    }
+
+    private boolean removePreferenceInt(@NonNull Preference preference) {
         synchronized (this) {
             preference.onPrepareForRemoval();
             if (preference.getParent() == this) {
                 preference.assignParent(null);
             }
-            boolean success = mPreferenceList.remove(preference);
+            boolean success = mPreferences.remove(preference);
             if (success) {
                 final String key = preference.getKey();
                 if (key != null) {
@@ -143,37 +196,64 @@ public abstract class PreferenceGroup extends Preference {
         }
     }
 
-    protected boolean onPrepareAddPreference(Preference preference) {
+    public void removeAll() {
+        synchronized (this) {
+            List<Preference> preferences = mPreferences;
+            for (int i = preferences.size() - 1; i >= 0; i--) {
+                removePreferenceInt(preferences.get(0));
+            }
+        }
+        notifyHierarchyChanged();
+    }
+
+    protected boolean onPrepareAddPreference(@NonNull Preference preference) {
         preference.onParentChanged(this, shouldDisableDependents());
         return true;
     }
 
-    public Preference findPreference(CharSequence key) {
+    @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
+    @Nullable
+    public <T extends Preference> T findPreference(@NonNull CharSequence key) {
+        if (key == null) {
+            throw new IllegalArgumentException("Key cannot be null");
+        }
         if (TextUtils.equals(getKey(), key)) {
-            return this;
+            return (T) this;
         }
         final int preferenceCount = getPreferenceCount();
         for (int i = 0; i < preferenceCount; i++) {
             final Preference preference = getPreference(i);
             final String curKey = preference.getKey();
 
-            if (curKey != null && curKey.equals(key)) {
-                return preference;
+            if (TextUtils.equals(curKey, key)) {
+                return (T) preference;
             }
 
-            if (preference instanceof de.dlyt.yanndroid.oneui.preference.PreferenceGroup) {
-                final Preference returnedPreference = ((de.dlyt.yanndroid.oneui.preference.PreferenceGroup) preference).findPreference(key);
+            if (preference instanceof PreferenceGroup) {
+                final T returnedPreference = ((PreferenceGroup) preference).findPreference(key);
                 if (returnedPreference != null) {
                     return returnedPreference;
                 }
             }
         }
-
         return null;
     }
 
     protected boolean isOnSameScreenAsChildren() {
         return true;
+    }
+
+    public boolean isAttached() {
+        return mAttachedToHierarchy;
+    }
+
+    public void setOnExpandButtonClickListener(@Nullable OnExpandButtonClickListener onExpandButtonClickListener) {
+        mOnExpandButtonClickListener = onExpandButtonClickListener;
+    }
+
+    @Nullable
+    public OnExpandButtonClickListener getOnExpandButtonClickListener() {
+        return mOnExpandButtonClickListener;
     }
 
     @Override
@@ -212,12 +292,12 @@ public abstract class PreferenceGroup extends Preference {
 
     void sortPreferences() {
         synchronized (this) {
-            Collections.sort(mPreferenceList);
+            Collections.sort(mPreferences);
         }
     }
 
     @Override
-    protected void dispatchSaveInstanceState(Bundle container) {
+    protected void dispatchSaveInstanceState(@NonNull Bundle container) {
         super.dispatchSaveInstanceState(container);
 
         final int preferenceCount = getPreferenceCount();
@@ -227,7 +307,7 @@ public abstract class PreferenceGroup extends Preference {
     }
 
     @Override
-    protected void dispatchRestoreInstanceState(Bundle container) {
+    protected void dispatchRestoreInstanceState(@NonNull Bundle container) {
         super.dispatchRestoreInstanceState(container);
 
         final int preferenceCount = getPreferenceCount();
@@ -236,10 +316,63 @@ public abstract class PreferenceGroup extends Preference {
         }
     }
 
+    @NonNull
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        final Parcelable superState = super.onSaveInstanceState();
+        return new SavedState(superState, mInitialExpandedChildrenCount);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@Nullable Parcelable state) {
+        if (state == null || !state.getClass().equals(SavedState.class)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+        SavedState groupState = (SavedState) state;
+        mInitialExpandedChildrenCount = groupState.mInitialExpandedChildrenCount;
+        super.onRestoreInstanceState(groupState.getSuperState());
+    }
 
     public interface PreferencePositionCallback {
-        int getPreferenceAdapterPosition(Preference preference);
+        int getPreferenceAdapterPosition(@NonNull String key);
 
-        int getPreferenceAdapterPosition(String str);
+        int getPreferenceAdapterPosition(@NonNull Preference preference);
+    }
+
+    public interface OnExpandButtonClickListener {
+        void onExpandButtonClick();
+    }
+
+    static class SavedState extends Preference.BaseSavedState {
+        int mInitialExpandedChildrenCount;
+
+        SavedState(Parcel source) {
+            super(source);
+            mInitialExpandedChildrenCount = source.readInt();
+        }
+
+        SavedState(Parcelable superState, int initialExpandedChildrenCount) {
+            super(superState);
+            mInitialExpandedChildrenCount = initialExpandedChildrenCount;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeInt(mInitialExpandedChildrenCount);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+            @Override
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            @Override
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
     }
 }

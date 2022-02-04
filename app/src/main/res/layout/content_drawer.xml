@@ -22,21 +22,21 @@
                 android:layout_height="wrap_content"
                 app:selectedOptionButton="@id/ob2">
 
-                <de.dlyt.yanndroid.oneui.view.OptionButton
+                <de.dlyt.yanndroid.oneui.widget.OptionButton
                     android:id="@+id/ob1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_samsung_info_2"
                     app:text="Option 1" />
 
-                <de.dlyt.yanndroid.oneui.view.OptionButton
+                <de.dlyt.yanndroid.oneui.widget.OptionButton
                     android:id="@+id/ob2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_samsung_info_2"
                     app:text="Option 2" />
 
-                <de.dlyt.yanndroid.oneui.view.OptionButton
+                <de.dlyt.yanndroid.oneui.widget.OptionButton
                     android:id="@+id/ob3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
 
             <View style="@style/DrawerDividerStyle" />
 
-            <de.dlyt.yanndroid.oneui.view.OptionButton
+            <de.dlyt.yanndroid.oneui.widget.OptionButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:counter="4"
@@ -56,7 +56,7 @@
                 app:icon="@drawable/ic_samsung_plus"
                 app:text="Add" />
 
-            <de.dlyt.yanndroid.oneui.view.OptionButton
+            <de.dlyt.yanndroid.oneui.widget.OptionButton
                 android:id="@+id/ob_help"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,13 +69,13 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <de.dlyt.yanndroid.oneui.view.SeekBar
+                <de.dlyt.yanndroid.oneui.widget.SeekBar
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="10dp"
                     app:seslSeekBarMode="expand_vertical" />
 
-                <de.dlyt.yanndroid.oneui.view.SeekBar
+                <de.dlyt.yanndroid.oneui.widget.SeekBar
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="10dp"

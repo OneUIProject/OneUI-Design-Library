@@ -3,6 +3,7 @@
     <dimen name="sesl_color_picker_color_swatch_view_height">194.0dip</dimen>
     <dimen name="sesl_color_picker_color_swatch_view_width">194.0dip</dimen>
     <dimen name="sesl_color_picker_main_content_width">520.0dip</dimen>
+    <dimen name="sesl_color_picker_oneui_3_main_content_width">600.0dip</dimen>
     <dimen name="sesl_color_picker_opacity_seekbar_background_width">257.5dip</dimen>
     <dimen name="sesl_color_picker_seekbar_width">268.0dip</dimen>
     <dimen name="sesl_color_picker_selected_color_focus_width">129.0dip</dimen>

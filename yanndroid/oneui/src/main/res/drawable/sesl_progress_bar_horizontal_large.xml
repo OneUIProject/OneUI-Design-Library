@@ -4,7 +4,7 @@
         <shape>
             <corners android:radius="@dimen/progress_bar_radius" />
             <size android:height="@dimen/progress_bar_height" />
-            <solid android:color="@color/progress_bar_background_color" />
+            <solid android:color="@color/sesl4_progress_control_color_normal" />
         </shape>
     </item>
     <item android:id="@android:id/progress">

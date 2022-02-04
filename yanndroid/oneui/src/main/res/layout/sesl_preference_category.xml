@@ -1,5 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/title"
-    style="?android:listSeparatorTextViewStyle"
-    android:tag="preferencecategory" />
+    android:id="@android:id/title" android:tag="preferencecategory" style="?android:listSeparatorTextViewStyle" />

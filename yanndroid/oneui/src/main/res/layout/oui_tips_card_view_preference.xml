@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="?colorPrimary"
+    android:foreground="?selectableItemBackground"
+    android:orientation="vertical"
+    android:padding="18.0dip">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8.0dip"
+        android:paddingStart="5.0dip">
+
+        <TextView
+            android:id="@android:id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5.0dip"
+            android:layout_marginBottom="8.0dip"
+            android:fontFamily="@string/sesl_font_family_regular"
+            android:textAppearance="?textAppearanceListItem"
+            android:textColor="@color/tips_card_view_item_color" />
+
+        <TextView
+            android:id="@android:id/summary"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@android:id/title"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="38.0dip"
+            android:fontFamily="@string/sesl_font_family_regular"
+            android:textAlignment="viewStart"
+            android:textColor="@color/tips_card_view_item_color"
+            android:textSize="15.0sp"
+            android:textStyle="normal" />
+
+        <ImageView
+            android:id="@+id/tips_cancel_button"
+            android:layout_width="22.0dip"
+            android:layout_height="22.0dip"
+            android:layout_alignParentEnd="true"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:src="@drawable/oui_tips_card_view_cancel_button"
+            app:tint="@color/tips_card_view_item_color" />
+    </RelativeLayout>
+</RelativeLayout>

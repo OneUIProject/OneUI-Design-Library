@@ -12,6 +12,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -87,7 +88,7 @@ public class HorizontalRadioPreference extends Preference {
         mSelectedColor = color.data;
         mUnselectedColor = ContextCompat.getColor(getContext(), R.color.widget_multi_button_unselected_icon_color);
 
-        setLayoutResource(R.layout.radio_button_layout_horizontal_preference);
+        setLayoutResource(R.layout.oui_radio_button_layout_horizontal_preference);
     }
 
     @Override
@@ -157,7 +158,7 @@ public class HorizontalRadioPreference extends Preference {
                             case KeyEvent.ACTION_UP:
                                 if (!mIsTouchEffectEnabled)
                                     v.setAlpha(1.0f);
-                                v.playSoundEffect(0);
+                                v.playSoundEffect(SoundEffectConstants.CLICK);
                                 v.callOnClick();
                         }
                     }

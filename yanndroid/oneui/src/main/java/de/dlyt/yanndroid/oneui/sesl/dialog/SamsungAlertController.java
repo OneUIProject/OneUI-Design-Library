@@ -1,7 +1,7 @@
 package de.dlyt.yanndroid.oneui.sesl.dialog;
 
-import android.annotation.SuppressLint;
-import android.content.ContentResolver;
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -20,16 +20,18 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
 import android.view.ViewStub;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.CursorAdapter;
-import android.widget.EdgeEffect;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,969 +40,911 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialog;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.view.ViewCompat;
+import androidx.reflect.widget.SeslAdapterViewReflector;
+import androidx.reflect.widget.SeslTextViewReflector;
 
 import java.lang.ref.WeakReference;
 
 import de.dlyt.yanndroid.oneui.R;
-import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
-import de.dlyt.yanndroid.oneui.sesl.utils.SamsungEdgeEffect;
-import de.dlyt.yanndroid.oneui.view.NestedScrollView;
+import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
+import de.dlyt.yanndroid.oneui.widget.NestedScrollView;
 
 public class SamsungAlertController {
-    public final int mButtonIconDimen;
-    public final Context mContext;
-    public final AppCompatDialog mDialog;
-    public final Window mWindow;
-    public ListAdapter mAdapter;
-    public int mAlertDialogLayout;
-    public Button mButtonNegative;
-    public Drawable mButtonNegativeIcon;
-    public Message mButtonNegativeMessage;
-    public CharSequence mButtonNegativeText;
-    public Button mButtonNeutral;
-    public Drawable mButtonNeutralIcon;
-    public Message mButtonNeutralMessage;
-    public CharSequence mButtonNeutralText;
-    public int mButtonPanelLayoutHint = 0;
-    public int mButtonPanelSideLayout;
-    public Button mButtonPositive;
-    public Drawable mButtonPositiveIcon;
-    public Message mButtonPositiveMessage;
-    public CharSequence mButtonPositiveText;
-    public int mCheckedItem = -1;
-    public View mCustomTitleView;
-    public Handler mHandler;
-    public final View.OnClickListener mButtonHandler = new View.OnClickListener() {
-        public void onClick(View var1) {
-            Message var3;
-            label33:
-            {
-                SamsungAlertController var2 = SamsungAlertController.this;
-                Message var4;
-                if (var1 == var2.mButtonPositive) {
-                    var4 = var2.mButtonPositiveMessage;
-                    if (var4 != null) {
-                        var3 = Message.obtain(var4);
-                        break label33;
-                    }
-                }
+    private boolean mIsOneUI4;
+    ListAdapter mAdapter;
+    private int mAlertDialogLayout;
+    private final int mButtonIconDimen;
+    Button mButtonNegative;
+    private Drawable mButtonNegativeIcon;
+    Message mButtonNegativeMessage;
+    private CharSequence mButtonNegativeText;
+    private int mButtonNegativeColor;
+    private boolean mButtonNegativeProgress;
+    Button mButtonNeutral;
+    private Drawable mButtonNeutralIcon;
+    Message mButtonNeutralMessage;
+    private CharSequence mButtonNeutralText;
+    private int mButtonNeutralColor;
+    private boolean mButtonNeutralProgress;
+    private int mButtonPanelSideLayout;
+    Button mButtonPositive;
+    private Drawable mButtonPositiveIcon;
+    Message mButtonPositiveMessage;
+    private CharSequence mButtonPositiveText;
+    private int mButtonPositiveColor;
+    private boolean mButtonPositiveProgress;
+    private final Context mContext;
+    private View mCustomTitleView;
+    final AppCompatDialog mDialog;
+    Handler mHandler;
+    private Drawable mIcon;
+    private ImageView mIconView;
+    private int mLastOrientation;
+    int mListItemLayout;
+    int mListLayout;
+    ListView mListView;
+    private CharSequence mMessage;
+    private TextView mMessageView;
+    int mMultiChoiceItemLayout;
+    NestedScrollView mScrollView;
+    private boolean mShowTitle;
+    int mSingleChoiceItemLayout;
+    private CharSequence mTitle;
+    private TextView mTitleView;
+    private View mView;
+    private int mViewLayoutResId;
+    private int mViewSpacingBottom;
+    private int mViewSpacingLeft;
+    private int mViewSpacingRight;
+    private int mViewSpacingTop;
+    private final Window mWindow;
+    private boolean mViewSpacingSpecified = false;
+    private int mIconId = 0;
+    int mCheckedItem = -1;
+    private int mButtonPanelLayoutHint = AlertDialog.LAYOUT_HINT_NONE;
 
-                var2 = SamsungAlertController.this;
-                if (var1 == var2.mButtonNegative) {
-                    var4 = var2.mButtonNegativeMessage;
-                    if (var4 != null) {
-                        var3 = Message.obtain(var4);
-                        break label33;
-                    }
-                }
-
-                var2 = SamsungAlertController.this;
-                if (var1 == var2.mButtonNeutral) {
-                    var3 = var2.mButtonNeutralMessage;
-                    if (var3 != null) {
-                        var3 = Message.obtain(var3);
-                        break label33;
-                    }
-                }
-
-                var3 = null;
+    private final View.OnClickListener mButtonHandler = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            final Message m;
+            if (v == mButtonPositive && mButtonPositiveMessage != null) {
+                m = Message.obtain(mButtonPositiveMessage);
+            } else if (v == mButtonNegative && mButtonNegativeMessage != null) {
+                m = Message.obtain(mButtonNegativeMessage);
+            } else if (v == mButtonNeutral && mButtonNeutralMessage != null) {
+                m = Message.obtain(mButtonNeutralMessage);
+            } else {
+                m = null;
             }
 
-            if (var3 != null) {
-                var3.sendToTarget();
+            if (m != null) {
+                m.sendToTarget();
             }
 
-            SamsungAlertController var5 = SamsungAlertController.this;
-            var5.mHandler.obtainMessage(1, var5.mDialog).sendToTarget();
+            if ((mButtonPositive.equals(v) && mButtonPositiveProgress)
+                    || (mButtonNegative.equals(v) && mButtonNegativeProgress)
+                    || (mButtonNeutral.equals(v) && mButtonNeutralProgress)) {
+                mDialog.setCancelable(false);
+                mDialog.setCanceledOnTouchOutside(false);
+                if (mButtonPositive != null) mButtonPositive.setEnabled(false);
+                if (mButtonNegative != null) mButtonNegative.setEnabled(false);
+                if (mButtonNeutral != null) mButtonNeutral.setEnabled(false);
+
+                ViewGroup buttonBar = (ViewGroup) v.getParent();
+                if (buttonBar != null) {
+                    int buttonIndex = buttonBar.indexOfChild(v);
+                    ViewGroup.LayoutParams lp = v.getLayoutParams();
+                    lp.height = mContext.getResources().getDimensionPixelSize(R.dimen.sesl_dialog_button_min_height);
+                    lp.width = mContext.getResources().getDimensionPixelSize(R.dimen.sesl_dialog_button_min_height);
+
+                    View inflate = LayoutInflater.from(mContext).inflate(R.layout.oui_dialog_progress_bar, buttonBar, false);
+                    inflate.setLayoutParams(lp);
+
+                    buttonBar.removeView(v);
+                    buttonBar.addView(inflate, buttonIndex);
+                }
+            } else {
+                mHandler.obtainMessage(ButtonHandler.MSG_DISMISS_DIALOG, mDialog).sendToTarget();
+            }
         }
     };
-    public Drawable mIcon;
-    public int mIconId = 0;
-    public ImageView mIconView;
-    public int mLastOrientation;
-    public int mListItemLayout;
-    public int mListLayout;
-    public ListView mListView;
-    public CharSequence mMessage;
-    public TextView mMessageView;
-    public int mMultiChoiceItemLayout;
-    public NestedScrollView mScrollView;
-    public boolean mShowTitle;
-    public int mSingleChoiceItemLayout;
-    public CharSequence mTitle;
-    public TextView mTitleView;
-    public View mView;
-    public int mViewLayoutResId;
-    public int mViewSpacingBottom;
-    public int mViewSpacingLeft;
-    public int mViewSpacingRight;
-    public boolean mViewSpacingSpecified = false;
-    public int mViewSpacingTop;
 
-    public SamsungAlertController(Context var1, AppCompatDialog var2, Window var3) {
-        this.mContext = var1;
-        this.mDialog = var2;
-        this.mWindow = var3;
-        this.mHandler = new ButtonHandler(var2);
-        TypedArray var4 = var1.obtainStyledAttributes((AttributeSet) null, R.styleable.SamsungAlertDialog, R.attr.alertDialogStyle, 0);
-        this.mAlertDialogLayout = var4.getResourceId(R.styleable.SamsungAlertDialog_android_layout, 0);
-        this.mButtonPanelSideLayout = var4.getResourceId(R.styleable.SamsungAlertDialog_buttonPanelSideLayout, 0);
-        this.mListLayout = var4.getResourceId(R.styleable.SamsungAlertDialog_listLayout, 0);
-        this.mMultiChoiceItemLayout = var4.getResourceId(R.styleable.SamsungAlertDialog_multiChoiceItemLayout, 0);
-        this.mSingleChoiceItemLayout = var4.getResourceId(R.styleable.SamsungAlertDialog_singleChoiceItemLayout, 0);
-        this.mListItemLayout = var4.getResourceId(R.styleable.SamsungAlertDialog_listItemLayout, 0);
-        this.mShowTitle = var4.getBoolean(R.styleable.SamsungAlertDialog_showTitle, true);
-        this.mButtonIconDimen = var4.getDimensionPixelSize(R.styleable.SamsungAlertDialog_buttonIconDimen, 0);
-        var4.recycle();
-        var3.setGravity(Gravity.BOTTOM);
-        var2.supportRequestWindowFeature(1);
+    private static final class ButtonHandler extends Handler {
+        private static final int MSG_DISMISS_DIALOG = 1;
+        private WeakReference<DialogInterface> mDialog;
+
+        public ButtonHandler(DialogInterface dialog) {
+            mDialog = new WeakReference<>(dialog);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case DialogInterface.BUTTON_POSITIVE:
+                case DialogInterface.BUTTON_NEGATIVE:
+                case DialogInterface.BUTTON_NEUTRAL:
+                    ((DialogInterface.OnClickListener) msg.obj).onClick(mDialog.get(), msg.what);
+                    break;
+                case MSG_DISMISS_DIALOG:
+                    ((DialogInterface) msg.obj).dismiss();
+            }
+        }
     }
 
-    public static boolean canTextInput(View var0) {
-        if (var0.onCheckIsTextEditor()) {
+    private static boolean shouldCenterSingleButton(Context context) {
+        final TypedValue outValue = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.alertDialogCenterButtons, outValue, true);
+        return outValue.data != 0;
+    }
+
+    public SamsungAlertController(Context context, AppCompatDialog di, Window window) {
+        mContext = context;
+        mDialog = di;
+        mWindow = window;
+        mHandler = new ButtonHandler(di);
+
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
+
+        final TypedArray a = context.obtainStyledAttributes(null, R.styleable.SamsungAlertDialog, R.attr.alertDialogStyle, 0);
+
+        mAlertDialogLayout = a.getResourceId(R.styleable.SamsungAlertDialog_android_layout, 0);
+        mButtonPanelSideLayout = a.getResourceId(R.styleable.SamsungAlertDialog_buttonPanelSideLayout, 0);
+
+        mListLayout = a.getResourceId(R.styleable.SamsungAlertDialog_listLayout, 0);
+        mMultiChoiceItemLayout = a.getResourceId(R.styleable.SamsungAlertDialog_multiChoiceItemLayout, 0);
+        mSingleChoiceItemLayout = a.getResourceId(R.styleable.SamsungAlertDialog_singleChoiceItemLayout, 0);
+        mListItemLayout = a.getResourceId(R.styleable.SamsungAlertDialog_listItemLayout, 0);
+        mShowTitle = a.getBoolean(R.styleable.SamsungAlertDialog_showTitle, true);
+        mButtonIconDimen = a.getDimensionPixelSize(R.styleable.SamsungAlertDialog_buttonIconDimen, 0);
+
+        a.recycle();
+
+        // for devices without SamsungBasicInteraction flag
+        window.setGravity(Gravity.BOTTOM);
+
+        di.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+    }
+
+    static boolean canTextInput(View v) {
+        if (v.onCheckIsTextEditor()) {
             return true;
-        } else if (!(var0 instanceof ViewGroup)) {
+        }
+
+        if (!(v instanceof ViewGroup)) {
             return false;
-        } else {
-            ViewGroup var3 = (ViewGroup) var0;
-            int var1 = var3.getChildCount();
-
-            int var2;
-            do {
-                if (var1 <= 0) {
-                    return false;
-                }
-
-                var2 = var1 - 1;
-                var1 = var2;
-            } while (!canTextInput(var3.getChildAt(var2)));
-
-            return true;
         }
-    }
 
-    public static void manageScrollIndicators(View var0, View var1, View var2) {
-        byte var3 = 0;
-        byte var4;
-        if (var1 != null) {
-            if (var0.canScrollVertically(-1)) {
-                var4 = 0;
-            } else {
-                var4 = 4;
+        ViewGroup vg = (ViewGroup) v;
+        int i = vg.getChildCount();
+        while (i > 0) {
+            i--;
+            v = vg.getChildAt(i);
+            if (canTextInput(v)) {
+                return true;
             }
-
-            var1.setVisibility(var4);
         }
 
-        if (var2 != null) {
-            if (var0.canScrollVertically(1)) {
-                var4 = var3;
-            } else {
-                var4 = 4;
-            }
-
-            var2.setVisibility(var4);
-        }
-
+        return false;
     }
 
-    public static boolean shouldCenterSingleButton(Context var0) {
-        TypedValue var1 = new TypedValue();
-        Resources.Theme var4 = var0.getTheme();
-        int var2 = R.attr.alertDialogCenterButtons;
-        boolean var3 = true;
-        var4.resolveAttribute(var2, var1, true);
-        if (var1.data == 0) {
-            var3 = false;
-        }
-
-        return var3;
-    }
-
-    @SuppressLint("WrongConstant")
-    private void adjustButtonsPadding() {
-        int var1 = this.mContext.getResources().getDimensionPixelSize(R.dimen.sesl_dialog_button_text_size);
-        if (this.mButtonPositive.getVisibility() != 8) {
-            this.mButtonPositive.setTextSize(0, (float) var1);
-            this.checkMaxFontScale(this.mButtonPositive, var1);
-        }
-
-        if (this.mButtonNegative.getVisibility() != 8) {
-            this.mButtonNegative.setTextSize(0, (float) var1);
-            this.checkMaxFontScale(this.mButtonNegative, var1);
-        }
-
-        if (this.mButtonNeutral.getVisibility() != 8) {
-            this.mButtonNeutral.setTextSize(0, (float) var1);
-            this.checkMaxFontScale(this.mButtonNeutral, var1);
-        }
-
-    }
-
-    private void adjustParentPanelPadding(View var1) {
-        var1.setPadding(0, 0, 0, 0);
-    }
-
-    private void adjustTopPanelPadding(View var1) {
-        View var2 = var1.findViewById(R.id.title_template);
-        Resources var3 = this.mContext.getResources();
-        var2.setPadding(var3.getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal), 0, var3.getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal), 0);
-    }
-
-    private void centerButton(Button var1) {
-        LinearLayout.LayoutParams var2 = (LinearLayout.LayoutParams) var1.getLayoutParams();
-        var2.gravity = 1;
-        var2.weight = 0.5F;
-        var1.setLayoutParams(var2);
-    }
-
-    private void checkMaxFontScale(TextView var1, int var2) {
-        float var3 = this.mContext.getResources().getConfiguration().fontScale;
-        if (var3 > 1.3F) {
-            var1.setTextSize(0, (float) var2 / var3 * 1.3F);
-        }
-
-    }
-
-    private ViewGroup resolvePanel(View var1, View var2) {
-        if (var1 == null) {
-            var1 = var2;
-            if (var2 instanceof ViewStub) {
-                var1 = ((ViewStub) var2).inflate();
-            }
-
-            return (ViewGroup) var1;
-        } else {
-            if (var2 != null) {
-                ViewParent var3 = var2.getParent();
-                if (var3 instanceof ViewGroup) {
-                    ((ViewGroup) var3).removeView(var2);
-                }
-            }
-
-            var2 = var1;
-            if (var1 instanceof ViewStub) {
-                var2 = ((ViewStub) var1).inflate();
-            }
-
-            return (ViewGroup) var2;
-        }
+    public void installContent() {
+        final int contentView = selectContentView();
+        mDialog.setContentView(contentView);
+        setupView();
     }
 
     private int selectContentView() {
-        int var1 = this.mButtonPanelSideLayout;
-        if (var1 == 0) {
-            return this.mAlertDialogLayout;
-        } else {
-            return this.mButtonPanelLayoutHint == 1 ? var1 : this.mAlertDialogLayout;
+        if (mButtonPanelSideLayout == 0) {
+            return mAlertDialogLayout;
+        }
+        if (mButtonPanelLayoutHint == AlertDialog.LAYOUT_HINT_SIDE) {
+            return mButtonPanelSideLayout;
+        }
+        return mAlertDialogLayout;
+    }
+
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        if (mTitleView != null) {
+            mTitleView.setText(title);
         }
     }
 
-    private void setScrollIndicators(ViewGroup var1, View var2, int var3, int var4) {
-        View var5 = this.mWindow.findViewById(R.id.scrollIndicatorUp);
-        View var6 = this.mWindow.findViewById(R.id.scrollIndicatorDown);
-        if (Build.VERSION.SDK_INT >= 23) {
-            ViewCompat.setScrollIndicators(var2, var3, var4);
-            if (var5 != null) {
-                var1.removeView(var5);
-            }
-
-            if (var6 != null) {
-                var1.removeView(var6);
-            }
-        } else {
-            ListView var7 = null;
-            var2 = var5;
-            if (var5 != null) {
-                var2 = var5;
-                if ((var3 & 1) == 0) {
-                    var1.removeView(var5);
-                    var2 = null;
-                }
-            }
-
-            if (var6 != null && (var3 & 2) == 0) {
-                var1.removeView(var6);
-                var6 = var7;
-            }
-
-            if (var2 != null || var6 != null) {
-                if (this.mMessage != null) {
-                    final View finalVar = var2;
-                    final View finalVar1 = var6;
-                    this.mScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-                        public void onScrollChange(NestedScrollView var1, int var2x, int var3, int var4, int var5) {
-                            SamsungAlertController.manageScrollIndicators(var1, finalVar, finalVar1);
-                        }
-                    });
-                    final View finalVar2 = var2;
-                    final View finalVar3 = var6;
-                    this.mScrollView.post(new Runnable() {
-                        public void run() {
-                            SamsungAlertController.manageScrollIndicators(SamsungAlertController.this.mScrollView, finalVar2, finalVar3);
-                        }
-                    });
-                } else {
-                    var7 = this.mListView;
-                    if (var7 != null) {
-                        final View finalVar4 = var2;
-                        final View finalVar5 = var6;
-                        var7.setOnScrollListener(new AbsListView.OnScrollListener() {
-                            public void onScroll(AbsListView var1, int var2x, int var3, int var4) {
-                                SamsungAlertController.manageScrollIndicators(var1, finalVar4, finalVar5);
-                            }
-
-                            public void onScrollStateChanged(AbsListView var1, int var2x) {
-                            }
-                        });
-                        final View finalVar6 = var2;
-                        final View finalVar7 = var6;
-                        this.mListView.post(new Runnable() {
-                            public void run() {
-                                SamsungAlertController.manageScrollIndicators(SamsungAlertController.this.mListView, finalVar6, finalVar7);
-                            }
-                        });
-                    } else {
-                        if (var2 != null) {
-                            var1.removeView(var2);
-                        }
-
-                        if (var6 != null) {
-                            var1.removeView(var6);
-                        }
-                    }
-                }
-            }
-        }
-
+    public void setCustomTitle(View customTitleView) {
+        mCustomTitleView = customTitleView;
     }
 
-    @SuppressLint("WrongConstant")
-    private void setupButtons(ViewGroup var1) {
-        ContentResolver var2 = this.mContext.getContentResolver();
-        boolean var3 = true;
-        boolean var4;
-        if (var2 != null && Settings.System.getInt(var2, "show_button_background", 0) == 1) {
-            var4 = true;
-        } else {
-            var4 = false;
-        }
-
-        TypedValue var10 = new TypedValue();
-        this.mContext.getTheme().resolveAttribute(16842801, var10, true);
-        int var5 = -1;
-        if (var10.resourceId > 0) {
-            var5 = this.mContext.getResources().getColor(var10.resourceId, null);
-        }
-
-        this.mButtonPositive = (Button) var1.findViewById(R.id.button1);
-        this.mButtonPositive.setOnClickListener(this.mButtonHandler);
-        if (Build.VERSION.SDK_INT > 26) {
-            if (var10.resourceId > 0) {
-                ReflectUtils.genericInvokeMethod(this.mButtonPositive, Build.VERSION.SDK_INT >= 29 ? "hidden_semSetButtonShapeEnabled" : "semSetButtonShapeEnabled", var4, var5);
-            } else {
-                ReflectUtils.genericInvokeMethod(this.mButtonPositive, Build.VERSION.SDK_INT >= 29 ? "hidden_semSetButtonShapeEnabled" : "semSetButtonShapeEnabled", var4);
-            }
-        } else if (var4) {
-            this.mButtonPositive.setBackgroundResource(R.drawable.sesl_dialog_btn_show_button_shapes_background);
-        }
-
-        int var6;
-        Drawable var7;
-        if (TextUtils.isEmpty(this.mButtonPositiveText) && this.mButtonPositiveIcon == null) {
-            this.mButtonPositive.setVisibility(8);
-            var6 = 0;
-        } else {
-            this.mButtonPositive.setText(this.mButtonPositiveText);
-            var7 = this.mButtonPositiveIcon;
-            if (var7 != null) {
-                var6 = this.mButtonIconDimen;
-                var7.setBounds(0, 0, var6, var6);
-                this.mButtonPositive.setCompoundDrawables(this.mButtonPositiveIcon, (Drawable) null, (Drawable) null, (Drawable) null);
-            }
-
-            this.mButtonPositive.setVisibility(0);
-            var6 = 1;
-        }
-
-        this.mButtonNegative = (Button) var1.findViewById(R.id.button2);
-        this.mButtonNegative.setOnClickListener(this.mButtonHandler);
-        if (Build.VERSION.SDK_INT > 26) {
-            if (var10.resourceId > 0) {
-                ReflectUtils.genericInvokeMethod(this.mButtonNegative, Build.VERSION.SDK_INT >= 29 ? "hidden_semSetButtonShapeEnabled" : "semSetButtonShapeEnabled", var4, var5);
-            } else {
-                ReflectUtils.genericInvokeMethod(this.mButtonNegative, Build.VERSION.SDK_INT >= 29 ? "hidden_semSetButtonShapeEnabled" : "semSetButtonShapeEnabled", var4);
-            }
-        } else if (var4) {
-            this.mButtonNegative.setBackgroundResource(R.drawable.sesl_dialog_btn_show_button_shapes_background);
-        }
-
-        if (TextUtils.isEmpty(this.mButtonNegativeText) && this.mButtonNegativeIcon == null) {
-            this.mButtonNegative.setVisibility(8);
-        } else {
-            this.mButtonNegative.setText(this.mButtonNegativeText);
-            var7 = this.mButtonNegativeIcon;
-            if (var7 != null) {
-                int var8 = this.mButtonIconDimen;
-                var7.setBounds(0, 0, var8, var8);
-                this.mButtonNegative.setCompoundDrawables(this.mButtonNegativeIcon, (Drawable) null, (Drawable) null, (Drawable) null);
-            }
-
-            this.mButtonNegative.setVisibility(0);
-            var6 |= 2;
-        }
-
-        this.mButtonNeutral = (Button) var1.findViewById(R.id.button3);
-        this.mButtonNeutral.setOnClickListener(this.mButtonHandler);
-        if (Build.VERSION.SDK_INT > 26) {
-            if (var10.resourceId > 0) {
-                ReflectUtils.genericInvokeMethod(this.mButtonNeutral, Build.VERSION.SDK_INT >= 29 ? "hidden_semSetButtonShapeEnabled" : "semSetButtonShapeEnabled", var4, var5);
-            } else {
-                ReflectUtils.genericInvokeMethod(this.mButtonNeutral, Build.VERSION.SDK_INT >= 29 ? "hidden_semSetButtonShapeEnabled" : "semSetButtonShapeEnabled", var4);
-            }
-        } else if (var4) {
-            this.mButtonNeutral.setBackgroundResource(R.drawable.sesl_dialog_btn_show_button_shapes_background);
-        }
-
-        if (TextUtils.isEmpty(this.mButtonNeutralText) && this.mButtonNeutralIcon == null) {
-            this.mButtonNeutral.setVisibility(8);
-        } else {
-            this.mButtonNeutral.setText(this.mButtonNeutralText);
-            Drawable var11 = this.mButtonPositiveIcon;
-            if (var11 != null) {
-                var5 = this.mButtonIconDimen;
-                var11.setBounds(0, 0, var5, var5);
-                this.mButtonPositive.setCompoundDrawables(this.mButtonPositiveIcon, (Drawable) null, (Drawable) null, (Drawable) null);
-            }
-
-            this.mButtonNeutral.setVisibility(0);
-            var6 |= 4;
-        }
-
-        if (shouldCenterSingleButton(this.mContext)) {
-            if (var6 == 1) {
-                this.centerButton(this.mButtonPositive);
-            } else if (var6 == 2) {
-                this.centerButton(this.mButtonNegative);
-            } else if (var6 == 4) {
-                this.centerButton(this.mButtonNeutral);
-            }
-        }
-
-        boolean var13;
-        if (var6 != 0) {
-            var13 = true;
-        } else {
-            var13 = false;
-        }
-
-        if (!var13) {
-            var1.setVisibility(8);
-        }
-
-        if (this.mButtonNeutral.getVisibility() == 0) {
-            var13 = true;
-        } else {
-            var13 = false;
-        }
-
-        boolean var12;
-        if (this.mButtonPositive.getVisibility() == 0) {
-            var12 = true;
-        } else {
-            var12 = false;
-        }
-
-        if (this.mButtonNegative.getVisibility() != 0) {
-            var3 = false;
-        }
-
-        View var9 = this.mWindow.findViewById(R.id.sem_divider2);
-        if (var9 != null && (var13 && var12 || var13 && var3)) {
-            var9.setVisibility(0);
-        }
-
-        var9 = this.mWindow.findViewById(R.id.sem_divider1);
-        if (var9 != null && var12 && var3) {
-            var9.setVisibility(0);
-        }
-
-    }
-
-    @SuppressLint({"WrongConstant", "ResourceType"})
-    private void setupContent(ViewGroup var1) {
-        this.mScrollView = (NestedScrollView) this.mWindow.findViewById(R.id.scrollView);
-        this.mScrollView.setFocusable(false);
-        this.mScrollView.setNestedScrollingEnabled(false);
-        this.mMessageView = (TextView) var1.findViewById(16908299);
-        TextView var2 = this.mMessageView;
-        if (var2 != null) {
-            CharSequence var3 = this.mMessage;
-            if (var3 != null) {
-                var2.setText(var3);
-            } else {
-                var2.setVisibility(8);
-                this.mScrollView.removeView(this.mMessageView);
-                if (this.mListView != null) {
-                    var1 = (ViewGroup) this.mScrollView.getParent();
-                    int var4 = var1.indexOfChild(this.mScrollView);
-                    var1.removeViewAt(var4);
-                    var1.addView(this.mListView, var4, new ViewGroup.LayoutParams(-1, -1));
-                } else {
-                    var1.setVisibility(8);
-                }
-            }
-
+    public void setMessage(CharSequence message) {
+        mMessage = message;
+        if (mMessageView != null) {
+            mMessageView.setText(message);
         }
     }
 
-    @SuppressLint("WrongConstant")
-    private void setupCustomContent(ViewGroup var1) {
-        View var2 = this.mView;
-        boolean var3 = false;
-        if (var2 == null) {
-            if (this.mViewLayoutResId != 0) {
-                var2 = LayoutInflater.from(this.mContext).inflate(this.mViewLayoutResId, var1, false);
-            } else {
-                var2 = null;
-            }
-        }
-
-        if (var2 != null) {
-            var3 = true;
-        }
-
-        if (!var3 || !canTextInput(var2)) {
-            this.mWindow.setFlags(131072, 131072);
-        }
-
-        if (var3) {
-            FrameLayout var4 = (FrameLayout) this.mWindow.findViewById(R.id.custom);
-            var4.addView(var2, new ViewGroup.LayoutParams(-1, -1));
-            if (this.mViewSpacingSpecified) {
-                var4.setPadding(this.mViewSpacingLeft, this.mViewSpacingTop, this.mViewSpacingRight, this.mViewSpacingBottom);
-            }
-
-            if (this.mListView != null) {
-                if (var1.getLayoutParams() instanceof LinearLayout.LayoutParams) {
-                    ((LinearLayout.LayoutParams) var1.getLayoutParams()).weight = 0.0F;
-                } else {
-                    ((androidx.appcompat.widget.LinearLayoutCompat.LayoutParams) var1.getLayoutParams()).weight = 0.0F;
-                }
-            }
-        } else {
-            var1.setVisibility(8);
-        }
-
+    public void setView(int layoutResId) {
+        mView = null;
+        mViewLayoutResId = layoutResId;
+        mViewSpacingSpecified = false;
     }
 
-    @SuppressLint("WrongConstant")
+    public void setView(View view) {
+        mView = view;
+        mViewLayoutResId = 0;
+        mViewSpacingSpecified = false;
+    }
+
+    public void setView(View view, int viewSpacingLeft, int viewSpacingTop, int viewSpacingRight, int viewSpacingBottom) {
+        mView = view;
+        mViewLayoutResId = 0;
+        mViewSpacingSpecified = true;
+        mViewSpacingLeft = viewSpacingLeft;
+        mViewSpacingTop = viewSpacingTop;
+        mViewSpacingRight = viewSpacingRight;
+        mViewSpacingBottom = viewSpacingBottom;
+    }
+
+    public void setButtonPanelLayoutHint(int layoutHint) {
+        mButtonPanelLayoutHint = layoutHint;
+    }
+
+    public void setButton(int whichButton, CharSequence text, int color, boolean progress, DialogInterface.OnClickListener listener, Message msg, Drawable icon) {
+        if (msg == null && listener != null) {
+            msg = mHandler.obtainMessage(whichButton, listener);
+        }
+
+        switch (whichButton) {
+            case DialogInterface.BUTTON_POSITIVE:
+                mButtonPositiveText = text;
+                mButtonPositiveMessage = msg;
+                mButtonPositiveIcon = icon;
+                mButtonPositiveColor = color;
+                mButtonPositiveProgress = progress;
+                break;
+            case DialogInterface.BUTTON_NEGATIVE:
+                mButtonNegativeText = text;
+                mButtonNegativeMessage = msg;
+                mButtonNegativeIcon = icon;
+                mButtonNegativeColor = color;
+                mButtonNegativeProgress = progress;
+                break;
+            case DialogInterface.BUTTON_NEUTRAL:
+                mButtonNeutralText = text;
+                mButtonNeutralMessage = msg;
+                mButtonNeutralIcon = icon;
+                mButtonNeutralColor = color;
+                mButtonNeutralProgress = progress;
+                break;
+            default:
+                throw new IllegalArgumentException("Button does not exist");
+        }
+    }
+
+    public void setIcon(int resId) {
+        mIcon = null;
+        mIconId = resId;
+
+        if (mIconView != null) {
+            if (resId != 0) {
+                mIconView.setVisibility(View.VISIBLE);
+                mIconView.setImageResource(mIconId);
+            } else {
+                mIconView.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    public void setIcon(Drawable icon) {
+        mIcon = icon;
+        mIconId = 0;
+
+        if (mIconView != null) {
+            if (icon != null) {
+                mIconView.setVisibility(View.VISIBLE);
+                mIconView.setImageDrawable(icon);
+            } else {
+                mIconView.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    public int getIconAttributeResId(int attrId) {
+        TypedValue out = new TypedValue();
+        mContext.getTheme().resolveAttribute(attrId, out, true);
+        return out.resourceId;
+    }
+
+    public ListView getListView() {
+        return mListView;
+    }
+
+    public Button getButton(int whichButton) {
+        switch (whichButton) {
+            case DialogInterface.BUTTON_POSITIVE:
+                return mButtonPositive;
+            case DialogInterface.BUTTON_NEGATIVE:
+                return mButtonNegative;
+            case DialogInterface.BUTTON_NEUTRAL:
+                return mButtonNeutral;
+            default:
+                return null;
+        }
+    }
+
+    @SuppressWarnings({"UnusedDeclaration"})
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return mScrollView != null && mScrollView.executeKeyEvent(event);
+    }
+
+    @SuppressWarnings({"UnusedDeclaration"})
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        return mScrollView != null && mScrollView.executeKeyEvent(event);
+    }
+
+    @Nullable
+    private ViewGroup resolvePanel(@Nullable View customPanel, @Nullable View defaultPanel) {
+        if (customPanel == null) {
+            if (defaultPanel instanceof ViewStub) {
+                defaultPanel = ((ViewStub) defaultPanel).inflate();
+            }
+
+            return (ViewGroup) defaultPanel;
+        }
+
+        if (defaultPanel != null) {
+            final ViewParent parent = defaultPanel.getParent();
+            if (parent instanceof ViewGroup) {
+                ((ViewGroup) parent).removeView(defaultPanel);
+            }
+        }
+
+        if (customPanel instanceof ViewStub) {
+            customPanel = ((ViewStub) customPanel).inflate();
+        }
+
+        return (ViewGroup) customPanel;
+    }
+
     private void setupPaddings() {
-        View var1 = this.mWindow.findViewById(R.id.parentPanel);
-        View var2 = var1.findViewById(R.id.title_template);
-        View var3 = var1.findViewById(R.id.scrollView);
-        View var4 = var1.findViewById(R.id.buttonPanel);
-        Resources var5 = this.mContext.getResources();
-        ViewGroup var6 = (ViewGroup) var1.findViewById(R.id.customPanel);
-        View var7 = var1.findViewById(R.id.topPanel);
-        View var8 = var1.findViewById(R.id.contentPanel);
-        boolean var9 = true;
-        boolean var10;
-        if (var6 != null && var6.getVisibility() != 8) {
-            var10 = true;
+        final View parentPanel = mWindow.findViewById(R.id.parentPanel);
+        final View titleTemplate = parentPanel.findViewById(R.id.title_template);
+        final View scrollView = parentPanel.findViewById(R.id.scrollView);
+        final View topPanel = parentPanel.findViewById(R.id.topPanel);
+        final View buttonBarLayout = parentPanel.findViewById(R.id.buttonBarLayout);
+        final View customPanel = parentPanel.findViewById(R.id.customPanel);
+        final View contentPanel = parentPanel.findViewById(R.id.contentPanel);
+
+        final boolean hasCustomTitle = mCustomTitleView != null && mCustomTitleView.getVisibility() != View.GONE;
+        final boolean hasCustomPanel = customPanel != null && customPanel.getVisibility() != View.GONE;
+        final boolean hasTopPanel = topPanel != null && topPanel.getVisibility() != View.GONE;
+        final boolean hasContentPanel = contentPanel != null && contentPanel.getVisibility() != View.GONE;
+
+        Resources resources = mContext.getResources();
+
+        if ((!hasCustomPanel || hasTopPanel || hasContentPanel) && !hasCustomTitle) {
+            parentPanel.setPadding(0, resources.getDimensionPixelSize(R.dimen.sesl_dialog_title_padding_top), 0, 0);
         } else {
-            var10 = false;
+            parentPanel.setPadding(0, 0, 0, 0);
         }
 
-        boolean var11;
-        if (var7 != null && var7.getVisibility() != 8) {
-            var11 = true;
-        } else {
-            var11 = false;
-        }
-
-        boolean var12;
-        if (var8 != null && var8.getVisibility() != 8) {
-            var12 = true;
-        } else {
-            var12 = false;
-        }
-
-        var7 = this.mCustomTitleView;
-        if (var7 == null || var7.getVisibility() == 8) {
-            var9 = false;
-        }
-
-        if ((!var10 || var11 || var12) && !var9) {
-            var1.setPadding(0, var5.getDimensionPixelSize(R.dimen.sesl_dialog_title_padding_top), 0, 0);
-        } else {
-            var1.setPadding(0, 0, 0, 0);
-        }
-
-        if (var2 != null) {
-            if (var10 && var11 && !var12) {
-                var2.setPadding(var5.getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal), 0, var5.getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal), 0);
+        if (titleTemplate != null) {
+            if (!hasCustomPanel || !hasTopPanel || hasContentPanel) {
+                titleTemplate.setPadding(resources.getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal), 0, resources.getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal), resources.getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_dialog_title_padding_bottom : R.dimen.sesl_dialog_title_padding_bottom));
             } else {
-                var2.setPadding(var5.getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal), 0, var5.getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal), var5.getDimensionPixelSize(R.dimen.sesl_dialog_title_padding_bottom));
+                titleTemplate.setPadding(resources.getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal), 0, resources.getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal), 0);
             }
         }
 
-        if (var3 != null) {
-            var3.setPadding(var5.getDimensionPixelSize(R.dimen.sesl_dialog_body_text_scroll_padding_start), 0, var5.getDimensionPixelSize(R.dimen.sesl_dialog_body_text_scroll_padding_end), var5.getDimensionPixelSize(R.dimen.sesl_dialog_body_text_padding_bottom));
+        if (scrollView != null) {
+            scrollView.setPadding(resources.getDimensionPixelSize(R.dimen.sesl_dialog_body_text_scroll_padding_start), 0, resources.getDimensionPixelSize(R.dimen.sesl_dialog_body_text_scroll_padding_end), resources.getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_dialog_body_text_padding_bottom : R.dimen.sesl_dialog_body_text_padding_bottom));
         }
 
-        if (var4 != null) {
-            var4.setPadding(var5.getDimensionPixelSize(R.dimen.sesl_dialog_button_bar_padding_horizontal), 0, var5.getDimensionPixelSize(R.dimen.sesl_dialog_button_bar_padding_horizontal), var5.getDimensionPixelSize(R.dimen.sesl_dialog_button_bar_padding_bottom));
+        if (buttonBarLayout != null) {
+            buttonBarLayout.setPadding(resources.getDimensionPixelSize(R.dimen.sesl_dialog_button_bar_padding_horizontal), 0, resources.getDimensionPixelSize(R.dimen.sesl_dialog_button_bar_padding_horizontal), resources.getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_dialog_button_bar_padding_bottom : R.dimen.sesl_dialog_button_bar_padding_bottom));
         }
-
     }
 
-    @SuppressLint({"WrongConstant", "ResourceType"})
-    private void setupTitle(ViewGroup var1) {
-        if (this.mCustomTitleView != null) {
-            ViewGroup.LayoutParams var2 = new ViewGroup.LayoutParams(-1, -2);
-            var1.addView(this.mCustomTitleView, 0, var2);
-            this.mWindow.findViewById(R.id.title_template).setVisibility(8);
-        } else {
-            this.mIconView = (ImageView) this.mWindow.findViewById(16908294);
-            if (TextUtils.isEmpty(this.mTitle) ^ true && this.mShowTitle) {
-                this.mTitleView = (TextView) this.mWindow.findViewById(R.id.alertTitle);
-                this.mTitleView.setText(this.mTitle);
-                this.checkMaxFontScale(this.mTitleView, this.mContext.getResources().getDimensionPixelSize(R.dimen.sesl_dialog_title_text_size));
-                int var3 = this.mIconId;
-                if (var3 != 0) {
-                    this.mIconView.setImageResource(var3);
-                } else {
-                    Drawable var4 = this.mIcon;
-                    if (var4 != null) {
-                        this.mIconView.setImageDrawable(var4);
-                    } else {
-                        this.mTitleView.setPadding(this.mIconView.getPaddingLeft(), this.mIconView.getPaddingTop(), this.mIconView.getPaddingRight(), this.mIconView.getPaddingBottom());
-                        this.mIconView.setVisibility(8);
-                    }
-                }
-            } else {
-                this.mWindow.findViewById(R.id.title_template).setVisibility(8);
-                this.mIconView.setVisibility(8);
-                var1.setVisibility(8);
-            }
-        }
-
-    }
-
-    @SuppressLint("WrongConstant")
     private void setupView() {
-        final View var1 = this.mWindow.findViewById(R.id.parentPanel);
-        var1.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            public void onLayoutChange(View var1x, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9) {
-                var1x.post(new Runnable() {
-                    public void run() {
-                        int var1x = SamsungAlertController.this.mContext.getResources().getConfiguration().orientation;
-                        SamsungAlertController var2 = SamsungAlertController.this;
-                        if (var1x != var2.mLastOrientation) {
-                            var2.setupPaddings();
-                            var1.requestLayout();
-                        }
+        final View parentPanel = mWindow.findViewById(R.id.parentPanel);
 
-                        var2 = SamsungAlertController.this;
-                        var2.mLastOrientation = var2.mContext.getResources().getConfiguration().orientation;
+        parentPanel.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                v.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mContext.getResources().getConfiguration().orientation != mLastOrientation) {
+                            setupPaddings();
+                            parentPanel.requestLayout();
+                        }
+                        mLastOrientation = mContext.getResources().getConfiguration().orientation;
                     }
                 });
             }
         });
-        View var2 = var1.findViewById(R.id.topPanel);
-        View var3 = var1.findViewById(R.id.contentPanel);
-        View var4 = var1.findViewById(R.id.buttonPanel);
-        ViewGroup var5 = (ViewGroup) var1.findViewById(R.id.customPanel);
-        this.setupCustomContent(var5);
-        View var6 = var5.findViewById(R.id.topPanel);
-        View var7 = var5.findViewById(R.id.contentPanel);
-        View var8 = var5.findViewById(R.id.buttonPanel);
-        ViewGroup var19 = this.resolvePanel(var6, var2);
-        ViewGroup var20 = this.resolvePanel(var7, var3);
-        ViewGroup var18 = this.resolvePanel(var8, var4);
-        this.setupContent(var20);
-        this.setupButtons(var18);
-        this.setupTitle(var19);
-        boolean var9;
-        if (var5 != null && var5.getVisibility() != 8) {
-            var9 = true;
-        } else {
-            var9 = false;
-        }
 
-        byte var10;
-        if (var19 != null && var19.getVisibility() != 8) {
-            var10 = 1;
-        } else {
-            var10 = 0;
-        }
+        final View defaultTopPanel = parentPanel.findViewById(R.id.topPanel);
+        final View defaultContentPanel = parentPanel.findViewById(R.id.contentPanel);
+        final View defaultButtonPanel = parentPanel.findViewById(R.id.buttonPanel);
 
-        boolean var11;
-        if (var18 != null && var18.getVisibility() != 8) {
-            var11 = true;
-        } else {
-            var11 = false;
-        }
+        ViewGroup customPanel = (ViewGroup) parentPanel.findViewById(R.id.customPanel);
+        setupCustomContent(customPanel);
 
-        boolean var12;
-        if (var2 != null && var2.getVisibility() != 8) {
-            var12 = true;
-        } else {
-            var12 = false;
-        }
+        final View customTopPanel = customPanel.findViewById(R.id.topPanel);
+        final View customContentPanel = customPanel.findViewById(R.id.contentPanel);
+        final View customButtonPanel = customPanel.findViewById(R.id.buttonPanel);
 
-        boolean var13;
-        if (var3 != null && var3.getVisibility() != 8) {
-            var13 = true;
-        } else {
-            var13 = false;
-        }
+        final ViewGroup topPanel = resolvePanel(customTopPanel, defaultTopPanel);
+        final ViewGroup contentPanel = resolvePanel(customContentPanel, defaultContentPanel);
+        final ViewGroup buttonPanel = resolvePanel(customButtonPanel, defaultButtonPanel);
 
-        var2 = this.mCustomTitleView;
-        boolean var14;
-        if (var2 != null && var2.getVisibility() != 8) {
-            var14 = true;
-        } else {
-            var14 = false;
-        }
+        setupContent(contentPanel);
+        setupButtons(buttonPanel);
+        setupTitle(topPanel);
 
-        if (var9 && !var12 && !var13 || var14) {
-            this.adjustParentPanelPadding(var1);
-        }
+        final boolean hasCustomPanel = customPanel != null && customPanel.getVisibility() != View.GONE;
+        final boolean hasTopPanel = topPanel != null && topPanel.getVisibility() != View.GONE;
+        final boolean hasButtonPanel = buttonPanel != null && buttonPanel.getVisibility() != View.GONE;
+        final boolean hasDefaultTopPanel = defaultTopPanel != null && defaultTopPanel.getVisibility() != View.GONE;
+        final boolean hasDefaultContentPanel = defaultContentPanel != null && defaultContentPanel.getVisibility() != View.GONE;
+        final boolean hasCustomTitle = mCustomTitleView != null && mCustomTitleView.getVisibility() != View.GONE;
 
-        if (var9 && var12 && !var13) {
-            this.adjustTopPanelPadding(var1);
+        if ((hasCustomPanel && !hasDefaultTopPanel && !hasDefaultContentPanel) || hasCustomTitle) {
+            adjustParentPanelPadding(parentPanel);
         }
+        if (!(!hasCustomPanel || !hasDefaultTopPanel || hasDefaultContentPanel)) {
+            adjustTopPanelPadding(parentPanel);
+        }
+        adjustButtonsPadding();
 
-        this.adjustButtonsPadding();
-        if (var10 != 0) {
-            NestedScrollView var15 = this.mScrollView;
-            if (var15 != null) {
-                var15.setClipToPadding(true);
+        if (!parentPanel.isInTouchMode()) {
+            if (!requestFocusForContent(hasCustomPanel ? customPanel : contentPanel)) {
+                requestFocusForDefaultButton();
             }
         }
 
-        ListView var16 = this.mListView;
-        if (var16 instanceof RecycleListView) {
-            ((RecycleListView) var16).setHasDecor(var10 == 1, var11);
+        if (hasTopPanel) {
+            if (mScrollView != null) {
+                mScrollView.setClipToPadding(true);
+            }
         }
 
-        if (!var9) {
-            Object var17 = this.mListView;
-            if (var17 == null) {
-                var17 = this.mScrollView;
+        if (mListView instanceof RecycleListView) {
+            ((RecycleListView) mListView).setHasDecor(hasTopPanel, hasButtonPanel);
+        }
+
+        if (!hasCustomPanel) {
+            final View content = mListView != null ? mListView : mScrollView;
+            if (content != null) {
+                final int indicators = (hasTopPanel ? ViewCompat.SCROLL_INDICATOR_TOP : 0) | (hasButtonPanel ? ViewCompat.SCROLL_INDICATOR_BOTTOM : 0);
+                setScrollIndicators(contentPanel, content, indicators, ViewCompat.SCROLL_INDICATOR_TOP | ViewCompat.SCROLL_INDICATOR_BOTTOM);
+            }
+        }
+
+        final ListView listView = mListView;
+        if (listView != null && mAdapter != null) {
+            listView.setAdapter(mAdapter);
+            SeslAdapterViewReflector.semSetBottomColor(listView, 0);
+            final int checkedItem = mCheckedItem;
+            if (checkedItem > -1) {
+                listView.setItemChecked(checkedItem, true);
+                listView.setSelection(checkedItem);
+            }
+        }
+    }
+
+    private boolean requestFocusForContent(View view) {
+        if (view != null && view.requestFocus()) {
+            return true;
+        }
+        if (mListView != null) {
+            mListView.setSelection(0);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void requestFocusForDefaultButton() {
+        if (mButtonPositive.getVisibility() == View.VISIBLE) {
+            mButtonPositive.requestFocus();
+        } else if (mButtonNegative.getVisibility() == View.VISIBLE) {
+            mButtonNegative.requestFocus();
+        } else if (mButtonNeutral.getVisibility() == View.VISIBLE) {
+            mButtonNeutral.requestFocus();
+        }
+    }
+
+    private void setScrollIndicators(ViewGroup contentPanel, View content, final int indicators, final int mask) {
+        View indicatorUp = mWindow.findViewById(R.id.scrollIndicatorUp);
+        View indicatorDown = mWindow.findViewById(R.id.scrollIndicatorDown);
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            ViewCompat.setScrollIndicators(content, indicators, mask);
+            if (indicatorUp != null) {
+                contentPanel.removeView(indicatorUp);
+            }
+            if (indicatorDown != null) {
+                contentPanel.removeView(indicatorDown);
+            }
+        } else {
+            if (indicatorUp != null && (indicators & ViewCompat.SCROLL_INDICATOR_TOP) == 0) {
+                contentPanel.removeView(indicatorUp);
+                indicatorUp = null;
+            }
+            if (indicatorDown != null && (indicators & ViewCompat.SCROLL_INDICATOR_BOTTOM) == 0) {
+                contentPanel.removeView(indicatorDown);
+                indicatorDown = null;
             }
 
-            if (var17 != null) {
-                byte var22;
-                if (var11) {
-                    var22 = 2;
+            if (indicatorUp != null || indicatorDown != null) {
+                final View top = indicatorUp;
+                final View bottom = indicatorDown;
+
+                if (mMessage != null) {
+                    mScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+                        @Override
+                        public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                            manageScrollIndicators(v, top, bottom);
+                        }
+                    });
+                    mScrollView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            manageScrollIndicators(mScrollView, top, bottom);
+                        }
+                    });
+                } else if (mListView != null) {
+                    mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                        @Override
+                        public void onScrollStateChanged(AbsListView view, int scrollState) {
+                        }
+
+                        @Override
+                        public void onScroll(AbsListView v, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                            manageScrollIndicators(v, top, bottom);
+                        }
+                    });
+                    mListView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            manageScrollIndicators(mListView, top, bottom);
+                        }
+                    });
                 } else {
-                    var22 = 0;
-                }
-
-                this.setScrollIndicators(var20, (View) var17, var22 | var10, 3);
-            }
-        }
-
-        var16 = this.mListView;
-        if (var16 != null) {
-            ListAdapter var21 = this.mAdapter;
-            if (var21 != null) {
-                var16.setAdapter(var21);
-
-                if (Build.VERSION.SDK_INT >= 28)
-                    ReflectUtils.genericInvokeMethod(AdapterView.class, var21, Build.VERSION.SDK_INT >= 29 ? "hidden_semSetBottomColor" : "semSetBottomColor", 0);
-
-                int var23 = this.mCheckedItem;
-                if (var23 > -1) {
-                    var16.setItemChecked(var23, true);
-                    var16.setSelectionFromTop(var23, this.mContext.getResources().getDimensionPixelSize(R.dimen.sesl_select_dialog_padding_top));
+                    if (top != null) {
+                        contentPanel.removeView(top);
+                    }
+                    if (bottom != null) {
+                        contentPanel.removeView(bottom);
+                    }
                 }
             }
         }
-
     }
 
-    public Button getButton(int var1) {
-        if (var1 != -3) {
-            if (var1 != -2) {
-                return var1 != -1 ? null : this.mButtonPositive;
-            } else {
-                return this.mButtonNegative;
+    private void setupCustomContent(ViewGroup customPanel) {
+        final View customView;
+        if (mView != null) {
+            customView = mView;
+        } else if (mViewLayoutResId != 0) {
+            final LayoutInflater inflater = LayoutInflater.from(mContext);
+            customView = inflater.inflate(mViewLayoutResId, customPanel, false);
+        } else {
+            customView = null;
+        }
+
+        final boolean hasCustomView = customView != null;
+        if (!hasCustomView || !canTextInput(customView)) {
+            mWindow.setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM, WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        }
+
+        if (hasCustomView) {
+            final FrameLayout custom = (FrameLayout) mWindow.findViewById(R.id.custom);
+            custom.addView(customView, new LayoutParams(MATCH_PARENT, MATCH_PARENT));
+
+            if (mViewSpacingSpecified) {
+                custom.setPadding(mViewSpacingLeft, mViewSpacingTop, mViewSpacingRight, mViewSpacingBottom);
             }
-        } else {
-            return this.mButtonNeutral;
-        }
-    }
 
-    public int getIconAttributeResId(int var1) {
-        TypedValue var2 = new TypedValue();
-        this.mContext.getTheme().resolveAttribute(var1, var2, true);
-        return var2.resourceId;
-    }
-
-    public ListView getListView() {
-        return this.mListView;
-    }
-
-    public void installContent() {
-        int var1 = this.selectContentView();
-        this.mDialog.setContentView(var1);
-        this.setupView();
-    }
-
-    public boolean onKeyDown(int var1, KeyEvent var2) {
-        NestedScrollView var3 = this.mScrollView;
-        boolean var4;
-        if (var3 != null && var3.executeKeyEvent(var2)) {
-            var4 = true;
-        } else {
-            var4 = false;
-        }
-
-        return var4;
-    }
-
-    public boolean onKeyUp(int var1, KeyEvent var2) {
-        NestedScrollView var3 = this.mScrollView;
-        boolean var4;
-        if (var3 != null && var3.executeKeyEvent(var2)) {
-            var4 = true;
-        } else {
-            var4 = false;
-        }
-
-        return var4;
-    }
-
-    public void setButton(int var1, CharSequence var2, DialogInterface.OnClickListener var3, Message var4, Drawable var5) {
-        Message var6 = var4;
-        if (var4 == null) {
-            var6 = var4;
-            if (var3 != null) {
-                var6 = this.mHandler.obtainMessage(var1, var3);
-            }
-        }
-
-        if (var1 != -3) {
-            if (var1 != -2) {
-                if (var1 != -1) {
-                    throw new IllegalArgumentException("Button does not exist");
+            if (mListView != null) {
+                if (customPanel.getLayoutParams() instanceof LinearLayout.LayoutParams) {
+                    ((LinearLayout.LayoutParams) customPanel.getLayoutParams()).weight = 0.0f;
+                } else {
+                    ((LinearLayoutCompat.LayoutParams) customPanel.getLayoutParams()).weight = 0.0f;
                 }
-
-                this.mButtonPositiveText = var2;
-                this.mButtonPositiveMessage = var6;
-                this.mButtonPositiveIcon = var5;
-            } else {
-                this.mButtonNegativeText = var2;
-                this.mButtonNegativeMessage = var6;
-                this.mButtonNegativeIcon = var5;
             }
         } else {
-            this.mButtonNeutralText = var2;
-            this.mButtonNeutralMessage = var6;
-            this.mButtonNeutralIcon = var5;
+            customPanel.setVisibility(View.GONE);
+        }
+    }
+
+    private void checkMaxFontScale(TextView view, int size) {
+        float fontScale = this.mContext.getResources().getConfiguration().fontScale;
+        if (fontScale > 1.3f) {
+            view.setTextSize(0, (((float) size) / fontScale) * 1.3f);
+        }
+    }
+
+    private void adjustButtonsPadding() {
+        int btnTextSize = mContext.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_dialog_button_text_size : R.dimen.sesl_dialog_button_text_size);
+
+        if (mButtonPositive.getVisibility() != View.GONE) {
+            this.mButtonPositive.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) btnTextSize);
+            checkMaxFontScale(mButtonPositive, btnTextSize);
+        }
+        if (mButtonNegative.getVisibility() != View.GONE) {
+            mButtonNegative.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) btnTextSize);
+            checkMaxFontScale(mButtonNegative, btnTextSize);
+        }
+        if (mButtonNeutral.getVisibility() != View.GONE) {
+            mButtonNeutral.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) btnTextSize);
+            checkMaxFontScale(mButtonNeutral, btnTextSize);
+        }
+    }
+
+    private void adjustParentPanelPadding(View view) {
+        view.setPadding(0, 0, 0, 0);
+    }
+
+    private void adjustTopPanelPadding(View view) {
+        int padding = mContext.getResources().getDimensionPixelSize(R.dimen.sesl_dialog_padding_horizontal);
+        view.findViewById(R.id.title_template).setPadding(padding, 0, padding, 0);
+    }
+
+    private void setupTitle(ViewGroup topPanel) {
+        if (mCustomTitleView != null) {
+            LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+
+            topPanel.addView(mCustomTitleView, 0, lp);
+
+            View titleTemplate = mWindow.findViewById(R.id.title_template);
+            titleTemplate.setVisibility(View.GONE);
+        } else {
+            mIconView = (ImageView) mWindow.findViewById(android.R.id.icon);
+
+            final boolean hasTextTitle = !TextUtils.isEmpty(mTitle);
+            if (hasTextTitle && mShowTitle) {
+                mTitleView = (TextView) mWindow.findViewById(R.id.alertTitle);
+                mTitleView.setText(mTitle);
+                checkMaxFontScale(mTitleView, mContext.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_dialog_title_text_size : R.dimen.sesl_dialog_title_text_size));
+
+                if (mIconId != 0) {
+                    mIconView.setImageResource(mIconId);
+                } else if (mIcon != null) {
+                    mIconView.setImageDrawable(mIcon);
+                } else {
+                    mTitleView.setPadding(mIconView.getPaddingLeft(), mIconView.getPaddingTop(), mIconView.getPaddingRight(), mIconView.getPaddingBottom());
+                    mIconView.setVisibility(View.GONE);
+                }
+            } else {
+                final View titleTemplate = mWindow.findViewById(R.id.title_template);
+                titleTemplate.setVisibility(View.GONE);
+                mIconView.setVisibility(View.GONE);
+                topPanel.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private void setupContent(ViewGroup contentPanel) {
+        mScrollView = (NestedScrollView) mWindow.findViewById(R.id.scrollView);
+        mScrollView.setFocusable(false);
+        mScrollView.setNestedScrollingEnabled(false);
+
+        mMessageView = (TextView) contentPanel.findViewById(android.R.id.message);
+        if (mMessageView == null) {
+            return;
         }
 
-    }
+        if (mMessage != null) {
+            mMessageView.setText(mMessage);
+            checkMaxFontScale(mMessageView, mContext.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_dialog_body_text_size : R.dimen.sesl_dialog_body_text_size));
+        } else {
+            mMessageView.setVisibility(View.GONE);
+            mScrollView.removeView(mMessageView);
 
-    public void setButtonPanelLayoutHint(int var1) {
-        this.mButtonPanelLayoutHint = var1;
-    }
-
-    public void setCustomTitle(View var1) {
-        this.mCustomTitleView = var1;
-    }
-
-    @SuppressLint("WrongConstant")
-    public void setIcon(int var1) {
-        this.mIcon = null;
-        this.mIconId = var1;
-        ImageView var2 = this.mIconView;
-        if (var2 != null) {
-            if (var1 != 0) {
-                var2.setVisibility(0);
-                this.mIconView.setImageResource(this.mIconId);
+            if (mListView != null) {
+                final ViewGroup scrollParent = (ViewGroup) mScrollView.getParent();
+                final int childIndex = scrollParent.indexOfChild(mScrollView);
+                scrollParent.removeViewAt(childIndex);
+                scrollParent.addView(mListView, childIndex, new LayoutParams(MATCH_PARENT, MATCH_PARENT));
             } else {
-                var2.setVisibility(8);
+                contentPanel.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    static void manageScrollIndicators(View v, View upIndicator, View downIndicator) {
+        if (upIndicator != null) {
+            upIndicator.setVisibility(v.canScrollVertically(-1) ? View.VISIBLE : View.INVISIBLE);
+        }
+        if (downIndicator != null) {
+            downIndicator.setVisibility(v.canScrollVertically(1) ? View.VISIBLE : View.INVISIBLE);
+        }
+    }
+
+    private void setupButtons(ViewGroup buttonPanel) {
+        int BIT_BUTTON_POSITIVE = 1;
+        int BIT_BUTTON_NEGATIVE = 2;
+        int BIT_BUTTON_NEUTRAL = 4;
+        int whichButtons = 0;
+
+        boolean showBtnBg = Settings.System.getInt(mContext.getContentResolver(), "show_button_background", 0) == 1;
+        boolean isSecThemeApplied = Settings.System.getString(mContext.getContentResolver(), "current_sec_active_themepackage") != null;
+
+        TypedValue colorBackground = new TypedValue();
+        mContext.getTheme().resolveAttribute(android.R.attr.colorBackground, colorBackground, true);
+        int btnBgColor = colorBackground.resourceId > 0 ? mContext.getResources().getColor(colorBackground.resourceId) : -1;
+
+        TypedValue colorPrimaryDark = new TypedValue();
+        mContext.getTheme().resolveAttribute(R.attr.colorPrimaryDark, colorPrimaryDark, true);
+
+        int themeTextColor;
+        if (colorPrimaryDark.resourceId != 0) {
+            themeTextColor = mContext.getResources().getColor(colorPrimaryDark.resourceId);
+        } else {
+            themeTextColor = colorPrimaryDark.data;
+        }
+
+        mButtonPositive = (Button) buttonPanel.findViewById(android.R.id.button1);
+        mButtonPositive.setOnClickListener(mButtonHandler);
+        if (isSecThemeApplied) {
+            mButtonPositive.setTextColor(themeTextColor);
+        }
+        if (Build.VERSION.SDK_INT > 26) {
+            if (colorBackground.resourceId > 0) {
+                SeslTextViewReflector.semSetButtonShapeEnabled(mButtonPositive, showBtnBg, btnBgColor);
+            } else {
+                SeslTextViewReflector.semSetButtonShapeEnabled(mButtonPositive, showBtnBg);
+            }
+        } else if (showBtnBg) {
+            mButtonPositive.setBackgroundResource(R.drawable.sesl_dialog_btn_show_button_shapes_background);
+        }
+
+        if (TextUtils.isEmpty(mButtonPositiveText) && mButtonPositiveIcon == null) {
+            mButtonPositive.setVisibility(View.GONE);
+        } else {
+            mButtonPositive.setText(mButtonPositiveText);
+            if (mButtonPositiveColor != 0) mButtonPositive.setTextColor(mButtonPositiveColor);
+            if (mButtonPositiveIcon != null) {
+                mButtonPositiveIcon.setBounds(0, 0, mButtonIconDimen, mButtonIconDimen);
+                mButtonPositive.setCompoundDrawables(mButtonPositiveIcon, null, null, null);
+            }
+            mButtonPositive.setVisibility(View.VISIBLE);
+            whichButtons = whichButtons | BIT_BUTTON_POSITIVE;
+        }
+
+        mButtonNegative = buttonPanel.findViewById(android.R.id.button2);
+        mButtonNegative.setOnClickListener(mButtonHandler);
+        if (isSecThemeApplied) {
+            mButtonNegative.setTextColor(themeTextColor);
+        }
+        if (Build.VERSION.SDK_INT > 26) {
+            if (colorBackground.resourceId > 0) {
+                SeslTextViewReflector.semSetButtonShapeEnabled(mButtonNegative, showBtnBg, btnBgColor);
+            } else {
+                SeslTextViewReflector.semSetButtonShapeEnabled(mButtonNegative, showBtnBg);
+            }
+        } else if (showBtnBg) {
+            this.mButtonNegative.setBackgroundResource(R.drawable.sesl_dialog_btn_show_button_shapes_background);
+        }
+
+        if (TextUtils.isEmpty(mButtonNegativeText) && mButtonNegativeIcon == null) {
+            mButtonNegative.setVisibility(View.GONE);
+        } else {
+            mButtonNegative.setText(mButtonNegativeText);
+            if (mButtonNegativeColor != 0) mButtonNegative.setTextColor(mButtonNegativeColor);
+            if (mButtonNegativeIcon != null) {
+                mButtonNegativeIcon.setBounds(0, 0, mButtonIconDimen, mButtonIconDimen);
+                mButtonNegative.setCompoundDrawables(mButtonNegativeIcon, null, null, null);
+            }
+            mButtonNegative.setVisibility(View.VISIBLE);
+            whichButtons = whichButtons | BIT_BUTTON_NEGATIVE;
+        }
+
+        mButtonNeutral = (Button) buttonPanel.findViewById(android.R.id.button3);
+        mButtonNeutral.setOnClickListener(mButtonHandler);
+        if (isSecThemeApplied) {
+            mButtonNeutral.setTextColor(themeTextColor);
+        }
+        if (Build.VERSION.SDK_INT > 26) {
+            if (colorBackground.resourceId > 0) {
+                SeslTextViewReflector.semSetButtonShapeEnabled(mButtonNeutral, showBtnBg, btnBgColor);
+            } else {
+                SeslTextViewReflector.semSetButtonShapeEnabled(mButtonNeutral, showBtnBg);
+            }
+        } else if (showBtnBg) {
+            mButtonNeutral.setBackgroundResource(R.drawable.sesl_dialog_btn_show_button_shapes_background);
+        }
+
+        if (TextUtils.isEmpty(mButtonNeutralText) && mButtonNeutralIcon == null) {
+            mButtonNeutral.setVisibility(View.GONE);
+        } else {
+            mButtonNeutral.setText(mButtonNeutralText);
+            if (mButtonNeutralColor != 0) mButtonNeutral.setTextColor(mButtonNeutralColor);
+            if (mButtonNeutralIcon != null) {
+                mButtonNeutralIcon.setBounds(0, 0, mButtonIconDimen, mButtonIconDimen);
+                mButtonNeutral.setCompoundDrawables(mButtonNeutralIcon, null, null, null);
+            }
+            mButtonNeutral.setVisibility(View.VISIBLE);
+            whichButtons = whichButtons | BIT_BUTTON_NEUTRAL;
+        }
+
+        if (shouldCenterSingleButton(mContext)) {
+            if (whichButtons == BIT_BUTTON_POSITIVE) {
+                centerButton(mButtonPositive);
+            } else if (whichButtons == BIT_BUTTON_NEGATIVE) {
+                centerButton(mButtonNegative);
+            } else if (whichButtons == BIT_BUTTON_NEUTRAL) {
+                centerButton(mButtonNeutral);
             }
         }
 
+        final boolean hasButtons = whichButtons != 0;
+        if (!hasButtons) {
+            buttonPanel.setVisibility(View.GONE);
+        }
+
+        boolean hasNeutralBtn = mButtonNeutral.getVisibility() == View.VISIBLE;
+        boolean hasPositiveBtn = mButtonPositive.getVisibility() == View.VISIBLE;
+        boolean hasNegativeBtn = mButtonNegative.getVisibility() == View.VISIBLE;
+
+        View divider2 = mWindow.findViewById(R.id.sem_divider2);
+        if (divider2 != null && ((hasNeutralBtn && hasPositiveBtn) || (hasNeutralBtn && hasNegativeBtn))) {
+            divider2.setVisibility(View.VISIBLE);
+        }
+        View divider1 = mWindow.findViewById(R.id.sem_divider1);
+        if (divider1 != null && hasPositiveBtn && hasNegativeBtn) {
+            divider1.setVisibility(View.VISIBLE);
+        }
     }
 
-    @SuppressLint("WrongConstant")
-    public void setIcon(Drawable var1) {
-        this.mIcon = var1;
-        this.mIconId = 0;
-        ImageView var2 = this.mIconView;
-        if (var2 != null) {
-            if (var1 != null) {
-                var2.setVisibility(0);
-                this.mIconView.setImageDrawable(var1);
-            } else {
-                var2.setVisibility(8);
+    private void centerButton(Button button) {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) button.getLayoutParams();
+        params.gravity = Gravity.CENTER_HORIZONTAL;
+        params.weight = 0.5f;
+        button.setLayoutParams(params);
+    }
+
+    public static class RecycleListView extends ListView {
+        private final int mPaddingTopNoTitle;
+        private final int mPaddingBottomNoButtons;
+
+        public RecycleListView(Context context) {
+            this(context, null);
+        }
+
+        public RecycleListView(Context context, AttributeSet attrs) {
+            super(context, attrs);
+
+            final TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RecycleListView);
+            mPaddingBottomNoButtons = ta.getDimensionPixelOffset(R.styleable.RecycleListView_paddingBottomNoButtons, -1);
+            mPaddingTopNoTitle = ta.getDimensionPixelOffset(R.styleable.RecycleListView_paddingTopNoTitle, -1);
+        }
+
+        public void setHasDecor(boolean hasTitle, boolean hasButtons) {
+            if (!hasButtons || !hasTitle) {
+                final int paddingLeft = getPaddingLeft();
+                final int paddingTop = hasTitle ? getPaddingTop() : mPaddingTopNoTitle;
+                final int paddingRight = getPaddingRight();
+                final int paddingBottom = hasButtons ? getPaddingBottom() : mPaddingBottomNoButtons;
+                setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
             }
         }
-
-    }
-
-    public void setMessage(CharSequence var1) {
-        this.mMessage = var1;
-        TextView var2 = this.mMessageView;
-        if (var2 != null) {
-            var2.setText(var1);
-        }
-
-    }
-
-    public void setTitle(CharSequence var1) {
-        this.mTitle = var1;
-        TextView var2 = this.mTitleView;
-        if (var2 != null) {
-            var2.setText(var1);
-        }
-
-    }
-
-    public void setView(int var1) {
-        this.mView = null;
-        this.mViewLayoutResId = var1;
-        this.mViewSpacingSpecified = false;
-    }
-
-    public void setView(View var1) {
-        this.mView = var1;
-        this.mViewLayoutResId = 0;
-        this.mViewSpacingSpecified = false;
-    }
-
-    public void setView(View var1, int var2, int var3, int var4, int var5) {
-        this.mView = var1;
-        this.mViewLayoutResId = 0;
-        this.mViewSpacingSpecified = true;
-        this.mViewSpacingLeft = var2;
-        this.mViewSpacingTop = var3;
-        this.mViewSpacingRight = var4;
-        this.mViewSpacingBottom = var5;
     }
 
     public static class AlertParams {
-        public final Context mContext;
-        public final LayoutInflater mInflater;
         public ListAdapter mAdapter;
-        public boolean mCancelable;
-        public int mCheckedItem = -1;
         public boolean[] mCheckedItems;
+        public final Context mContext;
         public Cursor mCursor;
         public View mCustomTitleView;
         public boolean mForceInverseBackground;
         public Drawable mIcon;
-        public int mIconAttrId = 0;
-        public int mIconId = 0;
+        public final LayoutInflater mInflater;
         public String mIsCheckedColumn;
         public boolean mIsMultiChoice;
         public boolean mIsSingleChoice;
@@ -1010,9 +954,13 @@ public class SamsungAlertController {
         public Drawable mNegativeButtonIcon;
         public DialogInterface.OnClickListener mNegativeButtonListener;
         public CharSequence mNegativeButtonText;
+        public int mNegativeButtonColor;
+        public boolean mNegativeButtonProgress;
         public Drawable mNeutralButtonIcon;
         public DialogInterface.OnClickListener mNeutralButtonListener;
         public CharSequence mNeutralButtonText;
+        public int mNeutralButtonColor;
+        public boolean mNeutralButtonProgress;
         public DialogInterface.OnCancelListener mOnCancelListener;
         public DialogInterface.OnMultiChoiceClickListener mOnCheckboxClickListener;
         public DialogInterface.OnClickListener mOnClickListener;
@@ -1023,409 +971,191 @@ public class SamsungAlertController {
         public Drawable mPositiveButtonIcon;
         public DialogInterface.OnClickListener mPositiveButtonListener;
         public CharSequence mPositiveButtonText;
-        public boolean mRecycleOnMeasure = true;
+        public int mPositiveButtonColor;
+        public boolean mPositiveButtonProgress;
         public CharSequence mTitle;
         public View mView;
         public int mViewLayoutResId;
         public int mViewSpacingBottom;
         public int mViewSpacingLeft;
         public int mViewSpacingRight;
-        public boolean mViewSpacingSpecified = false;
         public int mViewSpacingTop;
-
-        @SuppressLint("WrongConstant")
-        public AlertParams(Context var1) {
-            this.mContext = var1;
-            this.mCancelable = true;
-            this.mInflater = (LayoutInflater) var1.getSystemService("layout_inflater");
-        }
-
-        private void createListView(final SamsungAlertController var1) {
-            final RecycleListView var2 = (RecycleListView) this.mInflater.inflate(var1.mListLayout, (ViewGroup) null);
-            Cursor var3;
-            Object var6;
-            if (this.mIsMultiChoice) {
-                var3 = this.mCursor;
-                if (var3 == null) {
-                    var6 = new ArrayAdapter<CharSequence>(this.mContext, var1.mMultiChoiceItemLayout, 16908308, this.mItems) {
-                        public View getView(int var1, View var2x, ViewGroup var3) {
-                            View var5 = super.getView(var1, var2x, var3);
-                            boolean[] var4 = AlertParams.this.mCheckedItems;
-                            if (var4 != null && var4[var1]) {
-                                var2.setItemChecked(var1, true);
-                            }
-
-                            return var5;
-                        }
-                    };
-                } else {
-                    var6 = new CursorAdapter(this.mContext, var3, false) {
-                        public final int mIsCheckedIndex;
-                        public final int mLabelIndex;
-
-                        {
-                            Cursor var7 = this.getCursor();
-                            this.mLabelIndex = var7.getColumnIndexOrThrow(AlertParams.this.mLabelColumn);
-                            this.mIsCheckedIndex = var7.getColumnIndexOrThrow(AlertParams.this.mIsCheckedColumn);
-                        }
-
-                        @SuppressLint("ResourceType")
-                        public void bindView(View var1x, Context var2x, Cursor var3) {
-                            ((CheckedTextView) var1x.findViewById(16908308)).setText(var3.getString(this.mLabelIndex));
-                            RecycleListView var7 = var2;
-                            int var4 = var3.getPosition();
-                            int var5 = var3.getInt(this.mIsCheckedIndex);
-                            boolean var6 = true;
-                            if (var5 != 1) {
-                                var6 = false;
-                            }
-
-                            var7.setItemChecked(var4, var6);
-                        }
-
-                        public View newView(Context var1x, Cursor var2x, ViewGroup var3) {
-                            return AlertParams.this.mInflater.inflate(var1.mMultiChoiceItemLayout, var3, false);
-                        }
-                    };
-                }
-            } else {
-                int var4;
-                if (this.mIsSingleChoice) {
-                    var4 = var1.mSingleChoiceItemLayout;
-                } else {
-                    var4 = var1.mListItemLayout;
-                }
-
-                var3 = this.mCursor;
-                if (var3 != null) {
-                    var6 = new SimpleCursorAdapter(this.mContext, var4, var3, new String[]{this.mLabelColumn}, new int[]{16908308});
-                } else {
-                    var6 = this.mAdapter;
-                    if (var6 == null) {
-                        var6 = new CheckedItemAdapter(this.mContext, var4, 16908308, this.mItems);
-                    }
-                }
-            }
-
-            OnPrepareListViewListener var5 = this.mOnPrepareListViewListener;
-            if (var5 != null) {
-                var5.onPrepareListView(var2);
-            }
-
-            var1.mAdapter = (ListAdapter) var6;
-            var1.mCheckedItem = this.mCheckedItem;
-            if (this.mOnClickListener != null) {
-                var2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    public void onItemClick(AdapterView<?> var1x, View var2, int var3, long var4) {
-                        AlertParams.this.mOnClickListener.onClick(var1.mDialog, var3);
-                        if (!AlertParams.this.mIsSingleChoice) {
-                            var1.mDialog.dismiss();
-                        }
-
-                    }
-                });
-            } else if (this.mOnCheckboxClickListener != null) {
-                var2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    public void onItemClick(AdapterView<?> var1x, View var2x, int var3, long var4) {
-                        boolean[] var6 = AlertParams.this.mCheckedItems;
-                        if (var6 != null) {
-                            var6[var3] = var2.isItemChecked(var3);
-                        }
-
-                        AlertParams.this.mOnCheckboxClickListener.onClick(var1.mDialog, var3, var2.isItemChecked(var3));
-                    }
-                });
-            }
-
-            AdapterView.OnItemSelectedListener var7 = this.mOnItemSelectedListener;
-            if (var7 != null) {
-                var2.setOnItemSelectedListener(var7);
-            }
-
-            if (this.mIsSingleChoice) {
-                var2.setChoiceMode(1);
-            } else if (this.mIsMultiChoice) {
-                var2.setChoiceMode(2);
-            }
-
-            var1.mListView = var2;
-        }
-
-        public void apply(SamsungAlertController var1) {
-            View var2 = this.mCustomTitleView;
-            int var3;
-            CharSequence var4;
-            if (var2 != null) {
-                var1.setCustomTitle(var2);
-            } else {
-                var4 = this.mTitle;
-                if (var4 != null) {
-                    var1.setTitle(var4);
-                }
-
-                Drawable var5 = this.mIcon;
-                if (var5 != null) {
-                    var1.setIcon(var5);
-                }
-
-                var3 = this.mIconId;
-                if (var3 != 0) {
-                    var1.setIcon(var3);
-                }
-
-                var3 = this.mIconAttrId;
-                if (var3 != 0) {
-                    var1.setIcon(var1.getIconAttributeResId(var3));
-                }
-            }
-
-            var4 = this.mMessage;
-            if (var4 != null) {
-                var1.setMessage(var4);
-            }
-
-            if (this.mPositiveButtonText != null || this.mPositiveButtonIcon != null) {
-                var1.setButton(-1, this.mPositiveButtonText, this.mPositiveButtonListener, (Message) null, this.mPositiveButtonIcon);
-            }
-
-            if (this.mNegativeButtonText != null || this.mNegativeButtonIcon != null) {
-                var1.setButton(-2, this.mNegativeButtonText, this.mNegativeButtonListener, (Message) null, this.mNegativeButtonIcon);
-            }
-
-            if (this.mNeutralButtonText != null || this.mNeutralButtonIcon != null) {
-                var1.setButton(-3, this.mNeutralButtonText, this.mNeutralButtonListener, (Message) null, this.mNeutralButtonIcon);
-            }
-
-            if (this.mItems != null || this.mCursor != null || this.mAdapter != null) {
-                this.createListView(var1);
-            }
-
-            var2 = this.mView;
-            if (var2 != null) {
-                if (this.mViewSpacingSpecified) {
-                    var1.setView(var2, this.mViewSpacingLeft, this.mViewSpacingTop, this.mViewSpacingRight, this.mViewSpacingBottom);
-                } else {
-                    var1.setView(var2);
-                }
-            } else {
-                var3 = this.mViewLayoutResId;
-                if (var3 != 0) {
-                    var1.setView(var3);
-                }
-            }
-
-        }
+        public int mIconId = 0;
+        public int mIconAttrId = 0;
+        public boolean mViewSpacingSpecified = false;
+        public int mCheckedItem = -1;
+        public boolean mRecycleOnMeasure = true;
+        public boolean mCancelable = true;
 
         public interface OnPrepareListViewListener {
-            void onPrepareListView(ListView var1);
-        }
-    }
-
-    public static class ButtonBarLayout extends LinearLayout {
-        public ButtonBarLayout(Context var1) {
-            super(var1);
+            void onPrepareListView(ListView listView);
         }
 
-        public ButtonBarLayout(Context var1, AttributeSet var2) {
-            super(var1, var2);
+        public AlertParams(Context context) {
+            mContext = context;
+            mCancelable = true;
+            mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
-        public ButtonBarLayout(Context var1, AttributeSet var2, int var3) {
-            super(var1, var2, var3);
-        }
-
-        public ButtonBarLayout(Context var1, AttributeSet var2, int var3, int var4) {
-            super(var1, var2, var3, var4);
-        }
-
-        @SuppressLint("WrongConstant")
-        public void onMeasure(int var1, int var2) {
-            super.onMeasure(var1, var2);
-            int var3 = this.getChildCount();
-            int var4 = MeasureSpec.getSize(var1) - this.getPaddingRight() - this.getPaddingLeft();
-            int var5 = MeasureSpec.getSize(var2);
-            int var6 = this.getPaddingTop();
-            int var7 = this.getPaddingBottom();
-            byte var8 = 0;
-            int var9 = 0;
-            int var10 = var9;
-            int var11 = var9;
-
-            int var12;
-            View var13;
-            int var16;
-            for (var12 = var9; var9 < var3; var12 = var16) {
-                var13 = this.getChildAt(var9);
-                int var14 = var10;
-                int var15 = var11;
-                var16 = var12;
-                if (var13.getVisibility() != 8) {
-                    var14 = var10;
-                    var15 = var11;
-                    var16 = var12;
-                    if (var13 instanceof Button) {
-                        var15 = var11 + var13.getMeasuredWidth();
-                        var13.measure(MeasureSpec.makeMeasureSpec(var4, -2147483648), MeasureSpec.makeMeasureSpec(var5 - var6 - var7, -2147483648));
-                        var16 = var12 + var13.getMeasuredWidth();
-                        var14 = var10 + 1;
-                    }
-                }
-
-                ++var9;
-                var10 = var14;
-                var11 = var15;
-            }
-
-            boolean var18 = true;
-            --var10;
-            if (var10 > 0) {
-                var10 = (int) ((float) var10 * this.getContext().getResources().getDisplayMetrics().density);
+        public void apply(SamsungAlertController dialog) {
+            if (mCustomTitleView != null) {
+                dialog.setCustomTitle(mCustomTitleView);
             } else {
-                var10 = 0;
-            }
-
-            if (var11 >= var12 && var4 > var12 + var10) {
-                if (this.getOrientation() != 0) {
-                    this.setOrientation(0);
-                    boolean var20;
-                    if (this.findViewById(R.id.button1).getVisibility() == 0) {
-                        var20 = true;
-                    } else {
-                        var20 = false;
-                    }
-
-                    boolean var19;
-                    if (this.findViewById(R.id.button2).getVisibility() == 0) {
-                        var19 = true;
-                    } else {
-                        var19 = false;
-                    }
-
-                    boolean var21;
-                    if (this.findViewById(R.id.button3).getVisibility() == 0) {
-                        var21 = var18;
-                    } else {
-                        var21 = false;
-                    }
-
-                    var13 = this.findViewById(R.id.sem_divider1);
-                    View var17 = this.findViewById(R.id.sem_divider2);
-                    if (var17 != null && (var21 && var20 || var21 && var19)) {
-                        var17.setVisibility(0);
-                    }
-
-                    if (var13 != null && var20 && var19) {
-                        var13.setVisibility(0);
-                    }
+                if (mTitle != null) {
+                    dialog.setTitle(mTitle);
                 }
-            } else if (this.getOrientation() != 1) {
-                this.setOrientation(1);
-
-                for (var10 = var8; var10 < var3; ++var10) {
-                    var13 = this.getChildAt(var10);
-                    if (var13.getVisibility() != 8 && !(var13 instanceof Button)) {
-                        var13.setVisibility(8);
-                    }
+                if (mIcon != null) {
+                    dialog.setIcon(mIcon);
                 }
-
-                this.setGravity(17);
+                if (mIconId != 0) {
+                    dialog.setIcon(mIconId);
+                }
+                if (mIconAttrId != 0) {
+                    dialog.setIcon(dialog.getIconAttributeResId(mIconAttrId));
+                }
             }
-
-            super.onMeasure(var1, var2);
-        }
-    }
-
-    private static final class ButtonHandler extends Handler {
-        public static final int MSG_DISMISS_DIALOG = 1;
-        public WeakReference<DialogInterface> mDialog;
-
-        public ButtonHandler(DialogInterface var1) {
-            this.mDialog = new WeakReference(var1);
+            if (mMessage != null) {
+                dialog.setMessage(mMessage);
+            }
+            if (mPositiveButtonText != null || mPositiveButtonIcon != null) {
+                dialog.setButton(DialogInterface.BUTTON_POSITIVE, mPositiveButtonText, mPositiveButtonColor, mPositiveButtonProgress, mPositiveButtonListener, null, mPositiveButtonIcon);
+            }
+            if (mNegativeButtonText != null || mNegativeButtonIcon != null) {
+                dialog.setButton(DialogInterface.BUTTON_NEGATIVE, mNegativeButtonText, mNegativeButtonColor, mNegativeButtonProgress, mNegativeButtonListener, null, mNegativeButtonIcon);
+            }
+            if (mNeutralButtonText != null || mNeutralButtonIcon != null) {
+                dialog.setButton(DialogInterface.BUTTON_NEUTRAL, mNeutralButtonText, mNeutralButtonColor, mNeutralButtonProgress, mNeutralButtonListener, null, mNeutralButtonIcon);
+            }
+            if ((mItems != null) || (mCursor != null) || (mAdapter != null)) {
+                createListView(dialog);
+            }
+            if (mView != null) {
+                if (mViewSpacingSpecified) {
+                    dialog.setView(mView, mViewSpacingLeft, mViewSpacingTop, mViewSpacingRight, mViewSpacingBottom);
+                } else {
+                    dialog.setView(mView);
+                }
+            } else if (mViewLayoutResId != 0) {
+                dialog.setView(mViewLayoutResId);
+            }
         }
 
-        public void handleMessage(Message var1) {
-            int var2 = var1.what;
-            if (var2 != -3 && var2 != -2 && var2 != -1) {
-                if (var2 == 1) {
-                    ((DialogInterface) var1.obj).dismiss();
+        private void createListView(final SamsungAlertController dialog) {
+            final RecycleListView listView = (RecycleListView) mInflater.inflate(dialog.mListLayout, null);
+            final ListAdapter adapter;
+
+            if (mIsMultiChoice) {
+                if (mCursor == null) {
+                    adapter = new ArrayAdapter<CharSequence>(mContext, dialog.mMultiChoiceItemLayout, android.R.id.text1, mItems) {
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            View view = super.getView(position, convertView, parent);
+                            if (mCheckedItems != null) {
+                                boolean isItemChecked = mCheckedItems[position];
+                                if (isItemChecked) {
+                                    listView.setItemChecked(position, true);
+                                }
+                            }
+                            return view;
+                        }
+                    };
+                } else {
+                    adapter = new CursorAdapter(mContext, mCursor, false) {
+                        private final int mLabelIndex;
+                        private final int mIsCheckedIndex;
+
+                        {
+                            final Cursor cursor = getCursor();
+                            mLabelIndex = cursor.getColumnIndexOrThrow(mLabelColumn);
+                            mIsCheckedIndex = cursor.getColumnIndexOrThrow(mIsCheckedColumn);
+                        }
+
+                        @Override
+                        public void bindView(View view, Context context, Cursor cursor) {
+                            CheckedTextView text = (CheckedTextView) view.findViewById(android.R.id.text1);
+                            text.setText(cursor.getString(mLabelIndex));
+                            listView.setItemChecked(cursor.getPosition(), cursor.getInt(mIsCheckedIndex) == 1);
+                        }
+
+                        @Override
+                        public View newView(Context context, Cursor cursor, ViewGroup parent) {
+                            return mInflater.inflate(dialog.mMultiChoiceItemLayout, parent, false);
+                        }
+
+                    };
                 }
             } else {
-                ((DialogInterface.OnClickListener) var1.obj).onClick((DialogInterface) this.mDialog.get(), var1.what);
+                final int layout;
+                if (mIsSingleChoice) {
+                    layout = dialog.mSingleChoiceItemLayout;
+                } else {
+                    layout = dialog.mListItemLayout;
+                }
+
+                if (mCursor != null) {
+                    adapter = new SimpleCursorAdapter(mContext, layout, mCursor, new String[]{mLabelColumn}, new int[]{android.R.id.text1});
+                } else if (mAdapter != null) {
+                    adapter = mAdapter;
+                } else {
+                    adapter = new CheckedItemAdapter(mContext, layout, android.R.id.text1, mItems);
+                }
             }
 
+            if (mOnPrepareListViewListener != null) {
+                mOnPrepareListViewListener.onPrepareListView(listView);
+            }
+
+            dialog.mAdapter = adapter;
+            dialog.mCheckedItem = mCheckedItem;
+
+            if (mOnClickListener != null) {
+                listView.setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                        mOnClickListener.onClick(dialog.mDialog, position);
+                        if (!mIsSingleChoice) {
+                            dialog.mDialog.dismiss();
+                        }
+                    }
+                });
+            } else if (mOnCheckboxClickListener != null) {
+                listView.setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                        if (mCheckedItems != null) {
+                            mCheckedItems[position] = listView.isItemChecked(position);
+                        }
+                        mOnCheckboxClickListener.onClick(dialog.mDialog, position, listView.isItemChecked(position));
+                    }
+                });
+            }
+
+            if (mOnItemSelectedListener != null) {
+                listView.setOnItemSelectedListener(mOnItemSelectedListener);
+            }
+
+            if (mIsSingleChoice) {
+                listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            } else if (mIsMultiChoice) {
+                listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            }
+            dialog.mListView = listView;
         }
     }
 
     private static class CheckedItemAdapter extends ArrayAdapter<CharSequence> {
-        public CheckedItemAdapter(Context var1, int var2, int var3, CharSequence[] var4) {
-            super(var1, var2, var3, var4);
+        public CheckedItemAdapter(Context context, int resource, int textViewResourceId, CharSequence[] objects) {
+            super(context, resource, textViewResourceId, objects);
         }
 
-        public long getItemId(int var1) {
-            return (long) var1;
-        }
-
+        @Override
         public boolean hasStableIds() {
             return true;
         }
-    }
 
-    public static class RecycleListView extends ListView {
-        public final int mPaddingBottomNoButtons;
-        public final int mPaddingTopNoTitle;
-
-        public RecycleListView(Context var1) {
-            this(var1, (AttributeSet) null);
-        }
-
-        public RecycleListView(Context var1, AttributeSet var2) {
-            super(var1, var2);
-            TypedArray var3 = var1.obtainStyledAttributes(var2, R.styleable.RecycleListView);
-            this.mPaddingBottomNoButtons = var3.getDimensionPixelOffset(R.styleable.RecycleListView_paddingBottomNoButtons, -1);
-            this.mPaddingTopNoTitle = var3.getDimensionPixelOffset(R.styleable.RecycleListView_paddingTopNoTitle, -1);
-        }
-
-        public void setHasDecor(boolean var1, boolean var2) {
-            if (!var2 || !var1) {
-                int var3 = this.getPaddingLeft();
-                int var4;
-                if (var1) {
-                    var4 = this.getPaddingTop();
-                } else {
-                    var4 = this.mPaddingTopNoTitle;
-                }
-
-                int var5 = this.getPaddingRight();
-                int var6;
-                if (var2) {
-                    var6 = this.getPaddingBottom();
-                } else {
-                    var6 = this.mPaddingBottomNoButtons;
-                }
-
-                this.setPadding(var3, var4, var5, var6);
-            }
-
-        }
-
-        public void setOverScrollMode(int var1) {
-            if (var1 != 2) {
-                if ((EdgeEffect) ReflectUtils.genericGetField(this, Build.VERSION.SDK_INT >= 29 ? "hidden_mEdgeGlowTop" : "mEdgeGlowTop") == null) {
-                    Context var2 = this.getContext();
-                    SamsungEdgeEffect var3 = new SamsungEdgeEffect(var2);
-                    SamsungEdgeEffect var4 = new SamsungEdgeEffect(var2);
-                    var3.setHostView(this, true);
-                    var4.setHostView(this, true);
-
-                    ReflectUtils.genericSetField(this, Build.VERSION.SDK_INT >= 29 ? "hidden_mEdgeGlowTop" : "mEdgeGlowTop", var3);
-                    ReflectUtils.genericSetField(this, Build.VERSION.SDK_INT >= 29 ? "hidden_mEdgeGlowBottom" : "mEdgeGlowBottom", var4);
-                }
-            } else {
-                ReflectUtils.genericSetField(this, Build.VERSION.SDK_INT >= 29 ? "hidden_mEdgeGlowTop" : "mEdgeGlowTop", (EdgeEffect) null);
-                ReflectUtils.genericSetField(this, Build.VERSION.SDK_INT >= 29 ? "hidden_mEdgeGlowBottom" : "mEdgeGlowBottom", (EdgeEffect) null);
-            }
-
-            super.setOverScrollMode(var1);
+        @Override
+        public long getItemId(int position) {
+            return position;
         }
     }
 }

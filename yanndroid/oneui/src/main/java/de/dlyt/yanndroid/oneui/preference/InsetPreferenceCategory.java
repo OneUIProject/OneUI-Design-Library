@@ -5,6 +5,8 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
+import de.dlyt.yanndroid.oneui.sesl.utils.SeslRoundedCorner;
+
 import de.dlyt.yanndroid.oneui.R;
 
 public class InsetPreferenceCategory extends PreferenceCategory {
@@ -24,7 +26,7 @@ public class InsetPreferenceCategory extends PreferenceCategory {
             styledAttrs.recycle();
 
             TypedArray categoryAttrs = context.obtainStyledAttributes(attrs, R.styleable.PreferenceCategory);
-            seslSetSubheaderRoundedBg(categoryAttrs.getInt(R.styleable.PreferenceCategory_roundStroke, 15));
+            seslSetSubheaderRoundedBackground(categoryAttrs.getInt(R.styleable.PreferenceCategory_roundStroke, SeslRoundedCorner.ROUNDED_CORNER_ALL));
             categoryAttrs.recycle();
         }
     }

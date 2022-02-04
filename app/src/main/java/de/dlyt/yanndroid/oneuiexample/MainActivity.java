@@ -1,8 +1,10 @@
 package de.dlyt.yanndroid.oneuiexample;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -10,19 +12,20 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
+import android.os.Handler;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.util.SeslMisc;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
 import de.dlyt.yanndroid.oneui.dialog.ClassicColorPickerDialog;
@@ -33,11 +36,15 @@ import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneui.menu.MenuItem;
 import de.dlyt.yanndroid.oneui.menu.PopupMenu;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
+import de.dlyt.yanndroid.oneui.sesl.tabs.SamsungTabLayout;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneui.utils.CustomButtonClickListener;
+import de.dlyt.yanndroid.oneui.utils.OnSingleClickListener;
 import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
-import de.dlyt.yanndroid.oneui.view.BottomNavigationView;
 import de.dlyt.yanndroid.oneui.view.Snackbar;
+import de.dlyt.yanndroid.oneui.view.TipPopup;
+import de.dlyt.yanndroid.oneui.view.Tooltip;
+import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneuiexample.base.BaseThemeActivity;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
 
@@ -54,9 +61,9 @@ public class MainActivity extends BaseThemeActivity {
     private TabsManager mTabsManager;
 
     private DrawerLayout drawerLayout;
-    private ToolbarLayout toolbarLayout;
-    private BottomNavigationView bnvLayout;
+    private TabLayout tabLayout;
     private PopupMenu bnvPopupMenu;
+    private TipPopup tipPopup;
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
@@ -68,7 +75,7 @@ public class MainActivity extends BaseThemeActivity {
         mContext = this;
         setContentView(R.layout.activity_main);
 
-        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> toolbarLayout.onSearchModeVoiceInputResult(result));
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> drawerLayout.onSearchModeVoiceInputResult(result));
 
         init();
     }
@@ -92,30 +99,11 @@ public class MainActivity extends BaseThemeActivity {
         }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (bnvLayout != null) {
-            bnvLayout.setResumeStatus(false);
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (bnvLayout != null) {
-            bnvLayout.setResumeStatus(true);
-        }
-    }
-
     private void init() {
         ViewSupport.semSetRoundedCorners(getWindow().getDecorView(), 0);
 
         drawerLayout = findViewById(R.id.drawer_view);
-        toolbarLayout = drawerLayout.getToolbarLayout();
-        bnvLayout = findViewById(R.id.main_samsung_tabs);
+        tabLayout = findViewById(R.id.main_samsung_tabs);
 
         sharedPrefName = "mainactivity_tabs";
         mTabsTagName = getResources().getStringArray(R.array.mainactivity_tab_tag);
@@ -131,8 +119,7 @@ public class MainActivity extends BaseThemeActivity {
         drawerLayout.setDrawerButtonOnClickListener(v -> startActivity(new Intent().setClass(mContext, AboutActivity.class)));
         drawerLayout.setDrawerButtonTooltip(getText(R.string.app_info));
         drawerLayout.setButtonBadges(ToolbarLayout.N_BADGE, DrawerLayout.N_BADGE);
-
-        toolbarLayout.getAppBarLayout().addOnOffsetChangedListener((layout, verticalOffset) -> {
+        drawerLayout.getAppBarLayout().addOnOffsetChangedListener((layout, verticalOffset) -> {
             int totalScrollRange = layout.getTotalScrollRange();
             int inputMethodWindowVisibleHeight = (int) ReflectUtils.genericInvokeMethod(InputMethodManager.class, mContext.getSystemService(INPUT_METHOD_SERVICE), "getInputMethodWindowVisibleHeight");
             LinearLayout nothingLayout = findViewById(R.id.nothing_layout);
@@ -145,12 +132,12 @@ public class MainActivity extends BaseThemeActivity {
             }
         });
 
-        toolbarLayout.inflateToolbarMenu(R.menu.main);
-        toolbarLayout.getToolbarMenu().findItem(R.id.theme_toggle).setTitle(mUseOUI4Theme ? "Switch to OneUI 3 Theme" : "Switch to OneUI 4 Theme");
-        toolbarLayout.setOnToolbarMenuItemClickListener(item -> {
+        drawerLayout.inflateToolbarMenu(R.menu.main);
+        drawerLayout.getToolbarMenu().findItem(R.id.theme_toggle).setTitle(mUseOUI4Theme ? "Switch to OneUI 3 Theme" : "Switch to OneUI 4 Theme");
+        drawerLayout.setOnToolbarMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.search:
-                    toolbarLayout.showSearchMode();
+                    drawerLayout.showSearchMode();
                     item.setBadge(item.getBadge() + 1);
                     break;
                 case R.id.info:
@@ -164,27 +151,7 @@ public class MainActivity extends BaseThemeActivity {
 
             return true;
         });
-        toolbarLayout.setSearchModeListener(new ToolbarLayout.SearchModeListener() {
-            @Override
-            public void onSearchOpened(EditText search_edittext) {
-            }
-
-            @Override
-            public void onSearchDismissed(EditText search_edittext) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
+        drawerLayout.setSearchModeListener(new ToolbarLayout.SearchModeListener() {
             @Override
             public void onKeyboardSearchClick(CharSequence s) {
                 Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
@@ -196,58 +163,97 @@ public class MainActivity extends BaseThemeActivity {
             }
         });
 
-        //BottomNavigationLayout
-        Drawable icon = getDrawable(R.drawable.ic_samsung_drawer);
-        icon.setColorFilter(getResources().getColor(R.color.sesl_tablayout_text_color), PorterDuff.Mode.SRC_IN);
-        for (String s : mTabsTitleName) {
-            bnvLayout.addTab(bnvLayout.newTab().setText(s));
+        // FAB
+        FloatingActionButton fab = findViewById(R.id.sesl_fab);
+        fab.setRippleColor(getResources().getColor(mUseOUI4Theme ? R.color.sesl4_ripple_color : R.color.sesl_ripple_color));
+        // dummy colors
+        if (mUseOUI4Theme) {
+            fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.sesl_swipe_refresh_background)));
+            fab.setSupportImageTintList(ResourcesCompat.getColorStateList(getResources(), R.color.sesl_tablayout_selected_indicator_color, getTheme()));
+        } else {
+            fab.setBackgroundTintList(ResourcesCompat.getColorStateList(getResources(), R.color.sesl_tablayout_selected_indicator_color, getTheme()));
+            fab.setSupportImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.sesl_white)));
         }
-        bnvLayout.addTabCustomButton(icon, new CustomButtonClickListener(bnvLayout) {
+        Tooltip.setTooltipText(fab, "FAB");
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tipPopup != null && tipPopup.isShowing()) {
+                    tipPopup.dismiss(true);
+                    tipPopup = null;
+                } else {
+                    tipPopup = new TipPopup(view, mUseOUI4Theme ? TipPopup.MODE_TRANSLUCENT : TipPopup.MODE_NORMAL);
+                    tipPopup.setMessage("This is a TipPopup demo.");
+                    tipPopup.setAction("Ok", new OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View view) {
+                        }
+                    });
+                    tipPopup.show(getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL ? TipPopup.DIRECTION_TOP_RIGHT : TipPopup.DIRECTION_TOP_LEFT);
+
+                }
+            }
+        });
+
+        // TabLayout
+        for (String s : mTabsTitleName) {
+            tabLayout.addTab(tabLayout.newTab().setText(s));
+        }
+
+        Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_samsung_drawer, getTheme());
+        icon.setColorFilter(getResources().getColor(R.color.sesl_tablayout_text_color), PorterDuff.Mode.SRC_IN);
+        tabLayout.addTabCustomButton(icon, new CustomButtonClickListener(tabLayout) {
             @Override
             public void onClick(View v) {
                 popupView(v);
             }
         });
 
-        bnvLayout.addOnTabSelectedListener(new BottomNavigationView.OnTabSelectedListener() {
-            public void onTabSelected(BottomNavigationView.Tab tab) {
+        tabLayout.addOnTabSelectedListener(new SamsungTabLayout.OnTabSelectedListener() {
+            public void onTabSelected(SamsungTabLayout.Tab tab) {
                 int tabPosition = tab.getPosition();
                 mTabsManager.setTabPosition(tabPosition);
                 setCurrentItem();
             }
 
-            public void onTabUnselected(BottomNavigationView.Tab tab) {
+            public void onTabUnselected(SamsungTabLayout.Tab tab) {
             }
 
-            public void onTabReselected(BottomNavigationView.Tab tab) {
+            public void onTabReselected(SamsungTabLayout.Tab tab) {
             }
         });
-        bnvLayout.updateWidget(this);
+
         setCurrentItem();
     }
 
     private void setCurrentItem() {
-        if (bnvLayout.isEnabled()) {
+        if (tabLayout.isEnabled()) {
             int tabPosition = mTabsManager.getCurrentTab();
-            BottomNavigationView.Tab tab = bnvLayout.getTabAt(tabPosition);
+            SamsungTabLayout.Tab tab = tabLayout.getTabAt(tabPosition);
             if (tab != null) {
                 tab.select();
                 setFragment(tabPosition);
 
                 if (tabPosition == 0) {
                     // MainActivityFirstFragment
-                    toolbarLayout.setSubtitle("Design");
-                    toolbarLayout.setNavigationButtonVisible(true);
-                    toolbarLayout.getToolbarMenu().findItem(R.id.search).setVisible(true);
+                    findViewById(R.id.sesl_fab).setVisibility(View.VISIBLE);
+                    drawerLayout.setSubtitle("Design");
+                    drawerLayout.setNavigationButtonVisible(true);
+                    drawerLayout.getToolbarMenu().findItem(R.id.search).setVisible(true);
+                    drawerLayout.setImmersiveScroll(false);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.findViewById(R.id.drawerLayout)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED);
+                    tabLayout.seslShowDotBadge(1, true);
                 } else {
                     // MainActivitySecondFragment
-                    toolbarLayout.setSubtitle("Preferences");
-                    toolbarLayout.setNavigationButtonVisible(false);
-                    toolbarLayout.getToolbarMenu().findItem(R.id.search).setVisible(false);
+                    findViewById(R.id.sesl_fab).setVisibility(View.GONE);
+                    drawerLayout.setSubtitle("Preferences");
+                    drawerLayout.setNavigationButtonVisible(false);
+                    drawerLayout.getToolbarMenu().findItem(R.id.search).setVisible(false);
+                    drawerLayout.setImmersiveScroll(true);
                     ((androidx.drawerlayout.widget.DrawerLayout) drawerLayout.findViewById(R.id.drawerLayout)).setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    tabLayout.seslShowDotBadge(1, false);
                 }
-
             }
         }
     }
@@ -283,9 +289,9 @@ public class MainActivity extends BaseThemeActivity {
 
         try {
             mClassicColorPickerDialog = new ClassicColorPickerDialog(this,
-                    new ClassicColorPickerDialog.ColorPickerChangedListener() {
+                    new ClassicColorPickerDialog.OnColorSetListener() {
                         @Override
-                        public void onColorChanged(int i) {
+                        public void onColorSet(int i) {
                             if (currentColor != i)
                                 ThemeUtil.setColor(MainActivity.this, Color.red(i), Color.green(i), Color.blue(i));
                         }
@@ -302,33 +308,37 @@ public class MainActivity extends BaseThemeActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("ThemeColor", Context.MODE_PRIVATE);
         String stringColor = sharedPreferences.getString("color", "0381fe");
 
-        float[] currentColor = new float[3];
-        Color.colorToHSV(Color.parseColor("#" + stringColor), currentColor);
+        int currentColor = Color.parseColor("#" + stringColor);
 
-        mDetailedColorPickerDialog = new DetailedColorPickerDialog(this, 2, currentColor);
-        mDetailedColorPickerDialog.setColorPickerChangeListener(new DetailedColorPickerDialog.ColorPickerChangedListener() {
-            @Override
-            public void onColorChanged(int i, float[] fArr) {
-                if (!(fArr[0] == currentColor[0] && fArr[1] == currentColor[1] && fArr[2] == currentColor[2]))
-                    ThemeUtil.setColor(MainActivity.this, fArr);
-            }
-
-            @Override
-            public void onViewModeChanged(int i) {
-
-            }
-        });
-        mDetailedColorPickerDialog.show();
+        try {
+            mDetailedColorPickerDialog = new DetailedColorPickerDialog(this,
+                    new DetailedColorPickerDialog.OnColorSetListener() {
+                        @Override
+                        public void onColorSet(int i) {
+                            if (currentColor != i)
+                                ThemeUtil.setColor(MainActivity.this, Color.red(i), Color.green(i), Color.blue(i));
+                        }
+                    },
+                    currentColor);
+            mDetailedColorPickerDialog.show();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 
     public void standardDialog(View view) {
-        new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Title")
                 .setMessage("Message")
                 .setNeutralButton("Maybe", null)
-                .setNegativeButton("No", null)
-                .setPositiveButton("Yes", null)
-                .show();
+                .setNegativeButton("No", (dialogInterface, i) -> new Handler().postDelayed(dialogInterface::dismiss, 700))
+                .setPositiveButton("Yes", (dialogInterface, i) -> new Handler().postDelayed(dialogInterface::dismiss, 700))
+                .setNegativeButtonColor(getResources().getColor(R.color.sesl_functional_red))
+                .setPositiveButtonColor(getResources().getColor(R.color.sesl_functional_green))
+                .setPositiveButtonProgress(true)
+                .setNegativeButtonProgress(true)
+                .create();
+        dialog.show();
     }
 
     public void singleChoiceDialog(View view) {
@@ -361,7 +371,7 @@ public class MainActivity extends BaseThemeActivity {
         dialog.setCanceledOnTouchOutside(true);
         dialog.setTitle("Title");
         dialog.setMessage("ProgressDialog");
-        dialog.setButton(ProgressDialog.BUTTON_NEGATIVE, "Cancel", (dialog1, which) -> progressDialogCircleOnly(view));
+        dialog.setButton(ProgressDialog.BUTTON_NEGATIVE, "Cancel", (DialogInterface.OnClickListener) null);
         dialog.setOnCancelListener(dialog12 -> progressDialogCircleOnly(view));
         dialog.show();
     }
@@ -390,7 +400,8 @@ public class MainActivity extends BaseThemeActivity {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     item.setBadge(item.getBadge() + 1);
-                    return true;
+                    tabLayout.seslShowBadge(2, true, String.valueOf(bnvPopupMenu.getMenu().getTotalBadgeCount()));
+                    return !item.isCheckable();
                 }
 
                 @Override

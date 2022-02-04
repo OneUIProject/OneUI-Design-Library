@@ -17,19 +17,20 @@ import android.widget.ListView;
 
 import androidx.annotation.ArrayRes;
 import androidx.annotation.AttrRes;
+import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
+import androidx.appcompat.R;
 import androidx.appcompat.app.AppCompatDialog;
 
-import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.sesl.dialog.SamsungAlertController;
 
 public class AlertDialog extends AppCompatDialog implements DialogInterface {
-    static final int LAYOUT_HINT_NONE = 0;
-    static final int LAYOUT_HINT_SIDE = 1;
+    public static final int LAYOUT_HINT_NONE = 0;
+    public static final int LAYOUT_HINT_SIDE = 1;
     final SamsungAlertController mAlert;
 
     protected AlertDialog(@NonNull Context context) {
@@ -48,8 +49,7 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
     }
 
     static int resolveDialogTheme(@NonNull Context context, @StyleRes int resid) {
-        // Check to see if this resourceId has a valid package ID.
-        if (((resid >>> 24) & 0x000000ff) >= 0x00000001) {   // start of real resource IDs.
+        if (((resid >>> 24) & 0x000000ff) >= 0x00000001) {
             return resid;
         } else {
             TypedValue outValue = new TypedValue();
@@ -93,15 +93,15 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
     }
 
     public void setButton(int whichButton, CharSequence text, Message msg) {
-        mAlert.setButton(whichButton, text, null, msg, null);
+        mAlert.setButton(whichButton, text, 0, false, null, msg, null);
     }
 
     public void setButton(int whichButton, CharSequence text, OnClickListener listener) {
-        mAlert.setButton(whichButton, text, listener, null, null);
+        mAlert.setButton(whichButton, text, 0, false, listener, null, null);
     }
 
     public void setButton(int whichButton, CharSequence text, Drawable icon, OnClickListener listener) {
-        mAlert.setButton(whichButton, text, listener, null, icon);
+        mAlert.setButton(whichButton, text, 0, false, listener, null, icon);
     }
 
     public void setIcon(int resId) {
@@ -201,14 +201,22 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
         }
 
         public Builder setPositiveButton(@StringRes int textId, final OnClickListener listener) {
-            P.mPositiveButtonText = P.mContext.getText(textId);
-            P.mPositiveButtonListener = listener;
-            return this;
+            return setPositiveButton(P.mContext.getText(textId), listener);
         }
 
         public Builder setPositiveButton(CharSequence text, final OnClickListener listener) {
             P.mPositiveButtonText = text;
             P.mPositiveButtonListener = listener;
+            return this;
+        }
+
+        public Builder setPositiveButtonColor(@ColorInt int color) {
+            P.mPositiveButtonColor = color;
+            return this;
+        }
+
+        public Builder setPositiveButtonProgress(boolean progress) {
+            P.mPositiveButtonProgress = progress;
             return this;
         }
 
@@ -218,14 +226,22 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
         }
 
         public Builder setNegativeButton(@StringRes int textId, final OnClickListener listener) {
-            P.mNegativeButtonText = P.mContext.getText(textId);
-            P.mNegativeButtonListener = listener;
-            return this;
+            return setNegativeButton(P.mContext.getText(textId), listener);
         }
 
         public Builder setNegativeButton(CharSequence text, final OnClickListener listener) {
             P.mNegativeButtonText = text;
             P.mNegativeButtonListener = listener;
+            return this;
+        }
+
+        public Builder setNegativeButtonColor(@ColorInt int color) {
+            P.mNegativeButtonColor = color;
+            return this;
+        }
+
+        public Builder setNegativeButtonProgress(boolean progress) {
+            P.mNegativeButtonProgress = progress;
             return this;
         }
 
@@ -235,14 +251,22 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
         }
 
         public Builder setNeutralButton(@StringRes int textId, final OnClickListener listener) {
-            P.mNeutralButtonText = P.mContext.getText(textId);
-            P.mNeutralButtonListener = listener;
-            return this;
+            return setNeutralButton(P.mContext.getText(textId), listener);
         }
 
         public Builder setNeutralButton(CharSequence text, final OnClickListener listener) {
             P.mNeutralButtonText = text;
             P.mNeutralButtonListener = listener;
+            return this;
+        }
+
+        public Builder setNeutralButtonColor(@ColorInt int color) {
+            P.mNeutralButtonColor = color;
+            return this;
+        }
+
+        public Builder setNeutralButtonProgress(boolean progress) {
+            P.mNeutralButtonProgress = progress;
             return this;
         }
 
@@ -396,11 +420,8 @@ public class AlertDialog extends AppCompatDialog implements DialogInterface {
             return this;
         }
 
-
         @NonNull
         public AlertDialog create() {
-            // We can't use Dialog's 3-arg constructor with the createThemeContextWrapper param,
-            // so we always have to re-set the theme
             final AlertDialog dialog = new AlertDialog(P.mContext, mTheme);
             P.apply(dialog.mAlert);
             dialog.setCancelable(P.mCancelable);

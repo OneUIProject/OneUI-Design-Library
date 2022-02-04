@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector android:drawable="@drawable/sesl_progress_bar_indeterminate_small"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <target android:name="c2s4pg1" android:animation="@anim/sesl_small_line1_group5_translatex_4" />
+    <target android:name="c2s4pg1p10" android:animation="@anim/sesl_small_line1_group5_path_6" />
+    <target android:name="c2s3pg1" android:animation="@anim/sesl_small_line2_group5_translatex_8" />
+    <target android:name="c2s3pg1p10" android:animation="@anim/sesl_small_line2_group5_path_10" />
+    <target android:name="c2s2pg1" android:animation="@anim/sesl_small_line3_group5_translatex_12" />
+    <target android:name="c2s2pg1p10" android:animation="@anim/sesl_small_line3_group5_path_14" />
+    <target android:name="c2s1pg1" android:animation="@anim/sesl_small_line4_group5_translatex_16" />
+</animated-vector>

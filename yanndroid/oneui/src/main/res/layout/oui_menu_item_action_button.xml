@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="?actionBarSize">
+
+    <TextView
+        android:id="@+id/menu_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/sesl_action_bar_item_text_background"
+        android:fontFamily="@string/sesl_font_family_regular"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/item_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <de.dlyt.yanndroid.oneui.sesl.widget.ToolbarImageButton
+        android:id="@+id/menu_item_icon"
+        android:layout_width="@dimen/sesl_overflow_button_min_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/menu_item_badge"
+        android:layout_width="@dimen/sesl_menu_item_badge_size"
+        android:layout_height="@dimen/sesl_menu_item_badge_size"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="7.0dip"
+        android:layout_marginBottom="8.5dp"
+        android:background="@drawable/sesl_noti_badge"
+        android:duplicateParentState="true"
+        android:gravity="center"
+        android:textColor="@color/sesl_menu_badge_text_color"
+        android:textSize="@dimen/sesl_menu_item_badge_text_size"
+        android:visibility="gone" />
+
+</FrameLayout>

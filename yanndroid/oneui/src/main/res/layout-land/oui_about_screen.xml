@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<de.dlyt.yanndroid.oneui.layout.ToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:expandable="false"
+    app:title="">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10.0dip"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/item_color"
+                android:textSize="40.0sp" />
+
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8.0dip"
+                android:gravity="center"
+                android:text="@string/sesl_version"
+                android:textColor="@color/sesl_radiobutton_text_color"
+                android:textSize="16.0sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/about_optional_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8.0dip"
+                android:gravity="center"
+                android:textColor="@color/sesl_radiobutton_text_color"
+                android:textSize="16.0sp"
+                android:textStyle="normal"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8.0dip"
+                android:gravity="center"
+                android:text="@string/latest_version_installed"
+                android:textColor="@color/sesl_radiobutton_text_color"
+                android:textSize="16.0sp"
+                android:textStyle="normal" />
+
+            <de.dlyt.yanndroid.oneui.widget.ProgressBar
+                android:id="@+id/loading_bar"
+                style="?android:progressBarStyle"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/update_button"
+                style="@style/ButtonStyle.AboutPageUpdate"
+                android:text="@string/sesl_update" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/retry_button"
+                style="@style/ButtonStyle.AboutPageUpdate"
+                android:text="@string/retry" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/about_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical" />
+    </LinearLayout>
+
+</de.dlyt.yanndroid.oneui.layout.ToolbarLayout>

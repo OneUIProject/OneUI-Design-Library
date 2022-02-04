@@ -1,10 +1,13 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="closed" translatable="false">closed</string>
     <string name="opened" translatable="false">opened</string>
+    <string name="sesl_font_family_bold" translatable="false">sans-serif</string>
+    <string name="sesl_font_family_light" translatable="false">sans-serif-light</string>
+    <string name="sesl_font_family_medium" translatable="false">sec-roboto-light</string>
     <string name="sesl_font_family_regular" translatable="false">sec-roboto-light</string>
     <string name="app_name" translatable="false" />
     <string name="sesl_appbar_scrolling_view_behavior" translatable="false">de.dlyt.yanndroid.oneui.sesl.appbar.SamsungAppBarLayout$ScrollingViewBehavior</string>
-
+    <string name="sesl_immersive_scrolling_behavior" translatable="false">de.dlyt.yanndroid.oneui.sesl.appbar.SeslImmersiveScrollBehavior</string>
 
     <string name="sesl_off_text">Off</string>
     <string name="sesl_on_text">On</string>
@@ -15,6 +18,13 @@
     <string name="sesl_navigate_up">Navigate up</string>
     <string name="sesl_navigation_drawer">Navigation drawer</string>
 
+    <string name="expand_button_title">Advanced</string>
+    <string name="summary_collapsed_preference_list"><xliff:g id="current_items">%1$s</xliff:g>, <xliff:g id="added_items">%2$s</xliff:g></string>
+    <string name="copy">Copy</string>
+    <string name="preference_copied">
+        \"<xliff:g id="summary" example="Version 1.1">%1$s</xliff:g>\" copied to clipboard.
+    </string>
+    <string name="not_set">Not set</string>
 
     <string name="action_settings">Settings</string>
     <string name="sec_relative_description">Looking for something else?</string>
@@ -23,28 +33,10 @@
     <string name="sesl_searchview_description_clear">Clear search field</string>
     <string name="sesl_searchview_description_voice">Voice search</string>
 
-
-
     <string name="all_checkbox">All</string>
     <string name="selected_check_info">%d selected</string>
     <string name="settings_import_select_items">Select items</string>
     <string name="sesl_more_item_label">More</string>
-
-
-    <string name="pen_string_current_any">Current %s</string>
-    <string name="pen_string_new_any">New %s</string>
-    <string name="pen_string_color">Colour</string>
-    <string name="pen_palette_color_custom">Custom color</string>
-    <string name="pen_string_select_color">Select a colour</string>
-    <string name="pen_string_color_double_tap_to_apply">Double tap to apply.</string>
-    <string name="pen_string_selected">Selected</string>
-    <string name="pen_string_saturation">Saturation</string>
-    <string name="pen_string_swatches">Swatches</string>
-    <string name="pen_string_spectrum">Spectrum</string>
-    <string name="pen_string_hex">Hex</string>
-    <string name="pen_string_red">Red</string>
-    <string name="pen_string_green">Green</string>
-    <string name="pen_string_blue">Blue</string>
 
     <string name="latest_version_installed">The latest version is already installed.</string>
     <string name="new_version_is_available">A new version is available.</string>
@@ -54,64 +46,83 @@
     <string name="retry">Retry</string>
     <string name="app_info">App info</string>
 
+    <string name="dragndroplist_drag_move">Now at position %d.</string>
+    <string name="dragndroplist_drag_release">Item dropped into position %d.</string>
+    <string name="dragndroplist_drag_start">Started dragging item at position %d.</string>
+    <string name="dragndroplist_item_cannot_be_dragged">Item at position %d cannot be dragged.</string>
+
     <string name="sesl_toolbar_collapse_description">Collapse</string>
     <string name="sesl_action_menu_overflow_badge_text_n">N</string>
     <string name="sesl_preferencecategory_added_title">Header</string>
 
-    <string name="pen_string_color_new">New</string>
-    <string name="pen_string_color_current">Current</string>
-    <string name="pen_string_opacity">Opacity</string>
-    <string name="pen_string_recent_color">Recently used colors</string>
-    <string name="pen_string_slider">Slider</string>
-
-    <string name="pen_swatch_color_azure">Azure</string>
-    <string name="pen_swatch_color_cyan">Cyan</string>
-    <string name="pen_swatch_color_dark_azure">Dark Azure</string>
-    <string name="pen_swatch_color_dark_blue">Dark Blue</string>
-    <string name="pen_swatch_color_dark_cyan">Dark Cyan</string>
-    <string name="pen_swatch_color_dark_magenta">Dark Magenta</string>
-    <string name="pen_swatch_color_dark_orange">Dark Orange</string>
-    <string name="pen_swatch_color_dark_red">Dark Red</string>
-    <string name="pen_swatch_color_dark_spring_green">Dark Spring green</string>
-    <string name="pen_swatch_color_dark_violet">Dark Violet</string>
-    <string name="pen_swatch_color_dark_yellow">Dark Yellow</string>
-    <string name="pen_swatch_color_gray">Gray</string>
-    <string name="pen_swatch_color_light_azure">Light Azure</string>
-    <string name="pen_swatch_color_light_blue">Light Blue</string>
-    <string name="pen_swatch_color_light_cyan">Light Cyan</string>
-    <string name="pen_swatch_color_light_magenta">Light Magenta</string>
-    <string name="pen_swatch_color_light_orange">Light Orange</string>
-    <string name="pen_swatch_color_light_red">Light Red</string>
-    <string name="pen_swatch_color_light_spring_green">Light Spring green</string>
-    <string name="pen_swatch_color_light_violet">Light Violet</string>
-    <string name="pen_swatch_color_magenta">Magenta</string>
-    <string name="pen_palette_color_black">Black</string>
-    <string name="pen_palette_color_blue">Blue</string>
-    <string name="pen_palette_color_dark_gray">Dark Gray</string>
-    <string name="pen_palette_color_dark_green">Dark Green</string>
-    <string name="pen_palette_color_green">Green</string>
-    <string name="pen_palette_color_light_gray">Light Gray</string>
-    <string name="pen_palette_color_light_green">Light Green</string>
-    <string name="pen_palette_color_light_yellow">Light Yellow</string>
-    <string name="pen_palette_color_orange">Orange</string>
-    <string name="pen_palette_color_red">Red</string>
-    <string name="pen_palette_color_spring_green">Spring green</string>
-    <string name="pen_palette_color_violet">Violet</string>
-    <string name="pen_palette_color_yellow">Yellow</string>
-    <string name="pen_palette_color_white">White</string>
-
-
+    <string name="sesl_color_blue_text">Blue</string>
+    <string name="sesl_color_green_text">Green</string>
+    <string name="sesl_color_hex_text">Hex</string>
+    <string name="sesl_color_opacity_text">Opacity</string>
+    <string name="sesl_color_picker_azure">Azure</string>
+    <string name="sesl_color_picker_black">Black</string>
+    <string name="sesl_color_picker_blue">Blue</string>
     <string name="sesl_color_picker_brightness">Brightness</string>
     <string name="sesl_color_picker_color_five">Color Five</string>
     <string name="sesl_color_picker_color_four">Color Four</string>
     <string name="sesl_color_picker_color_one">Color One</string>
+    <string name="sesl_color_picker_color_seven">Color Seven</string>
     <string name="sesl_color_picker_color_six">Color Six</string>
     <string name="sesl_color_picker_color_three">Color Three</string>
     <string name="sesl_color_picker_color_two">Color Two</string>
     <string name="sesl_color_picker_color_wheel">Color wheel</string>
+    <string name="sesl_color_picker_current">Current</string>
+    <string name="sesl_color_picker_cyan">Cyan</string>
+    <string name="sesl_color_picker_dark_azure">Dark Azure</string>
+    <string name="sesl_color_picker_dark_blue">Dark Blue</string>
+    <string name="sesl_color_picker_dark_cyan">Dark Cyan</string>
+    <string name="sesl_color_picker_dark_gray">Dark Gray</string>
+    <string name="sesl_color_picker_dark_green">Dark Green</string>
+    <string name="sesl_color_picker_dark_magenta">Dark Magenta</string>
+    <string name="sesl_color_picker_dark_orange">Dark Orange</string>
+    <string name="sesl_color_picker_dark_red">Dark Red</string>
+    <string name="sesl_color_picker_dark_spring_green">Dark Spring green</string>
+    <string name="sesl_color_picker_dark_violet">Dark Violet</string>
+    <string name="sesl_color_picker_dark_yellow">Dark Yellow</string>
     <string name="sesl_color_picker_double_tap_to_select">Double tap to select.</string>
+    <string name="sesl_color_picker_gray">Gray</string>
+    <string name="sesl_color_picker_green">Green</string>
     <string name="sesl_color_picker_hue_and_saturation">Hue and saturation</string>
+    <string name="sesl_color_picker_light_azure">Light Azure</string>
+    <string name="sesl_color_picker_light_blue">Light Blue</string>
+    <string name="sesl_color_picker_light_cyan">Light Cyan</string>
+    <string name="sesl_color_picker_light_gray">Light Gray</string>
+    <string name="sesl_color_picker_light_green">Light Green</string>
+    <string name="sesl_color_picker_light_magenta">Light Magenta</string>
+    <string name="sesl_color_picker_light_orange">Light Orange</string>
+    <string name="sesl_color_picker_light_red">Light Red</string>
+    <string name="sesl_color_picker_light_spring_green">Light Spring green</string>
+    <string name="sesl_color_picker_light_violet">Light Violet</string>
+    <string name="sesl_color_picker_light_yellow">Light Yellow</string>
+    <string name="sesl_color_picker_magenta">Magenta</string>
+    <string name="sesl_color_picker_new">New</string>
+    <string name="sesl_color_picker_opacity">Opacity</string>
     <string name="sesl_color_picker_option">Option</string>
+    <string name="sesl_color_picker_orange">Orange</string>
+    <string name="sesl_color_picker_recently_used_colors">Recently used colors</string>
+    <string name="sesl_color_picker_red">Red</string>
+    <string name="sesl_color_picker_slider">Slider</string>
+    <string name="sesl_color_picker_spectrum_text">Spectrum</string>
+    <string name="sesl_color_picker_spring_green">Spring green</string>
+    <string name="sesl_color_picker_swatches_text">Swatches</string>
+    <string name="sesl_color_picker_violet">Violet</string>
+    <string name="sesl_color_picker_white">White</string>
+    <string name="sesl_color_picker_yellow">Yellow</string>
+    <string name="sesl_color_red_text">Red</string>
+    <string name="sesl_color_saturation_text">Saturation</string>
+    <string name="sesl_picker_cancel">Cancel</string>
+    <string name="sesl_picker_done">Done</string>
 
+    <string name="sesl_index_assistant_text">Swipe up or down with two finger to adjust</string>
+    <string name="sesl_index_scrollbar">Scroll bar</string>
+    <string name="sesl_index_section">Section index</string>
+    <string name="sesl_index_selected">selected</string>
+
+    <string name="oui_tip_popup_hint_string">Double tap this button to learn more.</string>
 
 </resources>

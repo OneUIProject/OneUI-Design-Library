@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.res.TypedArrayUtils;
 
 import de.dlyt.yanndroid.oneui.R;
@@ -12,7 +14,7 @@ public final class PreferenceScreen extends PreferenceGroup {
     private boolean mShouldUseGeneratedIds = true;
 
     @SuppressLint("RestrictedApi")
-    public PreferenceScreen(Context context, AttributeSet attrs) {
+    public PreferenceScreen(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs, TypedArrayUtils.getAttr(context, R.attr.preferenceScreenStyle, android.R.attr.preferenceScreenStyle));
     }
 
@@ -33,6 +35,13 @@ public final class PreferenceScreen extends PreferenceGroup {
     }
 
     public boolean shouldUseGeneratedIds() {
-        return this.mShouldUseGeneratedIds;
+        return mShouldUseGeneratedIds;
+    }
+
+    public void setShouldUseGeneratedIds(boolean shouldUseGeneratedIds) {
+        if (isAttached()) {
+            throw new IllegalStateException("Cannot change the usage of generated IDs while attached to the preference hierarchy");
+        }
+        mShouldUseGeneratedIds = shouldUseGeneratedIds;
     }
 }

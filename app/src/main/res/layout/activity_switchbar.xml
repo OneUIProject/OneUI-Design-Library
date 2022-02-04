@@ -4,9 +4,11 @@
     android:id="@+id/switchbarlayout_switchbaractivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:toolbar_title="SwitchBarLayout">
+    app:expanded="false"
+    app:navigationIcon="@drawable/ic_samsung_back"
+    app:title="SwitchBarLayout">
 
-    <de.dlyt.yanndroid.oneui.view.RoundNestedScrollView
+    <de.dlyt.yanndroid.oneui.widget.RoundNestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?roundedCornerColor"
@@ -23,7 +25,7 @@
             android:descendantFocusability="afterDescendants"
             android:orientation="vertical">
 
-            <de.dlyt.yanndroid.oneui.layout.RoundFrameLayout
+            <de.dlyt.yanndroid.oneui.widget.RoundFrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/item_background_color">
@@ -36,7 +38,7 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@mipmap/ic_launcher" />
-            </de.dlyt.yanndroid.oneui.layout.RoundFrameLayout>
+            </de.dlyt.yanndroid.oneui.widget.RoundFrameLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -53,6 +55,6 @@
 
         </LinearLayout>
 
-    </de.dlyt.yanndroid.oneui.view.RoundNestedScrollView>
+    </de.dlyt.yanndroid.oneui.widget.RoundNestedScrollView>
 
 </de.dlyt.yanndroid.oneui.layout.SwitchBarLayout>

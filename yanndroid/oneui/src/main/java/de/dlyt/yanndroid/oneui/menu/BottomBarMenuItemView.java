@@ -40,10 +40,10 @@ public class BottomBarMenuItemView extends LinearLayout {
         LinearLayout.LayoutParams containerParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1);
         containerParams.setMargins(hMargin, 0, hMargin, 0);
         setLayoutParams(containerParams);
-        setBackgroundResource(R.drawable.ripple_light_view_rectangle_bottomitem);
+        setBackgroundResource(R.drawable.oui_light_view_rectangle_bottomitem);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.menu_item_bottom_bar, this, true);
+        inflater.inflate(R.layout.oui_menu_item_bottom_bar, this, true);
         iconView = findViewById(R.id.menu_item_icon);
         titleView = findViewById(R.id.menu_item_title);
     }

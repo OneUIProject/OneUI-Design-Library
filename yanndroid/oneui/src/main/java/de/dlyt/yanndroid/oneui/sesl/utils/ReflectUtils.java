@@ -1,5 +1,6 @@
 package de.dlyt.yanndroid.oneui.sesl.utils;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import java.lang.reflect.Constructor;
@@ -8,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class ReflectUtils {
+    @SuppressLint("LongLogTag")
     public static Object genericGetField(Class<?> cl, String fieldName) {
         Field field;
         Object requiredObj = null;
@@ -22,6 +24,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericGetField(Object obj, String fieldName) {
         Field field;
         Object requiredObj = null;
@@ -36,6 +39,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericGetField(Class<?> cl, Object obj, String fieldName) {
         Field field;
         Object requiredObj = null;
@@ -50,6 +54,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static void genericSetField(Object obj, String fieldName, Object fieldValue) {
         Field field;
         try {
@@ -61,6 +66,7 @@ public class ReflectUtils {
         }
     }
 
+    @SuppressLint("LongLogTag")
     public static void genericSetField(Class<?> cl, Object obj, String fieldName, Object fieldValue) {
         Field field;
         try {
@@ -72,12 +78,11 @@ public class ReflectUtils {
         }
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericInvokeMethod(String className, String methodName, Object... params) {
         int paramCount = params.length;
         Method method;
-        // FIX (SeslOverScroller)
-        Object requiredObj = className.contains("SemPerfManager") ? false : null;
-        // FIX (SeslOverScroller)
+        Object requiredObj = null;
         Class<?> cl;
         Class<?>[] classArray = new Class<?>[paramCount];
 
@@ -101,9 +106,7 @@ public class ReflectUtils {
             method = cl.getDeclaredMethod(methodName, classArray);
             method.setAccessible(true);
             requiredObj = method.invoke(null, params);
-            // FIX (SeslOverScroller)
-            return className.contains("SemPerfManager") ? true : requiredObj;
-            // FIX (SeslOverScroller)
+            return requiredObj;
         } catch (NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
             Log.e("ReflectUtils.genericInvokeMethod", e.toString());
         }
@@ -111,6 +114,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericInvokeMethod(Object obj, String methodName, Object... params) {
         int paramCount = params.length;
         Method method;
@@ -136,6 +140,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericInvokeMethod(Class<?> cl, String methodName, Object... params) {
         int paramCount = params.length;
         Method method;
@@ -161,6 +166,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericInvokeMethod(String className, Object obj, String methodName, Object... params) {
         int paramCount = params.length;
         Method method;
@@ -195,6 +201,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericInvokeMethod(Class<?> cl, Object obj, String methodName, Object... params) {
         int paramCount = params.length;
         Method method;
@@ -220,6 +227,7 @@ public class ReflectUtils {
         return requiredObj;
     }
 
+    @SuppressLint("LongLogTag")
     public static Object genericNewInstance(String className, Class<?> conCl, Object obj) {
         Object requiredObj = null;
         Class<?> cl;
