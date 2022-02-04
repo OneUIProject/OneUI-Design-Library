@@ -12,5 +12,30 @@
         android:layout_height="fill_parent"
         android:clickable="false"
         android:focusable="false"
-        android:orientation="horizontal" />
+        android:orientation="horizontal">
+
+        <include
+            android:id="@+id/item1"
+            layout="@layout/oui_radio_preference_item"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/item2"
+            layout="@layout/oui_radio_preference_item"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/item3"
+            layout="@layout/oui_radio_preference_item"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:visibility="gone" />
+    </de.dlyt.yanndroid.oneui.preference.internal.HorizontalRadioViewContainer>
 </LinearLayout>
