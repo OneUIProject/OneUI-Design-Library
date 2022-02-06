@@ -15,9 +15,13 @@ public class Menu {
 
     public ArrayList<MenuItem> menuItems;
 
-    Menu(android.view.Menu menu) { //only for submenu
+    Menu(android.view.Menu menu) { //only for SubMenu
         menuItems = new ArrayList<>();
-        for (int i = 0; i < menu.size(); i++) menuItems.add(new MenuItem(menu.getItem(i)));
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = new MenuItem(menu.getItem(i));
+            item.setParentMenu(this);
+            menuItems.add(item);
+        }
     }
 
     public Menu() { //create menu to add MenuItems programmatically later
@@ -26,15 +30,20 @@ public class Menu {
 
     @SuppressLint("RestrictedApi")
     public Menu(@MenuRes int menuRes, Context context) { //create Menu from MenuRes
-        menuItems = new ArrayList<>();
         android.view.Menu menu = new MenuBuilder(context);
         MenuInflater menuInflater = new SupportMenuInflater(context);
         menuInflater.inflate(menuRes, menu);
-        for (int i = 0; i < menu.size(); i++) menuItems.add(new MenuItem(menu.getItem(i)));
+        menuItems = new ArrayList<>();
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = new MenuItem(menu.getItem(i));
+            item.setParentMenu(this);
+            menuItems.add(item);
+        }
     }
 
     //setter
     public void addMenuItem(MenuItem menuItem) {
+        menuItem.setParentMenu(this);
         menuItems.add(menuItem);
     }
 
@@ -42,11 +51,9 @@ public class Menu {
         menuItems.remove(menuItem);
     }
 
-    /*public void addSubMenu(SubMenu subMenu) {
-        MenuItem subMenuParent = new MenuItem(id, subMenu.getHeaderTitle(), subMenu.getHeaderIcon());
-        subMenuParent.setSubMenu(subMenu);
-        addMenuItem(subMenuParent);
-    }*/
+    public void addSubMenu(SubMenu subMenu) {
+        addMenuItem(subMenu.getParentMenuItem());
+    }
 
     public void setGroupCheckable(int group, boolean checkable) {
         for (MenuItem menuItem : menuItems)

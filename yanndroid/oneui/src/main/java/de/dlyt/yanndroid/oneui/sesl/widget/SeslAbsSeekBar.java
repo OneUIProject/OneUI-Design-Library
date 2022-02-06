@@ -346,6 +346,18 @@ public abstract class SeslAbsSeekBar extends ProgressBar {
         return mTickMark;
     }
 
+    public void showTickMarkDots(boolean show) {
+        if (show) {
+            setTickMark(getContext().getDrawable(R.drawable.oui_seekbar_tick_mark));
+            super.setProgressTintList(colorToColorStateList(getResources().getColor(R.color.transparent)));
+            super.setProgressBackgroundTintList(colorToColorStateList(getResources().getColor(R.color.sesl4_seekbar_control_color_default)));
+        } else {
+            setTickMark(null);
+            super.setProgressTintList(mDefaultActivatedProgressColor);
+            super.setProgressBackgroundTintList(mDefaultNormalProgressColor);
+        }
+    }
+
     public void setTickMarkTintList(@Nullable ColorStateList tint) {
         mTickMarkTintList = tint;
         mHasTickMarkTint = true;

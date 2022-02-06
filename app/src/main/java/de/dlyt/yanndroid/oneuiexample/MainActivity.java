@@ -400,13 +400,12 @@ public class MainActivity extends BaseThemeActivity {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     item.setBadge(item.getBadge() + 1);
-                    tabLayout.seslShowBadge(2, true, String.valueOf(bnvPopupMenu.getMenu().getTotalBadgeCount()));
                     return !item.isCheckable();
                 }
 
                 @Override
                 public void onMenuItemUpdate(MenuItem menuItem) {
-
+                    tabLayout.seslShowBadge(2, true, bnvPopupMenu.getMenu().getTotalBadgeCount());
                 }
             });
         }

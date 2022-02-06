@@ -48,7 +48,7 @@
     <color name="sesl_seekbar_disable_color_activated">#ff545454</color>
     <color name="sesl_seekbar_overlap_color_default">#ff673724</color>
     <color name="sesl4_seekbar_overlap_color_activated">#ffff6021</color>
-
+    <color name="oui_seekbar_circle_marker_color">#808080</color>
 
     <!--Switch-->
     <color name="sesl_switch_thumb_off_disabled_color">#ff858585</color>
@@ -124,7 +124,6 @@
 
     <color name="bottom_bar_item_image_color">#ffcccccc</color>
     <color name="bottom_bar_item_text_color">#ff9c9c9c</color>
-
 
 
     <!--TabLayout-->

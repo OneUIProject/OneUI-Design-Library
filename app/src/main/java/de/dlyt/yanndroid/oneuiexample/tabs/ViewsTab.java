@@ -56,6 +56,10 @@ public class ViewsTab extends Fragment {
         //SeekBar
         SeekBar seekBar1 = mRootView.findViewById(R.id.seekbar1);
         SeekBar seekBar2 = mRootView.findViewById(R.id.seekbar2);
+        SeekBar seekBar3 = mRootView.findViewById(R.id.seekbar3);
+        seekBar3.setSeamless(true);
+        seekBar3.showTickMarkDots(true);
+
         seekBar1.setOverlapPointForDualColor(70);
         seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -89,10 +93,9 @@ public class ViewsTab extends Fragment {
             }, 700);
         });
 
-
         //Spinner
         SeslSpinner spinner = mRootView.findViewById(R.id.spinner);
-        List<String> categories = new ArrayList<String>();
+        List<String> categories = new ArrayList<>();
         for (int i = 1; i < 16; i++) categories.add("Spinner Item " + i);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_item, categories);
         dataAdapter.setDropDownViewResource(R.layout.sesl_simple_spinner_dropdown_item);

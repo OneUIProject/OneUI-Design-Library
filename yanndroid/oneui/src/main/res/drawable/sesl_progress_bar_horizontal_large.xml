@@ -7,6 +7,15 @@
             <solid android:color="@color/sesl4_progress_control_color_normal" />
         </shape>
     </item>
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape>
+                <corners android:radius="@dimen/progress_bar_radius" />
+                <size android:height="@dimen/progress_bar_height" />
+                <solid android:color="@color/sesl_seekbar_control_color_secondary" />
+            </shape>
+        </clip>
+    </item>
     <item android:id="@android:id/progress">
         <clip>
             <shape>

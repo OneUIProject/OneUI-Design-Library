@@ -114,13 +114,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
-                    app:seslSeekBarMode="standard" />
+                    app:seslSeekBarMode="warning" />
 
                 <de.dlyt.yanndroid.oneui.widget.SeekBar
+                    android:id="@+id/seekbar3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
-                    app:seslSeekBarMode="warning" />
+                    android:max="5"
+                    app:seslSeekBarMode="standard" />
 
             </LinearLayout>
 

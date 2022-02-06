@@ -91,6 +91,7 @@
     <color name="sesl4_seekbar_overlap_color_activated">#ffef5e16</color>
     <color name="sesl_seekbar_overlap_color_default">#fffcb69b</color> <!--oui4 #66cacaca-->
     <color name="sesl_seekbar_control_color_secondary">#ff7ab9cb</color>
+    <color name="oui_seekbar_circle_marker_color">#9c9c9c</color>
 
 
     <!--Switch-->
@@ -126,11 +127,6 @@
     <color name="sesl4_switchbar_on_background_color">#0d000000</color>
 
 
-
-    <!--Seekbar-->
-
-
-
     <!--Spinner-->
     <color name="sesl_menu_popup_background_color">#fffcfcfc</color>
     <color name="sesl_menu_popup_background_stroke_color">#fffcfcfc</color>
@@ -146,7 +142,6 @@
     <color name="sesl_spinner_item_text_color_disabled">#66252525</color>
     <color name="sesl_spinner_item_text_color_normal">@color/sesl_black</color>
     <color name="sesl_popup_menu_divider_color">#80979797</color>
-
 
 
     <!--Others-->
@@ -263,12 +258,11 @@
     <!--Snackbar-->
     <color name="sesl_design_snackbar_text_color">#fffafafa</color>
     <color name="sesl_snackbar_action_ripple_color">#40000000</color>
-    
+
     <!-- TipPopup -->
     <color name="oui_tip_popup_background_color">#ff474747</color>
     <color name="oui_tip_popup_text_color">#fffcfcfc</color>
     <color name="oui_tip_popup_text_color_translucent">#fffcfcfc</color>
-
 
 
 </resources>
