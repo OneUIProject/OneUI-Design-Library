@@ -201,7 +201,7 @@ public class MainActivity extends BaseThemeActivity {
             tabLayout.addTab(tabLayout.newTab().setText(s));
         }
 
-        Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_samsung_drawer, getTheme());
+        Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_oui_drawer, getTheme());
         icon.setColorFilter(getResources().getColor(R.color.sesl_tablayout_text_color), PorterDuff.Mode.SRC_IN);
         tabLayout.addTabCustomButton(icon, new CustomButtonClickListener(tabLayout) {
             @Override

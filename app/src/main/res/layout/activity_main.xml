@@ -4,7 +4,7 @@
     android:id="@+id/drawer_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:drawer_icon="@drawable/ic_samsung_info_2"
+    app:drawer_icon="@drawable/ic_ouid_info"
     app:title="@string/app_name">
 
     <FrameLayout
@@ -28,7 +28,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="24.0dip"
         android:elevation="4.0dip"
-        app:srcCompat="@drawable/ic_samsung_list_add"
+        app:srcCompat="@drawable/ic_oui_list_add"
         app:layout_location="root" />
 
 </de.dlyt.yanndroid.oneui.layout.DrawerLayout>

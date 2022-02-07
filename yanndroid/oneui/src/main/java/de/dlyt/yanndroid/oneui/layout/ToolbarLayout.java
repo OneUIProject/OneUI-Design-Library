@@ -496,7 +496,7 @@ public class ToolbarLayout extends LinearLayout {
         }
 
         if (overflowMenu.size() > 0) {
-            BottomBarMenuItemView moreButton = new BottomBarMenuItemView(mContext, getResources().getString(R.string.sesl_more_item_label), R.drawable.ic_samsung_more);
+            BottomBarMenuItemView moreButton = new BottomBarMenuItemView(mContext, getResources().getString(R.string.sesl_more_item_label), R.drawable.ic_oui_more);
             footer_action_mode.addView(moreButton);
 
             PopupMenu overflowPopupMenu = new PopupMenu(moreButton);
@@ -694,7 +694,7 @@ public class ToolbarLayout extends LinearLayout {
                 search_action_button.setOnClickListener(v -> searchModeListener.onVoiceInputClick(intent));
         } else {
             search_action_button.setVisibility(VISIBLE);
-            search_action_button.setImageResource(R.drawable.ic_samsung_close);
+            search_action_button.setImageResource(R.drawable.ic_oui_close);
             search_action_button.setTooltipText(getResources().getString(R.string.sesl_searchview_description_clear));
             search_action_button.setOnClickListener(v -> search_edittext.setText(""));
         }

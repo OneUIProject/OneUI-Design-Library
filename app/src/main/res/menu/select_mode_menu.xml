@@ -4,19 +4,19 @@
 
     <item
         android:id="@+id/move"
-        android:icon="@drawable/ic_samsung_move"
+        android:icon="@drawable/ic_oui_move"
         android:title="Move"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/delete"
-        android:icon="@drawable/ic_samsung_delete"
+        android:icon="@drawable/ic_ouid_delete"
         android:title="Delete"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/add"
-        android:icon="@drawable/ic_samsung_list_add"
+        android:icon="@drawable/ic_oui_list_add"
         android:title="Add"
         app:showAsAction="always" />
 

@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/search"
-        android:icon="@drawable/ic_samsung_search"
+        android:icon="@drawable/ic_oui_search"
         android:title="@string/action_search"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/info"
-        android:icon="@drawable/ic_samsung_info_2"
+        android:icon="@drawable/ic_ouid_info"
         android:title="@string/app_info"
         app:showAsAction="always" />
 

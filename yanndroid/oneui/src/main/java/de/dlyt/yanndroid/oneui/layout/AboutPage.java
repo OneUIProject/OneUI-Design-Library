@@ -80,7 +80,7 @@ public class AboutPage extends LinearLayout {
         toolbarLayout.findViewById(R.id.toolbar_layout_app_bar).setBackgroundColor(getResources().getColor(R.color.splash_background));
         toolbarLayout.findViewById(R.id.toolbar_layout_collapsing_toolbar_layout).setBackgroundColor(getResources().getColor(R.color.splash_background));
 
-        toolbarLayout.setNavigationButtonIcon(getResources().getDrawable(R.drawable.ic_samsung_back, context.getTheme()));
+        toolbarLayout.setNavigationButtonIcon(getResources().getDrawable(R.drawable.ic_oui_back, context.getTheme()));
         toolbarLayout.setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigate_up));
         toolbarLayout.setNavigationButtonOnClickListener(new OnClickListener() {
             @Override
@@ -90,9 +90,6 @@ public class AboutPage extends LinearLayout {
         });
 
         toolbarLayout.inflateToolbarMenu(R.menu.oui_about_page);
-        if (mIsOneUI4) {
-            toolbarLayout.getToolbarMenu().findItem(R.id.app_info).setIcon(getResources().getDrawable(R.drawable.ic_samsung_info_2, context.getTheme()));
-        }
         toolbarLayout.setOnToolbarMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.app_info) {
                 try {

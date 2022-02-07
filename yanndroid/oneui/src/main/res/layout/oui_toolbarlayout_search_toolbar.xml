@@ -20,7 +20,7 @@
             android:background="@drawable/sesl_action_bar_item_background"
             android:paddingStart="8.0dip"
             android:scaleType="center"
-            android:src="@drawable/ic_samsung_back" />
+            android:src="@drawable/ic_oui_back" />
     </FrameLayout>
 
     <!-- search edittext -->

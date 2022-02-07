@@ -57,8 +57,6 @@ class PopupMenuItemView extends LinearLayout {
         badgeView = findViewById(R.id.menu_item_badge);
         checkBox = findViewById(R.id.menu_item_check_box);
         arrowView = findViewById(R.id.menu_item_arrow);
-        if (getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL)
-            arrowView.setImageResource(R.drawable.ic_samsung_arrow_left);
 
         updateView();
     }

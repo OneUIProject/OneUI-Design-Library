@@ -67,7 +67,7 @@
         <item name="actionModeCutDrawable">@drawable/sesl_ic_menu_cut</item>
         <item name="actionModePasteDrawable">@drawable/sesl_ic_menu_paste</item>
         <item name="actionModeSelectAllDrawable">@drawable/sesl_ic_menu_selectall</item>
-        <item name="actionModeShareDrawable">@drawable/ic_samsung_share</item>
+        <item name="actionModeShareDrawable">@drawable/ic_oui3_share</item>
         <item name="actionModeSplitBackground">?colorPrimaryDark</item>
         <item name="actionModeStyle">@style/ActionModeStyle</item>
 

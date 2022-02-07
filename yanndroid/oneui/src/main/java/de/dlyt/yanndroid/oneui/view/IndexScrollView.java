@@ -11,7 +11,6 @@ import de.dlyt.yanndroid.oneui.sesl.indexscroll.SeslIndexScrollView;
 import de.dlyt.yanndroid.oneui.sesl.recyclerview.GridLayoutManager;
 import de.dlyt.yanndroid.oneui.sesl.recyclerview.LinearLayoutManager;
 import de.dlyt.yanndroid.oneui.sesl.recyclerview.StaggeredGridLayoutManager;
-import de.dlyt.yanndroid.oneui.view.RecyclerView;
 
 public class IndexScrollView extends SeslIndexScrollView {
     public IndexScrollView(Context context, AttributeSet attributeSet) {
@@ -50,6 +49,7 @@ public class IndexScrollView extends SeslIndexScrollView {
 
         StringBuilder sections = new StringBuilder();
         for (String itemName : itemNames) {
+            if (itemName.isEmpty()) continue;
             char sectionChar = itemName.toUpperCase(Locale.ROOT).charAt(0);
             if (sections.length() == 0 || sectionChar != sections.charAt(sections.length() - 1))
                 sections.append(sectionChar);
