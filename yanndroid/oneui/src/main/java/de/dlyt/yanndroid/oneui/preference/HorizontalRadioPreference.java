@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
@@ -44,9 +45,6 @@ public class HorizontalRadioPreference extends Preference {
     private boolean mValueSet;
 
     private HorizontalRadioViewContainer mContainerLayout;
-    private int paddingTop;
-    private int paddingStartEnd;
-    private int paddingBottom;
     private int mSelectedColor;
     private int mUnselectedColor;
 
@@ -79,10 +77,6 @@ public class HorizontalRadioPreference extends Preference {
 
         setSelectable(false);
 
-        paddingStartEnd = (int) TypedValue.applyDimension(0, getContext().getResources().getDimension(R.dimen.widget_multi_btn_preference_padding_start_end), getContext().getResources().getDisplayMetrics());
-        paddingTop = (int) TypedValue.applyDimension(0, getContext().getResources().getDimension(R.dimen.widget_multi_btn_preference_padding_top), getContext().getResources().getDisplayMetrics());
-        paddingBottom = (int) TypedValue.applyDimension(0, getContext().getResources().getDimension(R.dimen.widget_multi_btn_preference_padding_bottom), getContext().getResources().getDisplayMetrics());
-
         TypedValue color = new TypedValue();
         context.getTheme().resolveAttribute(SeslMisc.isLightTheme(context) ? R.attr.colorPrimary : R.attr.colorSecondary, color, true);
         mSelectedColor = color.data;
@@ -97,17 +91,14 @@ public class HorizontalRadioPreference extends Preference {
         super.onBindViewHolder(holder);
 
         int size = mEntryValues.length;
-        if (size > 2)
-            Log.w(TAG + ".onBindViewHolder", "Max mEntryValues supported is 3");
+        if (size > 2) Log.e(TAG + ".onBindViewHolder", "Max mEntryValues suggested is 3");
         mContainerLayout = holder.itemView.findViewById(R.id.radio_layout);
         mContainerLayout.setDividerEnabled(mIsDividerEnabled);
 
         int i = 0;
         for (CharSequence str : mEntryValues) {
-            if (i > 2)
-                break;
 
-            ViewGroup viewGroup = (ViewGroup) mContainerLayout.findViewById(getItemId(i));
+            ViewGroup viewGroup = (ViewGroup) getItemView(i);
 
             if (mType == NO_IMAGE /* noImage */) {
                 ((TextView) viewGroup.findViewById(R.id.title)).setText(mEntries[i]);
@@ -146,44 +137,26 @@ public class HorizontalRadioPreference extends Preference {
                     }
                 }
             });
-            viewGroup.setOnKeyListener(new View.OnKeyListener() {
-                @Override
-                public boolean onKey(View v, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
-                        switch (event.getAction()) {
-                            case KeyEvent.ACTION_DOWN:
-                                if (!mIsTouchEffectEnabled)
-                                    v.setAlpha(0.6f);
-                                return true;
-                            case KeyEvent.ACTION_UP:
-                                if (!mIsTouchEffectEnabled)
-                                    v.setAlpha(1.0f);
-                                v.playSoundEffect(SoundEffectConstants.CLICK);
-                                v.callOnClick();
-                        }
+            viewGroup.setOnKeyListener((v, keyCode, event) -> {
+                if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+                    switch (event.getAction()) {
+                        case KeyEvent.ACTION_DOWN:
+                            if (!mIsTouchEffectEnabled)
+                                v.setAlpha(0.6f);
+                            return true;
+                        case KeyEvent.ACTION_UP:
+                            if (!mIsTouchEffectEnabled)
+                                v.setAlpha(1.0f);
+                            v.playSoundEffect(SoundEffectConstants.CLICK);
+                            v.callOnClick();
                     }
-                    return false;
                 }
+                return false;
             });
-            viewGroup.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    setValue((String) str);
-                    callChangeListener((String) str);
-                }
+            viewGroup.setOnClickListener(view -> {
+                setValue((String) str);
+                callChangeListener((String) str);
             });
-
-            int padding = paddingStartEnd;
-            if (!mIsDividerEnabled) {
-                padding = Math.round(((float) paddingStartEnd) / 2.0f);
-            }
-            if (i == 0) {
-                viewGroup.setPadding(paddingStartEnd, paddingTop, padding, paddingBottom);
-            } else if (i == 1) {
-                viewGroup.setPadding(padding, paddingTop, paddingStartEnd, paddingBottom);
-            } else if (i == 2) {
-                viewGroup.setPadding(padding, paddingTop, padding, paddingBottom);
-            }
 
             i++;
         }
@@ -284,27 +257,21 @@ public class HorizontalRadioPreference extends Preference {
         return -1;
     }
 
-    private int getItemId(int i) {
-        if (i == 0) {
-            return R.id.item1;
+    private View getItemView(int i) {
+        if (i >= mContainerLayout.getChildCount()) {
+            return ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.oui_radio_preference_item, mContainerLayout);
+        } else {
+            return mContainerLayout.getChildAt(i);
         }
-        if (i == 1) {
-            return R.id.item2;
-        }
-        if (i == 2) {
-            return R.id.item3;
-        }
-        throw new IllegalArgumentException("Out of index");
     }
 
     @SuppressLint("WrongConstant")
     private void invalidate() {
         int i = 0;
         for (CharSequence str : mEntryValues) {
-            if (i > 2 || mContainerLayout == null)
-                break;
+            if (mContainerLayout == null) break;
 
-            ViewGroup viewGroup = (ViewGroup) mContainerLayout.findViewById(getItemId(i));
+            ViewGroup viewGroup = (ViewGroup) getItemView(i);
 
             RadioButton radioButton = ((RadioButton) viewGroup.findViewById(R.id.radio_button));
             TextView tv1 = null;

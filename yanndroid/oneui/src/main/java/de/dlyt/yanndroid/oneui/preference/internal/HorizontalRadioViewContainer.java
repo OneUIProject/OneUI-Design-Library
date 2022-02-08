@@ -37,7 +37,7 @@ public class HorizontalRadioViewContainer extends LinearLayout {
             for (int i = 0; i < getChildCount() - 1; i++) {
                 drawable.setBounds(0, 0, width, height);
                 canvas.save();
-                canvas.translate((float) Math.round((((float) getWidth()) / ((float) getChildCount())) * ((float) i)), (float) marginTop);
+                canvas.translate((float) Math.round((((float) getWidth()) / ((float) getChildCount())) * ((float) i + 1)), (float) marginTop);
                 drawable.draw(canvas);
                 canvas.restore();
             }
