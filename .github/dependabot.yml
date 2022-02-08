@@ -1,6 +1,14 @@
 version: 2
+registries:
+  maven-google:
+    type: maven-repository
+    url: https://dl.google.com:443/dl/android/maven2
+    username: ""
+    password: ""
+    
 updates:
   - package-ecosystem: "gradle"
     directory: "/yanndroid/oneui/"
+    registries: "*"
     schedule:
       interval: "daily"
