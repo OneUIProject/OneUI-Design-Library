@@ -95,10 +95,13 @@ public class HorizontalRadioPreference extends Preference {
         mContainerLayout = holder.itemView.findViewById(R.id.radio_layout);
         mContainerLayout.setDividerEnabled(mIsDividerEnabled);
 
+        mContainerLayout.removeAllViews();
+
         int i = 0;
         for (CharSequence str : mEntryValues) {
+            ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.oui_radio_preference_item, mContainerLayout);
 
-            ViewGroup viewGroup = (ViewGroup) getItemView(i);
+            ViewGroup viewGroup = (ViewGroup) mContainerLayout.getChildAt(i);
 
             if (mType == NO_IMAGE /* noImage */) {
                 ((TextView) viewGroup.findViewById(R.id.title)).setText(mEntries[i]);
@@ -257,21 +260,13 @@ public class HorizontalRadioPreference extends Preference {
         return -1;
     }
 
-    private View getItemView(int i) {
-        if (i >= mContainerLayout.getChildCount()) {
-            return ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.oui_radio_preference_item, mContainerLayout);
-        } else {
-            return mContainerLayout.getChildAt(i);
-        }
-    }
-
     @SuppressLint("WrongConstant")
     private void invalidate() {
         int i = 0;
         for (CharSequence str : mEntryValues) {
             if (mContainerLayout == null) break;
 
-            ViewGroup viewGroup = (ViewGroup) getItemView(i);
+            ViewGroup viewGroup = (ViewGroup) mContainerLayout.getChildAt(i);
 
             RadioButton radioButton = ((RadioButton) viewGroup.findViewById(R.id.radio_button));
             TextView tv1 = null;

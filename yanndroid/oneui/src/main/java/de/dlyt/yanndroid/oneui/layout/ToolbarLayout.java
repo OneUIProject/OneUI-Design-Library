@@ -688,7 +688,7 @@ public class ToolbarLayout extends LinearLayout {
 
             search_action_button.setVisibility(intent.resolveActivity(getContext().getPackageManager()) == null ? GONE : VISIBLE);
 
-            search_action_button.setImageResource(R.drawable.ic_samsung_voice_2);
+            search_action_button.setImageResource(R.drawable.ic_oui_voice);
             search_action_button.setTooltipText(getResources().getString(R.string.sesl_searchview_description_voice));
             if (searchModeListener != null)
                 search_action_button.setOnClickListener(v -> searchModeListener.onVoiceInputClick(intent));

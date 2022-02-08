@@ -22,7 +22,7 @@
 
     <item
         android:id="@+id/edit"
-        android:icon="@drawable/ic_samsung_edit"
+        android:icon="@drawable/ic_oui3_edit"
         android:title="Edit"
         app:showAsAction="always" />
 

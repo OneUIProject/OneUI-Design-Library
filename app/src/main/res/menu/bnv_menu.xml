@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/item1"
-        android:icon="@drawable/ic_samsung_image"
+        android:icon="@drawable/ic_oui3_image_2"
         android:title="MenuItem 1" />
 
     <item
