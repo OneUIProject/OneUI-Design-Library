@@ -8879,7 +8879,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
         mOnGoToTopClickListener = listener;
     }
 
-    public void seslShowGoToTopEdge(float delta, float displacement, int delayMillis) {
+    public void seslShowGoToTopEdge(int delayMillis) {
         removeCallbacks(mGoToTopEdgeEffectRunnable);
         postDelayed(mGoToTopEdgeEffectRunnable, (long) delayMillis);
     }
