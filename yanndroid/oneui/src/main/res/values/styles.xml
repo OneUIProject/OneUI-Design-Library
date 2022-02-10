@@ -682,11 +682,11 @@
 
     <style name="AlertDialogStyle" parent="@android:style/Widget">
         <item name="android:layout">@layout/sesl_alert_dialog</item>
-        <item name="horizontalProgressLayout">@layout/sesl_progress_dialog</item>
+        <item name="horizontalProgressLayout">@layout/oui_progress_dialog_horizontal</item>
         <item name="listItemLayout">@layout/sesl_select_dialog_item</item>
         <item name="listLayout">@layout/sesl_select_dialog</item>
         <item name="multiChoiceItemLayout">@layout/sesl_select_dialog_multichoice</item>
-        <item name="progressLayout">@layout/sesl_progress_dialog_circle</item>
+        <item name="progressLayout">@layout/oui_progress_dialog_spinner</item>
         <item name="singleChoiceItemLayout">@layout/sesl_select_dialog_singlechoice</item>
     </style>
 
@@ -1119,7 +1119,6 @@
     <style name="OneUI4.AlertDialogStyle" parent="@style/AlertDialogStyle">
         <item name="android:layout">@layout/sesl4_alert_dialog</item>
         <item name="listLayout">@layout/sesl4_select_dialog</item>
-        <item name="progressLayout">@layout/sesl4_progress_dialog_circle</item>
     </style>
 
     <style name="OneUI4.DialogTitleStyle" parent="@style/DialogTitleStyle">

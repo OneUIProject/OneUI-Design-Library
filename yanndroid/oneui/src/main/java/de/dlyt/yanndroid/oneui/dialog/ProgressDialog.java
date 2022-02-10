@@ -2,18 +2,21 @@ package de.dlyt.yanndroid.oneui.dialog;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.icu.text.NumberFormat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+
+import java.text.NumberFormat;
 
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.widget.ProgressBar;
@@ -21,21 +24,16 @@ import de.dlyt.yanndroid.oneui.widget.ProgressBar;
 public class ProgressDialog extends AlertDialog {
     public static final int STYLE_SPINNER = 0;
     public static final int STYLE_HORIZONTAL = 1;
-    public static final int STYLE_CIRCLE_ONLY = 2;
-
-    private boolean mIsOneUI4;
-
+    public static final int STYLE_CIRCLE = 2;
     private Context mContext;
-
+    private boolean mIsOneUI4;
     private ProgressBar mProgress;
     private TextView mMessageView;
-
     private int mProgressStyle = STYLE_SPINNER;
     private TextView mProgressNumber;
     private String mProgressNumberFormat;
     private TextView mProgressPercent;
     private NumberFormat mProgressPercentFormat;
-
     private int mMax;
     private int mProgressVal;
     private int mSecondaryProgressVal;
@@ -45,7 +43,6 @@ public class ProgressDialog extends AlertDialog {
     private Drawable mIndeterminateDrawable;
     private CharSequence mMessage;
     private boolean mIndeterminate;
-
     private boolean mHasStarted;
     private Handler mViewUpdateHandler;
 
@@ -63,6 +60,12 @@ public class ProgressDialog extends AlertDialog {
         initFormats();
     }
 
+    private void initFormats() {
+        mProgressNumberFormat = "%1d/%1d";
+        mProgressPercentFormat = NumberFormat.getPercentInstance();
+        mProgressPercentFormat.setMaximumFractionDigits(0);
+    }
+
     public static ProgressDialog show(Context context, CharSequence title, CharSequence message) {
         return show(context, title, message, false);
     }
@@ -77,9 +80,6 @@ public class ProgressDialog extends AlertDialog {
 
     public static ProgressDialog show(Context context, CharSequence title, CharSequence message, boolean indeterminate, boolean cancelable, OnCancelListener cancelListener) {
         ProgressDialog dialog = new ProgressDialog(context);
-        // for non-Samsung devices
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-        //
         dialog.setTitle(title);
         dialog.setMessage(message);
         dialog.setIndeterminate(indeterminate);
@@ -87,12 +87,6 @@ public class ProgressDialog extends AlertDialog {
         dialog.setOnCancelListener(cancelListener);
         dialog.show();
         return dialog;
-    }
-
-    private void initFormats() {
-        mProgressNumberFormat = "%1d/%2d";
-        mProgressPercentFormat = NumberFormat.getPercentInstance();
-        mProgressPercentFormat.setMaximumFractionDigits(0);
     }
 
     @Override
@@ -105,34 +99,48 @@ public class ProgressDialog extends AlertDialog {
                 public void handleMessage(Message msg) {
                     super.handleMessage(msg);
 
-                    /* Update the number and percent */
                     int progress = mProgress.getProgress();
                     int max = mProgress.getMax();
                     if (mProgressNumberFormat != null) {
                         String format = mProgressNumberFormat;
-                        mProgressNumber.setText(String.format(format, progress, max));
+                        if (mProgressNumber.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+                            mProgressNumber.setText(String.format(format, max, progress));
+                        } else {
+                            mProgressNumber.setText(String.format(format, progress, max));
+                        }
                     } else {
                         mProgressNumber.setText("");
                     }
                     if (mProgressPercentFormat != null) {
                         double percent = (double) progress / (double) max;
                         SpannableString tmp = new SpannableString(mProgressPercentFormat.format(percent));
-                        tmp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, tmp.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        tmp.setSpan(new StyleSpan(Typeface.NORMAL), 0, tmp.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         mProgressPercent.setText(tmp);
                     } else {
                         mProgressPercent.setText("");
                     }
                 }
             };
-            View view = inflater.inflate(a.getResourceId(R.styleable.SamsungAlertDialog_horizontalProgressLayout, R.layout.sesl_progress_dialog), null);
+            View view = inflater.inflate(a.getResourceId(R.styleable.SamsungAlertDialog_horizontalProgressLayout, R.layout.oui_progress_dialog_horizontal), null);
             mProgress = (ProgressBar) view.findViewById(R.id.progress);
             mProgressNumber = (TextView) view.findViewById(R.id.progress_number);
             mProgressPercent = (TextView) view.findViewById(R.id.progress_percent);
+            mMessageView = (TextView) view.findViewById(R.id.message);
             setView(view);
-        } else {
-            View view = inflater.inflate(a.getResourceId(R.styleable.SamsungAlertDialog_progressLayout, mIsOneUI4 ? R.layout.sesl4_progress_dialog_circle : R.layout.sesl_progress_dialog_circle), null);
+        } else if (mProgressStyle == STYLE_CIRCLE) {
+            setTitle(null);
+            getWindow().setBackgroundDrawableResource(mIsOneUI4 ? android.R.color.transparent : R.drawable.oui_progress_circle_dialog_bg);
+            View view = inflater.inflate(R.layout.oui_progress_dialog_circle, null);
             mProgress = (ProgressBar) view.findViewById(R.id.progress);
             mMessageView = (TextView) view.findViewById(R.id.message);
+            setView(view);
+        } else {
+            View view = inflater.inflate(a.getResourceId(R.styleable.SamsungAlertDialog_progressLayout, R.layout.oui_progress_dialog_spinner), null);
+            mProgress = (ProgressBar) view.findViewById(R.id.progress);
+            mMessageView = (TextView) view.findViewById(R.id.message);
+            if (mIsOneUI4) {
+                mMessageView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimensionPixelSize(R.dimen.sesl4_dialog_body_text_size));
+            }
             setView(view);
         }
         a.recycle();
@@ -164,12 +172,10 @@ public class ProgressDialog extends AlertDialog {
         onProgressChanged();
         super.onCreate(savedInstanceState);
 
-        if (mProgressStyle == STYLE_CIRCLE_ONLY) {
+        if (mProgressStyle == STYLE_CIRCLE) {
             int size = (int) ((70 * mContext.getResources().getDisplayMetrics().density));
-            getWindow().setBackgroundDrawableResource(mIsOneUI4 ? android.R.color.transparent : R.drawable.oui_progress_circle_dialog_bg);
-            getWindow().setLayout(size, size);
             getWindow().setGravity(Gravity.CENTER);
-            setContentView(inflater.inflate(R.layout.sesl_progress_dialog_circle_only, null));
+            getWindow().setLayout(size, size);
         }
     }
 
@@ -194,11 +200,7 @@ public class ProgressDialog extends AlertDialog {
 
     public void setProgress(int value) {
         if (mHasStarted) {
-            try {
-                mProgress.setProgress(value);
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
+            mProgress.setProgress(value);
             onProgressChanged();
         } else {
             mProgressVal = value;
@@ -214,11 +216,7 @@ public class ProgressDialog extends AlertDialog {
 
     public void setSecondaryProgress(int secondaryProgress) {
         if (mProgress != null) {
-            try {
-                mProgress.setSecondaryProgress(secondaryProgress);
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
+            mProgress.setSecondaryProgress(secondaryProgress);
             onProgressChanged();
         } else {
             mSecondaryProgressVal = secondaryProgress;
@@ -234,11 +232,7 @@ public class ProgressDialog extends AlertDialog {
 
     public void setMax(int max) {
         if (mProgress != null) {
-            try {
-                mProgress.setMax(max);
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
+            mProgress.setMax(max);
             onProgressChanged();
         } else {
             mMax = max;
@@ -247,11 +241,7 @@ public class ProgressDialog extends AlertDialog {
 
     public void incrementProgressBy(int diff) {
         if (mProgress != null) {
-            try {
-                mProgress.incrementProgressBy(diff);
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
+            mProgress.incrementProgressBy(diff);
             onProgressChanged();
         } else {
             mIncrementBy += diff;
@@ -260,11 +250,7 @@ public class ProgressDialog extends AlertDialog {
 
     public void incrementSecondaryProgressBy(int diff) {
         if (mProgress != null) {
-            try {
-                mProgress.incrementSecondaryProgressBy(diff);
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
+            mProgress.incrementSecondaryProgressBy(diff);
             onProgressChanged();
         } else {
             mIncrementSecondaryBy += diff;
@@ -273,11 +259,7 @@ public class ProgressDialog extends AlertDialog {
 
     public void setProgressDrawable(Drawable d) {
         if (mProgress != null) {
-            try {
-                mProgress.setProgressDrawable(d);
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
+            mProgress.setProgressDrawable(d);
         } else {
             mProgressDrawable = d;
         }
@@ -300,11 +282,7 @@ public class ProgressDialog extends AlertDialog {
 
     public void setIndeterminate(boolean indeterminate) {
         if (mProgress != null) {
-            try {
-                mProgress.setIndeterminate(indeterminate);
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
+            mProgress.setIndeterminate(indeterminate);
         } else {
             mIndeterminate = indeterminate;
         }
@@ -314,7 +292,15 @@ public class ProgressDialog extends AlertDialog {
     public void setMessage(CharSequence message) {
         if (mProgress != null) {
             if (mProgressStyle == STYLE_HORIZONTAL) {
-                super.setMessage(message);
+                if (mMessageView != null) {
+                    mMessageView.setText(message);
+                    mMessageView.setVisibility(message != "" ? View.VISIBLE : View.GONE);
+                } else {
+                    super.setMessage(message);
+                }
+            } else if (mProgressStyle == STYLE_CIRCLE) {
+                mMessageView.setText(message);
+                mMessageView.setVisibility(message != "" ? View.VISIBLE : View.GONE);
             } else {
                 mMessageView.setText(message);
             }
@@ -343,5 +329,9 @@ public class ProgressDialog extends AlertDialog {
                 mViewUpdateHandler.sendEmptyMessage(0);
             }
         }
+    }
+
+    public int getCurrentProgressStyle() {
+        return mProgressStyle;
     }
 }
