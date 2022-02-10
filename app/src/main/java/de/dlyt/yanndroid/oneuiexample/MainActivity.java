@@ -378,7 +378,7 @@ public class MainActivity extends BaseThemeActivity {
 
     private void progressDialogCircleOnly(View view) {
         ProgressDialog dialog = new ProgressDialog(mContext);
-        dialog.setProgressStyle(ProgressDialog.STYLE_CIRCLE_ONLY);
+        dialog.setProgressStyle(ProgressDialog.STYLE_CIRCLE);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.setOnCancelListener(dialog1 -> Snackbar.make(view, "Text label", Snackbar.LENGTH_SHORT).setAction("Action", new View.OnClickListener() {
