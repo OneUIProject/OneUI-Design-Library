@@ -2,16 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical">
+    android:paddingStart="?android:listPreferredItemPaddingStart"
+    android:paddingEnd="?android:listPreferredItemPaddingEnd"
+    android:gravity="center_vertical"
+    android:background="?listChoiceBackgroundIndicator">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:background="?listChoiceBackgroundIndicator"
+        android:layout_toStartOf="@id/icon_tab_item_dynamic"
         android:gravity="center_vertical"
-        android:paddingStart="?android:listPreferredItemPaddingStart"
-        android:paddingEnd="?android:listPreferredItemPaddingEnd">
+        android:animateLayoutChanges="true">
 
         <CheckBox
             android:id="@+id/checkbox"
@@ -39,8 +40,12 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:paddingVertical="14.0dip"
+            android:paddingEnd="12.0dip"
             android:textAppearance="?textAppearanceListItem" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/icon_tab_item_dynamic" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_alignParentEnd="true" android:text="DYNAMIC" android:textSize="10.0sp" android:textColor="@color/sesl_functional_orange" android:textStyle="bold" android:visibility="gone" />
 
 </RelativeLayout>

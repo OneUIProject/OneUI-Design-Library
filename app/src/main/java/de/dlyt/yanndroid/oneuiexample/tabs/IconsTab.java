@@ -550,7 +550,7 @@ public class IconsTab extends Fragment {
                     return true;
                 });
 
-                holder.parentView.setBackgroundColor((mContext.getDrawable(imageIDs[position]) instanceof ThemeDynamicDrawable) ? Color.parseColor("#500000FF") : 0);
+                holder.dynamicTag.setVisibility(mContext.getDrawable(imageIDs[position]) instanceof ThemeDynamicDrawable ? View.VISIBLE : View.GONE);
             }
         }
 
@@ -561,6 +561,7 @@ public class IconsTab extends Fragment {
             ImageView imageView;
             TextView textView;
             CheckBox checkBox;
+            TextView dynamicTag;
 
             ViewHolder(View itemView, int viewType) {
                 super(itemView);
@@ -572,6 +573,7 @@ public class IconsTab extends Fragment {
                     imageView = parentView.findViewById(R.id.icon_tab_item_image);
                     textView = parentView.findViewById(R.id.icon_tab_item_text);
                     checkBox = parentView.findViewById(R.id.checkbox);
+                    dynamicTag = parentView.findViewById(R.id.icon_tab_item_dynamic);
                 }
             }
         }
