@@ -1,6 +1,7 @@
 package de.dlyt.yanndroid.oneuiexample.tabs;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -380,6 +382,7 @@ public class IconsTab extends Fragment {
         listView.setAdapter(imageAdapter);
 
         listView.setItemAnimator(null);
+        listView.seslSetIndexTipEnabled(true);
         listView.seslSetFillBottomEnabled(true);
         listView.seslSetGoToTopEnabled(true);
         listView.seslSetLastRoundedCorner(false);
@@ -406,6 +409,12 @@ public class IconsTab extends Fragment {
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        listView.seslUpdateIndexTipPosition();
     }
 
     private String getResShortName(int id) {
@@ -479,7 +488,27 @@ public class IconsTab extends Fragment {
 
 
     //Adapter for the Icon RecyclerView
-    public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
+    public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> implements SectionIndexer {
+        List<String> mSections = new ArrayList<>();
+        List<Integer> mPositionForSection = new ArrayList<>();
+        List<Integer> mSectionForPosition = new ArrayList<>();
+
+        ImageAdapter() {
+            for (int i = 0; i < imageIDs.length; i++) {
+                String letter;
+                if (i != imageIDs.length - 1) {
+                    letter = getResShortName(imageIDs[i]).substring(0, 1).toUpperCase();
+                } else {
+                    letter = mSections.get(mSections.size() - 1);
+                }
+
+                if (i == 0 || !mSections.get(mSections.size() - 1).equals(letter)) {
+                    mSections.add(letter);
+                    mPositionForSection.add(i);
+                }
+                mSectionForPosition.add(mSections.size() - 1);
+            }
+        }
 
         @Override
         public int getItemCount() {
@@ -497,8 +526,9 @@ public class IconsTab extends Fragment {
             return 0;
         }
 
+        @NonNull
         @Override
-        public ImageAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ImageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             int resId = 0;
 
             switch (viewType) {
@@ -533,17 +563,17 @@ public class IconsTab extends Fragment {
                     listView.seslStartLongPressMultiSelection();
                     listView.seslSetLongPressMultiSelectionListener(new RecyclerView.SeslLongPressMultiSelectionListener() {
                         @Override
-                        public void onItemSelected(RecyclerView var1, View var2, int var3, long var4) {
-                            if (getItemViewType(var3) == 0) toggleItemSelected(var3);
+                        public void onItemSelected(RecyclerView view, View child, int position, long id) {
+                            if (getItemViewType(position) == 0) toggleItemSelected(position);
                         }
 
                         @Override
-                        public void onLongPressMultiSelectionEnded(int var1, int var2) {
+                        public void onLongPressMultiSelectionEnded(int x, int y) {
 
                         }
 
                         @Override
-                        public void onLongPressMultiSelectionStarted(int var1, int var2) {
+                        public void onLongPressMultiSelectionStarted(int x, int y) {
 
                         }
                     });
@@ -553,6 +583,22 @@ public class IconsTab extends Fragment {
                 holder.dynamicTag.setVisibility(mContext.getDrawable(imageIDs[position]) instanceof ThemeDynamicDrawable ? View.VISIBLE : View.GONE);
             }
         }
+
+        @Override
+        public Object[] getSections() {
+            return mSections.toArray();
+        }
+
+        @Override
+        public int getPositionForSection(int i) {
+            return mPositionForSection.get(i);
+        }
+
+        @Override
+        public int getSectionForPosition(int i) {
+            return mSectionForPosition.get(i);
+        }
+
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             boolean isItem;
@@ -593,7 +639,7 @@ public class IconsTab extends Fragment {
         }
 
         @Override
-        public void seslOnDispatchDraw(Canvas canvas, RecyclerView recyclerView, RecyclerView.State state) {
+        public void seslOnDispatchDraw(@NonNull Canvas canvas, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.State state) {
             super.seslOnDispatchDraw(canvas, recyclerView, state);
 
             int childCount = recyclerView.getChildCount();
