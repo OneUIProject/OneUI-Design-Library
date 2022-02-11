@@ -38,7 +38,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.animation.SeslAnimationUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.math.MathUtils;
 import androidx.reflect.content.res.SeslConfigurationReflector;
 import androidx.reflect.view.SeslHapticFeedbackConstantsReflector;
 
@@ -268,7 +267,7 @@ public class SeslRecyclerViewFastScroller {
         TypedValue colorPrimary = new TypedValue();
         mContext.getTheme().resolveAttribute(R.attr.colorPrimary, colorPrimary, true);
 
-        mColorPrimary = getColorWithAlpha(mContext.getResources().getColor(colorPrimary.resourceId), 0.9f);
+        mColorPrimary = getColorWithAlpha(colorPrimary.data, 0.9f);
 
         mThumbBackgroundColor = mContext.getResources().getColor(R.color.sesl_fast_scrollbar_bg_color);
         mTrackImage.setImageDrawable(mTrackDrawable);

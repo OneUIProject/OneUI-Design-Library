@@ -150,6 +150,8 @@
     <color name="sesl_dialog_sub_text_color_material">#ff666666</color>
     <color name="sesl_dialog_title_text_color">#fffafafa</color>
     <color name="sesl_dialog_window_background_color_material">#ff252525</color>
+    <color name="sesl_progress_dialog_text_color">#ffe5e5e5</color>
+    <color name="sesl_progress_dialog_horizontal_text_color">#ffb0b0b0</color>
 
 
     <!--RecyclerView-->

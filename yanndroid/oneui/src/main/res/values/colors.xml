@@ -226,7 +226,8 @@
     <color name="sesl_dialog_text_body_color">#ff505050</color>
     <color name="sesl_dialog_title_text_color">#ff252525</color>
     <color name="sesl_dialog_window_background_color_material">#fffcfcfc</color>
-    <color name="sesl_progress_dialog_horizontal_text_color">#ff545454</color>
+    <color name="sesl_progress_dialog_text_color">#ff252525</color>
+    <color name="sesl_progress_dialog_horizontal_text_color">#ff505050</color>
 
     <!--RecyclerView-->
     <color name="sesl_scrollbar_index_tip_color">#ff4d4d4d</color>
