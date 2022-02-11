@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <view
+        android:id="@+id/datepicker_input"
+        class="de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslSpinningDatePickerSpinner$CustomEditText"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/sesl_number_picker_spinner_edit_text_height"
+        android:gravity="center"
+        android:textColor="@color/sesl_number_picker_text_color"
+        android:textSize="@dimen/sesl_spinning_date_picker_date_spinner_text_size"
+        android:visibility="invisible" />
+</merge>

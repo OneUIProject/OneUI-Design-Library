@@ -265,5 +265,19 @@
     <color name="oui_tip_popup_text_color">#fffcfcfc</color>
     <color name="oui_tip_popup_text_color_translucent">#fffcfcfc</color>
 
+    <!--Picker-->
+    <color name="sesl_date_picker_selected_day_number_text_color">#fffcfcfc</color>
+    <color name="sesl_date_picker_button_tint_color">#ff8e8e8e</color>
+    <color name="sesl_date_picker_header_text_color">@color/sesl_date_picker_normal_day_number_text_color</color>
+    <color name="sesl_date_picker_normal_day_number_text_color">#ff4d4d4d</color>
+    <color name="sesl_date_picker_normal_text_color">#ff909090</color>
+    <color name="sesl_date_picker_sunday_text_color">#ffdb332a</color>
+
+    <color name="sesl_date_picker_saturday_text_color">#ff0082be</color>
+    <color name="sesl_date_picker_saturday_week_text_color">#ff0082be</color>
+    <color name="sesl_date_picker_sunday_number_text_color">#ffdb332a</color>
+    <color name="sesl_date_picker_weekday_number_text_color">#ff454545</color>
+    <color name="sesl_number_picker_text_highlight_color">#0d000000</color>
+    <color name="sesl_number_picker_text_color">#ff252525</color>
 
 </resources>

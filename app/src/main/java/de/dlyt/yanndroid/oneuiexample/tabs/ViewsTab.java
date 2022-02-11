@@ -17,6 +17,11 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslDatePicker;
+import de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslDatePickerSpinnerLayout;
+import de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslNumberPicker;
+import de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslSpinningDatePickerSpinner;
+import de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslTimePicker;
 import de.dlyt.yanndroid.oneui.widget.ProgressBar;
 import de.dlyt.yanndroid.oneui.widget.SeekBar;
 import de.dlyt.yanndroid.oneui.widget.SwitchBar;
@@ -100,6 +105,26 @@ public class ViewsTab extends Fragment {
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_item, categories);
         dataAdapter.setDropDownViewResource(R.layout.sesl_simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
+
+        //Pickers //todo: selected number not centered on each scroll picker
+        SeslSpinningDatePickerSpinner ssdps = mRootView.findViewById(R.id.ssdps);
+
+        SeslNumberPicker snp = mRootView.findViewById(R.id.snp); //todo: need to find out how dismiss edit-mode when "done" is clicked in keyboard (dismissing keyboard with back key works | on all the other pickers it's working)
+        snp.setMaxValue(100);
+        snp.setMinValue(0);
+        snp.setValue(50);
+
+        SeslDatePicker sdp = mRootView.findViewById(R.id.sdp);
+        sdp.setFirstDayOfWeek(2);
+        sdp.setMinDate(0);
+        sdp.setMaxDate(4133966209349L);
+
+        SeslTimePicker stp = mRootView.findViewById(R.id.stp);
+        stp.setIs24HourView(true);
+
+        SeslDatePickerSpinnerLayout sdpsl = mRootView.findViewById(R.id.sdpsl);
+        sdpsl.setMinDate(0);
+        sdpsl.setMaxDate(4133966209349L);
 
     }
 

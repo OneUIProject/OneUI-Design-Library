@@ -9,4 +9,23 @@
     <integer name="sesl_dialog_exit_anim_duration">100</integer>
     <integer name="sesl_tablayout_over_screen_width_dp">480</integer>
 
+
+    <integer name="sesl_date_picker_abnormal_start_end_date_background_alpha">38</integer>
+    <integer name="sesl_date_picker_spinner_long_month_text_size">19</integer>
+    <integer name="sesl_date_picker_spinner_number_text_size">22</integer>
+    <integer name="sesl_date_picker_spinner_number_text_size_with_unit">19</integer>
+    <integer name="sesl_day_number_disabled_alpha_dark">51</integer>
+    <integer name="sesl_day_number_disabled_alpha_light">26</integer>
+    <integer name="sesl_day_number_theme_disabled_alpha">102</integer>
+    <integer name="sesl_spinning_date_picker_spinner_view_weight">47</integer>
+    <item type="integer" name="sesl_spinning_date_time_picker_empty_view_left_weight">7.5</item>
+    <integer name="sesl_spinning_date_time_picker_margin_view_left_weight">4</integer>
+    <integer name="sesl_spinning_datepicker_time_ampm_weight">13</integer>
+    <integer name="sesl_spinning_datepicker_time_hr_min_container_weight">30</integer>
+    <integer name="sesl_spinning_datepicker_time_hr_weight">14</integer>
+    <integer name="sesl_spinning_datepicker_time_margin_right_weight">6</integer>
+    <integer name="sesl_spinning_datepicker_time_min_weight">14</integer>
+    <item type="integer" name="sesl_spinning_datepicker_time_padding_left">11.5</item>
+    <item type="integer" name="sesl_spinning_datepicker_time_padding_right">11.5</item>
+
 </resources>

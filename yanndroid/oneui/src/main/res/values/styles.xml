@@ -63,7 +63,7 @@
         <item name="actionModeBackground">@drawable/sesl_action_bar_background</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.AppCompat.Light.ActionButton.CloseMode</item>
         <item name="actionModeCloseDrawable">@drawable/sesl_ic_cab_done</item>
-        <item name="actionModeCopyDrawable">@drawable/ic_oui_copy</item>
+        <item name="actionModeCopyDrawable">@drawable/ic_oui3_copy</item>
         <item name="actionModeCutDrawable">@drawable/sesl_ic_menu_cut</item>
         <item name="actionModePasteDrawable">@drawable/sesl_ic_menu_paste</item>
         <item name="actionModeSelectAllDrawable">@drawable/sesl_ic_menu_selectall</item>

@@ -574,6 +574,32 @@
         <attr name="seslSwitchBarTextActivatedColor" format="color" />
         <attr name="seslSwitchBarTextColor" format="color" />
     </declare-styleable>
+    <declare-styleable name="TimePicker">
+        <attr name="dateTimeMode" format="boolean" />
+        <attr name="timeLayoutMode" format="integer">
+            <enum name="defaultMode" value="0" />
+            <enum name="phoneMode" value="1" />
+            <enum name="multiPaneMode" value="2" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="DatePicker">
+        <attr name="android:startYear" />
+        <attr name="android:endYear" />
+        <attr name="android:firstDayOfWeek" />
+        <attr name="dayNumberTextColor" format="color" />
+        <attr name="dayTextColor" format="color" />
+        <attr name="sundayTextColor" format="color" />
+        <attr name="headerTextColor" format="color" />
+        <attr name="buttonTintColor" format="color" />
+        <attr name="selectedDayNumberTextColor" format="color" />
+        <attr name="dayNumberDisabledAlpha" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="NumberPicker">
+        <attr name="internalMinHeight" format="dimension" />
+        <attr name="internalMaxHeight" format="dimension" />
+        <attr name="internalMinWidth" format="dimension" />
+        <attr name="internalMaxWidth" format="dimension" />
+    </declare-styleable>
 
     <declare-styleable name="ThemeDynamicDrawable">
         <attr name="drawable3" format="reference" />

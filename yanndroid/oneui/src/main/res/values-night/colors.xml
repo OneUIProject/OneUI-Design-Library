@@ -174,5 +174,14 @@
     <color name="oui_tip_popup_background_color">#ff474747</color>
     <color name="oui_tip_popup_text_color">#fffcfcfc</color>
 
+    <!--Picker-->
+    <color name="sesl_number_picker_text_highlight_color">#1affffff</color>
+    <color name="sesl_number_picker_text_color">#fffafafa</color>
+    <color name="sesl_date_picker_selected_day_number_text_color">#ffcccccc</color>
+    <color name="sesl_date_picker_button_tint_color">#ff737373</color>
+    <color name="sesl_date_picker_header_text_color">@color/sesl_date_picker_normal_day_number_text_color</color>
+    <color name="sesl_date_picker_normal_day_number_text_color">#ffcccccc</color>
+    <color name="sesl_date_picker_normal_text_color">#ff999999</color>
+    <color name="sesl_date_picker_sunday_text_color">#fff76f68</color>
 
 </resources>

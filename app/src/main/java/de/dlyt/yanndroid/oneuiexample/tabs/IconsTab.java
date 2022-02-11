@@ -106,7 +106,7 @@ public class IconsTab extends Fragment {
             R.drawable.ic_oui3_sd_card,
             R.drawable.ic_oui3_secure_folder,
             R.drawable.ic_oui3_security,
-            R.drawable.ic_oui3_selected_2,
+            R.drawable.ic_oui3_selected,
             R.drawable.ic_oui3_send,
             R.drawable.ic_oui3_settings,
             R.drawable.ic_oui3_settings_2,

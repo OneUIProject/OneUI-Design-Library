@@ -29,12 +29,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
 import de.dlyt.yanndroid.oneui.dialog.ClassicColorPickerDialog;
+import de.dlyt.yanndroid.oneui.dialog.DatePickerDialog;
 import de.dlyt.yanndroid.oneui.dialog.DetailedColorPickerDialog;
 import de.dlyt.yanndroid.oneui.dialog.ProgressDialog;
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneui.menu.MenuItem;
 import de.dlyt.yanndroid.oneui.menu.PopupMenu;
+import de.dlyt.yanndroid.oneui.sesl.picker.app.SeslDatePickerDialog;
+import de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslDatePicker;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.tabs.SamsungTabLayout;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
@@ -324,6 +327,16 @@ public class MainActivity extends BaseThemeActivity {
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
+    }
+
+    public void datePickerDialog(View view){
+        DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, new SeslDatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(SeslDatePicker seslDatePicker, int year, int month, int day) {
+                Toast.makeText(mContext, "Year: " + year + "\nMonth: " + month + "\nDay: " + day, Toast.LENGTH_SHORT).show();
+            }
+        });
+        datePickerDialog.show();
     }
 
     public void standardDialog(View view) {

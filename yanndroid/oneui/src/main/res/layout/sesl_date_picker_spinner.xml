@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sesl_date_picker_pickers"
+    android:layout_width="0.0dip"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center_horizontal"
+    android:layout_weight="100.0"
+    android:orientation="horizontal">
+
+    <View
+        android:id="@+id/sesl_date_picker_spinner_day_padding"
+        android:layout_width="0.0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="8.0" />
+
+    <de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslNumberPicker
+        android:id="@+id/sesl_date_picker_spinner_day"
+        android:layout_width="0.0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="25.0"
+        android:focusable="true" />
+
+    <de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslNumberPicker
+        android:id="@+id/sesl_date_picker_spinner_month"
+        android:layout_width="0.0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="28.0"
+        android:focusable="true" />
+
+    <de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslNumberPicker
+        android:id="@+id/sesl_date_picker_spinner_year"
+        android:layout_width="0.0dip"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_weight="28.0"
+        android:focusable="true"
+        android:gravity="center_vertical" />
+
+    <View
+        android:id="@+id/sesl_date_picker_spinner_year_padding"
+        android:layout_width="0.0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="11.0" />
+</LinearLayout>

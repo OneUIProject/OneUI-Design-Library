@@ -391,6 +391,58 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.textview.MaterialTextView
+            style="?android:listSeparatorTextViewStyle"
+            android:text="Number Pickers" />
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/ButtonStyle.Colored"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="10dp"
+                    android:onClick="datePickerDialog"
+                    android:text="Dialog" />
+
+                <de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslSpinningDatePickerSpinner
+                    android:id="@+id/ssdps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslNumberPicker
+                    android:id="@+id/snp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslDatePicker
+                    android:id="@+id/sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslTimePicker
+                    android:id="@+id/stp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslDatePickerSpinnerLayout
+                    android:id="@+id/sdpsl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/sesl_list_subheader_min_height"
