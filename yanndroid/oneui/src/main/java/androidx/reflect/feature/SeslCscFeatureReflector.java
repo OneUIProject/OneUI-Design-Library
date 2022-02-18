@@ -7,20 +7,22 @@ import androidx.reflect.SeslBaseReflector;
 import java.lang.reflect.Method;
 
 public class SeslCscFeatureReflector {
-    public static String mClassName;
+    private static String mClassName;
+
+    private SeslCscFeatureReflector() {
+    }
 
     static {
-        int i = Build.VERSION.SDK_INT;
-        if (i >= 29) {
+        if (Build.VERSION.SDK_INT >= 29) {
             mClassName = "com.samsung.sesl.feature.SemCscFeature";
-        } else if (i >= 24) {
+        } else if (Build.VERSION.SDK_INT >= 24) {
             mClassName = "com.samsung.android.feature.SemCscFeature";
         } else {
             mClassName = "com.sec.android.app.CscFeature";
         }
     }
 
-    public static Object getInstance() {
+    private static Object getInstance() {
         Method method = SeslBaseReflector.getMethod(mClassName, "getInstance", new Class[0]);
         if (method != null) {
             Object invoke = SeslBaseReflector.invoke(null, method, new Object[0]);

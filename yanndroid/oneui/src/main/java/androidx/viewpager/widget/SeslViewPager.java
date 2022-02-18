@@ -2624,18 +2624,11 @@ public class SeslViewPager extends ViewGroup {
     }
 
     /*kang from MathUtils.smali*/
-    public static int constrain(int amount, int low, int high) {
-        if (amount < low) {
-            return low;
-        }
-        return amount > high ? high : amount;
+    private int constrain(int amount, int low, int high) {
+        return amount < low ? low : (amount > high ? high : amount);
     }
 
-    public static float constrain(float amount, float low, float high) {
-        if (amount < low) {
-            return low;
-        }
-        return amount > high ? high : amount;
+    private float constrain(float amount, float low, float high) {
+        return amount < low ? low : (amount > high ? high : amount);
     }
-    /*kang from MathUtils.smali*/
 }

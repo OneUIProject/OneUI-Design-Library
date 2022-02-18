@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sesl_spinning_date_time_picker_layout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:orientation="vertical">
+    <android.widget.ViewAnimator
+        android:id="@+id/sesl_spinning_date_picker_view_animator" android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center" android:inAnimation="@anim/sesl_date_picker_fade_in" android:outAnimation="@anim/sesl_date_picker_fade_out" android:measureAllChildren="true">
+        <LinearLayout
+            android:id="@+id/sesl_spinning_date_picker_view" android:layout_width="fill_parent" android:layout_height="@dimen/sesl_spinning_date_picker_height">
+            <View
+                android:id="@+id/sesl_spinning_date_time_picker_margin_view_left" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+            <View
+                android:id="@+id/sesl_spinning_date_time_picker_empty_view_left" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="0.0" android:visibility="gone" />
+            <de.dlyt.yanndroid.oneui.sesl.picker.SeslSpinningDatePickerSpinner
+                android:id="@+id/sesl_spinning_date_picker_spinner_view" android:layout_width="0.0dip" android:layout_height="@dimen/sesl_date_picker_spinner_height"  android:layout_weight="48.0" android:layout_marginTop="@dimen/sesl_spinning_date_picker_margin_top" android:gravity="center" android:focusable="true" android:visibility="visible" />
+            <View
+                android:id="@+id/sesl_spinning_date_picker_margin_view_center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+        </LinearLayout>
+    </android.widget.ViewAnimator>
+</LinearLayout>

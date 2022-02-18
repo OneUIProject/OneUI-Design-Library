@@ -456,6 +456,11 @@
     <dimen name="widget_related_card_view_margin_start_tip">18.0dip</dimen>
 
     <!--Snackbar-->
+    <dimen name="sesl_toast_padding_start">20.0dip</dimen>
+    <dimen name="sesl_toast_padding_top">9.0dip</dimen>
+    <dimen name="sesl_toast_padding_end">20.0dip</dimen>
+    <dimen name="sesl_toast_padding_bottom">9.0dip</dimen>
+    <dimen name="sesl_toast_text_size">16.0sp</dimen>
     <dimen name="sesl_design_snackbar_action_padding_left">20.0dip</dimen>
     <dimen name="sesl_design_snackbar_action_padding_right">20.0dip</dimen>
     <dimen name="sesl_design_snackbar_action_padding_top">2.0dip</dimen>

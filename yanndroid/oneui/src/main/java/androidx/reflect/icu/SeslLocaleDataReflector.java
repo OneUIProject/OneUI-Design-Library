@@ -11,10 +11,13 @@ import java.text.DateFormatSymbols;
 import java.util.Locale;
 
 public class SeslLocaleDataReflector {
-    public static String mClassName = "libcore.icu.LocaleData";
-    public static String mDateFormatSymbolsClass = "android.icu.text.DateFormatSymbols";
-    public static String mSemClassName = "com.samsung.sesl.icu.SemLocaleData";
-    public static String mSemDateFormatSymbolsClass = "com.samsung.sesl.icu.SemDateFormatSymbols";
+    private static String mClassName = "libcore.icu.LocaleData";
+    private static String mDateFormatSymbolsClass = "android.icu.text.DateFormatSymbols";
+    private static String mSemClassName = "com.samsung.sesl.icu.SemLocaleData";
+    private static String mSemDateFormatSymbolsClass = "com.samsung.sesl.icu.SemDateFormatSymbols";
+
+    private SeslLocaleDataReflector() {
+    }
 
     public static Object get(Locale locale) {
         Method method;
@@ -30,6 +33,25 @@ public class SeslLocaleDataReflector {
             }
         }
         return null;
+    }
+
+    public static char getField_zeroDigit(Object obj) {
+        Object obj2 = null;
+        if (Build.VERSION.SDK_INT >= 29) {
+            Method declaredMethod = SeslBaseReflector.getDeclaredMethod(mSemClassName, "getZeroDigit", SeslBaseReflector.getClass(mClassName));
+            if (declaredMethod != null) {
+                obj2 = SeslBaseReflector.invoke(null, declaredMethod, obj);
+            }
+        } else {
+            Field field = SeslBaseReflector.getField(mClassName, "zeroDigit");
+            if (field != null) {
+                obj2 = SeslBaseReflector.get(obj, field);
+            }
+        }
+        if (obj2 instanceof Character) {
+            return ((Character) obj2).charValue();
+        }
+        return '0';
     }
 
     public static String[] getField_amPm(Object obj) {

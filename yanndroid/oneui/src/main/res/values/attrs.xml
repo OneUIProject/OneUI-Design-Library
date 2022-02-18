@@ -593,6 +593,11 @@
         <attr name="buttonTintColor" format="color" />
         <attr name="selectedDayNumberTextColor" format="color" />
         <attr name="dayNumberDisabledAlpha" format="integer" />
+        <attr name="pickerLayoutMode" format="integer">
+            <enum name="defaultMode" value="0" />
+            <enum name="phoneMode" value="1" />
+            <enum name="multiPaneMode" value="2" />
+        </attr>
     </declare-styleable>
     <declare-styleable name="NumberPicker">
         <attr name="internalMinHeight" format="dimension" />

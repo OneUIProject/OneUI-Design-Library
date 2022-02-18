@@ -7,7 +7,10 @@ import androidx.reflect.SeslBaseReflector;
 import java.lang.reflect.Field;
 
 public class SeslAudioManagerReflector {
-    public static final Class<?> mClass = AudioManager.class;
+    private static final Class<?> mClass = AudioManager.class;
+
+    private SeslAudioManagerReflector() {
+    }
 
     public static int getField_SOUND_TIME_PICKER_SCROLL() {
         Field field = SeslBaseReflector.getField(mClass, "SOUND_TIME_PICKER_SCROLL");

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.util.SeslMisc;
 
@@ -17,6 +16,7 @@ import de.dlyt.yanndroid.oneui.preference.SwitchPreferenceScreen;
 import de.dlyt.yanndroid.oneui.preference.TipsCardViewPreference;
 import de.dlyt.yanndroid.oneui.preference.internal.PreferencesRelatedCard;
 import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
+import de.dlyt.yanndroid.oneui.view.Toast;
 import de.dlyt.yanndroid.oneuiexample.MainActivity;
 import de.dlyt.yanndroid.oneuiexample.R;
 

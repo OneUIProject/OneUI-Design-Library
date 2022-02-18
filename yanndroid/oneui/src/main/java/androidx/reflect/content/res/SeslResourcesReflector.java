@@ -7,9 +7,12 @@ import androidx.reflect.SeslBaseReflector;
 import java.lang.reflect.Method;
 
 public class SeslResourcesReflector {
-    public static final Class<?> mClass = Resources.class;
+    private static final Class<?> mClass = Resources.class;
 
-    public static Object getCompatibilityInfo(Resources resources) {
+    private SeslResourcesReflector() {
+    }
+
+    static Object getCompatibilityInfo(Resources resources) {
         Method method = SeslBaseReflector.getMethod(mClass, "getCompatibilityInfo", new Class[0]);
         if (method == null) {
             return null;
