@@ -38,10 +38,13 @@ import androidx.core.view.ViewCompat;
 
 import de.dlyt.yanndroid.oneui.R;
 import de.dlyt.yanndroid.oneui.dialog.AlertDialog;
+import de.dlyt.yanndroid.oneui.menu.PopupMenuUtils;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 
 @SuppressLint("AppCompatCustomView")
 public class SeslSpinner extends Spinner implements TintableBackgroundView {
+    private boolean mIsOneUI4;
+    protected boolean mBlurEffectEnabled;
     private static final int[] ATTRS_ANDROID_SPINNERMODE = {android.R.attr.spinnerMode};
     private static final int MAX_ITEMS_MEASURED = 15;
     private static final String TAG = "SeslSpinner";
@@ -80,6 +83,9 @@ public class SeslSpinner extends Spinner implements TintableBackgroundView {
     @SuppressLint("RestrictedApi")
     public SeslSpinner(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int mode, Resources.Theme popupTheme) {
         super(context, attrs, defStyleAttr);
+
+        mIsOneUI4 = context.getTheme().obtainStyledAttributes(new int[]{R.attr.isOneUI4}).getBoolean(0, false);
+        mBlurEffectEnabled = mIsOneUI4;
 
         ThemeUtils.checkAppCompatTheme(this, getContext());
 
@@ -781,7 +787,10 @@ public class SeslSpinner extends Spinner implements TintableBackgroundView {
             super.show();
 
             PopupWindow popup = ((PopupWindow) ReflectUtils.genericGetField(ListPopupWindow.class, this, "mPopup"));
-            ((View) ReflectUtils.genericGetField(PopupWindow.class, popup, "mBackgroundView")).setClipToOutline(true);
+            if (mBlurEffectEnabled) {
+                PopupMenuUtils.setupBlurEffect(mPopupContext, mIsOneUI4, popup, getListView());
+            }
+            PopupMenuUtils.fixPopupRoundedCorners(popup);
 
             final ListView listView = getListView();
             listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);

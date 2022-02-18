@@ -229,9 +229,9 @@ public class OUI4CircularProgressDrawable extends Drawable implements Animatable
             }
         });
         ofFloat.setInterpolator(SINE_OUT_60);
-        ofFloat.setDuration(200L);
+        ofFloat.setDuration(ANIMATION_DURATION);
         ofInt.setInterpolator(LINEAR_INTERPOLATOR);
-        ofInt.setDuration(200L);
+        ofInt.setDuration(ANIMATION_DURATION);
         ofFloat.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {

@@ -14,11 +14,13 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
 
 import de.dlyt.yanndroid.oneui.R;
+import de.dlyt.yanndroid.oneui.sesl.dialog.widget.DialogTitle;
 import de.dlyt.yanndroid.oneui.widget.ProgressBar;
 
 public class ProgressDialog extends AlertDialog {
@@ -27,6 +29,7 @@ public class ProgressDialog extends AlertDialog {
     public static final int STYLE_CIRCLE = 2;
     private Context mContext;
     private boolean mIsOneUI4;
+    private View mContentView;
     private ProgressBar mProgress;
     private TextView mMessageView;
     private int mProgressStyle = STYLE_SPINNER;
@@ -90,6 +93,19 @@ public class ProgressDialog extends AlertDialog {
     }
 
     @Override
+    public void show() {
+        super.show();
+
+        DialogTitle dialogTitle = findViewById(R.id.alertTitle);
+        if (dialogTitle != null && !dialogTitle.getText().toString().isEmpty()) {
+            if (mContentView != null) {
+                int topPadding = mContext.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_dialog_title_padding_bottom : R.dimen.sesl_dialog_title_padding_bottom);
+                mContentView.setPaddingRelative(mContentView.getPaddingStart(), topPadding, mContentView.getPaddingEnd(), mContentView.getPaddingBottom());
+            }
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         TypedArray a = mContext.obtainStyledAttributes(null, R.styleable.SamsungAlertDialog, R.attr.alertDialogStyle, 0);
@@ -121,12 +137,12 @@ public class ProgressDialog extends AlertDialog {
                     }
                 }
             };
-            View view = inflater.inflate(a.getResourceId(R.styleable.SamsungAlertDialog_horizontalProgressLayout, R.layout.oui_progress_dialog_horizontal), null);
-            mProgress = (ProgressBar) view.findViewById(R.id.progress);
-            mProgressNumber = (TextView) view.findViewById(R.id.progress_number);
-            mProgressPercent = (TextView) view.findViewById(R.id.progress_percent);
-            mMessageView = (TextView) view.findViewById(R.id.message);
-            setView(view);
+            mContentView = inflater.inflate(a.getResourceId(R.styleable.SamsungAlertDialog_horizontalProgressLayout, R.layout.oui_progress_dialog_horizontal), null);
+            mProgress = (ProgressBar) mContentView.findViewById(R.id.progress);
+            mProgressNumber = (TextView) mContentView.findViewById(R.id.progress_number);
+            mProgressPercent = (TextView) mContentView.findViewById(R.id.progress_percent);
+            mMessageView = (TextView) mContentView.findViewById(R.id.message);
+            setView(mContentView);
         } else if (mProgressStyle == STYLE_CIRCLE) {
             setTitle(null);
             getWindow().setBackgroundDrawableResource(mIsOneUI4 ? android.R.color.transparent : R.drawable.oui_progress_circle_dialog_bg);
@@ -285,6 +301,17 @@ public class ProgressDialog extends AlertDialog {
             mProgress.setIndeterminate(indeterminate);
         } else {
             mIndeterminate = indeterminate;
+        }
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        super.setTitle(title);
+        if (mContentView != null) {
+            int topPaddingWithoutTitle = mContext.getResources().getDimensionPixelSize(R.dimen.sesl_dialog_padding_vertical);
+            int topPaddingWithTitle = mContext.getResources().getDimensionPixelSize(mIsOneUI4 ? R.dimen.sesl4_dialog_title_padding_bottom : R.dimen.sesl_dialog_title_padding_bottom);
+            int paddingTop = title.toString().isEmpty() ? topPaddingWithoutTitle : topPaddingWithTitle;
+            mContentView.setPaddingRelative(mContentView.getPaddingStart(), paddingTop, mContentView.getPaddingEnd(), mContentView.getPaddingBottom());
         }
     }
 

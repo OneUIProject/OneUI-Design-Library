@@ -1,5 +1,6 @@
 package androidx.reflect.media;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
@@ -10,9 +11,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class SeslSemSoundAssistantManagerReflector {
-    public static String mClassName = "com.samsung.android.media.SemSoundAssistantManager";
+    private static String mClassName = "com.samsung.android.media.SemSoundAssistantManager";
 
-    public static Object getInstance(Context context) {
+    private SeslSemSoundAssistantManagerReflector() {
+    }
+
+    @SuppressLint("LongLogTag")
+    private static Object getInstance(Context context) {
         Constructor<?> constructor = SeslBaseReflector.getConstructor(mClassName, Context.class);
         if (constructor == null) {
             return null;

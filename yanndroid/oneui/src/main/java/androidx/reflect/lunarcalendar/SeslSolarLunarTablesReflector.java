@@ -9,9 +9,13 @@ import java.lang.reflect.Method;
 import dalvik.system.PathClassLoader;
 
 public class SeslSolarLunarTablesReflector {
+    private static final String mClassName = "com.samsung.android.calendar.secfeature.lunarcalendar.SolarLunarTables";
+
+    private SeslSolarLunarTablesReflector() {
+    }
+
     public static int getDayLengthOf(PathClassLoader pathClassLoader, Object obj, int i, int i2, boolean z) {
-        Class cls = Integer.TYPE;
-        Method method = SeslPathClassReflector.getMethod(pathClassLoader, "com.samsung.android.calendar.secfeature.lunarcalendar.SolarLunarTables", "getDayLengthOf", cls, cls, Boolean.TYPE);
+        Method method = SeslPathClassReflector.getMethod(pathClassLoader, mClassName, "getDayLengthOf", Integer.TYPE, Integer.TYPE, Boolean.TYPE);
         if (method == null) {
             return 29;
         }
@@ -23,8 +27,7 @@ public class SeslSolarLunarTablesReflector {
     }
 
     public static boolean isLeapMonth(PathClassLoader pathClassLoader, Object obj, int i, int i2) {
-        Class cls = Integer.TYPE;
-        Method method = SeslPathClassReflector.getMethod(pathClassLoader, "com.samsung.android.calendar.secfeature.lunarcalendar.SolarLunarTables", "isLeapMonth", cls, cls);
+        Method method = SeslPathClassReflector.getMethod(pathClassLoader, mClassName, "isLeapMonth", Integer.TYPE, Integer.TYPE);
         if (method != null) {
             Object invoke = SeslBaseReflector.invoke(obj, method, Integer.valueOf(i), Integer.valueOf(i2));
             if (invoke instanceof Boolean) {
@@ -35,7 +38,7 @@ public class SeslSolarLunarTablesReflector {
     }
 
     public static byte getLunar(PathClassLoader pathClassLoader, Object obj, int i) {
-        Method method = SeslPathClassReflector.getMethod(pathClassLoader, "com.samsung.android.calendar.secfeature.lunarcalendar.SolarLunarTables", "getLunar", Integer.TYPE);
+        Method method = SeslPathClassReflector.getMethod(pathClassLoader, mClassName, "getLunar", Integer.TYPE);
         if (method == null) {
             return Byte.MAX_VALUE;
         }
@@ -47,7 +50,7 @@ public class SeslSolarLunarTablesReflector {
     }
 
     public static int getField_START_OF_LUNAR_YEAR(PathClassLoader pathClassLoader, Object obj) {
-        Field field = SeslPathClassReflector.getField(pathClassLoader, "com.samsung.android.calendar.secfeature.lunarcalendar.SolarLunarTables", "START_OF_LUNAR_YEAR");
+        Field field = SeslPathClassReflector.getField(pathClassLoader, mClassName, "START_OF_LUNAR_YEAR");
         if (field == null) {
             return 1881;
         }
@@ -59,7 +62,7 @@ public class SeslSolarLunarTablesReflector {
     }
 
     public static int getField_WIDTH_PER_YEAR(PathClassLoader pathClassLoader, Object obj) {
-        Field field = SeslPathClassReflector.getField(pathClassLoader, "com.samsung.android.calendar.secfeature.lunarcalendar.SolarLunarTables", "WIDTH_PER_YEAR");
+        Field field = SeslPathClassReflector.getField(pathClassLoader, mClassName, "WIDTH_PER_YEAR");
         if (field == null) {
             return 14;
         }
@@ -71,7 +74,7 @@ public class SeslSolarLunarTablesReflector {
     }
 
     public static int getField_INDEX_OF_LEAP_MONTH(PathClassLoader pathClassLoader, Object obj) {
-        Field field = SeslPathClassReflector.getField(pathClassLoader, "com.samsung.android.calendar.secfeature.lunarcalendar.SolarLunarTables", "INDEX_OF_LEAP_MONTH");
+        Field field = SeslPathClassReflector.getField(pathClassLoader, mClassName, "INDEX_OF_LEAP_MONTH");
         if (field == null) {
             return 13;
         }

@@ -1445,7 +1445,9 @@ public class TipPopup {
         return mContext.getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
     }
 
-    private void debugLog(String msg) {
-        Log.d(TAG, " #### " + msg);
+    private void debugLog(String str) {
+        if (localLOGD) {
+            Log.d(TAG, " #### " + str);
+        }
     }
 }

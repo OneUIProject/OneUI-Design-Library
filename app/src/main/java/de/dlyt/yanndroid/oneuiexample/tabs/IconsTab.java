@@ -3,9 +3,9 @@ package de.dlyt.yanndroid.oneuiexample.tabs;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -33,6 +32,7 @@ import de.dlyt.yanndroid.oneui.sesl.utils.SeslRoundedCorner;
 import de.dlyt.yanndroid.oneui.utils.ThemeDynamicDrawable;
 import de.dlyt.yanndroid.oneui.view.IndexScrollView;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
+import de.dlyt.yanndroid.oneui.view.Toast;
 import de.dlyt.yanndroid.oneui.view.ViewPager2;
 import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneuiexample.R;
@@ -375,7 +375,15 @@ public class IconsTab extends Fragment {
     RecyclerView listView;
     private View mRootView;
     private Context mContext;
+    private Handler mHandler = new Handler();
+    private Runnable mShowBottomBarRunnable = new Runnable() {
+        @Override
+        public void run() {
+            drawerLayout.showSelectModeBottomBar(true);
+        }
+    };
 
+    private DrawerLayout drawerLayout;
     private ImageAdapter imageAdapter;
     private OnBackPressedCallback onBackPressedCallback;
     private HashMap<Integer, Boolean> selected = new HashMap<>();
@@ -410,6 +418,7 @@ public class IconsTab extends Fragment {
         for (int i = 0; i < imageIDs.length; i++) selected.put(i, false);
 
         //init list
+        drawerLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view));
         listView = mRootView.findViewById(R.id.images);
         listView.setLayoutManager(new LinearLayoutManager(mContext));
         imageAdapter = new ImageAdapter();
@@ -420,6 +429,25 @@ public class IconsTab extends Fragment {
         listView.seslSetFillBottomEnabled(true);
         listView.seslSetGoToTopEnabled(true);
         listView.seslSetLastRoundedCorner(false);
+
+        listView.seslSetLongPressMultiSelectionListener(new RecyclerView.SeslLongPressMultiSelectionListener() {
+            @Override
+            public void onItemSelected(RecyclerView view, View child, int position, long id) {
+                if (imageAdapter.getItemViewType(position) == 0) {
+                    toggleItemSelected(position);
+                }
+            }
+
+            @Override
+            public void onLongPressMultiSelectionStarted(int x, int y) {
+                drawerLayout.showSelectModeBottomBar(false);
+            }
+
+            @Override
+            public void onLongPressMultiSelectionEnded(int x, int y) {
+                mHandler.postDelayed(mShowBottomBarRunnable, 300);
+            }
+        });
 
         //divider
         TypedValue divider = new TypedValue();
@@ -464,7 +492,6 @@ public class IconsTab extends Fragment {
     }
 
     public void setSelecting(boolean enabled) {
-        DrawerLayout drawerLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view));
         TabLayout subTabs = getActivity().findViewById(R.id.sub_tabs);
         TabLayout mainTabs = getActivity().findViewById(R.id.main_samsung_tabs);
         ViewPager2 viewPager2 = getActivity().findViewById(R.id.viewPager2);
@@ -489,12 +516,16 @@ public class IconsTab extends Fragment {
                 for (Boolean b : selected.values()) if (b) count++;
                 drawerLayout.setSelectModeCount(count);
             });
+            drawerLayout.showSelectModeBottomBar(false);
             subTabs.setEnabled(false);
             mainTabs.setEnabled(false);
             viewPager2.setUserInputEnabled(false);
             onBackPressedCallback.setEnabled(true);
         } else {
             mSelecting = false;
+
+            mHandler.removeCallbacks(mShowBottomBarRunnable);
+
             for (int i = 0; i < imageAdapter.getItemCount() - 1; i++) selected.put(i, false);
             imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount() - 1);
 
@@ -514,7 +545,6 @@ public class IconsTab extends Fragment {
         checkAllListening = false;
         int count = 0;
         for (Boolean b : selected.values()) if (b) count++;
-        DrawerLayout drawerLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view));
         drawerLayout.setSelectModeAllChecked(count == imageAdapter.getItemCount() - 1);
         drawerLayout.setSelectModeCount(count);
         checkAllListening = true;
@@ -593,24 +623,7 @@ public class IconsTab extends Fragment {
                 holder.parentView.setOnLongClickListener(v -> {
                     if (!mSelecting) setSelecting(true);
                     toggleItemSelected(position);
-
                     listView.seslStartLongPressMultiSelection();
-                    listView.seslSetLongPressMultiSelectionListener(new RecyclerView.SeslLongPressMultiSelectionListener() {
-                        @Override
-                        public void onItemSelected(RecyclerView view, View child, int position, long id) {
-                            if (getItemViewType(position) == 0) toggleItemSelected(position);
-                        }
-
-                        @Override
-                        public void onLongPressMultiSelectionEnded(int x, int y) {
-
-                        }
-
-                        @Override
-                        public void onLongPressMultiSelectionStarted(int x, int y) {
-
-                        }
-                    });
                     return true;
                 });
 
@@ -693,8 +706,8 @@ public class IconsTab extends Fragment {
                     shallDrawDivider = false;
 
                 if (mDivider != null && viewHolder.isItem && shallDrawDivider) {
-                    int moveRTL = isRTL() ? 130 : 0;
-                    mDivider.setBounds(130 - moveRTL, y, width - moveRTL, mDividerHeight + y);
+                    int moveRTL = isRTL() ? 160 : 0;
+                    mDivider.setBounds(160 - moveRTL, y, width - moveRTL, mDividerHeight + y);
                     mDivider.draw(canvas);
                 }
 

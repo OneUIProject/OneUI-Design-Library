@@ -7,7 +7,10 @@ import androidx.reflect.SeslBaseReflector;
 import java.lang.reflect.Method;
 
 public class SeslPaintReflector {
-    public static final Class<?> mClass = Paint.class;
+    private static final Class<?> mClass = Paint.class;
+
+    private SeslPaintReflector() {
+    }
 
     public static float getHCTStrokeWidth(Paint paint) {
         Method method = SeslBaseReflector.getMethod(mClass, "getHCTStrokeWidth", new Class[0]);

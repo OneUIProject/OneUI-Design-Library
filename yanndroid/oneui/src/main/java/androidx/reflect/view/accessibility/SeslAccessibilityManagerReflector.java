@@ -7,7 +7,10 @@ import androidx.reflect.SeslBaseReflector;
 import java.lang.reflect.Method;
 
 public class SeslAccessibilityManagerReflector {
-    public static String mClassName = "android.view.accessibility.AccessibilityManager";
+    private static String mClassName = "android.view.accessibility.AccessibilityManager";
+
+    private SeslAccessibilityManagerReflector() {
+    }
 
     public static boolean isScreenReaderEnabled(AccessibilityManager accessibilityManager, boolean z) {
         Method declaredMethod = SeslBaseReflector.getDeclaredMethod(mClassName, "semIsScreenReaderEnabled", new Class[0]);

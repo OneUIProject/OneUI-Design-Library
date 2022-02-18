@@ -194,10 +194,6 @@ public class Switch extends CompoundButton {
         setChecked(isChecked());
     }
 
-    private static float constrain(float amount, float low, float high) {
-        return amount < low ? low : (amount > high ? high : amount);
-    }
-
     public void setSwitchTextAppearance(Context context, int resid) {
         final TintTypedArray appearance = TintTypedArray.obtainStyledAttributes(context, resid, R.styleable.TextAppearance);
 
@@ -651,7 +647,7 @@ public class Switch extends CompoundButton {
         if (commitChange) {
             mVelocityTracker.computeCurrentVelocity(1000);
             final float xvel = mVelocityTracker.getXVelocity();
-            if (Math.abs(xvel) > 2000.0f || (Math.abs(xvel) > 500.0f || mThumbPosition != 0.0f || mThumbPosition != 1.0f)) {
+            if (Math.abs(xvel) > CHANGE_FLING_VELOCITY || (Math.abs(xvel) > MIN_FLING_VELOCITY || mThumbPosition != 0.0f || mThumbPosition != 1.0f)) {
                 newState = ViewUtils.isLayoutRtl(this) ? (xvel < 0) : (xvel > 0);
             } else {
                 newState = getTargetCheckedState();
@@ -1073,7 +1069,6 @@ public class Switch extends CompoundButton {
         ((GradientDrawable) ((LayerDrawable) ((DrawableContainer.DrawableContainerState) mTrackDrawable.getConstantState()).getChildren()[2]).findDrawableByLayerId(R.id.sesl_switch_track_on)).setStroke(4, color);
     }
 
-
     private class ThumbAnimation extends Animation {
         final float mDiff;
         final float mEndPosition;
@@ -1089,5 +1084,10 @@ public class Switch extends CompoundButton {
         protected void applyTransformation(float interpolatedTime, Transformation t) {
             setThumbPosition(mStartPosition + (mDiff * interpolatedTime));
         }
+    }
+
+    /*kang from MathUtils.smali*/
+    private float constrain(float amount, float low, float high) {
+        return amount < low ? low : (amount > high ? high : amount);
     }
 }

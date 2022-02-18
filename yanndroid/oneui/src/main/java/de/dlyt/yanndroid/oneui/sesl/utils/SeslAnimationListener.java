@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.oneui.sesl.picker.util;
+package de.dlyt.yanndroid.oneui.sesl.utils;
 
 public interface SeslAnimationListener {
     void onAnimationEnd();

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="center" android:gravity="center" android:orientation="vertical">
+    <de.dlyt.yanndroid.oneui.widget.TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="@dimen/sesl_picker_dialog_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/sesl_time_picker_spinner_dialog_padding_top"
+        android:layout_marginBottom="@dimen/sesl_time_picker_spinner_dialog_padding_bottom"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+</LinearLayout>

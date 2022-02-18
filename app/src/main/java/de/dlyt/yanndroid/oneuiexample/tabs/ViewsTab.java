@@ -8,22 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SeslSpinner;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslDatePicker;
-import de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslDatePickerSpinnerLayout;
-import de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslNumberPicker;
-import de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslSpinningDatePickerSpinner;
-import de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslTimePicker;
 import de.dlyt.yanndroid.oneui.widget.ProgressBar;
 import de.dlyt.yanndroid.oneui.widget.SeekBar;
+import de.dlyt.yanndroid.oneui.widget.Spinner;
 import de.dlyt.yanndroid.oneui.widget.SwitchBar;
 import de.dlyt.yanndroid.oneuiexample.MainActivity;
 import de.dlyt.yanndroid.oneuiexample.R;
@@ -69,7 +65,6 @@ public class ViewsTab extends Fragment {
         seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seslSeekBar, int i, boolean z) {
-                seekBar1.setSecondaryProgress(i);
                 pgb1.setProgress(i);
                 pgb2.setProgress(i);
                 pgb3.setProgress(i);
@@ -98,34 +93,16 @@ public class ViewsTab extends Fragment {
             }, 700);
         });
 
+        LinearLayout colorPaletteContainer = mRootView.findViewById(R.id.palette);
+        colorPaletteContainer.setClipToOutline(true);
+
         //Spinner
-        SeslSpinner spinner = mRootView.findViewById(R.id.spinner);
+        Spinner spinner = mRootView.findViewById(R.id.spinner);
         List<String> categories = new ArrayList<>();
         for (int i = 1; i < 16; i++) categories.add("Spinner Item " + i);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_item, categories);
         dataAdapter.setDropDownViewResource(R.layout.sesl_simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
-
-        //Pickers //todo: selected number not centered on each scroll picker
-        SeslSpinningDatePickerSpinner ssdps = mRootView.findViewById(R.id.ssdps);
-
-        SeslNumberPicker snp = mRootView.findViewById(R.id.snp); //todo: need to find out how dismiss edit-mode when "done" is clicked in keyboard (dismissing keyboard with back key works | on all the other pickers it's working)
-        snp.setMaxValue(100);
-        snp.setMinValue(0);
-        snp.setValue(50);
-
-        SeslDatePicker sdp = mRootView.findViewById(R.id.sdp);
-        sdp.setFirstDayOfWeek(2);
-        sdp.setMinDate(0);
-        sdp.setMaxDate(4133966209349L);
-
-        SeslTimePicker stp = mRootView.findViewById(R.id.stp);
-        stp.setIs24HourView(true);
-
-        SeslDatePickerSpinnerLayout sdpsl = mRootView.findViewById(R.id.sdpsl);
-        sdpsl.setMinDate(0);
-        sdpsl.setMaxDate(4133966209349L);
-
     }
 
 }

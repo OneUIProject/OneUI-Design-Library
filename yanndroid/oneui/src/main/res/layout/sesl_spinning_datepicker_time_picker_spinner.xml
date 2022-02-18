@@ -1,85 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@id/sesl_timepicker_layout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_gravity="center_horizontal"
-    android:orientation="horizontal">
-
+    android:id="@+id/sesl_timepicker_layout" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_gravity="center_horizontal" android:orientation="horizontal">
     <View
-        android:id="@id/sesl_datetimepicker_padding_left"
-        android:layout_width="0.0dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="6.0"
-        android:visibility="gone" />
-
+        android:id="@+id/sesl_datetimepicker_padding_left" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="6.0" android:visibility="gone" />
     <View
-        android:id="@id/sesl_timepicker_padding_left"
-        android:layout_width="0.0dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="@integer/sesl_spinning_datepicker_time_padding_left"
-        android:visibility="gone" />
-
+        android:id="@+id/sesl_timepicker_padding_left" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="@integer/sesl_spinning_datepicker_time_padding_left" android:visibility="gone" />
     <LinearLayout
-        android:layout_width="0.0dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="@integer/sesl_spinning_datepicker_time_hr_min_container_weight"
-        android:layoutDirection="ltr"
-        android:orientation="horizontal">
-
-        <de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslNumberPicker
-            android:id="@id/sesl_timepicker_hour"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="@integer/sesl_spinning_datepicker_time_hr_weight"
-            android:focusable="true" />
-
+        android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="@integer/sesl_spinning_datepicker_time_hr_min_container_weight" android:orientation="horizontal" android:layoutDirection="ltr">
+        <de.dlyt.yanndroid.oneui.widget.NumberPicker
+            android:id="@+id/sesl_timepicker_hour" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="@integer/sesl_spinning_datepicker_time_hr_weight" android:focusable="true" />
         <TextView
-            android:id="@id/sesl_timepicker_divider"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:layout_weight="2.0"
-            android:gravity="center"
-            android:importantForAccessibility="no"
-            android:includeFontPadding="false"
-            android:textColor="@color/sesl_number_picker_text_color"
-            android:textSize="@dimen/sesl_time_picker_spinner_divider_text_size" />
-
-        <de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslNumberPicker
-            android:id="@id/sesl_timepicker_minute"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="@integer/sesl_spinning_datepicker_time_min_weight"
-            android:focusable="true" />
+            android:id="@+id/sesl_timepicker_divider" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="2.0" android:layout_gravity="center" android:gravity="center" android:textSize="@dimen/sesl_time_picker_spinner_divider_text_size" android:textColor="@color/sesl_number_picker_text_color" android:includeFontPadding="false" android:importantForAccessibility="no" />
+        <de.dlyt.yanndroid.oneui.widget.NumberPicker
+            android:id="@+id/sesl_timepicker_minute" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="@integer/sesl_spinning_datepicker_time_hr_weight" android:focusable="true" />
     </LinearLayout>
-
     <View
-        android:id="@id/sesl_timepicker_ampm_picker_margin"
-        android:layout_width="0.0dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="0.0"
-        android:visibility="gone" />
-
-    <de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslNumberPicker
-        android:id="@id/sesl_timepicker_ampm"
-        android:layout_width="0.0dip"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center"
-        android:layout_weight="@integer/sesl_spinning_datepicker_time_ampm_weight"
-        android:focusable="true"
-        android:gravity="center_vertical" />
-
+        android:id="@+id/sesl_timepicker_ampm_picker_margin" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="0.0" android:visibility="gone" />
+    <de.dlyt.yanndroid.oneui.widget.NumberPicker
+        android:id="@+id/sesl_timepicker_ampm" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="@integer/sesl_spinning_datepicker_time_ampm_weight" android:layout_gravity="center" android:gravity="center_vertical" android:focusable="true" />
     <View
-        android:id="@id/sesl_timepicker_padding_right"
-        android:layout_width="0.0dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="@integer/sesl_spinning_datepicker_time_padding_right"
-        android:visibility="gone" />
-
+        android:id="@+id/sesl_timepicker_padding_right" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="@integer/sesl_spinning_datepicker_time_padding_right" android:visibility="gone" />
     <View
-        android:id="@id/sesl_datetimepicker_padding_right"
-        android:layout_width="0.0dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="@integer/sesl_spinning_datepicker_time_margin_right_weight" />
+        android:id="@+id/sesl_datetimepicker_padding_right" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="@integer/sesl_spinning_datepicker_time_margin_right_weight" />
 </LinearLayout>

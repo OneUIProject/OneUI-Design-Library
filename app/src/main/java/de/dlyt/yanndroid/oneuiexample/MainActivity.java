@@ -13,10 +13,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -32,22 +32,23 @@ import de.dlyt.yanndroid.oneui.dialog.ClassicColorPickerDialog;
 import de.dlyt.yanndroid.oneui.dialog.DatePickerDialog;
 import de.dlyt.yanndroid.oneui.dialog.DetailedColorPickerDialog;
 import de.dlyt.yanndroid.oneui.dialog.ProgressDialog;
+import de.dlyt.yanndroid.oneui.dialog.TimePickerDialog;
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
 import de.dlyt.yanndroid.oneui.menu.MenuItem;
 import de.dlyt.yanndroid.oneui.menu.PopupMenu;
-import de.dlyt.yanndroid.oneui.sesl.picker.app.SeslDatePickerDialog;
-import de.dlyt.yanndroid.oneui.sesl.picker.widget.SeslDatePicker;
 import de.dlyt.yanndroid.oneui.sesl.support.ViewSupport;
 import de.dlyt.yanndroid.oneui.sesl.tabs.SamsungTabLayout;
 import de.dlyt.yanndroid.oneui.sesl.utils.ReflectUtils;
 import de.dlyt.yanndroid.oneui.utils.CustomButtonClickListener;
 import de.dlyt.yanndroid.oneui.utils.OnSingleClickListener;
 import de.dlyt.yanndroid.oneui.utils.ThemeUtil;
-import de.dlyt.yanndroid.oneui.view.Snackbar;
 import de.dlyt.yanndroid.oneui.view.TipPopup;
+import de.dlyt.yanndroid.oneui.view.Toast;
 import de.dlyt.yanndroid.oneui.view.Tooltip;
+import de.dlyt.yanndroid.oneui.widget.DatePicker;
 import de.dlyt.yanndroid.oneui.widget.TabLayout;
+import de.dlyt.yanndroid.oneui.widget.TimePicker;
 import de.dlyt.yanndroid.oneuiexample.base.BaseThemeActivity;
 import de.dlyt.yanndroid.oneuiexample.utils.TabsManager;
 
@@ -329,14 +330,24 @@ public class MainActivity extends BaseThemeActivity {
         }
     }
 
-    public void datePickerDialog(View view){
-        DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, new SeslDatePickerDialog.OnDateSetListener() {
+    public void datePickerDialog(View view) {
+       DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(SeslDatePicker seslDatePicker, int year, int month, int day) {
+            public void onDateSet(DatePicker seslDatePicker, int year, int month, int day) {
                 Toast.makeText(mContext, "Year: " + year + "\nMonth: " + month + "\nDay: " + day, Toast.LENGTH_SHORT).show();
             }
-        });
+        }, 2022, 0, 1);
         datePickerDialog.show();
+    }
+
+    public void timePickerDialog(View view) {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(mContext, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                Toast.makeText(mContext, "Hour: " + hourOfDay + "\nMinute: " + minute, Toast.LENGTH_SHORT).show();
+            }
+        }, 12, 45, true);
+        timePickerDialog.show();
     }
 
     public void standardDialog(View view) {
@@ -346,8 +357,8 @@ public class MainActivity extends BaseThemeActivity {
                 .setNeutralButton("Maybe", null)
                 .setNegativeButton("No", (dialogInterface, i) -> new Handler().postDelayed(dialogInterface::dismiss, 700))
                 .setPositiveButton("Yes", (dialogInterface, i) -> new Handler().postDelayed(dialogInterface::dismiss, 700))
-                .setNegativeButtonColor(getResources().getColor(R.color.sesl_functional_red))
-                .setPositiveButtonColor(getResources().getColor(R.color.sesl_functional_green))
+                .setNegativeButtonColor(mUseOUI4Theme ? mContext.getResources().getColor(R.color.sesl_functional_red) : 0)
+                .setPositiveButtonColor(mUseOUI4Theme ? mContext.getResources().getColor(R.color.sesl_functional_green) : 0)
                 .setPositiveButtonProgress(true)
                 .setNegativeButtonProgress(true)
                 .create();
@@ -357,19 +368,20 @@ public class MainActivity extends BaseThemeActivity {
     public void singleChoiceDialog(View view) {
         CharSequence[] charSequences = {"Choice1", "Choice2", "Choice3"};
         new AlertDialog.Builder(this)
-                .setTitle("Title")
+                .setTitle("SingleChoiceItems")
                 .setNeutralButton("Maybe", null)
                 .setNegativeButton("No", null)
                 .setPositiveButton("Yes", null)
                 .setSingleChoiceItems(charSequences, 0, null)
+                .setOnDismissListener(dialogInterface -> multiChoiceDialog(view))
                 .show();
     }
 
-    public void multiChoiceDialog(View view) {
+    private void multiChoiceDialog(View view) {
         CharSequence[] charSequences = {"Choice1", "Choice2", "Choice3"};
         boolean[] booleans = {true, false, true};
         new AlertDialog.Builder(this)
-                .setTitle("Title")
+                .setTitle("MultiChoiceItems")
                 .setNeutralButton("Maybe", null)
                 .setNegativeButton("No", null)
                 .setPositiveButton("Yes", null)
@@ -377,16 +389,58 @@ public class MainActivity extends BaseThemeActivity {
                 .show();
     }
 
-    public void progressDialog(View view) {
+    public void progressDialogSpinner(View view) {
         ProgressDialog dialog = new ProgressDialog(mContext);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setIndeterminate(true);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.setTitle("Title");
         dialog.setMessage("ProgressDialog");
         dialog.setButton(ProgressDialog.BUTTON_NEGATIVE, "Cancel", (DialogInterface.OnClickListener) null);
-        dialog.setOnCancelListener(dialog12 -> progressDialogCircleOnly(view));
+        dialog.setOnDismissListener(dialogInterface -> progressDialogHorizontal(view));
         dialog.show();
+        Toast infoToast = Toast.makeText(mContext, "STYLE_SPINNER", Toast.LENGTH_SHORT);
+        infoToast.setGravity(Gravity.CENTER, 0 , 0);
+        infoToast.show();
+    }
+
+    private void progressDialogHorizontal(View view) {
+        ProgressDialog dialog = new ProgressDialog(mContext);
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.setIndeterminate(true);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setTitle("Title");
+        dialog.setMessage("ProgressDialog");
+        dialog.setOnDismissListener(dialogInterface -> progressDialogCircleOnly(view));
+        dialog.show();
+
+        Toast infoToast = Toast.makeText(mContext, "STYLE_HORIZONTAL", Toast.LENGTH_SHORT);
+        infoToast.setGravity(Gravity.CENTER, 0 , 0);
+        infoToast.show();
+
+        dialog.setMax(100);
+
+        new Thread() {
+             @Override
+            public void run() {
+                 try {
+                     sleep(1000);
+
+                     dialog.setIndeterminate(false);
+                     int fakeProgress = 0;
+                     while (fakeProgress < 100) {
+                         fakeProgress += 5;
+                         dialog.setProgress(fakeProgress);
+                         sleep(200);
+                     }
+                     dialog.dismiss();
+                 } catch (InterruptedException e) {
+                     dialog.dismiss();
+                 }
+             }
+        }.start();
     }
 
     private void progressDialogCircleOnly(View view) {
@@ -394,13 +448,10 @@ public class MainActivity extends BaseThemeActivity {
         dialog.setProgressStyle(ProgressDialog.STYLE_CIRCLE);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
-        dialog.setOnCancelListener(dialog1 -> Snackbar.make(view, "Text label", Snackbar.LENGTH_SHORT).setAction("Action", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        }).show());
         dialog.show();
+
+        Toast infoToast = Toast.makeText(mContext, "STYLE_CIRCLE", Toast.LENGTH_SHORT);
+        infoToast.show();
     }
 
     private void popupView(View view) {
