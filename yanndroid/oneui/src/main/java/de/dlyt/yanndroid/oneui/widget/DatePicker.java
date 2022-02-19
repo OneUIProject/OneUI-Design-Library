@@ -1277,7 +1277,7 @@ public class DatePicker extends LinearLayout implements SeslSimpleMonthView.OnDa
                 endMonth = mEndDate.get(Calendar.MONTH);
                 endDay = mEndDate.get(Calendar.DAY_OF_MONTH);
             }
-            simpleMonthView.setMonthParams(day, month, year, getFirstDayOfWeek(), 1, 31, mMinDate, mMaxDate, startDay, startMonth, startYear, mIsLeapStartMonth, endDay, endMonth, endYear, mIsLeapEndMonth, mMode);
+            simpleMonthView.setMonthParams(day, month, year, getFirstDayOfWeek(), 1, 31, mMinDate, mMaxDate, startYear, startMonth, startDay, mIsLeapStartMonth, endYear, endMonth, endDay, mIsLeapEndMonth, mMode);
 
             if (position == 0) {
                 simpleMonthView.setFirstMonth();

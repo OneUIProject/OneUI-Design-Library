@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.dlyt.yanndroid.oneui.widget.DatePicker;
+import de.dlyt.yanndroid.oneui.widget.NumberPicker;
 import de.dlyt.yanndroid.oneui.widget.ProgressBar;
 import de.dlyt.yanndroid.oneui.widget.SeekBar;
 import de.dlyt.yanndroid.oneui.widget.Spinner;
@@ -103,6 +105,17 @@ public class ViewsTab extends Fragment {
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_item, categories);
         dataAdapter.setDropDownViewResource(R.layout.sesl_simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
+
+        //Pickers
+        NumberPicker numberpicker = mRootView.findViewById(R.id.numberpicker); //todo: need to find out how dismiss edit-mode when "done" is clicked in keyboard (dismissing keyboard with back key works | on all the other pickers it's working)
+        numberpicker.setMaxValue(100);
+        numberpicker.setMinValue(0);
+        numberpicker.setValue(50);
+
+        DatePicker datepicker = mRootView.findViewById(R.id.datepicker);
+        datepicker.setFirstDayOfWeek(2);
+        datepicker.setMinDate(0);
+        datepicker.setMaxDate(4133966209349L);
     }
 
 }

@@ -1,157 +1,458 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.dlyt.yanndroid.oneui.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent" android:layout_height="fill_parent" android:fillViewport="true" android:scrollbars="vertical" app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior">
+<de.dlyt.yanndroid.oneui.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:scrollbars="vertical"
+    app:layout_behavior="@string/sesl_appbar_scrolling_view_behavior">
+
     <LinearLayout
-        android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
         <de.dlyt.yanndroid.oneui.widget.SwitchBar
-            android:id="@+id/switchBar" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+            android:id="@+id/switchBar"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:text="ProgressBar" style="?android:listSeparatorTextViewStyle" />
+            style="?android:listSeparatorTextViewStyle"
+            android:text="ProgressBar" />
+
         <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
-            android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingHorizontal="24.0dip" android:paddingVertical="10.0dp" android:orientation="vertical" android:background="@color/item_background_color">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/item_background_color"
+            android:orientation="vertical"
+            android:paddingHorizontal="24.0dip"
+            android:paddingVertical="10.0dp">
+
             <de.dlyt.yanndroid.oneui.widget.ProgressBar
-                android:layout_width="fill_parent" android:layout_height="wrap_content" android:indeterminate="true" style="?android:progressBarStyleHorizontal" />
+                style="?android:progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+
             <de.dlyt.yanndroid.oneui.widget.ProgressBar
-                android:id="@+id/pgb1" android:layout_width="fill_parent" android:layout_height="wrap_content" style="?android:progressBarStyleHorizontal"/>
+                android:id="@+id/pgb1"
+                style="?android:progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
             <de.dlyt.yanndroid.oneui.widget.ProgressBar
-                android:id="@+id/pgb2" style="@style/ProgressBarStyle.Horizontal.Large" />
+                android:id="@+id/pgb2"
+                style="@style/ProgressBarStyle.Horizontal.Large" />
 
             <LinearLayout
-                android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <de.dlyt.yanndroid.oneui.widget.ProgressBar
-                    android:id="@+id/pgb3" android:layout_width="wrap_content" android:layout_height="wrap_content" style="?android:progressBarStyleLarge" />
+                    android:id="@+id/pgb3"
+                    style="?android:progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
                 <de.dlyt.yanndroid.oneui.widget.ProgressBar
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" style="?android:progressBarStyleLarge" />
+                    style="?android:progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
                 <de.dlyt.yanndroid.oneui.widget.ProgressBar
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" style="?android:progressBarStyle" />
+                    style="?android:progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
                 <de.dlyt.yanndroid.oneui.widget.ProgressBar
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" style="?android:progressBarStyleSmall" />
+                    style="?android:progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
                 <de.dlyt.yanndroid.oneui.widget.ProgressBar
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" style="?android:progressBarStyleSmallTitle" />
+                    style="?android:progressBarStyleSmallTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </de.dlyt.yanndroid.oneui.widget.RoundLinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
-            android:text="SeekBar" style="?android:listSeparatorTextViewStyle"/>
+            style="?android:listSeparatorTextViewStyle"
+            android:text="SeekBar" />
+
         <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
-            android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingHorizontal="24.0dip" android:paddingVertical="10.0dip" android:orientation="vertical" android:background="@color/item_background_color">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/item_background_color"
+            android:orientation="vertical"
+            android:paddingHorizontal="24.0dip"
+            android:paddingVertical="10.0dip">
+
             <de.dlyt.yanndroid.oneui.widget.SeekBar
-                android:id="@+id/seekbar1" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginVertical="10.0dip" app:seslSeekBarMode="expand" />
+                android:id="@+id/seekbar1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10.0dip"
+                app:seslSeekBarMode="expand" />
+
             <de.dlyt.yanndroid.oneui.widget.SeekBar
-                android:id="@+id/seekbar2" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginVertical="10.0dip" app:seslSeekBarMode="warning" />
+                android:id="@+id/seekbar2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10.0dip"
+                app:seslSeekBarMode="warning" />
+
             <de.dlyt.yanndroid.oneui.widget.SeekBar
-                android:id="@+id/seekbar3" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginVertical="10.0dip" android:max="5" app:seslSeekBarMode="standard" />
+                android:id="@+id/seekbar3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10.0dip"
+                android:max="5"
+                app:seslSeekBarMode="standard" />
         </de.dlyt.yanndroid.oneui.widget.RoundLinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
-            android:text="Buttons" style="?android:listSeparatorTextViewStyle"/>
+            style="?android:listSeparatorTextViewStyle"
+            android:text="Buttons" />
+
         <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
-            android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingHorizontal="24.0dip" android:paddingVertical="10.0dip" android:orientation="vertical" android:background="@color/item_background_color">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/item_background_color"
+            android:orientation="vertical"
+            android:paddingHorizontal="24.0dip"
+            android:paddingVertical="10.0dip">
+
             <de.dlyt.yanndroid.oneui.widget.Switch
-                android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginVertical="10.0dip" android:text="Switch" android:textAlignment="viewStart" />
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10.0dip"
+                android:text="Switch"
+                android:textAlignment="viewStart" />
+
             <CheckBox
-                android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="CheckBox" android:textAlignment="viewStart" />
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="CheckBox"
+                android:textAlignment="viewStart" />
+
             <RadioGroup
-                android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" android:text="RadioButton" android:textAlignment="viewStart" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="RadioButton"
+                    android:textAlignment="viewStart" />
+
                 <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" android:text="RadioButton" android:textAlignment="viewStart" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="RadioButton"
+                    android:textAlignment="viewStart" />
             </RadioGroup>
 
             <LinearLayout
-                android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" android:orientation="horizontal" android:gravity="center_vertical">
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12.0dip"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
                 <com.google.android.material.button.MaterialButton
-                    android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="8.0dip" android:text="Button" style="@style/ButtonStyle.Transparent"/>
+                    style="@style/ButtonStyle.Transparent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8.0dip"
+                    android:layout_weight="1"
+                    android:text="Button" />
+
                 <com.google.android.material.button.MaterialButton
-                    android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="8.0dip" android:text="Button" style="@style/ButtonStyle.Colored"/>
+                    style="@style/ButtonStyle.Colored"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8.0dip"
+                    android:layout_weight="1"
+                    android:text="Button" />
+
                 <com.google.android.material.button.MaterialButton
-                    android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" android:text="Button" style="@style/ButtonStyle.Filled" />
+                    style="@style/ButtonStyle.Filled"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Button" />
             </LinearLayout>
 
             <de.dlyt.yanndroid.oneui.widget.OptionButton
-                android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" app:selected="true" app:icon="@drawable/ic_ouid_settings_2" app:text="OptionButton" app:counterEnabled="true" app:counter="44" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12.0dip"
+                app:counter="44"
+                app:counterEnabled="true"
+                app:icon="@drawable/ic_ouid_settings_2"
+                app:selected="true"
+                app:text="OptionButton" />
         </de.dlyt.yanndroid.oneui.widget.RoundLinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
-            android:text="Others" style="?android:listSeparatorTextViewStyle" />
-        <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
-            android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingHorizontal="24.0dip" android:paddingVertical="14.0dip" android:orientation="vertical" android:background="@color/item_background_color">
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TextView" android:textAlignment="viewStart" style="?textAppearanceListItem" />
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TextView" android:textAlignment="viewStart" style="?android:attr/textAppearanceSmall" />
-            <EditText
-                android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" android:hint="EditText" android:inputType="text" android:maxLines="1" />
-            <de.dlyt.yanndroid.oneui.widget.Spinner
-                android:id="@+id/spinner" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" android:layout_gravity="start" />
-        </de.dlyt.yanndroid.oneui.widget.RoundLinearLayout>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:text="Dialogs" style="?android:listSeparatorTextViewStyle"/>
-        <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
-            android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingHorizontal="24.0dip" android:paddingVertical="14.0dip" android:orientation="horizontal" android:background="@color/item_background_color">
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="6.0dip" android:layout_gravity="center" android:text="Standard" android:onClick="standardDialog" style="@style/ButtonStyle.Filled"/>
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginHorizontal="6.0dip" android:layout_gravity="center" android:text="Selection" android:onClick="singleChoiceDialog" style="@style/ButtonStyle.Filled" />
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="6.0dip" android:layout_gravity="center" android:text="Progress" android:onClick="progressDialogSpinner" style="@style/ButtonStyle.Filled" />
-        </de.dlyt.yanndroid.oneui.widget.RoundLinearLayout>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:text="Number Pickers" style="?android:listSeparatorTextViewStyle"/>
-        <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
-            android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingHorizontal="24.0dip" android:paddingVertical="14.0dip" android:orientation="horizontal" android:background="@color/item_background_color" app:roundedCorners="top_left|top_right">
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="6.0dip" android:layout_gravity="center" android:text="Time Picker" android:onClick="timePickerDialog" style="@style/ButtonStyle.Filled"/>
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="6.0dip" android:layout_gravity="center" android:text="Date Picker" android:onClick="datePickerDialog" style="@style/ButtonStyle.Filled" />
-        </de.dlyt.yanndroid.oneui.widget.RoundLinearLayout>
+            style="?android:listSeparatorTextViewStyle"
+            android:text="Others" />
 
         <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
-            android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingHorizontal="24.0dip" android:paddingVertical="12.0dip" android:orientation="vertical" android:background="@color/item_background_color" app:roundedCorners="bottom_left|bottom_right">
-        <de.dlyt.yanndroid.oneui.widget.SpinningDatePicker
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@color/item_background_color"
+            android:orientation="vertical"
+            android:paddingHorizontal="24.0dip"
+            android:paddingVertical="14.0dip">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="?textAppearanceListItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="viewStart" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="?android:attr/textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="viewStart" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12.0dip"
+                android:hint="EditText"
+                android:inputType="text"
+                android:maxLines="1" />
+
+            <de.dlyt.yanndroid.oneui.widget.Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="12.0dip" />
         </de.dlyt.yanndroid.oneui.widget.RoundLinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
-            android:text="Color Pickers" style="?android:listSeparatorTextViewStyle" />
+            style="?android:listSeparatorTextViewStyle"
+            android:text="Dialogs" />
+
         <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
-            android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingHorizontal="24.0dip" android:paddingVertical="14.0dip" android:orientation="vertical" android:background="@color/item_background_color">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/item_background_color"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24.0dip"
+            android:paddingVertical="14.0dip">
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/ButtonStyle.Filled"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="6.0dip"
+                android:layout_weight="1"
+                android:onClick="standardDialog"
+                android:text="Standard" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/ButtonStyle.Filled"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="6.0dip"
+                android:layout_weight="1"
+                android:onClick="singleChoiceDialog"
+                android:text="Selection" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/ButtonStyle.Filled"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="6.0dip"
+                android:layout_weight="1"
+                android:onClick="progressDialogSpinner"
+                android:text="Progress" />
+        </de.dlyt.yanndroid.oneui.widget.RoundLinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="?android:listSeparatorTextViewStyle"
+            android:text="Number Pickers" />
+
+        <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/item_background_color"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24.0dip"
+            android:paddingVertical="14.0dip"
+            app:roundedCorners="top_left|top_right">
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/ButtonStyle.Filled"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="6.0dip"
+                android:layout_weight="1"
+                android:onClick="timePickerDialog"
+                android:text="Time Picker" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/ButtonStyle.Filled"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="6.0dip"
+                android:layout_weight="1"
+                android:onClick="datePickerDialog"
+                android:text="Date Picker" />
+        </de.dlyt.yanndroid.oneui.widget.RoundLinearLayout>
+
+        <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/item_background_color"
+            android:orientation="vertical"
+            android:paddingVertical="12.0dip"
+            app:roundedCorners="bottom_left|bottom_right">
+
+            <de.dlyt.yanndroid.oneui.widget.NumberPicker
+                android:id="@+id/numberpicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <de.dlyt.yanndroid.oneui.widget.TimePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <de.dlyt.yanndroid.oneui.widget.SpinningDatePicker
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <de.dlyt.yanndroid.oneui.widget.DatePicker
+                android:id="@+id/datepicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </de.dlyt.yanndroid.oneui.widget.RoundLinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="?android:listSeparatorTextViewStyle"
+            android:text="Color Pickers" />
+
+        <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/item_background_color"
+            android:orientation="vertical"
+            android:paddingHorizontal="24.0dip"
+            android:paddingVertical="14.0dip">
+
             <LinearLayout
-                android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <com.google.android.material.button.MaterialButton
-                    android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="6.0dip" android:layout_gravity="center" android:text="Classic" android:onClick="classicColorPickerDialog" style="@style/ButtonStyle.Colored" />
+                    style="@style/ButtonStyle.Colored"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="6.0dip"
+                    android:layout_weight="1"
+                    android:onClick="classicColorPickerDialog"
+                    android:text="Classic" />
+
                 <com.google.android.material.button.MaterialButton
-                    android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="6.0dip" android:layout_gravity="center" android:text="Detailed" android:onClick="detailedColorPickerDialog" style="@style/ButtonStyle.Colored" />
+                    style="@style/ButtonStyle.Colored"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6.0dip"
+                    android:layout_weight="1"
+                    android:onClick="detailedColorPickerDialog"
+                    android:text="Detailed" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/palette" android:layout_width="fill_parent" android:layout_height="50.0dip" android:layout_marginTop="10.0dip" android:orientation="horizontal" android:background="@drawable/color_palette_bg">
+                android:id="@+id/palette"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:layout_marginTop="10.0dip"
+                android:background="@drawable/color_palette_bg"
+                android:orientation="horizontal">
+
                 <LinearLayout
-                    android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1" android:gravity="center" android:background="?colorPrimary">
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="?colorPrimary"
+                    android:gravity="center">
+
                     <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="?colorPrimary" android:textSize="12.0sp" android:textColor="#e5e5e5" android:textAllCaps="true" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="?colorPrimary"
+                        android:textAllCaps="true"
+                        android:textColor="#e5e5e5"
+                        android:textSize="12.0sp" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1" android:gravity="center" android:background="?colorPrimaryDark">
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="?colorPrimaryDark"
+                    android:gravity="center">
+
                     <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="?colorPrimaryDark" android:textSize="12.0sp" android:textColor="#e5e5e5" android:textAllCaps="true" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="?colorPrimaryDark"
+                        android:textAllCaps="true"
+                        android:textColor="#e5e5e5"
+                        android:textSize="12.0sp" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1" android:gravity="center" android:background="?colorSecondary">
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="?colorSecondary"
+                    android:gravity="center">
+
                     <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="?colorSecondary" android:textSize="12.0sp" android:textColor="#e5e5e5" android:textAllCaps="true" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="?colorSecondary"
+                        android:textAllCaps="true"
+                        android:textColor="#e5e5e5"
+                        android:textSize="12.0sp" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/item_background_color" android:backgroundTint="@color/sesl_control_color_normal" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/item_background_color"
+                    android:backgroundTint="@color/sesl_control_color_normal" />
             </LinearLayout>
         </de.dlyt.yanndroid.oneui.widget.RoundLinearLayout>
 
         <View
-            android:layout_width="match_parent" android:layout_height="96.0dip" android:background="?roundedCornerColor" />
+            android:layout_width="match_parent"
+            android:layout_height="96.0dip"
+            android:background="?roundedCornerColor" />
     </LinearLayout>
 </de.dlyt.yanndroid.oneui.widget.NestedScrollView>
