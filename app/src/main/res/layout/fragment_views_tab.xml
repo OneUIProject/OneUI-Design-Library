@@ -235,7 +235,7 @@
                 android:maxLines="1" />
 
             <de.dlyt.yanndroid.oneui.widget.Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/test_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
@@ -250,39 +250,69 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/item_background_color"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:paddingHorizontal="24.0dip"
             android:paddingVertical="14.0dip">
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/ButtonStyle.Filled"
-                android:layout_width="0.0dip"
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="6.0dip"
-                android:layout_weight="1"
-                android:onClick="standardDialog"
-                android:text="Standard" />
+                android:layout_marginBottom="14.0dip"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton
+                    style="@style/ButtonStyle.Filled"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="6.0dip"
+                    android:layout_weight="1"
+                    android:onClick="standardDialog"
+                    android:text="Standard" />
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/ButtonStyle.Filled"
-                android:layout_width="0.0dip"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="6.0dip"
-                android:layout_weight="1"
-                android:onClick="singleChoiceDialog"
-                android:text="Selection" />
+                <com.google.android.material.button.MaterialButton
+                    style="@style/ButtonStyle.Filled"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="6.0dip"
+                    android:layout_weight="1"
+                    android:onClick="singleChoiceDialog"
+                    android:text="Selection" />
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/ButtonStyle.Filled"
-                android:layout_width="0.0dip"
+                <com.google.android.material.button.MaterialButton
+                    style="@style/ButtonStyle.Filled"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6.0dip"
+                    android:layout_weight="1"
+                    android:onClick="progressDialogSpinner"
+                    android:text="Progress" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="6.0dip"
-                android:layout_weight="1"
-                android:onClick="progressDialogSpinner"
-                android:text="Progress" />
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton
+                    style="@style/ButtonStyle.Filled"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="6.0dip"
+                    android:layout_weight="1"
+                    android:onClick="timePickerDialog"
+                    android:text="Time Picker" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/ButtonStyle.Filled"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6.0dip"
+                    android:layout_weight="1"
+                    android:onClick="datePickerDialog"
+                    android:text="Date Picker" />
+            </LinearLayout>
         </de.dlyt.yanndroid.oneui.widget.RoundLinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
@@ -294,29 +324,16 @@
             android:layout_height="wrap_content"
             android:background="@color/item_background_color"
             android:orientation="horizontal"
-            android:paddingHorizontal="24.0dip"
-            android:paddingVertical="14.0dip"
+            android:paddingHorizontal="12.0dip"
+            android:paddingVertical="10.0dip"
             app:roundedCorners="top_left|top_right">
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/ButtonStyle.Filled"
-                android:layout_width="0.0dip"
+            <de.dlyt.yanndroid.oneui.widget.Spinner
+                android:id="@+id/pickers_spinner"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="6.0dip"
-                android:layout_weight="1"
-                android:onClick="timePickerDialog"
-                android:text="Time Picker" />
+                android:layout_gravity="start" />
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/ButtonStyle.Filled"
-                android:layout_width="0.0dip"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="6.0dip"
-                android:layout_weight="1"
-                android:onClick="datePickerDialog"
-                android:text="Date Picker" />
         </de.dlyt.yanndroid.oneui.widget.RoundLinearLayout>
 
         <de.dlyt.yanndroid.oneui.widget.RoundLinearLayout
@@ -327,22 +344,39 @@
             android:paddingVertical="12.0dip"
             app:roundedCorners="bottom_left|bottom_right">
 
-            <de.dlyt.yanndroid.oneui.widget.NumberPicker
-                android:id="@+id/numberpicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:id="@+id/numberpickers_container"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <de.dlyt.yanndroid.oneui.widget.NumberPicker
+                    android:id="@+id/numberpicker1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <de.dlyt.yanndroid.oneui.widget.NumberPicker
+                    android:id="@+id/numberpicker2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <de.dlyt.yanndroid.oneui.widget.NumberPicker
+                    android:id="@+id/numberpicker3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
             <de.dlyt.yanndroid.oneui.widget.TimePicker
+                android:id="@+id/timepicker"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <de.dlyt.yanndroid.oneui.widget.SpinningDatePicker
-                android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 
             <de.dlyt.yanndroid.oneui.widget.DatePicker
                 android:id="@+id/datepicker"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <de.dlyt.yanndroid.oneui.widget.SpinningDatePicker
+                android:id="@+id/spinningdatepicker"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 
         </de.dlyt.yanndroid.oneui.widget.RoundLinearLayout>
