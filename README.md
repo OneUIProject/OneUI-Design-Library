@@ -24,9 +24,16 @@ Huge thanks to [BlackMesa123](https://github.com/BlackMesa123) who has contribut
 ## Installation
 
 1. Add the dependency
+
+  * **Groovy**:
 ```gradle
 implementation 'io.github.yanndroid:oneui:2.3.0'
 ```
+  * **Kotlin**:
+```kotlin
+implementation("io.github.yanndroid:oneui:2.3.0")
+```
+
 2. Apply the main theme in AndroidManifest.xml
 ```xml
 <application
