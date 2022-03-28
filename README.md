@@ -4,7 +4,7 @@
 
 <h2 align="center">
 
-[![](https://img.shields.io/maven-central/v/io.github.yanndroid/oneui?color=%23C71A36&label=Maven&logo=Apache%20Maven&logoColor=%23C11920&style=for-the-badge)](https://mvnrepository.com/artifact/io.github.yanndroid/oneui) [![](https://img.shields.io/badge/XDA-Thread-%23AC6E2F.svg?style=for-the-badge&logo=XDA-Developers)](https://forum.xda-developers.com/t/dev-library-5-0-oneui-design-library-2-2-1.4387485/) [![](https://img.shields.io/badge/Telegram-Yanndroid-blue.svg?style=for-the-badge&logo=Telegram)](https://t.me/Yanndroid)
+[![](https://img.shields.io/maven-central/v/io.github.yanndroid/oneui?color=%23C71A36&label=Maven&logo=Apache%20Maven&logoColor=%23C11920&style=for-the-badge)](https://mvnrepository.com/artifact/io.github.yanndroid/oneui) [![](https://img.shields.io/badge/XDA-Thread-%23AC6E2F.svg?style=for-the-badge&logo=XDA-Developers)](https://forum.xda-developers.com/t/dev-library-5-0-oneui-design-library-2-2-1.4387485/) [![](https://img.shields.io/badge/Telegram-Group-blue.svg?style=for-the-badge&logo=Telegram)](https://t.me/oneuiproject)
 
 </h2>
 
