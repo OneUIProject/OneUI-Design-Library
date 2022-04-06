@@ -732,8 +732,8 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
         mScaledVerticalScrollFactor = ViewConfigurationCompat.getScaledVerticalScrollFactor(vc, context);
         mMinFlingVelocity = vc.getScaledMinimumFlingVelocity();
         mMaxFlingVelocity = vc.getScaledMaximumFlingVelocity();
-        mHoverTopAreaHeight = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25.0f, context.getResources().getDisplayMetrics()) + 0.5f);
-        mHoverBottomAreaHeight = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25.0f, context.getResources().getDisplayMetrics()) + 0.5f);
+        mHoverTopAreaHeight = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, HOVERSCROLL_HEIGHT_TOP_DP, context.getResources().getDisplayMetrics()) + 0.5f);
+        mHoverBottomAreaHeight = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, HOVERSCROLL_HEIGHT_BOTTOM_DP, context.getResources().getDisplayMetrics()) + 0.5f);
         mGoToTopBottomPadding = context.getResources().getDimensionPixelSize(R.dimen.sesl_go_to_top_scrollable_view_gap);
         mGoToTopImmersiveBottomPadding = 0;
         mGoToTopSize = context.getResources().getDimensionPixelSize(R.dimen.sesl_go_to_top_scrollable_view_size);
@@ -8879,7 +8879,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView, NestedScro
         mOnGoToTopClickListener = listener;
     }
 
-    public void seslShowGoToTopEdge(float delta, float displacement, int delayMillis) {
+    public void seslShowGoToTopEdge(int delayMillis) {
         removeCallbacks(mGoToTopEdgeEffectRunnable);
         postDelayed(mGoToTopEdgeEffectRunnable, (long) delayMillis);
     }

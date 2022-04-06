@@ -3,11 +3,9 @@ package de.dlyt.yanndroid.oneuiexample;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
 import de.dlyt.yanndroid.oneui.layout.SwitchBarLayout;
-import de.dlyt.yanndroid.oneui.layout.ToolbarLayout;
+import de.dlyt.yanndroid.oneui.view.Toast;
 import de.dlyt.yanndroid.oneui.widget.Switch;
 import de.dlyt.yanndroid.oneui.widget.SwitchBar;
 import de.dlyt.yanndroid.oneuiexample.base.BaseThemeActivity;

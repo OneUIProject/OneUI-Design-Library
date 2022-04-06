@@ -63,11 +63,11 @@
         <item name="actionModeBackground">@drawable/sesl_action_bar_background</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.AppCompat.Light.ActionButton.CloseMode</item>
         <item name="actionModeCloseDrawable">@drawable/sesl_ic_cab_done</item>
-        <item name="actionModeCopyDrawable">@drawable/ic_samsung_copy</item>
+        <item name="actionModeCopyDrawable">@drawable/ic_oui3_copy</item>
         <item name="actionModeCutDrawable">@drawable/sesl_ic_menu_cut</item>
         <item name="actionModePasteDrawable">@drawable/sesl_ic_menu_paste</item>
         <item name="actionModeSelectAllDrawable">@drawable/sesl_ic_menu_selectall</item>
-        <item name="actionModeShareDrawable">@drawable/ic_samsung_share</item>
+        <item name="actionModeShareDrawable">@drawable/ic_oui3_share</item>
         <item name="actionModeSplitBackground">?colorPrimaryDark</item>
         <item name="actionModeStyle">@style/ActionModeStyle</item>
 
@@ -490,6 +490,17 @@
         <item name="android:fontFamily">@string/sesl_font_family_regular</item>
     </style>
 
+    <!--Pickers-->
+    <style name="DatePickerStyle" parent="@android:style/Widget.Material.DatePicker">
+        <item name="buttonTintColor">@color/sesl_date_picker_button_tint_color</item>
+        <item name="dayNumberDisabledAlpha">@integer/sesl_day_number_disabled_alpha</item>
+        <item name="dayNumberTextColor">@color/sesl_date_picker_normal_day_number_text_color</item>
+        <item name="dayTextColor">@color/sesl_date_picker_normal_text_color</item>
+        <item name="headerTextColor">@color/sesl_date_picker_header_text_color</item>
+        <item name="selectedDayNumberTextColor">@color/sesl_date_picker_selected_day_number_text_color</item>
+        <item name="sundayTextColor">@color/sesl_date_picker_sunday_text_color</item>
+    </style>
+
     <!--Related Card-->
     <style name="RelatedButtonStyle">
         <item name="android:layout_width">wrap_content</item>
@@ -682,11 +693,11 @@
 
     <style name="AlertDialogStyle" parent="@android:style/Widget">
         <item name="android:layout">@layout/sesl_alert_dialog</item>
-        <item name="horizontalProgressLayout">@layout/sesl_progress_dialog</item>
+        <item name="horizontalProgressLayout">@layout/oui_progress_dialog_horizontal</item>
         <item name="listItemLayout">@layout/sesl_select_dialog_item</item>
         <item name="listLayout">@layout/sesl_select_dialog</item>
         <item name="multiChoiceItemLayout">@layout/sesl_select_dialog_multichoice</item>
-        <item name="progressLayout">@layout/sesl_progress_dialog_circle</item>
+        <item name="progressLayout">@layout/oui_progress_dialog_spinner</item>
         <item name="singleChoiceItemLayout">@layout/sesl_select_dialog_singlechoice</item>
     </style>
 
@@ -744,6 +755,10 @@
         <item name="android:stateListAnimator">@drawable/sesl_dialog_button_disabled_anim</item>
         <item name="android:textAllCaps">false</item>
         <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="PickerDialogStyle" parent="@style/AlertDialogTheme">
+        <item name="android:datePickerStyle">@style/DatePickerStyle</item>
     </style>
 
 
@@ -1119,7 +1134,6 @@
     <style name="OneUI4.AlertDialogStyle" parent="@style/AlertDialogStyle">
         <item name="android:layout">@layout/sesl4_alert_dialog</item>
         <item name="listLayout">@layout/sesl4_select_dialog</item>
-        <item name="progressLayout">@layout/sesl4_progress_dialog_circle</item>
     </style>
 
     <style name="OneUI4.DialogTitleStyle" parent="@style/DialogTitleStyle">
@@ -1142,6 +1156,10 @@
     <style name="OneUI4.DialogButtonStyle" parent="@style/DialogButtonStyle">
         <item name="android:textSize">@dimen/sesl4_dialog_button_text_size</item>
         <item name="android:textColor">@color/sesl4_dialog_button_text_color</item>
+    </style>
+
+    <style name="OneUI4.PickerDialogStyle" parent="@style/OneUI4.AlertDialogTheme">
+        <item name="android:datePickerStyle">@style/DatePickerStyle</item>
     </style>
 
 

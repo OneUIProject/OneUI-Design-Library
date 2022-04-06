@@ -48,7 +48,7 @@
     <color name="sesl_seekbar_disable_color_activated">#ff545454</color>
     <color name="sesl_seekbar_overlap_color_default">#ff673724</color>
     <color name="sesl4_seekbar_overlap_color_activated">#ffff6021</color>
-
+    <color name="oui_seekbar_circle_marker_color">#808080</color>
 
     <!--Switch-->
     <color name="sesl_switch_thumb_off_disabled_color">#ff858585</color>
@@ -126,7 +126,6 @@
     <color name="bottom_bar_item_text_color">#ff9c9c9c</color>
 
 
-
     <!--TabLayout-->
     <color name="sesl_tablayout_main_tab_indicator_color">#fffafafa</color>
     <color name="sesl_tablayout_subtab_background_stroke_color">#99ffffff</color>
@@ -151,6 +150,8 @@
     <color name="sesl_dialog_sub_text_color_material">#ff666666</color>
     <color name="sesl_dialog_title_text_color">#fffafafa</color>
     <color name="sesl_dialog_window_background_color_material">#ff252525</color>
+    <color name="sesl_progress_dialog_text_color">#ffe5e5e5</color>
+    <color name="sesl_progress_dialog_horizontal_text_color">#ffb0b0b0</color>
 
 
     <!--RecyclerView-->
@@ -173,5 +174,14 @@
     <color name="oui_tip_popup_background_color">#ff474747</color>
     <color name="oui_tip_popup_text_color">#fffcfcfc</color>
 
+    <!--Picker-->
+    <color name="sesl_number_picker_text_highlight_color">#1affffff</color>
+    <color name="sesl_number_picker_text_color">#fffafafa</color>
+    <color name="sesl_date_picker_selected_day_number_text_color">#ffcccccc</color>
+    <color name="sesl_date_picker_button_tint_color">#ff737373</color>
+    <color name="sesl_date_picker_header_text_color">@color/sesl_date_picker_normal_day_number_text_color</color>
+    <color name="sesl_date_picker_normal_day_number_text_color">#ffcccccc</color>
+    <color name="sesl_date_picker_normal_text_color">#ff999999</color>
+    <color name="sesl_date_picker_sunday_text_color">#fff76f68</color>
 
 </resources>

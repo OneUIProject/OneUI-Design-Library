@@ -27,7 +27,6 @@ import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -42,6 +41,7 @@ import java.util.List;
 import java.util.Set;
 
 import de.dlyt.yanndroid.oneui.R;
+import de.dlyt.yanndroid.oneui.view.Toast;
 
 public class Preference implements Comparable<Preference> {
     private static final String CLIPBOARD_ID = "Preference";

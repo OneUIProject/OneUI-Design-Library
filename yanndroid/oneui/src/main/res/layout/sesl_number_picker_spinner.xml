@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <view
+        class="de.dlyt.yanndroid.oneui.widget.NumberPicker$CustomEditText" android:id="@+id/numberpicker_input" android:layout_width="fill_parent" android:layout_height="@dimen/sesl_number_picker_spinner_edit_text_height" android:gravity="center" android:background="@null" android:textSize="@dimen/sesl_time_picker_spinner_text_size" android:textColor="@color/sesl_number_picker_text_color" android:maxLines="1" android:selectAllOnFocus="true" android:visibility="invisible" />
+</merge>

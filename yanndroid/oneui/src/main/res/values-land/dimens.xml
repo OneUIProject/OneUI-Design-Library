@@ -60,6 +60,18 @@
     <dimen name="sesl_color_picker_seekbar_edittext_margin_right">22.0dip</dimen>
     <dimen name="sesl_color_picker_seekbar_margin_bottom">18.0dip</dimen>
 
+    <dimen name="sesl_date_picker_calendar_day_height">24.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_header_button_height">28.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_header_button_width">28.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_header_height">28.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_view_height">150.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_week_height">25.0dip</dimen>
+    <dimen name="sesl_date_picker_gap_between_header_and_weekend">2.0dip</dimen>
+    <dimen name="sesl_date_picker_gap_between_weekend_and_calender">0.0dip</dimen>
+    <dimen name="sesl_date_picker_selected_day_circle_radius">11.0dip</dimen>
+    <dimen name="sesl_spinning_date_picker_height">204.0dip</dimen>
+    <dimen name="sesl_spinning_date_picker_height_dialog">204.0dip</dimen>
+
 
 
     <!--#############-->

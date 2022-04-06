@@ -2982,6 +2982,12 @@ public class SamsungTabLayout extends HorizontalScrollView {
         }
     }
 
+    public void seslShowBadge(int index, boolean show, int badge) {
+        if (badge != 0) {
+            seslShowBadge(index, show, badge == -1 ? "N" : (badge > 99 ? "99" : String.valueOf(badge)));
+        }
+    }
+
     public void seslShowBadge(int index, boolean show, String text) {
         seslShowBadge(index, show, text, null);
     }

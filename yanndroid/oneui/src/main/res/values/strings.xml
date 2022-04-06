@@ -125,4 +125,17 @@
 
     <string name="oui_tip_popup_hint_string">Double tap this button to learn more.</string>
 
+    <string name="sesl_time_picker_hour">Hour</string>
+    <string name="sesl_time_picker_minute">Minute</string>
+    <string name="sesl_time_picker_set_title">Set Time</string>
+    <string name="sesl_date_picker_day">Day</string>
+    <string name="sesl_date_picker_decrement_month">Decrease month</string>
+    <string name="sesl_date_picker_increment_month">Increase month</string>
+    <string name="sesl_date_picker_month">Month</string>
+    <string name="sesl_date_picker_switch_to_calendar_description">Double tap to switch to calendar view.</string>
+    <string name="sesl_date_picker_switch_to_wheel_description">Double tap to switch to wheel view.</string>
+    <string name="sesl_date_picker_year">Year</string>
+    <string name="sesl_number_picker_invalid_value_entered">Invalid value entered.</string>
+
+
 </resources>

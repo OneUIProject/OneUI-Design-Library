@@ -456,6 +456,11 @@
     <dimen name="widget_related_card_view_margin_start_tip">18.0dip</dimen>
 
     <!--Snackbar-->
+    <dimen name="sesl_toast_padding_start">20.0dip</dimen>
+    <dimen name="sesl_toast_padding_top">9.0dip</dimen>
+    <dimen name="sesl_toast_padding_end">20.0dip</dimen>
+    <dimen name="sesl_toast_padding_bottom">9.0dip</dimen>
+    <dimen name="sesl_toast_text_size">16.0sp</dimen>
     <dimen name="sesl_design_snackbar_action_padding_left">20.0dip</dimen>
     <dimen name="sesl_design_snackbar_action_padding_right">20.0dip</dimen>
     <dimen name="sesl_design_snackbar_action_padding_top">2.0dip</dimen>
@@ -485,6 +490,45 @@
     <dimen name="oui_tip_popup_scale_margin">10.0dip</dimen>
     <dimen name="oui_tip_popup_side_margin">10.0dip</dimen>
 
+
+    <dimen name="sesl_picker_spinner_height">144.0dip</dimen>
+    <dimen name="sesl_time_picker_dialog_min_width">400.0dip</dimen>
+    <dimen name="sesl_time_picker_spinner_am_pm_text_size">22.0dip</dimen>
+    <dimen name="sesl_time_picker_spinner_dialog_padding_bottom">24.0dip</dimen>
+    <dimen name="sesl_time_picker_spinner_dialog_padding_top">24.0dip</dimen>
+    <dimen name="sesl_time_picker_spinner_divider_text_size">32.0dip</dimen>
+    <item type="dimen" name="sesl_time_picker_spinner_height">@dimen/sesl_picker_spinner_height</item>
+    <dimen name="sesl_time_picker_spinner_text_size">28.0dip</dimen>
+    <dimen name="sesl_spinning_date_picker_date_spinner_text_size">21.0dip</dimen>
+    <dimen name="sesl_spinning_date_picker_height">277.0dip</dimen>
+    <dimen name="sesl_spinning_date_picker_height_dialog">277.0dip</dimen>
+    <dimen name="sesl_spinning_date_picker_margin_top">44.0dip</dimen>
+    <dimen name="sesl_number_picker_spinner_edit_text_height">48.0dip</dimen>
+    <item type="dimen" name="sesl_number_picker_spinner_height">@dimen/sesl_picker_spinner_height</item>
+    <dimen name="sesl_number_picker_spinner_width">90.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_day_height">32.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_header_button_height">36.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_header_button_width">36.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_header_height">36.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_header_month_text_size">16.0sp</dimen>
+    <dimen name="sesl_date_picker_calendar_view_height">192.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_view_margin">15.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_view_padding">0.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_view_width">328.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_week_height">32.0dip</dimen>
+    <dimen name="sesl_date_picker_day_number_text_size">15.0dip</dimen>
+    <dimen name="sesl_date_picker_dialog_min_height">205.0dip</dimen>
+    <dimen name="sesl_date_picker_dialog_min_width">400.0dip</dimen>
+    <dimen name="sesl_date_picker_dialog_padding_bottom">4.0dip</dimen>
+    <dimen name="sesl_date_picker_dialog_padding_top">20.0dip</dimen>
+    <dimen name="sesl_date_picker_gap_between_header_and_weekend">10.0dip</dimen>
+    <dimen name="sesl_date_picker_gap_between_weekend_and_calender">7.0dip</dimen>
+    <dimen name="sesl_date_picker_lunar_calendar_header_margin">10.0dip</dimen>
+    <dimen name="sesl_date_picker_month_day_label_text_size">11.0dip</dimen>
+    <dimen name="sesl_date_picker_selected_day_circle_radius">14.0dip</dimen>
+    <dimen name="sesl_date_picker_selected_day_circle_stroke">1.5dip</dimen>
+    <item type="dimen" name="sesl_date_picker_spinner_height">@dimen/sesl_picker_spinner_height</item>
+    <dimen name="sesl_picker_dialog_width">-1.0px</dimen>
 
 
 

@@ -38,7 +38,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.animation.SeslAnimationUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.math.MathUtils;
 import androidx.reflect.content.res.SeslConfigurationReflector;
 import androidx.reflect.view.SeslHapticFeedbackConstantsReflector;
 
@@ -268,7 +267,7 @@ public class SeslRecyclerViewFastScroller {
         TypedValue colorPrimary = new TypedValue();
         mContext.getTheme().resolveAttribute(R.attr.colorPrimary, colorPrimary, true);
 
-        mColorPrimary = getColorWithAlpha(mContext.getResources().getColor(colorPrimary.resourceId), 0.9f);
+        mColorPrimary = getColorWithAlpha(colorPrimary.data, 0.9f);
 
         mThumbBackgroundColor = mContext.getResources().getColor(R.color.sesl_fast_scrollbar_bg_color);
         mTrackImage.setImageDrawable(mTrackDrawable);
@@ -1368,22 +1367,16 @@ public class SeslRecyclerViewFastScroller {
     }
 
     /*kang from MathUtils.smali*/
-    public static int constrain(int amount, int low, int high) {
-        if (amount < low) {
-            return low;
-        }
-        return amount > high ? high : amount;
+    private int constrain(int amount, int low, int high) {
+        return amount < low ? low : (amount > high ? high : amount);
     }
 
-    public static float constrain(float amount, float low, float high) {
-        if (amount < low) {
-            return low;
-        }
-        return amount > high ? high : amount;
+    private float constrain(float amount, float low, float high) {
+        return amount < low ? low : (amount > high ? high : amount);
     }
 
     /*kang from SeslViewReflector$SeslMeasureSpecReflector.smali*/
-    private static int makeSafeMeasureSpec(int size, int mode) {
+    private int makeSafeMeasureSpec(int size, int mode) {
         boolean useZeroUnspecifiedMeasureSpec = Build.VERSION.SDK_INT < 23;
         if (!useZeroUnspecifiedMeasureSpec || mode != 0) {
             return MeasureSpec.makeMeasureSpec(size, mode);

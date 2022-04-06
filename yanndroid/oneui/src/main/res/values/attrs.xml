@@ -186,9 +186,9 @@
         <attr name="liftOnScroll" />
         <attr name="liftOnScrollTargetViewId" />
         <attr name="statusBarForeground" />
-        <attr name="seslUseCustomHeight" format="boolean"/>
-        <attr name="seslUseCustomPadding" format="boolean"/>
-        <attr name="seslHeightProportion" format="float"/>
+        <attr name="seslUseCustomHeight" format="boolean" />
+        <attr name="seslUseCustomPadding" format="boolean" />
+        <attr name="seslHeightProportion" format="float" />
         <attr name="android:paddingBottom" />
     </declare-styleable>
     <declare-styleable name="SamsungAppBarLayout_Layout">
@@ -257,9 +257,9 @@
         <attr name="tabUnboundedRipple" format="boolean" />
     </declare-styleable>
     <declare-styleable name="TabItem">
-        <attr name="android:text"/>
-        <attr name="android:icon"/>
-        <attr name="android:layout"/>
+        <attr name="android:text" />
+        <attr name="android:icon" />
+        <attr name="android:layout" />
     </declare-styleable>
 
     <declare-styleable name="RoundFrameLayout">
@@ -342,7 +342,7 @@
     </declare-styleable>
 
     <declare-styleable name="SeslViewPager2">
-        <attr name="android:orientation"/>
+        <attr name="android:orientation" />
     </declare-styleable>
 
     <declare-styleable name="View">
@@ -403,7 +403,7 @@
         <attr name="iconSpaceReserved" format="boolean" />
         <attr name="android:iconSpaceReserved" />
         <attr name="isPreferenceVisible" format="boolean" />
-        <attr name="enableCopying" format="boolean"/>
+        <attr name="enableCopying" format="boolean" />
     </declare-styleable>
     <declare-styleable name="PreferenceCategory">
         <attr name="roundStroke">
@@ -453,7 +453,7 @@
         <attr name="android:dialogLayout" />
     </declare-styleable>
     <declare-styleable name="EditTextPreference">
-        <attr name="useSimpleSummaryProvider" format="boolean"/>
+        <attr name="useSimpleSummaryProvider" format="boolean" />
     </declare-styleable>
     <declare-styleable name="CheckBoxPreference">
         <attr name="summaryOn" format="string" />
@@ -573,6 +573,42 @@
         <attr name="seslSwitchBarStyle" format="reference" />
         <attr name="seslSwitchBarTextActivatedColor" format="color" />
         <attr name="seslSwitchBarTextColor" format="color" />
+    </declare-styleable>
+    <declare-styleable name="TimePicker">
+        <attr name="dateTimeMode" format="boolean" />
+        <attr name="timeLayoutMode" format="integer">
+            <enum name="defaultMode" value="0" />
+            <enum name="phoneMode" value="1" />
+            <enum name="multiPaneMode" value="2" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="DatePicker">
+        <attr name="android:startYear" />
+        <attr name="android:endYear" />
+        <attr name="android:firstDayOfWeek" />
+        <attr name="dayNumberTextColor" format="color" />
+        <attr name="dayTextColor" format="color" />
+        <attr name="sundayTextColor" format="color" />
+        <attr name="headerTextColor" format="color" />
+        <attr name="buttonTintColor" format="color" />
+        <attr name="selectedDayNumberTextColor" format="color" />
+        <attr name="dayNumberDisabledAlpha" format="integer" />
+        <attr name="pickerLayoutMode" format="integer">
+            <enum name="defaultMode" value="0" />
+            <enum name="phoneMode" value="1" />
+            <enum name="multiPaneMode" value="2" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="NumberPicker">
+        <attr name="internalMinHeight" format="dimension" />
+        <attr name="internalMaxHeight" format="dimension" />
+        <attr name="internalMinWidth" format="dimension" />
+        <attr name="internalMaxWidth" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="ThemeDynamicDrawable">
+        <attr name="drawable3" format="reference" />
+        <attr name="drawable4" format="reference" />
     </declare-styleable>
 
 </resources>

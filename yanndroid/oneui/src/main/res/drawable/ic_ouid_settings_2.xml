@@ -1,0 +1,6 @@
+<drawable xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    class="de.dlyt.yanndroid.oneui.utils.ThemeDynamicDrawable"
+    app:drawable3="@drawable/ic_oui3_settings_2"
+    app:drawable4="@drawable/ic_oui4_settings_2"
+    tools:targetApi="n" />

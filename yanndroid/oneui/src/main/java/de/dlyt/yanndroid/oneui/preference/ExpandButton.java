@@ -22,7 +22,7 @@ final class ExpandButton extends Preference {
 
     private void initLayout() {
         setLayoutResource(R.layout.expand_button);
-        setIcon(R.drawable.ic_arrow_down_24dp);
+        setIcon(R.drawable.ic_oui_arrow_down);
         setTitle(R.string.expand_button_title);
         setOrder(999);
     }

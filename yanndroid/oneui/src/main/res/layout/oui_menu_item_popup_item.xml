@@ -79,7 +79,7 @@
             android:id="@+id/menu_item_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_samsung_arrow_right"
+            android:src="@drawable/ic_oui_arrow_right"
             android:visibility="gone" />
 
     </LinearLayout>

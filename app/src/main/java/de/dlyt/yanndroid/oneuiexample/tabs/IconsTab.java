@@ -1,9 +1,11 @@
 package de.dlyt.yanndroid.oneuiexample.tabs;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,262 +13,377 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.dlyt.yanndroid.oneui.sesl.utils.SeslRoundedCorner;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import de.dlyt.yanndroid.oneui.layout.DrawerLayout;
 import de.dlyt.yanndroid.oneui.sesl.recyclerview.LinearLayoutManager;
+import de.dlyt.yanndroid.oneui.sesl.utils.SeslRoundedCorner;
+import de.dlyt.yanndroid.oneui.utils.ThemeDynamicDrawable;
 import de.dlyt.yanndroid.oneui.view.IndexScrollView;
 import de.dlyt.yanndroid.oneui.view.RecyclerView;
+import de.dlyt.yanndroid.oneui.view.Toast;
 import de.dlyt.yanndroid.oneui.view.ViewPager2;
 import de.dlyt.yanndroid.oneui.widget.TabLayout;
 import de.dlyt.yanndroid.oneuiexample.R;
 
 public class IconsTab extends Fragment {
-    Integer[] imageIDs = {R.drawable.ic_samsung_accessibility,
-            R.drawable.ic_samsung_account,
-            R.drawable.ic_samsung_advanced_feature,
-            R.drawable.ic_samsung_anc,
-            R.drawable.ic_samsung_apk,
-            R.drawable.ic_samsung_apps,
-            R.drawable.ic_samsung_apps_2,
-            R.drawable.ic_samsung_archive,
-            R.drawable.ic_samsung_arrow_down,
-            R.drawable.ic_samsung_arrow_left,
-            R.drawable.ic_samsung_arrow_right,
-            R.drawable.ic_samsung_arrow_up,
-            R.drawable.ic_samsung_attach,
-            R.drawable.ic_samsung_audio,
-            R.drawable.ic_samsung_audio_2,
-            R.drawable.ic_samsung_back,
-            R.drawable.ic_samsung_biometric_face,
-            R.drawable.ic_samsung_biometric_fingerprint,
-            R.drawable.ic_samsung_biometric_fingerprint_2,
-            R.drawable.ic_samsung_bluetooth_off,
-            R.drawable.ic_samsung_bluetooth_on,
-            R.drawable.ic_samsung_bluetooth_sync,
-            R.drawable.ic_samsung_book,
-            R.drawable.ic_samsung_bookmark,
-            R.drawable.ic_samsung_briefcase,
-            R.drawable.ic_samsung_brush,
-            R.drawable.ic_samsung_calendar_day,
-            R.drawable.ic_samsung_calendar_month,
-            R.drawable.ic_samsung_calendar_task,
-            R.drawable.ic_samsung_calendar_week,
-            R.drawable.ic_samsung_calendar_year,
-            R.drawable.ic_samsung_camera,
-            R.drawable.ic_samsung_car,
-            R.drawable.ic_samsung_close,
-            R.drawable.ic_samsung_cloud_storage,
-            R.drawable.ic_samsung_community,
-            R.drawable.ic_samsung_composer,
-            R.drawable.ic_samsung_contact,
-            R.drawable.ic_samsung_convert,
-            R.drawable.ic_samsung_copy,
-            R.drawable.ic_samsung_creature,
-            R.drawable.ic_samsung_crown,
-            R.drawable.ic_samsung_delete,
-            R.drawable.ic_samsung_device,
-            R.drawable.ic_samsung_devicecare,
-            R.drawable.ic_samsung_digitalwellbeing,
-            R.drawable.ic_samsung_document,
-            R.drawable.ic_samsung_download,
-            R.drawable.ic_samsung_drawer,
-            R.drawable.ic_samsung_edit,
-            R.drawable.ic_samsung_equalizer,
-            R.drawable.ic_samsung_error,
-            R.drawable.ic_samsung_favorite_off,
-            R.drawable.ic_samsung_favorite_on,
-            R.drawable.ic_samsung_file_type_amr,
-            R.drawable.ic_samsung_file_type_apk,
-            R.drawable.ic_samsung_file_type_audio,
-            R.drawable.ic_samsung_file_type_contact,
-            R.drawable.ic_samsung_file_type_eml,
-            R.drawable.ic_samsung_file_type_etc,
-            R.drawable.ic_samsung_file_type_excel,
-            R.drawable.ic_samsung_file_type_folder,
-            R.drawable.ic_samsung_file_type_ftp,
-            R.drawable.ic_samsung_file_type_gltf,
-            R.drawable.ic_samsung_file_type_html,
-            R.drawable.ic_samsung_file_type_hwp,
-            R.drawable.ic_samsung_file_type_image,
-            R.drawable.ic_samsung_file_type_memo,
-            R.drawable.ic_samsung_file_type_pdf,
-            R.drawable.ic_samsung_file_type_planner,
-            R.drawable.ic_samsung_file_type_ppt,
-            R.drawable.ic_samsung_file_type_raw,
-            R.drawable.ic_samsung_file_type_scrapbook,
-            R.drawable.ic_samsung_file_type_sftp,
-            R.drawable.ic_samsung_file_type_smb,
-            R.drawable.ic_samsung_file_type_snb,
-            R.drawable.ic_samsung_file_type_snt,
-            R.drawable.ic_samsung_file_type_spd,
-            R.drawable.ic_samsung_file_type_story_album,
-            R.drawable.ic_samsung_file_type_task,
-            R.drawable.ic_samsung_file_type_txt,
-            R.drawable.ic_samsung_file_type_video,
-            R.drawable.ic_samsung_file_type_vnt,
-            R.drawable.ic_samsung_file_type_word,
-            R.drawable.ic_samsung_file_type_zip,
-            R.drawable.ic_samsung_folder,
-            R.drawable.ic_samsung_game,
-            R.drawable.ic_samsung_game_2,
-            R.drawable.ic_samsung_game_detail,
-            R.drawable.ic_samsung_game_launcher,
-            R.drawable.ic_samsung_game_launcher_2,
-            R.drawable.ic_samsung_game_profile,
-            R.drawable.ic_samsung_gift,
-            R.drawable.ic_samsung_google_drive,
-            R.drawable.ic_samsung_group,
-            R.drawable.ic_samsung_help,
-            R.drawable.ic_samsung_help_2,
-            R.drawable.ic_samsung_home,
-            R.drawable.ic_samsung_home_shortcut,
-            R.drawable.ic_samsung_hourglass,
-            R.drawable.ic_samsung_iconview,
-            R.drawable.ic_samsung_image,
-            R.drawable.ic_samsung_image_2,
-            R.drawable.ic_samsung_image_3,
-            R.drawable.ic_samsung_import,
-            R.drawable.ic_samsung_info,
-            R.drawable.ic_samsung_info_2,
-            R.drawable.ic_samsung_keyboard,
-            R.drawable.ic_samsung_labs,
-            R.drawable.ic_samsung_light_bulb,
-            R.drawable.ic_samsung_light_bulb_settings,
-            R.drawable.ic_samsung_like_off,
-            R.drawable.ic_samsung_like_on,
-            R.drawable.ic_samsung_link,
-            R.drawable.ic_samsung_list,
-            R.drawable.ic_samsung_list_add,
-            R.drawable.ic_samsung_list_audio,
-            R.drawable.ic_samsung_list_extended,
-            R.drawable.ic_samsung_list_filter,
-            R.drawable.ic_samsung_list_grid,
-            R.drawable.ic_samsung_list_search,
-            R.drawable.ic_samsung_list_sort,
-            R.drawable.ic_samsung_location_2,
-            R.drawable.ic_samsung_location_off,
-            R.drawable.ic_samsung_location_on,
-            R.drawable.ic_samsung_lock,
-            R.drawable.ic_samsung_mail,
-            R.drawable.ic_samsung_manage,
-            R.drawable.ic_samsung_manual,
-            R.drawable.ic_samsung_maximize,
-            R.drawable.ic_samsung_memo,
-            R.drawable.ic_samsung_message,
-            R.drawable.ic_samsung_minimize,
-            R.drawable.ic_samsung_minus,
-            R.drawable.ic_samsung_more,
-            R.drawable.ic_samsung_move,
-            R.drawable.ic_samsung_move_to_beginning,
-            R.drawable.ic_samsung_network_storage,
-            R.drawable.ic_samsung_network_storage_manage,
-            R.drawable.ic_samsung_no_network,
-            R.drawable.ic_samsung_notice,
-            R.drawable.ic_samsung_onedrive,
-            R.drawable.ic_samsung_open,
-            R.drawable.ic_samsung_page,
-            R.drawable.ic_samsung_password_hide,
-            R.drawable.ic_samsung_password_view,
-            R.drawable.ic_samsung_pause,
-            R.drawable.ic_samsung_pdf,
-            R.drawable.ic_samsung_pen,
-            R.drawable.ic_samsung_pen_calligraphy,
-            R.drawable.ic_samsung_pen_calligraphy_brush,
-            R.drawable.ic_samsung_pen_eraser,
-            R.drawable.ic_samsung_pen_fountain,
-            R.drawable.ic_samsung_pen_marker,
-            R.drawable.ic_samsung_pen_marker_round,
-            R.drawable.ic_samsung_pen_pencil,
-            R.drawable.ic_samsung_phone,
-            R.drawable.ic_samsung_pin,
-            R.drawable.ic_samsung_pin_2,
-            R.drawable.ic_samsung_play,
-            R.drawable.ic_samsung_plug_in,
-            R.drawable.ic_samsung_plus,
-            R.drawable.ic_samsung_plus_2,
-            R.drawable.ic_samsung_power,
-            R.drawable.ic_samsung_privacy,
-            R.drawable.ic_samsung_recent,
-            R.drawable.ic_samsung_recentview,
-            R.drawable.ic_samsung_rectify,
-            R.drawable.ic_samsung_redo,
-            R.drawable.ic_samsung_refresh,
-            R.drawable.ic_samsung_reminder_2,
-            R.drawable.ic_samsung_reminder_off,
-            R.drawable.ic_samsung_reminder_on,
-            R.drawable.ic_samsung_remove,
-            R.drawable.ic_samsung_remove_2,
-            R.drawable.ic_samsung_remove_3,
-            R.drawable.ic_samsung_rename,
-            R.drawable.ic_samsung_reorder,
-            R.drawable.ic_samsung_repeat,
-            R.drawable.ic_samsung_restore,
-            R.drawable.ic_samsung_save,
-            R.drawable.ic_samsung_scan,
-            R.drawable.ic_samsung_sd_card,
-            R.drawable.ic_samsung_search,
-            R.drawable.ic_samsung_secure_folder,
-            R.drawable.ic_samsung_security,
-            R.drawable.ic_samsung_security_2,
-            R.drawable.ic_samsung_selected,
-            R.drawable.ic_samsung_selected_2,
-            R.drawable.ic_samsung_send,
-            R.drawable.ic_samsung_settings,
-            R.drawable.ic_samsung_settings_2,
-            R.drawable.ic_samsung_settings_3,
-            R.drawable.ic_samsung_share,
-            R.drawable.ic_samsung_share_2,
-            R.drawable.ic_samsung_shuffle,
-            R.drawable.ic_samsung_sim,
-            R.drawable.ic_samsung_smart_view,
-            R.drawable.ic_samsung_software_update,
-            R.drawable.ic_samsung_speed,
-            R.drawable.ic_samsung_squircle,
-            R.drawable.ic_samsung_sticker,
-            R.drawable.ic_samsung_stop,
-            R.drawable.ic_samsung_store,
-            R.drawable.ic_samsung_subscription,
-            R.drawable.ic_samsung_support,
-            R.drawable.ic_samsung_sync,
-            R.drawable.ic_samsung_tag,
-            R.drawable.ic_samsung_text,
-            R.drawable.ic_samsung_text_2,
-            R.drawable.ic_samsung_ticket,
-            R.drawable.ic_samsung_time,
-            R.drawable.ic_samsung_undo,
-            R.drawable.ic_samsung_unlock,
-            R.drawable.ic_samsung_unpair,
-            R.drawable.ic_samsung_usb,
-            R.drawable.ic_samsung_video,
-            R.drawable.ic_samsung_video_conference,
-            R.drawable.ic_samsung_voice,
-            R.drawable.ic_samsung_voice_2,
-            R.drawable.ic_samsung_volume,
-            R.drawable.ic_samsung_volume_down,
-            R.drawable.ic_samsung_volume_mute,
-            R.drawable.ic_samsung_volume_up,
-            R.drawable.ic_samsung_warning,
-            R.drawable.ic_samsung_web_search,
-            R.drawable.ic_samsung_website,
-            R.drawable.ic_samsung_wifi,
-            R.drawable.ic_samsung_work,
+    Integer[] imageIDs = {R.drawable.ic_oui3_accessibility,
+            R.drawable.ic_oui3_account,
+            R.drawable.ic_oui3_advanced_feature,
+            R.drawable.ic_oui3_apps,
+            R.drawable.ic_oui3_apps_2,
+            R.drawable.ic_oui3_archive,
+            R.drawable.ic_oui3_audio,
+            R.drawable.ic_oui3_audio_2,
+            R.drawable.ic_oui3_biometric_fingerprint,
+            R.drawable.ic_oui3_briefcase,
+            R.drawable.ic_oui3_brush,
+            R.drawable.ic_oui3_calendar_day,
+            R.drawable.ic_oui3_calendar_month,
+            R.drawable.ic_oui3_calendar_task,
+            R.drawable.ic_oui3_calendar_week,
+            R.drawable.ic_oui3_calendar_year,
+            R.drawable.ic_oui3_camera,
+            R.drawable.ic_oui3_cloud_storage,
+            R.drawable.ic_oui3_community,
+            R.drawable.ic_oui3_composer,
+            R.drawable.ic_oui3_contact,
+            R.drawable.ic_oui3_copy,
+            R.drawable.ic_oui3_creature,
+            R.drawable.ic_oui3_crown,
+            R.drawable.ic_oui3_delete,
+            R.drawable.ic_oui3_device,
+            R.drawable.ic_oui3_document,
+            R.drawable.ic_oui3_edit,
+            R.drawable.ic_oui3_error,
+            R.drawable.ic_oui3_folder,
+            R.drawable.ic_oui3_gift,
+            R.drawable.ic_oui3_group,
+            R.drawable.ic_oui3_help,
+            R.drawable.ic_oui3_home,
+            R.drawable.ic_oui3_home_shortcut,
+            R.drawable.ic_oui3_iconview,
+            R.drawable.ic_oui3_image,
+            R.drawable.ic_oui3_image_2,
+            R.drawable.ic_oui3_info,
+            R.drawable.ic_oui3_light_bulb,
+            R.drawable.ic_oui3_light_bulb_settings,
+            R.drawable.ic_oui3_location_2,
+            R.drawable.ic_oui3_location_off,
+            R.drawable.ic_oui3_location_on,
+            R.drawable.ic_oui3_lock,
+            R.drawable.ic_oui3_mail,
+            R.drawable.ic_oui3_manual,
+            R.drawable.ic_oui3_memo,
+            R.drawable.ic_oui3_message,
+            R.drawable.ic_oui3_network_storage,
+            R.drawable.ic_oui3_network_storage_manage,
+            R.drawable.ic_oui3_notice,
+            R.drawable.ic_oui3_pdf,
+            R.drawable.ic_oui3_pin,
+            R.drawable.ic_oui3_plug_in,
+            R.drawable.ic_oui3_plus,
+            R.drawable.ic_oui3_privacy,
+            R.drawable.ic_oui3_recent,
+            R.drawable.ic_oui3_reminder_2,
+            R.drawable.ic_oui3_reminder_off,
+            R.drawable.ic_oui3_reminder_on,
+            R.drawable.ic_oui3_remove,
+            R.drawable.ic_oui3_rename,
+            R.drawable.ic_oui3_save,
+            R.drawable.ic_oui3_scan,
+            R.drawable.ic_oui3_sd_card,
+            R.drawable.ic_oui3_secure_folder,
+            R.drawable.ic_oui3_security,
+            R.drawable.ic_oui3_selected,
+            R.drawable.ic_oui3_send,
+            R.drawable.ic_oui3_settings,
+            R.drawable.ic_oui3_settings_2,
+            R.drawable.ic_oui3_share,
+            R.drawable.ic_oui3_software_update,
+            R.drawable.ic_oui3_unlock,
+            R.drawable.ic_oui3_usb,
+            R.drawable.ic_oui3_video,
+            R.drawable.ic_oui3_video_conference,
+            R.drawable.ic_oui3_voice,
+            R.drawable.ic_oui3_warning,
+            R.drawable.ic_oui3_work,
+            R.drawable.ic_oui4_alarm,
+            R.drawable.ic_oui4_alarm_dismissed,
+            R.drawable.ic_oui4_alarm_off,
+            R.drawable.ic_oui4_alarm_snooze,
+            R.drawable.ic_oui4_audio,
+            R.drawable.ic_oui4_biometric_fingerprint,
+            R.drawable.ic_oui4_brush,
+            R.drawable.ic_oui4_camera,
+            R.drawable.ic_oui4_contact,
+            R.drawable.ic_oui4_copy,
+            R.drawable.ic_oui4_delete,
+            R.drawable.ic_oui4_edit,
+            R.drawable.ic_oui4_error,
+            R.drawable.ic_oui4_folder,
+            R.drawable.ic_oui4_group,
+            R.drawable.ic_oui4_help,
+            R.drawable.ic_oui4_image,
+            R.drawable.ic_oui4_info,
+            R.drawable.ic_oui4_lock,
+            R.drawable.ic_oui4_mail,
+            R.drawable.ic_oui4_pdf,
+            R.drawable.ic_oui4_pin,
+            R.drawable.ic_oui4_remove,
+            R.drawable.ic_oui4_rename,
+            R.drawable.ic_oui4_scan,
+            R.drawable.ic_oui4_security,
+            R.drawable.ic_oui4_settings,
+            R.drawable.ic_oui4_settings_2,
+            R.drawable.ic_oui4_share,
+            R.drawable.ic_oui4_sticker,
+            R.drawable.ic_oui4_store,
+            R.drawable.ic_oui4_sync_off,
+            R.drawable.ic_oui4_sync_on,
+            R.drawable.ic_oui4_unlock,
+            R.drawable.ic_oui4_voice,
+            R.drawable.ic_oui4_volume,
+            R.drawable.ic_oui4_volume_down,
+            R.drawable.ic_oui4_volume_mute,
+            R.drawable.ic_oui4_volume_up,
+            R.drawable.ic_oui4_warning,
+            R.drawable.ic_oui_align,
+            R.drawable.ic_oui_align_center,
+            R.drawable.ic_oui_align_left,
+            R.drawable.ic_oui_align_right,
+            R.drawable.ic_oui_anc,
+            R.drawable.ic_oui_apk,
+            R.drawable.ic_oui_arrow_down,
+            R.drawable.ic_oui_arrow_left,
+            R.drawable.ic_oui_arrow_right,
+            R.drawable.ic_oui_arrow_up,
+            R.drawable.ic_oui_attach,
+            R.drawable.ic_oui_back,
+            R.drawable.ic_oui_back_2,
+            R.drawable.ic_oui_biometric_face,
+            R.drawable.ic_oui_bluetooth_off,
+            R.drawable.ic_oui_bluetooth_on,
+            R.drawable.ic_oui_bluetooth_sync,
+            R.drawable.ic_oui_book,
+            R.drawable.ic_oui_bookmark,
+            R.drawable.ic_oui_car,
+            R.drawable.ic_oui_close,
+            R.drawable.ic_oui_convert,
+            R.drawable.ic_oui_devicecare,
+            R.drawable.ic_oui_digitalwellbeing,
+            R.drawable.ic_oui_download,
+            R.drawable.ic_oui_drawer,
+            R.drawable.ic_oui_enter,
+            R.drawable.ic_oui_equalizer,
+            R.drawable.ic_oui_favorite_off,
+            R.drawable.ic_oui_favorite_on,
+            R.drawable.ic_oui_file_type_amr,
+            R.drawable.ic_oui_file_type_apk,
+            R.drawable.ic_oui_file_type_audio,
+            R.drawable.ic_oui_file_type_contact,
+            R.drawable.ic_oui_file_type_eml,
+            R.drawable.ic_oui_file_type_etc,
+            R.drawable.ic_oui_file_type_excel,
+            R.drawable.ic_oui_file_type_folder,
+            R.drawable.ic_oui_file_type_ftp,
+            R.drawable.ic_oui_file_type_gltf,
+            R.drawable.ic_oui_file_type_html,
+            R.drawable.ic_oui_file_type_hwp,
+            R.drawable.ic_oui_file_type_image,
+            R.drawable.ic_oui_file_type_memo,
+            R.drawable.ic_oui_file_type_pdf,
+            R.drawable.ic_oui_file_type_planner,
+            R.drawable.ic_oui_file_type_ppt,
+            R.drawable.ic_oui_file_type_raw,
+            R.drawable.ic_oui_file_type_scrapbook,
+            R.drawable.ic_oui_file_type_sftp,
+            R.drawable.ic_oui_file_type_smb,
+            R.drawable.ic_oui_file_type_snb,
+            R.drawable.ic_oui_file_type_snt,
+            R.drawable.ic_oui_file_type_spd,
+            R.drawable.ic_oui_file_type_story_album,
+            R.drawable.ic_oui_file_type_task,
+            R.drawable.ic_oui_file_type_txt,
+            R.drawable.ic_oui_file_type_video,
+            R.drawable.ic_oui_file_type_vnt,
+            R.drawable.ic_oui_file_type_word,
+            R.drawable.ic_oui_file_type_zip,
+            R.drawable.ic_oui_game,
+            R.drawable.ic_oui_game_2,
+            R.drawable.ic_oui_game_detail,
+            R.drawable.ic_oui_game_launcher,
+            R.drawable.ic_oui_game_launcher_2,
+            R.drawable.ic_oui_game_profile,
+            R.drawable.ic_oui_google_drive,
+            R.drawable.ic_oui_horizontal,
+            R.drawable.ic_oui_hourglass,
+            R.drawable.ic_oui_import,
+            R.drawable.ic_oui_keyboard,
+            R.drawable.ic_oui_labs,
+            R.drawable.ic_oui_like_off,
+            R.drawable.ic_oui_like_on,
+            R.drawable.ic_oui_link,
+            R.drawable.ic_oui_list,
+            R.drawable.ic_oui_list_add,
+            R.drawable.ic_oui_list_audio,
+            R.drawable.ic_oui_list_dot,
+            R.drawable.ic_oui_list_extended,
+            R.drawable.ic_oui_list_filter,
+            R.drawable.ic_oui_list_grid,
+            R.drawable.ic_oui_list_indent,
+            R.drawable.ic_oui_list_numbering,
+            R.drawable.ic_oui_list_outdent,
+            R.drawable.ic_oui_list_search,
+            R.drawable.ic_oui_list_sort,
+            R.drawable.ic_oui_list_text,
+            R.drawable.ic_oui_manage,
+            R.drawable.ic_oui_maximize,
+            R.drawable.ic_oui_minimize,
+            R.drawable.ic_oui_minus,
+            R.drawable.ic_oui_more,
+            R.drawable.ic_oui_move,
+            R.drawable.ic_oui_move_to_beginning,
+            R.drawable.ic_oui_nearby_devices,
+            R.drawable.ic_oui_no_network,
+            R.drawable.ic_oui_one_drive,
+            R.drawable.ic_oui_open,
+            R.drawable.ic_oui_page,
+            R.drawable.ic_oui_page_lock,
+            R.drawable.ic_oui_page_settings,
+            R.drawable.ic_oui_page_unlock,
+            R.drawable.ic_oui_password_hide,
+            R.drawable.ic_oui_password_view,
+            R.drawable.ic_oui_pause,
+            R.drawable.ic_oui_pen,
+            R.drawable.ic_oui_pen_calligraphy,
+            R.drawable.ic_oui_pen_calligraphy_brush,
+            R.drawable.ic_oui_pen_eraser,
+            R.drawable.ic_oui_pen_fountain,
+            R.drawable.ic_oui_pen_marker,
+            R.drawable.ic_oui_pen_marker_round,
+            R.drawable.ic_oui_pen_pencil,
+            R.drawable.ic_oui_phone,
+            R.drawable.ic_oui_play,
+            R.drawable.ic_oui_plus,
+            R.drawable.ic_oui_power,
+            R.drawable.ic_oui_recentview,
+            R.drawable.ic_oui_rectify,
+            R.drawable.ic_oui_redo,
+            R.drawable.ic_oui_refresh,
+            R.drawable.ic_oui_remove,
+            R.drawable.ic_oui_reorder,
+            R.drawable.ic_oui_repeat,
+            R.drawable.ic_oui_restore,
+            R.drawable.ic_oui_search,
+            R.drawable.ic_oui_selected,
+            R.drawable.ic_oui_shape,
+            R.drawable.ic_oui_shuffle,
+            R.drawable.ic_oui_sim,
+            R.drawable.ic_oui_smart_view,
+            R.drawable.ic_oui_space,
+            R.drawable.ic_oui_speed,
+            R.drawable.ic_oui_spotify,
+            R.drawable.ic_oui_squircle,
+            R.drawable.ic_oui_stop,
+            R.drawable.ic_oui_subscription,
+            R.drawable.ic_oui_support,
+            R.drawable.ic_oui_sync,
+            R.drawable.ic_oui_tag,
+            R.drawable.ic_oui_text,
+            R.drawable.ic_oui_text_2,
+            R.drawable.ic_oui_text_bold,
+            R.drawable.ic_oui_text_italic,
+            R.drawable.ic_oui_text_strikethrough,
+            R.drawable.ic_oui_text_underline,
+            R.drawable.ic_oui_ticket,
+            R.drawable.ic_oui_time,
+            R.drawable.ic_oui_trim,
+            R.drawable.ic_oui_undo,
+            R.drawable.ic_oui_unpair,
+            R.drawable.ic_oui_utc,
+            R.drawable.ic_oui_vertical,
+            R.drawable.ic_oui_voice,
+            R.drawable.ic_oui_weather_clear,
+            R.drawable.ic_oui_weather_cloudy,
+            R.drawable.ic_oui_weather_cold,
+            R.drawable.ic_oui_weather_day,
+            R.drawable.ic_oui_weather_flurries,
+            R.drawable.ic_oui_weather_fog,
+            R.drawable.ic_oui_weather_hail,
+            R.drawable.ic_oui_weather_heavyrain,
+            R.drawable.ic_oui_weather_hot,
+            R.drawable.ic_oui_weather_hurricane,
+            R.drawable.ic_oui_weather_ice,
+            R.drawable.ic_oui_weather_mostlyclear,
+            R.drawable.ic_oui_weather_night,
+            R.drawable.ic_oui_weather_partlysunny,
+            R.drawable.ic_oui_weather_partlysunnywithflurries,
+            R.drawable.ic_oui_weather_partlysunnywithshower,
+            R.drawable.ic_oui_weather_partlysunnywiththundershower,
+            R.drawable.ic_oui_weather_rain,
+            R.drawable.ic_oui_weather_rainandsnowmixed,
+            R.drawable.ic_oui_weather_sandstorm,
+            R.drawable.ic_oui_weather_shower,
+            R.drawable.ic_oui_weather_snow,
+            R.drawable.ic_oui_weather_sunny,
+            R.drawable.ic_oui_weather_thunderstorm,
+            R.drawable.ic_oui_weather_wakeup,
+            R.drawable.ic_oui_weather_windy,
+            R.drawable.ic_oui_web_search,
+            R.drawable.ic_oui_website,
+            R.drawable.ic_oui_wifi,
+            R.drawable.ic_ouid_audio,
+            R.drawable.ic_ouid_brush,
+            R.drawable.ic_ouid_camera,
+            R.drawable.ic_ouid_contact,
+            R.drawable.ic_ouid_copy,
+            R.drawable.ic_ouid_delete,
+            R.drawable.ic_ouid_edit,
+            R.drawable.ic_ouid_error,
+            R.drawable.ic_ouid_folder,
+            R.drawable.ic_ouid_group,
+            R.drawable.ic_ouid_help,
+            R.drawable.ic_ouid_image,
+            R.drawable.ic_ouid_info,
+            R.drawable.ic_ouid_lock,
+            R.drawable.ic_ouid_mail,
+            R.drawable.ic_ouid_pdf,
+            R.drawable.ic_ouid_pin,
+            R.drawable.ic_ouid_remove,
+            R.drawable.ic_ouid_rename,
+            R.drawable.ic_ouid_scan,
+            R.drawable.ic_ouid_security,
+            R.drawable.ic_ouid_settings,
+            R.drawable.ic_ouid_settings_2,
+            R.drawable.ic_ouid_share,
+            R.drawable.ic_ouid_unlock,
+            R.drawable.ic_ouid_voice,
+            R.drawable.ic_ouid_warning,
             -1};
     RecyclerView listView;
     private View mRootView;
     private Context mContext;
+    private Handler mHandler = new Handler();
+    private Runnable mShowBottomBarRunnable = new Runnable() {
+        @Override
+        public void run() {
+            drawerLayout.showSelectModeBottomBar(true);
+        }
+    };
 
+    private DrawerLayout drawerLayout;
     private ImageAdapter imageAdapter;
     private OnBackPressedCallback onBackPressedCallback;
     private HashMap<Integer, Boolean> selected = new HashMap<>();
@@ -292,33 +409,61 @@ public class IconsTab extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //Icons
-        TypedValue divider = new TypedValue();
-        mContext.getTheme().resolveAttribute(android.R.attr.listDivider, divider, true);
-
+        //prepare list
+        Arrays.sort(imageIDs, (i1, i2) -> {
+            if (i1 == -1) return 1;
+            if (i2 == -1) return -1;
+            return getResShortName(i1).compareToIgnoreCase(getResShortName(i2));
+        });
         for (int i = 0; i < imageIDs.length; i++) selected.put(i, false);
 
+        //init list
+        drawerLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view));
         listView = mRootView.findViewById(R.id.images);
         listView.setLayoutManager(new LinearLayoutManager(mContext));
         imageAdapter = new ImageAdapter();
         listView.setAdapter(imageAdapter);
 
-        ItemDecoration decoration = new ItemDecoration();
-        listView.addItemDecoration(decoration);
-        decoration.setDivider(mContext.getDrawable(divider.resourceId));
-
         listView.setItemAnimator(null);
+        listView.seslSetIndexTipEnabled(true);
         listView.seslSetFillBottomEnabled(true);
         listView.seslSetGoToTopEnabled(true);
         listView.seslSetLastRoundedCorner(false);
 
+        listView.seslSetLongPressMultiSelectionListener(new RecyclerView.SeslLongPressMultiSelectionListener() {
+            @Override
+            public void onItemSelected(RecyclerView view, View child, int position, long id) {
+                if (imageAdapter.getItemViewType(position) == 0) {
+                    toggleItemSelected(position);
+                }
+            }
+
+            @Override
+            public void onLongPressMultiSelectionStarted(int x, int y) {
+                drawerLayout.showSelectModeBottomBar(false);
+            }
+
+            @Override
+            public void onLongPressMultiSelectionEnded(int x, int y) {
+                mHandler.postDelayed(mShowBottomBarRunnable, 300);
+            }
+        });
+
+        //divider
+        TypedValue divider = new TypedValue();
+        mContext.getTheme().resolveAttribute(android.R.attr.listDivider, divider, true);
+        ItemDecoration decoration = new ItemDecoration();
+        listView.addItemDecoration(decoration);
+        decoration.setDivider(mContext.getDrawable(divider.resourceId));
+
+        //index scroll
         IndexScrollView indexScrollView = mRootView.findViewById(R.id.indexScrollView);
         List<String> list = new ArrayList<>();
-        for (int i = 0; i < imageIDs.length - 1; i++)
-            list.add(getResources().getResourceEntryName(imageIDs[i]).substring(11));
+        for (int i = 0; i < imageIDs.length - 1; i++) list.add(getResShortName(imageIDs[i]));
         indexScrollView.syncWithRecyclerView(listView, list, true);
         indexScrollView.setIndexBarGravity(isRTL() ? 0 : 1);
 
+        //select mode dismiss on back
         onBackPressedCallback = new OnBackPressedCallback(false) {
             @Override
             public void handleOnBackPressed() {
@@ -328,12 +473,25 @@ public class IconsTab extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(onBackPressedCallback);
     }
 
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        listView.seslUpdateIndexTipPosition();
+    }
+
+    private String getResShortName(int id) {
+        return getResources().getResourceEntryName(id)
+                .replace("ic_ouid_", "")
+                .replace("ic_oui3_", "")
+                .replace("ic_oui4_", "")
+                .replace("ic_oui_", "");
+    }
+
     private boolean isRTL() {
         return getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
     }
 
     public void setSelecting(boolean enabled) {
-        DrawerLayout drawerLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view));
         TabLayout subTabs = getActivity().findViewById(R.id.sub_tabs);
         TabLayout mainTabs = getActivity().findViewById(R.id.main_samsung_tabs);
         ViewPager2 viewPager2 = getActivity().findViewById(R.id.viewPager2);
@@ -358,12 +516,16 @@ public class IconsTab extends Fragment {
                 for (Boolean b : selected.values()) if (b) count++;
                 drawerLayout.setSelectModeCount(count);
             });
+            drawerLayout.showSelectModeBottomBar(false);
             subTabs.setEnabled(false);
             mainTabs.setEnabled(false);
             viewPager2.setUserInputEnabled(false);
             onBackPressedCallback.setEnabled(true);
         } else {
             mSelecting = false;
+
+            mHandler.removeCallbacks(mShowBottomBarRunnable);
+
             for (int i = 0; i < imageAdapter.getItemCount() - 1; i++) selected.put(i, false);
             imageAdapter.notifyItemRangeChanged(0, imageAdapter.getItemCount() - 1);
 
@@ -383,7 +545,6 @@ public class IconsTab extends Fragment {
         checkAllListening = false;
         int count = 0;
         for (Boolean b : selected.values()) if (b) count++;
-        DrawerLayout drawerLayout = ((DrawerLayout) getActivity().findViewById(R.id.drawer_view));
         drawerLayout.setSelectModeAllChecked(count == imageAdapter.getItemCount() - 1);
         drawerLayout.setSelectModeCount(count);
         checkAllListening = true;
@@ -391,7 +552,27 @@ public class IconsTab extends Fragment {
 
 
     //Adapter for the Icon RecyclerView
-    public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
+    public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> implements SectionIndexer {
+        List<String> mSections = new ArrayList<>();
+        List<Integer> mPositionForSection = new ArrayList<>();
+        List<Integer> mSectionForPosition = new ArrayList<>();
+
+        ImageAdapter() {
+            for (int i = 0; i < imageIDs.length; i++) {
+                String letter;
+                if (i != imageIDs.length - 1) {
+                    letter = getResShortName(imageIDs[i]).substring(0, 1).toUpperCase();
+                } else {
+                    letter = mSections.get(mSections.size() - 1);
+                }
+
+                if (i == 0 || !mSections.get(mSections.size() - 1).equals(letter)) {
+                    mSections.add(letter);
+                    mPositionForSection.add(i);
+                }
+                mSectionForPosition.add(mSections.size() - 1);
+            }
+        }
 
         @Override
         public int getItemCount() {
@@ -409,8 +590,9 @@ public class IconsTab extends Fragment {
             return 0;
         }
 
+        @NonNull
         @Override
-        public ImageAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ImageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             int resId = 0;
 
             switch (viewType) {
@@ -441,28 +623,29 @@ public class IconsTab extends Fragment {
                 holder.parentView.setOnLongClickListener(v -> {
                     if (!mSelecting) setSelecting(true);
                     toggleItemSelected(position);
-
                     listView.seslStartLongPressMultiSelection();
-                    listView.seslSetLongPressMultiSelectionListener(new RecyclerView.SeslLongPressMultiSelectionListener() {
-                        @Override
-                        public void onItemSelected(RecyclerView var1, View var2, int var3, long var4) {
-                            if (getItemViewType(var3) == 0) toggleItemSelected(var3);
-                        }
-
-                        @Override
-                        public void onLongPressMultiSelectionEnded(int var1, int var2) {
-
-                        }
-
-                        @Override
-                        public void onLongPressMultiSelectionStarted(int var1, int var2) {
-
-                        }
-                    });
                     return true;
                 });
+
+                holder.dynamicTag.setVisibility(mContext.getDrawable(imageIDs[position]) instanceof ThemeDynamicDrawable ? View.VISIBLE : View.GONE);
             }
         }
+
+        @Override
+        public Object[] getSections() {
+            return mSections.toArray();
+        }
+
+        @Override
+        public int getPositionForSection(int i) {
+            return mPositionForSection.get(i);
+        }
+
+        @Override
+        public int getSectionForPosition(int i) {
+            return mSectionForPosition.get(i);
+        }
+
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             boolean isItem;
@@ -471,6 +654,7 @@ public class IconsTab extends Fragment {
             ImageView imageView;
             TextView textView;
             CheckBox checkBox;
+            TextView dynamicTag;
 
             ViewHolder(View itemView, int viewType) {
                 super(itemView);
@@ -482,6 +666,7 @@ public class IconsTab extends Fragment {
                     imageView = parentView.findViewById(R.id.icon_tab_item_image);
                     textView = parentView.findViewById(R.id.icon_tab_item_text);
                     checkBox = parentView.findViewById(R.id.checkbox);
+                    dynamicTag = parentView.findViewById(R.id.icon_tab_item_dynamic);
                 }
             }
         }
@@ -501,7 +686,7 @@ public class IconsTab extends Fragment {
         }
 
         @Override
-        public void seslOnDispatchDraw(Canvas canvas, RecyclerView recyclerView, RecyclerView.State state) {
+        public void seslOnDispatchDraw(@NonNull Canvas canvas, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.State state) {
             super.seslOnDispatchDraw(canvas, recyclerView, state);
 
             int childCount = recyclerView.getChildCount();
@@ -521,8 +706,8 @@ public class IconsTab extends Fragment {
                     shallDrawDivider = false;
 
                 if (mDivider != null && viewHolder.isItem && shallDrawDivider) {
-                    int moveRTL = isRTL() ? 130 : 0;
-                    mDivider.setBounds(130 - moveRTL, y, width - moveRTL, mDividerHeight + y);
+                    int moveRTL = isRTL() ? 160 : 0;
+                    mDivider.setBounds(160 - moveRTL, y, width - moveRTL, mDividerHeight + y);
                     mDivider.draw(canvas);
                 }
 

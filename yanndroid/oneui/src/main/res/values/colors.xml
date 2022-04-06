@@ -91,6 +91,7 @@
     <color name="sesl4_seekbar_overlap_color_activated">#ffef5e16</color>
     <color name="sesl_seekbar_overlap_color_default">#fffcb69b</color> <!--oui4 #66cacaca-->
     <color name="sesl_seekbar_control_color_secondary">#ff7ab9cb</color>
+    <color name="oui_seekbar_circle_marker_color">#9c9c9c</color>
 
 
     <!--Switch-->
@@ -126,11 +127,6 @@
     <color name="sesl4_switchbar_on_background_color">#0d000000</color>
 
 
-
-    <!--Seekbar-->
-
-
-
     <!--Spinner-->
     <color name="sesl_menu_popup_background_color">#fffcfcfc</color>
     <color name="sesl_menu_popup_background_stroke_color">#fffcfcfc</color>
@@ -146,7 +142,6 @@
     <color name="sesl_spinner_item_text_color_disabled">#66252525</color>
     <color name="sesl_spinner_item_text_color_normal">@color/sesl_black</color>
     <color name="sesl_popup_menu_divider_color">#80979797</color>
-
 
 
     <!--Others-->
@@ -231,7 +226,8 @@
     <color name="sesl_dialog_text_body_color">#ff505050</color>
     <color name="sesl_dialog_title_text_color">#ff252525</color>
     <color name="sesl_dialog_window_background_color_material">#fffcfcfc</color>
-    <color name="sesl_progress_dialog_horizontal_text_color">#ff545454</color>
+    <color name="sesl_progress_dialog_text_color">#ff252525</color>
+    <color name="sesl_progress_dialog_horizontal_text_color">#ff505050</color>
 
     <!--RecyclerView-->
     <color name="sesl_scrollbar_index_tip_color">#ff4d4d4d</color>
@@ -263,12 +259,25 @@
     <!--Snackbar-->
     <color name="sesl_design_snackbar_text_color">#fffafafa</color>
     <color name="sesl_snackbar_action_ripple_color">#40000000</color>
-    
+
     <!-- TipPopup -->
     <color name="oui_tip_popup_background_color">#ff474747</color>
     <color name="oui_tip_popup_text_color">#fffcfcfc</color>
     <color name="oui_tip_popup_text_color_translucent">#fffcfcfc</color>
 
+    <!--Picker-->
+    <color name="sesl_date_picker_selected_day_number_text_color">#fffcfcfc</color>
+    <color name="sesl_date_picker_button_tint_color">#ff8e8e8e</color>
+    <color name="sesl_date_picker_header_text_color">@color/sesl_date_picker_normal_day_number_text_color</color>
+    <color name="sesl_date_picker_normal_day_number_text_color">#ff4d4d4d</color>
+    <color name="sesl_date_picker_normal_text_color">#ff909090</color>
+    <color name="sesl_date_picker_sunday_text_color">#ffdb332a</color>
 
+    <color name="sesl_date_picker_saturday_text_color">#ff0082be</color>
+    <color name="sesl_date_picker_saturday_week_text_color">#ff0082be</color>
+    <color name="sesl_date_picker_sunday_number_text_color">#ffdb332a</color>
+    <color name="sesl_date_picker_weekday_number_text_color">#ff454545</color>
+    <color name="sesl_number_picker_text_highlight_color">#0d000000</color>
+    <color name="sesl_number_picker_text_color">#ff252525</color>
 
 </resources>

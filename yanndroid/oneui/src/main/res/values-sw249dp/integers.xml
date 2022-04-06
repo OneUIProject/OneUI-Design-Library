@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="sesl_spinning_date_picker_spinner_view_weight">56</integer>
+    <integer name="sesl_spinning_date_time_picker_empty_view_left_weight">6</integer>
+    <integer name="sesl_spinning_date_time_picker_margin_view_left_weight">0</integer>
+    <integer name="sesl_spinning_datepicker_time_ampm_weight">18</integer>
+    <integer name="sesl_spinning_datepicker_time_hr_min_container_weight">26</integer>
+    <integer name="sesl_spinning_datepicker_time_hr_weight">12</integer>
+    <integer name="sesl_spinning_datepicker_time_margin_right_weight">0</integer>
+    <integer name="sesl_spinning_datepicker_time_min_weight">12</integer>
+    <item type="integer" name="sesl_spinning_datepicker_time_padding_right">12.0</item>
+</resources>

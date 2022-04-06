@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import de.dlyt.yanndroid.oneui.sesl.tabs.SamsungTabLayout;
 import de.dlyt.yanndroid.oneui.sesl.tabs.TabLayoutMediator;
 import de.dlyt.yanndroid.oneui.sesl.viewpager2.widget.SeslViewPager2;
 import de.dlyt.yanndroid.oneui.view.ViewPager2;
@@ -26,7 +25,7 @@ public class MainActivityFirstFragment extends Fragment {
     private View mRootView;
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         mActivity = (BaseThemeActivity) getActivity();
         mContext = mActivity.getApplicationContext();
@@ -39,7 +38,7 @@ public class MainActivityFirstFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         getView().setBackgroundColor(getResources().getColor(mActivity.mUseOUI4Theme ? R.color.sesl4_round_and_bgcolor : R.color.sesl_round_and_bgcolor));
@@ -53,7 +52,7 @@ public class MainActivityFirstFragment extends Fragment {
         viewPager2.registerOnPageChangeCallback(new SeslViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (position == 0) {
+                if (position == 0 && positionOffset == 0) {
                     fab.show();
                 } else {
                     fab.hide();
@@ -71,20 +70,12 @@ public class MainActivityFirstFragment extends Fragment {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                if (state == ViewPager2.SCROLL_STATE_IDLE && viewPager2.getCurrentItem() == 0) {
-                    fab.show();
-                } else {
-                    fab.hide();
-                }
             }
         });
 
-        TabLayoutMediator tlm = new TabLayoutMediator(subTabs, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull SamsungTabLayout.Tab tab, int position) {
-                String[] tabTitle = {"Views", "Icons", "Nothing"};
-                tab.setText(tabTitle[position]);
-            }
+        TabLayoutMediator tlm = new TabLayoutMediator(subTabs, viewPager2, (tab, position) -> {
+            String[] tabTitle = {"Views", "Icons", "Nothing"};
+            tab.setText(tabTitle[position]);
         });
         tlm.attach();
     }

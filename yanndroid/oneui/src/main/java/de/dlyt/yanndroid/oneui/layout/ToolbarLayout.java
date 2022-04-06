@@ -98,8 +98,10 @@ public class ToolbarLayout extends LinearLayout {
     private OnMenuItemClickListener onToolbarMenuItemClickListener = item -> true;
 
     //select mode
+    private LinearLayout selectModeBottomBar;
     private Menu selectModeBottomMenu;
     private boolean mSelectMode = false;
+    private boolean mShowBottomBar = true;
     private LinearLayout selectModeCheckboxContainer;
     private CheckBox selectModeCheckbox;
     private OnMenuItemClickListener onSelectModeBottomMenuItemClickListener = item -> true;
@@ -223,6 +225,7 @@ public class ToolbarLayout extends LinearLayout {
         search_action_button = findViewById(R.id.search_view_action_button);
         search_edittext = findViewById(R.id.toolbar_layout_search_field);
 
+        selectModeBottomBar = findViewById(R.id.toolbar_layout_footer_action_mode);
         selectModeCheckboxContainer = findViewById(R.id.checkbox_withtext);
         selectModeCheckbox = findViewById(R.id.checkbox_all);
         selectModeCheckboxContainer.setOnClickListener(view -> selectModeCheckbox.setChecked(!selectModeCheckbox.isChecked()));
@@ -468,7 +471,7 @@ public class ToolbarLayout extends LinearLayout {
 
         if (selectModeBottomMenu != null) {
             bottomContainer.setVisibility(GONE);
-            findViewById(R.id.toolbar_layout_footer_action_mode).setVisibility(VISIBLE);
+            selectModeBottomBar.setVisibility(mShowBottomBar ? VISIBLE : GONE);
         }
     }
 
@@ -477,8 +480,7 @@ public class ToolbarLayout extends LinearLayout {
     }
 
     public void setSelectModeBottomMenu(Menu menu, OnMenuItemClickListener listener) {
-        LinearLayout footer_action_mode = findViewById(R.id.toolbar_layout_footer_action_mode);
-        footer_action_mode.removeAllViews();
+        selectModeBottomBar.removeAllViews();
 
         onSelectModeBottomMenuItemClickListener = listener;
         selectModeBottomMenu = menu;
@@ -489,15 +491,15 @@ public class ToolbarLayout extends LinearLayout {
                 BottomBarMenuItemView button = new BottomBarMenuItemView(mContext, menuItem);
                 button.setOnClickListener(v -> onSelectModeBottomMenuItemClickListener.onMenuItemClick(menuItem));
                 menuItem.setMenuItemListener(menuItem1 -> button.updateView());
-                footer_action_mode.addView(button);
+                selectModeBottomBar.addView(button);
             } else {
                 overflowMenu.addMenuItem(menuItem);
             }
         }
 
         if (overflowMenu.size() > 0) {
-            BottomBarMenuItemView moreButton = new BottomBarMenuItemView(mContext, getResources().getString(R.string.sesl_more_item_label), R.drawable.ic_samsung_more);
-            footer_action_mode.addView(moreButton);
+            BottomBarMenuItemView moreButton = new BottomBarMenuItemView(mContext, getResources().getString(R.string.sesl_more_item_label), R.drawable.ic_oui_more);
+            selectModeBottomBar.addView(moreButton);
 
             PopupMenu overflowPopupMenu = new PopupMenu(moreButton);
             overflowPopupMenu.inflate(overflowMenu);
@@ -523,7 +525,15 @@ public class ToolbarLayout extends LinearLayout {
                 }
             });
         }
+    }
 
+    public void showSelectModeBottomBar(boolean show) {
+        mShowBottomBar = show;
+
+        int visibility = mShowBottomBar ? VISIBLE : GONE;
+        if (selectModeBottomBar.getVisibility() != visibility) {
+            selectModeBottomBar.setVisibility(visibility);
+        }
     }
 
     public Menu getSelectModeBottomMenu() {
@@ -540,7 +550,7 @@ public class ToolbarLayout extends LinearLayout {
         actionButtonContainer.setVisibility(VISIBLE);
 
         bottomContainer.setVisibility(VISIBLE);
-        findViewById(R.id.toolbar_layout_footer_action_mode).setVisibility(GONE);
+        selectModeBottomBar.setVisibility(GONE);
     }
 
     public void setSelectModeCount(int count) {
@@ -559,8 +569,8 @@ public class ToolbarLayout extends LinearLayout {
             collapsedSubTitleView.setVisibility(GONE);
         }
 
-        if (selectModeBottomMenu != null) {
-            findViewById(R.id.toolbar_layout_footer_action_mode).setVisibility(count > 0 ? VISIBLE : GONE);
+        if (selectModeBottomMenu != null && mShowBottomBar) {
+            selectModeBottomBar.setVisibility(count > 0 ? VISIBLE : GONE);
         }
     }
 
@@ -688,13 +698,13 @@ public class ToolbarLayout extends LinearLayout {
 
             search_action_button.setVisibility(intent.resolveActivity(getContext().getPackageManager()) == null ? GONE : VISIBLE);
 
-            search_action_button.setImageResource(R.drawable.ic_samsung_voice_2);
+            search_action_button.setImageResource(R.drawable.ic_oui_voice);
             search_action_button.setTooltipText(getResources().getString(R.string.sesl_searchview_description_voice));
             if (searchModeListener != null)
                 search_action_button.setOnClickListener(v -> searchModeListener.onVoiceInputClick(intent));
         } else {
             search_action_button.setVisibility(VISIBLE);
-            search_action_button.setImageResource(R.drawable.ic_samsung_close);
+            search_action_button.setImageResource(R.drawable.ic_oui_close);
             search_action_button.setTooltipText(getResources().getString(R.string.sesl_searchview_description_clear));
             search_action_button.setOnClickListener(v -> search_edittext.setText(""));
         }

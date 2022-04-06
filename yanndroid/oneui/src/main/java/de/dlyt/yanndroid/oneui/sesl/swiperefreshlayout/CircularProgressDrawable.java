@@ -310,8 +310,8 @@ public class CircularProgressDrawable extends Drawable implements Animatable {
 
     private void applyFinishTranslation(float interpolatedTime, Ring ring) {
         updateRingColor(interpolatedTime, ring);
-        if (interpolatedTime <= 0.2f) {
-            ring.setArrowScale(1.0f - SINE_IN_OUT_33.getInterpolation(interpolatedTime / 0.2f));
+        if (interpolatedTime <= ARROW_SCALE_DURATION_OFFSET) {
+            ring.setArrowScale(1.0f - SINE_IN_OUT_33.getInterpolation(interpolatedTime / ARROW_SCALE_DURATION_OFFSET));
         }
         float targetRotation = (float) (Math.floor(ring.getStartingRotation() / MAX_PROGRESS_ARC) + 1f);
         final float startTrim = ring.getStartingStartTrim() + (ring.getStartingEndTrim() - MIN_PROGRESS_ARC - ring.getStartingStartTrim()) * SINE_OUT_60.getInterpolation(interpolatedTime);

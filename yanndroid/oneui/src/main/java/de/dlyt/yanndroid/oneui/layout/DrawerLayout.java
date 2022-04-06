@@ -98,7 +98,7 @@ public class DrawerLayout extends ToolbarLayout implements ToolbarLayout.Toolbar
     private void initDrawer() {
         drawer_container = findViewById(R.id.drawer_container);
 
-        setNavigationButtonIcon(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.ic_samsung_drawer, mContext.getTheme()));
+        setNavigationButtonIcon(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.ic_oui_drawer, mContext.getTheme()));
         setNavigationButtonTooltip(getResources().getText(R.string.sesl_navigation_drawer));
 
         drawerButtonContainer = findViewById(R.id.drawer_layout_drawerButton_container);

@@ -18,6 +18,7 @@ public class MenuItem {
     private boolean checked = false;
     private int badge = 0;
     private SubMenu subMenu;
+    private Menu parentMenu;
 
     private boolean enabled = true;
     private boolean visible = true;
@@ -37,7 +38,7 @@ public class MenuItem {
         this.visible = menuItem.isVisible();
         this.actionButton = ((MenuItemImpl) menuItem).requiresActionButton();
 
-        if (menuItem.hasSubMenu()) this.subMenu = new SubMenu(menuItem.getSubMenu());
+        if (menuItem.hasSubMenu()) this.subMenu = new SubMenu(this, menuItem.getSubMenu());
     }
 
     public MenuItem(int id, CharSequence title, Drawable icon) {
@@ -46,15 +47,23 @@ public class MenuItem {
         this.icon = icon;
     }
 
+    void setParentMenu(Menu parentMenu) {
+        this.parentMenu = parentMenu;
+    }
+
+    void toggleChecked() {
+        setChecked(!checked);
+    }
+
     public interface MenuItemListener {
         void onUpdate(MenuItem menuItem);
     }
 
+    //setter
     public void setMenuItemListener(MenuItemListener menuItemListener) {
         this.menuItemListener = menuItemListener;
     }
-
-    //setter
+    
     public void setTitle(CharSequence title) {
         this.title = title;
         if (menuItemListener != null) menuItemListener.onUpdate(this);
@@ -75,13 +84,10 @@ public class MenuItem {
         if (menuItemListener != null) menuItemListener.onUpdate(this);
     }
 
-    void toggleChecked() {
-        setChecked(!checked);
-    }
-
     public void setBadge(int badge) {
         this.badge = badge;
         if (menuItemListener != null) menuItemListener.onUpdate(this);
+        if (parentMenu instanceof SubMenu) ((SubMenu) parentMenu).updateBadge();
     }
 
     public void setSubMenu(SubMenu subMenu) {
@@ -146,5 +152,9 @@ public class MenuItem {
 
     public boolean isActionButton() {
         return actionButton;
+    }
+
+    public Menu getParentMenu() {
+        return parentMenu;
     }
 }
