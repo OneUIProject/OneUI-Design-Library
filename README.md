@@ -1,3 +1,5 @@
+### ⚠️This library is now deprecated and will no longer be updated. Fortunately [BlackMesa123](https://github.com/BlackMesa123) and I ([Yanndroid](https://github.com/Yanndroid)) are working on a newer and better [library](https://github.com/OneUIProject/sesl) for OneUI. This and more will be available [here](https://github.com/OneUIProject).
+
 <p align="center">
 <img loading="lazy" src="readme-res/banner.png"/>
 </p>
@@ -27,11 +29,11 @@ Huge thanks to [BlackMesa123](https://github.com/BlackMesa123) who has contribut
 
   * **Groovy**:
 ```gradle
-implementation 'io.github.yanndroid:oneui:2.3.0'
+implementation 'io.github.yanndroid:oneui:2.4.0'
 ```
   * **Kotlin**:
 ```kotlin
-implementation("io.github.yanndroid:oneui:2.3.0")
+implementation("io.github.yanndroid:oneui:2.4.0")
 ```
 
 2. Apply the main theme in AndroidManifest.xml
