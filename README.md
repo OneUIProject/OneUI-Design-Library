@@ -1,4 +1,4 @@
-### ⚠️This library is now deprecated and will no longer be updated. Fortunately [BlackMesa123](https://github.com/BlackMesa123) and I ([Yanndroid](https://github.com/Yanndroid)) are working on a newer and better [library](https://github.com/OneUIProject/sesl) for OneUI. This and more will be available [here](https://github.com/OneUIProject).
+#### ⚠️This library is now deprecated and will no longer be updated. Fortunately [BlackMesa123](https://github.com/BlackMesa123) and I ([Yanndroid](https://github.com/Yanndroid)) are working on a newer and better [library](https://github.com/OneUIProject/sesl) for OneUI. This and more will be available [here](https://github.com/OneUIProject).
 
 <p align="center">
 <img loading="lazy" src="readme-res/banner.png"/>
@@ -10,7 +10,7 @@
 
 </h2>
 
-<img loading="lazy" src="https://github.com/Yanndroid/Yanndroid/blob/master/cats.gif" width="25" height="25" /> A library for Android, useful for creating Samsung's OneUI **3 and 4** styled apps. This library contains a theme which will apply for most views in your layout, and a lot of additional custom OneUI views and Samsung Icons. The text which is in the custom views is translated to 90 languages, so you don't need to worry about these. Android 5.0 (api 21) and above are supported, the library also supports Dark mode, Landscape, Tablet, DeX and RTL. This library has been tested in Android Studio, but should work in other IDEs too. You can download and install the latest sample app apk [here](https://github.com/Yanndroid/OneUI-Design-Library/raw/master/app/release/app-release.apk) and also check out my other apps for some more examples on how to use this library. Suggestions, improvements and help are always welcome.
+<img loading="lazy" src="https://github.com/Yanndroid/Yanndroid/blob/master/cats.gif" width="25" height="25" /> A library for Android, useful for creating Samsung's OneUI **3 and 4** styled apps. This library contains a theme which will apply for most views in your layout, and a lot of additional custom OneUI views and Samsung Icons. The text which is in the custom views is translated to 90 languages, so you don't need to worry about these. Android 5.0 (api 21) and above are supported, the library also supports Dark mode, Landscape, Tablet, DeX and RTL. This library has been tested in Android Studio, but should work in other IDEs too. You can download and install the latest sample app apk [here](https://github.com/OneUIProject/OneUI-Design-Library/raw/master/app/release/app-release.apk) and also check out my other apps for some more examples on how to use this library. Suggestions, improvements and help are always welcome.
 
 Huge thanks to [BlackMesa123](https://github.com/BlackMesa123) who has contributed a lot to this project.
 
@@ -21,7 +21,7 @@ Huge thanks to [BlackMesa123](https://github.com/BlackMesa123) who has contribut
 
 <p align="center"><img loading="lazy" src="readme-res/screenshot_1.jpg" height="350"/> <img loading="lazy" src="readme-res/screenshot_2.jpg" height="350"/> <img loading="lazy" src="readme-res/screenshot_3.jpg" height="350"/> <img loading="lazy" src="readme-res/screenshot_4.jpg" height="350"/></p>
 
-[GIF version](https://github.com/Yanndroid/OneUI-Design-Library/blob/master/readme-res/screenrecording.gif)
+[GIF version](https://github.com/OneUIProject/OneUI-Design-Library/blob/master/readme-res/screenrecording.gif)
 
 ## Installation
 
@@ -61,4 +61,4 @@ implementation("io.github.yanndroid:oneui:2.4.0")
 - [BlackMesa123](https://github.com/BlackMesa123) for a lot of OneUI stuff, more compatibility and his experience.
 - [TenSeventy7](https://github.com/TenSeventy7) for some stuff and help.
 - [leonbcode](https://github.com/leonbcode) for github actions, so this library is always up-to-date.
-- All the [Contributors](https://github.com/Yanndroid/OneUI-Design-Library/graphs/contributors) and Issue Reporters.
+- All the [Contributors](https://github.com/OneUIProject/OneUI-Design-Library/graphs/contributors) and Issue Reporters.
