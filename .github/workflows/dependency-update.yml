@@ -19,7 +19,7 @@ jobs:
 
       - name: increment last version digit
         run: |
-          old=$(grep -P "(?<=VERSION_NAME=).*" gradle.properties")
+          old=$(grep -P "(?<=VERSION_NAME=).*" gradle.properties)
           lastnumber=$(echo $old | grep -Po "\d*$")
           new=$(echo $old | grep -Po ".+?(?=$lastnumber)")
           new+=$((lastnumber+1))
