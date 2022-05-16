@@ -1,7 +1,7 @@
-#### ⚠️This library is now deprecated and will no longer be updated. Fortunately [BlackMesa123](https://github.com/BlackMesa123) and I ([Yanndroid](https://github.com/Yanndroid)) are working on a newer and better [library](https://github.com/OneUIProject/sesl) for OneUI. This and more will be available [here](https://github.com/OneUIProject).
+<h4 align="center">:warning: This library is deprecated and will no longer be updated. Check the new <a href="https://github.com/OneUIProject/sesl">Samsung Experience Support Library</a>. :warning:</h4>
 
 <p align="center">
-<img loading="lazy" src="readme-res/banner.png"/>
+  <img loading="lazy" align="center" src="readme-res/banner.png"/>
 </p>
 
 <h2 align="center">
